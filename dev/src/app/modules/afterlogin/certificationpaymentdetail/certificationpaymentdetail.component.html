@@ -1,0 +1,129 @@
+<div fXLayout="row wrap" fxLayoutAlign="center">
+  <div fxFlex.gt-sm="100" fxFlex="100" id="payonlinelistview">
+    <div class="payonlinegradient">
+      <div fXLayout="row wrap">
+        <div ngClass.xs="responsive" ngClass.sm="responsive" class="topheadermain p-t-8 p-l-25 p-r-25 alignwidth">
+          
+          <div class="topbreadcrumb ">
+            <h4  class="mat-pagetitle-1">Certification Payment</h4>
+            <ul class="bredcrumblist">
+             
+              <li *ngIf="((paymentStatus!=2 && paymentStatus!=4) || companyDetails?.isexpired!=1)">
+                <span class="p-r-10"><i class="bgi bgi-back1"></i></span>
+                <a href="dashboard/supplier" class="m-r-0"><i class="bgi bgi-home" matTooltip="Home" matTooltipPosition="below"></i></a>
+              </li>
+              <li *ngIf="companyDetails?.memberStatus=='A' && (paymentStatus!=4 || companyDetails?.isexpired!=1)">
+                  <span class="p-r-10"><i class="bgi bgi-back1"></i></span>
+                  <a [routerLink]="'/accountsettings'" class="m-r-0">Account Settings</a>
+              </li>
+              <li class="cursor active">                  
+                <span *ngIf="companyDetails?.memberStatus!='A'" class="txt-gray3">Certification Payment </span>                  
+                <span *ngIf="companyDetails?.memberStatus=='A'" class="txt-gray3">OPAL Certification Subscription - Payment </span>                  
+              </li>
+              
+            </ul> 
+              
+            </div>
+        </div>
+      </div>
+      <div fXLayout="row wrap" fxLayoutAlign="center" fxLayout.xs="column">
+        <div fxFlex.gt-sm="95" fxFlex="100">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="13" fxFlex="100" class="responsivewafterwidth">
+              <div class="normalimgview" [formGroup]="certificateForm">
+                <img *ngIf="drv_companylogo == null" src="assets/images/Nologospace.svg" alt="Nologospace">
+                <img *ngIf="drv_companylogo" src="{{drv_companylogo}}" onError="this.src = 'assets/images/Nologospace.svg'" alt="Nologospace">
+              </div>
+            </div>
+            <div fxFlex.gt-sm="87" fxFlex="100" class="groupwidth">
+              <div fxLayout="row wrap" class="maxwidthpapernote">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="papernotewidth">
+                  <div class="header p-t-15 lh-32">
+                    <p class="m-0 mahindracolor">{{companyDetails?.companyName}}</p>
+                    <p class=" m-0 imageview"><img class="p-r-8"
+                        src="assets/images/flags/{{companyDetails?.countryPk}}.png"
+                        alt="omanflaglogo">{{companyDetails?.countryName}}
+                      <!-- <img src="assets/images/flags/104.png" class="indiawidth" alt="104">India -->
+                    </p>
+                    <div class=" p-t-15 wordalign p-b-28">
+                      <div class="aligncrn">
+                        <p class="m-0 regcolor clabel">CR Number</p>
+                        <p class="m-0 websitecolor cvalue">{{companyDetails?.crregno}}</p>
+                      </div>
+                      <div class="aligninvestor aligncrn">
+                        <p class="regcolor clabel">Registered as</p>
+                        <p class="websitecolor m-0 cvalue" *ngIf="companyDetails?.origin === 'INTERNATIONAL'">
+                          {{companyDetails?.origin | titlecase}} Company</p>
+                        <p class="websitecolor m-0 cvalue" *ngIf="companyDetails?.origin === 'NATIONAL'">Omani Company
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyDetails?.memberStatus=='A'" fxFlex.gt-sm="50" fxFlex="100" class="flexcenteralign">
+                  <div class="flexstartalign m-r-12 marginspace">
+                    <img src="assets/images/renewallogo.png" alt="renewallogo">
+                    <div class="renewedcolor">
+                      <p class="clabel">Last Renewed on</p>
+                      <span class="cvalue">{{companyDetails?.renewdon}}</span>
+                    </div>
+                  </div>
+                  <div class="flexstartalign m-r-12 marginspace">
+                    <img src="assets/images/expirydayslogo.png" alt="expirydayslogo">
+                    <div class="renewedcolor imgwidth">
+                      <p class="clabel">{{companyDetails?.isexpired==1 ? 'Expired on' : 'Date of Expiry'}} <img
+                          *ngIf="companyDetails?.isexpired==1" src="assets/images/animatelogo.png" alt="animatelogo">
+                      </p>
+                      <!-- <p>Expired on <img src="assets/images/animatelogo.png" alt="animatelogo"></p> -->
+                      <span class="cvalue">{{companyDetails?.expirydate}}</span>
+                    </div>
+                  </div>
+                  <div class="flexstartalign">
+                    <img src="assets/images/expirelogo.png" alt="expirelogo">
+                    <div class="renewedcolor">
+                      <p class="clabel">{{companyDetails?.isexpired==1 ? 'Overdue by Days' : 'Days Left to Expire'}}</p>
+                      <span class="cvalue">{{companyDetails?.exdays}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="helpcolor">
+                <div class="helpcontentcolor">
+                  <i matTooltip="Help" matTooltipPosition="above" matSuffix
+                    class="inputinfoicon bgi bgi-question"></i>
+                  <span class="p-l-12">Help</span>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="certificatetablist hidescrollview">
+                <mat-tab-group class="shadow maintab overvisiblehide" [disableRipple]="true">
+                  <mat-tab label="Pay Online" *ngIf="online_payment">
+                    <app-payonlinedetailtab (updatePayDtls)="getPaymentDetails($event)"
+                      [paymentDetails]="companyDetails" [contactusData]="contactusData"
+                      (showOrRemoveLoader)="showLoader = $event" [omannet_apistatus]="omannet_apistatus"
+                      [cybersource_apistatus]="cybersource_apistatus" [thawani_apistatus]="thawani_apistatus"
+                      [ottu_apistatus]="ottu_apistatus" [smartpay_apistatus]="smartpay_apistatus" [discount]="discount"></app-payonlinedetailtab>
+                  </mat-tab>
+                  <mat-tab label="Pay Offline" *ngIf="offline_payment">
+                    <app-payofflinedetailtab (updatePayDtls)="getPaymentDetails($event)"
+                      [paymentDetails]="companyDetails" [contactusData]="contactusData" [discount]="discount"></app-payofflinedetailtab>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-responseloader class="processloader" *ngIf="showLoader"></app-responseloader>

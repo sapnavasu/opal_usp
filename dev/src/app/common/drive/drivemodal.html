@@ -1,0 +1,215 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fXFlex="100" class="drivecloseadded">
+    <div  class="driveplaceholder  p-b-20 spacingdragdrop" *ngIf="uploadeplaceholderloader">
+      <span class="pagetitledrive uploadplicon"></span>
+      </div>
+    <span  *ngIf="!uploadeplaceholderloader" class="closethedialog closelog" (click)=" onNoClick()">
+      <mat-icon class="" matTooltip="Close">close</mat-icon>
+    </span>
+    <div fxLayout="row wrap" *ngIf="!uploadeplaceholderloader">
+      <div ngClass.lg="lypisdrive p-t-40 p-l-45 p-r-45" ngClass.md="lypisdrive p-t-40 p-l-45 p-r-45"
+        ngClass.xs="lypisimagenone p-t-40 p-l-45 p-r-45" ngclass.sm="lypisimagenone p-t-40 p-l-45 p-r-45"
+        fxFlex.gt-sm="100" fxFlex="100" class="lypisdrive p-t-40 p-l-45 p-r-45">
+        <div class="bgi-infoicon p-b-16">
+          <h4 class="fs-30">File Upload</h4>
+          <!-- <i class="bgi bgi-info p-l-10 formationcolor " (click)="toggleShowDiv('descriptioncontentdrive')"></i> -->
+        </div>
+        <div class="dirvesubheadcolor">
+          <!-- <p>Drive helps teams move faster with collaboration tools like Docs, Sheets, and Slides</p> -->
+        </div>
+        <div class="driveflex">
+          <div *ngIf="uploadedToday>0" class="drivecount p-b-20 borderafter">
+            <span class="fs-40">{{uploadedToday}}</span>
+            <div class="p-l-20 files p-r-20">
+              <p class="fs-14" *ngIf="uploadedToday>1">Documents</p>
+              <p class="fs-14" *ngIf="uploadedToday<2">Document</p>
+              <p class="fs-14">Added Today</p>
+            </div>
+          </div>
+          <div *ngIf="totalDocument>0" class="drivecount p-b-20 p-l-30">
+            <div class=" numbercolor">
+              <span class="fs-40">{{totalDocument}}</span>
+            </div>
+            <div class="p-l-20 files">
+              <p class="fs-14">Total</p>
+              <p class="fs-14">Documents</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div  fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentdrive"
+  [@slideInOut]="animationState">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext m-r-0">
+      <mat-card-header>
+        <div class="titletext">
+          <mat-card-subtitle class="informationtext fs-14">
+            <p><b>Welcome to JSRS drive!</b></p>
+             <p> File access and storage made easy! Here, you can access all the files that you have uploaded to our system. All your files will be categorised based on the fileds that you uploaded them. </p>
+              <p><b>For example:</b> All your commercial registration document files will be available in the folder <b>Commercial Registration Documents</b></p>
+          </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div> -->
+<div fxLayout="row wrap" class="breadcrumbrow" *ngIf="breadcrumbListCount>1">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" id="" class=" p-r-0">
+    <div class="drivebreadcrum">
+      <ul>
+        <li class="breadcrumlist" *ngFor="let link of this.breadcrumbList;let last=last"
+          (click)="this.onBreadcrumbClick(link)">
+          <span [matTooltip]="(link[0].length>15 && !last) ?link[0]:''" class="value">{{(last)?link[0] : link[0] |
+            truncate:[15,'...']}}</span> <span *ngIf="!last" class="icon">></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div ngClass.lg="p-l-30 p-r-20 m-b-15 p-t-20" ngClass.md="p-l-30 p-r-20 m-b-15 p-t-20"
+  ngClass.xl="p-l-30 p-r-20 m-b-15 p-t-20" ngClass.xs="responsivesroll m-t-20 m-b-15 m-r-20"
+  ngclass.sm="responsivesroll m-t-20 m-b-15 m-r-20" fxLayout="row wrap">
+  <div fxFlex.gt-sm="70" fxFlex="100" class="canvasarea" *ngIf="totalDocument>0">
+    <div fxLayout="row wrap" class="folderrow p-b-12 p-t-12">
+      <div fxFlex.gt-sm="50" fxFlex="100" class="myfilecolor">
+        <h4 class="fs-18 m-0">My Files</h4>
+      </div>
+
+      <div fxFlex.gt-sm="50" fxFlex="100" class="addbtnflexlast">
+        <button class="search-icon" mat-icon-button>
+          <mat-icon class="iconviewcolor m-r-20">search</mat-icon>
+        </button>
+        <img class="m-r-5" src="assets/images/msgimage.png" alt="msgimage">
+        <button class="menubutton" mat-icon-button [matMenuTriggerFor]="menutop"
+          aria-label="Example icon-button with a menu">
+          <mat-icon class="moremenucolor iconviewcolor">more_vertical</mat-icon>
+        </button>
+        <mat-menu #menutop="matMenu" class="master-menu enterprisedeleteedit">
+          <button mat-menu-item>
+            <span class="viewtextcolorupdate">View</span>
+          </button>
+          <button mat-menu-item (click)="openDialog()">
+            <span class="viewtextcolorupdate">Share</span>
+          </button>
+          <button mat-menu-item (click)="openCropDialog()">
+              <span class="viewtextcolorupdate">Crop</span>
+            </button>
+          <button mat-menu-item>
+            <span class="viewtextcolorupdate">Rename</span>
+          </button>
+          <button mat-menu-item>
+            <span class="viewtextcolorupdate">Download</span>
+          </button>
+          <button mat-menu-item>
+            <span class="viewtextcolorupdate">Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+    <div class="completefolderlists">
+      <!-- <div class="driveloader" style="position: relative !important;" >
+        <app-responseloader ></app-responseloader>
+      </div> -->
+      <div fxLayout="row wrap" class="folderrow p-l-0" *ngIf="folders.length>0">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="folderflex p-t-20">
+          <h4 class="fs-15 m-0">Folders ({{folders.length}})</h4>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="addbtnflexlast p-r-22">
+            <mat-toolbar class="search-block" [class.active]="">
+              <mat-toolbar-row>
+                <button class="search-icon" mat-icon-button>
+                  <mat-icon>search</mat-icon>
+                </button>
+                <input class="search-control" type="text" placeholder="Search">
+                <button mat-button mat-icon-button>
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-toolbar-row>
+            </mat-toolbar>
+            <!-- <img class="p-r-30" src="assets/images/searchimage.png" alt="searchimage"> -->
+            <!-- <img class="p-l-8" (click)="this.onNewFolderClick()" src="assets/images/msgimage.png" alt="msgimage"> -->
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="p-l-0 p-b-20" *ngIf="folders.length>0">
+        <div class="folderisnidefile" *ngFor="let folder of this.folders" fxFlex.gt-sm="33.33" fxFlex="100">
+          <div (click)="folder.folderDisabled ? $event.stopPropagation() : this.onDirectoryClick(folder)"
+            ngClass.lg="adminwidth p-t-16 p-b-16 m-r-12" ngClass.xl="adminwidth p-t-16 p-b-16 m-r-12"
+            ngClass.md="adminwidth p-t-16 p-b-16" ngClass.xs="adminwidthresponsive m-r-12 m-b-12"
+            ngclass.sm="adminwidthresponsive m-r-12 m-b-12" class="adminwidthresponsive m-t-16 m-b-16">
+            <div class="floderimagewithname">
+              <img class="p-l-5" src="assets/images/adminimage.png" alt="adminimage">
+              <p [matTooltip]="(folder.folderName.length>15)? folder.folderName : ''" class="fs-14 m-0 p-l-10">
+                {{folder.folderName | truncate:[15,'...']}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" *ngIf="files.length>0">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="folder spacefiles">
+          <h4 class="fs-15">Files ({{files.length}})</h4>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="p-l-0 canvasarea" *ngIf="files.length>0">
+        <div class="folderisnidefile" *ngFor="let file of files; let i = index;" fxFlex.gt-sm="33.33" fxFlex="100">
+          <div class="selectitemnew">
+            <div class="selectionandfiletype m-b-0">
+              <mat-checkbox value="file.filePk" matTooltip="{{file.tooltip}}" [disabled]="file.isDisabled"
+                [checked]="file.isSelected" (change)="onFileCheck($event, i, file);false" class="example-margin"
+                [(ngModel)]="file.isSelected">
+              </mat-checkbox>
+              <!-- [checked]="file.isSelected"-->
+              <div class="filetype">
+                <img src="assets/images/{{this.util.thumbnailByFileType(file.fileType)}}_new.svg" alt="" />
+              </div>
+            </div>
+            <div class="filenameselected">
+              <span [matTooltip]="(file.fileName.length>15)?file.fileName:''" class="fileinfo p-l-5">{{file.fileName |
+                truncate:[15,'...']}}</span>
+              <!-- <span class="filesize p-r-5">{{file.fileSize}}</span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div fxFlex.gt-sm="{{uploadCanvasWidth}}" fxFlex="100">
+    <div ngClass.lg="driveuploadfile" ngClass.md="driveuploadfile" ngClass.xs="driveuploadfile m-l-30 m-r-12"
+      ngclass.sm="driveuploadfile m-l-12 m-r-12" class="driveuploadfile m-l-30 m-r-12">
+       <!--placeholder loader-->
+       <div  class="driveplaceholder p-t-20 p-b-20 " *ngIf="uploadeplaceholderloader">
+        <!-- <span class="pagetitledrive uploadplicon"></span> -->
+        <span class="pagetitledrive uploadplbtn"></span>
+        <span class="pagetitledrive uploadpltxt"></span>
+
+      </div>
+      <div *ngIf="!uploadeplaceholderloader" class="spacingdragdrop" id="backgroundimage" appDragDrop (onFileDropped)="uploadFile($event.target.files,$event)">
+        <input multiple class="choosefileinput" type='file' (change)="uploadFile($event.target.files,$event)">
+           <!-- <img class="dragdropimage" src="assets/images/dragdropimage.png" alt="dragdropimage"> -->
+        <div class="p-t-20 p-b-17 dragdropfooter">
+          <!-- <h4 class="fs-15 lypisfont-regular">Drag and drop your</h4> -->
+         
+          <button  color="preview" class="height-45 m-b-10 lineheight">
+            Upload
+          </button>
+          <h4 class="fs-20 lypisfont-regular colorfile">Upload Files from your
+            Local Drive</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div fxLayout="row wrap" class="selected">
+  <div>
+    <h4 class="fs-15 p-l-28 itemselected" *ngIf="selectedFile.length>0">{{selectedFile.length}} item(s) Selected </h4>
+  </div>
+  <div class="addbtnflexend" cdkFocusInitial>
+    <button type="button" mat-raised-button color="primary" [ngClass]="isButtonDisabled ? 'addbutton':''"
+      [disabled]="isButtonDisabled" (click)="AddingfromDrive(selectedFile);" [mat-dialog-close]="selectedFile"
+      class="addbtn fs-14 m-r-20">Add</button>
+    [mat-dialog-close]="selectedFile"
+  </div>
+</div> -->

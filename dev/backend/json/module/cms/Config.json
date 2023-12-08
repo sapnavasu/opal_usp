@@ -1,0 +1,18 @@
+{"dashboard":{"projectSlider":{"projectDatalimit":15
+		}
+	},
+	"project":{
+		"hasProjectApproval": 0,
+		},
+"requisition":{},
+"eoi":{},
+"rfi":{},
+"pq":{},
+"rfp":{},
+"rft":{},
+"contracts":{},
+"po":{},
+"invoice":{},
+"award":{},
+"grn":{},
+}

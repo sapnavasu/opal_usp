@@ -1,0 +1,327 @@
+<div fxLayout="row wrap" id="document_ivms">
+  <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+    <div fxFlex.gt-sm="100" fxFlex="100" id="desktopreview">
+        <div class="documentheader p-t-45" fxLayoutAlign="flex-start center">
+            <h4 class="fs-18 m-0 m-r-20 blue">{{'documentrequired.documentreg' | translate}}</h4>
+            <span class="badge new" *ngIf="this.overallstatus == 1">{{'institue.new' | translate}}</span>
+            <span class="badge update" *ngIf="this.overallstatus == 2">{{'institue.updated' | translate}}</span>
+            <span class="badge appr" *ngIf="this.overallstatus == 3">{{'institue.appr' | translate}}</span>
+            <span class="badge decl" *ngIf="this.overallstatus == 4">{{'company.decl' | translate}}</span>
+        </div>
+        <!-- paginator -->
+        <div class="paginationwithfilter masterPageTop ">
+            <mat-paginator class="masterPage masterPageTop"  #paginator [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+            <div fxLayout="row wrap" fxLayoutAlign="end">
+                <div fxFlex.gt-sm="100" class="groupBtns" fxLayout="row wrap" fxFlex="100" fxLayoutAlign="flex-start center">
+                    <app-validation [submitbutton]="'validation.sumb' | translate" [addClass]="'validet'" [buttonName]="'validation.vali' | translate" [callbackFn]="onValidation" ></app-validation>
+                    <button mat-raised-button type="button" (click)="clickEvent();"
+                        class="standardbutton mat-blue-bg">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"  aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable lastColumn">
+                    <mat-table #table class="scrolldata" [dataSource]="documentListData" matSortActive="appdocsubmissiontmp_pk"  matSortDirection="desc"  matSort multiTemplateDataRows matSort matSortDisableClear>
+                      <!-- check box -->
+                        <ng-container matColumnDef="checkbox">
+                            <mat-header-cell fxFlex="65px" mat-header-cell *matHeaderCellDef><mat-checkbox #ChkBox  (change)="selectAllFun($event.checked)" class="example-margin" ></mat-checkbox>
+                            </mat-header-cell>
+                            <mat-cell data-label="checkbox" fxFlex="65px" *matCellDef="let documentdata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> <mat-checkbox   #dataChkBox class="example-margin" value={{documentdata.appdocsubmissiontmp_pk}}   (change)="validationcheck($event,documentdata.appdocsubmissiontmp_pk)" [checked]="arr != undefined &&  arr.length != 0 &&  arr.includes(documentdata.appdocsubmissiontmp_pk)"></mat-checkbox></div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- doc name -->
+                        <ng-container matColumnDef="appdst_documentdtlsmst_fk">
+                            <mat-header-cell fxFlex="370px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'documentrequired.documentname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="{{'batch.batchno' | translate}}" fxFlex="370px" *matCellDef="let documentdata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{documentdata.ddm_documentname_en}} </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- provider -->
+                        <ng-container matColumnDef="appdst_submissionstatus">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'documentrequired.documentprovided' | translate}}</mat-header-cell>
+                            <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="160px" *matCellDef="let documentdata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">{{documentdata.appdst_submissionstatus ==  1?this.i18n('documentrequired.yes'):this.i18n('documentrequired.no')}} </div> 
+                            </mat-cell>
+                        </ng-container>
+                        <!-- remarks -->
+                        <ng-container matColumnDef="appdst_remarks">
+                            <mat-header-cell fxFlex="500px" mat-header-cell *matHeaderCellDef>{{'documentrequired.documentremark' | translate}}</mat-header-cell>
+                            <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="500px" *matCellDef="let documentdata;let z = index" >
+                              <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                 <div *ngIf="!tblplaceholder">  <div *ngIf="documentdata.appdst_memcompfiledtls_fk" class="viewhaderpdf p-t-15 p-b-15" fxLayoutAlign="flex-start center">
+                                    <img  src="assets/images/opalimages/{{documentdata.mcfd_filetype}}_new.svg "  alt="document_new">
+                                    <p  class="viewcolor fs-14 m-0 p-l-5"><a href="{{documentdata.coverImages}}" class="txt-gry3" target="_blank">{{'documentrequired.view' | translate}}</a> </p>
+                                </div>
+                                 <p *ngIf="documentdata?.appdst_remarks" class="m-0 fs-14 showtextcolor p-t-15 p-b-15 p-r-10">
+                                    <span class="collapsable float-left"  *ngIf="!showfulldata[z]">
+                                      <span *ngIf="documentdata.appdst_remarks.length  > firstCount">
+                                        {{ documentdata.appdst_remarks | slice:0:counter }}..
+                                      </span>
+                                    </span> 
+                                    <span *ngIf="showfulldata[z] || documentdata.appdst_remarks.length <= 100">{{ documentdata.appdst_remarks }}</span>
+                                    <span *ngIf=" documentdata.appdst_remarks.length > 100" (click)="toggleSkil(index)"  class="red">
+                                        {{ showTxt }}
+                                      </span>
+                                  </p>
+                                </div>
+                               </mat-cell>
+                        </ng-container>
+                        <!-- status -->
+                        <ng-container matColumnDef="appdst_status">
+                            <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'documentrequired.status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="{{'batch.branchname' | translate}}" fxFlex="180px" *matCellDef="let documentdata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">
+                                    <p (click)="expandedElement = expandedElement === documentdata ? null : documentdata" *ngIf="documentdata.appdst_status == '3'" class="print flexaligntag">{{'documentrequired.appr' | translate}}<img matTooltip="{{'table.tool'|translate}}" class="p-l-15" src="assets/images/statusicon.svg" alt="statusicon"></p>
+                                    <p (click)="expandedElement = expandedElement === documentdata ? null : documentdata" *ngIf="documentdata.appdst_status == '4'" class="declined flexaligntag">{{'documentrequired.decl' | translate}}<img matTooltip="{{'table.tool'|translate}}" class="p-l-15" src="assets/images/statusicon.svg" alt="statusicon"></p>
+                                    <p (click)="expandedElement = expandedElement === documentdata ? null : documentdata" *ngIf="documentdata.appdst_status == '2'"  class="update flexaligntag">{{'documentrequired.upda' | translate}}<img matTooltip="{{'table.tool'|translate}}" class="p-l-15" src="assets/images/statusicon.svg" alt="statusicon"></p>
+                                    <p *ngIf="documentdata.appdst_status == '1'"  class="red">{{'documentrequired.new' | translate}}</p>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- issue -->
+                        <ng-container matColumnDef="date_issue">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'documentrequired.addeon' | translate}} </mat-header-cell>
+                            <mat-cell data-label="date_issue" fxFlex="263px" *matCellDef="let documentdata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{documentdata.date_issue}}</div>   
+                            </mat-cell>
+                        </ng-container>
+                        <!-- expiry -->
+                        <ng-container matColumnDef="date_expiry">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'documentrequired.addeon' | translate}} </mat-header-cell>
+                            <mat-cell data-label="date_expiry" fxFlex="263px" *matCellDef="let documentdata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{documentdata.date_expiry}}</div>   
+                            </mat-cell>
+                        </ng-container>
+                        <!-- creat -->
+                        <ng-container matColumnDef="appdst_createdon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'documentrequired.addeon' | translate}} </mat-header-cell>
+                            <mat-cell data-label="appdst_createdon" fxFlex="263px" *matCellDef="let documentdata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{documentdata.appdst_createdon}}</div>   
+                            </mat-cell>
+                        </ng-container>
+                        <!-- update -->
+                        <ng-container matColumnDef="appdst_updatedon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'documentrequired.lastupdaon' | translate}} </mat-header-cell>
+                                <mat-cell data-label="appoprct_updatedon" fxFlex="263px" *matCellDef="let documentdata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">  {{documentdata.appdst_updatedon}} </div> </mat-cell>
+                            </ng-container>
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell fxFlex="100"  *matCellDef="let documentdata" [attr.colspan]="Documentrecordcolumn.length">                              <div *ngIf="documentdata === expandedElement">
+                                <div class="example-element-detail"
+                                   [@detailExpand]="documentdata == expandedElement ? 'expanded' : 'collapsed'"  *ngIf="documentdata.appdst_status == '3' || documentdata.appdst_status == '4'">
+                                <div class="example-element-diagram " [ngClass]="documentdata.appdst_status == 4 ? 'declinecmd' : 'successcmd'">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <p class="fs-18 comment m-0">{{'institue.declcomm' | translate}}  </p>
+                                        <mat-icon  class="fs-18 comment close" matTooltip="{{'table.close'|translate}}" (click)="toggleExpansion()">close</mat-icon>
+                                       </div>
+                                        <p class="16 m-b-30" [innerHtml]='documentdata.status'> </p>
+                                            <mat-divider></mat-divider>
+                                           <div class="validinfo"  fxLayout="row wrap" >
+                                            <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{documentdata.appdst_appdecon}}</span></p>
+                                            <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{documentdata.username}}</span></p>
+                                           </div>
+                                </div>
+                              </div>
+                              <div class="example-element-detail"
+                                   [@detailExpand]="documentdata == expandedElement ? 'expanded' : 'collapsed'"  *ngIf="documentdata.appdst_status == '2'">
+                                <div class="example-element-diagram " [ngClass]="documentdata.hisstatus == 4 ? 'declinecmd' : 'successcmd'">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <p class="fs-18 comment m-0">{{'institue.declcomm' | translate}}  </p>
+                                        <mat-icon  class="fs-18 comment close" matTooltip="{{'table.close'|translate}}" (click)="toggleExpansion()">close</mat-icon>
+                                       </div>
+                                        <p class="16 m-b-30" [innerHtml]='documentdata.status'> </p>
+                                            <mat-divider></mat-divider>
+                                           <div class="validinfo"  fxLayout="row wrap" >
+                                            <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{documentdata.appdst_appdecon}}</span></p>
+                                            <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{documentdata.username}}</span></p>
+                                           </div>
+                                </div>
+                              </div>
+                              </div>
+                            </td>
+                          </ng-container>
+                          <!-- action -->
+                          <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="65px" mat-header-cell *matHeaderCellDef >                                </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="65px" *matCellDef="let operatorList">                                </mat-cell>
+                        </ng-container>
+                    <!-- check -->
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="65px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- document name -->
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="370px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appdst_documentdtlsmst_fk">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                      <!-- provider -->
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'documentrequired.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="appdst_submissionstatus" multiple>
+                                        <mat-option value="1">{{'course.yes' | translate}}</mat-option>
+                                        <mat-option value="2">{{'course.no' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- remark -->
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="500px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- issue -->
+                        <ng-container matColumnDef="row-issue">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appdst_issue" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- expiry -->
+                        <ng-container matColumnDef="row-expiry">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appdst_expiry" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- status -->
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'documentrequired.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="appdst_status" multiple>
+                                        <mat-option value="1">{{'documentrequired.new' | translate}}</mat-option>
+                                        <mat-option value="2">{{'documentrequired.upda' | translate}}</mat-option>
+                                        <mat-option value="3">{{'documentrequired.appr' | translate}}</mat-option>
+                                        <mat-option value="4">{{'documentrequired.decl' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- creat -->
+                        <ng-container matColumnDef="row-seven">
+                                <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <div class="drpicker" id="regapp">
+                                            <input id="login_session" [formControl]="appdst_createdon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                            <div class="closeanddateicon">
+                                                <mat-datepicker-toggle matSuffix >
+                                                </mat-datepicker-toggle>
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- update -->
+                            <ng-container matColumnDef="row-eight">
+                                <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <div class="drpicker" id="regapp">
+                                            <input id="login_session" [formControl]="appdst_updatedon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                            <div class="closeanddateicon">
+                                                <mat-datepicker-toggle matSuffix >
+                                                </mat-datepicker-toggle>
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- refresh -->
+                            <ng-container matColumnDef="row-nine" stickyEnd>
+                                <mat-header-cell fxFlex="65px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <i class="fa fa-refresh m-l-15 m-b-13 cursorview" (click)="clearFilter();filtersts=false;"
+                                        aria-hidden="true" matTooltip="{{'table.refresh'|translate}}"></i>
+                                </mat-header-cell>
+                            </ng-container>
+
+                        <tr mat-header-row  id="headerrowcells" *matHeaderRowDef="getDocumentrecordcolumn();"></tr>
+                        <mat-header-row id="searchrow"
+                            *matHeaderRowDef="getDocumentrecordcolumnsearch()">
+                        </mat-header-row>
+                        <tr mat-row *matRowDef="let element; columns: getDocumentrecordcolumn();"
+                            class="example-element-row"
+                            [class.example-expanded-row]="expandedElement === element">
+                        </tr>
+                        <tr mat-row *matRowDef="let element; columns: ['expandedDetail']"
+                        [class.example-detail-row-expanded]="expandedElement === element"
+                        [class.example-detail-row-collapsed]="expandedElement !== element">
+                    </tr>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div [ngClass]="!tblplaceholder? 'nofound': 'null'" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                        class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'common.noreco' | translate}}</p>
+                            </div>
+                        </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'" [style.display]="(resultsLength > 0) ? 'none' : 'block'"
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <!-- buttons -->
+          <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish groupBtns m-t-30">
+            <button mat-raised-button type="button" (click)="cancel.emit()" class="standardbutton mat-white-bg">{{'company.previous' | translate}}</button>
+            <button mat-raised-button type="button" (click)="next.emit()" class="standardbutton mat-red-bg">{{'international.next' | translate}}</button>
+        </div>
+   </div>   
+</div>

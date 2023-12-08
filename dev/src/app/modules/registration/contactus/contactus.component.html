@@ -1,0 +1,88 @@
+<div id="contact_form">
+    <div class="banner_headersection">
+        <div class="background_welcome">
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <img src="assets/images/opalimages/SMP07326.png" alt="organiserindustrialbannernew">
+                </div>
+                <div fxFlex="100" fxLayoutAlign="flex-start end">
+                    <div class="image_border">
+                        <div fxLayout="row wrap" fxLayoutAlign="center">
+                            <div fxFlex.gt-sm="83" fxFlex="100" class="centerarrange" fxLayout="column">
+                                <h2 class="main_content fs-36 txt-gry fw">
+                                    Welcome to OPAL Registration
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="center" class="m-t-30">
+            <div fxFlex.gt-sm="90" fxFlex="100" class="centerarrange">
+                <div class="tabcontent m-b-20 m-t-30">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                        <div class="p-l-30" fxFlex.gt-sm="30" fxFlex="100">
+                            <mat-card class="m-t-35 img-card">
+                                <img mat-card-image src="assets/images/opalimages/award.svg" alt="opallogo">
+                            </mat-card>
+                        </div>
+                        <div fxFlex.gt-sm="60" fxFlex="100">
+                            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                                <h4 class="main_content fs-24 txt-red m-0 lypisfont-semibold p-t-0 p-b-15 lh-38 fw">
+                                    Contact 
+                                </h4>
+                                <div class="line p-l-15"><mat-divider class="m-b-14 "></mat-divider></div>
+                            </div>
+                            <div fxLayout="row wrap" fxLayoutAlign="center" id="supplierreg_container">
+                                <div  fxFlex="100" class="centerarrange">
+                                    <div class="p-t-25">
+                                        <form class="example-form" [formGroup]="contactform" #regSupplierForm="ngForm"
+                                            (ngSubmit)="validateForm1()" autocomplete="off">
+                                            <div class="tabcontent errorvalidate">
+                                                <div fxLayout="row wrap" class="triggeredto">
+                                                    <div fxFlex.gt-sm="100" fxFlex="100">
+                                                        <div fxLayout="row wrap" class="p-t-15">
+                                                            <div fxFlex="100">
+                                                              <mat-form-field appearance="outline">
+                                                                <mat-label>Enter Your Name</mat-label>
+                                                                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                                                                  required app-restrict-input="numspecsymbol" 
+                                                                  formControlName="name">
+                                                              </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div fxLayout="row wrap" class="p-t-15">
+                                                            <div fxFlex="100">
+                                                              <mat-form-field appearance="outline">
+                                                                <mat-label>Enter Email</mat-label>
+                                                                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                                                                  required app-restrict-input="numspecsymbol" 
+                                                                  formControlName="name">
+                                                              </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div fxLayout="row wrap" class="p-t-15">
+                                                            <div fxFlex="100">
+                                                              <mat-form-field appearance="outline">
+                                                                <mat-label>Enter Your Name</mat-label>
+                                                                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                                                                  required app-restrict-input="numspecsymbol" 
+                                                                  formControlName="name">
+                                                              </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

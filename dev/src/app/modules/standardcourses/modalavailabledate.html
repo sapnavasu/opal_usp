@@ -1,0 +1,198 @@
+<div [formGroup]="batchform" id="traininglistpopup">
+    <div class="trainingdurationhead" fxLayoutAlign="space-between center">
+        <h2 class="m-0 fs-16">{{'course.trainingdurset' | translate}}</h2>
+        <mat-icon (click)="closedialog()" class="cursor-pointer" matTooltip="Close">close</mat-icon>
+    </div>
+    <div class="pd-25">
+        <div fxLayout="row wrap" class="coursesubtitle" fxLayoutAlign="flex-start center">
+            <div fxFlex.gt-sm="13" fxFlex="100">
+                <p class="fs-14 m-0">{{'course.coursetitle' | translate}}</p>
+            </div>
+            <div fxFlex.gt-sm="87" fxFlex="100">
+                <span class="fs-14 complantag">Computer Programming Languages</span>
+            </div>  
+         
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="13" fxFlex="100">
+                 &nbsp;
+            </div>
+            <div fxFlex.gt-sm="87" fxFlex="100" class="p-t-35" fxLayoutAlign="flex-start">
+                <div class="totalleanerheader mindaterangewidth">
+                    <p class="fs-14 m-0">{{'course.daterange' | translate}}</p>
+                    <span class="fs-16">1-1-2023 to 1-3-2023</span>
+                </div>
+                <div class="totalleanerheader">
+                    <p class="fs-14 m-0">{{'course.totaldays' | translate}}</p>
+                    <span class="fs-16">90</span>
+                </div>
+            </div>  
+         
+        </div>
+        <div fxLayout="row wrap" >
+            <div fxFlex.gt-sm="13" fxFlex="100">
+                 &nbsp;
+            </div>
+            <div fxFlex.gt-sm="87" fxFlex="100">
+                <div class="conftiming">
+                    <h4 class="fs-14">{{'course.configtiming' | translate}}</h4>
+               </div>
+            </div>  
+        </div>
+       
+        <div fxLayout="row wrap" >
+            <div fxFlex.gt-sm="100" fxFlex="100">
+               
+                <div fxLayout="row wrap" class="coursesubtitle p-b-20" fxLayoutAlign="flex-start center">
+                    <div fxFlex.gt-sm="13" fxFlex="100">
+                        <p class="fs-14 m-0">{{'course.from' | translate}}</p>
+                    </div>
+                    <div fxFlex.gt-sm="87" fxFlex="100">
+                        <div fxLayoutAlign="flex-start">
+                            <div class="timepickerwidth">
+                                <mat-form-field >
+                                    <!-- The timepicker input -->
+                                    <input matTimepicker #t="matTimepicker" [minDate]="minValue"
+                                        [maxDate]="maxValue" [strict]="false"
+                                        formControlName="starttime"
+                                        required>
+                                    <mat-icon matSuffix
+                                        (click)="t.showDialog()">access_time</mat-icon>
+                                     
+                                </mat-form-field>
+                            </div>
+                            <div fxLayoutAlign="flex-start center" class="slottag p-l-15">
+                                <mat-icon>add</mat-icon>
+                                <span class="fs-14 p-l-8">{{'course.addslot' | translate}}</span>
+                            </div>
+                        </div>
+                        <mat-error *ngIf="cour.starttime.errors?.required || batchform.submitted">
+                            {{'course.starttime' | translate}} </mat-error>
+                    </div>  
+                </div>
+                
+            </div>
+         
+        </div>
+        <div fxLayout="row wrap" class="coursesubtitle p-b-30" fxLayoutAlign="flex-start center">
+            <div fxFlex.gt-sm="13" fxFlex="100">
+                <p class="fs-14 m-0">{{'course.to' | translate}}</p>
+            </div>
+            <div fxFlex.gt-sm="87" fxFlex="100">
+                <div class="timepickerwidth"> 
+                    <mat-form-field >
+                        <!-- The timepicker input -->
+                        <input matTimepicker #t="matTimepicker" [minDate]="minValue"
+                            [maxDate]="maxValue" [strict]="false"
+                            formControlName="endtime"
+                            required>
+                        <mat-icon matSuffix
+                            (click)="t.showDialog()">access_time</mat-icon>
+                          
+                    </mat-form-field>
+                </div>
+                <mat-error *ngIf="cour.endtime.errors?.required || batchform.submitted">
+                    {{'course.endtime' | translate}} </mat-error>
+            </div>  
+        </div>
+        <div fxLayout="row wrap" >
+            <div fxFlex.gt-sm="13" fxFlex="100" class="coursesubtitle">
+                <p class="fs-14 m-0">{{'course.setweekedned' | translate}}</p>
+            </div>
+            <div fxFlex.gt-sm="87" fxFlex="100">
+                <mat-table class="summarytablelist" #table [dataSource]="quicksetupdatalist" 
+                matSortDisableClear>
+                <ng-container matColumnDef="days">
+                    <mat-header-cell rowspan="2" fxFlex="80px" mat-header-cell *matHeaderCellDef
+                       ></mat-header-cell>
+                    <mat-cell rowspan="2"  data-label="Selected Date" fxFlex="80px"
+                        *matCellDef="let quickdata">
+                      <div class="daytopalign">
+                            <h4 class="m-0 fs-14">{{'course.days' | translate}}</h4>
+                      </div> 
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="sunday">
+                    <mat-header-cell fxFlex="80px" mat-header-cell *matHeaderCellDef
+                     >{{'course.sunday' | translate}}</mat-header-cell>
+                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="80px"
+                        *matCellDef="let quickdata">
+                        <mat-checkbox > 
+                         
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="monday">
+                    <mat-header-cell fxFlex="80px" mat-header-cell *matHeaderCellDef
+                        >{{'course.monday' | translate}}</mat-header-cell>
+                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="80px"
+                        *matCellDef="let quickdata">
+                        <mat-checkbox > 
+                         
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tuesday">
+                    <mat-header-cell fxFlex="80px" mat-header-cell *matHeaderCellDef
+                       >{{'course.tuesday' | translate}}</mat-header-cell>
+                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="80px"
+                        *matCellDef="let quickdata">
+                        <mat-checkbox > 
+                         
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="wednesday">
+                    <mat-header-cell fxFlex="95px" mat-header-cell *matHeaderCellDef
+                        >{{'course.wednesday' | translate}}</mat-header-cell>
+                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="95px"
+                        *matCellDef="let quickdata">
+                        <mat-checkbox > 
+                         
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="thursday">
+                    <mat-header-cell fxFlex="80px" mat-header-cell *matHeaderCellDef
+                       >{{'course.thursday' | translate}}</mat-header-cell>
+                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="80px"
+                        *matCellDef="let quickdata">
+                        <mat-checkbox > 
+                         
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="friday">
+                    <mat-header-cell fxFlex="80px" mat-header-cell *matHeaderCellDef
+                        >{{'course.friday' | translate}}</mat-header-cell>
+                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="80px"
+                        *matCellDef="let quickdata">
+                        <mat-checkbox > 
+                         
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="saturday">
+                    <mat-header-cell fxFlex="115px" mat-header-cell *matHeaderCellDef
+                        >{{'course.saturday' | translate}}</mat-header-cell>
+                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="115px"
+                        *matCellDef="let quickdata">
+                        <mat-checkbox > 
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="quicksetupcolumn"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: quicksetupcolumn;"></mat-row>
+            </mat-table>
+            </div>  
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish m-t-40">
+            <button mat-raised-button class="m-r-10 clearbtn ShowHide fs-15" type="button">{{'course.courclear' | translate}}
+            </button>
+            <button mat-raised-button  type="submit"
+                class="ShowHidefs-15 savebtn m-l-10">{{'course.coursave' | translate}}
+            </button>
+        </div>
+    </div>
+   
+</div>

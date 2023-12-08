@@ -1,0 +1,62 @@
+
+
+.scroller{
+    overflow-x: auto;
+    display: block;
+}
+
+.tableofheading{
+    min-width: 50px;
+}
+
+.slnowidth{
+    min-width: 186px;
+}
+
+.typewidth{
+    min-width: 116px;
+}
+
+.typeofinvestorwidth{
+    min-width: 105px;
+}
+
+.companynamewidth{
+    min-width: 180px;
+}
+
+.namewidth{
+    min-width: 102px;
+}
+
+.emailwidth{
+    @extend .slnowidth;
+}
+
+.phonewidth{
+    min-width: 80px;
+}
+
+.landlinewidth{
+    min-width: 118px;
+}
+
+.crnnumber{
+    @extend .phonewidth;
+}
+
+.otherdocum{
+    @extend .landlinewidth;
+}
+
+.businesssourcewidth{
+    min-width: 110px;
+}
+
+.incrpstylewidth{
+    min-width: 124px;
+
+}
+.aboutuswidth{
+    @extend .slnowidth;
+}

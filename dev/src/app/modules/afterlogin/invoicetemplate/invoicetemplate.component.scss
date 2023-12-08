@@ -1,0 +1,129 @@
+
+
+
+
+
+.invoiceend{
+    width: 100%;
+    td{
+        padding-left: 25px;
+
+    }
+    .colorofto{
+        color: #333333;
+        font-weight: bold;
+    }
+    .rowcolumwidth{
+        width: 75%;
+    }
+    .borderbottom{
+        border-bottom: 1px solid #333333;
+
+        th{
+            padding-left: 25px;
+        }
+    }
+    .mainhead{
+
+        td{
+          padding-top:10px;
+          padding-bottom: 10px;  
+        }
+
+        table{
+            width: 100%;
+        }
+         
+         
+    }
+    .invoicecolor{
+        background-color: #007b91;
+        color: #ffffff;
+        font-weight: bold;
+         th{
+             text-align: center;
+             padding-top: 10px;
+             padding-bottom: 10px;
+         }
+         
+       
+    }
+    .exhanceexcelwidth{
+      .flexalign{
+          display: flex;
+          p{
+              color: #333333;
+          }
+      } 
+      .waysheight{
+          padding-top: 15px;
+          padding-left: 0px;
+          line-height: 1.7;
+          p{
+            margin: 0px; 
+          }
+      } 
+      .onlinecolor{
+          p{
+            color:#b63636;
+          }
+          
+      }
+    }
+    .lastcontentcolor{
+        line-height: 0.8;
+        p{
+            color: #000000;
+        }
+    }
+    .borderinvoicecolor{
+        border: 1px solid #333333;
+    }
+}
+
+.anothertable{
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #333333;
+    border-right: 1px solid #333333;
+    th{
+        background-color: #007b91;
+        color: #ffffff;
+        font-weight: bold; 
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 39%;
+        border-left: 1px solid #333333;
+        text-align: center;
+     }
+     .borderjsrsrow{
+        border-left: 1px solid #333333;  
+     }
+     .alignnumber{
+         text-align: right;
+       
+     }
+ }
+
+ .totalwidth{
+    background-color: #007b91;
+    color: #ffffff;  
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+.lasttable{
+    width: 88%;
+    
+    .fontrow{
+        .fonttotal{
+            font-weight: bold;
+        }
+
+        .textright{
+            text-align: right;
+        }
+    }
+  
+}
+
+

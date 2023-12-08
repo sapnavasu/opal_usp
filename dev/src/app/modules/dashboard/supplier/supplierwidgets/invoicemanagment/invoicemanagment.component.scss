@@ -1,0 +1,156 @@
+#invoicemanagement{
+    .dashtabs{
+        .mat-tab-header {
+            border: 0px;
+            .mat-tab-list {
+                flex-grow: 1;
+                position: relative;
+                opacity: 1;
+                min-width: 100% !important;
+                padding: 0px !important;
+                justify-content: flex-start;
+                .mat-tab-labels{
+                    display:flex;
+                    min-width: 100% !important;
+                    .mat-tab-label {
+                        opacity: 1;
+                        border-radius: 2px;
+                        background-clip: padding-box;
+                        background-color: #eaedf2;
+                        margin-right: 0px;
+                        height: 46px;
+                        width:calc(100% - 10px);
+                        justify-content: center !important;  
+                        &.mat-tab-label-active {
+                            background-color: #0c4b9a !important;
+                            color: #fff !important;
+                        }
+                        &:first-child{
+                            margin-right:10px;
+                        }  
+                    }
+                }
+                .mat-ink-bar {
+                    width: 0px !important;
+                } 
+            }
+        }
+        
+    }
+    .titleinfolink{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        .viewalllink{
+            font-size:0.8125rem;
+            color:#666;
+            cursor:pointer;
+            &:hover{
+                color:#333;
+            }
+        }
+    }  
+    .invoiceassesstbale, .invoiceroyaltbale{         
+        .mat-invoiceassessmanage, .mat-invoiceroyal{
+            width:100%;
+            border-collapse: collapse;
+            border:1px solid #e8e8e8;
+            .mat-header-row{
+                border:0px !important;
+                height:30px !important;
+                background:#f3f5f7;
+                th.mat-header-cell{
+                    &:first-of-type{
+                        padding-left:0px;
+                    }
+                    padding:10px 10px !important;
+                    text-align:left;
+                    white-space: nowrap;
+                    color:#333;
+                    background:#f3f5f7;
+                    font-family: "opal_semibold", sans-serif;
+                    font-size:0.875rem;  
+                }
+            }
+            .mat-row{
+                border:0px !important;
+                height:32px !important;
+                td.mat-cell{
+                    &:first-of-type{
+                        padding-left:0px;
+                        text-align:left;
+                    }
+                    padding:5px 10px !important; 
+                    text-align:right;
+                    color:#000;
+                    font-size:0.875rem;
+                    white-space: nowrap;
+                    vertical-align: middle; 
+                    font-family: "opal_regular", sans-serif; 
+                    border-bottom:1px solid #ddd !important;
+                    &:nth-child(4){
+                        color:#ff3636;
+                    }
+                }
+                &:nth-child(1), &:nth-child(4){
+                    td.mat-cell{
+                        font-family: "opal_semibold", sans-serif;  
+                    } 
+                }
+            }
+        }
+    }
+}
+.scrolldata {
+    position: relative;
+    z-index: 1;/* 
+    display: block; */
+    overflow-x: auto;
+    background-color: #fff;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #ccc;
+    }
+}
+.rtl{
+    #invoicemanagement{
+        .dashtabs{
+            .mat-tab-header{
+                .mat-tab-list{
+                    .mat-tab-labels{
+                        .mat-tab-label:first-child{
+                            margin-right:0px;
+                            margin-left:10px;
+                        }
+                    }
+                }
+            } 
+        }
+        .invoiceassesstbale, .invoiceroyaltbale{         
+            .mat-invoiceassessmanage, .mat-invoiceroyal{
+                .mat-row{
+                    td.mat-cell{
+                        &:first-of-type{
+                            text-align:right;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

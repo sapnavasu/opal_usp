@@ -1,0 +1,460 @@
+<div id="aseesmentpayment" #pageScroll fxLayoutAlign="center">
+    <app-responseloader *ngIf="pagefullloader"></app-responseloader>
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <!-- validation button -->
+        <!-- <div class="view" fxLayoutAlign="end" *ngIf="assmentFeePaymentDetails?.paymentstatus != '4'">
+            <app-validation [Validationplaceholder]="'Confirm Payment' | translate" [feePaymentId]="assmentFeeId"
+                [assessmentfeebtn]="true" (booleanValue)="submitPayment($event)"></app-validation>
+        </div> -->
+        <!-- info box -->
+        <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+            <div class="details pd-10" fxFlex="100">
+                <div class="head" fxLayout="row wrap">
+                    <!-- <h4 class="headcolor fs-18 m-0 lh-15">{{ifarabic ? assmentFeePaymentDetails?. companyname_ar ?
+                        assmentFeePaymentDetails?. companyname_ar : '-' : assmentFeePaymentDetails?. companyname_en ?
+                        assmentFeePaymentDetails?. companyname_en : '-' }}</h4> -->
+                    <h4 class="headcolor fs-18 m-0 lh-15">{{'Training Centre Details' | translate}}</h4>
+                </div>
+                <div class="d-flex fs-15" fxLayout="row wrap">
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.trainname' | translate}}:
+                        <span
+                            class="text-default">{{ifarabic?assmentFeePaymentDetails?.trainingprovider_ar:assmentFeePaymentDetails?.trainingprovider_en}}</span>
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{"Training Centre's Office Type" | translate}}:
+                        <span class="text-default">{{assmentFeePaymentDetails?.officetype ?
+                            assmentFeePaymentDetails?.officetype : '-'}}</span>
+                    </p>
+                    <p class="application-detais status m-r-10 text-gray m-0">{{"Training Centre's Branch Name" |
+                        translate}}:
+                        <span class="text-default">{{ifarabic ? assmentFeePaymentDetails?.branchname_ar ?
+                            assmentFeePaymentDetails?.branchname_ar : '-' : assmentFeePaymentDetails?.branchname_en ?
+                            assmentFeePaymentDetails?.branchname_en : '-'}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="details pd-10" fxFlex="100">
+                <div class="head" fxLayout="row wrap">
+                    <!-- <h4 class="headcolor fs-18 m-0 lh-15">{{ ifarabic ? assmentFeePaymentDetails?.trainingprovider_ar ?
+                        assmentFeePaymentDetails?.trainingprovider_ar : '-' :
+                        assmentFeePaymentDetails?.trainingprovider_en ?assmentFeePaymentDetails?.trainingprovider_en :
+                        '-' }}</h4> -->
+                    <h4 class="headcolor fs-18 m-0 lh-15">{{'Assessment Centre Details' | translate}}</h4>
+                </div>
+                <div class="d-flex fs-15" fxLayout="row wrap">
+                    <p class="application-detais m-r-10 text-gray m-0">{{'Assessment Centre' | translate}}:
+                        <span class="text-default">{{ ifarabic ? assmentFeePaymentDetails?.as_companyname_ar ?
+                            assmentFeePaymentDetails?.as_companyname_ar : '-' :
+                            assmentFeePaymentDetails?.as_companyname_en ?assmentFeePaymentDetails?.as_companyname_en :
+                            '-' }}</span>
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.asscenterlocation' | translate}}:
+                        <span class="text-default">
+                            {{(ifarabic)?assmentFeePaymentDetails?.as_state_ar:assmentFeePaymentDetails?.as_state_en}},
+                            {{(ifarabic)? assmentFeePaymentDetails?.as_city_ar:assmentFeePaymentDetails?.as_city_en}}
+                        </span>
+                    </p>
+                    <!-- <p class="application-detais status m-r-10 text-gray m-0">{{'invoice.status' | translate}}:
+                        <span class="Pending" *ngIf="assmentFeePaymentDetails?.paymentstatus == '1'">{{'invoice.pending'
+                            |translate}}</span>
+                        <span class="Paid Pending Verification"
+                            *ngIf="assmentFeePaymentDetails?.paymentstatus == '2'">{{'invoice.paid'
+                            |translate}}</span>
+                        <span class="Overdue"
+                            *ngIf="assmentFeePaymentDetails?.paymentstatus == '3'">{{'invoice.over'|translate}}</span>
+                        <span class="Receive" *ngIf="assmentFeePaymentDetails?.paymentstatus == '4'">{{'invoice.receive'
+                            |translate}}</span>
+                        <span class="Overdue"
+                            *ngIf="assmentFeePaymentDetails?.paymentstatus == '5'">{{'invoice.notrece'|translate}}</span>
+                    </p> -->
+                </div>
+            </div>
+        </div>
+        <!-- details -->
+        <div fxLayoutAlign="flex-start center" fxLayout="row wrap" class="m-b-40">
+            <div class="feedetails m-t-20" fxFlex.gt-md="50" fxFlex="100">
+                <h4 class="headcolor fs-18 m-0">{{'invoice.invodeta' | translate}}</h4>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invonumb' | translate}}</p>
+                    <span>{{ assmentFeePaymentDetails?. invoiceno}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invoofthemon' | translate}}</p>
+                    <span>{{ assmentFeePaymentDetails?. invoicemonth}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invodate' | translate}}</p>
+                    <span> {{ assmentFeePaymentDetails?.invoicedate}}</span>
+                </div>
+                <!-- <div class="view_dtl m-t-20" fxLayout="row" *ngIf="assmentFeePaymentDetails?.paymentstatus != '4'">
+                    <p class="m-0">{{'invoice.invoage' | translate}}</p>
+                    <span> {{assmentFeePaymentDetails?.invoiceage != 0 ? assmentFeePaymentDetails?.invoiceage + ' Days' :
+                        '-'}}</span>
+
+                </div> -->
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'Assessment Fee (OMR)' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ assmentFeePaymentDetails?.rasf_invoicedamount ?
+                        assmentFeePaymentDetails?.rasf_invoicedamount : '00'}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.vat' | translate}} 5% ({{'invoice.omr' | translate}})</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ assmentFeePaymentDetails?.rasf_vatamount ?
+                        assmentFeePaymentDetails?.rasf_vatamount : '00'}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'Invoiced Amount (OMR)' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ assmentFeePaymentDetails?.invoiceamount ?
+                        assmentFeePaymentDetails?.invoiceamount : '00'}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- learner details -->
+        <div class="vehicle">
+            <h4 class="fs-18">{{'Learner Details' | translate}}</h4>
+            <div class="paginationwithfilter masterPageTop " fxLayout="row wrap">
+                <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength"
+                    [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <button (click)="export(assmentFeePaymentDetails.asmnt_pk)" mat-raised-button class="exportbtn m-r-10 m-l-10"
+                            type="button">{{'invoice.export' | translate}} </button>
+
+                        <button mat-raised-button type="button" color="primary" (click)="clickedEvent()"
+                            class="filter fs-15">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- table -->
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                    <div class="awaredtable">
+                        <mat-table #table class="scrolldata" [dataSource]="assessmentfeeData" matSort
+                            matSortDisableClear (matSortChange)="announceSortChange($event)">
+                            <!-- column 1 -->
+                            <ng-container matColumnDef="batchnum">
+                                <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'Batch Number' | translate}}</mat-header-cell>
+                                <mat-cell data-label="batchnum" fxFlex="250px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">{{ assessmentFee?.BatchNumber ?
+                                        assessmentFee?.BatchNumber : '-'}}</div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 2 -->
+                            <ng-container matColumnDef="civilnum">
+                                <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'Civil Number' | translate}}</mat-header-cell>
+                                <mat-cell data-label="civilnum" fxFlex="200px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">{{ assessmentFee?.civilnum ? assessmentFee?.civilnum
+                                        : '-'}}</div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 3 -->
+                            <ng-container matColumnDef="learnername">
+                                <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'Learner Name' | translate}}</mat-header-cell>
+                                <mat-cell data-label="learnername" fxFlex="250px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">{{ assessmentFee?.LearnerName ?
+                                        assessmentFee?.LearnerName : '-'}} </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 4 -->
+                            <ng-container matColumnDef="status">
+                                <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'invoice.status' |
+                                    translate}}</mat-header-cell>
+                                <mat-cell data-label="status" fxFlex="280px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">
+                                        <!-- <span class="New" *ngIf="assessmentFee.status == '1'">{{'invoice.new'
+                                            |translate}}</span>
+                                        <span class="Teaching"
+                                            *ngIf="assessmentFee.status == '2'">{{'invoice.teachingth'
+                                            |translate}}</span>
+                                        <span class="Teaching"
+                                            *ngIf="assessmentFee.status == '3'">{{'invoice.teachingpr'
+                                            |translate}}</span>
+                                        <span class="NoShow" *ngIf="assessmentFee.status == '4'">{{'invoice.noShowth'
+                                            |translate}}</span>
+                                        <span class="NoShow" *ngIf="assessmentFee.status == '5'">{{'invoice.noShowpr'
+                                            |translate}}</span>
+                                        <span class="Assessment"
+                                            *ngIf="assessmentFee.status == '6'">{{'invoice.assessment'
+                                            |translate}}</span> -->
+                                        <span class="Quality"
+                                            *ngIf="assessmentFee.status == '7'">{{'invoice.qualitycheck'
+                                            |translate}}</span>
+                                        <span class="litered"
+                                            *ngIf="assessmentFee.status == '8'">{{'invoice.declinedduringqualitycheck'
+                                            |translate}}</span>
+                                        <span class="requested"
+                                            *ngIf="assessmentFee.status == '9'">{{'invoice.resubmittedforqualitycheck'
+                                            |translate}}</span>
+                                        <span class="Print" *ngIf="assessmentFee.status == '10'">{{'invoice.print'
+                                            |translate}}</span>
+                                        <span class="Completed"
+                                            *ngIf="assessmentFee.status == '11'">{{'invoice.completed'
+                                            |translate}}</span>
+                                        <span class="re-take-assessment"
+                                            *ngIf="assessmentFee.status == '12'">{{'invoice.retakeassessment'
+                                            |translate}}</span>
+                                        <!-- <span class="Cancelled"
+                                            *ngIf="assessmentFee.status == '13'">{{'invoice.registrationcancelled'
+                                            |translate}}</span> -->
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 5 -->
+                            <ng-container matColumnDef="emailid">
+                                <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'Email ID' | translate}}</mat-header-cell>
+                                <mat-cell data-label="emailid" fxFlex="250px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">{{ assessmentFee?.LearnerEmail ?
+                                        assessmentFee?.LearnerEmail : '-'}} </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 6 -->
+                            <ng-container matColumnDef="mobilnum">
+                                <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'Mobile Number' | translate}}</mat-header-cell>
+                                <mat-cell data-label="mobilnum" fxFlex="180px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">{{ assessmentFee?.LearnerNumber ?
+                                        assessmentFee?.LearnerNumber : '-'}} </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 7 -->
+                            <ng-container matColumnDef="traingfee">
+                                <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'Training Fee (OMR)' | translate}}</mat-header-cell>
+                                <mat-cell data-label="traingfee" fxFlex="180px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">{{ assessmentFee?.trainingFee ?
+                                        assessmentFee?.trainingFee : '-'}} </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 8 -->
+                            <ng-container matColumnDef="assessmentfee">
+                                <mat-header-cell fxFlex="190px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'Assessment Fee (OMR)' | translate}}</mat-header-cell>
+                                <mat-cell data-label="assessmentfee" fxFlex="190px" *matCellDef="let assessmentFee">
+                                    <div *ngIf="tableplaceloader" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!tableplaceloader">
+                                        {{ assessmentFee?.assessmentfee ? assessmentFee?.assessmentfee : '-'}}</div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 9 -->
+                            <ng-container matColumnDef="action" stickyEnd>
+                                <mat-header-cell fxFlex="110px" mat-header-cell *matHeaderCellDef>{{'invoice.action' |
+                                    translate}} </mat-header-cell>
+                                <mat-cell data-label="action" fxFlex="110px" *matCellDef="let assessmentFee">
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="cloum" stickyEnd>
+                                <mat-header-cell fxFlex="100px" mat-header-cell *matHeaderCellDef mat-sort-header>{{' '
+                                    | translate}}
+                                </mat-header-cell>
+                                <mat-cell data-label="action" fxFlex="100px" *matCellDef="let assessmentFee">
+                                </mat-cell>
+                            </ng-container>
+                            <!-- search filter -->
+                            <!-- column 1  -->
+                            <ng-container matColumnDef="row-first">
+                                <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="batch_number"
+                                            (keyup)="searchbatchgrid($event.target.value,'BatchNumber')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 2 -->
+                            <ng-container matColumnDef="row-second">
+                                <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="civil_number"
+                                            (keyup)="searchbatchgrid($event.target.value,'civilnum')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 3 -->
+                            <ng-container matColumnDef="row-third">
+                                <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="learner_name"
+                                            (keyup)="searchbatchgrid($event.target.value,'LearnerName')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 4 -->
+                            <ng-container matColumnDef="row-fourth">
+                                <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'Select' |
+                                            translate}}</mat-label>
+                                        <mat-select panelClass="select_with_search" [formControl]="status"
+                                            (selectionChange)="mltiSelectBranch($event,'status')" multiple>
+                                            <div class="option-listing countryselectwithimage">
+                                                <!-- <mat-option value="1">{{'invoice.new' |translate}}</mat-option>
+                                                <mat-option value="2">{{'invoice.teachingth' |translate}}</mat-option>
+                                                <mat-option value="3">{{'invoice.teachingpr' |translate}}</mat-option>
+                                                <mat-option value="4">{{'invoice.noShowth' |translate}}</mat-option>
+                                                <mat-option value="5">{{'invoice.noShowpr' |translate}}</mat-option> 
+                                                <mat-option value="6">{{'invoice.assessment' |translate}}</mat-option>-->
+                                                <mat-option value="7">{{'invoice.qualitycheck' |translate}}</mat-option>
+                                                <mat-option value="8">{{'invoice.declinedduringqualitycheck'
+                                                    |translate}}</mat-option>
+                                                <mat-option value="9">{{'invoice.resubmittedforqualitycheck'
+                                                    |translate}}</mat-option>
+                                                <mat-option value="10">{{'invoice.print' |translate}}</mat-option>
+                                                <mat-option value="11">{{'invoice.completed' |translate}}</mat-option>
+                                                <mat-option value="12">{{'invoice.retakeassessment'
+                                                    |translate}}</mat-option>
+                                                <!-- <mat-option value="13">{{'invoice.registrationcancelled'
+                                                    |translate}}</mat-option> -->
+                                            </div>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 5 -->
+                            <ng-container matColumnDef="row-fifth">
+                                <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="email_number"
+                                            (keyup)="searchbatchgrid($event.target.value,'LearnerEmail')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 6 -->
+                            <ng-container matColumnDef="row-sixth">
+                                <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="mobil_num"
+                                            (keyup)="searchbatchgrid($event.target.value,'LearnerNumber')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 7 -->
+                            <ng-container matColumnDef="row-seventh">
+                                <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 8 -->
+                            <ng-container matColumnDef="row-eight">
+                                <mat-header-cell fxFlex="190px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 9 -->
+                            <ng-container matColumnDef="row-refresh" stickyEnd>
+                                <mat-header-cell fxFlex="110px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                        aria-hidden="true" matTooltip="{{'Refresh' |translate}}"></i>
+                                </mat-header-cell>
+                            </ng-container>
+                            <mat-header-row id="headerrowcells" *matHeaderRowDef="getDisplayedColumns()">
+                            </mat-header-row>
+                            <mat-header-row id="searchrow" *matHeaderRowDef="getDisplayedColumn()">
+                            </mat-header-row>
+                            <mat-row mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>
+                            <ng-container matColumnDef="disclaimer">
+                                <td mat-footer-cell *matFooterCellDef colspan="11">
+                                    <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100"
+                                        *ngIf="isData">
+                                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                            <div fxLayout="row wrap" fxLayoutAlign="center center"
+                                                *ngIf="tableplaceloader" class="NorecordLoader"></div>
+                                            <img src="assets/images/opalimages/norecord.svg" alt="norecord"
+                                                *ngIf="!tableplaceloader">
+                                            <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tableplaceloader">{{'No Records' |
+                                                translate}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-container>
+                                <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                    [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                    *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                </mat-footer-row>
+                            </ng-container>
+                        </mat-table>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                            <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                                (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                                [length]="resultsLength" [pageSizeOptions]="paginator?.pageSizeOptions">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comments m-t-10" *ngIf="assmentFeePaymentDetails?.paymentstatus != '1'">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'invoice.verification' | translate}}</h4>
+                <span class="badge decl" *ngIf="assmentFeePaymentDetails?.rasf_pymtstatus=='5'">{{'invoice.notrece' |
+                    translate}}</span>
+                <span class="badge appr" *ngIf="assmentFeePaymentDetails?.rasf_pymtstatus=='4'">{{'invoice.receive' |
+                    translate}}</span>
+            </div>
+            <div class="m-l-0 m-r-0 m-b-20"
+                [ngClass]="assmentFeePaymentDetails?.rasf_pymtstatus=='5'? 'declinecmd' : 'successcmd'">
+                <p class="18 comment">{{'invoice.comm' | translate}}</p>
+                <p class="16 m-b-30" [innerHTML]="assmentFeePaymentDetails?.rasf_appdecComments ? assmentFeePaymentDetails?.rasf_appdecComments : 'Nil'"> </p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'invoice.lastvalion' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{assmentFeePaymentDetails?.rasf_appdecon ?
+                            assmentFeePaymentDetails?.rasf_appdecon : '-'}}</span></p>
+                    <p class="fs-16 txt-gry">{{'invoice.lastvaliby' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{assmentFeePaymentDetails?.confirmedBy ?
+                            assmentFeePaymentDetails?.confirmedBy : '-'}}</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- button -->
+        <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+           <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goBack()">{{'Back' | translate}}</button>
+        </div>
+    </div>
+</div>

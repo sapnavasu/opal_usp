@@ -1,0 +1,17 @@
+<div fxLayout="row wrap" fxLayoutAlign="center" class="p-t-5 p-r-0 ">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div class="simpledialogcommon">
+      <h1 mat-dialog-title>{{this.data.title}}</h1>
+      <div mat-dialog-content>
+        <mat-form-field>
+          <input placeholder="{{this.data.inputName}}" matInput [(ngModel)]="data.data">
+
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-raised-button class="cancelfolder" (click)="onNoClick()">{{this.data.noButtonText}}</button>
+        <button mat-raised-button class="createfolder" [mat-dialog-close]="data.data" cdkFocusInitial>{{this.data.submitButtonText}}</button>
+      </div>
+    </div>
+  </div>
+</div>

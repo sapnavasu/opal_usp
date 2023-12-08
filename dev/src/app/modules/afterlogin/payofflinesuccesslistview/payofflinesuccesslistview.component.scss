@@ -1,0 +1,827 @@
+ 
+    
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+    #payonlinetablist{
+        .backgroundsucess{
+            background: #f5f6f9;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            p{
+                color: #333;
+                font-size: 0.9375rem;
+            }
+            .noteviewcolor{
+                color: #df372a;
+            }
+        }
+        .imgsize{
+             img{
+                 max-width: 100%;
+                 height: 32px;
+             }
+        }
+        .textdecorate{
+            text-decoration: underline;
+        }
+        background: #fff;
+        .textalign{
+            text-align: center;
+        }
+        .jsrswidth{
+            width: 50%;
+        }
+        .aligncenter{
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+        }
+        .headerpopview {
+            max-height: 70px;
+            background: #006cb7;
+            min-height: 70px;
+        }
+        .invoicefont{
+            p{
+                font-family: 'opal_semibold';
+            }
+            }
+        .renewalbackground{
+            border: 1px solid #b7b7b7;
+            border-radius: 2px;
+            .notesucesscolor{
+                P{
+                    color: #333333;
+                    font-size: 0.9375rem;
+                    margin: 0px;
+                    span{
+                        color: #df372a;
+                    }
+                }
+            }
+            .supplierflexalign{
+                display: flex;
+                justify-content: flex-start;
+                .suppliercolor{
+                    .colorcertificate{
+                        font-size: 0.875rem;
+                        color: #006cb7;
+                        margin: 0px;
+                        min-width: 300px;
+                        line-height: 2;
+                    }
+                    .submittedoncolor{
+                        font-size: 0.875rem;
+                        color: #333333;
+                        margin: 0px; 
+                    }
+                    .renewaltextcolor{
+                        @extend .submittedoncolor;
+                        color: #f4811f !important;
+                        text-decoration: underline !important;
+                    }
+                }
+                .suppliercolorstatus{
+                    .colorcertificate{
+                        font-size: 0.875rem;
+                        color: #006cb7;
+                        margin: 0px;
+                        line-height: 2;
+                    }
+                    .submittedoncolor{
+                        font-size: 0.875rem;
+                        color: #333333;
+                        margin: 0px; 
+                    }
+                }
+                .certificatebackground{
+                    background: #e7f3fc;
+                    padding-top: 10px !important;
+                    padding-bottom: 10px !important;
+                    display: flex;
+                    width: 100%;
+                    align-items: center;
+                }
+            }
+        }
+    
+        .leftcardwidth{
+            width: 50%;
+            background: #fff;
+        }
+        .rightsidecardwidth{
+            width: 50%;
+            background: #fff;
+        }
+         .spacestraightalign{
+                display: flex;
+               }
+               
+                .spencercoorpaymentclassification{
+                border-top: 1px solid #d7d7d7;
+                border-left: 1px solid #d7d7d7;
+                border-right: 1px solid #d7d7d7;
+                background-color: #f5f6f9;
+                position: relative;
+                max-height: 72px;
+                   p{
+                    color: #333333;
+                    font-family: 'opal_semibold';
+                   }
+                   display: flex;
+                   align-items: center;
+                   justify-content: space-between;
+                   padding: 32px 15px 32px 25px;
+               }
+        
+        
+               .changecolor{
+                background-color: #e0f0ff;
+                color: #006cb7;
+                border-radius: 2px !important;
+                display: flex;
+                justify-content: center;
+                line-height: 1;
+                align-items: center;
+                height: 26px;
+                border:1px solid #006cb7;
+            
+            }
+        
+            .alignpassword{
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                position: relative;
+            }
+            
+            .regborderjsrs{
+                border-top:none;
+                border-left: 1px solid #dadada;
+                border-right:1px solid #dadada;
+                border-bottom:1px solid #dadada;
+                min-height: 630px;
+            }
+            .smecolor{
+                padding-left: 6px;
+                padding-right: 6px;
+                 color:#fff !important;
+                 background-color:#2fd0d4;
+                 padding-top: 2px;
+                 padding-bottom: 2px;
+                 font-size: 0.75rem;
+             }
+             
+             
+             .spaceend{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #d4eeff;
+                max-height: 32px;
+            }
+            .totalcolor{
+                h2{
+                    color: #136eb5;
+                    margin: 0px;
+                    font-size: 0.875rem;
+                }
+            }
+            .omrcolor{
+                @include flexstart();
+                h2{
+                    color:#136eb5;
+                    margin: 0px;
+                    font-size: 0.875rem;
+                    line-height: 1.5;
+                }
+                .colorcount{
+                    color:#136eb5;
+                    margin: 0px;
+                    font-size: 0.875rem;
+                    font-family: 'opal_semibold';
+                }
+            }
+            
+        }
+    
+    
+        .innerrows {
+        .eachtwoboxes {
+            width: 100%;
+        }
+        .cmpnyinfo {
+            margin-bottom: 0;
+            @include flexstart();
+            align-items: center !important;
+            padding-bottom: 22px;
+            margin: 0px;
+            .labelcmp {
+                color: #666666;
+                font-size: 0.875rem;
+                display: block;
+                min-width: 250px;
+            }
+            .infocmp {
+                color: #333;
+                font-size: 0.875rem;
+                min-width: 85px;
+            }
+        }
+       
+    }
+    
+
+    .thankyoupagepayment{
+        margin-left: auto;
+        border:1px solid #dadada;
+        background-clip: padding-box;
+        background-color: #fff;
+        height: 100%;
+        .successtick {
+            padding-bottom: 10px;
+            @include flexcenter();
+            span {
+                height: 64px;
+                width: 64px;
+                @include flexcenter();
+                border-radius: 100%;
+                background:#71c016;
+                color: #fff;
+                i {
+                    font-size: 1.875rem;
+                }
+            }
+        }
+        .successtexts {
+           
+            .thankstext {
+                color: #71c016;
+                font-size: 1.125rem;
+                font-weight: bold;
+                padding-left: 20px;
+                padding-right: 20px;
+                line-height: 2;
+            }
+            p {
+                color: #333;
+                font-size: 1rem;
+                word-break: break-word;
+            }
+            .supportmail {
+                color: #333333;
+                padding-bottom: 15px;
+                padding-top: 5px;
+            }
+           
+        }
+        .socialmedia {
+            padding-bottom: 15px;
+            text-align: center;
+            p {
+                margin-bottom: 0;
+                color: #333;
+                font-size: 1rem;
+                font-weight: bold;
+                padding-bottom: 15px;
+            }
+            ul {
+                list-style-type: none;
+                @include flexcenter();
+                padding-left: 0;
+                li {
+                    a {
+                        width: 34px;
+                        height: 34px;
+                        @include flexcenter();
+                        border-radius: 100%;
+                        margin-right: 15px;
+                        color:#006cb7;
+                        i {
+                            color:#fff;
+                        }
+                    }
+                }
+               
+            }
+        }
+        .continuehomepage {
+            margin-top: 10px;
+            height: 45px;
+            min-width: 200px;
+        }
+        .textalignword{
+            text-align: center;
+            margin: 0px;
+        }
+        .alignmode{
+            display: flex;
+        }
+        .labelcmp {
+            color: #666666;
+            font-size: 0.875rem;
+            display: block;
+            min-width: 250px;
+        }
+        .infocmp {
+            color: #333;
+            font-size: 0.875rem;
+        }
+        .paymentcolor{
+            color: #333333;
+            font-weight: bold;
+        }
+        .cmpnyinfo {
+            margin-bottom: 0;
+            margin-top: 0px;
+            @include flexstart();
+            align-items: center !important;
+            padding-bottom: 22px;
+            .labelcmp {
+                color: #666666;
+                font-size: 0.875rem;
+                display: block;
+                min-width: 250px;
+            }
+            .infocmp {
+                color: #333;
+                font-size: 0.875rem;
+            }
+        }
+        .spaceend{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #d4eeff;
+            max-height: 32px;
+        }
+        .totalcolor{
+            h2{
+                color: #136eb5;
+                margin: 0px;
+                font-size: 0.875rem;
+            }
+        }
+        .omrcolor{
+            h2{
+                color:#136eb5;
+                margin: 0px;
+                font-size: 0.875rem;
+            }
+        }
+        .suceessalign{
+            text-align: center;
+        }
+    }
+    
+    .aftercolorcontact{
+        cursor: pointer;
+    }
+
+    .aftercolorcontact{
+        font-size: 0.875rem;
+        color: #f4811f;     
+}
+
+
+.awaitingcolor{
+    color: #de1818;
+    font-family: 'opal_semibold';
+}
+
+.supportcolor{
+    color: #333333;
+}
+
+.alignpaymentstatus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+.occurcolor{
+    p{
+        color: #545454;
+        font-size: 0.9375rem;
+    }
+}
+
+.paymentaligncontinue{
+    @include flexcenter();
+        p{
+            color: #006cb7;
+            font-size: 0.9375rem;
+            text-decoration: underline;
+        } 
+        
+}
+
+.failedcolor{
+    h2{
+        color:#de1818;
+        font-size: 1.125rem;
+    }
+}
+
+.spaceendpaid{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #d4eeff;
+    max-height: 32px;
+    .paidwidth{
+        min-width: 238px;
+    }
+}
+.indiawidth{
+    width: 32px;
+    height: 18px;
+    padding-right: 8px;
+}
+
+
+
+@media (max-width: 768px) {
+    .leftcardwidth{
+        width: 100% !important;
+    }
+    #payonlinetablist .aligncenter {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 88% !important;
+    }
+    .widthform{
+        width: 100% !important;
+    }
+    .flexbank{
+        padding-left: 18px !important;
+    }
+   .numberresponsive{
+       padding-left: 0px !important;
+   }
+    .positionplacealign{
+        margin: 0px;
+        position: absolute;
+        top: 12px !important;
+        z-index: 99;
+        right:20px !important;
+        width: 150px;
+    }
+    .allboxinside{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 46px !important;
+        margin-top: -58px !important;
+    }
+    
+    #payonlinetablist .spacestraightalign {
+        display: block !important;
+    }
+
+    #payonlinetablist .widthload{
+        width: 100% !important;
+    }
+    .spacepayment{
+        margin-top: 10px;
+        margin-left: 0px !important;
+    }
+    .spacerightalign{
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+    .logogandcompnayinfo {
+        display: block !important;
+    }
+    .viewandvalidate .companyinformation .firstrow h3 {
+        padding-top: 18px;
+    }
+    .viewandvalidate .companyinformation {
+        padding-left: 0px !important;
+        width: auto !important;
+        .secondrow {
+            display: flex;
+        }
+       
+        .labelcmp {
+            color: #666666;
+            font-size: 0.875rem;
+            display: flex;
+            min-width: 148px !important;
+        }
+    }
+    .innerrows .eachtwoboxes {
+        display: block !important;
+    }
+    .viewandvalidate .companyinformation .secondrow {
+        display: block !important;
+        line-height: 24px;
+    }
+    .viewandvalidate {
+        background: linear-gradient(to bottom, #e0f0ff 202px, #fff 10px 40%) !important;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .leftcardwidth{
+        width: 100% !important;
+    }
+    #payonlinetablist .aligncenter {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 84% !important;
+    }
+    .mainresponsivewidth{
+        max-width: 90.33% !important;
+    }
+    .papernotewidth{
+        max-width: 100% !important;
+    }
+    .flexbank{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .depositwidth{
+        width: 100% !important;
+    }
+    .companyrow{
+        padding-left: 0px !important;
+    }
+    .validity{
+        padding-right: 0px !important;
+    }
+    #payonlinetablist .spacestraightalign {
+        display: block !important;
+    }
+    .spacerightalign{
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+    .allboxinside{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 108px;
+        margin-top: 4px !important;
+        z-index: 99;
+    }
+    .positionplacealign{
+        margin: 0px;
+        position: absolute;
+        top: 32px !important;
+        z-index: 99;
+        right:90px !important;
+        width: 150px;
+    }
+
+    #payonlinetablist .widthload{
+        width: 100% !important;
+    }
+    .spacepayment{
+        margin-top: 10px;
+        margin-left: 0px !important;
+    }
+    .spacerightalign{
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+    
+    
+    .viewandvalidate {
+        .viewandvalidate {
+            background: linear-gradient(to bottom, #e0f0ff 202px, #fff 10px 40%) !important;
+        }
+    }
+}
+@media (max-width: 1366px) and (min-width: 1280px)  {
+    .leftcardwidth{
+        width: 70% !important;
+    }
+    .rightsidecardwidth{
+        width: 48% !important;
+    }
+}
+
+@media (max-width: 767px) {
+ 
+    .leftcardwidth{
+        width: 100% !important;
+    }
+    .supplierflexalign{
+        display: block !important;
+    }
+    .certificatebackground{
+        display: block !important;
+    }
+    .thankyoupagepayment .cmpnyinfo {
+        margin-bottom: 0;
+        display: block !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        align-items: flex-start !important;
+        padding-bottom: 15px;
+    }
+    #payonlinetablist .aligncenter {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90% !important;
+    }
+    .spaceendpaid {
+        display: block !important;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: #d4eeff;
+        max-height: none !important;
+    }
+    .changeclassifyspace{
+        display: block !important;
+    }
+    .aftercolor{
+        margin-left: 0px !important;
+    }
+    
+     .flexbank{
+         padding-left: 0px !important;
+         padding-right: 0px !important;
+     }
+     .companyrow{
+         padding-left: 0px !important;
+     }
+     .validity{
+         padding-right: 0px !important;
+     }
+     .rightcardborder{
+        margin-right: 0px !important;
+        margin-left: 26px !important;
+     }
+     .alignrow{
+         display: block !important;
+         margin-left: 26px !important;
+     }
+     .omrresponsive{
+         padding-left: 0px !important;
+     }
+     .cancelbtndragdrop{
+         margin-right: 10px !important;
+     }
+     
+    .positionplacealign{
+        margin: 0px;
+        position: absolute;
+        top: 46px !important;
+        z-index: 99;
+        right: -23px !important;
+        width: 150px;
+    }
+    .innerrows .cmpnyinfo {
+        margin-bottom: 0;
+        display: block !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        padding-bottom: 15px;
+    }
+    #payonlinetablist .alignpassword {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start !important;
+        position: relative;
+        margin-top: 10px;
+    }
+    #payonlinetablist .spencercoorpaymentclassification {
+       display: block !important;
+       max-height: 105px !important;
+    }
+    #payonlinetablist .spacestraightalign {
+        display: block !important;
+    }
+
+    #payonlinetablist .widthload{
+        width: 100% !important;
+    }
+    .spacepayment{
+        margin-top: 10px;
+        margin-left: 0px !important;
+    }
+    .spacerightalign{
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+    
+}
+:host::ng-deep.changeclassifyspace{
+    @include flexstart();
+   .headerevent{
+       position: relative;
+       h2{
+         color: #fff;
+         margin: 0px;
+         padding-top: 4px;
+       }  
+   }
+   .cmpnyinfo {
+       margin-bottom: 0;
+      display: flex;
+      line-height: 1;
+      justify-content: flex-start;
+       align-items: center !important;
+       .labelcmpdep{
+           color: #666666;
+           font-size: 0.875rem;
+           min-width: 110px;
+   
+   }
+   .infocmpnance{
+       color: #333333;
+       font-size: 0.875rem;
+   }
+   }
+   .labelcmp {
+       color: #666666;
+       font-size: 0.875rem;
+       display: block;
+       min-width: 165px;
+   }
+   .infocmp {
+       color: #333;
+       font-size: 0.875rem;
+       min-width: 85px;
+       text-align: end;
+   }
+   .popover-body {
+       padding: 0px !important; 
+  }
+  .popover.popover-content .popover-body p {
+   color: #fff !important; 
+  font-size: 12px !important;
+  line-height: 1.5;
+       }
+  .popover.popover-content.sm {
+   background-color: #fff;
+   min-width: 366px;
+   box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.2);
+   z-index: 9999;
+}
+.popover.popover-content .popover-body {
+   color: #333;
+   font-size: 0.75rem;
+   line-height: 1.5;
+}
+.popover.popover-content.bs-popover-top .arrow::before, .popover.popover-content.bs-popover-top .arrow::after, .popover.popover-content.bs-popover-top-right .arrow::before, .popover.popover-content.bs-popover-top-right .arrow::after, .popover.popover-content.bs-popover-top-left .arrow::before, .popover.popover-content.bs-popover-top-left .arrow::after {
+   content: '';
+   border-top: 18px solid #fff;
+   border-left: 18px solid transparent;
+   border-right: 18px solid transparent;
+   position: absolute;
+   -webkit-transform: rotate(-180deg);
+   transform: rotate(-360deg);
+   left: -70px;
+   top: -8px;
+}
+.popover.popover-content.bs-popover-bottom .arrow::after, .popover.popover-content.bs-popover-bottom-right .arrow::after, .popover.popover-content.bs-popover-bottom-left .arrow::after {
+   top: 0rem;
+   border-bottom-color: #fff;
+}
+.popover.popover-content.bs-popover-bottom .arrow::before, .popover.popover-content.bs-popover-bottom-right .arrow::before, .popover.popover-content.bs-popover-bottom-left .arrow::before {
+   border-bottom-color: #fff;
+}
+.popover.popover-content.bs-popover-bottom .arrow::before, .popover.popover-content.bs-popover-bottom .arrow::after, .popover.popover-content.bs-popover-bottom-right .arrow::before, .popover.popover-content.bs-popover-bottom-right .arrow::after, .popover.popover-content.bs-popover-bottom-left .arrow::before, .popover.popover-content.bs-popover-bottom-left .arrow::after {
+   top:-2px;
+   border-width: 0 8px 8px 8px;
+}
+.popover.popover-content.bs-popover-bottom .arrow:before, .popover.popover-content.bs-popover-bottom .arrow:after, .popover.popover-content.bs-popover-bottom-right .arrow:before, .popover.popover-content.bs-popover-bottom-right .arrow:after, .popover.popover-content.bs-popover-bottom-left .arrow:before, .popover.popover-content.bs-popover-bottom-left .arrow:after {
+   top: -2px !important;
+}
+}
+
+
+.align{
+    text-align: end;
+}
+
+.countalgin{
+     min-width: 60px;
+     text-align: end;
+     color: #333;
+     font-size: 0.875rem;
+}

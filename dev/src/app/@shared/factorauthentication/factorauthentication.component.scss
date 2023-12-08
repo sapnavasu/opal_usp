@@ -1,0 +1,312 @@
+#weareenable {
+    min-height: calc(100vh - 70px);
+    min-width: 500px;
+
+    .mat-radio-button.mat-accent .mat-radio-inner-circle,
+    .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+    .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+    .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+        background-color: #4aa1ac !important;
+    }
+
+    .logoinlogin {
+        display        : flex;
+        justify-content: start;
+    }
+
+    .numberandcode {
+        .mat-form-field-infix {
+            display    : flex !important;
+            align-items: baseline;
+        }
+    }
+
+    .contact-details {
+        p {
+            margin     : 0;
+            color      : #333333;
+            display    : flex;
+            align-items: center;
+            line-height: 0;
+
+            span {
+                i {
+                    color: #DBA760;
+                }
+            }
+        }
+
+        h6 {
+            font-family: 'opal_semibold';
+            color      : #333333;
+        }
+    }
+
+    .easycolormail {
+        p {
+            color: #333333;
+        }
+
+        h2 {
+            color         : #DBA760;
+            text-align    : center;
+            line-height   : 1;
+            padding-bottom: 10px;
+            font-family   : 'opal_regular';
+        }
+    }
+
+    .logoinlogin {
+        text-align: center;
+
+        img {
+            width: 150px;
+
+        }
+    }
+
+    .lypislogoimage {
+        text-align: center;
+
+        h3 {
+            color: #DBA760;
+        }
+    }
+
+    .lypislogoimage {
+        h2 {
+            color: #596470 !important;
+        }
+
+    }
+
+    .flexalign {
+        width: 60%;
+    }
+
+    .paddingspacing {
+        div {
+            .otp-field {
+                width          : 60%;
+                justify-content: space-between !important;
+
+                p {
+                    span {
+                        font-size  : 14px;
+                        font-family: 'cairobold';
+                        color      : #DBA760;
+                    }
+                }
+
+                button {
+                    color          : #4AA1AC;
+                    background     : none;
+                    border         : none;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+    }
+
+    .submitbtn {
+        width           : auto !important;
+        background-color: #4AA1AC !important;
+        border-radius   : 2px !important;
+    }
+
+
+    .radiobtn {
+        display        : flex;
+        justify-content: space-between;
+        width          : 60%;
+
+        h6 {
+            font-family: 'opal_semibold';
+            color      : #333333;
+        }
+
+        label {
+            margin: 0;
+            color : #333333;
+            cursor: pointer;
+        }
+
+        input {
+            accent-color: chocolate;
+            width       : 15px;
+            height      : 15px;
+            cursor      : pointer;
+        }
+
+    }
+
+
+    .continue-btn {
+
+        button {
+            min-width: 120px;
+        }
+
+    }
+
+    .field-width {
+        width: 60%;
+    }
+
+    .flexalign.match {
+        input {
+            position: relative;
+        }
+    }
+
+    .alignflex {
+
+        #divOuter {
+            width   : 320px;
+            overflow: hidden;
+
+            #divInner {
+                left    : 0;
+                position: sticky;
+                width   : 100%;
+
+                #partitioned {
+                    padding-left  : 15px;
+                    letter-spacing: 62px;
+                    border        : 0;
+                    min-width     : 450px;
+                    outline       : none;
+                    position      : relative;
+                    top           : 5px;
+                }
+
+                #partitioned+span {
+                    width                : 405px;
+                    background-image     : linear-gradient(to left, black 69%, rgba(255, 255, 255, 0) 0%);
+                    background-position  : bottom;
+                    background-size      : 70px 1px;
+                    background-repeat    : repeat-x;
+                    background-position-x: 50px;
+                }
+            }
+        }
+    }
+
+    .verified {
+        position   : absolute;
+        left       : 50%;
+        padding-top: 5px;
+        color      : #48B04B;
+
+        i {
+            border       : 1px solid #48B04B;
+            padding      : 2px;
+            border-radius: 50%;
+            font-size    : 10px;
+            color        : #48B04B;
+            margin-right : 5px;
+        }
+    }
+}
+
+.verify {
+    display        : flex;
+    justify-content: start;
+}
+
+.divinner {
+    .mat-form-field-underline {
+        display: none;
+    }
+}
+
+.radiobtn {
+    h2 {
+        font-family  : 'opal_regular';
+        padding      : 0;
+        padding-top  : 10px !important;
+        color        : #333333;
+        padding-right: 10px;
+
+    }
+
+
+
+}
+
+#divInner {
+    input {
+        border        : none;
+        border-bottom : 1px solid #3333;
+        letter-spacing: 15px;
+        width         : 95px;
+    }
+}
+
+.alignflex {
+    display        : flex;
+    justify-content: start !important;
+}
+
+[dir=rtl] {
+    .weareenable {
+        .logoinlogin {
+            display        : flex;
+            justify-content: right;
+
+
+        }
+    }
+
+    .lypislogoimage.enable {
+        h2 {
+            text-align: right !important;
+        }
+    }
+
+    .lypislogoimage {
+        h3 {
+            text-align: right;
+        }
+
+    }
+
+    .easycolormail {
+        p {
+            text-align: right;
+        }
+    }
+
+    .field-width {
+        .verified {
+            right: 50%;
+        }
+    }
+
+}
+
+@media (min-width: 1920px) {
+    .otpfieldalign {
+        .flexalign {
+            width: 45% !important;
+        }
+    }
+}
+
+.swal-button {
+    background-color: #4AA1AC;
+    color           : #fff;
+    border          : none;
+    box-shadow      : none;
+    border-radius   : 1px;
+    font-weight     : 600;
+    font-size       : 14px;
+    padding         : 10px 24px;
+    margin          : 0;
+    cursor          : pointer;
+}
+
+.swal-button:not([disabled]):hover {
+    background-color: #4AA1AC;
+}

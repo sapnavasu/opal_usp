@@ -1,0 +1,211 @@
+<form class="basic-form organizationform">
+  <div fxLayout="row wrap" class=" ">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div fxLayout="row wrap" class="mastercompnaycontent">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="topheadermain">
+            <div class="imagewithtext">
+              <h4 class="mat-pagetitle-1">{{'enterpriseadmin.depa' | translate}}</h4>
+            </div>
+         
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center" class=" organizationdetail" id="mastercompanydetail" class="m-t-40">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-5">
+          <div fxLayout="row wrap" class="" fxLayoutAlign="center" class="p-b-15">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-10 p-r-10">
+              <app-usereachcounts #enterpriseCountRef></app-usereachcounts>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="" fxLayoutAlign="center" class="p-b-15">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="filterouterdiv p-t-10">
+                <app-departmentfilter class="makeitfullwidth" #enterpriseFilter [filterType]="2" [recentSearchType]="2"
+                  [paginatorData]="paginatorDataArray" (showLoaderviewdept)="departmentgridloader = $event" (departmentFilter)="departmentFilter($event)"
+                  (advanceDepartmentFilter)="advanceDepartmentFilter($event)"
+                  (departmentResetFilter)="deptReload($event)" (hideResponseLoader)="outputloader($event)">
+                </app-departmentfilter>
+
+                <button type="button" (click)="UserPermissionaddDep()" mat-raised-button color="preview"
+                  class="height-35  adduserbutton">
+                  <span>
+                    {{'enterpriseadmin.adddepa' | translate}}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+         
+          <div >
+            <div class="paginationwithfilter masterPageTop">
+              <mat-paginator [style.visibility]="(resultsLength > 4) ? 'visible' : 'hidden' "
+                class="masterPage masterPageTop" #paginator [length]="resultsLength"
+                (page)="pageEvent = $event; onPaginateBunitChange($event)" [pageSize]="15"
+                [pageSizeOptions]="paginationSet">
+              </mat-paginator>
+              <div fxLayout="row wrap" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-20" ngClass.lg="p-l-20" class="p-r-0">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="searchinfo">
+                  <div class="gotoeachmenus">
+                    <div class="manageoptions">
+                      <p class="managespanafter mangebackground"><span class="mangecolor">{{'enterpriseadmin.manag' | translate}}: </span> <span
+                          class="dropitem" [matMenuTriggerFor]="menutopmanage">{{'enterpriseadmin.depa' | translate}}</span></p>
+                      <mat-menu #menutopmanage="matMenu" class="master-menu">
+                        <button (click)="chkUserPermission('/enterpriseadmin/usermanagement',1)" mat-menu-item>
+                          <span>{{'enterpriseadmin.user' | translate}}</span>
+                        </button>
+                        <button (click)="chkUserPermission('/enterpriseadmin/department',2)" mat-menu-item>
+                          <span>{{'enterpriseadmin.depa' | translate}}</span>
+                        </button>
+                        <button  (click)="chkUserPermission('/enterpriseadmin/divisions',3)" mat-menu-item>
+                          <span>{{'enterpriseadmin.divisi' | translate}}</span>
+                        </button>
+                        <button  (click)="chkUserPermission('/enterpriseadmin/inviteduser',4)" mat-menu-item>
+                          <span>{{'enterpriseadmin.inviuser' | translate}} </span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div *ngIf="departmentgridloader" class="leftmainspace">
+              <div class="subcontent">
+                  <p class="pagetitle secondwidth"></p>
+                  <p class="pagetitle secondwidth"></p>
+                  <p class="pagetitle secondwidth"></p>
+                  <div class="descriptitlesector">
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                  </div>
+              </div>
+           </div>
+           <div [style.display]="!departmentgridloader ? 'block' :'none'">
+            <div fxLayout="row wrap" class="tabforclientelenew" [ngClass]="(resultsLength == 0) ? 'deprthiddentable' : ''" [style.visibility]="(resultsLength > 0) ? 'visible' : 'hidden' ">
+              <div fxFlex.gt-sm="100" fxFlex="100" class=" masterTable">
+                <div class="departmenttable">
+                  <mat-table class="corporatemetrics" #table matSort [dataSource]="dataSource" matSortDisableClear
+                    (matSortChange)="sortEvent($event)">
+                    <ng-container matColumnDef="departments">
+                      <mat-header-cell fxFlex="60" mat-sort-header *matHeaderCellDef disableClear>{{'enterpriseadmin.depa' | translate}} 
+                      </mat-header-cell>
+                      <mat-cell data-label="Departments" fxFlex="60" *matCellDef="let deptData"> {{deptData.deptName}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="divisions">
+                      <mat-header-cell fxFlex="30" mat-sort-header *matHeaderCellDef disableClear>{{'enterpriseadmin.divisect' | translate}} 
+                      </mat-header-cell>
+                      <mat-cell data-label="Division (Sector)" fxFlex="30" *matCellDef="let deptData">
+                        {{deptData.divisionCount}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="users">
+                      <mat-header-cell fxFlex="15" *matHeaderCellDef>{{'enterpriseadmin.user' | translate}}  </mat-header-cell>
+                      <mat-cell data-label="Users" fxFlex="15" *matCellDef="let deptData">
+                        <span class="cursor-pointer" [class.nopointer]="deptData.depusercount == 0"
+                          (click)="userDeptFilter(deptData.depusercount, deptData.deptPk)">{{deptData.depusercount}}</span>
+                          <!-- userCount to depusercount -->
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell fxFlex="15" *matHeaderCellDef>{{'enterpriseadmin.stat' | translate}}  </mat-header-cell>
+                      <mat-cell data-label="Status" fxFlex="15" *matCellDef="let deptData">
+                        <span class="depstatuscolor" [class.activecolor]="deptData.deptStatus == 1">
+                          {{deptData.deptStatus
+                          == 1 ? this.i18n('enterpriseadmin.active') : this.i18n('enterpriseadmin.inacive')}} </span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell fxFlex="10" *matHeaderCellDef>{{'enterpriseadmin.action' | translate}} </mat-header-cell>
+                      <mat-cell data-label="Action" fxFlex="10" *matCellDef="let deptData">
+                        <div class="manageoptions">
+                          <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon class="moremenucolor">more_vert</mat-icon>
+                          </button>
+                          <mat-menu #actionmenu="matMenu" class="master-menu whentootltipadded">
+
+                            <!-- <button type="button" *ngIf="deptData.divisionCount == '' || deptData.divisionCount == '0'" mat-menu-item  -->
+                            <button type="button" mat-menu-item 
+                              (click)="updateBunitDepartment(deptData.deptPk,deptData.userCount,deptData.divisionCount,deptData.depusercount)">
+                              <span>{{'enterpriseadmin.edit' | translate}} </span>
+                            </button>
+                            <button type="button" *ngIf="(deptData.deptStatus == 1 || deptData.deptStatus == 2)"
+                              mat-menu-item (click)="updateBunitStatus(deptData.deptPk, deptData.deptStatus,deptData.userCount)">
+                              <!-- <span
+                                popover="{{(deptData.userCount > 0)?'You cannot Deactivate this department since it is mapped to a user.':''}}"
+                                popoverPlacement="top" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                [popoverAnimation]="true"> -->
+                                {{((deptData.deptStatus == 1)? this.i18n('enterpriseadmin.deact') :  this.i18n('enterpriseadmin.activ'))}}
+                              <!-- </span> -->
+                            </button>
+                            <button type="button" *ngIf="deptData.deptStatus == 2" mat-menu-item
+                              (click)="deleteBunitStatus(deptData.deptPk)">
+                              <span>{{'enterpriseadmin.dele' | translate}}</span>
+                            </button>
+                          </mat-menu>
+                        </div>
+                      </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-5">
+                  <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                    <mat-paginator [style.visibility]="(resultsLength > 4) ? 'visible' : 'hidden' "
+                      class="masterPage masterbottom" showFirstLastButtons
+                      (page)="syncPrimaryPaginatorBunit($event)" [pageSize]="paginator?.pageSize"
+                      [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                      [pageSizeOptions]="paginator?.pageSizeOptions">
+                    </mat-paginator>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row wrap" [style.visibility]="(resultsLength == 0) ? 'visible' : 'hidden' " class="noducumentaddedyet"
+            id="fordepartmentresult">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="noresultsfound">
+                <img src="assets/images/Norecords.svg" alt="No Record found" />
+                <h2 class="fs-16 lypisfont-bold m-0 lh-25 p-t-20 text-lightgreen"
+                  [class.disabled]="(resultsLength > 0)?true:false">{{noDataAvailable}}</h2>
+              </div>
+            </div>
+             </div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<app-responseloader class="fixedaloders" *ngIf="departmentloader"></app-responseloader>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #configurebymodule class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-configurebymodule [configurebymodule]="configurebymodule" [menuModuleId]="menuModuleId"
+      [moduleUserDetails]="moduleUserDetails" (deptUserSearch)="deptUserSearch($event)"
+      (closeConfigureModule)="closeConfigureModule($event)" *ngIf="menuUserEnable" (reloadGrid)="reloadGrid()">
+    </app-configurebymodule>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawerdepartment class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-adddepartment #refBunitDept [drawerdepartment]="drawerdepartment" (deptReload)="deptReload($event)">
+    </app-adddepartment>
+  </mat-drawer>
+</mat-drawer-container>

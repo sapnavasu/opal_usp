@@ -1,0 +1,22 @@
+<div *ngIf="ongoingtraining " fxFlex.gt-sm="100" fxFlex="100" id="portalbatch" class="flex-column portalbatch m-t-25">
+        <h5 class="m-b-10 m-t-10 fs-16 title">{{'centredashboard.batchmgmnt' | translate}} <span class="m-l-5 infoicon" matTooltip="{{'portaladmin.batchmgmntcmmnt' | translate}}"><mat-icon>info_outline</mat-icon></span></h5>
+        <div class="overallbox">
+            <div fxLayout="row" fxLayoutGap="10px" >
+                <div *ngIf="ongoingtraining" fxFlex.gt-sm="50" fxFlex="100" class="flex-column staffinfo">
+                    <span class="clabel">{{'portaladmin.ongoingtraine' | translate}}</span>
+                    <span class="cvalue staffinfo" (click)="navigate(DashboardCounts.Ongoing_Training_of_Batch,'OGT')">{{DashboardCounts.Ongoing_Training_of_Batch}} <span class="linkarrow m-l-5"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></span></span>
+                </div>
+                <div *ngIf="req_rec_to_cng_accessor" fxFlex.gt-sm="50" fxFlex="100" class="flex-column staffinfo">
+                    <span class="clabel">{{'portaladmin.reqrecchange' | translate}}</span>
+                    <span class="cvalue staffinfo" (click)="navigate(DashboardCounts.Requested_Received_to_change_Assessor_of_Batch,'RCRR')">{{DashboardCounts.Requested_Received_to_change_Assessor_of_Batch}} <span class="linkarrow m-l-5"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></span></span>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px"  class="m-t-10" >
+                <div  *ngIf="req_for_backtrack" fxFlex.gt-sm="50" fxFlex="100" class="flex-column staffinfo">
+                    <span class="clabel">{{'portaladmin.reqbcktrck' | translate}}</span>
+                    <span class="cvalue staffinfo" (click)="navigate(DashboardCounts.Requested_for_Back_Track_of_Batch,'RFBT')">{{DashboardCounts.Requested_for_Back_Track_of_Batch}} <span class="linkarrow m-l-5"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    

@@ -1,0 +1,155 @@
+<head>
+    <meta charset="utf-8">
+    <title>Opal</title>
+    <meta property="og:title"
+        content="Shell EP Oman B.V (Oman Branch) & Shell Oman Exploration and Production B.V (Oman Branch) join JSRS" />
+    <meta property="og:url" content="https://businessgateways.com/bgi-news/2022/04/21/shell-oman-joins-jsrs" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="https://businessgateways.com/images/blog/165052415219701.jpg" />
+</head>
+<div dir="{{dir}}" id="main-container" class="{{dir}}">
+    <mat-drawer class="externalprofilesidenav" #drawer [mode]="isShowHideFlag">
+        <mat-icon aria-hidden="false" flex="100" flexLayoutAlign="end start" class="close" (click)="drawer.toggle();">close</mat-icon>
+        <mat-list class="sidenavmenulist m-t-40 " role="list" *ngIf="eng">
+            <mat-list-item role="listitem"><a href="{{basePath}}/">{{'registrationheader.home' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/about-us/">{{'registrationheader.abtus' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/sector-skills-unit/">{{'registrationheader.secskilinit' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/our-services/">{{'registrationheader.ourser' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/training/">{{'registrationheader.tainin' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/career-guidance/">{{'registrationheader.carguid' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/contact">{{'registrationheader.cont' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem" class="headerlogin"><a href="{{basePath}}/verify-product/">{{'registrationheader.verify' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem" class="headerlogin"><a routerLink="/registration/index">{{'registrationheader.regnow' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem" class="headerlogin"><a (click)="routeTo()">{{'registrationheader.log' | translate}}</a></mat-list-item>
+        </mat-list>
+        <mat-list class="sidenavmenulist m-t-40 " role="list" *ngIf="!eng">
+            <mat-list-item role="listitem"><a href="{{basePath}}/homear/">{{'registrationheader.home' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/about_ar/">{{'registrationheader.abtus' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/sector-skills_ar/">{{'registrationheader.secskilinit' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/our-services/">{{'registrationheader.ourser' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/training_ar/">{{'registrationheader.tainin' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/guidance_ar/">{{'registrationheader.carguid' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem"><a href="{{basePath}}/contact-us-ar/">{{'registrationheader.cont' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem" class="headerlogin"><a href="{{basePath}}/verify-product/">{{'registrationheader.verify' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem" class="headerlogin"><a routerLink="/registration/index">{{'registrationheader.regnow' | translate}}</a></mat-list-item>
+            <mat-list-item role="listitem" class="headerlogin"><a (click)="routeTo()">{{'registrationheader.log' | translate}}</a></mat-list-item>
+        </mat-list>
+    </mat-drawer>
+    <mat-toolbar class="topbar telative p-l-0 p-r-0">
+        <div class="main-header" fxLayout="row wrap" fxLayoutAlign="center" fxFlex="100">
+            <div class="Standardised p-0 maxwidthinnerpart">
+                <div class="head-logo p-t-4 p-b-4" fxLayoutAlign="space-between center" fxFlex="100">
+                    
+                   <!--  <div class="omanlogo">
+                        <img src="assets/images/opalimages/opalheaderlogo.svg" alt="oman energy association">
+                    </div> -->
+                    <div class="menu-item" fxFlex="100">
+                        <div class="nav-head p-t-7 p-b-7" fxLayoutAlign="space-between center">
+                            <img src="assets/images/opalimages/opalheaderlogo.svg" alt="opallogo" class="header_logo">
+                            <div class="mailandnumber">
+                                <div class="contact-nav " fxFlex-lg="100" fxLayout="row"  fxLayoutAlign="space-between center">
+                                    <div class="p-r-18" fxLayoutAlign="center center">
+                                        <!-- <mat-icon class="bgi bgi-phone-call fs-16 red p-r-10"></mat-icon> -->
+                                        <img class="fs-12 m-r-7" src="assets/images/opalimages/phone.png" alt="phicon">
+                                        <span class="fs-14 " *ngIf="eng">+968 24605700</span>
+                                        <span class="fs-14 " *ngIf="!eng">24605700 968+ </span>
+                                    </div>
+                                    <!-- <mat-divider [vertical]="true"></mat-divider> -->
+                                    <div class="p-l-18" fxLayoutAlign="center center">
+                                        <!-- <mat-icon class="bgi bgi-mail1 fs-16 red p-r-10"></mat-icon> -->
+                                        <img class="fs-12 m-r-7" src="assets/images/opalimages/mail.png" alt="email">
+                                        <span class="fs-14"><a href="mailto:usp@opaloman.org">usp@opaloman.org</a></span>
+                                    </div> 
+                                </div>
+                                <div fxLayoutAlign="space-between center" fxFlex.gt-sm="12" fxFlex.gt-lg="10"  class="icon-cont  m-l-30">
+                                    <!-- <mat-icon class="bgi bgi-facebook fs-16"></mat-icon>
+                                    <mat-icon class="bgi bgi-instagram fs-16"></mat-icon>
+                                    <mat-icon class="bgi bgi-instagram fs-16"></mat-icon>
+                                    <mat-icon class="bgi bgi-play_youtube fs-16"></mat-icon> -->
+                                <a href="https://www.facebook.com/OPALsocietyOman" target="_blank" class="socialicons m-r-15"><i class="opalicon opal-Facebook fs-15"></i></a>
+                                <a href="https://www.instagram.com/opalsocietyoman/" target="_blank" class="socialicons m-r-15"><i class="opalicon opal-Instagram fs-15"></i></a>
+                                <a href="https://www.youtube.com/channel/UCbVlwSlhOCWa-8LBKdvh7Mg" target="_blank" class="socialicons m-r-15"><i class="opalicon opal-Youtube fs-15"></i></a>
+                                <a href="https://www.linkedin.com/company/opal-oman-society-for-petroleum-services?original_referer=https%3A%2F%2Fopaloman.om%2F" target="_blank" class="socialicons m-r-15"><i class="opalicon opal-Linkdin fs-15"></i></a>
+                                <a href="https://twitter.com/opal_oman" target="_blank" class="socialicons m-r-15"><i class="opalicon opal-twitter fs-15"></i></a>
+                                </div>
+                           </div>
+                           <div fxLayout="row wrap" fxFlex="60" fxFlex.gt-sm="30" fxLayoutAlign="flex-end center"
+                           fxLayoutAlign.lt-sm="center center" class="loginarrowone m-b-13">
+                           <div  fxLayoutAlign="space-between center" class="nav_row">
+                              <a href="{{basePath}}/verify-product/" class="m-r-20"> <button mat-raised-button class="verifybutton" color="primary">{{'registrationheader.verify' | translate}}</button></a>
+                               <!-- <mat-icon class="bgi bgi-search fs-24 txt-gry"
+                                   fxLayoutAlign="center center">search</mat-icon> -->
+                               <mat-divider [vertical]="true"></mat-divider>
+                               <button class="lanbtn fs-16 txt-gry"
+                                   (click)="setLanguageFlag(lang);">{{'registrationheader.engl' | translate}}</button>
+                               <mat-divider [vertical]="true"></mat-divider>
+                               <button routerLink="/registration/index" class="regbtn fs-16 txt-gry">{{'registrationheader.regnow' | translate}}</button>
+                               <button [class.disabled]="usernameshow" (click)="routeTo()" mat-raised-button
+                                   class="logbtn">{{'registrationheader.log' | translate}}</button>
+                           </div>
+                       </div>
+                       <button class="lanbtn language fs-16 txt-gry"
+                                   (click)="setLanguageFlag(lang);">{{'registrationheader.engl' | translate}}</button>
+                           <button mat-icon-button (click)="drawer.toggle()" fxShow="true" class="menu_btn m-l-20">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                        </div>
+                        <div class="menubar-items m-t-14" fxLayoutAlign="space-between center">
+                          
+                            <ul *ngIf="eng" class="mainmenu fs-16 p-l-16 m-t-3" fxShow="true" fxFlex.gt-sm="60" fxFlex.gt-lg="65"
+                                fxFlex="100" fxLayoutAlign="space-between center" fxLayout="row">
+                                <li><a href="{{basePath}}/">{{'registrationheader.home' | translate}}</a></li>
+                                <li><a href="{{basePath}}/about-us/">{{'registrationheader.abtus' | translate}}</a></li>
+                                <li><a href="{{basePath}}/sector-skills-unit/">{{'registrationheader.secskilinit' | translate}}</a></li>
+                                <li><a href="{{basePath}}/our-services/">{{'registrationheader.ourser' | translate}}</a></li>
+                                <li><a href="{{basePath}}/training/">{{'registrationheader.tainin' | translate}}</a></li>
+                                <li><a href="{{basePath}}/career-guidance/">{{'registrationheader.carguid' | translate}}</a></li>
+                                <!-- <li><a href="{{basePath}}/faq/">{{'registrationheader.faq' | translate}}</a></li> -->
+                                <li><a href="{{basePath}}/contact">{{'registrationheader.cont' | translate}}</a></li>
+                            </ul>
+                            <!-- arabic menu -->
+                            <ul *ngIf="!eng" class="mainmenu fs-16 p-l-16 m-t-3" fxShow="true" fxFlex.gt-sm="60" fxFlex.gt-lg="65"
+                            fxFlex="100" fxLayoutAlign="space-between center" fxLayout="row">
+                            <li><a href="{{basePath}}/homear/">{{'registrationheader.home' | translate}}</a></li>
+                            <li><a href="{{basePath}}/about_ar/">{{'registrationheader.abtus' | translate}}</a></li>
+                            <li><a href="{{basePath}}/sector-skills_ar/">{{'registrationheader.secskilinit' | translate}}</a></li>
+                            <li><a href="{{basePath}}/our-service_ar/">{{'registrationheader.ourser' | translate}}</a></li>
+                            <li><a href="{{basePath}}/training_ar/">{{'registrationheader.tainin' | translate}}</a></li>
+                            <li><a href="{{basePath}}/guidance_ar/">{{'registrationheader.carguid' | translate}}</a></li>
+                            <!-- <li><a href="{{basePath}}/faq_ar/">{{'registrationheader.faq' | translate}}</a></li> -->
+                            <li><a href="{{basePath}}/contact-us-ar/">{{'registrationheader.cont' | translate}}</a></li>
+                        </ul>
+                            <div fxLayout="row wrap" fxFlex="100" fxFlex.gt-sm="30" fxLayoutAlign="flex-end center"
+                                fxLayoutAlign.lt-sm="center center" class="loginarrow m-b-13">
+                                <div  fxLayoutAlign="space-between center" class="nav_row">
+                                   <a href="{{basePath}}/verify-product/" class="m-r-20"> <button mat-raised-button class="verifybutton" color="primary">{{'registrationheader.verify' | translate}}</button></a>
+                                    <!-- <mat-icon class="bgi bgi-search fs-24 txt-gry"
+                                        fxLayoutAlign="center center">search</mat-icon> -->
+                                    <mat-divider [vertical]="true"></mat-divider>
+                                    <button class="lanbtn fs-16 txt-gry"
+                                        (click)="setLanguageFlag(lang);">{{'registrationheader.engl' | translate}}</button>
+                                    <mat-divider [vertical]="true"></mat-divider>
+                                    <button routerLink="/registration/index" class="regbtn fs-16 txt-gry">{{'registrationheader.regnow' | translate}}</button>
+                                    <button [class.disabled]="usernameshow" (click)="routeTo()" mat-raised-button
+                                        class="logbtn">{{'registrationheader.log' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </mat-toolbar>
+    <mat-sidenav-container fxFlexFill>
+        <mat-sidenav #snav mode="side">
+            <mat-nav-list>
+                <a href="#" mat-list-item>{{'registrationheader.home' | translate}}</a>
+                <a href="#" mat-list-item>{{'registrationheader.abtus' | translate}}</a>
+                <a href="#" mat-list-item>{{'registrationheader.secskilinit' | translate}}</a>
+                <a href="#" mat-list-item>{{'registrationheader.tainin' | translate}}</a>
+                <a href="#" mat-list-item>{{'registrationheader.approv' | translate}}</a>
+                <a href="#" mat-list-item>{{'registrationheader.carguid' | translate}}</a>
+            </mat-nav-list>
+        </mat-sidenav>
+    </mat-sidenav-container>
+</div>

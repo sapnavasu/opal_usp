@@ -1,0 +1,39 @@
+<div fxFlex.gt-sm="100" fxFlex="100" id="tmainofficecerti" class="flex-column tmainofficecerti m-t-10">
+    <h5 class="m-b-10 m-t-10 fs-16 title">{{'Primary Office Certification' | translate}} <span class="m-l-5 infoicon" matTooltip="{{'View details of the Primary Certification such as Status, Date of Expiry.' | translate}}"><mat-icon>info_outline</mat-icon></span></h5> 
+    <div class="maincertibox" *ngIf="rascompanydtls">
+        <div class="certi-imgname">
+            <div class="certi-img">
+                <img src="assets/images/opalimages/avatar.svg"/>
+            </div>
+            <div class="certi-name">
+                <span class="fs-15">{{rascompanydtls.omrm_branch_en}}</span>
+                <span *ngIf="rascompanydtls?.Office_Type == 1" class="officeBadge m-l-5">{{ 'Main Office' | translate }}</span>
+                <span *ngIf="rascompanydtls?.Office_Type == 2" class="officeBadge m-l-5">{{ 'Branch Office' | translate }}</span>
+                <i (click)="showprofile()" class="fa fa-eye fs-16 m-l-10" matTooltip="{{'info.view'  | translate}}"></i>
+            </div>
+        </div>
+        <div class="reddivider"></div>
+        <div class="certi-statusdetails">
+            <div fxLayout="row wrap" >
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="flex-column">
+                        <p class="m-b-10 fs-15">
+                            <span class="clabel">{{'centredashboard.status' | translate}}:</span>
+                            <span class="certistatus {{rascompanydtls.Status}}"> {{rascompanydtls.Status}} <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(rascompanydtls)" *ngIf="rascompanydtls?.Nearing_Expiry == '1' && (rascompanydtls?.appstatus == '1' || rascompanydtls?.appstatus == '3' || rascompanydtls?.appstatus == '17')">{{'Renew' | translate }}</span> 
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(rascompanydtls)" *ngIf="rascompanydtls?.Nearing_Expiry == '1' && (rascompanydtls?.appstatus == '2' || rascompanydtls?.appstatus == '4' )">View</span> 
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(rascompanydtls)" *ngIf="rascompanydtls?.Nearing_Expiry == '1' && (rascompanydtls?.appstatus == '5' || rascompanydtls?.appstatus == '18')">Make Payment</span> 
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(rascompanydtls)" *ngIf="rascompanydtls?.Nearing_Expiry == '1' && (rascompanydtls?.appstatus == '8')" >Confirm Site Audit Date</span> 
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(rascompanydtls)" *ngIf="rascompanydtls?.Nearing_Expiry == '1' && (rascompanydtls?.appstatus == '6' || rascompanydtls?.appstatus == '7' || rascompanydtls?.appstatus == '9' || rascompanydtls?.appstatus == '10'  || rascompanydtls?.appstatus == '11' || rascompanydtls?.appstatus == '12'|| rascompanydtls?.appstatus == '13')">View Status</span></span> 
+                        </p>                            
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <p class="m-b-5 m-t-0 fs-15">
+                        <span class="clabel">{{'centredashboard.dateofexp' | translate}}:</span> 
+                        <span class="cvalue"> {{rascompanydtls.Date_of_Expiry}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

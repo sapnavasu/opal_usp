@@ -1,0 +1,354 @@
+<div fxLayout="row wrap">
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+    <div fxFlex.gt-sm="100" fxFlex="100" id="mainviewlist">
+        <form [formGroup]="trainingprovform">
+            <div class="bannernewcontainer">
+                <img *ngIf="ifarabic == false && this.emptyimgenable == true" src="assets/images/opalimages/OPAL-Learning-Provider.jpg" alt="banner">
+                <img *ngIf="ifarabic == true && this.emptyimgenable == true" src="assets/images/opalimages/OPAL-Learning-Provider-Arabic.jpg" alt="banner">
+                <div class="banneroverlay">
+                    <app-filee #changebannerlogo  [fileMstRef]="drvInputed"
+                        (filesSelected)="fileeSelected($event,drvInputed)" isLogo=true formControlName="Upload" [appstatus]="appstatus">
+                    </app-filee>
+                    <div class="deleteandview">
+                        <span class="deleteimage m-r-20"  *ngIf="(isChangebanneredit && appstatus != 19) && this.emptyimgenable == true" matTooltipClass="mat_nowrapone" matTooltip="{{'viewprofile.clickfilee' | translate}}" (click)="opendrive();"><i class="bgi bgi-photo-camera"></i></span>
+                        <span class="deleteimage" *ngIf="appstatus != 19 && this.emptyimgenable == false"  matTooltipClass="mat_nowrap" matTooltip="{{'viewprofile.clickbann' | translate}} "><mat-icon (click)="deletebanner();">close</mat-icon></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="logogandcompnayinfo">
+            <div class="cmpnylogo m-b-15" *ngIf="!compdtls?.omrm_cmplogo">
+                <img src="assets/images/opalimages/viewprofile.png" onError="this.src = 'assets/images/viewprofile.png'"
+                    alt="company logo">
+            </div>
+            <div fxFlex.gt-sm="14" fxFlex="100" class="responsivewafterwidth m-b-15 m-l-10" *ngIf="compdtls?.omrm_cmplogo">
+                <div class="imagelgopaper imageafteronlinepay" [ngClass]="updated == true ? 'readonlyfield' : ' '">
+
+                    <!-- <div class="" *ngIf="compdtls?.omrm_companyname_ar"> -->
+                   <div class="" >
+                        <app-filee [readonly]="true" #logo class="heightfixed" [notePosition]="'bottom'"
+                            [fileMstRef]="drv_logo" isLogo=true (deleteImageID)="deleteLogo($event)"
+                            (filesSelected)="fileeSelected($event,drv_logo)">
+                        </app-filee>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            <div class="companyinformation m-l-20"  fxLayoutAlign="space-between center">
+                <div class="firstrow" fxLayoutAlign="flex-start center">
+                    <h3>{{ifarabic == true ? compdtls?.omrm_tpname_ar : compdtls?.omrm_tpname_en}}</h3>
+                    <div class="alignbranch m-l-15">
+                        <span class="fs-14" *ngIf="compdtls?.appiim_officetype == '1'">{{'table.main' | translate}}
+                            </span>
+                        <span class="fs-14" *ngIf="compdtls?.appiim_officetype == '2'">{{'table.branch' | translate}}
+                            </span>
+                    </div>
+                </div>
+                <p class="gold m-0">
+                    <!-- <span ><img src="assets/images/opalimages/GOLD.svg" alt="Bronze" title="Bronze"/></span>
+                   <span >
+                    <img src="assets/images/opalimages/GOLD.svg" alt="Silver" title="Silver"/></span> -->
+                    <span class="p-l-15 p-r-15" *ngIf="compdtls?.appdm_grademst_fk == '1' && ifarabic == false">
+                        <img src="assets/images/opalimages/Bronze.png" alt="star" />
+                        <!-- <span class="goldcolor bronze p-l-8">BRONZE</span> -->
+                    </span>
+
+                    <span class="p-l-15 p-r-15" *ngIf="compdtls?.appdm_grademst_fk == '2' && ifarabic == false">
+                        <img src="assets/images/opalimages/Silver.png" alt="star" />
+                        <!-- <span class="goldcolor silver p-l-8">SILVER</span> -->
+                    </span>
+
+                    <span class="p-l-15 p-r-15" *ngIf="compdtls?.appdm_grademst_fk == '3' && ifarabic == false">
+                        <img src="assets/images/opalimages/Gold.png" alt="star" />
+                        <!-- <span class="goldcolor p-l-8">GOLD</span> -->
+                    </span>
+                    <span class="p-l-15 p-r-15" *ngIf="compdtls?.appdm_grademst_fk == '1' && ifarabic == true">
+                        <img src="assets/images/opalimages/Bronze-Arabic.png" alt="star" />
+                        <!-- <span class="goldcolor bronze p-l-8">BRONZE</span> -->
+                    </span>
+
+                    <span class="p-l-15 p-r-15" *ngIf="compdtls?.appdm_grademst_fk == '2' && ifarabic == true">
+                        <img src="assets/images/opalimages/Silver-Arabic.png" alt="star" />
+                        <!-- <span class="goldcolor silver p-l-8">SILVER</span> -->
+                    </span>
+
+                    <span class="p-l-15 p-r-15" *ngIf="compdtls?.appdm_grademst_fk == '3' && ifarabic == true">
+                        <img src="assets/images/opalimages/Gold-Arabic.png" alt="star" />
+                        <!-- <span class="goldcolor p-l-8">GOLD</span> -->
+                    </span>
+                </p>
+
+            </div>
+        </div>
+
+        
+        <div class="p-l-10 p-t-40">
+            <div class="providetitle" fxLayoutAlign="flex-start center">
+                <p class="m-0 fs-16">{{'viewprofile.campname' | translate}}</p>
+                <span class="m-0 fs-16">{{ifarabic == true ? compdtls?.omrm_companyname_ar : compdtls?.omrm_companyname_en}}</span>
+            </div>
+            <div class="providetitle" fxLayoutAlign="flex-start center" *ngIf="compdtls?.appiim_officetype == '2'">
+                <p class="m-0 fs-16">{{'viewprofile.branchname' | translate}}</p>
+                <span class="m-0 fs-16">{{ifarabic == true ? compdtls?.appiim_branchname_ar :
+                    compdtls?.appiim_branchname_en}}</span>
+            </div>
+            <div class="providetitle" fxLayoutAlign="flex-start center">
+                <p class="m-0 fs-16">{{'viewprofile.cate' | translate}}</p>
+                <span class="m-0 fs-16" *ngFor = "let sdt of ofrcourdtls_cat ; let i=index">
+                    {{sdt?.ccm_catcode}} - {{ifarabic == true ? sdt?.appocm_coursename_ar : sdt?.appocm_coursename_en}}<span *ngIf="(ofrcourdtls_cat.length - 1) - i">,&nbsp;</span>
+                </span>
+            </div>
+            <div class="providetitle" fxLayoutAlign="flex-start center">
+                <p class="m-0 fs-16">{{'viewprofile.recodate' | translate}}</p>
+                <span class="m-0 fs-16">{{compdtls?.appdm_recognisedon | date:'dd-MM-yyyy'}}</span>
+            </div>
+            <div class="providetitle" fxLayoutAlign="flex-start center">
+                <p class="m-0 fs-16">{{'viewprofile.expidate' | translate}}</p>
+                <span class="m-0 fs-16">{{compdtls?.appdm_certificateexpiry | date:'dd-MM-yyyy'}}</span>
+            </div>
+
+
+            <div class="providetitle" fxLayoutAlign="flex-start center" *ngIf="compdtls?.appiim_officetype == '1'">
+                
+                <p class="m-0 fs-16">{{'viewprofile.location' | translate}}</p>
+                <span class="m-0 fs-16"><a class="txt-gry3" target="_blank" href="https://{{compdtls?.appiim_locmapurl}}" *ngIf="compdtls?.appiim_locmapurl"><mat-icon class="fs-25 txt-gry">location_on_outline </mat-icon></a>{{compdtls?.mainstate}} , {{compdtls?.maincity}}  </span>
+            </div>
+
+            
+            <div class="providetitle" fxLayoutAlign="flex-start center" *ngIf="compdtls?.appiim_officetype == '2'">
+                
+                <p class="m-0 fs-16">{{'viewprofile.location' | translate}}</p>
+                <span class="m-0 fs-16"> <a class="txt-gry3" target="_blank" href="https://{{compdtls?.appiim_locmapurl}}" *ngIf="compdtls?.appiim_locmapurl"><mat-icon class="fs-25 txt-gry">location_on_outline </mat-icon></a> {{compdtls?.branchstate}} , {{compdtls?.branchcity}}  </span>
+            </div>
+
+        </div>
+        <div class="p-t-40">
+            <app-bgimap #map *ngIf="enabled" [country]="mapMarkerLocation" [city_auto_list_filed]="true"
+                [lat_field]="true" [long_field]="true" [address_field]="false" [zoom_level]="1" [latitude]="latitude"
+                [longitude]="longitude" [draggable]="false" [street_view]="false" [searchboxApperance]="'standard'"
+                fxFlex.gt-sm="100" fxFlex="100" (locationObject)="getLocationDetails($event)">
+            </app-bgimap>
+        </div>
+
+        <mat-tab-group [disableRipple]="true" class="tabsdetail p-t-40">
+            <mat-tab>
+                <ng-template mat-tab-label class="label">
+                    <div class="tab-number descriptioncontent descript">
+                        <p class="tabname m-0">{{'viewprofile.opalstand' |
+                            translate}} </p>
+                    </div>
+                </ng-template>
+                <div fxLayout="row wrap" id="tabletopconatiner">
+                    <div fxFlex.gt-sm="100" fxFlex="100" id="awaredtablelist">
+                        <!-- <p class="fs-13 notecolor p-b-10">{{'For More information,Please Contact the training provider' | translate}}</p> -->
+                        <mat-table #table1 class="scrolldata" matSort matSortDisableClear [dataSource]="stdcourdtls">
+
+                            <ng-container matColumnDef="scm_coursename_en">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.title' |
+                                    translate}} </mat-header-cell>
+                                <mat-cell data-label="scm_coursename_en" fxFlex="33.33" *matCellDef="let standardcourse">
+                                    {{standardcourse.scm_coursename_en}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="rm_name_en">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.apprfor' |
+                                    translate}}</mat-header-cell>
+                                <mat-cell data-label="rm_name_en" fxFlex="33.33"
+                                    *matCellDef="let standardcourse">
+                                    {{standardcourse.rm_name_en}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="appdm_certificateexpiry">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.expidate' |
+                                    translate}}
+                                </mat-header-cell>
+                                <mat-cell data-label="appdm_certificateexpiry" fxFlex="33.33" *matCellDef="let standardcourse">
+                                    {{standardcourse.appdm_certificateexpiry | date:'dd-MM-yyyy'}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-first">
+                                <mat-header-cell fxFlex="33.33" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'table.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="title">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-second">
+                                <mat-header-cell fxFlex="33.33" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'table.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="approvedfor">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-third">
+                                <mat-header-cell fxFlex="33.33" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'table.search' |translate}}</mat-label>
+                                        <input [formControl]="expirydate" matInput type="text" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [minDate]="selected2" [showClearButton]="true" readonly
+                                            class="form-control" />
+                                        <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+
+                            <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumns">
+                            </mat-header-row>
+                            <!-- <mat-header-row id="searchrow" *matHeaderRowDef="['row-first' , 'row-second','row-third']">
+                            </mat-header-row> -->
+                            <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            <ng-container matColumnDef="disclaimer">
+                                <td mat-footer-cell *matFooterCellDef colspan="11">
+                                    <!--     
+                                    <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100"
+                                        *ngIf="!batchtraningdata_datalist">
+                                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                            <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                            <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                        </div>
+                                    </div> -->
+                                </td>
+                            </ng-container>
+                            <ng-container>
+                                <mat-footer-row [class.stickyclass]="(resultsLengthTWO > 0) ? 'none' : 'block'"
+                                    [style.display]="(resultsLengthTWO > 0) ? 'none' : 'block' "
+                                    *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                </mat-footer-row>
+                            </ng-container>
+                        </mat-table>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label class="label">
+                    <div class="tab-number descriptioncontent descript">
+                        <p class="tabname m-0">{{'viewprofile.offercour' |
+                            translate}}</p>
+                    </div>
+                </ng-template>
+                <div fxLayout="row wrap" id="tabletopconatiner">
+                    <div fxFlex.gt-sm="100" fxFlex="100" id="awaredtablelist">
+
+                        <!-- <p class="fs-13 notecolor p-b-10">{{'For More information,Please Contact the training provider' | translate}}</p> -->
+
+                        <mat-table #table2="matSort" class="scrolldata" matSort matSortDisableClear [dataSource]="ofrcourdtls">
+
+                            <ng-container matColumnDef="appocm_coursename_en">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.title' | translate}} </mat-header-cell>
+                                <mat-cell data-label="appocm_coursename_en" fxFlex="33.33" *matCellDef="let ofrcourdtls">
+                                    {{ifarabic == true ? ofrcourdtls?.appocm_coursename_ar :
+                                    ofrcourdtls?.appocm_coursename_en}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="appocm_courseduration">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.duration' | translate}}</mat-header-cell>
+                                <mat-cell data-label="appocm_courseduration" fxFlex="33.33"
+                                    *matCellDef="let ofrcourdtls">
+                                    {{ofrcourdtls?.appocm_courseduration}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="ccm_catname_en">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.category' | translate}}
+                                </mat-header-cell>
+                                <mat-cell data-label="ccm_catname_en" fxFlex="33.33" *matCellDef="let ofrcourdtls">
+                                    {{ifarabic == true ? ofrcourdtls?.ccm_catname_ar : ofrcourdtls?.ccm_catname_en}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="levelone">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.level' | translate}}
+                                </mat-header-cell>
+                                <mat-cell data-label="levelone" fxFlex="33.33" *matCellDef="let ofrcourdtls">
+                                    {{ifarabic == true ? ofrcourdtls?.rm_name_ar : ofrcourdtls?.rm_name_en}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="type">
+                                <mat-header-cell fxFlex="33.33" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    {{'viewprofile.type' | translate}}
+                                </mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="33.33" *matCellDef="let ofrcourdtls">
+                                    <span>{{'viewprofile.offercour' | translate}}</span>
+                                </mat-cell>
+                            </ng-container>
+                            
+
+                            <ng-container matColumnDef="row-first">
+                                <mat-header-cell fxFlex="33.33" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'table.search' | translate}}</mat-label>
+                                        <input matInput [formControl]="titleofr">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-second">
+                                <mat-header-cell fxFlex="20.33" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'table.search' | translate}}</mat-label>
+                                        <input matInput [formControl]="approvedforofr">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-third">
+                                <mat-header-cell fxFlex="20.33" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'table.search' |translate}}</mat-label>
+                                        <input matInput type="text" [formControl]="expirydateofr" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [minDate]="selected2" [showClearButton]="true" readonly
+                                            class="form-control" />
+                                        <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+
+                            <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumn">
+                            </mat-header-row>
+                            <!-- <mat-header-row id="filtershow" *matHeaderRowDef="['row-first' , 'row-second','row-third']">
+                            </mat-header-row> -->
+                            <mat-row mat-row *matRowDef="let row; columns: displayedColumn;"></mat-row>
+                            <ng-container matColumnDef="disclaimer">
+                                <td mat-footer-cell *matFooterCellDef colspan="11">
+                                    <!--     
+                                    <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100"
+                                        *ngIf="!batchtraningdata_datalist">
+                                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                            <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                            <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                        </div>
+                                    </div> -->
+                                </td>
+                            </ng-container>
+                            <ng-container>
+                                <mat-footer-row [class.stickyclass]="(resultsLengthTWO > 0) ? 'none' : 'block'"
+                                    [style.display]="(resultsLengthTWO > 0) ? 'none' : 'block' "
+                                    *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                </mat-footer-row>
+                            </ng-container>
+                        </mat-table>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</div>

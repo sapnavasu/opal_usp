@@ -1,0 +1,104 @@
+<div fxLayoutAlign="center start" id="inspectiondate" class="commonForm">
+    <app-responseloader *ngIf="PageLoaders"></app-responseloader>
+    <div fxFlex="100" fxFlex.gt-sm="100">
+        <app-infobox  *ngIf="devicePk" [devicePk]="devicePk" [page]="'renew'" ></app-infobox>
+        <form autocomplete="off" [formGroup]="inspectionDate" class="m-t-40">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Odometer Reading (in km)' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            appNumberonly maxlength="7" required formControlName="odometer">
+                        <mat-error *ngIf="Form.odometer.errors?.required || Form.submitted">
+                            {{'Enter the Odometer Reading (in km)' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100" >
+                    <mat-form-field appearance="outline">
+                        <mat-label> {{'Installation Date' | translate}}</mat-label>
+                        <input matInput required formControlName="date_Inspect"
+                            (mousedown)="picker.open(); $event.preventDefault"
+                            (dateChange)="getInstallerlistByVehiclPk()" [disabled]="picker.opened"
+                            [matDatepicker]="picker" readonly [min]="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="Form.date_Inspect.errors?.required || Form.submitted">
+                            {{'Select Installation Date' | translate}} </mat-error>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start start" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100" class=m-t-5>
+                    <div class="drpickerasset timeaddpicker">
+                        <div fxLayoutAlign="flex-start" class="pos-relative">
+                            <div class="drpickerstartend borderbrfore">
+                                <mat-label class="txt-gry">{{'Start Time' |translate}} <span class="red">*</span>
+                                </mat-label>
+                                <mat-form-field class="beforrshow">
+                                    <input matTimepicker #t="matTimepicker" [minDate]="minValue"
+                                        (timeChange)="setInspectionTime(); getInstallerlistByVehiclPk()"
+                                        [maxDate]="Form.inspEndtime.value" formControlName="inspStarttime" required>
+                                    <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                                    <mat-error class="fs-13" *ngIf="Form.inspStarttime.errors">
+                                        {{'Select the Inspection Start time' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="drpickerstartend m-l-40">
+                                <mat-label class="txt-gry">{{'End Time' | translate}} <span class="red">*</span>
+                                </mat-label>
+                                <mat-form-field>
+                                    <input matTimepicker #t="matTimepicker" [minDate]="Form.inspStarttime.value"
+                                        [maxDate]="maxValue"
+                                        (timeChange)="setInspectionTime(); getInstallerlistByVehiclPk()"
+                                        formControlName="inspEndtime" required>
+                                    <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                                    <mat-error class="fs-13" *ngIf="Form.inspEndtime.errors?.required">
+                                        {{'Select the Inspection End time' | translate}} </mat-error>
+                                    <mat-error class="fs-13" *ngIf="Form.inspEndtime.errors?.maxdate">
+                                        {{'Select the Valid Inspection End time' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100" class="m-b-24">
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="name_Inspect"
+                            panelClass="select_with_search" [disableOptionCentering]="true">
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'Search' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchInspector"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchInspector = ''" class="reseticon" matSuffix
+                                    *ngIf="searchInspector !='' && searchInspector !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let con of inspectorlist | filter : searchInspector"
+                                    [value]="con.pk">
+                                    {{ con.oum_firstname }}
+                                </mat-option>
+                                <div *ngIf="inspectorlist?.length == 0">{{'No Records Found' |
+                                    translate}}</div>
+                            </div>
+                        </mat-select>
+                        <mat-label>{{'Installer Name' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.name_Inspect.errors?.required || Form.submitted">
+                            {{'Select the Installer Name from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-end center" class="groupBtns m-t-20">
+                <button mat-raised-button type="button" (click)="cancle();" class="standardbutton mat-white-bg">{{'Cancel' |
+                    translate}}</button>
+                <button mat-raised-button type="submit" (click)="Vehicleregister();" class="standardbutton mat-red-bg">{{'Submit' |
+                    translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

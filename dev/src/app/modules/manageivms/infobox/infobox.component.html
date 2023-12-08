@@ -1,0 +1,145 @@
+<div id="ivmsinfobox" *ngIf="viewdata">
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+    <div class="infoCard" fxFlex="100" fxLayout="column">
+        <div class="userinfo" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <p class="txt-gry fs-15">{{'Owner Name' | translate}} <br> <span
+                    class="fs-18 fw-m txt-gry3">{{viewdata.owner_name}}</span></p>
+            <div class="matbutton">
+                <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                aria-label="Example icon-button with a menu">
+                <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                 </button>
+                    <mat-menu #actionmenu="matMenu" class="master-menu whentootltipadded table_menu">
+                        <button type="button" mat-menu-item *ngIf="(updateaccess || isfocalpoint == 1 && stktype == 2) && (viewdata.installation_status == 1 && userPk == viewdata.ivrd_createdby) " (click)="editdevicedetails(viewdata)" ><span>{{'Edit Vehicle Details'| translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="(viewdata.installation_status == 1) && isInstaller && (userPk == viewdata.ivrd_Installername) && createaccess && (pagetype != 'upload')" (click)="installationreport('upload',viewdata)"><span>{{'Upload Installation Report'|translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="(viewdata.installation_status == 7) && isInstaller && (userPk == viewdata.ivrd_Installername) && createaccess && (pagetype != 'upload')" (click)="installationreport('update',viewdata)"><span>{{'Update Installation Report'|translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="(viewdata.installation_status == 3) && (createaccess || isfocalpoint == 1 && stktype == 2)" (click)="schedule(viewdata)"><span>{{'Schedule for Device Replacement'|translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="(viewdata.installation_status == 2) && approvalaccess && isSeniorTech && (userPk != viewdata.ivrd_Installername) && (pagetype != 'approve')" (click)="viewandapprove('Approve',viewdata)"><span>{{'View & Approve'|translate}}</span></button>
+                        
+                        <button type="button" mat-menu-item *ngIf="(pagetype != 'view')" (click)="viewButton('viewDetails')"><span>{{'View Details'|translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="viewdata.irvrd_viewcertificatepath && (viewcertificateaccess || adminreadaccess || isfocalpoint == 1)" (click)="printorviewcertificate(viewdata,1)"  ><span><a target="_blank" class="view_Cert" href="{{this.url+viewdata.irvrd_viewcertificatepath}}">{{'View IVMS Certificate'
+                            |translate}}</a></span></button>
+                        <button type="button" mat-menu-item *ngIf="viewdata.ivrd_printcertificatepath && (printcertificateaccess || adminupdateaccess || isfocalpoint == 1)"  (click)="printorviewcertificate(viewdata,2)" ><span><span><a target="_blank" class="view_Cert" href="{{this.url+viewdata.ivrd_printcertificatepath}}">{{'Print IVMS Certificate'
+                            |translate}}</a></span></span></button>
+                        <button type="button" mat-menu-item *ngIf="(viewdata.ifExpired == 1 || viewdata.ifNearingExpiry == 1) && viewdata.certi_status != 1 && viewdata.certi_status != 4 && viewdata.installation_status == 3 && (createaccess ||  (isfocalpoint == 1 && stktype == 2)) && (pagetype != 'renew')" (click)="renew(viewdata)"><span>{{'Renew Now' | translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="getRemovedivicecondition(viewdata) && (createaccess || isfocalpoint == 1 && stktype == 2)" (click)="removedevice(viewdata)" ><span>{{'Cancel (Remove Device)'| translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="(viewdata.installation_status == 1 )&& (updateaccess || isfocalpoint == 1 && stktype == 2 ) && userPk == viewdata.ivrd_createdby" (click)="cancelregistration(viewdata)" ><span>{{'Cancel Registration'| translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf=" viewdata.installation_status == 3 && stktype == 1 && (adminupdateaccess || isfocalpoint == 1)" (click)="generatesticker(viewdata)" ><span>{{'Re-generate IVMS Certificate' |translate}}</span></button>
+                    </mat-menu>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="registratedinfo" fxLayout="row wrap"
+            fxLayoutAlign="space-between center">
+            <div fxLayout="row wrap" fxFlex="100" class="contain" *ngIf="viewdata.office_type == '2'">
+                <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46"  fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Office Type" | translate}} </p>
+                    <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.office_type == '1'?
+                        'Main Office':'Branch office' | translate}} </span>
+                </div>
+                <div fxLayout="row" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Branch Name" | translate}} </p>
+                    <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ifarbic == true ?
+                        (viewdata.branch_name_ar?viewdata.branch_name_ar:'-'):
+                        (viewdata.branch_name?viewdata.branch_name:'-')}} </span>
+                </div>
+            </div>
+          <div fxLayout="row wrap" fxFlex="100" class="contain" >
+            <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent " *ngIf="viewdata.office_type == '1'">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Office Type" | translate}}
+                </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.office_type == '1'?
+                    'Main Office':'Branch office' | translate}} </span>
+            </div>
+            <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent ">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Vehicle Reg. Number" | translate}}
+                </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.vehichle_reg |
+                    translate}} </span>
+            </div>
+            <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Vehicle Category" | translate}} </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ifarbic == true ?
+                    (viewdata.vechile_cate_ar):
+                    (viewdata.vechile_cate)}} </span>
+            </div>
+            <!-- <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Vehicle Sub-Category" | translate}} </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ifarbic == true ?
+                    (viewdata.vechile_Subcate_ar):
+                    (viewdata.vechile_Subcate)}} </span>
+            </div> -->
+            <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Applicant Type" | translate}} </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.applicant_type == '1'?
+                    'Initial':(viewdata.applicant_type == '2' ? 'Device Replacement':'Renewal') | translate}} </span>
+            </div>
+                <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Chassis Number" | translate}} </p>
+                    <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.chasis_number |
+                        translate}} </span>
+                </div>
+                <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Vehicle Sub-Category" | translate}} </p>
+                    <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ifarbic == true ?
+                        (viewdata.vechile_Subcate_ar):
+                        (viewdata.vechile_Subcate)}}</span>
+                </div>
+                <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Installation Status" | translate}}
+                    </p>
+                    <span class="fs-15 txt-gry3 m-0">
+                        <span *ngIf="viewdata.installation_status == 1 && viewdata.applicant_type == 3">{{'Health Check Pending' | translate}}</span>
+                        <span *ngIf="viewdata.installation_status == 1 && viewdata.applicant_type != 3">{{'Installation Pending' | translate}}</span>
+                        <span *ngIf="viewdata.installation_status == 2">{{'Approval Pending' | translate}}</span>
+                        <span *ngIf="viewdata.installation_status == 3">{{'Completed' | translate}}</span>
+                        <span *ngIf="viewdata.installation_status == 4">{{'Registration cancelled' | translate}}</span>
+                        <span *ngIf="viewdata.installation_status == 5">{{'Cancelled (Device Replacement Requested)' | translate}}</span>
+                        <span *ngIf="viewdata.installation_status == 6">{{'Device Removed and Cancelled' | translate}}</span>
+                        <span *ngIf="viewdata.installation_status == 7">{{'Declined by Senior Technician' | translate}}</span>
+                    </span>
+                </div>
+            <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Device Model No." |
+                    translate}} </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.ivms_device |
+                    translate}} </span>
+            </div>
+            <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Installer Name" | translate}} </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.installer_name |
+                    translate}} </span>
+            </div>
+            <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Installation Certificate Status" |
+                    translate}} </p>
+                <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">
+
+                    <span *ngIf="viewdata.certi_status == 1">{{'New'| translate}}</span>
+                    <span *ngIf="viewdata.certi_status == 2">{{'Valid' | translate}}</span>
+                    <span *ngIf="viewdata.certi_status == 3">{{'Expired' | translate}}</span>
+                    <span *ngIf="viewdata.certi_status == 4">{{'Cancelled' | translate}}</span>
+                </span>
+            </div>
+                <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Device IMEI Number" | translate}}
+                    </p>
+                    <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{ viewdata.device_IMEI |
+                        translate}} </span>
+                </div>
+                <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-xs="215px" fxFlex="127px">{{"Installation Date & Time" |
+                        translate}} </p>
+                    <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0" ngClass="p-l-10">{{
+                        viewdata.installationdate_time}} <span *ngIf="viewdata.startTime && viewdata.endTime">({{
+                            viewdata.startTime}} - {{ viewdata.endTime}})</span> </span>
+                </div>
+                <div fxLayout="row" fxflex="100" fxFlex.gt-sm="46" fxFlex.md="35" fxFlex.gt-md="33" class="m-t-10 infocontent">
+                    <p class="fs-15 txt-gry m-0" fxFlex.gt-sm="215px" fxFlex="127px">{{"Date of Expiry" | translate}} </p>
+                    <span class="fs-15 txt-gry3 m-0" ngClass.gt-xs="p-l-0"
+                        ngClass="p-l-10">{{viewdata.dateofexp ? viewdata.dateofexp :'-'}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

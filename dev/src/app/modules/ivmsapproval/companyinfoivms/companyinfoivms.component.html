@@ -1,0 +1,141 @@
+<div id="company_ivms" class="commonForm" fxLayoutAlign="center">
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+    <div class="compantdtl m-t-30" fxFlex="100">
+        <div fxLayoutAlign="space-between center">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'company.compdeta' | translate}}</h4>
+                <span class="badge new" *ngIf="acdt_status == 1">{{'company.new' | translate}}</span>
+                <span class="badge update" *ngIf="acdt_status == 2">{{'table.updated' | translate}}</span>
+                <span class="badge appr" *ngIf="acdt_status == 3">{{'company.appr' | translate}}</span>
+                <span class="badge decl" *ngIf="acdt_status == 4">{{'company.decl' | translate}}</span>
+            </div>
+            <div class="validbtn">
+               <app-validation [callbackFn]="onValidation" [submitbutton]="'validation.sumb' | translate" [addClass]="'validetbtn'" [buttonName]="'validation.vali' | translate" ></app-validation>
+            </div>
+        </div>
+        <div class="m-l-0 m-r-0 m-b-20" *ngIf="acdt_status == 2" [ngClass]="hisstatus == 4 ? 'declinecmd' : 'successcmd'">
+            <p class="18 comment" >{{'company.declcomm' | translate}}</p>
+            <p class="16 m-b-30" [innerHtml]='acdt_appdecComments'></p>
+                <mat-divider></mat-divider>
+               <div class="validinfo"  fxLayout="row wrap" >
+                <p class="fs-16 txt-gry m-r-40">{{'company.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{acdt_appdecon}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'company.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{oum_firstname}}</span></p>
+               </div>
+        </div>
+        <div class="profile m-t-10 m-b-10">
+            <!-- <img *ngIf="logo != 'noimage'" src="{{logo}}"  alt="complogo"> -->
+            <img  src="assets/images/opalimages/noimagecomp.svg" class="profileImages" alt="logo">
+        </div>
+        <div class="company_dtlview">
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.compnameeng' | translate}}</p>
+                <span>{{company_name_en}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.compnamear' | translate}}</p>
+                <span>{{company_name_ar}}</span>
+            </div>
+            <!-- Ras -->
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Centre Name (English)' | translate}}</p>
+                <span>{{omrm_branch_en}}</span>
+            </div>
+            <!-- Ras -->
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Centre Name (Arabic)' | translate}}</p>
+                <span>{{omrm_branch_ar}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.opalmemb' | translate}}</p>
+                <span>{{opal_memb_no}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.opalmembdate' | translate}}</p>
+                <span>{{opal_memb_expiry}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.compcr' | translate}}</p>
+                <span>{{comp_cr_no}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.compcrdate' | translate}}</p>
+                <span>{{comp_cr_expiry}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.uplcracti' | translate}}</p>
+                <span class="document"><a href="{{crImage}}" target="_blank" class="txt-gry3" fxLayoutAlign="flex-start center"><img src="assets/images/opalimages/{{mcfd_filetype}}_new.svg" alt="cractivitydocument" class="m-r-5" fxFlex="32px">{{'View' | translate }}</a></span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.addrline' | translate}} 1</p>
+                <span>{{address1}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.addrline' | translate}} 2</p>
+                <span *ngIf="address2" >{{address2}}</span>
+                <span *ngIf="!address2" >-</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.gove' | translate}}</p>
+                <span>{{ifarabic == true ? osm_statename_ar :
+                        osm_statename_en}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.wila' | translate}}</p>
+                <span>{{ifarabic == true ? ocim_cityname_ar :
+                        ocim_cityname_en}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Customer Support Number 1' | translate}}</p>
+                <span>{{customer_supp}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Customer Support Number 2' | translate}}</p>
+                <span>{{customer_supptwo}}</span>
+            </div>
+            <h4 class="fs-18 m-t-40">{{'company.genemana' | translate}}</h4>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.name' | translate}}</p>
+                <span>{{gm_name}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.emai' | translate}}</p>
+                <span>{{gm_emailid}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.mobinumb' | translate}}</p>
+                <span>{{gm_mobnum}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row" *ngIf="this.projectpk == 1">
+                <p class="m-0">{{'company.mohegrad' | translate}}</p>
+                <span>{{ifarabic == false ? omgm_gradename_en :
+                        omgm_gradename_ar}}</span>
+            </div>
+            <h4 class="fs-18 m-t-40">{{'company.focapoin' | translate}}</h4>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.name' | translate}}</p>
+                <span>{{focalpoint_name}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.desi' | translate}}</p>
+                <span>{{focalpoint_desig}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.emai' | translate}}</p>
+                <span>{{focalpoint_emailid}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.mobinumb' | translate}}</p>
+                <span>{{focalpoint_mobno}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Work Experience Document' | translate}}</p>
+                <span class="document"><a href="#" target="_blank" class="txt-gry3" fxLayoutAlign="flex-start center"><img src="assets/images/opalimages/{{mcfd_filetype}}_new.svg" alt="cractivitydocument" class="m-r-5" fxFlex="32px">{{'View' | translate }}</a></span>
+            </div>
+        </div>
+         <!-- buttons -->
+         <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish groupBtns m-t-30">
+            <button mat-raised-button type="button" (click)="cancel.emit()" class="standardbutton mat-white-bg">{{'company.canc' | translate}}</button>
+            <button mat-raised-button type="button" (click)="next.emit()" class="standardbutton mat-red-bg">{{'international.next' | translate}}</button>
+        </div>
+    </div>
+</div>

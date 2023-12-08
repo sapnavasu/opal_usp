@@ -1,0 +1,112 @@
+<div ngClass.xs="m-l-10 m-r-10" ngClass.sm="m-l-10 m-r-10" class="m-b-15">
+
+  <div fxLayout="row wrap" class="organisationinfo">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div ngClass.xs="p-l-0" ngClass.sm="p-l-0" fxLayout="row wrap">
+        <div fxFlex.gt-sm="60" fxFlex="100" class="alignwidth">
+          <div class="accrodianheader">
+            <p class="header m-0 fs-15 p-l-4">
+              <span class="titlecolor">{{ panelTitle }}</span>
+            </p>
+          </div>
+
+        </div>
+        <div class="certiticatecountsalign">
+          <div class="certiticatecounts">
+            <mat-paginator class="masterPage masterPageTop"
+              [style.visibility]="(resultsLength > perpage) ? 'visible' : 'hidden' " #paginator [length]="resultsLength"
+              [pageSize]="perpage" (page)="pageEvent = $event; onPaginateChange($event);"
+              [pageSizeOptions]="paginationSet">
+            </mat-paginator>
+          </div>
+          <div class="align">
+            <mat-form-field class="m-r-15" *ngIf="panelDataList.length != 0">
+              <input autocomplete="off" placeholder="Search" matInput [(ngModel)]="search">
+              <button *ngIf="showSearchIcon" [disabled]="!search" mat-button matSuffix mat-icon-button
+                aria-label="Search" (click)="onFilterSubmit();showSearchIcon=false">
+                <mat-icon matSuffix>search</mat-icon>
+              </button>
+              <button *ngIf="!showSearchIcon" mat-button matSuffix mat-icon-button aria-label="Clear"
+                (click)="search = '';onFilterSubmit();showSearchIcon=true">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <button mat-raised-button (click)="openToggle()" class="addbutton margin height-35 p-l-20 p-r-20"><i
+                class="bgi bgi-add m-r-10 fs-8"></i>
+              <span> Add </span></button>
+          </div>
+
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="addedcertificate" *ngFor=" let listdata of panelDataList">
+            <div class="certificates">
+              <div class="certificateimage">
+                <img src="assets/images/noimage.png" alt="noimage.png">
+              </div>
+              <div class="companyandofficeinfo">
+                <span style="cursor: pointer;" title="{{listdata?.fullName}}" (click)="editUser(listdata?.userPk)">
+                  <h3 class="name">{{listdata?.fullName | truncate:[40]}}</h3>
+                </span>
+                <div fxLayout="row wrap" class="countryandcrinfo">
+                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="eachitem">
+                    <p class="fs-12"><span class="lablename">Designation</span></p>
+                    <p class="fs-14" title="{{listdata?.designation}}">{{listdata?.designation |truncate:[20]}}</p>
+                  </div>
+                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="eachitem">
+                    <p><span class="lablename">Employee ID</span></p>
+                    <p class="datavalue" title="{{listdata?.empId}}">{{listdata?.empId |truncate:[20]}}</p>
+                  </div>
+                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="eachitem">
+                    <p><span class="lablename">Mobile</span></p>
+                    <p class="datavalue">{{listdata?.mobileNo}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="editanddelete p-r-20">
+              <span matTooltip="Edit" class="edit m-r-20"><i class="bgi bgi-edit1 cursorupoint"
+                  (click)="editUser(listdata?.userPk)"></i></span>
+              <span matTooltip="Delete" class="delete m-r-15" (click)="deleteUser(listdata?.userPk)"><i
+                  class="bgi bgi-delete"></i></span>
+            </div>
+          </div>
+          <div *ngIf="resultsLength == 0" fxLayout="row wrap" class="nodata noducumentaddedyet">
+            <div fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <img src="./assets/images/Add.svg" alt="nocollateral.png">
+                <p class="fs-16 lypisfont-bold txt-tropaz m-0 lh-25 p-t-20">You have added any contact details yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <mat-paginator [style.visibility]="(resultsLength > 5) ? 'visible' : 'hidden' "
+            class="masterPage masterbottom" showFirstLastButtons
+            (page)="pageEvent = $event; onPaginateChange($event);syncPrimaryPaginator($event);"
+            [pageSize]="paginator?.pageSize" [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+            [pageSizeOptions]="paginator?.pageSizeOptions">
+          </mat-paginator>
+        </div>
+      </div>
+      <!-- <div fxLayout="row wrap" class="p-t-30 m-b-20 resolution" fxLayoutAlign="end">
+          <button *ngIf="!hidePreviousButton" type="button" mat-raised-button color="primary" class="button-40 previous"
+            (click)="openPrev()">Previous</button>
+          <button *ngIf="!hideNextButton" type="button" [disabled]="!resultsLength" mat-raised-button color="primary"
+            class="button-40" (click)="openNext()">Next</button>
+        </div> -->
+    </div>
+  </div>
+
+  <app-addcontact #addcontact [panelTitle]="panelTitle" [userList]="userList" [userListBackup]="userListBackup"
+    [panelDataList]="[]" [forContact]="true" [helpContent]="'Add your company\'s Contact related personal details'"
+    [noRecordContent]="'You have not added any Primary contacts yet!'" [popupContentPrefix]="'Contact'"
+    (selectedPanel)="panel=$event" (userAdded)="updateList(encryptedreg_pk)" (userDeleted)="updateList($event)"
+    [resultsLength]="[]" [logoUrl]="logoUrl" (userMapped)="updateDeptUserList($event)" (selectedPanel)="panel=$event">
+  </app-addcontact>
+</div>

@@ -1,0 +1,297 @@
+<div id="renewaldetaillistview">
+  <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+      <div class="titletext">
+        <div class="closeandadd">
+          <i mat-button matTooltip="{{'renewalhistorylistview.clos' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+            (click)="showSweetAlertrenewalview()" class="bgi bgi-close p-l-5 fs-14"></i>
+          <h5 class="m-0 p-l-20 tt">{{'renewalhistorylistview.renehist' | translate}}<i class="bgi bgi-info"
+              (click)="toggleShowDivrenewalview('renewallistview')"></i></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 renewallistview" [@slideInOut]="animationState1">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+      <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+        <mat-card-header>
+          <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+            <mat-card-subtitle class="informationtext fs-14">
+              {{'renewalhistorylistview.selethetargaudi' | translate}} 
+            </mat-card-subtitle>
+          </div>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottomrenewallist">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottomrenwalalign p-l-50 p-r-50">
+      <div class="p-t-8 p-b-8">
+        <p class="p-b-8 fs-15">Paper Note International Group of Companies (Oman) LLC</p>
+        <p class="fs-14"><span class="codecolor">{{'renewalhistorylistview.suppcode' | translate}}</span> <span class="textcolorno">: OM002278 </span>
+        </p>
+      </div>
+      <div class="p-t-8 p-b-8 textcolorpaper">
+        <p class="p-b-8 fs-13 verifycolor">{{'renewalhistorylistview.veristat' | translate}}</p>
+        <p class="fs-16 approvedcolor">{{'renewalhistorylistview.appro' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="innnerpartofdrwer renewal_details">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="renewalcountcolor">
+          <p class="fs-14">{{'renewalhistorylistview.noofrenehist' | translate}}: 06</p>
+        </div>
+        <div class="renewallistdetailaccordio">
+          <mat-accordion *ngFor="let renewallist of renewallists">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header (click)="scrollTo('page-content')">
+                <mat-panel-title>
+                  <div class="spacealignrenewal">
+                    <div class="renewaltextcolor p-l-20">
+                      <h2 class="fs-16 m-0">{{renewallist.renewaltitle}}</h2>
+                    </div>
+                    <div class="datetimecolor">
+                      <span class="fs-14 boderrightdate">{{renewallist.renewaldate}}</span>
+                      <span class="fs-14 p-l-8">{{renewallist.renewaltime}}</span>
+                    </div>
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="paymentstatuslist">
+                  <div class="paymentcolor p-t-15 p-l-20">
+                    <h2>{{'renewalhistorylistview.paymstat' | translate}}</h2>
+                  </div>
+                  <div class="certificatebackground">
+                    <div class="approvedalign p-b-6">
+                      <p>{{'renewalhistorylistview.appron' | translate}}</p>
+                      <P>{{'renewalhistorylistview.apprby' | translate}}</P>
+                    </div>
+                    <div class="approvedalign">
+                      <span>23-12-2020</span>
+                      <span>Mohammed Bin Al Khazaree</span>
+                    </div>
+                    <div class="entercommentcolor">
+                      <p>{{'renewalhistorylistview.comm' | translate}}</p>
+                      <span>{{'renewalhistorylistview.entecommregaitem' | translate}}
+                        </span>
+                    </div>
+                  </div>
+                  <div class="paymentcolor p-t-20 p-l-20">
+                    <h2>{{'renewalhistorylistview.OPALcertstat' | translate}}</h2>
+                  </div>
+                  <div class="certificatebackground">
+                    <div class="approveflexalign">
+                      <div class="approvewidth">
+                        <div class="approvedalign p-b-6">
+                          <p>{{'renewalhistorylistview.appron' | translate}}</p>
+                          <P>{{'renewalhistorylistview.apprby' | translate}}</P>
+                        </div>
+                        <div class="approvedalign">
+                          <span>23-12-2020</span>
+                          <span>Mohammed Bin Al Khazaree</span>
+                        </div>
+                      </div>
+                      <div class="expirywidth">
+                        <div class="expirdatecolor">
+                          <p>{{renewallist.expirydate}}</p>
+                          <span *ngIf="renewallist.datecolor == 'spandeviatecolor'"
+                            class="spandeviatecolor">{{renewallist.datediaveted}}</span>
+                          <span *ngIf="renewallist.deviated == 'deviatedcolor'"
+                            class="deviatedcolor">{{renewallist.datecountrenewal}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="entercommentcolor">
+                      <p>{{'renewalhistorylistview.comm' | translate}}</p>
+                      <span>{{'renewalhistorylistview.entecommregaitem' | translate}}</span>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-20">
+                      <mat-tab-group [disableRipple]="true" class='renewalhistory_tab'>
+                        <mat-tab>
+                          <ng-template mat-tab-label class="label">
+                            <div class="tab-number descriptioncontent descript">
+                              <span class="tabname">{{'renewalhistorylistview.OPALcertfeedeta' | translate}}</span>
+                            </div>
+                          </ng-template>
+                          <div class="p-l-30 paddingspace">
+                            <div class="paymentcolor">
+                              <h2>{{'renewalhistorylistview.OPALcertfeedeta' | translate}}</h2>
+                            </div>
+                            <div class="innerrows">
+                              <div class="eachtwoboxes">
+                                <div class="eachitem firstbox">
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.enteclass' | translate}}</span>
+                                    <span class="smecolor">SME-SMALL</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.headcoun' | translate}}</span>
+                                    <span class="infocmp">11 - 50 Employees</span>
+                                  </p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.annusaleturnomr' | translate}} </span>
+                                    <span class="infocmp">150,000 to less than 1,250,000</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.certvali' | translate}}</span>
+                                    <span class="infocmp">3 Years</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.prodandsourpack' | translate}}</span>
+                                    <span class="infocmp">Unlimited</span>
+                                  </p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.certfee' | translate}}</span>
+                                    <span class="infocmp">OMR 100.000</span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <mat-tab>
+                          <ng-template mat-tab-label class="label">
+                            <div class="tab-number descriptioncontent descript">
+                              <span class="tabname">{{'renewalhistorylistview.paymdeta' | translate}}</span>
+                            </div>
+                          </ng-template>
+                          <div class="p-l-30 paddingspace">
+                            <div class="paymentcolor">
+                              <h2>{{'renewalhistorylistview.paymdeta' | translate}}</h2>
+                            </div>
+                            <div class="innerrows">
+                              <div class="eachtwoboxes">
+                                <div class="eachitem firstbox">
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.paymmode' | translate}} </span>
+                                    <span class="infocmp">Cheque</span>
+                                  </p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.cheqnumb' | translate}}</span>
+                                    <span class="infocmp">126485</span>
+                                  </p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.bankname' | translate}}</span>
+                                    <span class="infocmp">ICICI</span>
+                                  </p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.dateoftransfer' | translate}}</span>
+                                    <span class="infocmp">9-10-2019</span>
+                                  </p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.certfee' | translate}}</span>
+                                    <span class="infocmp">OMR 100.000</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.paymproof' | translate}}</span>
+                                    <span class="infocmp">
+                                      <a target="_blank">
+                                        <img src="assets/images/pdfsmallimage.png" alt="pdfsmallimage.png">
+                                      </a>
+                                    </span>
+                                  </p>
+                                </div>
+                                <div class="spaceend pd-12 m-t-30 m-b-30">
+                                  <div class="totalcolor">
+                                    <h2>{{'renewalhistorylistview.totaamoupaid' | translate}}</h2>
+                                  </div>
+                                  <div class="omrcolor">
+                                    <h2>(OMR) 100.000</h2>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <mat-tab>
+                          <ng-template mat-tab-label class="label">
+                            <div class="tab-number descriptioncontent descript">
+                              <span class="tabname">{{'renewalhistorylistview.officont' | translate}} </span>
+                            </div>
+                          </ng-template>
+                          <div class="p-l-30 paddingspace">
+                            <div class="paymentcolor">
+                              <h2>{{'renewalhistorylistview.officont' | translate}}</h2>
+                            </div>
+                            <div class="innerrows">
+                              <div class="eachtwoboxes">
+                                <div class="eachitem firstbox">
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.offiaddr' | translate}}</span>
+                                    <span class="infocmp">PO Box: 38, PC: 116<br>
+                                      Mina Al-Fahal,<br>
+                                      Muscat<br>
+                                      Sultanate of Oman</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.land' | translate}}</span>
+                                    <span class="infocmp">+968 24570100 Ext : 021 </span>
+                                  </p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.webs' | translate}}</span>
+                                    <span class="infocmp">www.papernotecompany.com</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.compemai' | translate}}</span>
+                                    <span class="infocmp">
+                                      feedback@papernotecompany.com</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">{{'renewalhistorylistview.postaddr' | translate}}
+                                    </span>
+                                    <span class="infocmp">PO Box: 38, PC: 116<br>
+                                      Mina Al-Fahal,<br>
+                                      Muscat<br>
+                                      Sultanate of Oman</span></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                        <mat-tab>
+                          <ng-template mat-tab-label class="label">
+                            <div class="tab-number descriptioncontent descript">
+                              <span class="tabname">{{'renewalhistorylistview.OPALcont' | translate}}</span>
+                            </div>
+                          </ng-template>
+                          <div class="projectbordercontact p-l-30 paddingspace">
+                            <div class="paymentcolor">
+                              <h2>{{'renewalhistorylistview.OPALcont' | translate}}</h2>
+                            </div>
+                            <div class="innerrows">
+                              <div class="eachtwoboxes">
+                                <div class="eachitem firstbox">
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">1. {{'renewalhistorylistview.primcont' | translate}} </span>
+                                    <span class="infocmp">Ahmed Albadi Khan Mohamed<br>
+                                      Administration<br>
+                                      Senior Administrartor<br>
+                                      + 968 888377290<br>
+                                      + 968 277400322 Ext : 934<br>
+                                      ahmedalbadi@papernotecompany.com</span></p>
+                                  <p class="cmpnyinfo">
+                                    <span class="labelcmp">2. {{'renewalhistorylistview.paymcont' | translate}} </span>
+                                    <span class="infocmp">Subaida Ali Khan<br>
+                                      Finance<br>
+                                      Senior Financial Executive<br>
+                                      + 968 888377245<br>
+                                      + 968 277400322 Ext : 921<br>
+                                      subaida@papernotecompany.com</span></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,196 @@
+<div fxLayout="row wrap" class="widthdialog">
+  <div fxLayout="row wrap" class="p-t-7 background">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <p class="m-l-16 usertextsize fs-15">Total Users Invited ({{data?.totalEmails}})</p>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="alreadyinvited w-100">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="m-l-30 m-r-30">
+    <mat-accordion>
+      <div fxLayout="row wrap" class="bordererror p-b-20" *ngIf="data?.sentEmails.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <p class="after m-t-20"></p>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15 m-t-16 widthresponsive">
+          <mat-expansion-panel (opened)="setOpened(1)" [expanded]="currentlyOpenedPanel === 1">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <p class="textcolorhead fs-15">Users Invited Sucessfully ({{data?.sentEmails.length}})
+                </p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data['sentEmails']">
+              {{mail}}
+            </mat-chip>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.invalidEmails?.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(2)" [expanded]="currentlyOpenedPanel === 2">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15">Invalid Email IDs ({{data.invalidEmails?.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data.invalidEmails">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.duplicateEmails?.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(3)" [expanded]="currentlyOpenedPanel === 3">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15">Duplicate Email IDs ({{data.duplicateEmails?.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data.duplicateEmails">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.activeEmailArrInSameCompany?.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(4)" [expanded]="currentlyOpenedPanel === 4">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15">Already registered in your company ({{data.activeEmailArrInSameCompany?.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data.activeEmailArrInSameCompany">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.activeEmailArrInAnotherCompany?.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(5)" [expanded]="currentlyOpenedPanel === 5">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15"> The entered email IDs are already registered with another company. ({{data.activeEmailArrInAnotherCompany?.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data.activeEmailArrInAnotherCompany">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.alreadyInvitedAndActiveEmailArrInSameCompany.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(6)" [expanded]="currentlyOpenedPanel === 6">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15">Already invited by your company ({{data?.alreadyInvitedAndActiveEmailArrInSameCompany.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data?.alreadyInvitedAndActiveEmailArrInSameCompany">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.alreadyInvitedAndActiveEmailArrInAnotherCompany.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(7)" [expanded]="currentlyOpenedPanel === 7">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15">Already invited by another company ({{data?.alreadyInvitedAndActiveEmailArrInAnotherCompany.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data?.alreadyInvitedAndActiveEmailArrInAnotherCompany">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.alreadyInvitedAndExpiredEmailArr.length > 0">
+        <div fxFlex.gt-sm="13" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="87" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(8)" [expanded]="currentlyOpenedPanel === 8">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15">Already invited by your company and expired ({{data?.alreadyInvitedAndExpiredEmailArr.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data?.alreadyInvitedAndExpiredEmailArr">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="bordererror p-t-20 p-b-20" *ngIf="data?.inactiveSameCompanyEmails.length > 0">
+        <div fxFlex.gt-sm="20" fxFlex="100" class="thanktextcolor widthsucces">
+          <div class="aftererror">
+            <img src="assets/images/caution and error.svg" alt="caution and error">
+          </div>
+        </div>
+        <div fxFlex.gt-sm="80" fxFlex="100" class="thanktextcolor p-l-15  widthresponsive">
+            <mat-expansion-panel (opened)="setOpened(9)" [expanded]="currentlyOpenedPanel === 9">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <p class="textcolorhead fs-15">Already registered and inactive in your company ({{data?.inactiveSameCompanyEmails.length}})
+                  </p>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-chip class="m-r-5 m-t-5" *ngFor="let mail of data?.inactiveSameCompanyEmails">
+                {{mail}}
+              </mat-chip>
+            </mat-expansion-panel>
+        </div>
+      </div>
+    </mat-accordion>
+  </div>
+</div>
+  <div fxLayout="row wrap" class="background">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="flexend">
+      <button type="button" (click)="onNoClick()" class="loginbtn fs-15" mat-buttons>OK</button>
+    </div>
+  </div>
+</div>

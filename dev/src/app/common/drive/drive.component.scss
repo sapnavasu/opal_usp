@@ -1,0 +1,901 @@
+@mixin flexcenter {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+@mixin flexstart {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+@mixin flexend {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+}
+
+::ng-deep .drivemodaldialog {
+  max-width: 80vw;
+  pointer-events: auto;
+  width: auto !important;
+  .mat-dialog-container {
+    width: 930px !important;
+    position: relative;
+    top: 5px;
+    max-height: 100vh;
+    overflow: auto;
+    padding: 0px !important;
+  }
+}
+.colorfile{
+    color: #333;
+    font-weight: normal;
+    line-height: 28px;
+}
+
+.borderafter:after {
+  position: absolute;
+  width: 1px;
+  background-color: #fff !important;
+  content: "";
+  height: 26px;
+  right: 0px;
+  top: 26px;
+  left: 136px;
+  margin-left: 12px;
+}  
+
+.lypisdrive {
+  background-image: url("~/assets/images/opalimages/filee.png");
+  background-position: top right;
+  max-height: 175px;
+  min-height: 175px;
+  background-repeat: no-repeat;
+  background-color: #0c4b9a;
+  padding: 40px 45px 0px 45px;
+  .driveflex {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  h4 {
+    color: #fff;
+    margin: 0px;
+  }
+}
+.dirvesubheadcolor{
+    P{
+      color:#fff;
+      margin:0px;
+      font-size: 0.9375rem;
+    }
+}
+.drivecount {
+  display: flex;
+  align-items: center;
+  padding-left: 0 !important;
+  padding-right: 30px !important;
+  span {
+    color: #fff;
+  }
+  p {
+    color: #fff;
+    margin: 0px;
+  }
+}
+.border {
+  border-right: 1px solid #fff;
+  padding-right: 30px;
+}
+.driveuploadfile {
+  height: auto;
+  border: 1px dashed #a1a1a1;
+  text-align: center;
+  scroll span {
+    color: #345f9f;
+  }
+  h4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+  }
+}
+.drivesameflex {
+  display: flex;
+}
+.documentbackground {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+.textbackground {
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #dadada;
+  height: 108px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  img {
+    height: 115px;
+    width: 156px;
+  }
+}
+.filesheight {
+  height: 156px;
+}
+.spacefiles{
+  h4 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+.folder {
+  h4 {
+    color: black;
+  }
+}
+.adminwidth {
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  width: 178px;
+  height: 58px;
+  border: 1px solid #ced6dc;
+  margin-bottom: 15px;
+}
+.addbtn {
+  width: 86px;
+  height: 35px;
+  border-radius: 2px;
+  border: none;
+}
+
+.iconviewcolor{
+   color: #8d9cad;
+}
+
+.myfilecolor{
+    h4{
+       margin:0px;
+       color: #4aa1ac; 
+    }
+}
+.borderaround{
+    border: 1px solid #dadada;
+    width: 178px;
+    border-radius: 4px;
+}
+.selected {
+  display: flex;
+  align-items: center;
+  background-color: #ebebeb;
+  justify-content: space-between;
+  height: 60px;
+  .addbtnflexend {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+.folderrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.addbtnflexlast {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.lineheight{
+    color: #fff;
+    min-width: 100px;
+    background: #ed1c27;
+    border-radius: 2px !important;
+    border: none;
+    // margin-top: 35px;
+    font-size: 0.875rem;
+   
+}
+
+.dragdropfooter{
+    &:hover{
+      .lineheight{
+        background: #E0AD67 !important;
+       }
+    }
+}
+
+.filesheight {
+    .documentbackground {
+      background-color: #fff !important;
+    }
+ }
+.spacingdragdrop {
+  background-image: url("~/assets/images/opalimages/fileupload.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: #f8f8f8;
+  margin: 8px;
+  position: relative;
+  cursor: pointer;
+  .choosefileinput {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: auto;
+    right: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+.absolutecheckbox {
+  position: absolute;
+  top: 5px;
+  left: 12px;
+}
+.bgi-infoicon {
+  display: flex;
+  align-items: center;
+  .formationcolor {
+    color: #fff;
+  }
+}
+.numbercolor {
+  span {
+    color: #fff;
+  }
+}
+::ng-deep .responsivesroll {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+::ng-deep .responsivesroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+::ng-deep .responsivesroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #d4d4d4;
+  border-radius: 5px;
+}
+
+::ng-deep .responsivesroll::-webkit-scrollbar-thumb {
+  background: #cbcfd4;
+  border-radius: 5px;
+}
+.adminwidthresponsive {
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  height: 58px;
+  border: 1px solid #ced6dc;
+  cursor: pointer;
+}
+.folderflex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h4 {
+    white-space: nowrap;
+  }
+}
+.lypisimagenone {
+  background-image: none;
+  background-position: top right;
+  max-height: 117px;
+  background-repeat: no-repeat;
+  background-color: #345f9f;
+  .driveflex {
+    display: flex;
+    align-items: center;
+  }
+  h4 {
+    color: #fff;
+    margin: 0px;
+  }
+}
+.dragdropfooter {
+  span {
+    color: #006cb7;
+  }
+}
+// .canvasarea {
+//   max-height: 350px !important;
+//   overflow-y: auto;
+// }
+.completefolderlists {
+  max-height: calc(100VH - 400px) !important;
+  overflow-y: auto;
+  margin-right: 10px;
+}
+
+.floderimagewithname {
+  @include flexcenter();
+  padding-left: 5px;
+}
+.completefolderlists::-webkit-scrollbar {
+  width: 0.4em;
+  position: absolute;
+  right: 0;
+}
+.completefolderlists::-webkit-scrollbar-thumb {
+  background-color: #b8c3cb;
+}
+::ng-deep.mat-radio-button.mat-accent .mat-radio-inner-circle,
+::ng-deep.mat-pseudo-checkbox-checked, 
+::ng-deep.mat-accent .mat-pseudo-checkbox-checked,
+::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-backgroun{
+  background-color: #ed1c27 !important;
+}
+.mat-checkbox-indeterminate.mat-primary .mat-checkbox-background, .mat-checkbox-checked.mat-primary .mat-checkbox-background {
+  background-color: #ed1c27 !important;
+}
+::ng-deep.selectitemnew {
+  width: 178px;
+  border: 1px solid #ced5dc;
+  margin-bottom: 15px;
+  position: relative;
+  &:hover {
+    .mat-checkbox {
+      opacity: 1;
+    }
+  }
+  .mat-checkbox {
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    opacity: 0;
+    left: 0;
+    right: auto;
+  }
+  .mat-checkbox-frame {
+    background-color: transparent;
+    transition: border-color 90ms cubic-bezier(0, 0, 0.2, 0.1);
+    border-width: 1px !important;
+    border-style: solid;
+    border-radius: 0;
+    background: #fff;
+  }
+  .mat-checkbox-checked {
+    opacity: 1;
+  }
+  .mat-checkbox-layout {
+    width: 100%;
+    height: 100%;
+  }
+  .mat-checkbox-inner-container {
+    margin: 0;
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+  }
+}
+.selectionandfiletype {
+  margin: 10px;
+}
+.filenameselected {
+  background-color: #f8f9fb;
+  height: 50px;
+  @include flexstart();
+  span {
+    color: #333;
+    font-size: 0.875rem;
+  }
+}
+.filetype {
+  padding: 5px;
+  img {
+    width: 100%;
+    height: 90px;
+    max-height: 90px;
+  }
+}
+.drivebreadcrum {
+  position: relative;
+  ul {
+    list-style-type: none;
+    @include flexstart();
+    padding-left: 30px;
+    margin-bottom: 0;
+    margin-top: 15px;
+    position: absolute;
+    top: -6px;
+  }
+}
+.itemselected {
+  color: #333;
+}
+.breadcrumlist {
+  cursor: pointer;
+}
+
+.search-block {
+  position: fixed;
+  top: 0;
+  z-index: 11;
+  width: 0%;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, width 0.5s ease-in-out;
+  background: #fff;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  &.active {
+    opacity: 1;
+    width: 100%;
+  }
+  .search-control {
+    flex: 1;
+    font-size: 1rem;
+    border: 0;
+    outline: none;
+    height: 40px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  .search-icon {
+    color: rgba(0, 0, 0, 0.25);
+  }
+}
+.drivebreadcrum {
+  ul {
+    li {
+      .icon {
+        color: #cecece;
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+      .value {
+        color: #333;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      &:first-child {
+        .value {
+          color: #cecece;
+        }
+      }
+    }
+  }
+}
+
+.filetype {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+.drivecloseadded {
+  position: relative;
+}
+.closethedialog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 50%;
+  display: flex !important;
+  width: 28px;
+  height: 28px;
+  justify-content: center !important;
+  align-items: center !important;
+  cursor: pointer;
+  i {
+    font-size: 0.625rem;
+  }
+}
+::ng-deep.error .mat-simple-snackbar:before {
+  content: "";
+  display: none !important;
+}
+.descriptioncontentdrive {
+  position: absolute;
+  z-index: 9999;
+}
+.formationcolor {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .completefolderlists {
+    max-height: 205px !important;
+    overflow-y: auto;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .dragdropimage {
+    display: none;
+  }
+  .floderimagewithname {
+    @include flexcenter();
+    padding-left: 5px;
+  }
+  ::ng-deep .driveuploadfile::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::ng-deep .driveuploadfile::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #d4d4d4;
+    border-radius: 5px;
+  }
+
+  ::ng-deep .driveuploadfile::-webkit-scrollbar-thumb {
+    background: #cbcfd4;
+    border-radius: 5px;
+  }
+  .driveuploadfile {
+    overflow-y: auto;
+    max-height: 100%;
+    height: auto;
+    border: 1px dashed #a1a1a1;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 18px;
+
+    scroll span {
+      color: #345f9f;
+    }
+    h4 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0px;
+    }
+  }
+  .spacingdragdrop {
+    background-color: #d2e4ff;
+    margin: 8px;
+    position: relative;
+    cursor: pointer;
+    .choosefileinput {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: auto;
+      right: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+  .adminwidth {
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    width: 178px;
+    height: 58px;
+    border: 1px solid #ced6dc;
+    margin-bottom: 15px;
+  }
+  .adminwidthresponsive {
+    background-color: #ebf5f6;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    border: 1px solid #ced6dc;
+    cursor: pointer;
+  }
+  .master-menu{
+    .viewtextcolorupdate:hover{
+        color: #f4811f !important;
+    } 
+ }
+  .Recentlyaddedcolor{
+    h4 {
+       font-size: 0.9375rem;
+       color: #333333;
+       margin: 0px;
+    }
+  }
+  .folderflex {
+    h4 {
+      white-space: nowrap;
+      padding-left: 34px;
+      padding-top: 15px;
+    }
+  }
+  .folderrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .selected {
+    display: flex;
+    align-items: center;
+    background-color: #ebebeb;
+    height: 60px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    justify-content: space-between;
+  }
+  .closethedialog {
+    position: absolute;
+    top: -45px;
+    right: 0px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #fff;
+    padding: 7px 15px;
+    color: #fff;
+    border-radius: 40px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    cursor: pointer;
+    i {
+      font-size: 0.625rem;
+      padding-right: 5px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .completefolderlists {
+    max-height: 190px !important;
+    overflow-y: auto;
+    margin-right: 12px;
+    margin-left: 34px;
+  }
+  .driveuploadfile {
+    overflow-y: auto;
+    max-height: 110px;
+    height: auto;
+    border: 1px dashed #a1a1a1;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 18px;
+
+    scroll span {
+      color: #345f9f;
+    }
+    h4 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0px;
+    }
+  }
+  .lypisdrive {
+    background-image: url("/assets/images/driveimagecolor.png");
+    background-position: top right;
+    max-height: 117px;
+    background-repeat: no-repeat;
+    background-color: #345f9f;
+    background-image: none;
+  }
+  ::ng-deep .cdk-overlay-pane {
+    max-width: 96vw !important;
+    pointer-events: auto;
+    width: auto !important;
+  }
+  .selectitemnew {
+    width: 100%;
+    border: 1px solid #ced5dc;
+    margin-bottom: 15px;
+    position: relative;
+  }
+  .drivecount {
+    p {
+      font-size: 12px !important;
+    }
+  }
+  .folderflex {
+    h4 {
+      white-space: nowrap;
+      padding-left: 34px;
+    }
+  }
+  .lypisimagenone {
+    background-image: none;
+    background-position: top right;
+    max-height: 117px;
+    background-repeat: no-repeat;
+    background-color: #345f9f;
+    .driveflex {
+      display: flex;
+      align-items: center;
+    }
+    h4 {
+      color: #fff;
+      margin: 0px;
+    }
+  }
+  .addbtnflexend {
+    display: flex;
+    justify-content: flex-end;
+    // margin-bottom: 8px;
+    .lypisdrive {
+      background-image: url("/assets/images/driveimagecolor.png");
+      background-position: top right;
+      max-height: 117px;
+      background-repeat: no-repeat;
+      background-color: #345f9f;
+      background-image: none;
+    }
+    .folderflex {
+      h4 {
+        white-space: nowrap;
+        padding-left: 34px;
+      }
+    }
+    .lypisimagenone {
+      background-image: none;
+      background-position: top right;
+      max-height: 117px;
+      background-repeat: no-repeat;
+      background-color: #345f9f;
+      .driveflex {
+        display: flex;
+        align-items: center;
+      }
+      h4 {
+        color: #fff;
+        margin: 0px;
+      }
+    }
+    .addbtnflexend {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+    .selected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #ebebeb;
+      height: 60px;
+      margin-bottom: 20px;
+      margin-right: 32px;
+    }
+
+    .closelog {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 1px solid #fff;
+      padding: 7px 15px;
+      color: #fff;
+      border-radius: 50%;
+      display: flex !important;
+      width: 28px;
+      height: 28px;
+      justify-content: center !important;
+      align-items: center !important;
+      cursor: pointer;
+      i {
+        font-size: 0.625rem;
+      }
+    }
+    .lypisdrive {
+      padding-left: 10px !important;
+    }
+  }
+}
+@media (max-width: 320px) {
+  .drivebreadcrum {
+    ul {
+      list-style-type: none;
+      @include flexstart();
+      padding-left: 34px;
+      margin-bottom: 0;
+      margin-top: 15px;
+    }
+  }
+
+  .files {
+    padding-left: 6px !important;
+  }
+  .numbercolor {
+    span {
+      font-size: 28px !important;
+      padding-left: 6px;
+    }
+  }
+  .drivecount {
+    display: flex;
+    align-items: center;
+    padding-left: 0 !important;
+    padding-right: 0px !important;
+  }
+  .closelog {
+    position: absolute;
+    top: -45px;
+    right: 40px !important;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #fff;
+    padding: 7px 15px;
+    color: #fff;
+    border-radius: 40px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    cursor: pointer;
+    i {
+      font-size: 0.625rem;
+      padding-right: 5px;
+    }
+  }
+  .selectitemnew {
+    width: 210px !important;
+    border: 1px solid #ced5dc;
+    margin-bottom: 15px;
+    position: relative;
+  }
+}
+@media (min-width: 580px) and (max-width: 768px) {
+  .folderisnidefile {
+    flex: 1 1 30.33% !important;
+    max-width: 30.33% !important;
+    margin-right: 15px;
+  }
+}
+::ng-deep.mat-tooltip {
+  max-width: 100px;
+}
+@media (min-width: 550px) {
+  .driveuploadfile {
+    overflow-y: auto;
+    max-height: 110px;
+    height: auto;
+    border: 1px dashed #a1a1a1;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 18px;
+    margin-left: 12px !important;
+  }
+}
+.driveuploadfile {
+  overflow-y: auto;
+  max-height: calc(100vh - 300px);
+  height: auto;
+  border: 1px dashed #a1a1a1;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 12px !important;
+}
+.dragdropimage{
+  max-height: 100%;
+ height: calc(100vh - 500px);
+ min-height: 100%;
+}
+.pagetitledrive {
+  background: #000;
+  position: relative;
+  // Animation
+  animation-duration: 1.7s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: pagetitleAnimate;
+  background: #f6f7f8; // Fallback
+  background: linear-gradient(to right, #ddd 2%, #999 18%, #ddd 33%);
+  background-size: 1300px; // Animation Area
+  }
+  .pagetitledrive:before {
+      width: inherit;
+      height: inherit;
+      content: "";
+      position: absolute;
+      }
+  @keyframes pagetitledriveAnimate {
+   0% {
+     background-position: -650px 0;
+   }
+   100% {
+     background-position: 650px 0;
+   }
+  }
+  .driveplaceholder{
+    // width:calc(100% - 40px) !important; 
+    position:relative; 
+    text-align:center;
+    img{
+        position: absolute;
+        top: 50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+    }
+    span{
+        display:block;
+        &.uploadplicon{width:auto;height:160px;margin:15px auto 0 auto;}
+        &.uploadpltxt{width:250px;height:24px;margin:30px auto;}
+        &.uploadplbtn{width:90px;height:36px;margin:0 auto 43px auto;}
+    }    }

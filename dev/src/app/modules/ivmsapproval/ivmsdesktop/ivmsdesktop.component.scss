@@ -1,0 +1,56 @@
+#ivms_container {
+    .badge {
+        color: #fff !important;
+        padding: 3px 5px;
+        font-size: 15px;
+        border-radius: 3px;
+
+        &.new {
+            background-color: #0c4b9a;
+        }
+
+        &.update {
+            background-color: #0c4b9a;
+        }
+
+        &.appr {
+            background-color: #00a551;
+        }
+
+        &.decl {
+            background-color: #ed1c27;
+        }
+    }
+    .company_dtlview {
+        h4 {
+            color: #262626;
+        }
+
+        .view_dtl {
+            gap: 5px;
+            p {
+                min-width: 322px;
+                color: #848484;
+                font-size: 16px;
+
+                @media(max-width: 768px) {
+                    min-width: 142px;
+                    width: 141px;
+                }
+            }
+
+            span {
+                color: #262626;
+                font-size: 16px;
+
+                .document {
+                    width: 22px;
+                    height: 28px;
+                    img {
+                        width: 32px;
+                    }
+                }
+            }
+        }
+    }
+}

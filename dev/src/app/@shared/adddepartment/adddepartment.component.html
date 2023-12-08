@@ -1,0 +1,107 @@
+
+<div  fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+      <!-- column -->
+      <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <i (click)="closeDeptForm()"  [ngClass]="btnstate == true ? 'disable_icon' : ' '"  matTooltip="{{'enterpriseadmin.clos' | translate}}" class="bgi bgi-close p-l-5 fs-14"></i>
+            <h5 class="m-0 p-l-20 tt"> {{buttonName=='Update'?this.i18n('enterpriseadmin.edit'):this.i18n('enterpriseadmin.add')}}&nbsp;{{'enterpriseadmin.depart' | translate}}  
+              <mat-icon (click)="toggleShowDiv('descriptioncontentuserrole')"
+              class="bgi bgi-info">info_outline</mat-icon></h5>
+          </div>
+          <div class="clearandaddbutton">
+            <button type="button" mat-raised-button color="primary" [disabled]="btnstate" class="clearbutton height-35 m-r-10 p-l-20 p-r-20"
+              (click)="clearDeptForm()">{{'enterpriseadmin.clea' | translate}}</button>
+            <button color="preview" type="button" mat-raised-button class="addbutton height-35 p-l-20 p-r-20"
+              [disabled]="isFormValid" (click)="addBunitDept()">{{buttonName}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentuserrole"
+      [@slideInOut]="animationState">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+          <mat-card-header>
+            <div class="titletext">
+              <mat-card-subtitle class="informationtext fs-14">
+                {{'enterpriseadmin.entethedepaname' | translate}} 
+              </mat-card-subtitle>
+            </div>
+            <div class="selectforward m-r-0">
+              <div class="p-l-15 gotit">
+                <span (click)="toggleShowDiv('descriptioncontentuserrole')" mat-raised-button color="primary">{{'enterpriseadmin.okgotit' | translate}}</span>
+              </div>
+            </div>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+    <div *ngIf="showprojlstcreate" class="projlstngph w-100 listsector">
+      <div class="leftmainspace">
+          <div class="subcontent">
+              <span class="pagetitle secondwidth"></span>
+              <span class="pagetitle secondwidth"></span>
+          </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-0">
+      <div fxFlex.gt-sm="100" fxFlex="100" *ngIf="!showprojlstcreate">
+        <div  class="innnerpartofdrwer organisationinfo adddepartment">
+          <div fxLayout="row wrap" class="p-b-20 p-l-0 p-r-0">
+            <form class="adddepartmentfrm" [formGroup]="adddepartmentForm" #deptReset="ngForm">
+              <div fxLayout="row wrap" class="p-b-15 p-t-20">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <input appAlphanumsymb type="hidden" formControlName="departmentPk">
+                  <mat-form-field class="example-full-width">
+                    <input autocomplete="off"  [errorStateMatcher]="matcher" placeholder="{{'enterpriseadmin.depaname' | translate}}" matInput required type="text"
+                      formControlName="departmentName" app-restrict-input="firstspace" appAlphanumsymb
+                      maxlength="250" />
+                    <mat-error *ngIf="f.departmentName.touched && f.departmentName.errors?.required">
+                      {{'enterpriseadmin.entedepaname' | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row wrap" class="p-b-15 p-t-5">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <mat-form-field class="example-full-width">
+                    <mat-select multiple required panelClass="myPanelClass" panelClass="select_with_search actsectorwidth"
+                      [disableOptionCentering]="true" id="actsector" [errorStateMatcher]="matcher"
+                      (closed)="searchSector = '';" required placeholder="{{'enterpriseadmin.divirefename' | translate}}" formControlName="deptBunit"
+                      *ngIf="(bunitData | multisearchinput : searchSector : ['bunitName','bunitRefNo']) as sectoresult">
+                      <div class="searchinmultiselect">
+                        <i class="bgi bgi-search"></i>
+                        <input appAlphanumsymb matInput name="searchsector" class="searchselect" type="Search" placeholder="{{'enterpriseadmin.sear' | translate}}"
+                          [(ngModel)]="searchSector" [ngModelOptions]="{standalone: true}">
+                        <mat-icon (click)="searchSector = ''" matTooltip="{{'enterpriseadmin.reset' | translate}}" matTooltipPosition="above" class="reseticon" matSuffix>clear
+                        </mat-icon>
+                      </div>
+                      <div class="option-listing">
+                        <mat-option *ngFor="let bsnsunit of bunitData | multisearchinput : searchSector : ['bunitName','bunitRefNo']"
+                          [value]="bsnsunit.bunitPk">
+                          {{bsnsunit.bunitName}} 
+                        </mat-option>
+                      </div>
+                      <div class="p-10" *ngIf="sectoresult.length == 0">
+                        {{'enterpriseadmin.nodivimatc' | translate}} 
+                      </div>
+                    </mat-select>
+                    <mat-error *ngIf="f.deptBunit.touched && f.deptBunit.errors?.required">
+                     {{'enterpriseadmin.slecdivi' | translate}} 
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<app-responseloader *ngIf="showResponsiveLoader"></app-responseloader>
+

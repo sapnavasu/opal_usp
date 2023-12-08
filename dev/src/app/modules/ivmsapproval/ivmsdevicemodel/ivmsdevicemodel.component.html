@@ -1,0 +1,65 @@
+<div id="company_ivms" class="commonForm" fxLayoutAlign="center">
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+    <div class="compantdtl m-t-30" fxFlex="100">
+        <div fxLayoutAlign="space-between center">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'Device Model Information' | translate}}</h4>
+                <span class="badge new" *ngIf="acdt_status == 1">{{'company.new' | translate}}</span>
+                <span class="badge update" *ngIf="acdt_status == 2">{{'table.updated' | translate}}</span>
+                <span class="badge appr" *ngIf="acdt_status == 3">{{'company.appr' | translate}}</span>
+                <span class="badge decl" *ngIf="acdt_status == 4">{{'company.decl' | translate}}</span>
+            </div>
+            <div class="validbtn">
+                <app-validation [submitbutton]="'validation.sumb' | translate" [addClass]="'validet'" [buttonName]="'validation.vali' | translate" ></app-validation>
+            </div>
+        </div>
+        <div class="m-l-0 m-r-0 m-b-20" *ngIf="acdt_status == 2" [ngClass]="hisstatus == 4 ? 'declinecmd' : 'successcmd'">
+            <p class="18 comment" >{{'company.declcomm' | translate}}</p>
+            <p class="16 m-b-30" [innerHtml]='acdt_appdecComments'></p>
+                <mat-divider></mat-divider>
+               <div class="validinfo"  fxLayout="row wrap" >
+                <p class="fs-16 txt-gry m-r-40">{{'company.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{acdt_appdecon}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'company.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{oum_firstname}}</span></p>
+               </div>
+        </div>
+        <div class="company_dtlview">
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'IVMS Manufacturer' | translate}}</p>
+                <span>{{ivmsmanufact}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Device Model No.' | translate}}</p>
+                <span>{{devicemodel}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Software Version' | translate}}</p>
+                <span>{{softversion}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Country of Origin' | translate}}</p>
+                <span>{{country}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'TRA Certificate No.' | translate}}</p>
+                <span>{{tracertificate}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'TRA Approval Validity' | translate}}</p>
+                <span>{{travalidity}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'TRA Approval Documents' | translate}}</p>
+                <span class="document"><a href="{{tradocument}}" target="_blank" class="txt-gry3" fxLayoutAlign="flex-start center"><img src="assets/images/opalimages/{{tradocument}}_new.svg" alt="cractivitydocument" class="m-r-5" fxFlex="32px">{{'View' | translate }}</a></span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'Vendor Name (as in TRA Registration)' | translate}} 1</p>
+                <span>{{vendorname}}</span>
+            </div>
+        </div>
+         <!-- buttons -->
+         <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish groupBtns m-t-30">
+            <button mat-raised-button type="button" (click)="cancel.emit()" class="standardbutton mat-white-bg">{{'company.previous' | translate}}</button>
+            <button mat-raised-button type="button" (click)="next.emit()" class="standardbutton mat-red-bg">{{'international.next' | translate}}</button>
+        </div>
+    </div>
+</div>

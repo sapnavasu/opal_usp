@@ -1,0 +1,101 @@
+<!-- <div fxLayout="row wrap" fxLayoutAlign="center" class="p-t-5 p-r-0 ">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div class="profilecard" fxFlex="100" fxFlex.ft-sm="100" fxLayout="column">
+      <div class="topInfo" fxLayout="row">
+          <div  fxLayout="row wrap" fxFlex="95">
+              <div fxLayout="column" fxFlex="100" fxFlex.gt-md="80" fxFlex.md="70">
+                  <h4 class="fs-18 blue fw m-0">{{this.data.staff}}</h4>
+                  <div fxLayout="row wrap" class="fs-15" fxLayoutGap="10px">
+                      <p class= "txt-gry boxItems">Civil Number: <span class="txt-gry3">{{this.data.civil}}</span></p>
+                      <p class= "txt-gry boxItems">Course: <span class="txt-gry3">{{this.data.course}}</span></p>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center" class="p-t-5 p-r-0 m-t-5 m-b-5">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div class="">
+      <h1 mat-dialog-title>{{this.data.title}}</h1>
+      <div>
+        <mat-form-field>
+          <div class="drpicker" id="regapp">
+            <input id="login_session" [(ngModel)]="date"  #pickers
+                matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                [maxDate]='selected2' readonly class="form-control" />
+              <div class="closeanddateicon">
+                  <mat-datepicker-toggle matSuffix>
+                  </mat-datepicker-toggle>
+              </div>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center" class="footer p-t-5 p-r-0 m-t-5">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div class="">
+        <button mat-raised-button class="cancel" (click)="onNoClick()">{{this.data.noButtonText}}</button>
+        <button mat-raised-button class="export" (click)="download()" [mat-dialog-close]="data.data" cdkFocusInitial>{{this.data.submitButtonText}}</button>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div id="commentbox">
+  <div class="popup scrollerdata" fxLayout="column" >
+      <div class="header" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <h4 class="fs-20 red m-0">{{this.data.title}}</h4>
+          <mat-icon class="fs-20 txt-gry" matTooltip="close" (click)="onNoClick()">close</mat-icon>
+      </div>
+      <mat-divider class="m-t-5 m-b-15"></mat-divider>
+
+    <div fxFlex="100" class="m-t-15" fxLayout="row" fxLayoutGap="30px">
+        <div class="content" fxLayout="column">
+          <p class="fs-16 txt-gry m-0 p-b-5">Staff Name</p>
+          <p class="fs-16 txt-gry3 m-0">{{this.data.staff}}</p>
+        </div>
+        <div class="content" fxLayout="column">
+          <p class="fs-16 txt-gry m-0 p-b-5">Civil Number</p>
+          <p class="fs-16 txt-gry3 m-0">{{this.data.civil}}</p>
+        </div>
+        <div class="content" fxLayout="column">
+          <p class="fs-16 txt-gry m-0 p-b-5">Course</p>
+          <p class="fs-16 txt-gry3 m-0">{{this.data.course}}</p>
+        </div>
+    </div>
+    <form [formGroup]="dateForm">
+    <div fxLayout="row wrap" fxLayoutAlign="center center" class="m-t-20  m-r-25">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-form-field>
+          <div class="drpicker" id="regapp">
+            <input id="login_session" required [(ngModel)]="date"  #pickers
+                matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                formControlName="date"
+                [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                [maxDate]='selected2' readonly class="form-control" />
+              <div class="closeanddateicon">
+                  <mat-datepicker-toggle matSuffix>
+                  </mat-datepicker-toggle>
+              </div>
+          </div>
+        </mat-form-field>
+        <mat-error *ngIf="!dateForm.value?.date?.startDate && !dateForm.value?.date?.endDate && formSubmit">Date is required</mat-error>
+      </div>
+    </div>
+    <div class="btngroup m-t-1ck-editor__main0" fxLayoutGap="15px" fxLayout="row" fxLayoutAlign="flex-end">
+      <button mat-raised-button class="cancel_btn fs-16" (click)="onNoClick()">{{this.data.noButtonText}}</button>
+      <button mat-raised-button class="submitbtn  fs-16" (click)="download()" color="primary" cdkFocusInitial>{{this.data.submitButtonText}}</button>
+    </div>
+  </form>
+  </div>
+</div>

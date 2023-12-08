@@ -1,0 +1,83 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <!-- <mat-card-title>City Master</mat-card-title> -->
+    <form [formGroup]="stkholdaccessform" (ngSubmit)='addstkholderaccess()'>
+      <input type="hidden" formControlName="stkholderaccessid">
+      <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+        <!-- column -->
+        <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+          <div class="titletext">
+            <div class="closeandadd">
+              <i (click)="toggle()" class="bgi bgi-close p-l-25 fs-14"></i>
+              <h5 class="m-0 p-l-20 tt" *ngIf="createbutton">Add Stakeholder Access</h5>
+              <h5 class="m-0 p-l-20 tt" *ngIf="updatebutton">Update Stakeholder Access</h5>
+            </div>
+            <div class="clearandaddbutton">
+              <button class="clearbutton height-35 m-r-10 p-l-20 p-r-20" mat-raised-button color="primary"
+                (click)="stkholdaccessform.reset()" type="reset">Reset</button>
+              <button ngClass.xs="m-r-15" ngClass.sm="m-r-15" class="addbutton height-35 p-l-20 p-r-20"
+                mat-raised-button color="apply" *ngIf="true" type="submit"
+                [disabled]="!stkholdaccessform.valid">{{buttonname}} </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="innnerpartofdrwer p-b-20">
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-9 p-r-9 spacing">
+            <mat-form-field>
+              <mat-select [formControl]="stkholdaccessform.controls['stkholdertypeid']"
+                placeholder="Select Stakeholder Type" required>
+                <div class="searchinmultiselect">
+                  <i class="bgi bgi-search"></i><input matInput name="searchstkholdtype" class="searchselect"
+                    type="Search" placeholder="search" (keydown)="$event.stopPropagation();"
+                    [(ngModel)]="searchstkholdtype" [ngModelOptions]="{standalone: true}">
+                </div>
+                <mat-option
+                  *ngFor="let stkholdtype of stkholdtypelist | searchFilter: searchstkholdtype : 'shm_stakeholdertype'"
+                  [value]="stkholdtype.stkholdertypmst_pk">{{ stkholdtype.shm_stakeholdertype }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-hint
+              *ngIf="stkholdaccessform.controls['stkholdertypeid'].hasError('required') && stkholdaccessform.controls['stkholdertypeid'].touched"
+              class="text-danger font-14">Stakeholder Type cannot be blank</mat-hint>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-9 p-r-9 spacing">
+            <mat-form-field>
+              <mat-select [formControl]="stkholdaccessform.controls['basemoduleid']" placeholder="Select Base Module"
+                required>
+                <div class="searchinmultiselect">
+                  <i class="bgi bgi-search"></i><input matInput name="searchbasemodule" class="searchselect"
+                    type="Search" placeholder="search" (keydown)="$event.stopPropagation();"
+                    [(ngModel)]="searchbasemodule" [ngModelOptions]="{standalone: true}">
+                </div>
+                <mat-option *ngFor="let basemodule of basemodulelists | searchFilter: searchbasemodule : 'bmm_name'"
+                  [value]="basemodule.basemodulemst_pk">
+                  {{ basemodule.bmm_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-hint
+              *ngIf="stkholdaccessform.controls['basemoduleid'].hasError('required') && stkholdaccessform.controls['basemoduleid'].touched"
+              class="text-danger font-14">Base Module cannot be blank</mat-hint>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-9 p-r-9 spacing">
+            <mat-form-field>
+              <input NumberOnly matInput placeholder="Order" [formControl]="stkholdaccessform.controls['order']"
+                required>
+            </mat-form-field>
+            <mat-error
+              *ngIf="stkholdaccessform.controls['order'].hasError('required') && stkholdaccessform.controls['order'].touched"
+              class="text-danger font-14">Module Order cannot be blank</mat-error>
+            <mat-hint *ngIf="stkholdaccessform.controls['stkholdertypeid'].errors?.pattern" class="text-danger font-14">
+              Only Numbers are allowed</mat-hint>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div fxLayout="row wrap" class="p-t-25 upload_dialoglist">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <!-- <span class="closethepopupcrop" (click)="onNoClick()">
+      <i class="bgi bgi-close"></i>
+      <span>Close</span>
+    </span> -->
+    <div class="cropspacebetween">
+      <div class="dragviewtile">
+        <h2>Click and drag image to select an area.</h2>
+        <!-- [imageBase64]="base64String" -->
+        <!-- 
+          Removed the resize to allow size for external profile
+          [resizeToWidth]="1266"
+        resizeToHeight="200" -->
+        <image-cropper class="p-t-0 p-b-0 p-l-0 p-r-35" 
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="aspectRatio"
+       
+        format="png"
+        (imageCropped)="imageCropped($event)" 
+        [containWithinAspectRatio]="containWithinAspectRatio" 
+        [cropperMinWidth]="50"
+        [roundCropper]="false"
+        [canvasRotation]="canvasRotation"
+        [transform]="transform" 
+        [alignImage]="'center'"
+        style="max-height: 275px;"
+        [style.display]="showCropper ? null : 'none'" 
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+      </div>
+      <div class="dragpreviewtitle">
+        <h2>Selection Preview</h2>
+        <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" />
+      </div>
+      <span class="closethepopupcrop" (click)="onNoClick()">
+        <i class="bgi bgi-close"></i>
+        <span>Close</span>
+      </span>
+    </div>
+    <!-- <div class="supportdoccolor">
+        <br />
+        <br />
+        <button (click)="rotateLeft()">Rotate left</button>
+        <button>Rotate right</button>
+        <button (click)="flipHorizontal()">Flip horizontal</button>
+        <button (click)="flipVertical()">Flip vertical</button>
+        <br />
+        <br />
+        <button>{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain
+          Within Aspect Ratio'}}</button>
+        <button (click)="resetImage()">Reset image</button>
+        <br />
+        <br />
+        <input [(ngModel)]="rotation" placeholder="Rotation" type="number" /> <button>Zoom -</button> <button
+          (click)="zoomIn()">Zoom +</button>
+      </div> -->
+    <div fxLayout="row wrap" class="btnalignbackground">
+      <div fxFlex.gt-sm="70" fxFlex="100" class="imagecropbtn">
+        <!-- <div class="pos-relativeview">
+          <input type="file" (change)="fileChangeEvent($event)" class="choosefileinput" />
+          <button type="button" class="selectedfilebtn fs-15 m-r-5 button-40">Select File</button>
+        </div> -->
+        <button type="button" class="fitbtn fs-15 m-r-5 button-40" mat-raised-button
+          (click)="flipVertical()">Flip</button>
+        <button type="button" class="fitscreen fs-15 m-r-5 button-40" mat-raised-button
+          (click)="toggleContainWithinAspectRatio()">Fit to Screen</button>
+        <button type="button" class="rotatescreenbtn fs-15  button-40" mat-raised-button
+          (click)="rotateRight()">Rotate 90 &#176;</button>
+        <div class="zooming">
+          <button type="button" (click)="zoomIn()" class="fitbtn fs-15 button-40" mat-raised-button>
+            <i class="fa fa-search-plus" aria-hidden="true"></i>
+          </button>
+          <button type="button" (click)="zoomOut()" class="fitbtn fs-15 button-40" mat-raised-button>
+            <i class="fa fa-search-minus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div fxFlex.gt-sm="30" fxFlex="100" class="flexend">
+        <button type="button" color="primary" (click)="uploadcrop()" class="uploadbtn fs-15" mat-raised-button>Crop</button>
+      </div>
+    </div>
+  </div>

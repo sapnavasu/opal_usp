@@ -1,0 +1,262 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+            <div class="closeandadd">
+                <i mat-button matTooltip="{{'paymentproof.close' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+                    (click)="subcriptionpayclosedrawer()" class="bgi bgi-close p-l-5 fs-14"></i>
+                <h5 class="m-0 p-l-20 tt">{{'paymentproof.payproof' | translate}}<i class="bgi bgi-info"
+                        (click)="subpaydetaillist('subscriptiondetaillist')"></i></h5>
+            </div>
+            <div class="clearandaddbutton">
+                <button type="button" (click)="subcriptionpayclosedrawer()" mat-raised-button color="primary"
+                    class="clearbutton height-35 p-l-20 p-r-20 spacemargin m-r-10">{{'paymentproof.close' | translate}}</button>
+                <button color="primary" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+                    class="addbutton height-35 p-l-20 p-r-20">{{'paymentproof.submit' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 subscriptiondetaillist"
+        [@slideInOut]="animationState6">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+            <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                <mat-card-header>
+                    <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100"
+                        fxFlex.xl="100">
+                        <mat-card-subtitle class="informationtext fs-14">
+                            {{'paymentproof.infocontent' | translate}}
+                        </mat-card-subtitle>
+                    </div>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottomrenewallist">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottomrenwalalign p-l-50 p-r-50">
+            <div class="p-t-8 p-b-8">
+                <div class="renewalalign">
+                    <p class="p-b-8 fs-15 interbold m-0"> {{'paymentproof.companynameheader' | translate}}</p>
+                </div>
+                <div fxLayoutAlign="flex-start center">
+                    <p class="clabel m-0">{{'paymentproof.OPALregnum' | translate}}<span class="cvalue">:
+                        {{'paymentproof.OPALregnumvalue' | translate}}</span>
+                    </p>
+                    <p class="clabel p-l-45 m-0">{{'paymentproof.OPALcode' | translate}}<span class="cvalue">:
+                        {{'paymentproof.OPALcodevalue' | translate}}</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="innnerpartofdrwer" id="spacepartdrawer">
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" id="subpaydetaillist">
+                <div class="statuscardcertifcate">
+                    <div class="updateclassifyview">
+                        <h4 class="fs-16 txt-gray3 lypisfont-semibold">{{'paymentproof.updateclassify' | translate}}</h4>
+                    </div>
+                    <div fxLayout="row wrap" class="pd-20" fxLayoutAlign="flex-start">
+                        <div fxFlex.gt-sm="52" fxFlex="100">
+                            <div class="updateflex">
+                                <p class="m-0 clabel minwidthdate">{{'paymentproof.date' | translate}}</p>
+                                <span class="cvalue">{{'paymentproof.datevalue' | translate}}</span>
+                            </div>
+                            <div class="updateflex">
+                                <p class="m-0 clabel minwidthdate">{{'paymentproof.enterpriseclassify' | translate}}</p>
+                                <span class="smemediumtag">{{'paymentproof.smemedium' | translate}}</span>
+                            </div>
+                            <div class="updateflex">
+                                <p class="m-0 clabel minwidthdate">{{'paymentproof.subscripfee' | translate}}</p>
+                                <span class="cvalue">{{'paymentproof.omrvalue' | translate}}</span>
+                            </div>
+                            <div class="updateflex p-b-0">
+                                <p class="m-0 clabel minwidthdate">{{'paymentproof.invoiceamount' | translate}}</p>
+                                <span class="cvalue">{{'paymentproof.omrinvoicevalue' | translate}}</span>
+                            </div>
+                        </div>
+                        <div fxFlex.gt-sm="48" fxFlex="100">
+                            <div class="updateflex">
+                                <p class="m-0 clabel minwidthdate">{{'organisationdetailtracker.headcount' | translate}}</p>
+                                <span class="cvalue">{{'paymentproof.employess' | translate}}</span>
+                            </div>
+                            <div class="updateflex">
+                                <p class="m-0 clabel minwidthdate">{{'paymentproof.annualsales' | translate}}</p>
+                                <span class="cvalue">{{'paymentproof.annualsalesvalue' | translate}}</span>
+                            </div>
+                            <div class="updateflex">
+                                <p class="m-0 clabel minwidthdate">{{'paymentproof.subscripvalidity' | translate}}</p>
+                                <span class="cvalue">{{'paymentproof.years' | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" class="m-t-45">
+                    <div fxFlex.gt-sm="44" fxFlex="100">
+                        <div class="offlinecolorconfirm m-b-30 p-b-0">
+                            <h2 class="fs-14 ">{{'paymentproof.note' | translate}}</h2>
+                            <ul class="p-l-20 m-t-0">
+                                <li class="payonlinefield">{{'paymentproof.notecontent' | translate}}</li>
+                                <li class="payonlinefield"> {{'paymentproof.notecontentanother' | translate}}
+                                </li>
+                            </ul>
+                        </div>
+                        <form [formGroup]='checkform' autocomplete="off">
+                            <div fxLayout="row wrap">
+                                <div fxFlex.gt-sm="100" fxFlex="100">
+                                    <mat-form-field class="numberresponsive">
+                                        <mat-select formControlName="paymentmode" [errorStateMatcher]="matcher"
+                                            placeholder="{{'paymentproof.selectpaymode' | translate}}" required [disableOptionCentering]="true">
+                                            <mat-option value="2">{{'paymentproof.chequecash' | translate}}</mat-option>
+                                            <mat-option value="1">{{'paymentproof.banktransfer' | translate}}</mat-option>
+                                        </mat-select>
+                                        <!-- <mat-error
+                                        *ngIf="checkform.controls['paymentmode'].hasError('required') && checkform.controls['paymentmode'].touched"
+                                        class="text-danger font-14">Select payment mode
+                                    </mat-error> -->
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="p-t-12 p-b-12">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="{{'paymentproof.bankname' | translate}}" formControlName='bankName' required
+                                        maxlength="50" app-restrict-input="firstspace" appAlphanumsymb
+                                        [errorStateMatcher]="matcher">
+                                    <!-- <mat-error
+                                    *ngIf="checkform.controls['bankName'].hasError('required') && checkform.controls['bankName'].touched"
+                                    class="text-danger font-14">{{'paymentproof.enterbankname' | translate}}
+                                </mat-error> -->
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row wrap">
+                                <div fxFlex.gt-sm="50" fxFlex="100">
+                                    <mat-form-field>
+                                        <mat-label>{{'paymentproof.dateoftransfer' | translate}}</mat-label>
+                                        <input [errorStateMatcher]="matcher" formControlName='transcdate' readonly
+                                            matInput [matDatepicker]="picker" readonly required [max]="maxDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <!-- <mat-error
+                                        *ngIf="checkform.controls['transcdate'].hasError('required') && checkform.controls['transcdate'].touched"
+                                        class="text-danger font-14">{{'paymentproof.selectdateoftrans' | translate}}
+                                    </mat-error> -->
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100">
+                                    <mat-form-field class="p-l-18 numberresponsive">
+                                        <input matInput maxlength="50" appAlphanumsymb formControlName='checkno'
+                                            app-restrict-input="firstspace" required [errorStateMatcher]="matcher"
+                                            placeholder="{{'paymentproof.chequenum' | translate}}">
+                                        <!-- <mat-error
+                                        *ngIf="checkform.controls['checkno'].hasError('required') && checkform.controls['checkno'].touched"
+                                        class="text-danger font-14">Enter
+                                        {{ paymentType == 2 ? 'cheque / challan no': 'transaction ID' }}
+                                        {{'paymentproof.enterchequenum' | translate}}
+                                    </mat-error> -->
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <p class="fs-14 p-t-20">{{'paymentproof.paymentproff' | translate}}<span class="title">*</span></p>
+                            <app-filee #photoRef [notePosition]="'bottom'" formControlName="proofdoc"
+                                [fileMstRef]="drv_proofdoc" (filesSelected)="fileeSelected($event,drv_proofdoc)"
+                                isMandatory="true">
+                            </app-filee>
+                            <div fxLayout="row wrap" class="m-t-25">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-25 btnalign">
+                                    <button type="button" mat-raised-button
+                                        class="cancelbtndragdrop m-r-20 fs-15">{{'paymentproof.cancel' | translate}}
+                                    </button>
+                                    <button type="button" mat-raised-button color="primary" class="submitbtnwidth">
+                                        {{'paymentproof.submit' | translate}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="Notecolorpay">
+                                <p><span>{{'paymentproof.note' | translate}}:</span> {{'paymentproof.notecontentprocess' | translate}}</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div fxFlex.gt-sm="56" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-45"
+                        ngClass.lg="p-l-45" ngClass.xl="p-l-45">
+                        <div class="backgrounjsrs m-b-30 p-t-20">
+                            <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5 p-l-30">{{'paymentproof.subscripfeedet' | translate}}</p>
+                            <div class="subscriptiontitle p-l-30 p-r-30  p-b-20">
+                                <p class="spacingwidth widthfirttag fs-16">{{'paymentproof.OPALsupchainsubfee' | translate}}
+                                </p>
+                                <div class="flexwidth">
+                                    <p class="spacingalignwidth fs-15">{{'paymentproof.omr' | translate}}
+                                        <span class="floatalign">
+                                            {{'paymentproof.omrchainvalue' | translate}}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="p-b-20 p-l-30 p-r-30">
+                                <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5">{{'paymentproof.discountdetails' | translate}}</p>
+                                <div class="subscriptiontitle">
+                                    <p class="spacingwidth widthfirttag fs-16">{{'paymentproof.specialdiscount' | translate}}</p>
+                                    <div class="flexwidth">
+                                        <p class="spacingalignwidth fs-15">{{'paymentproof.omr' | translate}}
+                                            <span class="floatalign">
+                                                {{'paymentproof.spediscountvalue' | translate}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-b-40 p-l-30 p-r-30">
+                                <p class="fs-13 m-0 txt-gray6 lypisfont-regular p-b-6">{{'paymentproof.apppromocodedis' | translate}}</p>
+                                <div class="subscriptiontitle">
+                                    <div class="specialdis">
+                                        <p class="fs-13 txt-gray3 OPALcolorinner">{{'paymentproof.promocodevalue' | translate}}</p>
+                                    </div>
+                                    <div class="flexwidth">
+                                        <p class="spacingalignwidth">{{'paymentproof.omr' | translate}}
+                                            <span class="floatalign">
+                                                {{'paymentproof.omrappliedvalue' | translate}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5 p-l-30">{{'paymentproof.othechar' | translate}}</p>
+                            <div class="subscriptiontitle p-l-30 p-r-30 p-b-6">
+                                <p class="spacingwidth widthfirttag fs-16">
+                                    {{'paymentproof.vatcharges' | translate}}</p>
+                                <div class="flexwidth">
+                                    <p class="spacingalignwidth fs-15">{{'paymentproof.omr' | translate}}
+                                        <span class="floatalign">
+                                            {{'paymentproof.vatchargesvalue' | translate}}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- <div class="subscriptiontitle p-l-30 p-r-30 p-b-6">
+                            <p class="spacingwidth widthfirttag fs-16">
+                                 {{'paymentproof.processfee' | translate}}</p>
+                            <div class="flexwidth">
+                                <p class="spacingalignwidth fs-15">{{'paymentproof.omr' | translate}}
+                                    <span class="floatalign">
+                                         {{'paymentproof.processfeevalue' | translate}}
+                                    </span>
+                                </p>
+                            </div>
+                        </div> -->
+                            <div class="paymenttitlecolor p-l-10 p-r-10 m-l-20 m-r-20 m-t-40">
+                                <p class="spacingwidth widthfirttag boldfont m-0 fs-16 lypisfont-semibold ">
+                                    {{'paymentproof.totalpayableamount' | translate}}</p>
+                                <div class="flexwidth">
+                                    <p class="spacingalignwidth spaceleft boldfont fs-16 lypisfont-semibold ">{{'paymentproof.omr' | translate}}
+                                        <span class="floatalign">
+                                            {{'paymentproof.totalpayvalue' | translate}}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

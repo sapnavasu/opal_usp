@@ -1,0 +1,92 @@
+<div id="paymentcentre" fxLayout="row wrap" fxLayoutAlign="center" *ngIf="paymentdtls?.appdt_projectmst_fk==1 || paymentdtls?.appdt_projectmst_fk==4">
+    <div fxFlex="100">
+        <div class="pay_card m-b-20">
+            <div fxFlex="100" class="paycard" fxLayout="row wrap" fxLayoutAlign="space-between ">
+                <div fxFlex="100" fxFlex.gt-md="70"  fxLayout="row wrap">
+                    <div fxFlex="100" fxFlex.gt-sm="22">
+                        <img *ngIf="paymentdtls?.complogo==null" class="noImage" src="assets/images/opalimages/noimagecomp.svg" alt="noimagelogo">
+                    <img *ngIf="paymentdtls?.complogo" src="{{paymentdtls?.complogo}}" class="companyLogo" alt="companylogo">
+                    </div>
+                    <div class="company_detials m-l-20"  fxFlex="100" fxFlex.gt-sm="70">
+                        <h4 class="fs-18">{{(langkey=='ar')? ((paymentdtls?.omrm_companyname_ar)? paymentdtls?.omrm_companyname_ar: paymentdtls?.omrm_companyname_en): paymentdtls?.omrm_companyname_en}}</h4>
+                        <div class="m-t-20">
+                            <div class="detials m-b-15"  *ngIf="paymentdtls?.appdt_projectmst_fk==1">
+                                <p class="fs-13 txt-gry m-0 pymtlable" fxFlex="40">{{'payment.trainprov' | translate}}
+                                </p>
+                                <span class="fs-13 txt-gry3">{{(langkey=='ar')? ((paymentdtls?.omrm_tpname_ar)? paymentdtls?.omrm_tpname_ar: paymentdtls?.omrm_tpname_en): paymentdtls?.omrm_tpname_en}}</span>
+                            </div>
+                            <div class="detials m-b-15"  *ngIf="paymentdtls?.appdt_projectmst_fk==4">
+                                <p class="fs-13 txt-gry m-0 pymtlable" fxFlex="40">{{'Centre Name'}}
+                                </p>
+                                <span class="fs-13 txt-gry3">{{(langkey=='ar')? ((paymentdtls?.omrm_branch_ar)? paymentdtls?.omrm_branch_ar: paymentdtls?.omrm_branch_en): paymentdtls?.omrm_branch_en}}</span>
+                            </div>
+                            <div class="detials m-b-15">
+                                <p class="fs-13 txt-gry m-0 pymtlable" fxFlex="40">{{'payment.applform' | translate}}</p>
+                                <span class="fs-13 txt-gry3">{{paymentdtls?.appdt_appreferno}}</span>
+                            </div>
+                            <div class="detials m-b-15">
+                                <p class="fs-13 txt-gry m-0 pymtlable" fxFlex="40">{{'payment.offitype' | translate}}</p>
+                                <span class="fs-13 txt-gry3" *ngIf="paymentdtls?.appiit_officetype==1">{{'payment.main' | translate}}</span>
+                                <span class="fs-13 txt-gry3" *ngIf="paymentdtls?.appiit_officetype==2">{{'payment.branch' | translate}}</span>                          
+                            </div>
+                            <!-- <div class="detials m-b-15">
+                                <div fxFlex.sm="51" fxFlex="51" fxFlex.gt-sm="51" fxFlex.gt-lg="51" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                    <p class="fs-13 txt-gry m-0 pymtlable" fxFlex="45">{{'payment.offitype' | translate}}</p>
+                                <span class="fs-13 txt-gry3" *ngIf="paymentdtls?.appiit_officetype==1">{{'payment.main' | translate}}</span>
+                                <span class="fs-13 txt-gry3" *ngIf="paymentdtls?.appiit_officetype==2">{{'payment.branch' | translate}}</span>                            
+                                </div>
+                            </div> -->
+                            <div class="detials">
+                                <p class="fs-13 txt-gry m-0 pymtlable" *ngIf="paymentdtls?.appiit_officetype==2"  fxFlex="40">{{'payment.branname' | translate}}</p>
+                                <span class="fs-13 txt-gry3" *ngIf="paymentdtls?.appiit_officetype==2">{{(langkey=='ar')? ((paymentdtls?.appiit_branchname_ar)? paymentdtls?.appiit_branchname_ar: paymentdtls?.appiit_branchname_en): paymentdtls?.appiit_branchname_en}}</span>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btngroup">
+                    <!-- <button color="primary" *ngIf='paybtn' mat-raised-button class="paynote" (click)="opendialogquicksetup()">{{'payment.paymnote' |
+                        translate}}</button> -->
+                    <!-- <button mat-raised-button (click)="viewcertform()" class="viewcert m-l-10">{{'payment.viewcertform' |
+                        translate}}</button> -->
+                    <button mat-raised-button *ngIf="frompage=='mc'"  (click)="viewcertform()" class="viewcert m-l-10">{{'payment.viewcertform' | translate}}</button>
+                    <button mat-raised-button *ngIf="frompage=='bc'"  (click)="viewcertformbc()" class="viewcert m-l-10">{{'payment.viewcertform' | translate}}</button>
+
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>
+<div id="paymentcorse" fxLayout="row wrap" fxLayoutAlign="center" *ngIf="paymentdtls?.appdt_projectmst_fk==2 || paymentdtls?.appdt_projectmst_fk==3">
+    <div fxFlex="100">
+        <div class="pay_card m-b-20" fxLayout="column">
+            <div fxFlex="100" class="paycard" fxLayout="row wrap" fxLayoutAlign="flex-start">
+                <div fxFlex="100" fxFlex.gt-sm="60">
+                    <h4 class="fs-18">{{(langkey=='ar')? ((courseinfo?.stndcourse_ar)? courseinfo?.stndcourse_ar: courseinfo?.stndcourse_en): courseinfo?.stndcourse_en}}</h4>
+                </div>
+            </div>
+            <div fxFlex="100" class="paycard" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="company_detials" fxFlex="60"  fxLayout="row wrap">
+                    <div class="m-t-20" fxFlex="100">
+                        <div class="detials m-b-15">
+                            <p class="fs-13 txt-gry m-0 pymtlable" fxFlex="40">{{'payment.applform' | translate}}</p>
+                            <span class="fs-13 txt-gry3">{{paymentdtls?.appdt_appreferno}}</span>
+                        </div>
+                        <div class="detials">
+                            <p class="fs-13 txt-gry m-0 pymtlable" fxFlex="40">{{'payment.offitype' | translate}}</p>
+                            <span class="fs-13 txt-gry3  m-r-40" *ngIf="courseinfo?.appiim_officetype==1">{{'payment.main' | translate}}</span>
+                            <span class="fs-13 txt-gry3  m-r-40" *ngIf="courseinfo?.appiim_officetype==2">{{'payment.branch' | translate}}</span>                            
+                            <p class="fs-13 txt-gry m-0 m-l-50" *ngIf="courseinfo?.appiim_officetype==2" fxFlex="20">{{'payment.branname' | translate}}</p>
+                            <span class="fs-13 txt-gry3" *ngIf="courseinfo?.appiim_officetype==2">{{(langkey=='ar')? ((courseinfo?.appiim_branchname_ar)? courseinfo?.appiim_branchname_ar: courseinfo?.appiim_branchname_en): courseinfo?.appiim_branchname_en || '-'}}</span>                                
+                        </div>
+                    </div>
+                </div>
+                <div class="btngroup" fxFlex="40">
+                    <!-- <button color="primary" *ngIf='paybtn' mat-raised-button class="paynote" (click)="opendialogquicksetup()">{{'payment.paymnote' |
+                        translate}}</button> -->
+                    <button mat-raised-button  (click)="viewcourseform()" class="viewcert m-l-10">{{'payment.viewcourcert' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

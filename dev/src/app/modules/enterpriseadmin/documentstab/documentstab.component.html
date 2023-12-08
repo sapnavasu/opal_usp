@@ -1,0 +1,124 @@
+<div class="discussionleftright">
+  <div class="leftsidecontent">
+    <div class="lefttop">
+      <p class="filebold">Files (06)</p>
+      <div class="searchandmore">
+        <i class="bgi bgi-calendar"></i>
+        <button class="menutopic" mat-icon-button [matMenuTriggerFor]="menutopic">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu class="master-menu" #menutopic="matMenu">
+          <button mat-menu-item>Last Modified</button>
+          <button mat-menu-item>Last Modified by me</button>
+          <button mat-menu-item>Last Opened by me</button>
+          <button mat-menu-item>Storage used</button>
+        </mat-menu>
+      </div>
+    </div>
+    <div class="serachbox">
+      <input type="text" placeholder="Search">
+      <i class="bgi bgi-search"></i>
+    </div>
+    <div class="tabcontent">
+      <ng-container *ngFor="let topic of fetchData">
+        <div class="topicdetails cursor-pointer" (click)='selectdis(topic)'>
+          <div class="userimage">
+            <img src="assets/images/{{topic.exten}}_new.svg" alt="{{topic.title}}">
+          </div>
+          <div class="usercontent">
+            <p class="topicname">{{topic.title}}</p>
+            <p class="dateandcreateby">
+              <span>{{topic.size}}</span>
+            </p>
+          </div>
+          <i class="bgi bgi-next-1"></i>
+        </div>
+
+      </ng-container>
+    </div>
+
+  </div>
+  <div class="rightsidecontent">
+    <div class="eachitemindetail">
+      <div class="divisions">
+        <div class="topicdetails">
+          <div class="notecolorview">
+             <img src="assets/images/{{rexten}}_new.svg" alt="{{rTitle}}">
+          </div>
+          <div class="usercontent">
+            <p class="topicname">{{rTitle}}</p>
+            <p class="dateandcreateby">
+              <span>{{rdescription}}</span>
+            </p>
+          </div>
+          <button class="viewbtnc">View</button>
+        </div>
+        <div class="cardfooterforview">
+          <p>
+            <span class="ltgrey">Attached by:</span>
+            <!-- <i class="bgi bgi bgi-Existing contactposition fs-20  fs-16 m-l-10"></i> -->
+            <span class="clrblck">Raja Amjad Qureshi <img src="assets/images/contactimge.png" class="m-l-10 contactposition" alt="contactimge"></span>
+          </p>
+          <div class="manageoptions">
+            <p class="showexdesign">
+              <span class="ltgrey">Attached on:</span>
+              <span class="clrblck">25-07-2021 18:00 PM</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <perfect-scrollbar style="max-height: 330px;">
+        <div class="scrollwidth p-b-20">
+          <h2 class="seenby">Seen By (02)</h2>
+          <div class="divisions b-b-1">
+            <div class="topicdetails">
+              <div class="userimage bg-white">
+                <img src="assets/images/users/2.jpg" alt="user" />
+              </div>
+              <div class="usercontent">
+                <p class="topicname">Louis I. Murray (BGI - 120)</p>
+                <p class="dateandcreateby">
+                  <span>Toda 9:16 AM</span>
+                </p>
+              </div>
+              <!-- <i class="bgi bgi bgi-Existing contactinfoview fs-20  fs-16 m-l-10 indepncard"></i> -->
+              <img class="m-l-10 indepncard" src="assets/images/contactimge.png" alt="contactimge">
+            </div>
+          </div>
+          <div class="divisions">
+            <div class="topicdetails">
+              <div class="userimage bg-white">
+                <img src="assets/images/users/3.jpg" alt="user" />
+              </div>
+              <div class="usercontent">
+                <p class="topicname">Muzaffar (BGI - 157)</p>
+                <p class="dateandcreateby">
+                  <span>Toda 9:16 AM</span>
+                </p>
+              </div>
+              <!-- <i class="bgi bgi bgi-Existing contactinfoview fs-20  fs-16 m-l-10 indepncard"></i> -->
+              <img class="m-l-10 indepncard" src="assets/images/contactimge.png" alt="contactimge">
+            </div>
+          </div>
+          <h2 class="seenby">UnSeen By (01)</h2>
+          <div class="divisions">
+            <div class="topicdetails">
+              <div class="userimage bg-white">
+                <img src="assets/images/users/4.jpg" alt="user" />
+              </div>
+              <div class="usercontent">
+                <p class="topicname">Mohamed Mansour (BGI - 182)</p>
+                <p class="dateandcreateby">
+                  <span>Toda 9:16 AM</span>
+                </p>
+              </div>
+              <!-- <i class="bgi bgi bgi-Existing contactinfoview fs-20 fs-16 m-l-10 indepncard"></i> -->
+              <img class="m-l-10 indepncard" src="assets/images/contactimge.png" alt="contactimge">
+            </div>
+          </div>
+        </div>
+
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>

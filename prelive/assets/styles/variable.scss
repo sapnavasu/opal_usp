@@ -1,0 +1,122 @@
+$bodyfont:'opal_regular', sans-serif;
+$headingfont:'opal_semibold', sans-serif; 
+
+@import '~@angular/material/theming';
+$mat-default: (
+  50: #e2e9f3,
+  100: #b6c9e1,
+  200: #86a5cd,
+  300: #5581b8,
+  400: #3066a9,
+  500: #0c4b9a,
+  600: #0a4492,
+  700: #083b88,
+  800: #06337e,
+  900: #03236c,
+  A100: #9cb3ff,
+  A200: #698cff,
+  A400: #3665ff,
+  A700: #1c52ff,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+/*Material Theme Colors*/
+ 
+  $primary: mat-palette($mat-default, 500);
+  $accent: mat-palette($mat-indigo, 500);
+  $warn: mat-palette($mat-pink, 500);
+  $theme: mat-light-theme($primary, $accent, $warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  // Default Theme
+  @include angular-material-theme($theme);
+ 
+// Dark Theme
+
+/*Theme Colors*/
+$primary: #0c4b9a;
+$bodycolor: #ffffff;
+ 
+$topbar: #2196f3;
+$sidebar: #fff;
+$sidebar-white: #e5edef;
+$sidebar-alt:#f2f6f8;
+
+$headingtext: #455a64;
+$bodytext: #67757c; 
+$sidebar-text: #626366;
+$sidebar-icons: #99abb4 ;
+$breadcrumb: #848484 ;
+
+$font-16: 16px;
+
+$light-text: #a6b7bf;
+$themecolor: #1e88e5;
+$themecolor-alt: #26c6da;
+$themecolor-dark: #028ee1;
+
+/*bootstrap Color*/
+$danger: #dc4c64;
+$success: #26c6da;
+$warning: #ffb22b;
+
+$info: #1e88e5;
+$inverse: #2f3d4a;
+$muted: #99abb4;
+$dark: #263238;
+$light: #f2f4f8;
+$extra-light: #ebf3f5;
+$secondary: #727b84;
+
+/*Light colors*/
+$light-danger: #f9e7eb;
+$light-success: #e8fdf8;
+$light-warning: #fff8ec;
+$light-primary: #f1effd;
+$light-info: #e3f3fd;
+$light-inverse: #f6f6f6;
+$light-megna: #e0f2f4; 
+
+$danger-dark: #e6294b;
+$success-dark: #1eacbe;
+$warning-dark: #e9ab2e;
+$primary-dark: #6352ce;
+$info-dark: #028ee1;
+$red-dark: #d61f1f;
+$inverse-dark: #232a37;
+$dark-transparent: rgba(0, 0, 0, 0.05);
+
+/*Normal Color*/
+$white: #ffffff;
+$red: #fb3a3a;
+$yellow: #a0aec4;
+$purple: #7460ee;
+$blue: #02bec9;
+$megna: #00897b;
+$orange: #fb3a3a;
+
+/*Extra Variable*/
+$rgt: right;
+$lft: left;
+$border: rgba(120, 130, 140, 0.13);
+$table-border: #f3f1f1;
+$card-brd: #d7dfe3;
+$dark-text: #848a96;
+$radius: 4px;
+$form-brd: #d9d9d9;
+$page-wrapper-boxed-width: 1300px

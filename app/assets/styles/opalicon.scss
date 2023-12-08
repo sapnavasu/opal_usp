@@ -1,0 +1,85 @@
+@import "opalicon-variable";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?oaky1v');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?oaky1v#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?oaky1v') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?oaky1v') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?oaky1v##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i.opalicon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.opal-Dashboard {
+  &:before {
+    content: $opal-Dashboard; 
+  }
+}
+.opal-Manage-Users {
+  &:before {
+    content: $opal-Manage-Users; 
+  }
+}
+.opal-Training-Evaluation-Centre-Certification-Management {
+  &:before {
+    content: $opal-Training-Evaluation-Centre-Certification-Management; 
+  }
+}
+.opal-Technical-Inspection-Centre-Certification-Management-04 {
+  &:before {
+    content: $opal-Technical-Inspection-Centre-Certification-Management-04; 
+  }
+}
+.opal-Contact-us {
+  &:before {
+    content: $opal-Contact-us; 
+  }
+}
+.opal-Manage-Roles {
+  &:before {
+    content: $opal-Manage-Roles; 
+  }
+}
+.opal-Approval-Management {
+  &:before {
+    content: $opal-Approval-Management; 
+  }
+}
+.opal-Invoice-Management {
+  &:before {
+    content: $opal-Invoice-Management; 
+  }
+}
+.opal-Learner-Card-Log {
+  &:before {
+    content: $opal-Learner-Card-Log; 
+  }
+}
+.opal-Batch-Management {
+  &:before {
+    content: $opal-Batch-Management; 
+  }
+}
+.opal-Learner-Feedback {
+  &:before {
+    content: $opal-Learner-Feedback; 
+  }
+}
+

@@ -1,0 +1,127 @@
+<div id="institue_container" fxLayoutAlign="center">
+    <div class="compantdtl m-t-30" fxFlex="100">
+        <div fxLayoutAlign="space-between center" fxLayout="row wrap">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'institue.instinfo' | translate}}</h4>
+                <span class="badge new" *ngIf="appiit_status == 1">{{'institue.new' | translate}}</span>
+                <span class="badge update" *ngIf="appiit_status == 2">{{'table.updated' | translate}}</span>
+                <span class="badge appr" *ngIf="appiit_status == 3">{{'institue.appr' | translate}}</span>
+                <span class="badge decl" *ngIf="appiit_status == 4">{{'company.decl' | translate}}</span>
+            </div>
+            <div class="validbtn">
+                <!-- <button mat-raised-button class="validation fs-16" color="primary">{{'institue.vali' |
+                    translate}}</button> -->
+                    <app-viewvalidation [hidebtn]="true" [newbtn]="true"   [callbackFn]="onValidation" [isDisabled] = 'isValidated' *ngIf="type == 'desktopreview' && updatevalidation"></app-viewvalidation>
+            </div>
+        </div>
+        <div class="declinecmd m-l-0 m-r-0 m-b-20" *ngIf="appiit_status == 4">
+            <p class="18 comment">{{'institue.declcomm' | translate}}</p>
+            <p class="16 m-b-30" [innerHtml]='appiit_appdeccomment'></p>
+                <mat-divider></mat-divider>
+               <div class="validinfo"  fxLayout="row wrap" >
+                <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{appiit_appdecon}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{oum_firstname}}</span></p>
+               </div>
+        </div>
+        <div class="successcmd m-l-0 m-r-0 m-b-20" *ngIf="appiit_status == 3">
+            <p class="18 comment">{{'institue.declcomm' | translate}}</p>
+            <p class="16 m-b-30" [innerHtml]='appiit_appdeccomment'></p>
+                <mat-divider></mat-divider>
+               <div class="validinfo"  fxLayout="row wrap" >
+                <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{appiit_appdecon}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{oum_firstname}}</span></p>
+               </div>
+        </div>
+
+        <div class="m-l-0 m-r-0 m-b-20" *ngIf="appiit_status == 2"  [ngClass]="hisstatus == 4 ? 'declinecmd' : 'successcmd'">
+            <p class="18 comment">{{'institue.declcomm' | translate}}</p>
+            <p class="16 m-b-30" [innerHtml]='appiit_appdeccomment'></p>
+                <mat-divider></mat-divider>
+               <div class="validinfo"  fxLayout="row wrap" >
+                <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{appiit_appdecon}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{oum_firstname}}</span></p>
+               </div>
+        </div>
+
+        <div class="company_dtlview"> 
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'institue.offitype' | translate}}</p>
+                <span>{{appiit_officetype}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row"  *ngIf="officetype == 2">
+                <p class="m-0">{{'institue.brannameineng' | translate}}</p>
+                <span>{{appiit_branchname_en}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row"  *ngIf="officetype == 2">
+                <p class="m-0">{{'institue.brannameinar' | translate}}</p>
+                <span>{{appiit_branchname_ar}}</span>   
+            </div>
+            <h4 class="fs-18 m-t-40">{{'institue.numbofstaff' | translate}}</h4>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'institue.oman' | translate}}</p>
+                <span>{{appiit_noofomani}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'institue.expa' | translate}}</p>
+                <span>{{appiit_noofexpat}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'institue.tota' | translate}}</p>
+                <span>{{total}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row" >
+                <p class="m-0">{{'institue.omanperc' | translate}}</p>
+                <span *ngIf="autocalper != 'NaN'">{{autocalper}} % </span>
+                <span *ngIf="autocalper == 'NaN'">-</span>
+            </div>
+           
+            <h4 class="fs-18 m-t-40" *ngIf="appiit_locmapurl">{{'institue.siteloca' | translate}}</h4>
+            <div class="view_dtl m-t-25" fxLayout="row" *ngIf="appiit_locmapurl">
+                <p class="m-0">{{'institue.siteloca' | translate}}</p>
+                <span fxLayoutAlign="flex-start center" matTooltip="{{'table.viewlocat'|translate}}"><a class="txt-gry3" target="_blank" href="https://{{appiit_locmapurl}}"><mat-icon class="fs-25">location_on_outline </mat-icon>{{appiit_locmapurl}}</a></span>
+            </div>
+            <!-- <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'institue.molperc' | translate}}</p>
+                <span>{{appiit_molpercent}} % </span>
+            </div> -->
+            <div class="view_dtl m-t-25" fxLayout="row" *ngIf="this.projectpk == 1">
+                <p class="m-0">{{'institue.numboftechstaff' | translate}}</p>
+                <span>{{appiit_nooftechstaff}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row" *ngIf="this.projectpk == 1">
+                <p class="m-0">{{'institue.currlearnumb' | translate}}</p>
+                <span>{{appiit_noofcurlearners}}</span>
+        </div>
+            <div class="view_dtl m-t-25" fxLayout="row" *ngIf="this.projectpk == 1">
+                <p class="m-0">{{'institue.ratioftech' | translate}}</p>
+                <span>{{autocalrat}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row" *ngIf="this.projectpk == 1">
+                <p class="m-0">{{'institue.traiprovmaxi' | translate}}</p>
+                <span>{{appiit_maxcapacity}}</span>
+            </div>
+            <div  *ngIf="projectpk == 4">
+            <h4 class="fs-18 m-t-40">{{'Office Address' | translate}}</h4>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.addrline' | translate}} 1</p>
+                <span>{{(address1)?address1:'-'}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.addrline' | translate}} 2</p>
+                <span>{{(address2)?address2:'-'}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.gove' | translate}}</p>
+                <span *ngIf="ifarabic">{{(osm_statename_ar) ?osm_statename_ar :  '-'}}</span>
+                <span *ngIf="!ifarabic">{{(osm_statename_en)?osm_statename_en :  '-'}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'company.wila' | translate}}</p>
+                <span *ngIf="ifarabic">{{(ocim_cityname_ar) ?ocim_cityname_ar :  '-'}}</span>
+                <span *ngIf="!ifarabic">{{(ocim_cityname_en)?ocim_cityname_en :  '-'}}</span>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

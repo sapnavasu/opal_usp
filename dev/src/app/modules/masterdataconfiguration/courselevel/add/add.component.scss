@@ -1,0 +1,312 @@
+#addcourselevel{
+    display: flex;
+    flex-direction: column !important;
+    color: #848484;
+    //  padding: 0px 70px 0px 80px;
+    .mat-raised-button {
+        min-width: 120px;
+        height: 45px;
+        font-size: 16px;
+        box-shadow: none;
+    }
+
+    .arabiclanguage {
+
+        input,
+        .mat-form-field-label {
+            text-align: right;
+        }
+
+        .mat-form-field-label {
+            text-align: right;
+        }
+
+        .mat-error {
+            text-align: right;
+        }
+    }
+    .assessorheader{
+        width: 95%;
+        padding-bottom: 6%;
+        column-gap: 70px;
+    }
+    .assessordetails{
+        width: 100%;
+        display: flex;
+        border: 1px solid lightgray;
+        padding-left: 20px;
+        padding-right: 20px;
+
+    }
+    .assessordetail1{
+        display: flex;
+        width: 100%;
+        padding: 0px 20px 0px 21px;
+        border: 1px solid lightgray;
+        border-top:0px;
+        align-content: space-between;        
+        column-gap: 70px;
+        p{
+            margin:15px 0;
+            font-size:15px;
+        }
+    }
+    
+     .mat-icon {
+        vertical-align: middle;
+    }
+      
+      th.mat-sort-header-sorted {
+        color: black;
+      }
+    
+    .assessordetails   .bor {
+        padding: 2px 5px;
+        border: 1px solid lightgray;
+        margin: 10px 5px;
+        font-size:15px;
+    }
+    .assessordetails p {
+        padding: 16px 0px 1px 0px;
+        margin: 1px 0;
+    }
+    .assessordetails span {
+        color: #262626;
+    }
+          
+    .assessorupload{
+        padding: 20px 0px 0px 0px;
+        border-radius: none;
+        
+    }
+    .uploadknowledgeassessment .mat-hint{
+        font-size: 12px;
+    }
+    .uploadassessment{
+        display: flex;
+        padding: 20px;
+        border-radius: 0%;
+        .uploadfile{
+            .ng-hide{
+                box-sizing: border-box;
+            }
+        }
+    mat-form-field{
+        border-radius: none;
+    }
+    }
+    .filter,.selectupload{
+        border-radius: none;
+    }
+    .hinpad{
+        padding:0px 0px 28px 0px;
+        border-radius: none;    
+    }
+    .clflex{
+        display: flex;
+    }
+    .clflx{
+        display:flex;
+        flex-direction: row;
+        gap: 1rem;
+        width: 100%;
+    }
+    .rwidth{
+        width: 100%;
+    }
+    .buttonalign{
+        text-align: right;
+        padding-top: 5%;
+        width:100%;
+    }
+    .colblack{
+        color: #000 !important;
+    }
+    .colgreen{
+        color: #00a551 !important;
+    }
+    .colorange{
+        color: #f4811f !important;
+    }
+    .colred, .mat-sort-header-arrow{
+        color: #ed1c27 !important;
+    }
+    .colpurple{
+        color: #d160d9;
+    } 
+    .colblue{
+        color:#626366
+    }
+    .colgrey{
+        color:#4c4d52
+    }
+   .btnbac{
+    background-color: #0c4b9a;
+    color: #fff;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 45px;
+    font-size:16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+   }
+   .btnred{
+        background-color: #ed1c27;
+        color: #fff;
+        // padding: 7px 26px;
+        // margin-left: 15px;
+        border-radius: 2px;
+   }
+   .btnwhite{
+    // padding: 7px 26px;
+    border-radius: 2px;
+    background-color: #fff;
+            border: 1px solid #e8e8e8;
+            color: #262626;
+   }
+   .mat-form-field-appearance-outline{
+       &.mat-form-field-can-float{
+           &.mat-form-field-should-float{
+                .mat-form-field-label{
+                    transform: translateY(-0.9rem) scale(0.75);
+                }
+           }
+       }
+   }
+   
+}
+.menu-items_changeasser{
+    background-color: #666666 !important;
+    color: #fff;
+    min-height: 45px !important;
+
+    .mat-menu-item {
+        color: #fff !important;
+        height: 30px !important;
+        line-height: 20px !important;
+    }
+}
+
+.searchinmultiselect {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    background: #e9edf0;
+
+    input::-webkit-input-placeholder {
+        color: #7f8fa3 !important;
+    }
+
+    i {
+        color: #7f8fa3 !important;
+        padding-right: 6px;
+    }
+
+    .searchselect {
+        width: calc(100% - 25px) !important;
+    }
+
+    .reseticon {
+        cursor: pointer;
+    }
+}
+
+.select_with_search {
+    overflow: hidden !important;
+    max-height: 100% !important;
+    margin-top: 50px !important;
+    margin-bottom: 15px !important;
+}
+
+.searchselect {
+    width: calc(100% - 25px) !important;
+    padding-left: 10px;
+
+}
+
+Gowsith Gowsith
+.searchinmultiselect {
+   display: flex;
+   align-items: center;
+   padding: 6px 10px;
+   background: #e9edf0;
+
+   input::-webkit-input-placeholder {
+       color: #7f8fa3 !important;
+   }
+
+   i {
+       color: #7f8fa3 !important;
+       padding-right: 6px;
+   }
+
+   .searchselect {
+       width: calc(100% - 25px) !important;
+   }
+
+   .reseticon {
+       cursor: pointer;
+   }
+}
+
+.select_with_search {
+   overflow: hidden !important;
+   max-height: 100% !important;
+   margin-top: 40px !important;
+   margin-bottom: 15px !important;
+}
+
+.select_with_option {
+   overflow: hidden !important;
+   max-height: 100% !important;
+   margin-top: 50px !important;
+   margin-bottom: 15px !important;
+}
+
+.searchinmultiselect {
+   display: flex;
+   align-items: center;
+   padding: 10px 10px;
+   background: #e9edf0;
+   margin: 10px;
+}
+
+.searchselect {
+   width: calc(100% - 25px) !important;
+   padding-left: 10px;
+
+}
+
+.mat-option.mat-active {
+   background: #fff;
+   color:
+rgba(0, 0, 0, 0.87);
+}
+
+.option-listing {
+   overflow-x: auto;
+   overflow-y: auto;
+   max-height: 290px;
+
+}
+
+.option-listing::-webkit-scrollbar {
+   width: 7px;
+}
+
+/* Track */
+.option-listing::-webkit-scrollbar-track {
+   background: #f1f1f1;
+}
+
+/* Handle */
+.option-listing::-webkit-scrollbar-thumb {
+   background: #ED1C27;
+}
+
+/* hover */
+.option-listing::-webkit-scrollbar-thumb:hover {
+   background: #ED1C27;
+}

@@ -1,0 +1,563 @@
+<app-responseloader *ngIf="pageloader"></app-responseloader>
+<div fxLayout="row wrap" *ngIf="readaccess" fxLayoutAlign="center" id="coursecertificate">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <!-- paginator -->
+        <div class="paginationwithfilter masterPageTop " fxLayout="row wrap">
+            <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength"
+                [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="syncPrimaryPaginator($event);">
+            </mat-paginator>
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <button *ngIf="downloadaccess == true" mat-raised-button class="cancelbtn m-r-10" type="button" (click)="exportData()">{{'invoice.export' | translate}}</button>
+                    <button mat-raised-button type="button" color="primary" (click)="clickedEvent()"
+                    class="filter fs-15">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                    aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- table -->
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable">
+                    <button mat-button [matMenuTriggerFor]="editcolumn" class="editcolumn">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #editcolumn="matMenu" class="master-menu edit-column-menu">
+                          <div class="table-config-menu-options" fxLayout="column">
+                            <mat-checkbox #courchkBox [(ngModel)]="selectCourChkbox"  (change)="selectAlltablelable($event)"> {{ 'All' | translate}}
+                          </mat-checkbox>
+                            <mat-checkbox 
+                              *ngFor="let courlist of TechnicalListData; let i = index"
+                              (click)="$event.stopPropagation()"
+                              [(ngModel)]="courlist.courhide" #columnchkbox (change)="updateSelectAllcourhide(courlist)">
+                              {{courlist.label | translate}}
+                            </mat-checkbox>
+                          </div>
+                      </mat-menu>
+                      </button>	
+                    
+                    <mat-table #sort="matSort" class="scrolldata" [dataSource]="interRecListData"
+                        matSortActive="apppytminvoicedtls_pk" matSortDirection="desc" matSort
+                        multiTemplateDataRows matSort matSortDisableClear cdk-table>
+                        <!-- column 1 -->
+                        <ng-container matColumnDef="apid_invoiceno">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.invonumb' | translate}}</mat-header-cell>
+                            <mat-cell data-label="apid_invoiceno" fxFlex="250px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                {{trainingEvaluationData.apid_invoiceno || '-'}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 2 -->
+                        <ng-container matColumnDef="pm_projectname_en">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.courtype' | translate}}</mat-header-cell>
+                            <mat-cell data-label="pm_projectname_en" fxFlex="200px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader">
+                                {{ifarabic == true ? trainingEvaluationData.pm_projectname_ar || '-' : trainingEvaluationData.pm_projectname_en || '-'}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 3 -->
+                        <ng-container matColumnDef="omrm_companyname_en">
+                            <mat-header-cell fxFlex="300px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.companyname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="omrm_companyname_en" fxFlex="300px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                {{ifarabic == true ? trainingEvaluationData.omrm_companyname_ar || '-' : trainingEvaluationData.omrm_companyname_en || '-'}} </div></mat-cell>
+                        </ng-container>
+                        <!-- column 4 -->
+                        <ng-container matColumnDef="omrm_tpname_en">
+                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.trainname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="omrm_tpname_en" fxFlex="260px"
+                                *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!courseloader"> 
+                                    {{ifarabic == true ? trainingEvaluationData.omrm_tpname_ar || '-' : trainingEvaluationData.omrm_tpname_en || '-'}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 5 -->
+                        <ng-container matColumnDef="appiim_officetype">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.offitype' | translate}}</mat-header-cell>
+                            <mat-cell data-label="appiim_officetype" fxFlex="200px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader">
+                                <p *ngIf="trainingEvaluationData.appiim_officetype == '1'">{{'Main office' | translate }}</p>
+                                <p *ngIf="trainingEvaluationData.appiim_officetype == '2'">{{'Branch office' | translate }}</p>
+                                <p *ngIf="!trainingEvaluationData.appiim_officetype == '2'">-</p>
+
+                            </div> </mat-cell>
+                        </ng-container>
+                        <!-- column 6 -->
+                        <ng-container matColumnDef="appiim_branchname_en">
+                            <mat-header-cell fxFlex="270px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.branchname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="appiim_branchname_en" fxFlex="270px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                <p *ngIf="trainingEvaluationData.appiim_officetype == 2">{{ifarabic == true ? trainingEvaluationData.appiim_branchname_ar || '-' : trainingEvaluationData.appiim_branchname_en || '-'}}</p>
+                                <p *ngIf="trainingEvaluationData.appiim_officetype == 1">-</p>
+                            </div></mat-cell>
+                        </ng-container>
+                        <!-- colujn 7 -->
+                        <ng-container matColumnDef="omrm_opalmembershipregnumber">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.opalmemb' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="omrm_opalmembershipregnumber" fxFlex="250px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                {{trainingEvaluationData.omrm_opalmembershipregnumber || '-'}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 8 -->
+                        <ng-container matColumnDef="scm_coursename_en">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.courtitle' | translate}}</mat-header-cell>
+                            <mat-cell data-label="scm_coursename_en" fxFlex="250px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader">
+                                <p *ngIf="trainingEvaluationData.appcdt_standardcoursemst_fk">{{ifarabic == true ? trainingEvaluationData.scm_coursename_ar || '-' : trainingEvaluationData.scm_coursename_en || '-'}}</p>
+                                <p *ngIf="trainingEvaluationData.appcdt_appoffercoursemain_fk">{{ifarabic == true ? trainingEvaluationData.appocm_coursename_ar || '-' : trainingEvaluationData.appocm_coursename_en || '-'}}</p>
+                                <p *ngIf="!trainingEvaluationData.appcdt_appoffercoursemain_fk && !trainingEvaluationData.appcdt_standardcoursemst_fk">-</p>
+                            </div> </mat-cell>
+                        </ng-container>
+                        <!-- column 9 -->
+                        <ng-container matColumnDef="catstden">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.courcate' | translate}}</mat-header-cell>
+                            <mat-cell data-label="catstden" fxFlex="230px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                <p *ngIf="trainingEvaluationData.appcdt_standardcoursemst_fk">{{ifarabic == true ? trainingEvaluationData?.catstdar || '-' : trainingEvaluationData.catstden || '-'}}</p>
+                                <p *ngIf="trainingEvaluationData.appcdt_appoffercoursemain_fk">{{ifarabic == true ? trainingEvaluationData?.catofrar || '-':  trainingEvaluationData.catofren || '-' }}</p>
+                                <p *ngIf="!trainingEvaluationData.appcdt_appoffercoursemain_fk && !trainingEvaluationData.appcdt_standardcoursemst_fk">-</p>
+                            </div></mat-cell>
+                        </ng-container>
+                        <!-- column 10 -->
+                        <ng-container matColumnDef="subcaten">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.coursubcate' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="subcaten" fxFlex="250px"
+                                *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <!-- <div *ngIf="!courseloader"> 
+                                    {{ifarabic == true ? trainingEvaluationData.subcatar : trainingEvaluationData.subcaten}}
+                                </div> -->
+                                <div *ngIf="!courseloader"> {{ifarbic?splitCourseFunction(trainingEvaluationData.subcatar):splitCourseFunction(trainingEvaluationData.subcaten)}}
+                                    <span *ngIf="coursesubcategory.length != 1">
+                                        <span  style="cursor: pointer;" matTooltip="{{category_remove}}">
+                                         (+{{coursesubcategory.length-1}})
+                                         </span>
+                                    </span> 
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- column 11 -->
+                        <ng-container matColumnDef="fsm_feestype">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef>{{'invoice.fee' |translate}}</mat-header-cell>
+                            <mat-cell data-label="fsm_feestype" fxFlex="230px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader" class="table_fee"> 
+                                <p *ngIf="trainingEvaluationData.fsm_feestype =='1'">{{ 'Certification Fee' | translate }}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_feestype =='2'">{{ 'Staff Evaluation Fee' | translate }}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_feestype =='3'">{{ 'Royalty Fee' | translate }}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_feestype =='4'">{{ 'Learner Training Fee' | translate }}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_feestype =='5'">{{ 'Learner Assessment Fee' | translate }}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_feestype =='6'">{{ 'Staff Re-Evaluation Fee' | translate }}</p>
+                                <p *ngIf="!trainingEvaluationData.fsm_feestype">-</p>
+
+                                <span *ngIf="trainingEvaluationData.fsm_feestype">
+                                <p *ngIf="trainingEvaluationData.fsm_applicationtype =='1'">{{'(Initial)' | translate}}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_applicationtype =='2'">{{'(Renewal)' | translate}}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_applicationtype =='3'">{{'(Update)' | translate}}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_applicationtype =='4'">{{'(Refresher)' | translate}}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_applicationtype =='5'">{{'(Surveillance 1)' | translate}}</p>
+                                <p *ngIf="trainingEvaluationData.fsm_applicationtype =='6'">{{'(Surveillance 2)' | translate}}</p>
+                                </span>
+                            </div></mat-cell>
+                        </ng-container>
+                        <!-- column 12 -->
+                        <ng-container matColumnDef="apid_noofstaffeval">
+                            <mat-header-cell fxFlex="190px" mat-header-cell *matHeaderCellDef>{{'invoice.nostaff'
+                                |translate}}</mat-header-cell>
+                            <mat-cell data-label="apid_noofstaffeval" fxFlex="190px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                {{trainingEvaluationData.apid_noofstaffeval || '-'}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 13 -->
+                        <ng-container matColumnDef="total">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.invoamount' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="total" fxFlex="200px"
+                                *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!courseloader"> 
+                                {{trainingEvaluationData.total | number: '.3-3' || '-'}} </div></mat-cell>
+                        </ng-container>
+                        <!-- column 14 -->
+                        <ng-container matColumnDef="apid_invoicestatus">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.status' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="apid_invoicestatus" fxFlex="280px"
+                                *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!courseloader"> 
+                                <span class="Pending"
+                                    *ngIf="trainingEvaluationData.apid_invoicestatus == '1'">{{'Pending' | translate }}</span>
+                                <span class="Teaching"
+                                    *ngIf="trainingEvaluationData.apid_invoicestatus == '2'">{{'Paid - Verification Pending' | translate }}</span>
+                                <span class="Pass"
+                                    *ngIf="trainingEvaluationData.apid_invoicestatus == '3'">{{'Approved' | translate}}</span>
+                                <span class="fail"
+                                    *ngIf="trainingEvaluationData.apid_invoicestatus == '4'">{{'Declined' | translate }}</span>
+                                <span class=""
+                                    *ngIf="!trainingEvaluationData.apid_invoicestatus">-</span>
+
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- column 15 -->
+                        <ng-container matColumnDef="apid_paymenttype">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.paymtype' | translate}}</mat-header-cell>
+                            <mat-cell data-label="apid_paymenttype" fxFlex="200px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader">
+                                <span *ngIf="trainingEvaluationData.apid_paymenttype == '1'">{{ 'Online' | translate }}</span>
+                                <span *ngIf="trainingEvaluationData.apid_paymenttype == '2'">{{ 'Offline' | translate }}</span>
+                                <span *ngIf="!trainingEvaluationData.apid_paymenttype ">-</span>
+                            </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- column 16 -->
+                        <ng-container matColumnDef="invdate">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.invodate' | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="invdate" fxFlex="263px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                {{trainingEvaluationData.invdate || '-'}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 17 -->
+                        <ng-container matColumnDef="agedate">
+                            <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'invoice.invoage' | translate}} </mat-header-cell>
+                            <mat-cell data-label="agedate" fxFlex="150px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                <p *ngIf="trainingEvaluationData.apid_invoicestatus == 1 || trainingEvaluationData.apid_invoicestatus == 4">{{trainingEvaluationData.agedate ? (trainingEvaluationData.agedate != 0 ? trainingEvaluationData.agedate:'-' ): '-'}} <span *ngIf="trainingEvaluationData.agedate && trainingEvaluationData.agedate != 0"> days</span><p>
+                                <p *ngIf="trainingEvaluationData.apid_invoicestatus == 2 || trainingEvaluationData.apid_invoicestatus == 3">-</p>
+                                <p *ngIf="!trainingEvaluationData.apid_invoicestatus">-</p>
+                            </div></mat-cell>
+                        </ng-container>
+                        <!-- column 18 -->
+                        <ng-container matColumnDef="pymtdate">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'invoice.paydate' | translate}} </mat-header-cell>
+                            <mat-cell data-label="pymtdate" fxFlex="263px" *matCellDef="let trainingEvaluationData"><div *ngIf="courseloader" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!courseloader"> 
+                                {{trainingEvaluationData.pymtdate || '-'}}</div> </mat-cell>
+                        </ng-container>
+                       <!-- column 19 -->
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="125px" mat-header-cell *matHeaderCellDef>{{'invoice.action'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="125px" *matCellDef="let trainingEvaluationData" stickyEnd>
+                                <div *ngIf="courseloader" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!courseloader">      <div class="manageoptions">
+                                    <span style="cursor: pointer;" class="blue" (click)="view(trainingEvaluationData.apppytminvoicedtls_pk)">{{'invoice.view' | translate}}</span>
+                                </div></div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- search filter column 1 -->
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="invoice_no">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 2 -->
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' |translate}}</mat-label>
+                                    <mat-select [formControl]="course_type" multiple>
+                                        <mat-option value="2">{{'invoice.stand' |translate}}</mat-option>
+                                        <mat-option value="3">{{'invoice.custom' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 3 -->
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="300px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="company_name">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 4 -->
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="260px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="training_provider">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 5 -->
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' | translate}}</mat-label>
+                                    <mat-select [formControl]="office_type" multiple>
+                                        <mat-option value="1">{{'invoice.main' |translate}}</mat-option>
+                                        <mat-option value="2">{{'invoice.branch' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 6 -->
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="270px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="bran_name">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 7 -->
+                        <ng-container matColumnDef="row-seven">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="opal_membership">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 8 -->
+                        <ng-container matColumnDef="row-eight">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="course_title">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 9 -->
+                        <ng-container matColumnDef="row-nine">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="course_cate">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- colun 10 -->
+                        <ng-container matColumnDef="row-ten">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <!-- <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="course_sub">
+                                </mat-form-field> -->
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 11 -->
+                        <ng-container matColumnDef="row-eleven">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' | translate}}</mat-label>
+                                    <mat-select [formControl]="Fee_type" multiple>
+                                        <mat-option value="1">{{ 'Certification Fee (Initial)' | translate }}</mat-option>
+                                        <mat-option value="2">{{ 'Certification Fee (Renewal)' | translate }}</mat-option>
+                                        <!-- <mat-option value="3">{{ 'Royalty Fee' | translate }}</mat-option>
+                                        <mat-option value="4">{{ 'Learner Training Fee' | translate }}</mat-option>
+                                        <mat-option value="5">{{ 'Learner Assessment Fee' | translate }}</mat-option> -->
+                                        <mat-option value="6">{{ 'Staff Evaluation Fee' | translate }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 12 -->
+                        <ng-container matColumnDef="row-twelve">
+                            <mat-header-cell fxFlex="190px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'Search' |translate}}</mat-label>
+                                        <input matInput [formControl]="noof_staff">
+                                    </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 13 -->
+                        <ng-container matColumnDef="row-thirteen">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 14 -->
+                        <ng-container matColumnDef="row-fourteen">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' | translate}}</mat-label>
+                                    <mat-select [formControl]="pay_status" multiple>
+                                        <mat-option value="1">{{ 'Pending' | translate }}</mat-option>
+                                        <mat-option value="2">{{ 'Paid - Verification Pending' | translate }}</mat-option>
+                                        <mat-option value="3">{{ 'Approved' | translate }}</mat-option>
+                                        <mat-option value="4">{{ 'Declined' | translate }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 15 -->
+                        <ng-container matColumnDef="row-fifteen">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' |translate}}</mat-label>
+                                    <mat-select [formControl]="pay_type" multiple>
+                                        <mat-option value="1">{{ 'Online' | translate }}</mat-option>
+                                        <mat-option value="2">{{ 'Offline' | translate }}</mat-option>
+                                        
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 16 -->
+                        <ng-container matColumnDef="row-sixteen">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <div class="drpicker" id="regapp">
+                                    <input id="login_session" [formControl]="invoice_date" #datepicker matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true" readonly class="form-control"/>
+                                    <div class="closeanddateicon">
+                                        <mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
+                                    </div>
+                                   </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 17 -->
+                        <ng-container matColumnDef="row-seventeen">
+                            <mat-header-cell fxFlex="150px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <!-- <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' | translate}}</mat-label>
+                                    <mat-select [formControl]="invoice_age" multiple>
+                                        <mat-option value="1">20 Days</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 18 -->
+                        <ng-container matColumnDef="row-eighteen">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <div class="drpicker" id="regapp">
+                                    <input id="login_session" [formControl]="payment_date" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true" readonly class="form-control"/>
+                                    <div class="closeanddateicon">
+                                        <mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
+                                    </div>
+                                   </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 19 -->
+                        <ng-container matColumnDef="row-refresh" stickyEnd>
+                            <mat-header-cell fxFlex="125px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <i class="fa fa-refresh m-l-15 cursorview"
+                                    (click)="clearFilter();filtersts=false;" aria-hidden="true"
+                                    matTooltip="{{'Refresh' |translate}}"></i>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- end -->
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="TechnicalListDatafun()">
+                        </mat-header-row>
+                        <!-- <mat-header-row id="searchrow"
+                            *matHeaderRowDef="['row-first' , 'row-second' , 'row-three' , 'row-four' , 'row-five' , 'row-six' , 'row-seven' ,'row-eight' , 'row-nine' , 'row-ten' , 'row-eleven' , 'row-twelve' , 'row-thirteen' , 'row-fourteen' , 'row-fifteen' , 'row-sixteen' , 'row-seventeen' , 'row-eighteen' ,'row-refresh']">
+                        </mat-header-row> -->
+                        <mat-header-row id="searchrow"
+                        *matHeaderRowDef="TechnicalListDatasear()">
+                    </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: TechnicalListDatafun();"></mat-row>
+                           <!-- no record -->
+                           <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100"
+                                    fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="courseloader"
+                                        class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!courseloader">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!courseloader">{{'No Records' | translate}} 
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"  [style.display]="(resultsLength > 0) ? 'none' : 'block' "  *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons
+                            [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                            [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                            [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+</div>

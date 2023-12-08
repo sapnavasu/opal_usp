@@ -1,0 +1,231 @@
+<div id="trainingcentreView" fxLayoutAlign="center start">
+    <!-- pageloader -->
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+    <div class="staffView" fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+       <app-staffinfocard [traningCentre]="true" ></app-staffinfocard>
+        <div fxLayout="row" fxLayoutAlign="end center" class="m-t-15" *ngIf="this.commonAvailabilty == true">
+           <button  class="showhideButton fs-16" color="primary" mat-raised-button (click)="hideShowBtn()">{{showHide | translate}}</button>
+        </div>
+        <div class="staffdetials" fxLayout="column" *ngIf="commonAvailabilty ==  false">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Personal Information' | translate}} </h4><mat-divider fxFlex="4" class="matDivider"></mat-divider>
+            </div>
+            <div class="company_dtlview m-l-20" fxFlex="100" fxFlex.gt-sm="80">
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Date of Birth' | translate}}</p>
+                    <span>01-02-2005</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Age' | translate}}</p>
+                    <span>35</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Gender' | translate}}</p>
+                    <span>Male</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Nationality' | translate}}</p>
+                    <span>Omani</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Job Title' | translate}}</p>
+                    <span>Manager</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Roles' | translate}}</p>
+                    <span class="p-t-6">
+                        <ul>
+                            <li class=" " *ngFor="let role of roleofcourse">{{role}}</li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="view_dtl m-t-10" fxLayout="row">
+                    <p class="m-0">{{'Contract Type' | translate}}</p>
+                    <span>Manager</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Permanent Residence' | translate}}</p>
+                    <span> Manager Manager</span>
+                </div>
+            </div>
+         </div>
+         <div class="staffdetials" fxLayout="column" *ngIf="showPersonalInfo">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Course Information' | translate}} </h4><mat-divider fxFlex="4" class="matDivider"></mat-divider>
+            </div>
+            <div class="company_dtlview m-l-20" fxFlex="100" fxFlex.gt-sm="80">
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Role for Course' | translate}}</p>
+                    <span class="p-t-6">
+                        <ul>
+                            <li class=" " *ngFor="let role of roleofcourse">{{role}}</li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Course Sub Categories' | translate}}</p>
+                    <span class="p-t-6">
+                        <ul>
+                            <li class=" " *ngFor="let role of roleofcourse">{{role}}</li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="view_dtl m-t-10" fxLayout="row">
+                    <p class="m-0">{{'Language' | translate}}</p>
+                    <span>Manager</span>
+                </div>
+            </div>
+         </div>
+         <div class="staffdetials" fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Assessor Location' | translate}} </h4><mat-divider fxFlex="4" class="matDivider"></mat-divider>
+            </div>
+            <div class="assessorCrad m-l-20" fxLayout="column" >
+                <div class="assesorLocation company_dtlview m-t-20" *ngFor="let assessor of assessorlocate">
+                    <div class="view_dtl" fxLayout="row">
+                        <p class="m-0">{{'Governate' | translate}}</p>
+                        <span>{{ assessor.Governate }}</span>
+                    </div>
+                    <div class="view_dtl" fxLayout="row">
+                        <p class="m-0">{{'Wilayat' | translate}}</p>
+                        <span>{{  assessor.Wilayat }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="staffdetials tab" fxLayout="column" *ngIf="commonAvailabilty ==  false">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Educational & Work Information' | translate}} </h4><mat-divider fxFlex="4" class="matDivider"></mat-divider>
+            </div>
+            <mat-tab-group>
+                <mat-tab label="{{'Educational Qualification' | translate}}">
+                    <div class="tab-content m-l-20" *ngIf="eduresultLength !=0">
+                        <div class="paginationwithfilter masterPageTop pd-0 d-flex m-t-20" *ngIf="eduresultLength>5">
+                            <mat-paginator  class="masterPage masterPageTop" #paginator [length]="eduresultLength"
+                                [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                        </div>
+                             <div class="educationValues m-t-20" *ngFor="let educate of education"  [ngClass]="eduresultLength<6? 'm-t-20':'topContition'">
+                                  <p class="txt-gry3 fs-16 comp_Name m-l-17 m-r-17">{{educate.comapnyname}}</p>
+                                 <mat-divider></mat-divider>
+                                 <div class="educationFormValue company_dtlview m-15 lh-28" fxLayout="column"  fxLayoutGap="5px">
+                                    <div fxFlex="100" flexLayout="row wrap">
+                                         <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                             <p class="m-0 text-gry fs-16">{{'Certificate Title' | translate}}</p>
+                                                 <span class="fs-16 txt-gry3">NIT</span>
+                                         </div>
+                                         <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                             <p class="m-0 text-gry fs-16">{{'Educational Level' | translate}}</p>
+                                                 <span class="fs-16 txt-gry3">NIT</span>
+                                         </div>
+                                    </div>
+                                    <div fxFlex="100" flexLayout="row wrap">
+                                         <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                             <p class="m-0 text-gry fs-16">{{'Graduation Date' | translate}}</p>
+                                                 <span class="fs-16 txt-gry3">NIT</span>
+                                         </div>
+                                         <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                             <p class="m-0 text-gry fs-16">{{'GPA / Grade' | translate}}</p>
+                                                 <span class="fs-16 txt-gry3">NIT</span>
+                                         </div>
+                                     </div>
+                                     <div class="view_details" fxLayout="row">
+                                         <p class="m-0 text-gry fs-16">{{'Upload Certificate' | translate}}</p>
+                                             <span class="fs-16 txt-gry3"><a href="#" target="_blank" class="txt-gry3 fs-15" fxLayoutAlign="start center"><img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15" fxFlex="20">{{'View' | translate }}</a></span>
+                                     </div>
+                                 </div>   
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30" *ngIf="eduresultLength>5">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                    <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                        class="masterPage masterbottom " showFirstLastButtons
+                                        [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                        [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                        [pageSizeOptions]="paginator?.pageSizeOptions">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                    </div>
+                    <div fxFlex="100" class="norecordfound" fxLayout="column" fxLayoutAlign="center center" *ngIf="eduresultLength == 0">
+                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" >
+                        <p class="m-t-10 txt-gry3 fs-16" >{{'No Records' | translate}} 
+                        </p>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{'Work Experience' | translate}}">
+                    <div class="tab-content m-l-20" *ngIf="workresultLength !=0">
+                        <div class="paginationwithfilter masterPageTop pd-0 d-flex m-t-20" *ngIf="workresultLength>5">
+                            <mat-paginator  class="masterPage masterPageTop" #paginatortwo [length]="workresultLength"
+                                [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="workPaginator($event);"></mat-paginator>
+                        </div>
+                             <div class="educationValues m-t-20" *ngFor="let work of workexperience" [ngClass]="workresultLength<5? 'm-t-20':'topContition'">
+                                  <p class="txt-gry3 fs-16 comp_Name m-l-17 m-r-17">{{work.comapnyname}}</p>
+                                 <mat-divider></mat-divider>
+                                 <div class="company_dtlview educationFormValue m-15 lh-28" fxLayout.gt-sm="row wrap"  fxLayout="column wrap" fxLayoutGap="5px">
+                                    <div fxFlex="100" flexLayout="row wrap">
+                                        <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                            <p class="m-0 text-gry fs-16">{{'Job Title' | translate}}</p>
+                                                <span class="fs-16 txt-gry3">NIT</span>
+                                        </div>
+                                        <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                            <p class="m-0 text-gry fs-16">{{'Date of Joining' | translate}}</p>
+                                                <span class="fs-16 txt-gry3">NIT</span>
+                                        </div>
+                                   </div>
+                                   <div fxFlex="100" flexLayout="row wrap">
+                                        <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                            <p class="m-0 text-gry fs-16">{{'Worked Till' | translate}}</p>
+                                                <span class="fs-16 txt-gry3">NIT</span>
+                                        </div>
+                                        <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                            <p class="m-0 text-gry fs-16">{{'Uploaded Document' | translate}}</p>
+                                            <span class="fs-16 txt-gry3"><a href="#" target="_blank" class="txt-gry3 fs-15" fxLayoutAlign="start center"><img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15" fxFlex="20">{{'View' | translate }}</a></span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="view_details" fxLayout="row">
+                                        <p class="m-0 text-gry fs-16">{{'Upload Certificate' | translate}}:</p>
+                                            <span class="fs-16 txt-gry3"><a href="#" target="_blank" class="txt-gry3 fs-15" fxLayoutAlign="start center"><img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15" fxFlex="20">{{'View' | translate }}</a></span>
+                                    </div> -->
+                                </div>   
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30" *ngIf="workresultLength>5">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                    <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                        class="masterPage masterbottom " showFirstLastButtons
+                                        [pageSize]="paginatortwo?.pageSize" (page)="workPaginator($event);"
+                                        [pageIndex]="paginatortwo?.pageIndex" [length]="paginatortwo?.length"
+                                        [pageSizeOptions]="paginatortwo?.pageSizeOptions">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                    </div>
+                    <div fxFlex="100" class="norecordfound" fxLayout="column" fxLayoutAlign="center center" *ngIf="workresultLength == 0">
+                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" >
+                        <p class="m-t-10 txt-gry3 fs-16" >{{'No Records' | translate}} 
+                        </p>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="moheriCard company_dtlview m-t-20">
+                <div class="cardUpload" fxLayout="row">
+                    <p class="m-0" fxFlex="20">{{'MoHERI Approval / Card' | translate}}</p>
+                    <span ><a href="#" target="_blank" class="txt-gry3 fs-15" fxLayoutAlign="start center"><img fxFlex="20" src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-5">{{'View' | translate }}</a></span>
+                </div>
+            </div>
+            <div class="moheriCard company_dtlview m-t-25">
+                <div class="cardUpload" fxLayout="row">
+                    <p class="m-0" fxFlex="20">{{'Curriculum Vitae (CV)' | translate}}</p>
+                    <button mat-raised-button color="primary" class="viewButton">{{'View Curriculum Vitae (CV)'}}</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="commonAvailabilty ==  true">
+            <app-calendarview (setData)="recData($event)"></app-calendarview>
+        </div>
+        <div fxLayoutAlign="end center" fxFlex="100" class="m-t-20" *ngIf="!receivedValue">
+            <button mat-raised-button class="backButton fs-15 txt-gry3" (click)="backBtn()">{{'Back' | translate }}</button>
+         </div>
+    </div>
+</div>
+            

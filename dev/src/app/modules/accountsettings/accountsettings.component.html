@@ -1,0 +1,115 @@
+<div id="accountcontainer"  dir="{{dir}}" class="{{dir}}">
+  <div fxLayout="row wrap" fxLayoutAlign="center">
+    <div  fxFlex="100" fxFlex.gt-sm="30" class="detials">
+      <mat-card class="profile_cardfrt">
+        <mat-card-header fxLayout="column">
+          <div fxFlex.gt-sm="18" fxFlex="100"  class="responsivewafterwidth m-b-15 m-l-10">
+          <form autocomplete="off" [formGroup]="accountsettingForm">
+            <div class="imagelgopaper imageafteronlinepay" [ngClass]="updated == true ? 'readonlyfield' : ' '">
+                <app-filee class="heightfixed" [isDelete]="true"  #logo isLogo=true  *ngIf="!disableSubmitButton"  [fileMstRef]="drv_logo" (filesSelected)="fileeSelected($event,drv_logo)" formControlName="upload"
+              (deleteImageID)="deleteLogo($event)">
+            </app-filee>
+            </div>
+          </form>  
+        </div>
+          <h4 class="fs-18 txt-gry text-center" *ngIf="accSettingsData?.primaryContact?.usertype == 'A'">
+            {{accSettingsData?.companyName}}</h4>
+          <h4 class="fs-18 txt-gry text-center" *ngIf="accSettingsData?.primaryContact?.usertype != 'A'">
+            {{accSettingsData?.primaryContact?.firstname}}</h4>
+    
+        </mat-card-header>
+        <mat-card-content>
+            <mat-divider></mat-divider>
+
+          <div class="comp_img" fxLayout="row">
+           
+            <div class="comp_name p-t-20" fxFlex="80" *ngIf="accSettingsData?.primaryContact?.usertype != 'A'">
+              <span class="txt-gry fs-14 " >{{accSettingsData?.companyName}}</span>
+            </div>
+          </div>
+          <div fxLayout="row" class="date_detials m-t-15">
+         
+            <span class="txt-gry3 fs-15 p-r-30 m-t-15"
+              *ngIf="accSettingsData?.primaryContact?.usertype != 'A'">{{'accountlandingpage.creaon' |
+              translate}}</span>
+            <span class="txt-gry fs-15  m-t-15"
+              *ngIf="accSettingsData?.primaryContact?.usertype != 'A'">{{accSettingsData?.primaryContact?.createdon}}</span>
+            <span class="txt-gry3 fs-15 p-r-30 m-t-15"
+              *ngIf="accSettingsData?.primaryContact?.usertype == 'A'">{{'accountlandingpage.region' |
+              translate}}</span>
+            <span class="txt-gry fs-15  m-t-15"
+              *ngIf="accSettingsData?.primaryContact?.usertype == 'A'">{{accSettingsData?.primaryContact?.createdon}}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex.gt-sm="70" fxFlex="100" class="profile ">
+      <mat-card class="profile_card">
+        <mat-card-header fxLayout="column">
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-b-10">
+            <div class="usr_name p-b-10">
+              <p class="fs-18 txt-gry m-b-0">{{accSettingsData?.primaryContact?.firstname}}</p>
+              <p class="fs-15 txt-gry3 m-b-0 m-t-2" *ngIf="accSettingsData?.primaryContact?.usertype == 'A'">{{'accountlandingpage.desi' | translate}}: <span
+                  class="fs-15 txt-gry">{{accSettingsData?.primaryContact?.designation}}</span></p>
+              <p class="fs-15 txt-gry3 m-b-0 m-t-2" *ngIf="accSettingsData?.primaryContact?.usertype != 'A'">{{'accountlandingpage.civil' | translate}}: <span
+                    class="fs-15 txt-gry">{{accSettingsData?.primaryContact?.civilnumber}}</span></p>
+            </div>
+            <div fxLayoutAlign="space-between center" class="btns">
+              <button mat-raised-button class="edit_btn fs-13 " (click)="editor()"
+                >{{'accountlandingpage.edit' | translate}} <i
+                class="opalicon opal-edit fs-16 p-l-3"></i></button>
+              <button mat-raised-button class="pass_btn fs-13"
+                [routerLink]="'/accountsettings/changepassword'">{{'accountlandingpage.chanpass' | translate}}</button>
+              <!-- <button mat-raised-button class="view_btn fs-13">{{'accountlandingpage.viewperm' | translate}}</button> -->
+            </div>
+          </div>
+        </mat-card-header>
+        <mat-divider class="m-l-27"></mat-divider>
+        <mat-card-content>
+          <div fxLayout="row" class="m-t-20">
+            <div fxFlex="35">
+              <span class="fs-16 txt-gry3">{{'accountlandingpage.emailid' | translate}}</span>
+            </div>
+            <div fxFlex="65" fxLayout="row">
+              <span class="fs-16 txt-gry">{{accSettingsData?.primaryContact?.emailid}}</span>
+              <span *ngIf="accSettingsData?.primaryContact?.confirmstatus == 1"
+                class="verified fs-11 m-l-20">{{'accountlandingpage.veri' | translate}}</span>
+            </div>
+          </div>
+          <div fxLayout="row" class="m-t-20">
+            <div fxFlex="35">
+              <span class="fs-16 txt-gry3">{{'accountlandingpage.mobi' | translate}}</span>
+            </div>
+            <div fxFlex="65">
+              <span class="fs-16 txt-gry"><span *ngIf="accSettingsData?.primaryContact?.mobilecc">{{accSettingsData?.primaryContact?.mobilecc}}&nbsp; </span><span
+                  id="mobinumb">{{accSettingsData?.primaryContact?.mobileno}}</span></span>
+            </div>
+          </div>
+          <div fxLayout="row" class="m-t-20">
+            <div fxFlex="35">
+              <span class="fs-16 txt-gry3">{{'accountlandingpage.passseton' | translate}}</span>
+            </div>
+            <div fxFlex="65">
+              <span class="fs-16 txt-gry">{{accSettingsData?.primaryContact?.emailpassseton}}</span>
+            </div>
+          </div>
+          <div fxLayout="row" class="m-t-20" *ngIf="accSettingsData?.primaryContact?.lastchangepass">
+            <div fxFlex="35">
+              <span class="fs-16 txt-gry3">{{'accountlandingpage.lastpasschan' | translate}}</span>
+            </div>
+            <div fxFlex="65">
+              <span class="fs-16 txt-gry">{{accSettingsData?.primaryContact?.lastchangepass}}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+  <!-- <app-userallocation *ngIf="accSettingsData?.primaryContact?.usertype != 'A'"></app-userallocation> -->
+  <!-- <app-viewpermissionsidenav *ngIf="accSettingsData?.primaryContact?.usertype != 'A'"></app-viewpermissionsidenav> -->
+  <div class="banner">
+  </div>
+  
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

@@ -1,0 +1,79 @@
+#tmainofficecerti{
+    .maincertibox{
+        width:100%;
+        border-radius:2px;
+        border:1px solid #e8e8e8;
+        padding:15px;
+        display:flex;
+        flex-direction: column;
+        .certi-imgname{
+            display:flex;
+            width: 100%;
+            margin-bottom:15px;
+            position:relative;
+            flex-direction:row;
+            .certi-img{
+                width: 44px;
+                height: 44px;
+                border-radius: 4px;
+                padding:3px;
+                border: 1px solid #d4d4d4;
+                background-color: #ffffff;
+                margin-right:15px;
+                img{
+                    width:36px;
+                    height:37px;
+                }
+            }
+            .certi-name{
+                width:calc(100% - 30px);
+                color: #262626;
+                font-size: 14px;
+                font-weight: 400;
+                font-style: normal;
+                letter-spacing: normal;
+                line-height: 22px;
+                text-align: left;
+                font-style: normal;
+                letter-spacing: normal;
+
+                i {
+                    cursor: pointer;
+                }
+            }
+            &::after{
+                position:absolute;
+                bottom:0px;
+                left:0px;
+                width: 79px;
+                height: 1px;
+                border: 2px solid #ed1c27;
+            }
+        }
+        .reddivider{
+            width: 70px;
+            height: 1px;
+            background: #ed1c27;
+            border: 1px solid #ed1c27;
+        }  
+        .certistatus{
+            &.active{
+                color:#27b26b;
+            }
+        } 
+        .gold{
+            color:#bb9767;
+        } 
+        .clabel{
+            color:#848484;
+        }    
+        .officeBadge {
+            background-color: #0c4b9a;
+            color: #ffffff;
+            padding: 2px 5px;
+            font-size: 12px;
+             border-radius: 2px;
+             white-space: nowrap;
+        }
+    }
+}

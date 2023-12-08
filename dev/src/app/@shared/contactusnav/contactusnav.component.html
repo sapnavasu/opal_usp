@@ -1,0 +1,241 @@
+<div dir="{{dir}}">
+  <div fxLayout="row wrap" class="sidenavmainrow" id="contactform_mainlayout">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <form class="basic-form" [formGroup]="contactusForm" class="userfilterform" autocomplete="off">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+          <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+            <div class="titletext">
+              <div class="closeandadd">
+                <mat-icon (click)="closeSide();" fxFlexAlign="center center"
+                  matTooltip="{{'contactusnav.close' | translate}}"
+                  class="txt-wht p-l-5 fs-24">close</mat-icon>
+                <h5 class="m-0 p-l-20 txt-wht fs-18 " fxLayoutAlign="center"> {{'contactusnav.contus' | translate}}
+                </h5>
+                <mat-icon (click)="toggleShowDiv('contactusinfo')"
+                  class="contact_us txt-wht p-l-15">info_outline</mat-icon>
+              </div>
+
+              <div *ngIf="!contactusSubmitted" class="clearandaddbutton">
+                <button type="button" mat-raised-button color="primary"
+                  class="clearbutton height-35 m-r-10 p-l-20 p-r-20" (click)="clearform()">{{'contactusnav.clear' |
+                  translate}}</button>
+                <button type="button" color="preview" mat-raised-button class="addbutton height-35 p-l-20 p-r-20"
+                  (click)=onSubmit()
+                  [disabled]="!aboutsuccess || ck.ckeditor_count(contact)>5000">{{'contactusnav.send'
+                  | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 contactusinfo " [@slideInOut]="animationState">
+          <div fxFlex="100" class="p-b-0 p-l-15 p-r-15">
+            <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+              <mat-card-header>
+                <div class="titletext">
+                  <mat-card-subtitle class="informationtext fs-14 txt-gry3">
+                    <div class="info">
+                      {{'contactusnav.forquersugg' | translate}}
+                    </div>
+                    <div class="p-l-15 gotit">
+                      <span (click)="toggleShowDiv('contactusinfo')" mat-raised-button
+                        color="primary">{{'contactusnav.okgotit' | translate}}</span>
+                    </div>
+                  </mat-card-subtitle>
+                </div>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </div>
+        <!-- <div fxLayout="row wrap" fxLayoutAlign="center" class="gotosupport" *ngIf="!contactusSubmitted">
+          <div fxFlex="90">
+            <div class="noteontop">
+              <p class="txt-gry fs-16">{{'contactusnav.note' | translate}}: <span
+                  class="txt-gry3 fs-16">{{'contactusnav.forimed' | translate}} </span> <a class="chatclick"
+                  target="_blank" href="https://businessgateways.com/">{{'contactusnav.opalchatsupp' | translate}} </a>
+                <span class="txt-gry3 fs-16">{{'contactusnav.team' | translate}} </span>
+              </p>
+            </div>
+          </div>
+        </div> -->
+        <div class="scrollerdata m-t-20">
+          <div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="!contactusSubmitted">
+            <div fxFlex="90">
+              <div class="innnerpartofdrwer contactusinfonav" id="overautoscroll_contactform">
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10">
+                  <div fxFlex.gt-sm="100" fxFlex="100" class="noneditablefield compnametooltip">
+                    <span *ngIf="contactusData?.companyname.length > 80" popover="{{contactusData?.companyname}}">
+                      <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>{{'contactusnav.compname' | translate}}</mat-label>
+                        <textarea class="scroll" app-restrict-input="firstspace" appAlphanumsymb
+                          [errorStateMatcher]="matcher" [FormControl]="companyName" matInput [value]="contactusData?.companyname"
+                          #inputElement (input)="onInput($event)" rows="1" [readonly]="true"> </textarea>
+                      </mat-form-field>
+                    </span>
+                    <mat-form-field *ngIf="contactusData?.companyname.length < 80" appearance="outline"
+                      floatLabel="always">
+                      <mat-label>{{'contactusnav.compname' | translate}}</mat-label>
+                      <textarea class="scroll" app-restrict-input="firstspace" appAlphanumsymb
+                        [errorStateMatcher]="matcher" [FormControl]="companyName" matInput [value]="contactusData?.companyname"
+                        #inputElement (input)="onInput($event)" rows="1" [readonly]="true"> </textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10">
+                  <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.gt-md="p-r-15"
+                    ngClass.gt-lg="p-r-15" class="noneditablefield">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'contactusnav.contpersname' | translate}}</mat-label>
+                      <input app-restrict-input="firstspace" appAlphanumsymb [errorStateMatcher]="matcher" required
+                        [FormControl]="personName" matInput [value]="contactusData?.username" readonly>
+                      <mat-error *ngIf="f.personName.touched && f.personName.errors?.required">
+                        {{'contactusnav.entecontpers' | translate}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="50" fxFlex="100" class="noneditablefield">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'contactusnav.email' | translate}}</mat-label>
+                      <input appAlphanumsymb [errorStateMatcher]="matcher" required [FormControl]="emailId" matInput
+                        [value]="contactusData?.useremail" readonly>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-30 pos-relative">
+                  <div fxFlex.gt-sm="100" fxFlex="100" class="ccchiplist">
+                    <mat-form-field class="example-chip-list" appearance="outline">
+                      <mat-label>{{'contactusnav.cc' | translate}}</mat-label>
+                      <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let ccmail of ccmails" [selectable]="selectable" [removable]="removable"
+                          (removed)="remove(ccmail)">
+                          {{ccmail}}
+                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input appAlphanumsymb app-restrict-input="firstspace" (keydown.space)="$event.preventDefault()"
+                          #ccInput [formControl]="ccCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                          (matChipInputTokenEnd)="add($event)">
+
+                      </mat-chip-list>
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let ccmail of filteredCCs| async" [value]="ccmail">
+                          {{ccmail}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-error *ngIf="ccCtrl.errors?.pattern" class="error">
+                      {{'contactusnav.entevaliemail' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="validatemsg" class="error p-t-6 text_transformremove">
+                      {{validatemsg}}
+                    </mat-error>
+                  </div>
+                  <div fxFlex.gt-sm="100" fxFlex="100" class="noteontop margininminus p-t-6">
+                    <p class="m-l-0 fs-14 txt-gry m-0 p-r-4">{{'contactusnav.note' | translate}}: </p><span
+                      class="txt-gry3 fs-14">{{'contactusnav.noteyoucansendacopy' | translate}}</span>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10 ">
+                  <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-r-15"
+                    ngClass.lg="p-r-15" id="select_valuetrigger">
+                    <mat-form-field appearance="outline" panelClass="select_with_search">
+                      <mat-label>{{'contactusnav.typeofquer' | translate}}</mat-label>
+                      <mat-select [disableOptionCentering]="true" [errorStateMatcher]="matcher" required
+                        [FormControl]="typeofQuery" panelClass="selectwith_option">
+                        <div class="option-listing countryselectwithimage" *ngFor="let query of queries">
+                          <mat-option [value]="query.value">
+                            {{query.viewValue}}
+                          </mat-option>
+                        </div>
+                      </mat-select>
+                      <mat-error *ngIf="f.typeofQuery.touched && f.typeofQuery.errors" class="error">
+                        {{'contactusnav.seletypeof' | translate}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10 pos-relative">
+                  <div fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'contactusnav.subj' | translate}}</mat-label>
+                      <input app-restrict-input="firstspace" (change)="onSubjectChange($event)" required matInput #messageSubject maxlength="255"
+                        [FormControl]="contactusForm.controls['subJect']">
+                      <mat-error *ngIf="f.subJect.errors?.required" class="error">
+                        {{'contactusnav.entesubj' | translate}}
+                      </mat-error>
+                    </mat-form-field>
+                    <mat-hint class="text-right txt-gry  m-0" fxLayoutAlign="flex-end">
+                      {{messageSubject.value.length}} / 255
+                    </mat-hint>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10">
+                  <div fxFlex.gt-sm="100" fxFlex="100">
+                    <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                      <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                        <div class="ckeditorborder">
+                          <p class="editortitle importantfield txt-gry3">{{'contactusnav.mess' | translate}} <span
+                              class="error">*</span> </p>
+                          <div class="contenthere" [innerHTML]='techinfo'>
+                          </div>
+                        </div>
+                        <div class="messagecount" fxLayoutAlign="flex-end">
+                          <p class="m-0 txt-gry"> {{ck.ckeditor_count(contact)}} / 5000</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap" *ngIf="edittechinfo">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-20">
+                        <div class="d-flex">
+                          <span class="d-block ckeditortitle p-b-5 importantfield txt-gry">{{'contactusnav.mess' |
+                            translate}}<span class="error"> *</span></span>
+                        </div>
+                        <div class="ckeditror">
+                          <ckeditor [ngClass]="{'is-invalid': f.about.touched && f.about.errors }"
+                            (change)="onChangeeditor($event)" [(ngModel)]="contact" (ready)="onReady($event)"
+                            [editor]="Editor" [config]="config" [formControl]="contactusForm.controls['about']"
+                            appAlphanumsymb required>
+                          </ckeditor>
+                          <div *ngIf="(f.about.touched && f.about.errors?.required == true) ">
+                            <div class="error fs-13" *ngIf="f.about.touched &&  f.about.errors">
+                              {{'contactusnav.entemess' | translate}}</div>
+                          </div>
+                        </div>
+                        <mat-hint *ngIf=" (ck.ckeditor_count(contact)>5000)" class="error font-14"
+                          align="start">{{'contactusnav.cannexcechar' | translate}}</mat-hint>
+                        <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                          <p class="txt-gry"> {{ck.ckeditor_count(contact)}}/5000</p>
+                        </div>
+                        <div class="clearbut p-t-20 b-5" fxLayoutAlign="flex-end">
+                          <button type="button" [disabled]="contactusForm.controls['about'].value?.length==0"
+                            (click)="resinfo()" mat-raised-button
+                            class="m-r-10 clearbutton button-40">{{'contactusnav.clear' | translate}}</button>
+                          <button mat-raised-button color="primary"
+                            [disabled]="ck.ckeditor_count(contact)>5000 || f.about.errors?.required == true"
+                            (click)="messagedone()" class="button-40">{{'contactusnav.done' |
+                            translate}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <app-multifileupload *ngIf="!ifopalstar" [callbackFn]="onFileupload"
+                  [placeholder]="'contactusnav.uplofile' | translate" #contact_us [key]=11
+                  (fileuploaded)="checkfile($event,11)" [FormControl]="contactusdoc"></app-multifileupload>
+                <mat-hint>{{'contactusnav.noteyoucanupload' | translate}}</mat-hint>
+              </div>
+            </div>
+          </div>
+          <div class="thankyouinfo" fxLayoutAlign="center center" *ngIf="contactusSubmitted">
+            <div fxFlex="90" fxLayoutAlign="center" fxLayout="column wrap">
+              <h3 class="thankyou  text-center m-b-0">{{'contactusnav.thankyoufor' | translate}}</h3>
+              <p class="fs-18 text-center">{{'contactusnav.youwillsoonrece' | translate}}</p>
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-responseloader *ngIf="leftSideSpinner"></app-responseloader>
+    </div>
+  </div>
+</div>

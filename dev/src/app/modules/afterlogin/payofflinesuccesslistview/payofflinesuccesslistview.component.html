@@ -1,0 +1,246 @@
+<app-responseloader class="processloader"  *ngIf="showLoader"></app-responseloader>
+<div fxLayout="row wrap" id="payonlinetablist">
+  <div fxFlex.gt-sm="83.33" fxFlex="100" class="aligncenter">
+    <div fxLayout="row wrap" class="renewalbackground" *ngIf="paymentDetails?.renewalstatus!=null && (paymentStatus==1 || paymentStatus==3)">
+      <div fxFlex.gt-sm="50" fxFlex="100"  class="notesucesscolorv papernotewidth">
+        <div class="pd-20 backgroundsucess">
+          <p><span class="noteviewcolor">Note: </span>The successful renewal of OPAL Certificate is subject to the
+            approval of Supplier Certification Form.</p>
+        </div>
+      </div>
+      <div fxFlex.gt-sm="50" fxFlex="100" class="supplierflexalign papernotewidth">
+        <div class="pd-20 certificatebackground">
+          <div class="suppliercolor">
+            <p class="colorcertificate">OPAL Certification Status </p>
+            <p class="renewaltextcolor" (click)="navigateToSCF()" *ngIf="paymentDetails?.scfformstatus!='RS'">Yet to Submit for Renewal<i class="fa fa-angle-right p-l-8" aria-hidden="true"></i></p> 
+            <p class="submittedoncolor" *ngIf="paymentDetails?.scfformstatus=='RS'">Posted for Validation</p>
+          </div>
+          <div class="suppliercolorstatus">
+            <p class="colorcertificate">Submitted on</p>
+            <p class="submittedoncolor" *ngIf="paymentDetails?.payTranscDate">{{paymentDetails?.payTranscDate}}</p>
+            <p class="submittedoncolor" *ngIf="!paymentDetails?.payTranscDate">{{offlineFormValue?.transcdate | date: 'dd-MM-yyyy'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="renewalbackground" *ngIf="paymentDetails?.renewalstatus!=null && (paymentStatus==2 || paymentStatus==6)">
+      <div fxFlex.gt-sm="100" fxFlex="100"  class="notesucesscolorv papernotewidth">
+        <div class="pd-20 backgroundsucess">
+          <p><span class="noteviewcolor">Note: </span>The successful renewal of JSRS Certificate is subject to the
+            approval of Supplier Certification Form.</p>
+        </div>
+      </div>
+    </div>
+    <div class="spacestraightalign  m-t-20 m-b-30">
+      <div class="m-r-30 borderspeccompanycolordownloadanother spacepayment leftcardwidth">
+        <div class="thankyoupagepayment pd-25" *ngIf="paymentStatusPage">
+          <div fxLayout="row wrap" class="alignpaymentstatus" *ngIf="paymentMode && paymentMode == 'online' && paymentStatus && paymentStatus == '6' || paymentStatus == '8'" class="successtexts">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="textalign">
+              <img  src="assets/images/paymentfailedimage.png" alt="paymentfailedimage.png">
+              <div class="failedcolor p-t-8">
+                <h2>Payment Failed</h2>
+              </div>
+              <div class="occurcolor">
+                <p>An error occured while handling your payment.</p>
+              </div>
+              <div class="paymentaligncontinue">
+                <p><a [routerLink]="'/afterlogin/certificationpaymentdetail'">Continue</a></p>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="alignpaymentstatus" *ngIf="paymentStatus && paymentStatus == '4'" class="successtexts">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="textalign">
+              <img  src="assets/images/paymentfailedimage.png" alt="paymentfailedimage.png">
+              <div class="failedcolor p-t-8">
+                <h2>Payment Declined</h2>
+              </div>
+              <div class="occurcolor">
+                <p>An error occured while handling your payment.</p>
+              </div>
+              <div class="paymentaligncontinue">
+                <p><a href="javascript:void(0)" (click)="navigateTo()">Continue</a></p>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="alignpaymentstatus" *ngIf="paymentMode && paymentMode == 'online' && paymentStatus && paymentStatus == '2'">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="textalign">
+              <img  src="assets/images/awaitonglogo.png" alt="awaitonglogo">
+              <h2 class="fs-18 awaitingcolor p-t-20 p-b-10">Awaiting Payment Transaction status.</h2>
+              <p class="textalignword"> We will authenticate your transaction and<br>
+                confirm your status at the earliest.</p>
+              <p class="textalignword p-t-20 m-b-40 fs-15">For queries, please write to<br><a
+                  class="supportmail m-0" href="mailto:accounts@businessgateways.com"><span
+                    class="supportcolor textdecorate">accounts@businessgateways.com 
+                   </span></a></p>
+            </div>
+          </div>
+          <div class="successtick" *ngIf="paymentMode && (paymentMode == 'online' || paymentMode == 'offline') && paymentStatus && paymentStatus == '1'">
+            <span>
+              <i class="bgi bgi-tick"></i>
+            </span>
+          </div>
+          <div fxLayout="row wrap" *ngIf="paymentMode && paymentMode == 'offline' && paymentStatus && paymentStatus == '1'" class="successtexts">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <p class="thankstext textalignword">Payment Details Submitted</p>
+              <!-- <p class="m-0 fs-15 p-t-15 paymentcolor textalignwordflex suceessalign">Transaction was successful.</p> -->
+              <p class="textalignword"> Thank you for uploading your OPAL Certification Fee payment proof. </p>
+              <p class="textalignword"> Our team will validate the payment proof and get back.</p>
+              <p class="textalignword p-t-20 m-b-40">For queries, please write to <br><a class="supportmail m-0"
+                  href="mailto:accounts@businessgateways.com"><span class="supportcolor">accounts@businessgateways.com 
+                    </span></a></p>
+              <span class="fs-15  paymentcolor textalignwordflex">Payment Proof Submitted </span>
+              <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-25">
+                  <p class="cmpnyinfo ">
+                    <span class="labelcmp">Payment Mode
+                    </span>
+                    <!-- <span class="infocmp">Online</span> -->
+                    <span class="infocmp">{{offlineFormValue?.paymentmode == 2 ? 'Cheque / Cash Deposit' :  'Bank Transfer'}}</span>
+                  </p>
+                  <!-- <p class="cmpnyinfo">
+                    <span class="labelcmp">Payment through
+                    </span>
+                    <span class="infocmp">OmanNet</span></p> -->
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">{{offlineFormValue?.paymentmode == 2 ? 'Cheque / Challan No' :  'Transaction Id'}}
+                    </span>
+                    <span class="infocmp" style="word-break: break-word;">{{offlineFormValue?.checkno || paymentDetails?.payTranscRefNo}}</span></p>
+                    <p class="cmpnyinfo">
+                      <span class="labelcmp">Bank Name</span>
+                      <span class="infocmp">{{offlineFormValue?.bankName || paymentDetails?.payBankName}}</span>
+                    </p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">Date of Transfer
+                    </span>
+                    <span class="infocmp" *ngIf="paymentDetails?.payTranscDate">{{paymentDetails?.payTranscDate}}</span>
+                    <span class="infocmp" *ngIf="!paymentDetails?.payTranscDate">{{offlineFormValue?.transcdate | date: 'dd-MM-yyyy'}}</span></p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">OPAL Certification Fee
+                    </span>
+                    <span class="infocmp align">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} </span>
+                    <span  class="countalgin">{{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.packageBasePrice.toFixed(3) : paymentDetails?.packageDtl?.subscription?.packageBasePrice.toFixed(2)}}</span>
+                  </p>
+                  <p class="cmpnyinfo">
+                      <span class="labelcmp"> VAT Charges ({{paymentDetails?.packageDtl?.subscription?.vatrate}}%)</span>
+                      <span class="infocmp align">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} </span>
+                      <span  class="countalgin">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.vatprice.toFixed(3):paymentDetails?.packageDtl?.subscription?.vatprice.toFixed(2)}}</span>
+                    </p>
+                  <p class="cmpnyinfo" *ngIf="paymentDetails?.origin == 'INTERNATIONAL'">
+                    <span class="labelcmp">Processing Charges</span>
+                    <span class="infocmp align">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}</span>
+                    <span class="countalgin">25.00</span>
+                  </p>
+                    <p class="cmpnyinfo" *ngIf="paymentDetails?.origin != 'INTERNATIONAL'">
+                      <span class="labelcmp">Processing Charges</span>
+                      <span class="infocmp align">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} </span>
+                      <span class="countalgin">{{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? '0.000' : '0.00'}}</span>
+                    </p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">Payment Proof
+                    </span>
+                    <span class="infocmp">
+                      <a target="_blank" *ngIf="paymentDetails.filetype=='pdf' || paymentDetails.filetype=='PDF'" href="{{paymentDetails?.proofdoc}}">
+                        <img src="assets/images/pdfnewimage.png" alt="pdfnewimage">
+                      </a>
+                      <a target="_blank" *ngIf="paymentDetails.filetype=='jpeg' || paymentDetails.filetype=='JPEG'" href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                        <img src="assets/images/jpeg-02.png" alt="jpeg-02">
+                      </a>
+                      <a target="_blank" *ngIf="paymentDetails.filetype=='jpg' || paymentDetails.filetype=='JPG'" href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                        <img src="assets/images/jpeg.png" alt="jpg">
+                      </a>
+                      <a target="_blank" *ngIf="paymentDetails.filetype=='PNG' || paymentDetails.filetype=='png'" href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                        <img src="assets/images/jpeg.png" alt="jpeg">
+                      </a>
+                    </span>
+                  </p>
+                  <div class="spaceendpaid pd-12 m-t-30">
+                    <div class="totalcolor paidwidth">
+                      <h2>Total Amount</h2>
+                    </div>
+                    <div class="omrcolor" *ngIf="paymentDetails?.origin == 'INTERNATIONAL'">
+                      <h2>{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} </h2>
+                      <span class="countalgin colorcount">{{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.offlinetotalPrice.toFixed(3) : paymentDetails?.packageDtl?.subscription?.offlinetotalPrice.toFixed(2)}}</span>
+                      <!-- <h2> OMR 100.000</h2> -->
+                    </div>
+                    <div class="omrcolor" *ngIf="paymentDetails?.origin != 'INTERNATIONAL'">
+                      <h2>{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} 
+                       </h2>
+                       <span class="countalgin colorcount">{{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.offlinetotalPrice.toFixed(3) : paymentDetails?.packageDtl?.subscription?.offlinetotalPrice.toFixed(2)}}</span> 
+                      <!-- <h2> OMR 100.000</h2> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" *ngIf="paymentMode && paymentMode == 'online' && paymentStatus && paymentStatus == '1'" class="successtexts">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <!-- <p class="thankstext textalignword">Thank you for Submission!</p> -->
+              <p class="m-0 p-b-15 paymentcolor textalignwordflex suceessalign thankstext">Transaction Successful </p>
+              <p class="textalignword"> Thank you for completing the payment process. Our team will validate the payment details and get back to you.
+                  </p>
+              <p class="textalignword p-t-20 m-b-40">For queries, please write to<br><a class="supportmail m-0"
+                  href="mailto:support@lypis.com"><span class="supportcolor textdecorate">accounts@businessgateways.com
+                   </span></a></p>
+              <span class="fs-15  paymentcolor textalignwordflex">Payment Proof Submitted </span>
+              <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-25">
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">Payment Mode
+                    </span>
+                    <span class="infocmp">Online</span>
+                  </p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">Payment through
+                    </span>
+                    <span class="infocmp">{{paymentDetails?.cardType == 'ODC' ? 'OmanNet' : (paymentDetails?.cardType == 'OC' ? 'Cybersource' : (paymentDetails?.cardType == 'T' ? 'Thawani' : (paymentDetails?.cardType == 'OTO' ? 'OTTU (Debit Card)' : (paymentDetails?.cardType == 'OTC' ? 'OTTU (Credit Card)' : (paymentDetails?.cardType == 'SP' ? 'SmartPay' : '')))))}}</span></p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">Payment Ref. No.
+                    </span>
+                    <span class="infocmp" style="word-break: break-word;">{{paymentDetails?.payTranscRefNo}}</span></p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">Date of Transfer
+                    </span>
+                    <span class="infocmp">{{paymentDetails?.payTranscDate}}</span></p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">OPAL Certification Fee
+                    </span>
+                    <span class="infocmp align">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} </span>
+                    <span class="countalgin">{{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ?  paymentDetails?.packageDtl?.subscription?.packageBasePrice.toFixed(3) : paymentDetails?.packageDtl?.subscription?.packageBasePrice.toFixed(2)}}</span>
+                  </p>
+                  <p class="cmpnyinfo">
+                      <span class="labelcmp"> VAT Charges ({{paymentDetails?.packageDtl?.subscription?.vatrate}}%)</span>
+                      <span class="infocmp align">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}</span>
+                      <span class="countalgin">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.vatprice.toFixed(3):paymentDetails?.packageDtl?.subscription?.vatprice.toFixed(2)}}</span>
+                    </p>
+                      <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp"> VAT Charges (0%)</span>
+                          <span class="infocmp">USD 0.00</span></p> -->
+                          <!-- <p class="cmpnyinfo" *ngIf="false">
+                              <span class="labelcmp"> Processing Fee (2.31%)</span>
+                              <span class="infocmp">USD 23.10</span></p> -->
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp">Additional Charges (2.31%)</span>
+                    <span class="infocmp align">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} </span>
+                    <span class="countalgin">{{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.additionalPrice : paymentDetails?.packageDtl?.subscription?.additionalPrice}}</span>
+                  </p>
+                  <div class="spaceendpaid pd-12 m-t-30">
+                    <div class="totalcolor paidwidth">
+                      <h2>Total Amount Paid</h2>
+                    </div>
+                    <div class="omrcolor">
+                      <h2>{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+                      <span class="countalgin colorcount">{{  paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.totalPrice.toFixed(3) : paymentDetails?.packageDtl?.subscription?.totalPrice.toFixed(2)}} </span>
+                      <!-- <h2> OMR 100.000</h2> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-jsrsregisterdetaillist [hideChangeSubscription]="hideChangeSubscription" [paymentMode]="paymentMode" [paymentDetails]="paymentDetails" [contactusData]="contactusData" class="jsrswidth"></app-jsrsregisterdetaillist>
+    </div>
+  </div>
+</div>

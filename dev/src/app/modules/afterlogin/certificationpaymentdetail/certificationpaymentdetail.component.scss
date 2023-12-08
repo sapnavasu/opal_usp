@@ -1,0 +1,729 @@
+
+
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end ;
+    align-items: center !important;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+:host::ng-deep.processloader{
+    .loaderrespone {
+        position: fixed !important;
+    }
+
+}
+  
+#payonlinelistview{
+    .bredcrumblist{
+        align-items: center ;
+        .active{
+            font-family:'opal_semibold';
+        }
+    }
+    .wordalign{
+        .regcolor{
+            margin:0px 0px 0px 0px;
+            min-width: 150px;
+        }
+        .websitecolor{
+            margin:0px 0px 0px 0px;
+        }
+    }
+    .imageview{
+        img{
+            width: 30px;
+        }
+    }
+    .flexcenteralign{
+       @include flexend(); 
+    }
+    .wordalign{
+        word-break: break-word;
+        line-height: 1.7;
+    }
+    .helpcolor{
+        position: relative;
+        .helpcontentcolor{
+            position: absolute;
+            height: 100%;
+            top: 20px;
+            cursor: pointer;
+            left: 0px;
+            right: 112px;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            i{
+                background: #ff9943;
+                color: #fff !important;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                @include flexcenter();
+                font-size: 0.625rem;
+                cursor: pointer;
+            }
+            span{
+                font-size: 0.9375rem;
+                color: #333;
+            }
+        }
+        
+    }
+    .flexstartalign{
+        @include flexstart();
+        padding: 12px;
+        border-radius: 4px;
+        border: 1px solid #b7b7b7;
+        background: #f0f8ff;
+        min-width: 170px;
+        .renewedcolor{
+            padding-left: 15px;
+            p{
+              margin: 0px;
+            }
+        }
+        .imgwidth{
+            img{
+                padding-left: 15px;
+            }
+        }
+    }
+  
+    .helpcolor{
+    position: relative;
+    .helpcontentcolor{
+        position: absolute;
+        height: 100%;
+        top: 20px;
+        cursor: pointer;
+        left: 0px;
+        right: 112px;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        i{
+            color: #ff9943;
+        }
+        span{
+            font-size: 0.9375rem;
+            color: #333;
+        }
+    } 
+    }
+    .spancolor {
+        color: white;
+        cursor: pointer;
+        font-size: 1.125rem;
+    }
+    .topheadermain {
+        display: flex !important;
+        justify-content: space-between;
+    }
+    .flexsame {
+        display: flex !important;
+        align-items: baseline;
+    }
+    .imageafteronlinepay:after{
+        content: "";
+        border-left: 7px solid #f4811f;
+        border-right: 106px solid #f4811f;
+        border-top: 20px solid #f4811f;
+        position: absolute;
+        left: auto;
+        top: auto;
+        margin-left: 0;
+        bottom: -5px;
+        z-index: -1;
+        right: -5px;
+    }
+    .normalimgview::before {
+        content: "";
+        width: 110px;
+        border-right: 4px solid #f4811f;
+        border-bottom: 4px solid #f4811f;
+        position: absolute;
+        left: auto;
+        top: auto;
+        margin-left: 0;
+        bottom: -4px;
+        z-index: -1;
+        height: 110px;
+        z-index: 2;
+        right: -4px;
+    }
+    .normalimgview{
+        z-index: 1;
+        height: 145px;
+        width: 145px;
+        border: 1px solid #e1e1e1;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        position: relative;
+        top: 18px;
+        img{
+            width: 100%;
+        }
+    }
+    .imageafteronlinepay{
+        position: relative;
+        z-index: 1;
+        top: 16px;
+    }
+    .imageafteronlinepay{
+        display:inline-flex;
+        width:auto;
+    }
+    
+    .headinglinecolor{
+        font-size:18px;
+        font-weight:bold;
+        color:#006cb7;
+     
+        margin:0px 0px 0px 0px;
+    }
+    
+    
+    .mahindracolor{
+        font-size:16px;
+        line-height: 1;
+        font-weight:bold;
+        color:#333333;
+     
+    }
+    .display{
+        display: flex;
+        justify-content:space-between;
+    }
+    .current{
+        width:35%;
+    }
+    
+    .btn{
+        color:#63686e;
+        width:130px;
+        height:38px;
+        border-radius: 0;
+        box-shadow: none;
+        background-color:#e8ebf0;
+        border-radius:5px; 
+    }
+       
+    .shadow{
+        box-shadow: none !important;
+    }
+    .shadow .mat-tab-header {
+        color: #fff;
+        background: white;
+    }
+    .uploadicon{
+        i{
+            color: #999999;
+        }
+    }
+    .uploaddocumentname
+      {
+          span
+          {
+            padding-top: 18px;
+            display: block;
+            color: #333333;
+          }
+      }
+    
+    .shadow .mat-tab-label-active {
+        background: #fff;
+       color: #57626E;
+       overflow: visible;
+       opacity: initial;
+       min-width: 94px;
+    }
+    .shadow .mat-tab-label {
+        opacity: initial !important;
+        width: auto;
+    }
+    
+    .maintab .mat-tab-list {
+        height: 48px !important;
+        opacity: initial;
+        justify-content: flex-start;
+        max-width: 68.33%;
+        margin: auto;
+    }
+    .maintab .mat-ink-bar {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        transition: .5s cubic-bezier(.35,0,.25,1);
+        background-color: #57626E !important;
+        display: flex;
+    }
+    
+    .shadow .mat-tab-label-content {
+        font-size: 0.9375rem;
+    }
+    
+    .shadow .mat-tab-label {
+        height: 48px;
+        padding: 0 24px;
+        cursor: pointer;
+        box-sizing: border-box;
+        opacity: 1;
+        min-width: 0;
+        text-align: center;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        position: relative;
+    }
+    
+    .wordalign{
+        word-break: break-word;
+        line-height: 1.7;
+    }
+    .crnumber{
+        font-size:14px;
+      
+        font-weight:normal;
+        color:#006cb7;
+      
+    }
+    
+    .website{
+        font-size:14px;
+        color:#333;
+        margin:0px 0px 0px 0px;
+    }
+    
+    .aligninvestor{
+        min-width: 150px;
+        margin-bottom: 0;
+       line-height: 25px;
+    }
+    
+    .aligncrn{
+        display: flex;
+        justify-content: flex-start;
+        padding-bottom: 8px;
+    }
+    .logocolor{
+        i{
+            color: #333333;
+        }
+    }
+    .imagelgopaper{
+        img{
+            height: auto;
+            width: auto;
+        }
+    }
+    .responsivewafterwidth .uploadicon {
+        width: 152px;
+        height: 152px;
+        max-width: 152px;
+        border: none;
+        margin: 0 auto;
+        cursor: pointer;
+        position: relative;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #dadada;
+    }
+}
+
+
+@media (min-width: 550px){
+    .viewpaymentwidth .paymenthistorywidth {
+        width: 82% !important;
+     }
+}
+
+@media (max-width:768px) and (min-width:766px)  {
+    ::ng-deep.certificatetablist .mat-tab-list {
+        height: 35px !important;
+        opacity: initial;
+        justify-content: flex-start;
+        margin: auto;
+        max-width: 46% !important;
+    }
+    .responsivewafterwidth{
+        max-width: 20% !important;
+     }
+     .headercontract{
+          max-width: 92% !important;
+     }
+     .groupwidth{
+        max-width: 80% !important;
+      }
+      .flexcenteralign {
+        display: flex;
+        align-content: center;
+        justify-content: flex-end !important; 
+        padding-top: 15px !important;
+    }
+    #payonlinelistview .imageaftercertificate:after {
+        content: '';
+        background: #f58020;
+        position: absolute;
+        height: 73%;
+        right: 32px;
+        width: 56%;
+        z-index: -1;
+        bottom: -5px;
+    }
+    .maintab .mat-tab-list {
+        height: 48px !important;
+        opacity: initial;
+        justify-content: flex-start;
+        max-width: 92% !important;
+        margin: auto;
+        margin-top: 20px;
+    }
+    .maxwidthpapernote{
+        margin-top:15px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 88%;
+    }
+     .imageaftercertificate {
+        position: relative;
+        z-index: 1;
+        top: 16px;
+        left: 12px !important;
+    }
+    }
+
+    @media (max-width:1024px) and (min-width:769px) {
+        .flexcenteralign{
+            max-width: 100% !important;
+        }
+        .papernotewidth{
+            max-width: 100% !important;
+        }
+        .responsivewafterwidth{
+            max-width: 17% !important;
+         }
+         .groupwidth{
+            max-width: 83% !important;
+          }
+          .imageaftercertificate {
+            position: relative;
+            z-index: 1;
+            top: 16px;
+            left: 42px;
+         }
+        .maxwidthpapernote{
+            margin-top:15px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 88%;
+        }
+        .flexcenteralign{
+            display: flex;
+            align-content: center;
+            justify-content: flex-start !important; 
+            padding-top: 0px !important;
+            margin-top: -10px !important;
+         }
+          .imageaftercertificate:after {
+            content: '';
+            background: #f58020;
+            position: absolute;
+            height: 73%;
+            right: 33px !important;
+            width: 67%;
+            z-index: -1;
+            bottom: -5px !important;
+        }
+          ::ng-deep.certificatetablist .mat-tab-list {
+            height: 35px !important;
+            opacity: initial;
+            justify-content: flex-start;
+            margin: auto;
+            max-width: 56% !important;
+        }
+         
+    }
+
+    @media (max-width:766px) and (min-width:320px) {
+        
+        .flexcenteralign{
+            display: block !important;
+            margin-left: 15px;
+            margin-right: 15px;
+         }
+         #payonlinelistview .helpcolor .helpcontentcolor {
+            position: absolute;
+            height: 100%;
+            top: 30px !important;
+            cursor: pointer;
+            left: 0px;
+            right: 18px !important;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+         .cardwidthstatus{
+            margin-bottom: 10px;
+        }
+        .marginspace{
+            margin-right: 0px !important;
+        }
+        .topheadermain .imagewithtext {
+            display: flex !important;
+            justify-content: flex-start !important;
+        }
+        .maintab .mat-tab-list {
+            height: 48px !important;
+            opacity: initial;
+            justify-content: flex-start;
+            margin: auto;
+            max-width: inherit !important;
+        }
+        .responsivewafterwidth{
+            max-width: inherit !important;
+            padding-left: 20px;
+          }
+          .groupwidth{
+            max-width: inherit !important;  
+            padding-top: 12px;
+            padding-bottom: 12px;
+          }
+        .alignwidth{
+            display: block !important;
+        }
+        .header{
+            padding-left: 20px !important;
+            margin-top: 20px;
+        } 
+        .topbreadcrumb{
+         padding-left: 0px !important;
+         display: flex;
+        }
+        .headinglinecolor{
+         padding-left: 0px !important;
+        }
+        .imageaftercertificate:after {
+            content: '';
+            background: #f58020;
+            position: absolute;
+            height: 73%;
+            right: 69px !important;
+            width: 36% !important;
+            z-index: -1;
+            bottom: -5px;
+        }
+    }
+
+
+    @media (max-width:414px) and (min-width:412px) {
+       
+    .imageaftercertificate:after {
+        content: '';
+        background: #f58020;
+        position: absolute;
+        height: 73%;
+        right: 116px !important;
+        width: 27% !important;
+        z-index: -1;
+        bottom: -5px;
+    }
+    .alignwidth{
+        display: flex !important;
+    }
+}
+@media (max-width:375px) and (min-width:372px) {
+.imageaftercertificate:after {
+    content: '';
+    background: #f58020;
+    position: absolute;
+    height: 73%;
+    right: 97px !important;
+    width: 29% !important;
+    z-index: -1;
+    bottom: -5px;
+}
+}
+
+@media (max-width:360px) and (min-width:358px) {
+.imageaftercertificate:after {
+    content: '';
+    background: #f58020;
+    position: absolute;
+    height: 73%;
+    right: 98px !important;
+    width: 67%;
+    z-index: -1;
+    bottom: -5px !important;
+}
+}
+
+@media (max-width:1368px) and (min-width:1362px) {
+.responsivewafterwidth{
+    max-width: 15% !important;
+}
+.groupwidth{
+    max-width: 85% !important;
+}
+.flexcenteralign{
+    max-width: 55% !important;
+}
+.papernotewidth{
+    max-width: 45% !important;
+}
+}
+
+@media (max-width:1280px) and (min-width:1278px) {
+    .imageaftercertificate:after {
+        content: '';
+        background: #f58020;
+        position: absolute;
+        height: 73%;
+        right: 20px !important;
+        width: 66% !important;
+        z-index: -1;
+        bottom: -2px;
+    }
+    .regcolor{
+         min-width: 105px !important;
+    }
+    .responsivewafterwidth{
+        max-width: 16% !important;
+    }
+    .groupwidth{
+        max-width: 84% !important;
+    }
+    .flexcenteralign{
+        max-width: 55% !important;
+    }
+    .papernotewidth{
+        max-width: 45% !important;
+    }
+    }
+
+      .colorcrn{
+        color:#999;
+    }
+ :host::ng-deep.certificatetablist{
+    box-shadow: none !important;
+    .mat-tab-header {
+        color: #fff;
+        background: white;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    .mat-ink-bar {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        transition: .5s cubic-bezier(.35,0,.25,1);
+        background-color: #57626E !important;
+        display: flex;
+    }
+    .mat-tab-body-wrapper {
+        background: #fff;
+    }
+    .mat-tab-label-active {
+        background: #fff;
+       color: #57626E;
+       overflow: visible;
+       opacity: initial;
+    }
+    .mat-tab-label {
+        opacity: initial !important;
+        width: auto;
+        min-width: 94px;
+    }
+     .mat-tab-list {
+        height: 35px !important;
+        opacity: initial;
+        justify-content: flex-start;
+        margin: auto;
+        max-width: 71%;
+    }
+   .mat-tab-label .mat-tab-label-content {
+        font-size: 0.9375rem;
+    }
+   .mat-tab-body-content {
+        height: 100%;
+        overflow: auto;
+        max-width: 94%;
+        margin: auto;
+    }
+    
+}
+
+
+@media (max-width:767px){
+::ng-deep.certificatetablist .mat-tab-list {
+    height: 35px !important;
+    opacity: initial;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: 100% !important;
+ }
+}
+
+
+
+
+#changethelabelcolor{
+    .clabel{
+        color: #006bb7 !important;
+        font-size: 0.875rem !important;
+        line-height: 1.125rem !important;
+        font-weight:400 !important;
+      }
+      .cvalue{
+        color: #333333 !important;
+        font-size: 0.9375rem !important;
+        line-height: 1.125rem !important;
+        font-weight:400 !important;
+      }
+}
+
+
+
+@media (max-width: 1920px) and (min-width: 1600px) {
+    ::ng-deep.certificatetablist .mat-tab-list {
+         max-width: 75% !important;
+     }
+ }
+
+
+ 
+ ::ng-deep.rtl{
+    #payonlinelistview{
+        .bredcrumblist{
+            top: 0px;
+        }
+        .flexstartalign{
+            .renewedcolor{
+                 padding-left: 0px !important;
+                 padding-right: 15px;
+            }
+        }
+    }
+}

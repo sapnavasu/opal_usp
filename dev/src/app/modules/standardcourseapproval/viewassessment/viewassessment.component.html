@@ -1,0 +1,198 @@
+<div id="view_assessment" #pageScroll *ngIf="!disableSubmitButton">
+        <div class="siteaudit" fxLayout="row wrap" fxLayoutAlign="center">
+            <div fxFlex="100">
+                <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+                    <div class="details pd-15" fxFlex="100">
+                        <div class="head" fxLayout="row wrap">
+                            <h2 class="headcolor fs-18 m-0 lh-15">
+                                <!-- Mr. Saleh Abdullah Kamel -->
+                                {{cookieService.get('languageCookieId') ? staffAssessmentValues?.staffname : staffAssessmentValues?.staffname_ar}}
+                            </h2>
+                        </div>
+                        <div class="m-t-20">
+                            <p class="text-gray m-0 fs-15 ">{{'uploadassess.civilno' | translate}}:<span
+                                    class="text-default"> 
+                                    {{staffAssessmentValues?.civilnumber}}
+                                
+                                </span></p>
+                        </div>
+                        <div class="fs-13 m-t-20 m-b-20" fxLayout="row wrap">
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.courserole' | translate}}: <span
+                                    class="text-default">
+                                    <!-- Tutor/Trainer -->
+                                    {{cookieService.get('languageCookieId') ==1 ? staffAssessmentValues?.roleforcourse_name : staffAssessmentValues?.roleforcourse_name_ar}}
+                                
+                                </span></p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.coursesubcat' | translate}}: 
+                                <span *ngIf="staffAssessmentValues?.appoct_coursename_en != null"
+                                    class="text-default">
+                                     <!-- Light Vehicles -->
+                                     {{cookieService.get('languageCookieId') ==1 ? staffAssessmentValues?.appoct_coursename_en : staffAssessmentValues?.appoct_coursename_ar}}
+                                </span>
+                                <span *ngIf="staffAssessmentValues?.ccm_catname_en != null"
+                                    class="text-default">
+                                     <!-- Light Vehicles -->
+                                     {{cookieService.get('languageCookieId') ==1 ? staffAssessmentValues?.cour_subcate : staffAssessmentValues?.cour_subcate_ar}}
+                                </span>
+                            </p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.practicalassess' | translate}}:
+                                <!-- <span class="pas pending" *ngIf="staffAssessmentValues?.app_status == 1">
+                                    {{'uploadassess.new' | translate}}
+                                </span>
+                                <span class="pas pending" *ngIf="staffAssessmentValues?.app_status == 2">
+                                    {{'uploadassess.updat' | translate}}
+                                  </span>
+                                  <span class="pas pending" *ngIf="staffAssessmentValues?.app_status == 3">
+                                    {{'uploadassess.approved' | translate}}
+                                  </span>
+                                  <span class="pas pending" *ngIf="staffAssessmentValues?.app_status == 4">
+                                    {{'uploadassess.declin' | translate}}
+                                  </span>
+                                  <span class="pas pending" *ngIf="staffAssessmentValues?.app_status == 5">
+                                    {{'uploadassess.faid' | translate}}
+                                  </span> -->
+                                  <span class="pas pending" *ngIf="staffAssessmentValues.ass_status1 != 'null' && staffAssessmentValues.ass_status == 1">
+                                    {{'staffpractical.applicab' | translate}}
+                                </span>
+                                <span class="pas pending" *ngIf="staffAssessmentValues.ass_status1 != 'null' && staffAssessmentValues.ass_status == 2">
+                                    {{'staffpractical.notapli' | translate}}
+                                  </span>
+                                  <span class="pas pending" *ngIf="staffAssessmentValues.ass_status1 != 'null' && staffAssessmentValues.ass_status == 3">
+                                    {{'staffpractical.competent' | translate}}
+                                  </span>
+                                  <span class="pas pending" *ngIf="staffAssessmentValues.ass_status1 != 'null' && staffAssessmentValues.ass_status == 4">
+                                    {{'staffpractical.notyetcomp' | translate}}
+                                  </span>
+                                  <span class="pas pending" *ngIf="staffAssessmentValues.ass_status1 == null || staffAssessmentValues.ass_status1 == 'null'">
+                                    {{'staffpractical.pending' | translate}}
+                                  </span>
+                            </p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.compcard' | translate}}:
+                                <!-- <span class="liteorange">Pending</span> -->
+                                <!-- <span class="liteorange" *ngIf="staffAssessmentValues?.competencycard == null">{{'table.yettocert' | translate}}</span>
+                                <span class="liteorange" *ngIf="staffAssessmentValues?.competencycard == '2'">{{'table.initial' | translate}}</span>
+                                <span class="blue" *ngIf="staffAssessmentValues?.competencycard == '1'">{{'table.updated' | translate}}</span>
+                                -->
+                                <span *ngIf="staffAssessmentValues.competencycard == '1'"
+                                class="new">{{'New'}}</span>
+                                <span *ngIf="staffAssessmentValues.competencycard == '2'"
+                                class="approved">{{'Active'}}</span>
+                            <span *ngIf="staffAssessmentValues.competencycard == '3'" class="declined">{{'Expired'}}</span>
+                            <span *ngIf="staffAssessmentValues.competencycard == '4'"
+                            class="update">{{'Posted for Card Upgrade'}}</span>
+                                <!-- <span class="green">Active</span>
+                                    <span  class="red">decline</span> -->
+                            </p>
+                        
+                        </div>
+                    </div>
+                    <div class="address  p-l-15" fxLayout="row wrap" fxFlex.gt-sm="60" fxFlex="100">
+                        <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                            <p class="text-gray fs-14">{{'uploadassess.addon' | translate}} <br>
+                                <span class="text-default">
+                                    <!-- 12/12/12 -->
+                                    {{staffAssessmentValues.appsit_createdon != null ? (staffAssessmentValues.appsit_createdon | dateFormat) : '-'}}
+
+                                </span>
+                            </p>
+                        </div>
+                        <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                            <p class="text-gray fs-14">{{'uploadassess.lastupdate' | translate}}<br>
+                                <span class="text-default">
+                                    {{staffAssessmentValues.appsit_updatedon != null ? (staffAssessmentValues.appsit_updatedon | dateFormat) : '-'}}
+
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+                    <div class="details pd-15" fxFlex="100">
+                        <div class="head" fxLayout="row wrap">
+                            <h2 class="headcolor fs-18 m-0 lh-15">Mr. Saleh Abdullah Kamel</h2>
+                        </div>
+                        <div class="m-t-20">
+                            <p class="text-gray m-0 fs-15 ">{{'uploadassess.civilno' | translate}}:<span
+                                    class="text-default"> CVN0076787</span></p>
+                        </div>
+                        <div class="fs-13 m-t-20 m-b-20" fxLayout="row wrap">
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.courserole' | translate}}:<span
+                                    class="text-default">Tutor/Trainer</span></p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.coursesubcat' | translate}}:<span
+                                    class="text-default"> Light Vehicles</span></p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.practicalassess' | translate}}:<span
+                                    class="pas pending">Pending</span></p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'uploadassess.compcard' | translate}}:
+                                <span class="liteorange">Pending</span>
+                                <span class="liteorange">Yet to Certify</span>
+                                <span class="green">Active</span>
+                                    <span  class="red">decline</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="address  p-l-15" fxLayout="row wrap" fxFlex.gt-sm="60" fxFlex="100">
+                        <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                            <p class="text-gray fs-14">{{'uploadassess.addon' | translate}} <br>
+                                <span class="text-default">12/12/12</span>
+                            </p>
+                        </div>
+                        <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                            <p class="text-gray fs-14">{{'uploadassess.lastupdate' | translate}}<br>
+                                <span class="text-default">-</span>
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div fxFlex="90">
+                <h2 class="headcolor fs-18 m-t-30 m-b-30">{{'uploadassess.uploadedassessmt' | translate}}</h2>
+                    <div class="fields m-t-20 m-b-40">
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                        <div fxLayout="row wrap" class="w-100" fxLayoutAlign="flex-start center">
+                            <div fxFlex="50" class="readonly m-t-0">
+                                <mat-label class="filelabel">{{'uploadassess.selectsts' | translate}}</mat-label>
+                                <div class="fs-15 m-t-5 m-b-5">
+                                    <span *ngIf="staffAssessmentValues.set_asmtstatus==1">
+                                        {{'uploadassess.applicab' | translate}}
+                                    </span>
+                                    <span *ngIf="staffAssessmentValues.set_asmtstatus==2">
+                                        {{'uploadassess.notapplicab' | translate}}
+                                    </span>
+                                    <span *ngIf="staffAssessmentValues.set_asmtstatus==3">
+                                        {{'uploadassess.comptent' | translate}}
+                                    </span>
+                                    <span *ngIf="staffAssessmentValues.set_asmtstatus==4">
+                                        {{'uploadassess.notyetcomp' | translate}}
+                                    </span>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" class="w-100" fxLayoutAlign="flex-start center">
+                            <div fxFlex="50" class="documents m-t-30" *ngIf="staffAssessmentValues.set_asmtupload != null">
+                                <mat-label class="filelabel">{{'uploadassess.uploadeddoc' | translate}}</mat-label>
+                                <div class="uploadeddoc m-t-10" >
+                                    <img src="assets/images/opalimages/pdf.png"/>
+                                    <!-- {{staffAssessmentValues.set_asmtupload}} -->
+                                    <a href="{{staffAssessmentValues.link}}" target="_blank" class="m-l-10">{{'uploadassess.view' | translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxFlex="100" class="readonly m-t-40">
+                            <mat-label class="filelabel">{{'uploadassess.comments' | translate}}</mat-label>
+                            <div class="fs-15 m-t-5 m-b-5" [innerHTML]="staffAssessmentValues.appsit_appdeccomment">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayoutAlign="end center" class="m-t-15" fxFlex="100">
+                <button mat-raised-button  class="m-r-10 cancelbtn ShowHidefs-15"
+                                type="button" (click)="backTopayment();scrollTo('pagescroll');">{{'Back' |
+                                translate}}
+                            </button>
+            </div>
+        </div>
+    </div>
+    
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

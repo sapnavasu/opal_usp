@@ -1,0 +1,153 @@
+<div fxLayout="row wrap" class="audit_mainclass">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                <div class="titletext">
+                    <div class="closeandadd">
+                        <i mat-button matTooltip="Close" aria-label="Displays a tooltip"
+                            matTooltipClass="custom-tooltip" (click)="auditalert()"
+                            class="bgi bgi-close p-l-5 fs-14"></i>
+                        <h5 class="m-0 p-l-20 tt">Audit Trail<i class="bgi bgi-info"
+                                (click)="audittraildropdown('audittraillist')"></i></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 audittraillist" [@slideInOut]="animationState">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                    <mat-card-header>
+                        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100"
+                            fxFlex.xl="100">
+                            <mat-card-subtitle class="informationtext fs-14">
+                                Audit Trail
+                            </mat-card-subtitle>
+                        </div>
+                        <div class="selectforward m-r-0">
+                            <div class="p-l-15 gotit">
+                                <span (click)="audittraildropdown('audittraillist')" mat-raised-button
+                                    color="primary">Ok, Got
+                                    It
+                                </span>
+                            </div>
+                        </div>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="audittrailbottomlist">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="audittrailflexalign p-l-50 p-r-50">
+                <div class="p-t-8 p-b-8">
+                    <div class="auditheader">
+                        <div class="imageview">
+                            <img src="assets/images/NoimageJPG.jpg" alt="NoimageJPG">
+                        </div>
+                        <div class="subtitleofaudit">
+                            <h4 class="fs-15 lypisfont-semibold m-0">Zachary Spencer</h4>
+                            <p class="fs-14 txt-gray m-0">Associate Software Test Engineer Employement</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="innnerpartofdrwer">
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" id="audit_traillist">
+                    <div class="daterangepickerfilter">
+                        <div class="flexdaterange">
+                            <p class="fs-14 txt-gray m-0">Activity Count: 3
+                            </p>
+                            <div class="dateselect">
+                                <mat-form-field>
+                                    <div class="drpicker">
+                                        <input id="login_session" [formControl]="dateFilter" #login_session matInput
+                                            type="text" autocomplete="off" ngxDaterangepickerMd [dateLimit]="14"
+                                            [locale]="locale" [singleDatePicker]="false" placeholder="Select Date Range"
+                                            [autoApply]="false" [maxDate]='selected2' [showClearButton]="true"
+                                            [showDropdowns]="true" readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-icon class="cleardate" matDatepickerToggleIcon
+                                                (click)="clearDatelogin($event);$event.stopPropagation()">clear
+                                            </mat-icon>
+                                            <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <mat-table #table [dataSource]="dataSource" multiTemplateDataRows
+                        class="heading_oftable headercolor p-t-10">
+                        <ng-container matColumnDef="s_no">
+                            <th fxFlex="10" *matHeaderCellDef class="m-l-12 lypisfont-semibold"> S.No</th>
+                            <td fxFlex="10" *matCellDef="let element" data-label="S.No" class="m-l-12">
+                                {{element.sno}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="date_time">
+                            <th fxFlex="25" *matHeaderCellDef class="lypisfont-semibold"> Date & Time </th>
+                            <td fxFlex="25" *matCellDef="let element" data-label="Date & Time">
+                                {{element.datetime}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="module">
+                            <th fxFlex="65" *matHeaderCellDef class="lypisfont-semibold"> Module </th>
+                            <td fxFlex="65" [title]="element.modulename" *matCellDef="let element" data-label="Module" class="aftercolor">
+                                {{element.modulename | truncate:[45]}}
+                        </ng-container>
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                                <div class="example-element-detail"
+                                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                    <table class="gdpcontribution">
+                                        <tr>
+                                            <td>
+                                                <div fxLayout="row wrap" class="expand_mainclass">
+                                                    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-25">
+                                                        <div class="profilecolor">
+                                                            <p class="lypisfont-bold fs-16">PROFILE</p>
+                                                        </div>
+                                                        <div fxLayout="row wrap" class="externalbox"
+                                                            *ngFor="let companylist of companydataview">
+                                                            <div fxFlex.gt-sm="85" fxFlex="100">
+                                                                <div class="subtitle_secondrow">
+                                                                    <h4
+                                                                        class="fs-15 lypisfont-semibold txt-gray3 p-b-5">
+                                                                        {{companylist.profiletitle}}</h4>
+                                                                    <p class="fs-13">{{companylist.profilesubtitlte}}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div fxFlex.gt-sm="15" fxFlex="100"
+                                                                class="end_switch">
+                                                                <div class="p-r-25">
+                                                                    <span class="txt-gray3 fs-15"
+                                                                        *ngIf="companylist.status == 'on'"
+                                                                        class="oncolor fs-15 lypisfont-semibold">On</span>
+                                                                    <span class="oncolor"
+                                                                        *ngIf="companylist.status == 'off'"
+                                                                        class="offcolor fs-15 lypisfont-semibold">Off</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+                        <mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+                            [class.example-expanded-row]="expandedElement === element"
+                            (click)="expandedElement = expandedElement === element ? null : element">
+                        </mat-row>
+                        <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
+                    </mat-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

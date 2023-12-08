@@ -1,0 +1,178 @@
+<div fxLayout="row wrap" fxLayoutAlign="start" class="p-30 contractapproval"> 
+    <div fxFlex="100" fxFlex.xl="100" >
+        <div fxLayout="row wrap" fxLayoutGap.sm="0px grid" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid">
+            <div fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="100" fxLayoutAlign="start center">
+                <!-- <button class="back-btn m-r-10" matTooltip="Back" aria-label="Displays a tooltip" ><i class="bgi bgi-back1"></i></button> -->
+                <h3 class="txt-blue fs-18 lypisfont-bold m-0 lh-22" fxDlex="100">Contract Success Fee Approval</h3>
+            </div>
+            <div fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="100" fxLayoutAlign="end">
+                <ul class="m-0 breadcrum" fxLayoutAlign="center" fxFlex="<grow> <shrink> 100" fxLayout="row wrap">
+                    <li><a href="#0" title="">Contract Success Fee Approval</a></li>
+                    <li> <mat-icon class="m-t-3">navigate_before</mat-icon> </li>
+                    <li><a href="#0"> <mat-icon class="fs-18" aria-hidden="false" aria-label="Example home icon">home</mat-icon> </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div fxFlex="100" fxFlex.xl="100" class="white-panel m-t-30">
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-b-15 m-t-0" >
+            <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100"  fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"  fxLayoutAlign="flex-start">
+                <mat-paginator showFirstLastButtons #paginator [pageSizeOptions]="[5, 10, 20]" > </mat-paginator>
+            </div>
+            <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100"  fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"  fxLayoutAlign.xs="start center" fxLayoutAlign="end center" >
+                <!-- <div fxLayout="row wrap"fxLayoutAlign.xs="start" fxLayoutAlign="end" class="m-b-0"> -->
+                    <div class="searchfilter" fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div class="searchhere">
+                           
+                            <mat-form-field>
+                                <mat-label>Search by</mat-label>
+                                <mat-select  panelClass="myPanelClass"
+                                     (openedChange)="openedChange($event)" (selectionChange)="getuserpk($event.value);">
+                                    <div class="searchinmultiselect">
+                                        <i class="bgi bgi-search"></i>
+                                        <input autocomplete="false" matInput class="searchselect" appAlphanumsymb type="Search" placeholder="search" [(ngModel)]="contsearchSec"
+                                            [ngModelOptions]="{standalone: true}" (keydown)="$event.stopPropagation();">
+                                        <mat-icon (click)="contsearchSec=''" class="reseticon" matSuffix *ngIf="contsearchSec !='' && contsearchSec !=null">clear</mat-icon>
+                                    </div>
+                                    <div class="option-listing">
+                                        <mat-option *ngFor="let selcont of contracopt | filter: contsearchSec : 'name'" [value]="selcont['UserMst_Pk']"> {{selcont.name}}
+                                        </mat-option>
+                                        <div class="p-10 " fxLayoutAlign="start" *ngIf="(contracopt | multisearchinput: contsearchSec:['name']).length ==0">
+                                            No sector match your search criteria!
+                                        </div>
+                                    </div>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field >
+                                <input (keyup)="applyFilter($event.target.value)" autocomplete="off" class="input-text-color" placeholder="Enter" matInput>
+                                <button type="button" mat-button matSuffix mat-icon-button aria-label="Search" >
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-b-15 masterTable  m-t-0" >
+            <div fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+                <mat-table fxFlex="100" [dataSource]="datasource | filter : rfifilter" matSort matSortActive="li_lictitleen"
+                    matSortDirection="desc" matSortDisableClear class="mat-elevation-z8" >
+                    <ng-container matColumnDef="suppliercode">
+                        <mat-header-cell fxFlex.lg="10" fxFlex.xl="7" *matHeaderCellDef fxLayoutAlign="start center">
+                            <mat-checkbox class="m-r-15 m-t-5" (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()" > </mat-checkbox>
+                            <span fxFlex="<grow> <shrink> 100">Supplier Code </span>
+                        </mat-header-cell>
+                        <mat-cell fxFlex.lg="10" fxFlex.xl="7" fxLayoutAlign="start center" *matCellDef="let contractdetailslst" data-label="Supplier Code" class="lypisfont-semibold txt-gray3">
+                            <mat-checkbox class="m-r-15 m-t-5" (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(contractdetailslst) : null"
+                            [checked]="selection.isSelected(contractdetailslst)"> </mat-checkbox>
+                            {{contractdetailslst.suppliercode}}
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Organisation Name Column --> 
+                    <ng-container matColumnDef="organizationname">
+                        <mat-header-cell fxFlex.lg="20" fxFlex.xl="20" *matHeaderCellDef fxLayoutAlign="start center"><span fxFlex="<grow> <shrink> 100">Organisation Name</span></mat-header-cell>
+                        <mat-cell fxFlex.lg="20" fxFlex.xl="20" *matCellDef="let contractdetailslst" fxLayoutAlign="start center" data-label="Organisation Name" class="lypisfont-semibold txt-gray3">
+                        {{contractdetailslst.organizationname }}
+                        <!-- {{contractdetailslst.organizationname | truncate:[28]}} -->
+                        </mat-cell>
+                    </ng-container>
+                    <!--Contract Column --> 
+                    <ng-container matColumnDef="contract">
+                        <mat-header-cell fxFlex.lg="30" fxFlex.xl="30" *matHeaderCellDef  fxLayoutAlign="start center" ><span fxFlex="<grow> <shrink> 100">Contract</span></mat-header-cell>
+                        <mat-cell fxFlex.lg="30" fxFlex.xl="30" *matCellDef="let contractdetailslst" data-label="Contract" fxLayoutAlign="start center" >{{contractdetailslst.contract}}</mat-cell>
+                    </ng-container>
+                    <!-- Contract Success Fee (USD) Column --> 
+                    <ng-container matColumnDef="contractfeeusd">
+                        <mat-header-cell fxFlex.lg="10" fxFlex.xl="8" *matHeaderCellDef fxLayoutAlign="space-around " >
+                            Contract Success Fee (USD)
+                        </mat-header-cell>
+                        <mat-cell fxFlex.lg="10" fxFlex.xl="8" *matCellDef="let contractdetailslst" data-label="Contract Success Fee (USD)" fxLayoutAlign=" center">
+                            {{contractdetailslst.contractfeeusd}}
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Tender Process Type Column -->
+                    <ng-container matColumnDef="tendertype">
+                        <mat-header-cell fxFlex.lg="8" fxFlex.xl="7" *matHeaderCellDef  mat-sort-header  fxLayoutAlign="start" >
+                            <span fxFlex="<grow> <shrink> 100">Tender Process Type</span>
+                        </mat-header-cell>
+                        <mat-cell fxFlex.lg="8" fxFlex.xl="7" *matCellDef="let contractdetailslst" data-label="Tender Process Type" fxLayoutAlign="start center">
+                            {{contractdetailslst.tendertype}}
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Invoice Generated Column -->
+                    <ng-container matColumnDef="invoicedate">
+                        <mat-header-cell fxFlex.lg="8" fxFlex.xl="7" *matHeaderCellDef  fxLayoutAlign="start center" ><span fxFlex="<grow> <shrink> 100">Invoice Generated on</span></mat-header-cell>
+                        <mat-cell fxFlex.lg="8" fxFlex.xl="7" *matCellDef="let contractdetailslst" data-label="Invoice Generated on" fxLayoutAlign="start center">
+                            {{contractdetailslst.invoicedate}}
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Invoice Age Column -->
+                    <ng-container matColumnDef="invoiceage">
+                        <mat-header-cell fxFlex.lg="8" fxFlex.xl="7" *matHeaderCellDef  mat-sort-header  fxLayoutAlign="start" ><span fxFlex="<grow> <shrink> 100">Invoice Age (Days)</span></mat-header-cell>
+                        <mat-cell fxFlex.lg="8" fxFlex.xl="7" *matCellDef="let contractdetailslst" data-label="Invoice Age (Days)" fxLayoutAlign.xs="start" fxLayoutAlign="start">
+                            {{contractdetailslst.invoiceage}}
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Submitted Column -->
+                    <ng-container matColumnDef="submittedon">
+                        <mat-header-cell fxFlex.lg="8" fxFlex.xl="7" *matHeaderCellDef fxLayoutAlign="start center" ><span fxFlex="<grow> <shrink> 100">Submitted on</span></mat-header-cell>
+                        <mat-cell fxFlex.lg="8" fxFlex.xl="7" *matCellDef="let contractdetailslst" data-label="Submitted on"  fxLayoutAlign="start center">
+                            {{contractdetailslst.submittedon}}
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Payment status Column -->
+                    <ng-container matColumnDef="paymentsts">
+                        <mat-header-cell fxFlex.lg="10" fxFlex.xl="10" *matHeaderCellDef mat-sort-header fxLayoutAlign="start center" >Payment Status</mat-header-cell>
+                        <mat-cell fxFlex.lg="10" fxFlex.xl="10" *matCellDef="let contractdetailslst" data-label="Submitted on"fxLayoutAlign="start">
+                            <span class="status" [ngClass]="{'pending': contractdetailslst.paymentsts === 'Payment Pending', 'approved': contractdetailslst.paymentsts === 'Approved',
+                            'declined': contractdetailslst.paymentsts === 'Declined',  'inprogress': contractdetailslst.paymentsts === 'Payment In Progress',
+                            'verify': contractdetailslst.paymentsts === 'Verification Pending' }">
+                              {{contractdetailslst.paymentsts}}
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+                    <!-- Action column -->
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell class="actionclmn" fxFlex.lg="10" fxFlex.xl="7" *matHeaderCellDef fxLayoutAlign="center">Action </mat-header-cell>
+                        <mat-cell class="user actionclmn" fxFlex.lg="10" fxFlex.xl="7" [matMenuTriggerFor]="menutop" *matCellDef="let fleetData" data-label="Action" fxLayoutAlign="center" fxLayoutAlign.sm="start" fxLayoutAlign.xs="start">
+                            <button mat-icon-button class="mainhover"> <mat-icon class="maticonview">more_vert</mat-icon> </button>
+                            <mat-menu #menutop="matMenu" class="master-menu">
+                                <button mat-menu-item (click)="contractfeeapp.toggle();"> <span>View</span> </button>
+                                <button mat-menu-item (click)="onlinepaymentsts.toggle();"> <span>Update Payment Status</span> </button>
+                            </mat-menu>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
+                    <mat-row *matRowDef="let contractdetailslst; columns: displayedColumns;" (click)="selection.toggle(contractdetailslst)"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+            <div fxFlex="100" fxFlex.gt-sm="100" fxLayout="row wrap">
+                <mat-paginator showFirstLastButtons (page)="pageEvent = $event; syncPrimaryPaginator($event);" [pageSize]="paginator?.pageSize"
+                [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                [pageSizeOptions]="paginator?.pageSizeOptions"> </mat-paginator>
+            </div>
+        </div>
+    </div>
+    <!-- 
+    <button type="button" mat-raised-button color="primary" (click)="contractfeeapp.toggle();">Analytics</button>
+    <button type="button" mat-raised-button color="primary" (click)="onlinepaymentsts.toggle();">Analytics</button> 
+    -->
+    <mat-drawer-container class="example-container">
+        <mat-drawer #contractfeeapp disableClose class="example-sidenav sidenavsamewidthall side_panel_no_scrolling" mode="over" position="end">
+            <app-contractfee-approval [contractfeepanel]="contractfeeapp"> </app-contractfee-approval>
+        </mat-drawer>
+    </mat-drawer-container>
+    <mat-drawer-container class="example-container">
+        <mat-drawer #onlinepaymentsts disableClose class="example-sidenav sidenavsamewidthall side_panel_no_scrolling" mode="over" position="end">
+            <app-onlinepaymentsts [paymentstatus]="onlinepaymentsts"> </app-onlinepaymentsts>
+        </mat-drawer>
+    </mat-drawer-container>
+</div>
+
+

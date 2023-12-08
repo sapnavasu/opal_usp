@@ -1,0 +1,36 @@
+#paymentpop {
+    max-width:480px;
+    min-width: 480px;
+    height: auto;
+    padding: 15px 15px;
+    .head {
+        color: #0c4b9a;
+        font-size: 18px;
+        text-align: center;
+    }
+    .mat-raised-button  {
+        box-shadow:  none;
+        border-radius:  2px;
+        height: 35px;
+        min-width: 85px;
+    }
+  .content {
+    ul {
+        line-height: 20px;
+        li {
+            padding-top: 15px;
+            font-size: 14px;
+            color: #262626;
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+  }
+}
+.quicksetuplistpayment {
+    .mat-dialog-container {
+    padding: 0px !important;
+
+    }
+}

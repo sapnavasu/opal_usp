@@ -1,0 +1,165 @@
+
+#verified_fields {
+    
+    min-width: 500px;
+    max-width: 600px;
+    height: 100%;
+    overflow: hidden;
+    padding: 15px 10px;
+
+    .mat-icon {
+        cursor: pointer;
+        margin-left: 15px;
+
+        &:hover {
+            transform: scale(1.1);
+            color: #ED1C27;
+        }
+    }
+
+    .txt-gry {
+        color: #262626;
+    }
+
+    .txt-gry3 {
+        color: #848484;
+    }
+
+    .txt-red {
+        color: #ED1C27;
+    }
+
+    .cont_otp {
+        text-align: center;
+
+        p {
+            span {
+                color: #ED1C27;
+            }
+        }
+    }
+
+    .mat-form-field-appearance-outline {
+        .mat-form-field-wrapper {
+            padding-bottom: 5px !important
+        }
+    }
+
+    .mat-raised-button {
+        min-width: 110px;
+        box-shadow: none !important;
+        border-radius: 2px !important;
+        font-size: 1rem;
+        text-decoration: none;
+        padding: 5px 10px;
+    }
+
+    .procbtn {
+        background-color: #295da0;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+    }
+
+    .btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .resentbtn {
+        background-color: transparent;
+        border: none;
+        color: #295da0;
+        cursor: pointer;
+    }
+
+    .divouter {
+        width: 100%;
+
+        .flexalign.divinner {
+            display: flex;
+            justify-content: center;
+            left: 0;
+            position: sticky;
+            max-width: 88%;
+
+            .partitioned {
+                text-align: left;
+                padding-left: 16px;
+                letter-spacing: 62px;
+                border: 0;
+                min-width: 303px;
+                outline: none;
+                position: relative;
+                top: 5px;
+
+            }
+            .partitionedrtl {
+                text-align: right;
+                padding-left: 16px;
+                letter-spacing: 62px;
+                border: 0;
+                min-width: 303px;
+                outline: none;
+                position: relative;
+                top: 5px;
+                left: 40px;
+            }
+        }
+    }
+
+    .disable_icon {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    .otpfield {
+        display: block;
+        height: 12px;
+        width: 261px !important;
+        background-image: linear-gradient(to left, black 69%, rgba(255, 255, 255, 0) 0%) !important;
+        background-position: bottom;
+        background-size: 70px 1px;
+        background-repeat: repeat-x;
+        background-position-x: 47px;
+    }
+
+    // .mat-form-field-infix {
+    //     display: flex !important;
+    //     align-items: center;
+    //     justify-content: center !important;
+    // }
+    .procbtn {
+
+        color: #ffffff;
+        min-width: 110px;
+
+        button {
+            background-color: #295da0;
+            height: 45px;
+            border-radius: 2px !important;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-text {
+            color: #fff;
+        }
+    }
+
+    button {
+        .spinner {
+            top: auto !important;
+            bottom: auto !important;
+        }
+
+        .mat-progress-spinner.mat-warn circle,
+        .mat-spinner.mat-warn circle {
+            stroke: #fff !important;
+        }
+    }
+}

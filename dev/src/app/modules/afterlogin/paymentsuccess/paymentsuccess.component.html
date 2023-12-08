@@ -1,0 +1,86 @@
+<div fxLayout="row wrap" class="bottominfo ">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="gradientbackgrounds">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div ngClass.xs="responsive" ngClass.sm="responsive" class="topheadermain p-l-20 p-r-20 p-t-20 alignwidth">
+          <div class="imagewithtext">
+            <span class="p-l-20  lypisfont-bold spancolor fs-18">Payment</span>
+          </div>
+         
+        </div>
+
+      </div>
+    </div>
+    <div class="thankyoupage">
+      <div class="successtick">
+        <span>
+          <i class="bgi bgi-tick"></i>
+        </span>
+      </div>
+      <div fxLayout="row wrap" class="successtexts">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <p class="thankstext textalignword">Thank you for submitting your payment details.</p>
+          <p class="textalignword">We will validate the payment details and get back to you.</p>
+
+          <span class="m-0 fs-16 p-b-15 paymentcolor textalignwordflex">Payment Details</span>
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="alignmode">
+              <div>
+                <p class="labelcmp m-0">Payment Mode</p>
+                <p class="labelcmp m-0">Payment Type</p>
+                <p class="labelcmp m-0">{{ paymentDtl?.paymentType == 1 ? 'Cheque Number': paymentDtl?.paymentType == 2 ? 'Demand Draft Number' : 'Transaction Number' }}</p>
+                <p class="labelcmp m-0">Bank Name</p>
+                <p class="labelcmp m-0">Date of Issue</p>
+              </div>
+              <div class="p-l-30">
+                <p class="infocmp m-0">Offline</p>
+                <p class="infocmp m-0">{{ paymentDtl?.selectedpaymentType }}</p>
+                <p class="infocmp m-0">{{ paymentDtl?.refno }}</p>
+                <p class="infocmp m-0">{{ paymentDtl?.bankName }}</p>
+                <p class="infocmp m-0">{{ paymentDtl?.transcdate | date: 'dd-MM-yyyy'}}</p>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="textalignword p-t-20">For queries, please send an email to <a class="supportmail m-0"
+              href="mailto:support@lypis.com"><span class="supportcolor">(support@lypis.com)</span></a></p>
+
+          <div class="socialmedia textalignword">
+            <p>Follow Us</p>
+            <ul>
+              <li class="facebook">
+                <a href="#">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="twitter">
+                <a href="#">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="linkedin">
+                <a href="#">
+                  <i class="fa fa-linkedin" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="instagram">
+                <a href="#">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="youtube">
+                <a href="#">
+                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  

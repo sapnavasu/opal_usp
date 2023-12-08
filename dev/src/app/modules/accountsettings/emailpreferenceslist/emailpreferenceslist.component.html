@@ -1,0 +1,198 @@
+<div class="pd-30  mainheader">
+  <div fxLayout="row wrap" class="alignsecurity p-b-20">
+    <div fxFlex.gt-sm="80" fxFlex="100" class="flexaudittrail">
+      <img src="assets/images/securitynote.png" alt="securitynote">
+      <div class="securitytitle p-l-20">
+        <p class="fs-14 m-0">You'll receive email notifications when there’s critical information about your OPAL
+          account.
+          You can also choose to<br>
+          receive other types of notifications by email.</p>
+      </div>
+    </div>
+    <div fxFlex.gt-sm="20" fxFlex="100" class="flexendaudit">
+      <button (click)="audittraillview.toggle();" type="button" mat-raised-button color="preview"
+        class="lineheight button-35">
+        Audit Trail
+      </button>
+    </div>
+  </div>
+  <div id="emailprefaccordio">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="panel === 1" (opened)="setOpen(1)">
+        <mat-expansion-panel-header (click)="scrollTo('page-content')" [collapsedHeight]="customCollapsedHeight"
+          [expandedHeight]="customExpandedHeight">
+          <mat-panel-title>
+            <div class="titlepfcompayname">
+              <p class="lypisfont-semibold m-0 fs-16 txt-gray3">
+                Master Company Profile (MCP)
+              </p>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row wrap" class="accordionlistemail">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="profilecolor">
+              <p class="lypisfont-bold fs-16">PROFILE</p>
+            </div>
+            <form [formGroup]="Emailprefform">
+              <div formArrayName="companyprofiledata" fxLayout="row wrap" class="externalbox"
+                *ngFor=" let companyprflist of getspecControls(); let i = index;">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <div [formGroupName]="i" fxLayout="row wrap">
+                    <div fxFlex.gt-sm="85" fxFlex="100">
+                      <div class="subtitle_secondrow">
+                        <h4 class="fs-15 lypisfont-semibold txt-gray3 p-b-5">
+                          {{companyprflist.controls.profiletitle.value}}</h4>
+                        <p class="fs-13">{{companyprflist.controls.profilesubtitlte.value}}</p>
+                      </div>
+                    </div>
+                    <div fxFlex.gt-sm="15" fxFlex="100" class="togglemode_switch">
+                      <div class="p-r-25">
+                        <span class="listviewadded"
+                          [ngClass]="{'oncolor':onOff[i] ==true}">{{Emailprefform.get('companyprofiledata').at(i).get('slide').value
+                          == true ? 'On':'Off'}}</span>
+                      </div>
+                      <mat-slide-toggle (change)="setslidevalue(i, $event.checked)" formControlName="slide">
+                      </mat-slide-toggle>
+                    </div>
+                    <div class="m-t-10" *ngIf="Emailprefform.get('companyprofiledata').at(i).get('slide').value">
+                      <div class="searchfiltercompany m-t-10" fxLayout="row wrap">
+                        <div class="searchhere">
+                          <mat-form-field>
+                            <mat-label>Select Mode</mat-label>
+                            <mat-select (selectionChange)="setmodevalue(i, $event)" formControlName="selectmodevalue"
+                              [disableOptionCentering]="true">
+                              <mat-option *ngFor="let searchBy of searchOptions" [value]="searchBy.value">
+                                {{searchBy.name}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="panel === 2" (opened)="setOpen(2)">
+        <mat-expansion-panel-header (click)="scrollTo('page-content')" [collapsedHeight]="customCollapsedHeight"
+          [expandedHeight]="customExpandedHeight">
+          <mat-panel-title>
+            <div class="titlepfcompayname">
+              <p class="lypisfont-semibold m-0 fs-16 txt-gray3">
+                Supplier Certification form (SCF)
+              </p>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row wrap" class="accordionlistemail">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="profilecolor">
+              <p class="lypisfont-bold fs-16">SCF</p>
+            </div>
+            <div fxLayout="row wrap" class="externalbox">
+              <div fxFlex.gt-sm="85" fxFlex="100">
+                <div class="subtitle_secondrow">
+                  <h4 class="fs-15 lypisfont-semibold txt-gray3 p-b-5">
+                    When the SCF OPAL Subscription is expired
+                  </h4>
+                  <p class="fs-13">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut diam dictum,
+                    euismod tellus vitae</p>
+                </div>
+              </div>
+              <div fxFlex.gt-sm="15" fxFlex="100" class="togglemode_switch">
+                <div class="p-r-25">
+                  <span *ngIf="!scfform.controls['selectmode'].value" class="txt-gray3 fs-15">Off</span>
+                  <span *ngIf="scfform.controls['selectmode'].value" class="oncolor">On</span>
+                </div>
+                <mat-slide-toggle [formControl]="scfform.controls['selectmode']"></mat-slide-toggle>
+              </div>
+              <div class="m-t-10" *ngIf="scfform.controls['selectmode'].value">
+                <div class="searchfiltercompany" fxLayout="row wrap">
+                  <div class="searchhere">
+                    <mat-form-field>
+                      <mat-label>Select Mode</mat-label>
+                      <mat-select formControlName="selectmodestatus" [disableOptionCentering]="true">
+                        <mat-option *ngFor="let searchBy of searchOptions" [value]="searchBy.value">
+                          {{searchBy.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="panel === 3" (opened)="setOpen(3)">
+        <mat-expansion-panel-header (click)="scrollTo('page-content')" [collapsedHeight]="customCollapsedHeight"
+          [expandedHeight]="customExpandedHeight">
+          <mat-panel-title>
+            <div class="titlepfcompayname">
+              <p class="lypisfont-semibold m-0 fs-16 txt-gray3">
+                Contract Management System (CMS)
+              </p>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div [formGroup]="contractform" fxLayout="row wrap" class="accordionlistemail">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="profilecolor">
+              <p class="lypisfont-bold fs-16">Contract</p>
+            </div>
+            <div fxLayout="row wrap" class="externalbox">
+              <div fxFlex.gt-sm="85" fxFlex="100">
+                <div class="subtitle_secondrow">
+                  <h4 class="fs-15 lypisfont-semibold txt-gray3 p-b-5">
+                    When the Contractor's OPAL Subscription is expired
+                  </h4>
+                  <p class="fs-13">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut diam dictum,
+                    euismod tellus vitae</p>
+                </div>
+              </div>
+              <div fxFlex.gt-sm="15" fxFlex="100" class="togglemode_switch">
+                <div class="p-r-25">
+                  <span *ngIf="!contractform.controls['selectstatus'].value" class="txt-gray3 fs-15">Off</span>
+                  <span *ngIf="contractform.controls['selectstatus'].value" class="oncolor">On</span>
+                </div>
+                <mat-slide-toggle [formControl]="contractform.controls['selectstatus']"></mat-slide-toggle>
+              </div>
+              <div *ngIf="contractform.controls['selectstatus'].value" class="m-t-10">
+                <div class="searchfiltercompany" fxLayout="row wrap">
+                  <div class="searchhere">
+                    <mat-form-field>
+                      <mat-select formControlName="selectvaluestatus" [disableOptionCentering]="true">
+                        <mat-option *ngFor="let searchBy of searchOptions" [value]="searchBy.value">
+                          {{searchBy.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="alignendsave p-t-20">
+    <button mat-raised-button (click)="submitform()" class="savebtn fs-15" type="button">Save</button>
+  </div>
+</div>
+
+<mat-drawer-container class="example-container sidenavindexclass">
+  <mat-drawer #audittraillview class="example-sidenav sidenavsamewidthall auditview" mode="over" position="end">
+    <app-audittrailsidenav [audittraillview]="audittraillview"></app-audittrailsidenav>
+  </mat-drawer>
+</mat-drawer-container>

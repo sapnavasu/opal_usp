@@ -1,0 +1,41 @@
+<div id="commentpopview" [formGroup]="commentform">
+  <div class="textnotecolor">
+    <div class="jsrsimage">
+      <img src="assets/images/OPAL_logo.svg" alt="OPAL_logo">
+    </div>
+    <div fxLayout="row wrap" class="widthcommentside">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="flexalignsubscrip">
+          <div class="warningview">
+            <i class="bgi bgi-warningmsg"></i>
+          </div>
+          <div class="subscriptioncontent">
+            <h3>{{'enterpriseadmin.doyouwant' | translate}}</h3>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-15">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field>
+              <textarea matInput formControlName="comments"  required placeholder="Comments" cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize" maxlength="250" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+              <mat-error
+                *ngIf="commentform.controls['comments'].hasError('required') && commentform.controls['comments'].touched"
+                class="text-danger font-14">{{'enterpriseadmin.entecomm' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+ 
+  <div class="btnalign">
+    <button mat-raised-button type="button" color="secondary"
+      class="remindmelater button-35 fs-15 laterbtn m-r-10" (click)="closeModalPopup()">{{'common.nomodal' | translate}}</button>
+    <button [disabled]="!commentform.valid" mat-raised-button type="button" (click)="submitApprovePopup(data['userPk'], data['status'])" class="button-35 fs-15 yesbtn">
+      {{'common.yesmodal' | translate}} 
+    </button>
+  </div>
+</div>
+
+<app-responseloader class="fixedaloders" *ngIf="showResponsiveLoader"></app-responseloader>

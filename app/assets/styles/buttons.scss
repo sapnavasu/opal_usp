@@ -1,0 +1,121 @@
+
+@mixin button-bg($bg) {
+    background: $bg;
+  }
+  .mat-raised-button
+{
+    box-shadow: none !important;
+    border-radius: 2px !important;
+    font-size: 1rem;
+    color:$white;
+    text-decoration:none;
+    padding:5px 10px;
+}
+  .mat-raised-button.mat-secondary {
+     @include button-bg(#fff);
+     color: $primarybtnColor;
+      border: 1px solid $primarybtnColor;
+     box-shadow: none !important;
+  }
+  
+  .mat-raised-button.mat-success{
+     @include button-bg($primarybtnColor);
+     color:$white !important;
+  }
+  
+  .mat-raised-button.mat-skip{
+     @include button-bg(#e8ebef);
+     color:#61666c;
+     border:1px solid #e8ebef;
+     box-shadow: none !important;
+  }
+  .mat-raised-button.mat-apply
+  {
+   @include button-bg($primarybtnColor);
+   color:#fff;
+   box-shadow: none !important;
+  }
+  .mat-raised-button.mat-preview
+  {
+   @include button-bg($primarybtnColor);
+   color:#fff !important;
+   box-shadow: none !important;
+   &:hover{
+     background: $primarybtnColorhover;
+   }
+  }
+  .mat-raised-button.mat-white
+  {
+   @include button-bg($white);
+   color: $primarybtnColor;
+   box-shadow: none !important;
+  }
+  .mat-raised-button.mat-transparent{
+   color:#fff;
+   border:1px solid #e8ebef;
+   box-shadow: none !important;
+   background: transparent;
+   line-height: 2.5;
+   height: auto;
+}
+.mat-raised-button.mat-aquahaze{
+    color:#333333;
+    border-radius:3px;
+    text-align: center;
+    background:$aquahaze;
+    border:0px solid #e8ebef;
+    box-shadow: none !important;
+}
+.mat-stroked-button.mat-preview{
+  height: 38px;
+  border: 1px solid #cbcbcb;
+  border-radius: 2px / 2px 2px 2px 2px;
+  background-clip: padding-box;
+  background-color: #fff ;
+  color: #999  !important;
+  text-align: center;
+}              
+.btn-lg{
+  height: 45px;
+  min-height: 45px;
+}
+.btn-md{
+  height: 40px;
+  min-height: 40px;
+}
+.btn-sm{
+  height: 35px;
+  min-height: 35px;
+}
+.mat-flat-button{
+  border-radius: 2px !important;
+}
+.mat-orange-bg{
+  background:#f08437;
+}
+.bg-white{
+  background:#fff;
+}
+.bg-athensgray{
+  background:#f2f3f7;
+}
+.back-btn{
+    width: 30px;
+    height: 30px;
+    border: 0px;
+    color: #fff;
+    display: flex;
+    font-size: 0.875rem;
+    padding: 8px 0px;
+    text-align: center;
+    border-radius: 50%;
+    background: #ef8436;
+    justify-content: center;
+    font-family: "cairoregular";
+}
+.mat-raised-button.mat-primary{
+  background: $primarybtnColor;
+  &:hover{
+    background: $primarybtnColorhover;
+  }
+}

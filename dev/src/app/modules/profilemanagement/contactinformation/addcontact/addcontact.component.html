@@ -1,0 +1,510 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <form class="sidenavform" [formGroup]="formGroup" #formDirective="ngForm" autocomplete="off"
+            (ngSubmit)="save(formDirective)">
+            <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+                <!-- column -->
+                <div *ngIf="!hideComponentHeader" fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                    <div class="titletext">
+                        <div class="closeandadd">
+                            <i mat-button matTooltip="Close" aria-label="Displays a tooltip"
+                                matTooltipClass="custom-tooltip" (click)="showSweetAlert()"
+                                class="bgi bgi-close p-l-5 fs-14"></i>
+                            <h5 class="m-0 p-l-20 tt">Contact Information<i
+                                    (click)="toggleShowDiv('descriptioncontentmarketpresence')"
+                                    class="bgi bgi-info"></i></h5>
+                        </div>
+
+                        <div class="clearandaddbutton">
+                            <div class="infosteplist" *ngIf="showtoolicon" (click)="infolisting('infoview')">
+                                <i class="bgi bgi-question"matTooltip="Help"></i>
+                            </div>
+                            <button type="button" mat-raised-button color="primary"
+                                class="clearbutton height-35 m-r-10 p-l-20 p-r-20"
+                                (click)="resetData(formDirective);">Clear</button>
+                            <button *ngIf="!hideLocationlist" color="preview" type="submit"
+                                [disabled]="isFormValid || disableSubmitButton" mat-raised-button ngClass.xs=" m-r-15"
+                                ngClass.sm=" m-r-15" class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+                            <span *ngIf="hideLocationlist">
+                                <button *ngIf="!showmapbutton" color="preview" type="submit"
+                                    [disabled]="isFormValid || disableSubmitButton" mat-raised-button
+                                    ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+                                    class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+                                <button *ngIf="showmapbutton" color="preview" type="button"
+                                    [disabled]="selected_location_id == null || selected_location_id == ''"
+                                    mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+                                    class="addbutton height-35 p-l-20 p-r-20"
+                                    (click)="mapselectedlocation()">Map</button>
+                            </span>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf="!hideComponentHeader" fxLayout="row wrap" fxLayoutAlign="flex-start"
+                class="p-t-0 descriptioncontentmarketpresence" [@slideInOut]="animationState">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                        <mat-card-header>
+                            <div class="titletext" *ngIf="dyHelpContent">
+                                <mat-card-subtitle class="informationtext fs-14">
+                                    <div> {{dyHelpContent.title}}</div>
+
+                                </mat-card-subtitle>
+                            </div>
+                            <div *ngIf="!dyHelpContent" class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100"
+                                fxFlex.lg="100" fxFlex.xl="100">
+                                <mat-card-subtitle class="informationtext fs-14">
+                                    {{ helpContent }}
+                                </mat-card-subtitle>
+                            </div>
+                            <div class="selectforward m-r-0">
+                                <div class="p-l-15 gotit">
+                                    <span (click)="toggleShowDiv('descriptioncontentmarketpresence')" mat-raised-button
+                                        color="primary">Ok, Got It </span>
+                                </div>
+                            </div>
+                        </mat-card-header>
+                    </mat-card>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 infoview" [@slideInOut]="animationState2">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                    <mat-card class="headerinformationtext sidenavinfotext m-r-0 infosteps">
+                        <mat-card-header>
+                            <div class="titletext" *ngIf="dyHelpContent">
+                                <mat-card-subtitle class="informationtext fs-14">
+                                    <div>
+                                        <h5 class="m-t-5"><b>{{dyHelpContent.boldHeading}}</b></h5>
+                                        <ul class="p-l-10 m-t-6">
+                                            <li *ngFor="let listContent of dyHelpContent?.list">{{listContent.content}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </mat-card-subtitle>
+                            </div>
+                            <div class="selectforward m-r-0">
+                                <div class="p-l-15 gotit">
+                                    <span (click)="infolisting('infoview')" mat-raised-button color="primary">Ok, Got It
+                                    </span>
+                                </div>
+                            </div>
+                        </mat-card-header>
+                    </mat-card>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxFlexAlign="center">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <div *ngIf="locationType != 13 && locationType != 16 && locationType != 4" fxLayout="row wrap"
+                        fxFlexAlign="center" class="borderbottom">
+                        <div fxFlex.gt-sm="70" fxFlex="100" class="companyinfomcp p-l-75">
+                            <img src="{{logoUrl}}" alt="company logo">
+                            <div class="p-l-10 content">
+                                <p class="p-b-8 fs-15 w-100">{{companyname}}</p>
+                                <p class="lypisid w-100"><span>OPAL ID: </span> <span>{{lypisID}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="innnerpartofdrwer" #scrollDiv [ngClass]="(hideLocationlist)?'':'noscroll'">
+                        <div fxLayout="row wrap" class="organisationinfo" fxLayoutAlign="center">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0" class="data_width">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="tabsection mptab">
+                                    <mat-tab-group (selectedTabChange)="setshowmap($event)" #tab [disableRipple]="true"
+                                        [ngClass]="(hideLocationlist)?'':'hidetabstyle'">
+                                        <mat-tab label="First" *ngIf="hideLocationlist">
+                                            <ng-template mat-tab-label>
+                                                <div #mapTab class="tabselectheadercontent">
+                                                    <div class="selectionlogo">
+                                                        <i class="bgi bgi-Existing"></i>
+                                                    </div>
+                                                    <div class="selectiontext">
+                                                        <h4>Map</h4>
+                                                        <p>Map your existing {{sideNavSubHeaderNameText}} Location
+                                                            Details.</p>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <div fxLayout="row wrap" class="m-t-20">
+                                                <div fxFlex.gt-sm="100" fxFlex="100">
+                                                    <div class="busisearchdiv m-b-25 w-100">
+                                                        <div class="bssearchbox">
+                                                            <button type="button" mat-raised-button
+                                                                class="searchbtn m-r-10"><i
+                                                                    class="bgi bgi-search"></i></button>
+                                                            <mat-form-field class="searchfielddiv">
+                                                                <input #searchFieldbus
+                                                                    (keyup)="filteroutlocation(searchFieldbus.value,1)"
+                                                                    matInput autocomplete="nope"
+                                                                    placeholder="Search by Email ID/Mobile/Country/Address">
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-100" *ngFor="let localst of locationlists">
+                                                        <mat-card class="selectedbsfull">
+                                                            <mat-card-header>
+                                                                <div class="sbsimg">
+                                                                    <mat-radio-button
+                                                                        [checked]="selected_location_id == localst.memcompmplocationdtls_pk"
+                                                                        (click)="setlocationid(localst.memcompmplocationdtls_pk)">
+                                                                    </mat-radio-button>
+                                                                </div>
+                                                                <div class="sbsdetails">
+                                                                    <!--mat-card-title class="selecttitle fs-16 p-b-5 m-b-0">
+                                      <span>{{localst.ltype}}</span>
+                                    </mat-card-title-->
+                                                                    <mat-card-subtitle
+                                                                        class="selectsubtitle m-t-0 fs-16">
+                                                                        <p class="country">
+                                                                            <span class="cbox-label">Country</span>
+                                                                            <span class="cbox-value">
+                                                                                <img class="flagicon"
+                                                                                    src="assets/images/flags/{{localst.dialcode_country_pk + '.png'}}"
+                                                                                    alt="Oman" /> {{localst.country}}
+                                                                            </span>
+                                                                        </p>
+                                                                        <p class="country">
+                                                                            <span class="cbox-label">Landline</span>
+                                                                            <span
+                                                                                class="cbox-value">{{localst.dialocode_country_code
+                                                                                + '' +
+                                                                                localst.mcmpld_landlineno}}</span>
+                                                                        </p>
+                                                                        <p class="country">
+                                                                            <span class="cbox-label">Mail</span>
+                                                                            <span
+                                                                                class="cbox-value">{{localst.mcmpld_emailid}}</span>
+                                                                        </p>
+                                                                        <p class="address">
+                                                                            <span class="cbox-label">Address</span>
+                                                                            <span class="cbox-value cutetext">
+                                                                                {{localst.mcmpld_address}}
+                                                                            </span>
+                                                                        </p>
+                                                                    </mat-card-subtitle>
+                                                                </div>
+                                                            </mat-card-header>
+                                                        </mat-card>
+                                                    </div>
+                                                    <div class="w-100 m-t-30" *ngIf="locationlists.length == 0">
+                                                        No record found
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab label="First">
+                                            <ng-template mat-tab-label>
+                                                <div class="tabselectheadercontent">
+                                                    <div class="selectionlogo">
+                                                        <i class="bgi bgi-New_icon align"></i>
+                                                    </div>
+                                                    <div ngClass.xs="p-t-10" ngClass.sm="p-t-10"
+                                                        class="selectiontext p-l-8">
+                                                        <h4 class="createresolution">Create New</h4>
+                                                        <p class="savedresolution">
+                                                            Add the details of your {{sideNavSubHeaderNameText}}
+                                                            Location.</p>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <div fxLayout="row wrap" fxFlexAlign="center">
+                                                <div fxFlex.gt-sm="100" fxFlex="100" class="mapwidth">
+                                                    <!-- <div class="profilelinkboxshadow m-b-10">
+                                <div fxLayout="row wrap" class="borderflex">
+  
+                                  <div fxFlex.gt-sm="8" fxFlex="100" class="p-l-15">
+                                    <i class="bgi bgi-search Searchcolor"></i>
+                                  </div>
+                                  <div fxFlex.gt-sm="92" fxFlex="100" class="Search">
+                                    <input app-restrict-input="firstspace"
+                                      placeholder=" Search your Existing Details From Google Maps" class="border" required>
+                                  </div>
+  
+                                </div>
+                              </div> -->
+                                                </div>
+                                            </div>
+                                            <div *ngIf="locationType == 13" fxLayout="row wrap" fxFlexAlign="center">
+                                                <div fxFlex.gt-sm="45" fxFlex="100" class="m-b-10">
+                                                    <mat-form-field>
+                                                        <mat-label>Transport Type</mat-label>
+                                                        <mat-select
+                                                            (selectionChange)="changeLabelName(formGroup?.controls['transporttype'].value)"
+                                                            formControlName="transporttype" panelClass="myPanelClass"
+                                                            [disableOptionCentering]="true" required>
+                                                            <mat-option *ngFor="let transtype of transporttypes"
+                                                                [value]="transtype.tvalue">
+                                                                {{transtype.tlabel}}</mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="form?.transporttype.errors?.required">
+                                                            Select transport type
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <!-- column -->
+                                            </div>
+                                            <!-- <div *ngIf="locationType == 16" fxLayout="row wrap" fxFlexAlign="center">
+                          <div fxFlex.gt-sm="45" fxFlex="100" class="m-b-10">
+                            <mat-form-field>
+                              <mat-label>Delivery location Type</mat-label>
+                              <mat-select formControlName="deliveryLocationType" panelClass="myPanelClass"
+                                [disableOptionCentering]="true" required>
+                                <mat-option *ngFor="let deliverytype of deliverytypes" [value]="deliverytype.tvalue">
+                                  {{deliverytype.tlabel}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div fxFlex.gt-sm="65" fxFlex="100" class="l-l-15"
+                            *ngIf="form?.deliveryLocationType.value == '3'">
+                            <mat-form-field>
+                              <input matInput app-restrict-input="firstspace" appAlphanumsymb placeholder="Other"
+                                formControlName="otherloc" maxlength="150" required>
+                              <mat-error *ngIf="form?.otherloc.errors?.required">
+                                Enter othere
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                                            <div fxLayout="row wrap" fxFlexAlign="center">
+                                                <div fxFlex.gt-sm="100" fxFlex="100" class="mapwidth m-t-20">
+                                                    <app-bgimaps #map *ngIf="enabled" [country]="mapMarkerLocation"
+                                                        [city_auto_list_filed]="true" [lat_field]="true"
+                                                        [long_field]="true" [address_field]="false" [zoom_level]="1"
+                                                        [latitude]="latitude" [longitude]="longitude"
+                                                        [draggable]="false" [street_view]="false"
+                                                        [searchboxApperance]="'standard'"
+                                                        [placeholderText]="'Search your location from Google Maps'"
+                                                        fxFlex.gt-sm="100" fxFlex="100"
+                                                        (locationObject)="getLocationDetails($event)">
+                                                    </app-bgimaps>
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row wrap" class="organisationinfo  p-t-20">
+                                                <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                                                    <app-filee #complogo isLogo=true *ngIf="showLogo"
+                                                        [fileMstRef]="drv_repcomplogo"
+                                                        (filesSelected)="fileeSelected($event,drv_repcomplogo)"
+                                                        formControlName="repcomplogo" isMandatory="true"></app-filee>
+                                                    <div fxLayout="row wrap" class="p-t-15">
+
+                                                        <div fxFlex="100">
+                                                            <mat-form-field>
+                                                                <input matInput [errorStateMatcher]="matcher"
+                                                                    app-restrict-input="firstspace" minlength="1"
+                                                                    autocomplete="nope" appAlphanumsymb
+                                                                    placeholder="Head Quarters (Location - City)"
+                                                                    formControlName="crn"
+                                                                    [required]="stkholdertype==6?true:false">
+                                                                <mat-error *ngIf="form?.crn.errors?.required">
+                                                                    Enter head quarter
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div fxLayout="row wrap" fxFlexAlign="center">
+                                                        <div fxFlex.gt-sm="100" fxFlex="  100" class="p-b-10">
+                                                            <mat-form-field>
+                                                                <label>Address</label>
+                                                                <input matInput minlength="1" [errorStateMatcher]="matcher"
+                                                                    app-restrict-input="firstspace" appAlphanumsymb
+                                                                    autocomplete="nope" formControlName="address"
+                                                                    required>
+                                                                <mat-error *ngIf="form?.crn.errors?.required">
+                                                                    Enter address
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div fxLayout="row wrap" fxLayoutGap.sm="10px grid"
+                                                        fxLayoutGap.md="10px grid" fxLayoutGap.lg="10px grid"
+                                                        fxLayoutGap.xl="10px grid" fxLayoutGap="10px grid"
+                                                        class="flexsame">
+
+                                                        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.md="p-r-30"
+                                                            ngClass.lg="p-r-30 paddingspace" ngClass.sm="p-r-0"
+                                                            ngClass.xs="p-r-0" ngClass.xl="p-r-30">
+                                                            <div fxLayout="row wrap" class="setcountryflag flexsame">
+                                                                <div class="flagimage code">
+                                                                    <mat-form-field class="country-flag">
+                                                                        <mat-select  minlength="1" maxlength="5" placeholder="Code"
+                                                                            [(value)]="country_code_flag"
+                                                                            (closed)="searchCountryFlag = ''"
+                                                                            (selectionChange)="setcountryFlag($event.value);"
+                                                                            panelClass="select_with_search"
+                                                                            [disabled]="country_code_flag == defaultCountryPk"
+                                                                            [disableOptionCentering]="true"
+                                                                            *ngIf="(countrylist | searchFilter: searchCountryFlag : 'CyM_CountryName_en') as result">
+                                                                            <mat-select-trigger>
+                                                                                <img src="assets/images/flags/{{country_code_flag}}.png"
+                                                                                    alt="Country Flag">
+                                                                            </mat-select-trigger>
+                                                                            <div class="searchinmultiselect">
+                                                                                <i class="bgi bgi-search"></i>
+                                                                                <input matInput class="searchselect"
+                                                                                    [(ngModel)]="searchCountryFlag"
+                                                                                    autocomplete="nope"
+                                                                                    placeholder="Search"
+                                                                                    (keydown)="$event.stopPropagation();"
+                                                                                    [ngModelOptions]="{standalone: true}">
+                                                                                <i (click)="searchCountryFlag = ''"
+                                                                                    class="reseticon" matSuffix
+                                                                                    *ngIf="searchCountryFlag !='' && searchCountryFlag !=null"
+                                                                                    class="bgi bgi-close"></i>
+                                                                            </div>
+                                                                            <div class="option-listing">
+                                                                                <mat-option class="countrynameselect"
+                                                                                    *ngFor="let country of countrylist | searchFilter: searchCountryFlag : 'CyM_CountryName_en'"
+                                                                                    [value]="country.CountryMst_Pk">
+                                                                                    <img src="assets/images/flags/{{country.CountryMst_Pk}}.png"
+                                                                                        alt="Country Flag">
+                                                                                    {{country.CyM_CountryName_en}}
+                                                                                </mat-option>
+                                                                                <div class="p-t-10"
+                                                                                    *ngIf="result.length == 0">
+                                                                                    No country match your search
+                                                                                    criteria!
+                                                                                </div>
+                                                                            </div>
+                                                                        </mat-select>
+                                                                        <mat-error
+                                                                            *ngIf="form?.landline_cc.errors?.required">
+                                                                            Enter country code
+                                                                        </mat-error>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="p-l-10  number">
+                                                                    <mat-form-field class="d-flex" floatLabel="always"
+                                                                        class="numberandcode">
+                                                                        <span class="p-r-10">{{phonecode}}</span>
+                                                                        <input matInput app-restrict-input="firstspace"
+                                                                            appNumberonly minlength="1" maxlength="20" 
+                                                                            autocomplete="nope"
+                                                                            formControlName="landline_no"
+                                                                            class="preFlag" placeholder="Landline"
+                                                                            required>
+                                                                        <input matInput hidden='true'
+                                                                            placeholder="Phone Code"
+                                                                            autocomplete="nope">
+                                                                        <mat-error
+                                                                            *ngIf="form?.landline_no.errors?.required">
+                                                                            Enter phone number
+                                                                        </mat-error>
+                                                                    </mat-form-field>
+
+                                                                </div>
+                                                                <div class="ext p-l-10">
+                                                                    <mat-form-field>
+                                                                        <input matInput app-restrict-input="firstspace"
+                                                                            appNumberonly minlength="1" maxlength="5"
+                                                                            autocomplete="nope"
+                                                                            formControlName="landline_ext"
+                                                                            placeholder="Ext.">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex.gt-sm="50" fxFlex="100">
+                                                            <div fxLayout="row wrap" class="setcountryflag flexsame">
+                                                                <div class="flagimage widthflagview">
+                                                                    <mat-form-field class="country-flag">
+                                                                        <mat-select  minlength="1" maxlength="5" placeholder="Code"
+                                                                            [(value)]="country_code_flag"
+                                                                            (closed)="searchCountryFlag = ''"
+                                                                            (selectionChange)="setcountryFlag($event.value);"
+                                                                            panelClass="select_with_search"
+                                                                            [disabled]="country_code_flag == defaultCountryPk"
+                                                                            [disableOptionCentering]="true"
+                                                                            *ngIf="(countrylist | searchFilter: searchCountryFlag : 'CyM_CountryName_en') as result">
+                                                                            <mat-select-trigger>
+                                                                                <img src="assets/images/flags/{{country_code_flag}}.png"
+                                                                                    alt="Country Flag">
+                                                                            </mat-select-trigger>
+                                                                            <div class="searchinmultiselect">
+                                                                                <i class="bgi bgi-search"></i>
+                                                                                <input matInput class="searchselect"
+                                                                                    [(ngModel)]="searchCountryFlag"
+                                                                                    autocomplete="nope"
+                                                                                    placeholder="Search"
+                                                                                    (keydown)="$event.stopPropagation();"
+                                                                                    [ngModelOptions]="{standalone: true}">
+                                                                                <i (click)="searchCountryFlag = ''"
+                                                                                    class="reseticon" matSuffix
+                                                                                    *ngIf="searchCountryFlag !='' && searchCountryFlag !=null"
+                                                                                    class="bgi bgi-close"></i>
+                                                                            </div>
+                                                                            <div class="option-listing">
+                                                                                <mat-option class="countrynameselect"
+                                                                                    *ngFor="let country of countrylist | searchFilter: searchCountryFlag : 'CyM_CountryName_en'"
+                                                                                    [value]="country.CountryMst_Pk">
+                                                                                    <img src="assets/images/flags/{{country.CountryMst_Pk}}.png"
+                                                                                        alt="Country Flag">
+                                                                                    {{country.CyM_CountryName_en}}
+                                                                                </mat-option>
+                                                                                <div class="p-t-10"
+                                                                                    *ngIf="result.length == 0">
+                                                                                    No country match your search
+                                                                                    criteria!
+                                                                                </div>
+                                                                            </div>
+                                                                        </mat-select>
+                                                                        <mat-error
+                                                                            *ngIf="form?.landline_cc.errors?.required">
+                                                                            Enter country code
+                                                                        </mat-error>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="widthfax p-l-10">
+                                                                    <mat-form-field>
+                                                                        <input matInput app-restrict-input="firstspace"
+                                                                        appNumberonly maxlength="20" minlength="1" autocomplete="nope"
+                                                                            formControlName="landline_ext"
+                                                                            placeholder="Fax">
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div fxLayout="row wrap" class="flexsame p-t-15">
+                                                        <div fxFlex="100">
+                                                            <mat-form-field>
+                                                                <input matInput appAlphanumsymb minlength="1"
+                                                                    maxlength="250" placeholder="Email ID"
+                                                                    autocomplete="nope" formControlName="emailid"
+                                                                    required>
+                                                                <mat-error *ngIf="form?.emailid.errors?.required">
+                                                                    Enter email ID
+                                                                </mat-error>
+                                                                <mat-error *ngIf="form?.emailid.errors?.pattern">
+                                                                    Enter valid email ID
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div fxLayout="row wrap" class="flexsame">
+                                                        <!-- column -->
+                                                        <div fxFlex="100">
+                                                            <mat-form-field>
+                                                                <input matInput app-restrict-input="firstspace"
+                                                                    appAlphanumsymb minlength="1" autocomplete="nope"
+                                                                    maxlength="250" placeholder=" Organisation Website"
+                                                                    formControlName="website">
+                                                                <mat-error *ngIf="form?.website.errors?.pattern">
+                                                                    Enter valid website
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                    </mat-tab-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

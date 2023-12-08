@@ -1,0 +1,78 @@
+{
+	"superadminfooter": {
+		"privstat": "Privacy Statement",
+        "username.placeholder": "Terms of Use",
+        "username.error": "e-Payment Policy",
+        "password.placeholder": "Industrial Innovation Academy.",
+        "password.error": "All Rights Reserved",
+		"button.name": "Implementation Partners"
+    },
+    "factorauthentication": {
+		"weareenab": "We are Enabling",
+		"the2factauth": "The Two Factor Authentication to Secure your OPAL Account",
+		"aliqidfuginosiru": "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.",
+		"emaiaddre": "Email Address",
+		"business@": "business@gmail.com",
+		"mobnum": "Mobile Number",
+		"9876543210": "9876543210",
+		"chooanyone": "Choose any one",
+		"fronend": "frontEnd",
+		"backend": "backEnd",
+		"contilog": "Skip & Login"
+    },
+    "validate":{
+        "comments":"Comments"
+    },
+    "landingpagemenu": {
+		"menu1": "COVID-19",
+		"menu2": "Home",
+		"menu3": "About",
+		"menu3.submenu1": "About us",
+        "menu3.submenu2": "Our Journey",
+		"menu4": "Platforms",
+        "menu4.submenu1": "OPAL",
+        "menu4.submenu1.submenu1": "Introduction",
+        "menu4.submenu1.submenu2": "Buyers",
+        "menu4.submenu1.submenu3": "Buyer Mandates",
+        "menu4.submenu1.submenu4": "OPAL Certification",
+        "menu4.submenu1.submenu5": "Tenders",
+        "menu4.submenu1.submenu6": "CMS",
+        "menu4.submenu1.submenu7": "OPAL Webinar",
+        "menu4.submenu1.submenu8": "FAQ",
+        "menu4.submenu2": "NBF",
+        "menu4.submenu2.submenu1": "Introduction",
+        "menu4.submenu2.submenu2": "GCC Open Tenders",
+        "menu4.submenu2.submenu3": "Market Reports",
+        "menu4.submenu2.submenu4": "FAQ",
+        "menu4.submenu3": "GLOBECONNECT",
+        "menu4.submenu3.submenu1": "Introduction",
+        "menu4.submenu3.submenu2": "FAQ",
+        "menu4.submenu4": "BIDPROC",
+        "menu4.submenu4.submenu1": "Introduction",
+        "menu4.submenu4.submenu2": "Services",
+        "menu4.submenu4.submenu3": "How It Works",
+        "menu4.submenu4.submenu4": "FAQ",
+        "menu5": "Media",
+        "menu5.submenu1": "News & Events",
+        "menu5.submenu2": "Testimonials",
+        "menu5.submenu3": "The Stage",
+        "menu5.submenu4": "Download",
+        "menu5.submenu5": "Corporate Video",
+        "menu6": "Contact",
+		"menu7": "Register"
+	},
+  "commonsetpassword": {
+		"emailadd":"Email Address", 
+		"mob":"Mobile",
+		"choostheinp":"Choose the Input",
+		"invaemaiadd":"Invalid Email address",
+		"chooswheemaior":"Choose whether Email or Mobile",
+		"invaotp":"Invalid OTP",
+		"counexc":"Count Exceed",
+		"proce":"Proceed",
+		"resenotpin":"Resend OTP in:",
+		"reotp":"Resend OTP",
+		"verif":"verified"
+	}
+}
+

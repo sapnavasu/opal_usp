@@ -1,0 +1,194 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="tempoparyloginlistalert()" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">{{'temporaryloginsidenavdetail.templog' | translate}} <i class="bgi bgi-info"
+            (click)="temporarylistdropdown('temporarylistview')"></i></h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button type="button" mat-raised-button color="primary"
+          class="clearbutton height-35 p-l-20  m-r-10 p-r-20 spacemargin">Close</button>
+          <button (click)="trackhistorydrawer.toggle()" color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+          class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 temporarylistview" [@slideInOut]="animationState5">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+      <mat-card-header>
+        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+          <mat-card-subtitle class="informationtext fs-14">
+            {{'temporaryloginsidenavdetail.acctosupmodule' | translate}} 
+          </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div class="innnerpartofdrwer">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="temporylistview">
+      <div class="viewcrdentailheader">
+        <div class="viewcrdetentailtitle">
+          <h2>{{'temporaryloginsidenavdetail.bgiindia' | translate}}</h2>
+        </div>
+        <div fxLayout="row wrap" class="regalign">
+          <div fxFlex.gt-sm="30" fxFlex="100" class="regwidth">
+            <div class="regtextcolor">
+              <p>{{'temporaryloginsidenavdetail.regno' | translate}}</p>
+              <span>004587</span>
+            </div>
+            <div class="regtextcolor">
+              <p>{{'temporaryloginsidenavdetail.memsta' | translate}}</p>
+              <span>Certified</span>
+            </div>
+          </div>
+          <div fxFlex.gt-sm="70" fxFlex="100" class="suppliercode">
+            <div class="regtextcolor">
+              <p>{{'temporaryloginsidenavdetail.supcod' | translate}}</p>
+              <span>OMN887356</span>
+            </div>
+            <div class="regtextcolor">
+              <p>{{'temporaryloginsidenavdetail.substat' | translate}}</p>
+              <span class="activecolor">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="entercommentcolor p-t-35">
+        <p>{{'temporaryloginsidenavdetail.commet' | translate}}</p>
+        <span>{{'temporaryloginsidenavdetail.entcommregitem' | translate}}</span>
+      </div>
+      <div [formGroup]="temporaryForm">
+        <div fxLayout="row wrap" class="p-t-35">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field>
+              <textarea appAlphanum app-restrict-input="firstspace" [matAutocomplete]="auto" maxlength="1000"
+                matInput placeholder="{{'temporaryloginsidenavdetail.commet' | translate}}" required cdkTextareaAutosize [formControl]="myControl"
+                #autosize="cdkTextareaAutosize" formControlName="comments" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+              <mat-autocomplete #auto="matAutocomplete">
+                <div class="updatecommentscroll">
+                  <mat-option *ngFor="let option of updateOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </div>
+              </mat-autocomplete>
+              <mat-hint class="txt-black fs-14" align="end">0/1000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="otplist">
+            <div class="otptextcolor">
+              <h2>{{'temporaryloginsidenavdetail.reqforotp' | translate}}</h2>
+              <!-- <h2>OTP Request Sent to</h2> -->
+            </div>
+            <div fxLayout="row wrap" class="p-b-30">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <mat-select placeholder="{{'temporaryloginsidenavdetail.seluser' | translate}}" formControlName="selectuser" required
+                    [disableOptionCentering]="true" [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+                    <mat-option value="Payment">{{'temporaryloginsidenavdetail.khalsaai' | translate}}</mat-option>
+                    <mat-option value="Payment subscription">{{'temporaryloginsidenavdetail.viswakrish' | translate}}</mat-option>
+                    <mat-option value="Payment list">{{'temporaryloginsidenavdetail.neym' | translate}}</mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="temporaryForm.controls['selectuser'].hasError('required') && temporaryForm.controls['selectuser'].touched"
+                    class="text-danger font-14">{{'temporaryloginsidenavdetail.seluser' | translate}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="addedcertificate" *ngFor="let temporarycontactlist of temporarycontactlists">
+              <div fxLayout="row wrap" class="certificates">
+                <div class="certificateimage imgalignflex">
+                  <img src="assets/images/NoimageJPG.jpg" alt="NoimageJPG">
+                </div>
+                <div class="companyandofficeinfo">
+                  <h3 class="name">{{temporarycontactlist.contacttitle}}</h3>
+                  <div fxLayout="row wrap" class="countryandcrinfo">
+                    <div class="eachitem countrywidth">
+                      <p><span class="lablename">{{'temporaryloginsidenavdetail.desig' | translate}}</span></p>
+                      <div class="flexoman">
+                        <span popover="{{temporarycontactlist.contactsubtitle}}" popoverPlacement="top"
+                          [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                          [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                          [popoverAnimation]="true">{{temporarycontactlist.contactsubtitle | truncate:[[25]]}}</span>
+                      </div>
+                    </div>
+                    <div class="eachitem phonewidth">
+                      <p><span class="lablename">{{'temporaryloginsidenavdetail.mobno' | translate}}</span></p>
+                      <p class="datavalue">{{temporarycontactlist.mobilenum}}</p>
+                    </div>
+                    <div class="eachitem phonewidth">
+                      <p><span class="lablename">{{'temporaryloginsidenavdetail.emaiid' | translate}}</span></p>
+                      <p ngClass.xs="widthset" ngClass.sm="widthset" class="datavalue" popover="{{temporarycontactlist.contactemail}}" popoverPlacement="top"
+                        [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                        [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                        [popoverAnimation]="true">
+                        {{temporarycontactlist.contactemail | truncate:[[25]]}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="otpbackground">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="otpgeneratedwidth">
+                <div class="otpaligntext">
+                  <p>{{'temporaryloginsidenavdetail.otpgen' | translate}}</p>
+                  <span>12-09-2022 19:25 OST</span>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <input matInput placeholder="{{'temporaryloginsidenavdetail.entertheotp' | translate}}" formControlName="otpsupplier"
+                    required [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+                  <mat-error
+                    *ngIf="temporaryForm.controls['otpsupplier'].hasError('required') && temporaryForm.controls['otpsupplier'].touched"
+                    class="text-danger font-14">{{'temporaryloginsidenavdetail.enttheotp' | translate}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-45">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="alignbtnview">
+                <!-- <button type="button" mat-raised-button class="clearbutton button-35">Reset</button> -->
+                <button type="button" mat-raised-button class="clearbutton button-35"
+                  (click)="otpvalidityreturn()">{{'temporaryloginsidenavdetail.cancthereq' | translate}}</button>
+                <!-- <button mat-raised-button color="preview" [disabled]="temporaryForm.invalid"
+                  class="button-35 m-l-10">Generate OTP</button> -->
+                <button mat-raised-button color="preview" class="button-35 m-l-10" *ngIf="!otpvalidityexp"
+                  (click)="otpvalidity()">{{'temporaryloginsidenavdetail.log' | translate}}</button>
+              </div>
+            </div>
+            <!-- <div fxLayout="row wrap" class="otpmainbackground" *ngIf="otpvalidityexp">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <div class="otpvalidityalign">
+                  <img src="assets/images/trianglelogo.png" alt="trianglelogo.png">
+                  <p><span class="expiredcolor">OTP Validity Expired,</span><span class="reguestcolor">Please request
+                      again!</span></p>
+                </div>
+                <button mat-raised-button color="preview" class="button-35">OK</button>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container class="example-container trackhistoryview">
+    <mat-drawer #trackhistorydrawer disableClose class="example-sidenav sidenavsamewidthall tracksidenavwidth"
+      mode="over" position="end">
+      <app-trackhistorylistview [trackhistorydrawer]="trackhistorydrawer"></app-trackhistorylistview>
+    </mat-drawer>
+  </mat-drawer-container>

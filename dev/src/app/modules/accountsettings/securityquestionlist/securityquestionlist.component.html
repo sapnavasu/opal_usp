@@ -1,0 +1,98 @@
+<div fxLayout="row wrap" class="spcesme">
+  <div class="alignsecurity p-t-30 p-b-30">
+    <img src="assets/images/securitynote.png" alt="securitynote">
+    <div class="securitytitle p-l-20">
+      <p class="fs-14 m-0">These Security Questions will help your reset your password if you forget it. Choose two
+        questions and supply answers you will<br>
+        remember. Using answers that are not easily guessed increases security.</p>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="widthquestion">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <form [formGroup]="accountsettingForm" autocomplete="off" (ngSubmit)="saveAnswers()">
+        <div fxLayout="row wrap" class="alignitems">
+          <div fxFlex.gt-sm="70" fxFlex="100">
+            <mat-form-field class="p-b-12">
+              <mat-select formControlName="question1"  panelClass="select_with_search" [disableOptionCentering]="true" placeholder="Security question 1">
+                <div class="option-listing">
+                  <mat-option class="countrynameselect"  *ngFor="let question of questArr" [value]="question?.questionpk">{{question?.question}}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="30" fxFlex="100" class="p-l-30 spacequestion">
+            <mat-form-field class="p-b-12">
+              <textarea formControlName="answer1" appAlphanum app-restrict-input="firstspace" maxlength="150" maxle
+                matInput placeholder="Your answer" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="alignitems">
+          <div fxFlex.gt-sm="70" fxFlex="100">
+            <mat-form-field class="p-b-12">
+              <mat-select formControlName="question2"  panelClass="select_with_search" [disableOptionCentering]="true" placeholder="Security question 2">
+                <div class="option-listing">
+                  <mat-option class="countrynameselect"  *ngFor="let question of questArr" [value]="question?.questionpk">{{question?.question}}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="30" fxFlex="100" class="p-l-30 spacequestion">
+            <mat-form-field class="p-b-12">
+              <textarea formControlName="answer2" appAlphanum app-restrict-input="firstspace" maxlength="150" matInput
+                placeholder="Your answer" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="alignitems">
+          <div fxFlex.gt-sm="70" fxFlex="100">
+            <mat-form-field class="p-b-12">
+              <mat-select formControlName="question3"  panelClass="select_with_search" [disableOptionCentering]="true" placeholder="Security question 3">
+                <div class="option-listing">
+                  <mat-option class="countrynameselect"  *ngFor="let question of questArr" [value]="question?.questionpk">{{question?.question}}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="30" fxFlex="100" class="p-l-30 spacequestion">
+            <mat-form-field class="p-b-12">
+              <textarea formControlName="answer3" appAlphanum app-restrict-input="firstspace" maxlength="150" matInput
+                placeholder="Your answer" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="alignitems">
+          <div fxFlex.gt-sm="70" fxFlex="100">
+            <mat-form-field class="p-b-12">
+              <mat-select formControlName="question4"  panelClass="select_with_search" [disableOptionCentering]="true" placeholder="Security question 4">
+                <div class="option-listing">
+                  <mat-option class="countrynameselect" *ngFor="let question of questArr" [value]="question?.questionpk">{{question?.question}}
+                  </mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="30" fxFlex="100" class="p-l-30 spacequestion">
+            <mat-form-field class="p-b-12">
+              <textarea formControlName="answer4" appAlphanum app-restrict-input="firstspace" maxlength="150" matInput
+                placeholder="Your answer" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-error *ngIf="accountsettingForm.errors?.selecttwo">Select any two question and give answer</mat-error>
+        <div class="alignendsave">
+          <button (click)="accountsettingForm.reset()" mat-raised-button class="cancel m-r-15 fs-15">Clear</button>
+          <button type="submit" mat-raised-button class="save fs-15" [disabled]="accountsettingForm.invalid">Save
+            Answers</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="commondialogbox">
+  <div class="headeritem">
+    <h4>Create New Requisition?</h4>
+  </div>
+  <div class="boxflexcontainer">
+    <div class="eachboxitem"  *ngFor="let eachboxitem of eachboxlist">
+      <h4>{{eachboxitem.title}}</h4>
+      <div class="featuredetail">
+        <p>Feature Includes</p>
+        <ul class="featurelist">
+          <li>{{eachboxitem.feature1}}</li>
+          <li>{{eachboxitem.feature2}}</li>
+          <li>{{eachboxitem.feature3}}</li>
+        </ul>
+      </div>
+      <div class="dialogfooter">
+        <button type="button" mat-raised-button color="primary">
+          {{eachboxitem.buttontext}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div fxLayout="row wrap" [formGroup]="formGroup">
+  <div fxFlex.gt-sm="100" fxFlex="100" id="jsrscertificatelist">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="sourcewidth">
+        <div class="certificatesubcolor">
+          <P><span>Note:</span> Classification validation is subject to the documents collected during JSRS Certification Process.
+          </P>
+        </div>
+        <div fxLayout="row wrap" class="m-b-48">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="packtextcolor">
+              <h2>Current Certification Pack</h2>
+            </div>
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottom p-t-15 p-b-15">
+                <div class="enterprisewidth">
+                  <p class="enterclassifiation m-t-0">Company Classification </p>
+                  <p class="m-0"><span class="fs-12 smecolor">{{currentSubscription?.classificationType | uppercase}}</span></p>
+                </div>
+                <div class="enterprisewidth">
+                  <p class="clable m-t-0">Validity </p>
+                  <p class="cvalue m-0"> {{currentSubscription?.packageDtl?.subscription?.duration?.Years}} {{currentSubscription?.packageDtl?.subscription?.duration?.Years > 1 ? 'Years' : 'Year'}} </p>
+                </div>
+                <div class="enterprisewidth">
+                  <p class="clable m-t-0">JSRS Certification Fee</p>
+                  <p class="cvalue m-0">{{currentSubscription?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                    {{currentSubscription?.packageDtl?.subscription?.packageBasePrice}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="packtextcolor">
+          <h2>Update Certification Pack</h2>
+        </div>
+        <div class="alignheadcount nonehaeder">
+          <div class="paymentwidthtext">
+            <div class="headerpart  p-t-5 p-b-5 alignpack">
+              <h2 class="fs-15">Package</h2>
+            </div>
+          </div>
+          <div class="paymentwidthtext">
+            <div class="headerpart  p-t-5 p-b-5 aligncentertext flexstart alignvalidty">
+              <h2 class="fs-15">Validity</h2>
+            </div>
+          </div>
+          <div class="paymentwidthtext">
+            <div class="headerpart p-t-5 p-b-5 aligncentertext flexstart alignvalidty">
+              <h2 class="fs-15">Classification & Fee</h2>
+            </div>
+          </div>
+        </div>
+        <div class="alignheadcount classification">
+          <div class="paymentwidthtext emplborder">
+            <mat-radio-group aria-label="Select an option" (change)="getPackageBasedonSelection()" formControlName="durationControl">
+              <div class=" borderbottomcount heightgroup p-t-20 p-b-20 alignyear">
+                <mat-radio-button value="1">
+                  <p class="fs-15  m-0">1 Year</p>
+                </mat-radio-button>
+              </div>
+              <div class="heightgroup p-t-20 alignyear p-b-28">
+                <mat-radio-button value="3">
+                  <p class="fs-15  m-0">3 Years</p>
+                </mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+          <div class="paymentwidthtext align alignflex emplborder" *ngIf="selectedPackage">
+            <div class="aligncentertext">
+              <p class="m-0 p-b-15"><sub class="fs-32 vertical year">{{selectedYear}}</sub><span class="fs-12">
+                {{selectedYear > 1 ? 'Yrs' : 'Yr'}}</span></p>
+              <button  class="fs-15 yearcolor">{{selectedYear}} {{selectedYear > 1 ? 'Years' : 'Year'}} Validity
+              </button>
+            </div>
+          </div>
+          <div class="headerwidthsmecolor" *ngIf="selectedPackage">
+            <div class="centeralign p-t-15 p-b-15">
+              <span class="fs-12 smecolor">INTERNATIONAL</span>
+              <h2 class="fs-32 m-0 lineinter">
+                <p>{{ currentSubscription?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? selectedPackage?.amount.toFixed(3) : selectedPackage?.amount.toFixed(2)}}</p>
+              </h2>
+              <p class="fs-14 m-0">{{selectedPackage?.currency}}</p>
+            </div> 
+          </div>
+        </div>
+
+        <div class="agreecolor">
+          <mat-checkbox formControlName="termsandconditionsControl">
+            <p class="m-0">I have fully read and understood the <a
+              href="{{termscond}}" target="blank"><span
+                class="termscolor"> Terms & Conditions</span></a>. I
+            am authorized by my Company
+            to agree and abide by the
+            Terms and Conditions.</p>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

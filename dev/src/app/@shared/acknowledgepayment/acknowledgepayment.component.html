@@ -1,0 +1,137 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <form [formGroup]="acknowledgeform">
+            <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-1">
+                <!-- column -->
+                <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                    <div class="titletext">
+                        <div class="closeandadd">
+                            <i (click)="showSweetAlert()" class="bgi bgi-close p-l-5 fs-14"></i>
+                            <h5 class="m-0 p-l-20 tt"> Acknowledge Payment <mat-icon
+                                    (click)="toggleShowDiv('descriptioncontentaward')" class="bgi bgi-info">info_outline</mat-icon>
+                            </h5>
+                        </div>
+                        <div class="clearandaddbutton">
+                          
+                            <button color="preview" type="submit" [disabled]="acknowledgeform.invalid" mat-raised-button
+                                class="addbutton height-35 p-l-20 p-r-20">Mark as Paid</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentaward"
+                [@slideInOut]="animationState">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                        <mat-card-header>
+                            <div class="titletext">
+                                <mat-card-subtitle class="informationtext fs-14">
+                                    <div>Add the awards won by your company, this will increase the credibility of your
+                                        company's profile.
+                                    </div>
+                                </mat-card-subtitle>
+                            </div>
+                            <div class="selectforward m-r-0">
+                                <div class="p-l-15 gotit">
+                                    <span (click)="toggleShowDiv('descriptioncontentaward')" mat-raised-button
+                                        color="primary">Ok, Got It
+                                    </span>
+                                </div>
+                            </div>
+                        </mat-card-header>
+                    </mat-card>
+                </div>
+            </div>
+         
+            <div class="innnerpartofdrwer">
+                <div fxLayout="row wrap" class="organisationinfo pd-10 p-t-30 selecterror">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                        <div fxLayout="row wrap" fxFlexAlign="center">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-5 uploadtheimagewithname d-flex">
+                                <div class="gettinguinputs w-100">
+                                    <div class="paymenttextcolor p-b-25">
+                                        <p>PAYMENT INVOICE AMOUNT</p>
+                                        <span>OMR 1000.000</span>
+                                    </div>
+                                    <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="0px grid"
+                                        fxLayoutGap.sm="20px grid" fxLayoutGap="30px grid" class="p-b-12">
+                                        <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+                                            fxFlex.xl="50">
+                                            <mat-form-field>
+                                                <mat-select formControlName="paymentmode"
+                                                    placeholder="Select Payment Mode" required
+                                                    [disableOptionCentering]="true" [errorStateMatcher]="matcher">
+                                                    <mat-option value="Online">Online</mat-option>
+                                                    <mat-option value="Offline">Offline</mat-option>
+                                                </mat-select>
+                                                
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+                                            fxFlex.xl="50">
+                                            <mat-form-field>
+                                                <input matInput app-restrict-input="firstspace" appAlphanumsymb matInput
+                                                    [errorStateMatcher]="matcher" maxlength="50" placeholder="Cheque No"
+                                                    formControlName="chequeno" required>
+                                               
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="0px grid"
+                                        fxLayoutGap.sm="20px grid" fxLayoutGap="30px grid" class="p-b-12">
+                                        <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+                                            fxFlex.xl="50">
+                                            <mat-form-field>
+                                                <input matInput maxlength="50" app-restrict-input="firstspace"
+                                                    appAlphabetonly [errorStateMatcher]="matcher"
+                                                    placeholder="Bank Name" formControlName="bankname" required>
+                                                
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+                                            fxFlex.xl="50">
+                                            <mat-form-field>
+                                                <input matInput [matDatepicker]="picker2" [errorStateMatcher]="matcher"
+                                                    readonly placeholder="Date of Transfer"
+                                                    formControlName="dateoftransfer" required>
+                                                <mat-datepicker-toggle matSuffix [for]="picker2">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #picker2></mat-datepicker>
+                                              
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout.xs="column" fxLayout="row wrap" class="p-b-12">
+                                        <div fxFlex="100">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Remarks</mat-label>
+                                                <textarea formControlName='remarks' appAlphanumsymb matInput
+                                                    cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                                    cdkAutosizeMinRows="1" minlength="1" cdkAutosizeMaxRows="7"
+                                                    required></textarea>
+                                               
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout.xs="column" fxLayout="row wrap" class="m-t-20">
+                                        <div fxFlex="100">
+                                            <div class="uploadlabel letterfieldmand m-b-10">
+                                                <h4 class="fs-15 m-b-10 importantfield">Payment Proof
+                                                </h4>
+                                            </div>
+                                            <app-filee #temporary [notePosition]="'bottom'" [fileMstRef]="drvInput"
+                                                (filesSelected)="fileeSelected($event,drvInput)"
+                                                formControlName="uploadinvoice">
+                                            </app-filee>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

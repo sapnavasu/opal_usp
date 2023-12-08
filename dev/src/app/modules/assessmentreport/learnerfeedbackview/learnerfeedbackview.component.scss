@@ -1,0 +1,84 @@
+#feedbackview{
+    padding-left: 10px;
+    font-size: 14px;
+    .txt-label{
+        color:#888;
+        font-size:13px;
+    }
+    .txt-value{
+        color:#000;
+    }
+    .colsand{
+        color: #989898;
+    }
+    .colblue{
+        background-color:#0c4b9a ;
+        color:aliceblue;  
+    }
+    .colwh{
+        background-color: whitesmoke;
+    }
+    .colli{
+        color: #858181;
+    }
+    .trainfact{
+        padding: 30px 0px 10px 0px;
+    }
+    .phadd .mat-body p, .mat-body-2 p, .mat-typography .mat-body p, .mat-typography .mat-body-2 p, .mat-typography p {
+        margin: 0 0 0px;
+    }
+    .ppadd{
+        padding: 0px 30px 0px 30px;
+    }
+    .phadd{
+        padding-left: 20px;
+   }
+    .pstat{
+        padding : 0px 20px 0px 20px;
+    }
+    .border{
+        border: 0px solid #e5dcdc;
+        margin: 1em 0;
+        border-bottom-width: 0.01ex;
+    }
+    .pprdi{
+        padding: 6px 55px 6px 32px;
+    }
+    
+    .pprdi.colli.mat-radio-button.mat-accent .mat-radio-inner-circle{
+        background-color: #e20613 !important;
+    }
+    .pprdi.colli.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+        border-color: #9f9f9f;
+    }
+
+    .comlab{
+        padding-bottom: 5px;
+        color: #989898;
+    }
+}
+
+.rtl{
+    #learnerfeedback{
+        .phadd{
+            padding-left:0;
+            padding-right:20px;
+        }
+    }
+}
+.responsive1{
+    display:flex !important;
+}
+.responsive2{
+    display:none !important;
+}
+
+@media (max-width: 1300px) {
+    .responsive1{
+        display:none !important;
+    }
+    .responsive2{
+        display:flex !important;
+    }
+
+}

@@ -1,0 +1,453 @@
+.headerstylings {
+    background: #f2f3f7 !important;
+    position: relative;
+    .headerimage {
+        text-align: center;
+        img {
+            width: 150px;
+            height: 150px;
+            margin-top: 100px;
+        }
+        h4 {
+            color: #333333;
+        }
+    }
+    .regfooter {
+        min-height: 95px;
+        align-items: flex-end;
+        padding-bottom: 20px;
+        .login_footer {
+            display: flex;
+            justify-content: space-between;
+            background: transparent;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 94% !important;
+            align-items: center;
+        }
+        .login_footer .login_footer_left ul li a {
+            color: #333 !important;
+            display: flex;
+            align-items: center;
+            font-size: 15px !important;
+        }
+        .login_footer_right {
+            span {
+                color: #333 !important;
+                font-size: 15px !important;
+            }
+        }
+        .drivenalign {
+            display: flex;
+            align-items: flex-end;
+            margin-top: -40px;
+            p {
+                color: #333;
+                padding-right: 10px;
+            }
+            img{
+                height: 40px;
+            }
+        }
+    }
+    .tablbelicon {
+        i {
+            font-size: 3.125rem;
+        }
+    }
+    .topheaderimage {
+        img {
+            max-width: 82%;
+        }
+    }
+    .completebanner {
+        display: flex;
+        justify-content: center;
+        min-height: 275px;
+        background-color: #e0f0ff;
+        .backtohome {
+            display: block;
+        }
+        .regcontentbanner {
+            display: flex;
+            max-width: 100%;
+            justify-content: space-between;
+            .rightregcontent {
+                text-align: center;
+            }
+        }
+        .leftsiddebanner {
+            width: 20%;
+            background: #fff;
+            .welcomelybia {
+                color: #333;
+                font-size: 0.875rem;
+                text-align: center;
+                padding-top: 5px;
+            }
+            .logoandgoback {
+                height: 18%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .backtohome {
+                    color: #333;
+                    font-size: 0.875rem;
+                    position: relative;
+                    top: 32px;
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    i {
+                        padding-right: 6px;
+                        font-size: 0.625rem;
+                    }
+                }
+            }
+        }
+        .rightsidebanner {
+            width: 80%;
+            background-repeat: no-repeat;
+            background-image: url("~/assets/images/globenew.png");
+            background-position: right 0px top 120px;
+            background-size: contain;
+            .innerrightbanner {
+                position: relative;
+                max-width: 96%;
+                p {
+                    color: #fff;
+                }
+                .helplinect {
+                    color: #666;
+                    padding-right: 10px;
+                }
+                .leftregcontrent {
+                    width: 100%;
+                    justify-content: flex-end;
+                    .header {
+                        color: #f1f2f7;
+                        font-size: 1.625rem;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+                    .submitprofile {
+                        color: #8ebae6;
+                        font-size: 0.9375rem;
+                    }
+                }
+                .rightregcontent {
+                    display: flex;
+                    align-items: center;
+                    .loginbutton {
+                        color: #fff;
+                        font-size: 0.9375rem;
+                        background: #ef8436;
+                        width: 85px;
+                        height: 30px;
+                        border-radius: 50px !important;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .registerbtn {
+                        background-color: #006db7;
+                        color: #fff;
+                        width: 98px;
+                        height: 30px;
+                        font-size: 0.9375rem;
+                        border-radius: 50px !important;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+            .flaglypis {
+                left: 0;
+                position: absolute;
+                top: 0;
+            }
+        }
+    }
+
+    .topheaderimage {
+        min-height: 175px;
+    }
+
+    .newcardright {
+        text-align: center;
+        .explorer {
+            color: #006db7;
+            font-size: 1.125rem;
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+        img {
+            padding-top: 25px;
+            padding-bottom: 25px;
+            max-width: 90px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .position {
+        display: flex;
+        padding-top: 0px;
+        padding-left: 100px;
+        span {
+            padding-right: 44px;
+            color: #fff;
+        }
+    }
+    .circleimage {
+        img {
+            margin-top: -6px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .completebanner {
+        min-height: 320px !important;
+    }
+    .completebanner .regcontentbanner {
+        max-width: 100% !important;
+        display: block !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .leftregcontrent {
+        width: 100% !important;
+        padding-left: 60px;
+    }
+    .completebanner .rightsidebanner .innerrightbanner {
+        position: relative;
+        height: 100%;
+        max-width: 95% !important;
+    }
+    .completebanner .leftsiddebanner {
+        width: 30%;
+        background: #fff;
+    }
+    .completebanner .rightsidebanner {
+        width: 70%;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .helplinect {
+        padding-right: 15px;
+    }
+
+    .bottominfo {
+        margin-left: auto;
+        flex-direction: row-reverse;
+        max-width: 95%;
+        margin-top: -30px;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+    .position {
+        position: relative;
+        display: flex;
+        padding-top: 0px;
+        flex-flow: row wrap;
+    }
+    .completebanner .regcontentbanner .rightregcontent {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+    }
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .completebanner {
+        min-height: 290px !important;
+    }
+
+    .bottominfo {
+        margin-left: auto;
+        display: flex;
+        max-width: 95%;
+        margin-top: -30px;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+    .completebanner .leftsiddebanner {
+        width: 30%;
+        background: #fff;
+    }
+    .completebanner .rightsidebanner {
+        width: 70%;
+    }
+    .position {
+        position: relative;
+        display: flex;
+        padding-top: 0px;
+        flex-flow: row wrap;
+    }
+    .completebanner .regcontentbanner .rightregcontent {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .completebanner .regcontentbanner {
+        max-width: 100% !important;
+        display: block !important;
+    }
+}
+@media (max-width: 767px) {
+    .textalignend {
+        padding-top: 20px !important;
+    }
+    .header {
+        font-size: 26px !important;
+    }
+    .makeitright {
+        margin-left: 0px !important;
+    }
+    .circleimage {
+        padding-top: 4px;
+        img {
+            max-width: 72% !important;
+        }
+    }
+
+    .bottominfo {
+        margin-left: auto;
+        display: block !important;
+        max-width: 95%;
+        margin-top: -30px;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+    .leftisideinfo {
+        width: auto !important;
+        margin-right: 0px !important;
+    }
+    .rightsideinfo {
+        width: 304px !important;
+        margin-left: 0px !important;
+        margin-top: 10px;
+    }
+
+    .completebanner {
+        justify-content: center;
+        min-height: 175px;
+      
+    }
+    .completebanner .leftsiddebanner {
+        width: 100%;
+        background: #fff;
+        min-height: 170px !important;
+    }
+    .completebanner .leftsiddebanner .logoandgoback {
+        width: 100%;
+        height: 60%;
+        display: block !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .rightsidebanner {
+        width: 100% !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner {
+        position: relative;
+        height: 100%;
+        max-width: 100% !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .leftregcontrent {
+        width: 100% !important;
+        padding-left: 60px;
+    }
+    .completebanner .regcontentbanner {
+        display: block !important;
+        max-width: 100% !important;
+        justify-content: space-between;
+        padding-top: 0px !important;
+    }
+    .makeitright {
+        text-align: center;
+    }
+    .completebanner .leftsiddebanner .logoandgoback .backtohome {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .completebanner .regcontentbanner .rightregcontent {
+        text-align: center;
+        margin-bottom: 112px;
+        margin-right: 22px;
+    }
+    .submitprofile {
+        margin-bottom: 0px !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .helplinect {
+        padding-right: 15px;
+    }
+}
+
+.leftregcontrent {
+    span {
+        color: #424549;
+    }
+}
+
+.circleimage {
+    img {
+        color: #424549;
+    }
+}
+
+.textalignend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    img {
+        width: 30px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .completebanner .rightsidebanner .innerrightbanner {
+        position: relative;
+        height: 100%;
+        max-width: 98% !important;
+    }
+    .position {
+        display: flex;
+        padding-top: 0px;
+        padding-left: 92px !important;
+
+        span {
+            padding-right: 32px !important;
+        }
+    }
+}
+.menulistitems {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    .mat-list-item {
+        margin-right: 15px;
+        a {
+            color: #333;
+            font-size: 0.9375rem;
+        }
+    }
+    .forsearchitem {
+        a {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #555;
+            border-radius: 50%;
+            padding: 7px;
+            i {
+                color: #555;
+                color: #555;
+                font-size: 0.9375rem;
+            }
+        }
+    }
+}
+
+
+

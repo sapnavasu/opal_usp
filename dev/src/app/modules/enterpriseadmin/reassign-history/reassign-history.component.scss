@@ -1,0 +1,174 @@
+
+
+
+ @mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+  }
+  @mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+  }
+  @mixin commancssforptag {
+    color: #333;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+#re-assignlisthistoryview{
+  .makeitforlistview {
+     border: 1px solid #dadada;
+     border-radius: 2px;
+     @include flexstart();
+      padding-bottom: 0px;
+    
+      .forlistviewonly {
+       @include flexstart();
+        span {
+          position: relative;
+          left: 0;
+          top: 0;
+        }
+        p {
+          margin: 0;
+        }
+      }
+      .forlistviewname {
+       @include spacebetween();
+        h4 {
+          padding: 0 !important;
+          margin: 0 !important;
+          padding-bottom: 0px !important;
+        }
+      }
+      .personinformation {
+          padding-bottom: 0px;
+          width: 100%;
+          padding-left: 20px;
+          .employeeid {
+            color: #333333;
+            margin: 0;
+            font-size: 0.9375rem;
+            word-break: break-word;
+          }
+        }
+        .contactdetils {
+          padding: 10px 20px;
+          p {
+            margin: 0;
+            color: #333;
+            font-size: 0.875rem;
+            @include flexstart();
+            i {
+              font-size: 1rem;
+              color: #999;
+            }
+            span {
+              color: #333;
+              word-break: break-word;
+            }
+          }
+        }
+        .contactdetilslandingwidth {
+          display: flex;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          p {
+            padding-right: 25px;
+            padding-bottom: 0 !important;
+            display: flex;
+            text-align: left;
+            align-items: center;
+            padding-left: 0px;
+            margin: 0px;
+          }
+         }
+          .sttusofprson {
+          @include flexstart();
+          position: relative;
+          span {
+            color: #fff;
+            min-width: 55px;
+            height: 23px;
+            border-radius: 2px;
+            background-clip: padding-box;
+            font-size: 0.875rem;
+            text-align: center;
+            margin-right: 10px;
+          }
+          .active {
+            background-color: #71bf15;
+          }
+          .inactive {
+            background-color: #666;
+          }
+        }
+        .nameandhisid {
+          min-height: auto !important;
+          padding-left: 0px;
+        }
+        .alignflexcount{
+          @include flexstart();
+          padding-right: 5px;
+          .countdetaillist {
+              background-color: #68afff !important;
+              color: white !important;
+              min-height: inherit !important;
+              margin-left: 10px !important;
+              padding: 0px 8px !important;
+            }
+            .moremenucolor{
+                color: #999999;
+            }
+        }
+        .personimage {
+          position: relative;
+          margin: 0px;
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
+          padding: 0px 10px 0px 0px;
+           img{
+              position: relative;
+              margin: 0px;
+              border-radius: 50%;
+              width: 100px;
+              height: 100px;
+              padding: 10px;
+          }
+       }
+    }
+}
+
+
+ @media (max-width: 767px){
+     #re-assignlisthistoryview{
+    .makeitforlistview {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        display: block !important;
+        border-bottom: 1px solid #d7d7d7;
+      }
+      .contactdetilslandingwidth{
+        display: block !important;
+      } 
+    }
+ }
+
+
+ ::ng-deep.cybertooltip{
+  opacity: 1;
+  background: #333333;
+}

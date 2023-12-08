@@ -1,0 +1,109 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="{{'mapcommunicte.clos' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="mappingAlert()" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">{{'mapcommunicte.mapcommunicte' | translate}}<i class="bgi bgi-info"
+            (click)="mapcommincatelistview('mappinglistview')"></i></h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button type="button" [disabled]="!addressmap.value" (click)="clearformadd()" mat-raised-button color="primary"
+          class="clearbutton height-35 m-r-10 p-l-20 p-r-20">{{'mapcommunicte.clea' | translate}}</button>
+        <button color="preview" [disabled]="!addressmap.valid" (click)="onSubmitcommunicadd(buttonname)" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+          class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 mappinglistview" [@slideInOut]="animationState3">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+      <mat-card-header>
+        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+          <mat-card-subtitle class="informationtext fs-14">
+            {{'mapcommunicte.selethecommu' | translate}} 
+          </mat-card-subtitle>
+        </div>
+        <div class="selectforward m-r-0">
+          <div class="p-l-15 gotit">
+            <span (click)="mapcommincatelistview('mappinglistview')" mat-raised-button
+              color="primary">{{'mapcommunicte.okgotit' | translate}} </span>
+          </div>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div class="innnerpartofdrwer">
+  <div fxLayout="row wrap" id="regofflistview">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="regofficelistview">
+      <mat-radio-group [formControl]="addressmap" [(ngModel)]="selectedStatus" aria-label="Select an option">
+        <div *ngIf="registedoffice" class="offeredview">
+          <div class="regofficetextcolor">
+            <h2>{{'mapcommunicte.regioffi' | translate}}</h2>
+          </div>
+          <div class="alignchecking" *ngFor="let registoff of registedoffice">
+            <mat-radio-button [value]="registoff.value" class="m-t-10"></mat-radio-button>
+            <div class="noteintercolor">
+              <h2>{{registoff.officename}}</h2>
+              <p><span class="txt-blue lypisfont-regular fs-14">{{'mapcommunicte.branid' | translate}}</span> <span class="txt-black lypisfont-regular fs-15">{{registoff.branchid}}</span></p>
+              <div class="officeaddresscolor p-t-10">
+                <span class="p-b-10 txt-blue lypisfont-regular fs-14">{{'mapcommunicte.offiaddre' | translate}}</span>
+                <p class="txt-black lypisfont-regular fs-15">{{registoff.officeaddress}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="headoffice" class="offeredview">
+          <div class="regofficetextcolor p-t-10">
+            <h2>{{'mapcommunicte.corphead' | translate}}</h2>
+          </div>
+          <div class="alignchecking" *ngFor="let headoff of headoffice">
+            <mat-radio-button [value]="headoff.value" class="m-t-10"></mat-radio-button>
+            <div class="noteintercolor">
+              <h2>{{headoff.officename}}</h2>
+              <p><span class="p-b-10 txt-blue lypisfont-regular fs-14">{{'mapcommunicte.branid' | translate}}</span> <span class="txt-black lypisfont-regular fs-15">{{headoff.branchid}}</span></p>
+              <div class="officeaddresscolor p-t-10">
+                <span class="p-b-10 txt-blue lypisfont-regular fs-14">{{'mapcommunicte.offiaddre' | translate}}</span>
+                <p class="txt-black lypisfont-regular fs-15">{{headoff.officeaddress}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="branchoffice" class="offeredview p-t-10">
+          <div class="regofficetextcolor ">
+            <h2>{{'mapcommunicte.branoffi' | translate}}</h2>
+          </div>
+          <div class="alignchecking" *ngFor="let branchoff of branchoffice">
+            <mat-radio-button [value]="branchoff.value" class="m-t-10"></mat-radio-button>
+            <div class="noteintercolor">
+              <h2>{{branchoff.officename}}</h2>
+              <p><span class="p-b-10 txt-blue lypisfont-regular fs-14">{{'mapcommunicte.branid' | translate}}</span> <span  class="txt-black lypisfont-regular fs-15">{{branchoff.branchid}}</span></p>
+              <div class="officeaddresscolor p-t-10">
+                <span class="p-b-10 txt-blue lypisfont-regular fs-14">{{'mapcommunicte.offiaddre' | translate}}</span>
+                <p class="txt-black lypisfont-regular fs-15">{{branchoff.officeaddress}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="representativeoff" class="offeredview">
+          <div class="regofficetextcolor p-t-10">
+            <h2>{{'mapcommunicte.reproffi' | translate}}</h2>
+          </div>
+          <div class="alignchecking" *ngFor="let repoff of representativeoff">
+            <mat-radio-button [value]="repoff.value" class="m-t-10"></mat-radio-button>
+            <div class="noteintercolor">
+              <h2>{{repoff.officename}}</h2>
+              <p><span class="p-b-10 txt-blue lypisfont-regular fs-14">{{'mapcommunicte.branid' | translate}}</span> <span class="txt-black lypisfont-regular fs-15">{{repoff.branchid}}</span></p>
+              <div class="officeaddresscolor p-t-10">
+                <span class="p-b-10 txt-blue lypisfont-regular fs-14">{{'mapcommunicte.offiaddre' | translate}}</span>
+                <p class="txt-black lypisfont-regular fs-15">{{repoff.officeaddress}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>

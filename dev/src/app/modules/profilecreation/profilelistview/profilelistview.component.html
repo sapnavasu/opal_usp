@@ -1,0 +1,131 @@
+<div fXLayout="row wrap" fxLayoutAlign="center">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" [ngClass]="{'hidebreadcum': (formpage == '1')}">
+        <div class="topheadermain p-t-10 p-l-20 p-r-20">
+          <div class="imagewithtext">
+            <h4 class="mat-pagetitle-1">{{'viewprofiledet.viewprof' | translate}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [style.display]="!profileloader ? 'block' :'none'" class="viewgradient">
+      <div fXLayout="row wrap" fxLayoutAlign="center" fxLayout.xs="column">
+        <div fxFlex.gt-sm="83.33" fxFlex="100" [ngClass]="{'widthheading': (formpage == '1')}">
+          <div fxLayout="row wrap">
+            <div  class="responsivewafterwidth">
+              <div class="uploadicon imagelgopaper imageafteronlinepay" [formGroup]="viewForm">
+                <img src="{{masterdata?.userdp}}" alt="employeimage.png">
+                <!-- <app-filee #companylogo isLogo=true isDelete="true" [fileMstRef]="drv_companylogo"
+                  (filesSelected)="fileeSelected($event,drv_companylogo)" formControlName="upload">
+                </app-filee> -->
+              </div>
+            </div>
+            <div  class="groupwidth" [ngClass]="{'leftspacealign': (formpage == '1')}">
+              <div class="header p-l-15 p-t-35 lh-28">
+                <!--p *ngIf="masterdata?.name?.length < 60" class="m-0 mahindracolorhead">
+                  {{masterdata?.name | truncate:[60]}}
+                  <span *ngIf="!viewserviceid" [routerLink]="'/profilecreation/profilecreationlist'" class="m-l-10"><i
+                      class="bgi bgi-edit1" [ngClass]="{'hideedit': (formpage == '1')}"></i></span>
+                </p-->
+                <p popover="{{masterdata?.name}}" #el popoverTitle=""
+                  popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="(el.scrollWidth > el.clientWidth) ? false : true" [popoverAnimation]="true"
+                  class="m-0 mahindracolorhead">{{masterdata?.name}} <span
+                    *ngIf="!viewserviceid" matTooltip="{{'viewprofiledet.edit' | translate}}" [routerLink]="'/profilecreation/profilecreationlist'" class="m-l-10"><i
+                      class="bgi bgi-edit_new colorinfoctry" [ngClass]="{'hideedit': (formpage == '1')}"></i></span></p>
+                <!--p class=" m-0" *ngIf="masterdata?.compname.length < 60">{{masterdata?.compname | truncate:[60]}}
+                </p-->
+                <p class=" m-0 txt-popover-ellipsis lh-12" #el popover="{{masterdata?.compname}}"
+                  popoverTitle="" popoverPlacement="bottom-left" [popoverOnHover]="true"
+                  [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false" [popoverDisabled]="(el.scrollWidth > el.clientWidth) ? false : true"
+                  [popoverAnimation]="true">{{masterdata?.compname}}
+                </p>
+                <!-- <div class="alignmarket">
+                  <div class=" p-t-10 wordalign p-b-10">
+                    <div class=" aligncrn">
+                      <p class="m-0 aligninvestor clabel">{{'enterpriseadmin.depa' | translate}}</p> -->
+                      <!--p class="m-0 minwidthalign cvalue" *ngIf="masterdata?.deptName.length < 20">
+                        {{masterdata?.deptName | truncate:[20]}}</p-->
+                      <!-- <p class="m-0 minwidthalign cvalue" #el
+                        popover="{{masterdata?.deptName}}" popoverTitle="" popoverPlacement="bottom-right"
+                        [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false"
+                        [popoverDisabled]="(el.scrollWidth > el.clientWidth) ? false : true" [popoverAnimation]="true">{{masterdata?.deptName}}</p>
+                    </div> -->
+                    <!-- <div class="aligncrn">
+                      <p class="website m-0 aligninvestor clabel">{{'enterpriseadmin.desileve' | translate}}</p>
+                      <p class="website m-0 cvalue">{{masterdata?.designatlevl}}</p>
+                    </div> -->
+                    <!-- <div class="aligninvestor aligncrn">
+                      <p class="website m-0 aligninvestor clabel">{{'enterpriseadmin.desi' | translate}}</p> -->
+                      <!--p class="website m-0 cvalue" *ngIf="masterdata?.designat?.length < 20">
+                        {{masterdata?.designat | truncate:[20]}}</p-->
+                      <!-- <p class="website m-0 cvalue" #el
+                        popover="{{masterdata?.designat}}" popoverTitle="" popoverPlacement="bottom-right"
+                        [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false"
+                        [popoverDisabled]="(el.scrollWidth > el.clientWidth) ? false : true" [popoverAnimation]="true">{{masterdata?.designat}}</p>
+                    </div>
+
+                  </div>
+                  
+                </div> -->
+                <div class="bordersize p-r-15" [ngClass]="{'headerspaceradius': (formpage == '1')}">
+                  <span class="infocmp colorinfoctry"><img class="p-r-10" src="assets/images/flags/{{masterdata?.cntyid}}.png"
+                      alt="omanflaglogo">{{masterdata?.country}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mainheadingview">
+        <div class="positionalign">
+          
+          <!-- <diV class="p-l-15">
+            <span class="p-r-10">{{'enterpriseadmin.viewskyc' | translate}} <img class="p-l-10" src="assets/images/contacticon.png"
+                alt="contacticon"></span>
+          </diV> -->
+        </div>
+        <div class="positionsize">
+          <div class="twitterlogoalign">
+            <a *ngIf="masterdata?.facebook" href="{{masterdata?.facebook}}" target="_blank">
+              <i class="bgi bgi-facebook fbbackground m-r-12"></i></a>
+            <a *ngIf="masterdata?.twitter" href="{{masterdata?.twitter}}" target="_blank">
+              <i class="bgi bgi-twitter twitterbackground m-r-12"></i></a>
+            <a *ngIf="masterdata?.linkedin" href="{{masterdata?.linkedin}}" target="_blank">
+              <i class="fa fa-linkedin linkedbackground m-r-12"></i></a>
+            <a *ngIf="masterdata?.instragram" href="{{masterdata?.instragram}}" target="_blank">
+              <img class="widthinsta" src="./assets/images/Instagramweb.svg" alt="Instagram"></a>
+          </div>
+        </div>
+      </div>
+      <app-profileviewdetails (showLoaderview)="initSpinner = $event" #profileviewdetailsref [viewserviceid]="viewserviceid">
+      </app-profileviewdetails>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="profileloader" fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div fxLayout="row wrap" class="page m-t-20">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="marginbetween">
+          <div>
+            <div class="headingloader"></div>
+          </div>
+          <div class="aligncard m-t-30">
+
+            <div class="cardleftview m-r-30">
+              <div class="profileloaderitem"></div>
+            </div>
+            <div class="rightcardview">
+              <div class="profileloaderitem"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-responseloader  *ngIf="initSpinner"></app-responseloader>

@@ -1,0 +1,237 @@
+ $primaryupdate: false; // Primary Color Change Entair Layout background Changed
+$sideMenu: true; // Left menu bg color
+$sidebubmenuheaderupdate: true; // Left menu submenu header background Color changed
+$sidebubmenuheadericonupdate: true; // Left menu submenu header background Color changed
+$pageTitleTab: true; // page title and breadcrumb panel or card
+$custombredcrumb: true; //breadcrumb panel
+$customTable: true; 
+
+$mat-custom: (
+  50: #ebecee,
+  100: #cdd0d4,
+  200: #abb1b7,
+  300: #89919a,
+  400: #707a84,
+  500: #57626e,
+  600: #4f5a66,
+  700: #46505b,
+  800: #3c4651,
+  900: #2c343f,
+  A100: #8dc0ff,
+  A200: #5aa3ff,
+  A400: #2787ff,
+  A700: #0e79ff, 
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+$sideMenuColor: #57626E;
+$sideMenusubColor: #006cb7;
+$primaryColor: #57626E;
+$primarymenuhoverColor: #4aa1ac;
+$sideSubMenuHeadercolor: #deffff;
+$sideSubMenuHeaderIconColor: orange;
+$pageTitleTabPanel: #ccc;
+$pageTitleTabPanelColor: #fff;
+$tableHead: #57626E;
+$gray40: #333;
+$tutu: #fcebea;
+/***********************************
+    Mat Menu Design
+/***********************************/ 
+.mat-form-field.mat-focused{
+  .mat-form-field-ripple{
+    background-color: $primaryrippleColor !important; 
+  }
+}
+@if $sideMenu == true {
+  body {
+    #snav {
+      background: $sideMenuColor;
+      .sub-item {
+        background: $sideMenusubColor;
+      }
+    }
+  }
+} 
+/***********************************
+    Mat Table Design
+/***********************************/
+ @if $customTable == true {
+  body {
+    .masterTable {
+      .mat-header-row {
+        margin-right: 0 !important;
+        padding: 17px 18px;
+        background-color: $tableHead;
+        border: none;
+        min-height: auto;
+        line-height: 16px;
+        height: auto;
+        .mat-header-cell {
+          color: $pageTitleTabPanelColor;
+          font-size: 0.875rem;
+          font-family: 'cairosemibold';
+          padding-left: 10px !important;
+          padding-right: 10px !important;
+
+          &:first-child {
+            margin: 0 !important;
+            padding-left: 10px;
+          }
+        }
+      }
+      .mat-row {
+        padding: 0px 18px;
+        border-bottom: 1px solid #ddd;
+        border-top: 0px;
+        min-height: 40px;
+        &:hover {
+          background-color: #f2f3f7;
+          .mat-cell {
+            color: $primaryColor;
+          }
+          .moreaction
+          {
+            color: #333;
+          }
+        }
+        .mat-cell {
+          font-size: 0.875rem;
+          font-family: $bodyfont;
+          color: #333;
+          word-break: break-word;
+          .mat-chip {
+            min-height: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0px 8px;
+            border-radius: 3px;
+            color: #fff !important;
+          }
+          .mat-success {
+            background: #71c015 !important;
+          }
+          .mat-error {
+            background: #e53935 !important;
+          }
+          .mat-info {
+            background: #68afff !important;
+          }
+          &:first-child {
+            margin: 0 !important;
+            padding-left: 10px;
+          }
+        }
+      }
+      .mat-checkbox-frame {
+        border-color: #d3d8db;
+        border-radius: 0;
+        border-width: 1px;
+        background: white;
+      }
+    }
+    mat-paginator.masterPage {
+      font-size: 0.875rem;
+      margin-left: 0;
+      background: transparent;
+    }
+    .mat-paginator-container{
+      justify-content: flex-start !important;
+      padding-left: 0;
+      @media screen and (max-width:414px){
+        padding:0px;
+        margin:0;
+        flex-direction: column;
+        .mat-paginator-page-size { 
+            width:100%;
+        }
+        .mat-paginator-range-actions{
+           width:100% ;
+        }
+      }
+    }
+    .mat-paginator-container .mat-select-value{
+      font-weight: 500;
+    }
+    .mat-paginator-range-label {
+      margin: 0 32px 0 0px;
+    }
+    .tableFilter {
+      border-top: 2px solid #294c82;
+      border-left: 1px solid #dde4e9;
+      border-right: 1px solid #dde4e9;
+      border-bottom: 1px solid #dde4e9;
+      border-radius: 2px;
+      background-clip: padding-box;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+      .mat-card-title {
+        font-size: 1rem;
+      }
+      button[type="reset"] {
+        background-color: transparent !important;
+        border: 1px solid #cbcbcb !important;
+        color: #999999 !important;
+      }
+    }
+  }
+} 
+/***********************************
+    Bredcrumb Design
+/***********************************/
+@if $custombredcrumb == true {
+  #bredcrumb {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 30px;
+    .breadcrumb {
+      display: flex;
+      color: #294d83;
+      font-size: 0.875rem;
+      list-style-type: none;
+      align-items: center;
+      justify-content: flex-end;
+      padding-left: 0;
+      .slashsymbol {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      li.breadcrumb-item {
+        font-size: 0.9375rem;
+        cursor: default;
+      }
+    }
+    h1 {
+      font-size: 1.125rem;
+      color: #294d83;
+      line-height: 30px;
+      margin: 0;
+    }
+  }
+}
+.mat-successbg {
+  background: #71c015 !important;
+  color: #fff !important;
+}
+.mat-success {
+  color: #71c015 !important;
+}
+
+.mat-header-row .mat-header-cell {
+  overflow: inherit !important;
+}

@@ -1,0 +1,75 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <!-- <mat-card-title>Country Master</mat-card-title>         -->
+        <form [formGroup]="countrymaster" (ngSubmit)='addCountry()'>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+                <!-- column -->
+                <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                    <div class="titletext">
+                        <div class="closeandadd">
+                            <i (click)="toggle()" class="bgi bgi-close p-l-25 fs-14"></i>
+                            <h5 class="m-0 p-l-20 tt" *ngIf="createbutton">Add Country</h5>
+                            <h5 class="m-0 p-l-20 tt" *ngIf="updatebutton">Update Country</h5>
+                        </div>
+                        <div class="clearandaddbutton">
+                            <button class="clearbutton height-35 m-r-10 p-l-20 p-r-20" mat-raised-button color="primary"
+                                (click)="countrymaster.reset()" type="reset">Reset</button>
+                            <button ngClass.xs="m-r-15"  ngClass.sm="m-r-15" class="addbutton height-35 p-l-20 p-r-20" mat-raised-button color="apply"
+                                *ngIf="true" type="submit" [disabled]="!countrymaster.valid">{{buttonname}} </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" innnerpartofdrwer p-b-20">
+                <div fxLayout="row wrap" fxFlexAlign="center">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 spacing">
+                        <mat-form-field>
+                            <input matInput placeholder="Country Code"
+                                [formControl]="countrymaster.controls['CountryCode']" required>
+                                <mat-error
+                            *ngIf="countrymaster.controls['CountryCode'].hasError('required') && countrymaster.controls['CountryCode'].touched"
+                            class="text-danger font-14">Enter Country Code </mat-error>
+                        <mat-hint
+                            *ngIf="countrymaster.controls['CountryCode'].hasError('maxlength') && countrymaster.controls['CountryCode'].touched"
+                            class="text-danger font-14">Country Code cannot exceed 3 characters.</mat-hint>
+                        </mat-form-field>
+                        
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" class=" p-l-9 spacing">
+                        <mat-form-field>
+                            <input matInput placeholder="Country Name"
+                                [formControl]="countrymaster.controls['CountryName']" required>
+                                <mat-error
+                                *ngIf="countrymaster.controls['CountryName'].hasError('required') && countrymaster.controls['CountryName'].touched"
+                                class="text-danger font-14">Enter Country Name </mat-error>
+                        </mat-form-field>
+                       
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 spacing">
+                        <mat-form-field>
+                            <input matInput placeholder="Dial Code"
+                                [formControl]="countrymaster.controls['CountryDialCode']" required>
+                                <mat-error
+                            *ngIf="countrymaster.controls['CountryDialCode'].hasError('required') && countrymaster.controls['CountryDialCode'].touched"
+                            class="text-danger font-14">Enter Dial Code</mat-error>
+                        <mat-hint
+                            *ngIf="countrymaster.controls['CountryDialCode'].hasError('maxlength') &&  countrymaster.controls['CountryDialCode'].touched"
+                            class="text-danger font-14">Dial Code cannot exceed 5 characters.</mat-hint>
+                        </mat-form-field>
+                        
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" class=" p-l-9 spacing p-t-22">
+                        <div class="aligncenteritem">
+                            <label class="m-r-20">Status :</label>
+                            <mat-checkbox class="example-margin" [formControl]="countrymaster.controls['Status']"
+                                [(ngModel)]="checked">Active</mat-checkbox>
+                        </div>
+                    </div>
+                    <input type="hidden" [formControl]="countrymaster.controls['cid']" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

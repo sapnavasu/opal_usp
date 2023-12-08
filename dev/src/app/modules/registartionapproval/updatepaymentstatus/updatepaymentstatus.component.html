@@ -1,0 +1,103 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="{{'updatepaymentstatus.clos' | translate}}" (click)=formreset() aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="Updatepaymentalert()" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">{{'updatepaymentstatus.updapaymstat' | translate}}</h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button type="button" mat-raised-button color="primary" (click)=Updatepaymentalert()
+          class="clearbutton height-35 m-r-10 p-l-20 p-r-20 spacemargin">{{'updatepaymentstatus.canc' | translate}}</button>
+        <button color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+          class="addbutton height-35 p-l-20 p-r-20" [disabled]="UpdatepaymentstausForm.invalid || btndisabled"  (click)="submitpaymentst(updatepaymtstsdata?.memcomppymtinfodtls_pk)">{{buttonname}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxFlexAlign="center" class="borderbottomrenewallist">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottomrenwalalign p-l-50 p-r-50">
+    <div class="p-t-8 p-b-8">
+      <div class="renewalalign">
+        <p class="p-b-8 fs-15 interbold">{{updatepaymtstsdata?.MCM_CompanyName}}</p><span
+          class="renewalfreshcolor">{{updatepaymtstsdata?.MRM_RenewalStatus}}</span>
+      </div>
+      <p class="fs-14 space" *ngIf="updatepaymtstsdata?.MRM_ValSubStatus=='A'"><span class="codecolor">{{'updatepaymentstatus.suppcode' | translate}}</span> <span class="textcolorno">: {{updatepaymtstsdata?.MCM_SupplierCode?updatepaymtstsdata?.MCM_SupplierCode:'Yet to issue'}}</span>
+      </p>
+      <p class="fs-14 space" *ngIf="updatepaymtstsdata?.MRM_ValSubStatus!='A'"><span class="codecolor">{{'updatepaymentstatus.OPALregino' | translate}}</span> <span class="textcolorno">: {{updatepaymtstsdata?.mcm_RegistrationNo}}</span>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="innnerpartofdrwer">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="paymentonlinetistview">
+      <div class="updatealignsuccess">
+        <div class="updateheadertextcolor p-r-40 borderrightstatus">
+          <p>{{'updatepaymentstatus.regino' | translate}}</p>
+          <span>{{updatepaymtstsdata?.MCM_crnumber}}</span>
+        </div>
+        <div class="updateheadertextcolor p-r-40 p-l-12 borderrightstatus">
+          <p>{{'updatepaymentstatus.dateofpaym' | translate}}</p>
+          <span>{{updatepaymtstsdata?.mcpid_transdate}}</span>
+        </div>
+        <div class="updateheadertextcolor p-l-12">
+          <p>{{'updatepaymentstatus.tranuniqid' | translate}}</p>
+          <span>{{updatepaymtstsdata?.mcpid_transrefno}}</span>
+        </div>
+      </div>
+      <div [formGroup]="UpdatepaymentstausForm">
+        <div fxLayout="row wrap" class="p-t-30 p-b-12">
+          <div fxFlex.gt-sm="50" fxFlex="100">
+            <mat-form-field>
+              <mat-select formControlName="selectpaymentstatus" placeholder="{{'updatepaymentstatus.selepaymstat' | translate}}" (selectionChange)="paymentChange($event)"
+                [disableOptionCentering]="true" required [errorStateMatcher]="matcher">
+                <mat-option value="1">{{'updatepaymentstatus.rece' | translate}}
+                </mat-option>
+                <mat-option value="8">{{'updatepaymentstatus.notrece' | translate}}
+                </mat-option>
+                <!-- <mat-option value="Received Undeclined">Received Undeclined
+                </mat-option> -->
+              </mat-select>
+              <mat-error
+                *ngIf="UpdatepaymentstausForm.controls['selectpaymentstatus'].hasError('required') && UpdatepaymentstausForm.controls['selectpaymentstatus'].touched"
+                class="text-danger font-14">{{'updatepaymentstatus.selepaymstat' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+         <div fxLayout="row wrap" class="p-b-12">
+          <div fxFlex.gt-sm="50" fxFlex="100">
+            <mat-form-field *ngIf="payidnumber">
+              <input matInput formControlName="paymentnumber" placeholder="{{'updatepaymentstatus.paymtrannumb' | translate}}" required
+                [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+              <mat-error
+                *ngIf="UpdatepaymentstausForm.controls['paymentnumber'].hasError('required') && UpdatepaymentstausForm.controls['paymentnumber'].touched"
+                class="text-danger font-14">{{'updatepaymentstatus.entepaymtrannumb' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div> 
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field>
+              <textarea appAlphanum app-restrict-input="firstspace" #message maxlength="256" matInput
+                placeholder="{{'updatepaymentstatus.comm' | translate}}"   [required]="commendsid" cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="comments" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+              <!-- <mat-autocomplete #auto="matAutocomplete">
+                <div class="updatecommentscroll">
+                  <mat-option *ngFor="let option of updateOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </div>
+              </mat-autocomplete> -->
+              <mat-hint class="txt-black fs-14" align="end">{{message.value.length}}/256</mat-hint>
+              <mat-error
+                *ngIf="UpdatepaymentstausForm.controls['comments'].hasError('required') && UpdatepaymentstausForm.controls['comments'].touched"
+                class="text-danger font-14">{{'updatepaymentstatus.entecomm' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

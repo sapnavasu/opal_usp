@@ -1,0 +1,108 @@
+<form [formGroup]='filterform' #bunitDivReset="ngForm" class="pos-relative">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div class="searchandfilter">
+        <div class="searchhere" (click)="toggleShowDiv('searchhistorydropdown')">
+          <mat-form-field [floatLabel]="'never'">
+            <input (input)="businessunitfilter(false);showSearchIcon=(search == ''?true:false)" appAlphanumsymb #inputClickbus autocomplete="off" class="input-text-color" [placeholder]="'enterpriseadmin.searbydiviplace' | translate "
+              matInput [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
+              (keyup.enter)="businessunitfilter(false);showSearchIcon=(search == ''?true:false)">
+
+
+            <button class="searchbutton" type="button" *ngIf="showSearchIcon" [disabled]="!search" mat-button matSuffix mat-icon-button
+              aria-label="Search" (click)="submitFilter(false);showSearchIcon=false">
+              <mat-icon matSuffix matTooltip="{{'enterpriseadmin.sear' | translate}}" matTooltipPosition="above">search</mat-icon>
+            </button>
+            <button  class="searchbutton"  type="button" *ngIf="!showSearchIcon" mat-button matSuffix mat-icon-button aria-label="Clear"
+              (click)="search = '';submitFilter(false);showSearchIcon=true;">
+              <mat-icon matTooltip="{{'enterpriseadmin.reset' | translate}}" matTooltipPosition="above">close</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class=" searchhistorydropdown filtercontent" [@slideInOut]="animationState1">
+            <div class="recentsearchinfo">
+              <h6> {{'enterpriseadmin.recesear' | translate}}</h6>
+              <div *ngIf="recentSearch" class="searcheddata">
+                <p *ngFor="let recentVal of recentSearch; let i = index"
+                  (click)="recentDataSet(recentVal.rsd_searchtext)" class="cursor-pointer"><i class="bgi bgi-search"></i>
+                  <span>{{recentVal.rsd_searchtext}}</span></p>
+              </div>
+              <div *ngIf="recentSearch.length == 0" class="searcheddata">
+                <p><i class="bgi bgi-search"></i> <span>  {{'enterpriseadmin.noseardatafoun' | translate}}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterhere">
+          <button type="button" (click)="toggleShowDiv('descriptioncontentfilter')" class="filterbutton"
+            mat-raised-button color="primary">
+            <i class="bgi bgi-configuration m-r-10 txt-white"></i><span *ngIf="filtercount == 0">  {{'enterpriseadmin.filt' | translate}}</span><span
+              *ngIf="filtercount != 0">  {{'enterpriseadmin.filt' | translate}}({{filtercount}})</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" descriptioncontentfilter filtercontent" [@slideInOut]="animationState">
+    <div class="filterheader">
+      <p class="header"> {{'enterpriseadmin.filt' | translate}}</p>
+      <span (click)='clearAdvanceForm()' class="clearingfilter"> {{'enterpriseadmin.cleaall' | translate}}</span>
+    </div>
+    <hr class="m-0">
+    <div class="filtersearchcontent p-t-20 p-b-0" ngClass.xs="p-l-10 p-r-10" ngClass.sm="p-r-10 p-l-10" ngClass.md="p-l-30 p-r-30" ngClass.lg="p-r-30 p-l-30" ngClass.xl="p-r-30 p-l-30" *ngIf="!showInvitedUser">
+      <!-- Division & Branch Name Starts -->
+      <div fxLayout="row wrap" class="m-t-10">
+        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-r-15" ngClass.lg="p-r-15" ngClass.xl="p-r-15">
+          <mat-form-field>
+              <mat-select panelClass="select_with_filter" multiple 
+              [disableOptionCentering]="true" id="actsector" [errorStateMatcher]="matcher"
+              (closed)="searchSector = '';" placeholder=" {{'enterpriseadmin.divisect' | translate}}" formControlName="sector" (selectionChange)="changesector($event)">
+              <mat-select-search panelClass="mat-select-search-inner"
+                  [formControl]="sectorFilterval"
+                  [placeholderLabel]="'enterpriseadmin.sear' | translate"
+                  [noEntriesFoundLabel]="'enterpriseadmin.nodivimatc' | translate">
+              </mat-select-search>
+              <div class="option-listing countryselectwithimage">
+                <mat-option value="{{filterSec.sectorPk}}" *ngFor="let filterSec of filteredSector | async">
+                  {{filterSec.sectorName}}
+                </mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-15" ngClass.xl="p-l-15" ngClass.lg="p-l-15">
+          <mat-form-field>
+              <mat-select panelClass="select_with_filter" multiple 
+              [disableOptionCentering]="true" id="actsector" [errorStateMatcher]="matcher"
+              (closed)="searchDivision = '';" placeholder=" {{'enterpriseadmin.divirefename' | translate}}" formControlName="division" >
+              <!-- (selectionChange)="changedivison($event)" -->
+              <mat-select-search panelClass="mat-select-search-inner"
+                  [formControl]="divFilterval"
+                  [placeholderLabel]="'enterpriseadmin.sear' | translate"
+                  [noEntriesFoundLabel]="'enterpriseadmin.nodivimatc' | translate">
+              </mat-select-search>
+              <div class="option-listing countryselectwithimage">
+                <mat-option value="{{filterDiv.bunitPk}}" *ngFor="let filterDiv of filterdDivisionval  | async">
+                  {{filterDiv.bunitName}}
+                </mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <hr class="m-b-0">
+    <div class="filterfooter">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="filtercloseapply">
+            <button (click)="toggleShowDiv('descriptioncontentfilter');" type="button" mat-raised-button color="primary"
+              class="clearbutton height-35 m-r-10 p-l-30 p-r-30"> {{'enterpriseadmin.clos' | translate}}</button>
+            <button type="button" color="primary" [disabled]="checkEnableDisable()" mat-raised-button
+              class="applybutton height-35 p-l-30 p-r-30" (click)="submitFilter(true)"> {{'enterpriseadmin.appl' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

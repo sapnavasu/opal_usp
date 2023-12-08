@@ -1,0 +1,135 @@
+  .login_footer .login_footer_left ul li {
+    padding-right: 10px !important;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;       
+  } 
+ .login_footer .login_footer_left ul li:first-child {
+    padding-left: 0px !important;
+  }    
+.login_footer {
+ .responsive{
+       li{
+         position: relative;
+         padding-right: 25px !important;
+          &::before{
+            content: "";
+            width: 1px;
+            height: 13px;
+            background-color: #333;
+            position: absolute;
+            right: 0px;
+            top: 8px;
+            @media (max-width: 600px) { 
+              background-color: transparent;
+            }
+          }
+        &:nth-child(3){
+          &::before{
+            display: none;
+          }
+        }
+        &:nth-child(4){
+          &::before{
+            display: none;
+          }
+        }
+       }
+    }
+}
+.img_hig-mar {
+  height: 40px !important;
+}
+//ashok
+@media (max-width: 600px) { 
+  .login_footer {
+    flex-flow: column !important;
+   }
+}
+@media (max-width:414px) {
+  .res_dis-flx {
+    display: flex !important;
+  }
+   #res_pr-0 {
+    padding-right: 0px !important;
+    padding-left: 20px !important;
+  }
+  .login_footer {
+    flex-flow: column !important;
+  }
+  .responsive {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-evenly !important;
+  }
+  .res_dis-con {
+    display: contents !important;
+  }
+  .res_center {
+    text-align: center !important;
+    color: #626366;
+  }
+  p{
+    color: #626366;
+  }
+ 
+}
+@media (max-width:500px) {
+  .login_footer_left ul {
+    display: inline-flex !important;
+  }
+}
+@media (max-width:320px) {
+  #res_white-spc {
+    white-space: inherit !important;
+  }
+  .login_footer_left {
+    ul {
+      li {
+        padding-right: 0px !important;
+      }
+    }  
+  } 
+  .res_p-0 {
+    padding: 0px !important;
+  }
+}  
+
+
+.login_footer {
+  .responsive{
+        li{
+         
+           &::before{
+            content: "";
+            width: 1px;
+            height: 13px;
+            background-color: #333;
+            position: absolute;
+            right: 4px;
+            top: 7px;
+            a{
+              padding-left: 7px;
+              padding-right: 7px;
+
+            }
+        }
+      
+           }
+        
+        }
+     }
+   
+.footerspace {
+  img {
+    margin-left: 10px;
+  }
+  .rightside{
+    display: flex;
+    align-items: center;
+  }
+}   
+
+
+
+

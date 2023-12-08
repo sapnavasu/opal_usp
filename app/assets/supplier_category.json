@@ -1,0 +1,18 @@
+[
+    {
+      "value": "Large",
+      "label": "Large"
+    },
+    {
+      "value": "MSME",
+      "label": "MSME"
+    },
+    {
+      "value": "SLCC",
+      "label": "SLCC"
+    },
+    {
+      "value": "LCC",
+      "label": "LCC"
+    }
+  ]

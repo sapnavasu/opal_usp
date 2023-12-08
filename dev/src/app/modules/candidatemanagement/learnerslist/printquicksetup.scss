@@ -1,0 +1,42 @@
+.printsetuplist{
+  .mat-dialog-container{
+    min-width:600px;
+    min-height:240px;
+    .pctitle{
+      font-family: 'opal_regular', sans-serif;
+      font-size:18px;
+      color:#333;
+    }
+    .closeright{
+      .mat-figure{
+        position: relative;
+        top:-10px;
+      }
+    }
+    .s-no{
+      color:#555;
+    }
+    .clearbtn{
+      width:75px;
+      height:32px;
+      line-height:30px;
+      border:1px solid #ddd;
+      background:#fff;
+      color:#333;
+      font-size:15px;
+      cursor:pointer;
+      border-radius:2px;
+    }
+    .printbtn{
+      width:75px;
+      height:32px;
+      line-height:30px;
+      border:1px solid #ed1c27;
+      background:#ed1c27;
+      color:#fff;
+      font-size:15px;
+      cursor:pointer;
+      border-radius:2px;
+    }
+  }
+}

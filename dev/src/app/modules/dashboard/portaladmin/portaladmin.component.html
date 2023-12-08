@@ -1,0 +1,87 @@
+
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+<div fxLayout="row wrap"  fxLayoutAlign="center" id="portaladmindashboard" class="portaladmindashboard">
+  <div fxFlex="100" class="flex-column">
+      <mat-tab-group class="tabsdetials dashtabs">
+           <!--Training Tab-->
+          <mat-tab *ngIf="(training_readaccess && trainingaccessproject) || (course_readaccess && courseaccessproject) || (batchreadaccess && DashboardCounts) || centreinvoicereadaccess || courseinvoicereadaccess || royalityinvoicereadacces">
+            <ng-template mat-tab-label>
+                <div class="tabscontent">
+                    <div class="tabtitle">
+                        <p class="fs-15">{{'centredashboard.trainevalcentre' | translate}}</p>
+                    </div>
+                </div>
+            </ng-template>
+            <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+              <div *ngIf="training_readaccess && trainingaccessproject" fxFlex.gt-sm="50" fxFlex="100">
+                <app-trainingcertify *ngIf="DashboardCounts && train" [trainaccess]="trainaccess"  [DashboardCounts]="DashboardCounts"></app-trainingcertify>
+              </div>
+              <div *ngIf="course_readaccess && courseaccessproject" fxFlex.gt-sm="50" fxFlex="100">
+                <app-standardcertify *ngIf="DashboardCounts && course" [DashboardCounts]="DashboardcourseCounts"  [courseaccess]="courseaccess" ></app-standardcertify>
+              </div>
+            </div>
+            <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+              <div fxFlex.gt-sm="50" fxFlex="100" *ngIf="centreinvoicereadaccess || courseinvoicereadaccess || royalityinvoicereadaccess">
+                <div fxFlex.gt-sm="100" *ngIf="DashboardCounts"  fxFlex="100">
+                    <app-portalinvoicemngmnt [DashboardCounts]="DashboardCounts"></app-portalinvoicemngmnt>
+                </div>
+              </div>
+                <div fxFlex.gt-sm="50" *ngIf="batchreadaccess && DashboardCounts" fxFlex="100">
+                    <app-portalbatchmngmnt  [DashboardCounts]="DashboardCounts"></app-portalbatchmngmnt>
+                </div>              
+            </div>
+          </mat-tab>
+          <!-- Technical Tab-->
+          <mat-tab   *ngIf="centreinvoicereadaccess || courseinvoicereadaccess || royalityinvoicereadaccess || (certifycounts && rasaccessproject)">
+              <ng-template mat-tab-label>
+                  <div class="tabscontent">
+                      <div class="tabtitle">
+                          <p class="fs-15">{{'centredashboard.techevalcentre' | translate}}</p>
+                      </div>
+                  </div>
+              </ng-template>
+              <div fxLayout="row" fxLayoutGap="25px">
+                  <mat-tab-group class="tabsdetials innerdashtabs">
+                    
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                          <div class="tabscontent">
+                              <div class="tabtitle">
+                                  <p class="fs-14">{{'centredashboard.ras' | translate}}</p>
+                              </div>
+                          </div>
+                      </ng-template>
+                      <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+                        <div fxFlex.gt-sm="50" *ngIf="Invoicecounts" fxFlex="100">
+                          <app-portaltechbatchmngmnt  [Invoicecounts]="Invoicecounts"   ></app-portaltechbatchmngmnt>
+                        </div>
+                        <div fxFlex.gt-sm="50" *ngIf="certifycounts && rasaccessproject"  fxFlex="100">
+                          <app-centrecertify *ngIf="ras"  [certifycounts]="certifycounts" [rasaccess]="rasaccess" ></app-centrecertify>
+                        </div>
+                      </div>
+                    </mat-tab>
+                   
+                    <!-- <mat-tab>
+                      <ng-template mat-tab-label>
+                          <div class="tabscontent">
+                              <div class="tabtitle">
+                                  <p class="fs-14">{{'centredashboard.ivms' | translate}}</p>
+                              </div>
+                          </div>
+                      </ng-template>
+                      <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+                        <div fxFlex.gt-sm="50" fxFlex="100">
+                          <app-portaltechbatchmngmnt [DashboardCounts]="DashboardCounts"></app-portaltechbatchmngmnt>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100">
+                          <app-centrecertify [DashboardCounts]="DashboardCounts"></app-centrecertify>
+                        </div>
+                      </div>
+                    </mat-tab> -->
+                  </mat-tab-group>
+              </div>
+          </mat-tab>
+      </mat-tab-group>
+  </div>
+</div>
+<!-- <app-responseloader *ngIf="disableSubmitButton"></app-responseloader> -->

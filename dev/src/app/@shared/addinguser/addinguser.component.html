@@ -1,0 +1,513 @@
+<div *ngIf="contentinputloader" class="projlstngph w-100 listsector" >
+  <div class="leftmainspace">
+    <div class="subcontent">
+      <div class="flexmidcontentview">
+        <span class="pagetitle widthofsecondsub m-r-15"></span>
+        <span class="pagetitle widthofsecondsub"></span>
+      </div>
+      <div class="flexmidcontentview">
+        <span class="pagetitle widthofsecondsub m-r-15"></span>
+        <span class="pagetitle widthofsecondsub"></span>
+      </div>
+      <div class="flexmidcontentview">
+        <span class="pagetitle widthofsecondsub m-r-15"></span>
+        <span class="pagetitle widthofsecondsub"></span>
+      </div>
+      <div class="flexmidcontentview m-r-15">
+        <span class="pagetitle widthofsecondsub"></span>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="50" fxFlex="100">
+          <div fxLayout="row wrap" class="m-r-5">
+            <div fxFlex.gt-sm="18" fxFlex="100" class="p-r-15">
+              <span class="pagetitle countrywidth"></span>
+            </div>
+            <div fxFlex.gt-sm="82" fxFlex="100">
+              <span class="pagetitle countrywidth"></span>
+            </div>
+          </div>
+        </div>
+        <div fxFlex.gt-sm="50" fxFlex="100">
+          <div fxLayout="row wrap" class="m-l-10">
+            <div fxFlex.gt-sm="24" fxFlex="100">
+              <span class="pagetitle countrywidth"></span>
+            </div>
+            <div fxFlex.gt-sm="62" fxFlex="100" class="p-l-15">
+              <span class="pagetitle countrywidth"></span>
+            </div>
+            <div fxFlex.gt-sm="14" fxFlex="100" class="p-l-10">
+              <span class="pagetitle countrywidth"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flexmidcontentview m-t-25">
+        <span class="pagetitle widthofsecondsub m-r-15"></span>
+        <span class="pagetitle widthofsecondsub"></span>
+      </div>
+      <div class="flexmidcontentview m-t-25">
+        <span class="pagetitle widthofsecondsub m-r-15"></span>
+        <span class="pagetitle widthofsecondsub"></span>
+      </div>
+      <div class="viewmidcontent m-t-32">
+        <span class="pagetitle descriptioncontent"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<form *ngIf="!contentinputloader" [formGroup]="adduserForm" autocomplete="off" (ngSubmit)="onSubmit()" class="m-t-20" id="res7_plr-5">
+
+  <div fxLayout="row wrap" class=" p-t-10" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid">
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <mat-form-field class="example-full-width" [ngClass]="{'ct-line':stkholdertype == 1}">
+        <input (keyup)="ifchange();" placeholder="{{'commonuser.emplid' | translate}}" matInput [required]="stkholdertype != 1" type="text"
+          formControlName="employeeid" 
+          app-restrict-input="firstspace" appAlphanumsymb maxlength="100" />
+        <div *ngIf="f1.employeeid.touched && f1.employeeid.errors" class="invalid-feedback">
+          <div *ngIf="f1.employeeid.touched &&  f1.employeeid.errors.required">{{'commonuser.enteemplid' | translate}} </div>
+          <div *ngIf="f1.employeeid.touched &&  f1.employeeid.errors.empAlreadyExist">{{'commonuser.emplidalreexis' | translate}}</div>
+        </div>
+      </mat-form-field>
+    </div>
+    <input type="hidden" value="" formControlName="userPk">
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <mat-form-field class="example-full-width" [ngClass]="{'ct-line':stkholdertype == 1}">
+        <input appAlphanumsymb (keyup)="ifchange();" placeholder="{{'commonuser.username' | translate}}" matInput [required]="stkholdertype != 1" type="text"
+          formControlName="username" app-restrict-input="firstspace" (keydown.space)="$event.preventDefault()" [ngClass]="{'is-invalid': f1.username.touched && f1.username.errors }"
+          appAlphanum maxlength="45" />
+        <div *ngIf="f1.username.touched && f1.username.errors" class="invalid-feedback">
+          <div *ngIf="f1.username.touched &&  f1.username.errors.required">{{'commonuser.enteuser' | translate}}
+          </div>
+          <div *ngIf="f1.username.touched &&  f1.username.errors.userAlreadyExist">{{'commonuser.useralreexis' | translate}}
+          </div>
+        </div>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class=" p-t-10" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid">
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <mat-form-field class="example-full-width" [ngClass]="{'ct-line':stkholdertype == 1}">
+        <input appAlphanumsymb (keyup)="ifchange();" placeholder="{{'commonuser.firsname' | translate}}" matInput [required]="stkholdertype != 1" type="text"
+          formControlName="firstName" [ngClass]="{'is-invalid': f1.firstName.touched && f1.firstName.errors }"
+          app-restrict-input="firstspace" appAlphabetonly maxlength="50" />
+        <div *ngIf="f1.firstName.touched && f1.firstName.errors" class="invalid-feedback">
+          <div *ngIf="f1.firstName.touched &&  f1.firstName.errors">{{'commonuser.entefirsname' | translate}} </div>
+        </div>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <mat-form-field class="example-full-width" [ngClass]="{'ct-line':stkholdertype == 1}">
+        <input appAlphanumsymb (keyup)="ifchange();" placeholder="{{'commonuser.middname' | translate}}" matInput type="text"
+          formControlName="middleName" app-restrict-input="firstspace" appAlphabetonly maxlength="50" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="p-t-10" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid">
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <mat-form-field class="example-full-width" [ngClass]="{'ct-line':stkholdertype == 1}">
+        <input appAlphanumsymb (keyup)="ifchange();" placeholder="{{'commonuser.lastname' | translate}}" matInput [required]="stkholdertype != 1" type="text"
+          formControlName="lastName" [ngClass]="{'is-invalid': f1.lastName.touched && f1.lastName.errors }"
+          app-restrict-input="firstspace" appAlphabetonly maxlength="50" />
+        <div *ngIf="f1.lastName.touched && f1.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f1.lastName.touched &&  f1.lastName.errors">{{'commonuser.entlastname' | translate}} </div>
+        </div>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+      class="paddingspacing widthresponsiveside">
+      <mat-form-field class="country-flag" [ngClass]="{'ct-line':stkholdertype == 1}">
+        <mat-select [disableOptionCentering]="true" formControlName="timezone" panelClass="selectspacing"
+          placeholder="{{'commonuser.timezone' | translate}}" (selectionChange)="searchTimezone=''"
+          *ngIf="(timezonelist | searchFilter: searchTimezone : 'tz_countryname') as timeZoneSrhRslt"
+          panelClass="select_with_search">
+          <div class="searchinmultiselect">
+            <i class="bgi bgi-search"></i>
+            <input appAlphanumsymb matInput name="searchtimezone" class="searchselect" type="Search"
+              placeholder="{{'commonuser.sear' | translate}}" [(ngModel)]="searchTimezone" [ngModelOptions]="{standalone: true}"
+              autocomplete="off">
+            <mat-icon (click)="searchTimezone = ''" class="reseticon" matSuffix
+              *ngIf="searchTimezone !='' && searchTimezone !=null">close</mat-icon>
+          </div>
+          <div class="option-listing">
+            <mat-option [ngClass]="{'ct-line':stkholdertype == 1}" class="countrynameselect"
+              *ngFor="let timezone of timezonelist | searchFilter: searchTimezone : 'tz_countryname'"
+              [value]="timezone.timezone_pk">
+              {{timezone.tz_countryname}}
+            </mat-option>
+          </div>
+          <div class="p-t-5 p-b-5 text-center" *ngIf="timeZoneSrhRslt.length == 0">
+            {{'commonuser.notimematcyour' | translate}} 
+            </div>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row wrap" [class.spaceemailidbottom]="userType == 'A'" class="p-t-10 p-b-10" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid" id="emailotpspinner">
+    <div fxFlex="50" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="emailidwithotp">
+      <mat-form-field class="example-full-width p-t-8">
+        <input (keydown.space)="$event.preventDefault();" [disabled]="userType == 'A'" [ngClass]="{'ct-line':stkholdertype == 1}" matInput  [readonly]="addreadonly == true" (keyup)="ifchange();" placeholder="{{'commonuser.emaiid' | translate}}" [required]="stkholdertype != 1" type="email" formControlName="email"
+          [ngClass]="{ 'is-invalid': f1.email.touched && f1.email.errors }" app-restrict-input="firstspace"
+          appAlphanumsymb maxlength="255" pattern="[a-z-A-Z0-9.-_]{1,}@[a-z-A-Z]{2,}[.]{1}[a-z-A-Z-_]{2,}" />
+        <div *ngIf="f1.email.touched && f1.email.errors " class="invalid-feedback">
+          <div *ngIf="f1.email.errors.required" class="text-danger">{{'commonuser.enteemaiid' | translate}}</div>
+          <div *ngIf="f1.email.errors.pattern" class="text-danger">{{'commonuser.entevaliemai' | translate}}</div>
+          <div *ngIf="f1.email.errors.alreadyExist" class="text-danger">{{'commonuser.emaiidalreexis' | translate}}</div>
+        </div>
+        <i *ngIf="userType == 'A' && showeditbtn && stkholdertype != 1" (click)="editdataotp();" class="bgi bgi-edit1 p-l-15" matTooltip="Edit"></i>
+        <mat-hint *ngIf="userType == 'A' && verfiy && f1.email.valid" class="txt-req p-b-10 fs-13">Note: You will receive an OTP to your registered Email Address.</mat-hint>                                      
+      </mat-form-field>
+    </div>
+    <div *ngIf="userType == 'A' && stkholdertype != 1" fxFlex="50" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"  class="emailidwithotp p-t-0 p-b-0">
+      <mat-spinner-button *ngIf="verfiy && f1.email.valid" (click)="otpshowdata()" class="fs-13 submitbtnedit"
+      [options]="spinnerButtonOptions">
+      </mat-spinner-button>
+      <div id="verifyemailtop">
+        <div *ngIf="otpviewfield" fxFlex.gt-sm="100" fxFlex="100"  class="paddingspacing">
+          <div class="otpheader_reg verifyemailspaced">
+            <p class="m-0 fs-14 txt-gray6 importantfield">{{'commoncontactinfo.enteotp' |
+              translate}}</p>
+            <div class="alignflex">
+              <div id="divOuter">
+                <div id="divInner">
+                  <input formControlName="emailotp" matinput onpaste="return false;" [required]="stkholdertype != 1"
+                    (keydown.space)="$event.preventDefault();" id="partitioneduser" type="text"
+                    maxlength="6">
+                </div>
+              </div>
+              <a mat-raised-button color="primary" (click)="submitdtataotp()"
+                class="button-30 m-l-30 submitwrap">{{'commoncontactinfo.subm' | translate}}</a>
+            </div>
+              <div class="p-t-8"> 
+            <mat-error *ngIf="iferrorotpmail"
+                class="fs-13 colorotp lowercaseremove">{{'commoncontactinfo.invaotp' |
+                translate}}
+              </mat-error>
+            </div> 
+            <div fxLayoutAlign="flex-start" class="p-t-5">
+      
+            <div class="p-t-0 resendotp d-flex">
+            <button type="button" [disabled]="disableResendemail == true" (click)="otpshowdata()">{{'commoncontactinfo.reseotp' | translate}}</button>
+            <span *ngIf="this.disableResendemail == true;">{{countDown}}</span>
+            </div>
+            </div> 
+          </div>
+        </div>
+        <span *ngIf="verfiedtagshow" class="verifiedcontentbtn verifytagtop">
+          <i class="bgi bgi-tick fs-12"></i>
+          <span class="p-l-8">Verified</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" [class.spacemobilebottom]="userType == 'A'" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid" id="emailotpspinner">
+    <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing">
+      <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-0 countryfalgandcode">
+        <div fxFlex.gt-sm="17" fxFlex="100" class="p-r-10 paddingspacing widthresponsiveside">
+          <mat-form-field class="country-flag" [ngClass]="{'ct-line':stkholdertype == 1}">
+            <mat-select  [disabled]='iseditdisableforflag'
+             [(value)]="mobile_country_code_flag" (closed)="searchMobileCC = ''"
+              (selectionChange)="setcountryFlag($event.value,'mobile');" [disableOptionCentering]="true"
+              panelClass="select_with_search"
+              *ngIf="(countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en') as cntryresult">
+              <div class="searchinmultiselect">
+                <i class="bgi bgi-search"></i>
+                <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="{{'commonuser.sear' | translate}}"
+                  (keydown)="$event.stopPropagation();" [(ngModel)]="searchMobileCC"
+                  [ngModelOptions]="{standalone: true}" autocomplete="off">
+                <mat-icon (click)="searchMobileCC = ''" class="reseticon" matSuffix
+                  *ngIf="searchMobileCC !='' && searchMobileCC !=null">clear</mat-icon>
+              </div>
+
+              <mat-select-trigger class="flagwithcode" #scrollableDivone >
+                <img [defaultImage]="'assets/images/imageloader.svg'" [errorImage]="errorImage"
+                  [scrollTarget]="scrollableDivone" lazyLoad="assets/images/flags/{{mobile_country_code_flag}}.png"
+                  alt="Country Flag">
+              </mat-select-trigger>
+              <div class="option-listing" #scrollableDiv>
+                <mat-option class="countrynameselect"
+                  *ngFor="let country of countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en'"
+                  [value]="country.CountryMst_Pk">
+                  <img [defaultImage]="'assets/images/imageloader.svg'" [errorImage]="errorImage"
+                    [scrollTarget]="scrollableDiv" lazyLoad="assets/images/flags/{{country.CountryMst_Pk}}.png" />
+                  {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                </mat-option>
+                <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                  {{'commonuser.nocounmatcyoursear' | translate}} 
+                </div>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="83" fxFlex="100" class="p-l-10 paddingspacing mobilenumwidth emailidwithotp ">
+          <mat-form-field class="numberandcode" floatLabel="always" [ngClass]="{'ct-line':stkholdertype == 1}">
+            <span ngClass.xs="p-r-0" ngClass.sm="p-r-0" class="p-r-5 countrycodecolor">{{mobilecode}}</span>
+            <input  matInput [readonly]="addreadonlyMobile == true"  appNumberonly  formControlName="mobileno"
+            [minlength]="mobile_country_code_flag == 31? 8 : 5" [maxlength]="mobile_country_code_flag == 31? 8 : 20"
+              [errorStateMatcher]="matcher" placeholder="{{'commonuser.mobi' | translate}}" [required]="stkholdertype != 1">
+            <mat-error *ngIf="f1.mobileno.errors?.required  && (f1.mobileno.touched)" class="text-danger nowrap ">{{'commonuser.entemobinumb' | translate}}
+              </mat-error>
+            <mat-error *ngIf="f1.mobileno.errors?.minlength && (f1.mobileno.touched) && mobile_country_code_flag == 31" class="text-danger nowrap ">{{ 'commonuser.entemindigiar'| translate }}
+              </mat-error>
+              <mat-error *ngIf="f1.mobileno.errors?.minlength && (f1.mobileno.touched) && mobile_country_code_flag != 31" class="text-danger nowrap ">{{ 'commonuser.entemindigi'| translate }}
+              </mat-error>
+              
+            <mat-error *ngIf="f1.mobileno.errors?.alreadyavailable">{{'commonuser.mobinumbalreexis' | translate}}
+              </mat-error> 
+              <i *ngIf="userType == 'A' && showeditbtnmobile" (click)="editdatamobileotp();" class="bgi bgi-edit1 p-l-15" matTooltip="Edit"></i>
+              <mat-hint *ngIf="userType == 'A' && verfiymobile  &&  f1.mobileno.valid && stkholdertype != 1" class="txt-req fs-13">Note: You will receive an OTP to your registered Mobile Number.</mat-hint>                                      
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div  *ngIf="userType == 'A'" fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing emailidwithotp ">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" id="mobileverifyspace">
+            <mat-spinner-button   *ngIf="verfiymobile && f1.mobileno.valid && stkholdertype != 1"  (click)="otpshowdatamobiledata()" class="fs-13 submitbtnedit verifytop"
+            [options]="spinnerButtonOptionsmobile">
+          </mat-spinner-button>
+          <div *ngIf="otpshowmobile" fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing">
+            <div  class="otpheader_reg">
+              <p class="m-0 fs-14 txt-gray6 importantfield">{{'commoncontactinfo.enteotp' |
+                translate}}</p>
+              <div class="alignflex">
+                <div id="divOuter">
+                  <div id="divInner">
+                    <input formControlName="mobileotp" [required]="stkholdertype != 1" matinput onpaste="return false;"
+                      (keydown.space)="$event.preventDefault();" id="partitioneduser" type="text"
+                      maxlength="6">
+                  </div>
+                </div>
+                <a mat-raised-button color="primary" (click)="submitdatamobile()"
+                  class="button-30 m-l-30 submitwrap">{{'commoncontactinfo.subm' |
+
+                  translate}}</a>
+              </div>
+               <div class="p-t-8">
+                <mat-error *ngIf="iferrorotp"
+                  class="fs-13 colorotp lowercaseremove">{{'commoncontactinfo.invaotp' |
+                  translate}}
+                </mat-error>
+              </div> 
+              <div fxLayoutAlign="flex-start" class="p-t-8"> 
+                <div class="p-t-0 resendotp d-flex">
+                  <button type="button" [disabled]="this.disableResendmob == true" (click)="otpshowdatamobiledata()">{{'commoncontactinfo.reseotp' | translate}}</button>
+                  <span  *ngIf="this.disableResendmob == true;">{{countDownMob}}</span>
+                </div>
+               </div> 
+            </div>
+          </div>
+          <span *ngIf="verfiedtagshowmobile" class="verifiedcontentbtn">
+            <i class="bgi bgi-tick fs-12"></i>
+            <span class="p-l-8">{{'commoncontactinfo.verified' | translate}}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-0 p-t-10" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid">
+       <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing">
+      <div fxLayout="row wrap" fxLayoutAlign="end" class=" countryfalgandcode">
+        <div fxFlex.gt-sm="17" fxFlex="100" class="p-r-10 paddingspacing searchwidth">
+          <mat-form-field class="country-flag" [ngClass]="{'ct-line':stkholdertype == 1}">
+            <mat-select [disabled]='iseditdisable' [(value)]="landline_country_code_flag"
+              (closed)="searchLandLineCC = ''" (selectionChange)="setcountryFlag($event.value,'landline');"
+              [disableOptionCentering]="true" panelClass="select_with_search"
+              *ngIf="(countrylist | searchFilter : searchLandLineCC:'CyM_CountryName_en') as cntryresult">
+              <div class="searchinmultiselect">
+                <i class="bgi bgi-search"></i>
+                <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="{{'commonuser.sear' | translate}}"
+                  (keydown)="$event.stopPropagation();" [(ngModel)]="searchLandLineCC"
+                  [ngModelOptions]="{standalone: true}" autocomplete="off">
+                <mat-icon (click)="searchLandLineCC = ''" class="reseticon" matSuffix
+                  *ngIf="searchLandLineCC !='' && searchLandLineCC !=null">clear</mat-icon>
+              </div>
+              <mat-select-trigger class="flagwithcode" #scrollableDivmobileone>
+                <img [defaultImage]="'assets/images/imageloader.svg'" [errorImage]="errorImage"
+                  [scrollTarget]="scrollableDivmobileone"
+                  lazyLoad="assets/images/flags/{{landline_country_code_flag}}.png" alt="Country Flag">
+              </mat-select-trigger>
+              <div class="option-listing" #scrollableDivmobile>
+                <mat-option class="countrynameselect"
+                  *ngFor="let country of countrylist | searchFilter : searchLandLineCC:'CyM_CountryName_en'"
+                  [value]="country.CountryMst_Pk">
+                  <img [defaultImage]="'assets/images/imageloader.svg'" [errorImage]="errorImage"
+                    [scrollTarget]="scrollableDivmobile" lazyLoad="assets/images/flags/{{country.CountryMst_Pk}}.png" />
+                  {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                </mat-option>
+                <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                  {{'commonuser.nocounmatcyoursear' | translate}}  
+                </div>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="68" fxFlex="100" class="p-l-10 paddingspacing landlinewidth">
+          <mat-form-field floatLabel="always" class="numberandcode" [ngClass]="{'ct-line':stkholdertype == 1}">
+            <span class="p-r-5 countrycodecolor">{{landlinecode}}</span>
+            <input appAlphanumsymb id="landlineno" #landlinenumber matInput [errorStateMatcher]="matcher" appNumberonly
+              formControlName="landlineno"  [minlength]="landline_country_code_flag== 31?8:5" [maxlength]="landline_country_code_flag== 31? 8 : 20" placeholder="{{'commonuser.land' | translate}}">
+            <input appAlphanumsymb matInput hidden='true' formControlName="landlinecc" placeholder="{{'commonuser.phoncode' | translate}}">
+            <mat-error *ngIf="f1.landlineno.errors?.minlength && (f1.landlineno.touched) && landline_country_code_flag == 31" class="text-danger nowrap ">
+              {{'commonuser.entemindigiar' | translate}}
+              </mat-error>
+              <mat-error *ngIf="f1.landlineno.errors?.minlength && (f1.landlineno.touched) && landline_country_code_flag != 31" class="text-danger nowrap ">
+                {{'commonuser.entemindigi' | translate}}
+                </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="15" fxFlex="100" class="p-l-10 paddingspacing">
+          <mat-form-field [ngClass]="{'ct-line':stkholdertype == 1}">
+            <input matInput appAlphanumsymb appNumberonly formControlName="landlineext" maxlength="5"
+              placeholder="{{'commonuser.ext' | translate}}">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!showAddDept || !hideBusinessUnit" fxFlex.gt-sm="50" fxFlex="100">
+      <mat-form-field class="example-full-width" [ngClass]="{'ct-line':stkholdertype == 1}">
+        <mat-select [required]="stkholdertype != 1" [disableOptionCentering]="true" panelClass="select_with_search"
+          placeholder="{{'commonuser.divirefename' | translate}}" formControlName="businessunit" multiple>
+          <mat-select-trigger>
+            {{adduserForm.controls['businessunit'].value ? businessUnitDataTemp : ''}}
+            <span *ngIf="adduserForm.controls['businessunit'].value?.length > 1" class="example-additional-selection">
+              (+{{adduserForm.controls['businessunit'].value.length - 1}}
+              {{adduserForm.controls['businessunit'].value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <div class="option-listing">
+            <mat-option *ngFor="let bunitDt of bunitData" [value]="bunitDt.bunitPk">
+              {{(bunitDt.bunitName)?bunitDt.bunitName:bunitDt.bunitRefNo}}
+            </mat-option>
+          </div>
+        </mat-select>
+        <div *ngIf="f1.businessunit.touched && f1.businessunit.errors" class="invalid-feedback">
+          <div *ngIf="f1.businessunit.touched &&  f1.businessunit.errors">{{'commonuser.seledivirefename' | translate}}
+          </div>
+        </div>
+        <mat-hint align="end" *ngIf="bunitData?.length < 10"
+          (click)="addbusinessunitmcp.toggle();getbusinessInput();toggleModulepermission.emit(true)">
+          <div class="addingdepartment">
+            <span *ngIf="isshowadddivordept">{{'commonuser.adddivi' | translate}}</span>
+          </div>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div fxLayout="row wrap" class="p-b-4 p-t-10" fxLayoutGap.xs="0px grid" fxLayoutGap="20px grid">
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <mat-form-field [ngClass]="{'ct-line':stkholdertype == 1}">
+        <mat-select [disableOptionCentering]="true" placeholder="{{'commonuser.depa' | translate}}" formControlName="departmentId" [required]="stkholdertype != 1"
+          panelClass="select_with_search" [ngClass]="{'is-invalid': f1.departmentId.touched && f1.departmentId.errors}"
+          (selectionChange)="ifchange()" (closed)="searchDepartment = ''"
+          *ngIf="(departmentList | searchFilter: searchDepartment : 'deptName') as deptresult" multiple>
+
+          <mat-select-trigger>
+            {{adduserForm.controls['departmentId'].value ? deptDataTemp : ''}}
+            <span *ngIf="adduserForm.controls['departmentId'].value?.length > 1" class="example-additional-selection">
+              (+{{adduserForm.controls['departmentId'].value.length - 1}}
+              {{adduserForm.controls['departmentId'].value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+
+          <div class="searchinmultiselect">
+            <i class="bgi bgi-search"></i>
+            <input appAlphanumsymb matInput class="searchselect" [(ngModel)]="searchDepartment" type="Search"
+              placeholder="{{'commonuser.sear' | translate}}" (keydown)="$event.stopPropagation();" [ngModelOptions]="{standalone: true}"
+              autocomplete="off">
+            <i (click)="searchDepartment = ''" class="reseticon" matSuffix
+              *ngIf="searchDepartment !='' && searchDepartment !=null" class="bgi bgi-close"></i>
+          </div>
+          <div class="option-listing">
+            <mat-option class="countrynameselect"
+              *ngFor="let deptList of departmentList | searchFilter: searchDepartment : 'deptName'"
+              [value]="deptList.deptPk">
+              {{deptList.deptName}}
+            </mat-option>
+            <div class="p-t-10" *ngIf="deptresult.length == 0">
+              {{'commonuser.nodepamatcyoursear' | translate}} 
+            </div>
+          </div>
+        </mat-select>
+        <div *ngIf="f1.departmentId.touched && f1.departmentId.errors" class="invalid-feedback">
+          <div *ngIf="f1.departmentId.touched &&  f1.departmentId.errors">{{'commonuser.seledepa' | translate}} 
+          </div>
+        </div>
+        <mat-hint align="end" *ngIf="(showAddDept && !f1.departmentId.value)">
+        </mat-hint>
+        <mat-hint align="end" (click)="drawerdepartment.toggle()">
+          <div class="addingdepartment"
+            (click)="loadUserAllocation= false;openDeptSide();toggleModulepermission.emit(true);">
+            <span *ngIf="isshowadddivordept">{{'commonuser.adddepa' | translate}} </span>
+          </div>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <mat-form-field [ngClass]="{'ct-line':stkholdertype == 1}">
+        <input (keyup)="ifchange();" placeholder="{{'commonuser.desi' | translate}}" matInput type="text" formControlName="designation"
+        [required]="stkholdertype != 1" [ngClass]="{'is-invalid': f1.designation.touched && f1.designation.errors}"
+          app-restrict-input="firstspace" appAlphanumsymb maxlength="50" />
+        <div *ngIf="f1.designation.touched && f1.designation.errors" class="invalid-feedback">
+          <div *ngIf="f1.designation.touched &&  f1.designation.errors">{{'commonuser.entedesi' | translate}} 
+          </div>
+        </div>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Module Permission Settings -->
+  <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-t-30 userpermissions"
+    *ngIf="userType != 'A' && !hideModuleAccess">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <mat-card class="addproductsmainselect"
+        (click)="enableformvalue='true';draweruserallocation.toggle();toggleModulepermission.emit(true);stkUpdate(currentUserPk)">
+        <mat-card-header class="modulecard__header">
+          <div mat-card-avatar class="headerimage m-r-0">
+            <i class="bgi bgi-Module_Permission"></i>
+          </div>
+          <div class="titletext">
+            <mat-card-title class="selecttitle fs-18 p-b-0 m-b-0">{{'commonuser.modupermsett' | translate}}
+            </mat-card-title>
+            <mat-card-subtitle *ngIf="addUpdateAccess?.finalpermissionarray.length == 0" class="selectsubtitle fs-14">
+              {{'commonuser.assiaccerigt' | translate}} 
+            </mat-card-subtitle>
+            <mat-card-subtitle *ngIf="addUpdateAccess?.finalpermissionarray.length != 0" class="selectsubtitle fs-14">
+              {{'commonuser.edittheaccerighasssi' | translate}} .</mat-card-subtitle>
+          </div>
+          <div class="selectforward m-r-0">
+            <i class="bgi bgi-dropdown"></i>
+          </div>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</form>
+
+<mat-drawer-container class="example-container sidenavindexclass ">
+  <mat-drawer #draweruserallocation class="example-sidenav sidenavsamewidthall modulepermissionsidenav" id ="res7_w-100" mode="over"
+    position="end">
+    <app-userallocation *ngIf="!showAddDept && userType != 'A' && !hideModuleAccess" [onlyview]="2"
+      [draweruserallocation]="draweruserallocation" [enableform]="enableformvalue" #addUpdateAccess
+      (userPermData)="userPermData($event)" [currentUserPk]="currentUserPk"></app-userallocation>
+    <app-userallocation *ngIf="showAddDept && loadUserAllocation && userType != 'A' && !hideModuleAccess" [onlyview]="2"
+      [draweruserallocation]="draweruserallocation" #addUpdateAccess (userPermData)="userPermData($event)"
+      [currentUserPk]="currentUserPk" [enableform]="enableformvalue"></app-userallocation>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #addbusinessunitmcp class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-addsectoractivities #refBusinessunit [dataSource]="dataSource2" [drawer]="addbusinessunitmcp"
+      (bunitReload)="bunitReload($event)"></app-addsectoractivities>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawerdepartment class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-adddepartment #refBunitDept [drawerdepartment]="drawerdepartment" (deptReload)="deptReload($event)">
+    </app-adddepartment>
+  </mat-drawer>
+</mat-drawer-container>

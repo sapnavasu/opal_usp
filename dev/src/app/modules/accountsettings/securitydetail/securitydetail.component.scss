@@ -1,0 +1,912 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+@mixin marginzero {
+    margin: 0;
+    white-space: normal !important;
+    text-align: left;
+}
+
+.changeuserloaderview {
+    .mat-dialog-container {
+       background: transparent;
+       width: 100%;
+       box-shadow: none !important;
+
+    }
+  
+    .loaderrespone {
+        position: fixed !important;
+        width: 100%;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%,-50%) !important;
+        height: 100%;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+.viewaccounttab {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 83.33%;
+    background: #fff;
+    .verifiedcontent{
+        background: #63a126;
+        min-width: 80px;
+        height: 22px;
+        color: #fff;
+        border-radius: 3px;
+        @include flexcenter();
+        font-size: 13px;
+        i{
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            @include flexcenter();
+            color: #63a126;
+            font-size: 10px !important;
+        }
+    }
+    .disactive{
+        display: none;
+    }
+    .spacewhitespace{
+        padding-bottom: 160px;
+     }
+    .borderspecheight {
+        border-top: 1px solid #d7d7d7;
+        border-left: 1px solid #d7d7d7;
+        border-right: 1px solid #d7d7d7;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #f8f8f8;
+    }
+    .domaincolor {
+        p {
+            color: #333333;
+        }
+        span {
+            color: #d9a55d;
+        }
+    }
+    .btnalign {
+        p {
+            color: #333333;
+        }
+    }
+    .coloractive {
+        font-weight: normal !important;
+        background: #58626e;
+        color: #fff;
+        border-radius: 4px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .alignpassword {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .borderemail {
+        border-bottom: 1px solid #d7d7d7;
+        border-left: 1px solid #d7d7d7;
+        border-right: 1px solid #d7d7d7;
+        border-top: none;
+        display: flex;
+        background: #fff;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .changecolor {
+        background-color: #f3feff;
+        color: #4aa1ac;
+        border-radius: 2px !important;
+        display: flex;
+        justify-content: center;
+        line-height: 1;
+        align-items: center;
+        height: 26px;
+        min-width: 140px;
+        border: 1px solid #4aa1ac;
+    }
+    .border_btn{
+
+        margin-right: 10px;
+    }
+    .viewpermission{
+         @extend .changecolor;
+         background: #4aa1ac !important;
+         color: #fff !important;
+         border: none !important;
+    }
+    .usercolor {
+        background-color: #4aa1ac;
+        color: #fff;
+        border-radius: 2px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 12px;
+        height: 26px;
+        cursor: pointer;
+    }
+    .spencercoor {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        p {
+            color: #333;
+        }
+    }
+    .widthcomp {
+        width: 50%;
+    }
+
+    .widthcompmain {
+        width: 34%;
+    }
+    .cmpnyinfo {
+        margin-bottom: 0;
+        display: flex;
+        line-height: 25px;
+        padding-bottom: 8px;
+        justify-content: flex-start;
+        align-items: center !important;
+
+        .widthimgcheck {
+            display: none;
+            width: 20px;
+            height: 18px;
+        }
+    }
+    .flagwidthcode{
+        width: 30px;
+    }
+    .labelcmp {
+        min-width: 85px;
+    }
+    .marketcolor {
+        p {
+            color: #333333;
+        }
+
+        .borderspec {
+            border: 1px solid #d7d7d7;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            background-color: #eef0f4;
+            align-items: center;
+            height: 122px;
+        }
+
+        .spencercoorpayment {
+            h2 {
+                color: #333333;
+            }
+        }
+        .borderspeccompanycolor {
+            border: 1px solid #d7d7d7;
+            margin-left: 20px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: space-between;
+            background-color: #eef0f4;
+            min-height: 90px;
+            padding: 12px 26px 26px 26px;
+            border: none;
+        }
+
+        .nextrenewal {
+            line-height: 25px;
+            span {
+                font-size: 0.875rem;
+                color: #3366ff;
+            }
+        }
+
+        .widthcompsale {
+            width: 32%;
+            border-right: 1px solid #dadada;
+        }
+        .aftercolor {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .aftercolor::after {
+            font-family: "bgi-icon" !important;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\e908";
+
+            transform: rotate(267deg);
+            cursor: pointer;
+            color: #3366ff;
+            vertical-align: middle;
+            position: absolute;
+            height: 25px;
+            width: 26px;
+            border-radius: 50%;
+            top: -2px;
+            font-size: 8px;
+            line-height: 26px;
+            text-align: center;
+        }
+
+        .valuecolor {
+            color: #f08235;
+        }
+
+        .alignend {
+            display: flex;
+        }
+        .widthload {
+            width: 50%;
+        }
+        .spencercoorpaymentclassification {
+            p {
+                color: #006cb7;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+        }
+        .borderspeccompanycolordownload {
+            border: 1px solid #d7d7d7;
+            margin-left: 20px;
+            min-height: 50px;
+            border-bottom: none;
+            background-color: #eef0f4;
+        }
+        .activescroll .mat-tab-body.mat-tab-body-active {
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: inherit;
+            z-index: 1;
+            flex-grow: 1;
+        }
+
+        .projectborder {
+            border-top: none;
+            border-left: 1px solid #dadada;
+            border-right: 1px solid #dadada;
+            border-bottom: 1px solid #dadada;
+        }
+
+        .borderspeccompanycolordownloadanother {
+            border: 1px solid #d7d7d7;
+            margin-left: 15px;
+            margin-right: 20px;
+            min-height: 50px;
+            border-bottom: none;
+            background-color: #eef0f4;
+        }
+
+        .emailalign {
+            display: flex;
+        }
+
+        .infocmprating {
+            color: #333333;
+            font-size: 0.9375rem;
+        }
+        .labelcmpafter {
+            color: #999999;
+            font-size: 0.875rem;
+        }
+        .save {
+            width: 152px;
+            height: 42px;
+            background-color: #006cb7;
+            color: #fff;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .alignendsave {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .afternext::after {
+        content: "";
+        border-top: 18px solid #345f9f;
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        position: absolute;
+        bottom: 188px;
+        -webkit-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+        left: 157px !important;
+    }
+    .viewaccounttab{
+         max-width: 100% !important;
+    }
+    .widthform {
+        width: 100% !important;
+    }
+    .widthcomp {
+        width: 56% !important;
+    }
+    .securityheader {
+        background-color: #fff;
+        box-shadow: none !important;
+        max-width: 83.33%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .nextrenewal {
+        padding-left: 0px !important;
+    }
+    .widthcompsale {
+        width: 40% !important;
+        border-right: none !important;
+    }
+    .widthcompmain {
+        width: 34% !important;
+    }
+    .spencercoorpaymentclassification {
+        display: block !important;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px;
+    }
+    .borderspeccompanycolordownload {
+        border: 1px solid #d7d7d7;
+        margin-left: 20px;
+        min-height: 84px !important;
+        border-bottom: none;
+        background-color: #eef0f4;
+    }
+    .alignpassword {
+        display: flex;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+    }
+    .spacebtn {
+        margin-top: 10px;
+    }
+    .borderspeccompanycolordownloadanother {
+        min-height: 84px !important;
+    }
+    .backgroundnextdesign {
+        h4 {
+            color: #333333;
+            padding-left: 0px !important;
+        }
+    }
+    .backgroundnextdesign {
+        background-color: #fff;
+        margin-left: 78px;
+        margin-right: 78px;
+        height: 544px;
+        overflow: hidden;
+        margin-top: 30px;
+        border-radius: 4px;
+        h4 {
+            color: #333333;
+        }
+    }
+    .background {
+        h4 {
+            color: #333333;
+            padding-left: 0px !important;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .labelcmp {
+        color: #999;
+        font-size: 0.9375rem;
+        display: block;
+        min-width: 120px !important;
+    }
+    .afternext::after {
+        content: "";
+        border-top: 18px solid #345f9f;
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        position: absolute;
+        bottom: 288px !important;
+        -webkit-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+        left: 48px;
+    }
+    .widthcomp {
+        width: auto !important;
+    }
+
+    .widthcompmain {
+        width: auto !important;
+    }
+
+    .borderspecheight {
+        display: flex !important;
+        background-color: #eef0f4;
+        align-items: center;
+    }
+    .widthuserbtn {
+        max-width: 62% !important;
+    }
+    .borderemail {
+        border-bottom: 1px solid #d7d7d7;
+        border-left: 1px solid #d7d7d7;
+        border-right: 1px solid #d7d7d7;
+        border-top: none;
+        display: flex !important;
+        margin-left: 0px !important;
+    }
+    .widthcomp {
+        width: 58% !important;
+        padding-bottom: 12px;
+    }
+    .borderspeccompanycolor {
+        border: 1px solid #d7d7d7;
+        margin-left: 20px;
+        margin-right: 20px;
+        display: flex !important;
+        justify-content: space-between;
+        background-color: #eef0f4;
+        padding: 12px 26px 26px 26px;
+        border: none;
+        min-height: 125px !important;
+    }
+    .nextrenewal {
+        padding-left: 0px !important;
+        padding-top: 10px;
+    }
+    .widthcompsale {
+        width: auto !important;
+        border-right: none !important;
+    }
+    .spencercoorpaymentclassification {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px;
+    }
+    .borderspeccompanycolordownload {
+        border: 1px solid #d7d7d7;
+        margin-left: 20px;
+        min-height: 106px !important;
+        border-bottom: none;
+        background-color: #eef0f4;
+    }
+    .spacebtn {
+        margin-top: 10px;
+    }
+    .alignpassword {
+        display: flex;
+        justify-content: flex-start !important;
+    }
+    .cmpnyinfo {
+        margin-bottom: 10;
+        display: flex !important;
+        line-height: 25px;
+        justify-content: flex-start;
+        align-items: center !important;
+        padding-bottom: 10px;
+    }
+
+    .securityheader {
+        background-color: #fff;
+        box-shadow: none !important;
+    }
+    .spcesme {
+        padding-bottom: 135px !important;
+    }
+    .widthform {
+        width: 100% !important;
+    }
+    .backgroundnextdesign {
+        background-color: #fff;
+        margin-left: 78px !important;
+        margin-right: 78px !important;
+        height: 662px !important;
+        overflow: hidden;
+        margin-top: 30px;
+        border-radius: 4px;
+        h4 {
+            color: #333333;
+            padding-left: 0px !important;
+        }
+    }
+    .background {
+        background-color: #fff;
+        margin-left: 78px;
+        margin-right: 78px;
+        height: 520px;
+        overflow: hidden;
+        margin-top: 30px;
+        border-radius: 4px;
+        h4 {
+            color: #333333;
+            padding-left: 0px !important;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+      .border_btn{
+         p{
+            text-align: left !important;
+            margin-bottom: 10px !important;
+         }
+      }
+    .backgroundnextdesign {
+        height: 823px !important;
+        overflow: hidden;
+        margin-top: 30px;
+        border-radius: 4px;
+        h4 {
+            color: #333333;
+            padding-left: 0px !important;
+        }
+    }
+    .background {
+        background-color: #fff;
+        margin-left: 78px;
+        margin-right: 78px;
+        height: 702px !important;
+        overflow: hidden;
+        margin-top: 30px;
+        border-radius: 4px;
+        h4 {
+            color: #333333;
+            padding-left: 0px !important;
+        }
+    }
+    .btnresponsive {
+        display: contents;
+    }
+    .blockresponsivewidth {
+        display: block !important;
+    }
+    .submitcontentwidth {
+        display: contents;
+    }
+    .spacingfiled {
+        margin-bottom: 10px;
+    }
+    .backgroundnextdesign {
+        background-color: #fff;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        height: 850px !important;
+        overflow: hidden;
+        margin-top: 30px;
+        border-radius: 4px;
+        h4 {
+            color: #333333;
+            padding-left: 0px !important;
+        }
+    }
+    .blockalign {
+        display: block !important;
+    }
+    .verfiedonresponsivewidth {
+        max-width: 80% !important;
+    }
+    .verfiedalign {
+        span {
+            color: #70c015;
+            padding-left: 6px !important;
+        }
+    }
+    .imagealign {
+        display: flex;
+        align-items: center;
+        color: black;
+        img {
+            padding-left: 4px;
+        }
+    }
+}
+
+@media (max-width: 766px) and (min-width: 318px) {
+    .cmpnyinfo {
+        display: block !important;
+    }
+    .responsivepaddingwidth {
+        padding-left: 18px !important;
+    }
+    .flexalign {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-right: 0px;
+        .backgroundnextdesign {
+            background-color: #fff;
+            margin-left: 10px !important;
+            margin-right: 10px !important;
+            overflow: hidden;
+            margin-top: 30px;
+            border-radius: 4px;
+            h4 {
+                color: #333333;
+                padding-left: 0px !important;
+            }
+        }
+        .flexalign {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-right: 0px;
+        }
+        .responsivepadding {
+            padding-left: 8px !important;
+        }
+    }
+    .spencercoor {
+        display: block !important;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .alignpassword {
+        display: block !important;
+        justify-content: flex-start !important;
+    }
+    .changecolor {
+        margin-bottom: 10px;
+    }
+    .projectborder {
+        padding: 12px !important;
+    }
+    .borderspecheight {
+        display: block !important;
+        background-color: #eef0f4;
+        align-items: center;
+        height: 272px !important;
+        padding: 12px !important;
+    }
+
+    .marketcolor {
+        padding-top: 10px;
+    }
+    .securityheader {
+        background-color: #fff;
+        max-width: 100% !important;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: none !important;
+    }
+    .title {
+        padding-right: 0px !important;
+    }
+    .borderspeccompanycolor {
+        border: 1px solid #d7d7d7;
+        margin-left: 20px;
+        margin-right: 20px;
+        display: block !important;
+        justify-content: space-between;
+        padding: 12px 12px 12px 12px;
+        border: none;
+    }
+    .borderspec {
+        height: 142px !important;
+        padding: 12px !important;
+    }
+    .borderemail {
+        padding-left: 12px !important;
+    }
+    .widthimgcheck {
+        padding-left: 2px !important;
+    }
+    .alignend {
+        display: block !important;
+        height: 100%;
+    }
+    .borderspeccompanycolordownload {
+        margin-right: 20px;
+    }
+    .borderspeccompanycolordownloadanother {
+        margin-top: 168px !important;
+        margin-left: 20px !important;
+    }
+    .spcesme {
+        padding-bottom: 148px !important;
+    }
+    .borderspeccompanycolordownloadanother {
+        min-height: 116px !important;
+    }
+    .widthload {
+        width: auto !important;
+    }
+    .alignendsave {
+        display: block;
+        justify-content: center;
+        margin-left: 12px;
+    }
+    .cancel {
+        margin-bottom: 10px;
+    }
+    .widthform {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+}
+
+@media (max-width: 414px) and (min-width: 412px) {
+ 
+    .alignendsave {
+        display: flex;
+        justify-content: flex-start !important;
+        margin-left: 12px !important;
+        margin-right: 0px !important;
+    }
+    .packalign {
+        display: flex !important;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 414px) and (min-width: 375px) {
+    .borderspeccompanycolordownloadanother {
+        min-height: 94px !important;
+    }
+    .borderspeccompanycolordownload {
+        min-height: 94px !important;
+    }
+}
+
+@media (max-width: 1280px) and (min-width: 1278px) {
+    .widthcompmain {
+        width: 32% !important;
+    }
+    .widthcompsale {
+        width: 36% !important;
+        border-right: 1px solid #dadada;
+    }
+}
+
+
+#tabforchangeusers {
+    .mat-tab-group {
+        padding-top: 25px;
+    }
+    .mat-tab-body-content {
+        overflow: hidden !important;
+    }
+    .mat-ink-bar {
+        display: none;
+    }
+    .mat-tab-header {
+        border-bottom: none;
+        background: none !important;
+        color: #333;
+    }
+    .mat-tab-labels {
+        width: 100%;
+        opacity: 1;
+    }
+    .mat-tab-label {
+        width: 100%;
+        opacity: 1;
+        min-height: 90px !important;
+        background: #e8ebef;
+        padding-right: 10px;
+        padding-left: 10px;
+        border: 1px solid #e8ebef;
+        height:auto !important;
+        overflow: hidden !important;
+        &:first-child {
+            margin-right: 15px;
+        }
+    }
+    .mat-tab-list {
+        padding: 0 !important;
+        opacity: 1;
+        margin-bottom: 15px;
+        margin-bottom: 15px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height:auto !important;
+    }
+    .mat-tab-label-active {
+        border-bottom: none !important;
+        background-color: #4aa1ac !important;
+        -webkit-box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgb(225, 222, 222);
+        border-bottom: none !important;
+        position: relative;
+        .tabselectheadercontent {
+            .selectiontext h4 {
+                color: #fff !important;
+            }
+            .selectiontext p {
+                color: #90b4ea !important;
+            }
+        }
+        .mat-tab-label-content {
+            color: #fff;
+        }
+    }
+    .tabselectheadercontent {
+        display: flex;
+        .selectiontext
+        {
+            width: calc(100% - 65px);
+        }
+        .selectionlogo {
+            width: 50px;
+            @include flexcenter();
+            margin-right: 10px;
+            i {
+                font-size: 1.875rem;
+            }
+        }
+        h4 {
+            font-size: 0.9375rem;
+            color: #354052;
+            font-family: "opal_regular";
+            @include marginzero();
+        }
+        p {
+            font-size: 0.75rem;
+            color: #7f8fa4;
+            @include marginzero();
+        }
+    }
+    .mat-tab-body-wrapper {
+        background-color: #fff;
+        border-top: none;
+    }
+
+}
+
+
+
+        
+[dir=rtl]{
+    .viewaccounttab{
+        .usercolor{
+            margin-right: 10px !important;
+        }
+    }
+   
+   
+}

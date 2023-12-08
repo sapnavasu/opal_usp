@@ -1,0 +1,110 @@
+#contactus_sliderpopup{
+    min-width: fit-content;
+    .termsinner_content::-webkit-scrollbar {
+        width: 6px;
+        border-radius: 25px;
+      }
+      
+      /* Track */
+      .termsinner_content::-webkit-scrollbar-track {
+        background: #dadada;
+        border-radius: 25px;
+      }
+      
+      /* Handle */
+      .termsinner_content::-webkit-scrollbar-thumb {
+        background: #ED1C27;
+        border-radius: 25px;
+      }
+      
+      /* Handle on hover */
+    .termscontent{
+        position: relative;
+        .closethedialogterms {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius: 50%;
+            display: flex !important;
+            width: 28px;
+            height: 28px;
+            justify-content: center !important;
+            align-items: center !important;
+            cursor: pointer;
+            i {
+              font-size: 0.625rem;
+            }
+          }
+         h4{
+             color: #fff;
+             background-color: #0c4b9a;
+             padding: 15px 20px;
+         }
+         h5 {
+            color: #848484;
+         }
+         .termsinner_content{
+            max-height: calc(100vh - 250px) !important;
+            overflow-x: hidden;
+            overflow-y: auto;
+            margin: 20px 20px 0 20px;
+            padding-right: 30px;
+            p {
+                color: #262626;
+            }
+            ul{
+                padding-left: 10px;
+                line-height: 30px;
+                li{
+                     padding-bottom: 6px;
+                     line-height: 26px;
+                     color: #262626;
+                }
+            }
+         }
+    }
+    .flexalignsubscrip{
+        padding-top: 10px;
+        display: flex;
+        width: 100%;
+    }
+    .mat-raised-button {
+        box-shadow: none !important;
+        border-radius: 2px !important;
+        font-size: 1rem;
+        color: #fff;
+        text-decoration: none;
+        padding: 5px 10px;
+    }
+    .btnalign{
+        padding-top: 30px;
+        padding-bottom: 40px;
+        .button-35 {
+            height: 35px;
+        }
+        .acceptbtn{
+           line-height: 1;
+           min-width: 200px;
+           background-color: #ED1C27;
+           opacity: 1;
+           border: none;
+           color: #fff;
+           cursor: pointer;
+           border-radius: 2px;
+        }
+    }
+    button:disabled, button[disabled] {
+        opacity: 1;
+    }
+   
+}
+[dir=rtl]{
+    .termscontent{
+        .closethedialogterms {
+            left: 20px;
+            right: auto !important;
+        }
+    }
+}

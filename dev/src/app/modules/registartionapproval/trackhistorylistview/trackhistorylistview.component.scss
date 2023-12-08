@@ -1,0 +1,237 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#trackhistorylistview{
+    .trackhistoryscroll {
+        display: block;
+        overflow-x: auto;
+        margin-top: 25px;
+        .modulewidth {
+            min-width: 185px !important;
+            flex: auto !important;
+        }
+        .regesterwidth{
+            min-width: 198px !important;
+            flex: auto !important;
+        }
+        .invoicegeneratedwidth{
+            min-width: 176px !important;
+            flex: auto !important;  
+        }
+        .otpenterwidth{
+            min-width: 156px !important;
+            flex: auto !important;  
+        }
+        .actionclmn
+        {
+            min-width: 80px !important;
+            flex: auto !important; 
+        }
+       .mat-row {
+    
+            display: inline-flex ;
+            width:fit-content;
+        }
+         .mat-header-row .mat-header-cell {
+            padding: 15px 18px;
+            background-color: #e0f0ff;
+        }
+         .mat-header-row  {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            width:fit-content;
+        }
+    }
+    .countmainbackground{
+        @include flexstart();
+        .counttextcolor{
+            h2{
+                color: #333333;
+                margin: 0px;
+                font-size: 1rem;
+                min-width: 160px;
+                padding-left: 10px;
+                padding-top: 5px;
+            }
+            .countnumbercolor{
+                color: #339933;  
+            }
+            .countonecolor{
+                color: #fe0006;   
+            }
+        }
+    }
+    .viewcolor{
+        i{
+            color: #57626E;
+            cursor: pointer;
+        }
+    }
+    .successcolor{
+        color: #339933; 
+       }
+       .expiredcolor{
+        color: #fe0006;  
+       }
+    .accessmainheader{
+        background: #f2f3f7;
+        padding: 10px;
+        @include flexstart();
+        width: 100%;
+        .accesstextcolor{
+            min-width: 160px;
+            word-break: break-word;
+            span{
+                color: #333333;
+                font-size: 0.875rem;
+            }
+        }
+    } 
+    .exporticon{
+        i{
+            font-size: 8px;
+        }
+    }  
+    .modulealign{
+        display: flex;
+        justify-content: space-between;
+        padding-top: 15px;
+    }
+    .tracklistheader{
+        background-color: #fff; 
+        .gatewaysalign{
+            @include flexstart();
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dadada;
+            width: 100%;
+            .tracklistviewalign{
+                @include flexstart();
+                width:25%;
+                  p{
+                    color: #57626E;
+                    font-size: 0.75rem;
+                    margin: 0px;
+                    line-height: 2.2;
+                  }
+                  span{
+                    color: #333333;
+                    font-size: 0.9375rem;
+                    padding-left: 20px;
+                  }
+                  .activecolor{
+                    color: #50af49;
+                }
+              }
+        }
+       .headerlistview{
+           border-bottom: 1px solid #dadada;
+           padding-bottom: 20px;
+           h2{
+               color: #333333;
+               font-size: 1.125rem;
+               margin: 0px;
+           }
+       } 
+    }
+}
+
+@media (max-width:768px){
+    #trackhistorylistview{
+        .trackhistoryscroll {
+           .mat-row{
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            width: 100% !important;
+           }
+        }
+        .countmainbackground{
+            display: block !important;
+        }  
+        .modulealign{
+          display: block !important;
+        }
+        .modulealign{
+            display: block !important;
+            .accessmainheader{
+                display: block !important; 
+              }
+              .exporticon {
+                  margin-left: 0px !important;
+                  margin-top: 10px;
+              }
+        }
+        .gatewaysalign{
+          display: block !important;
+       }
+       .tracklistviewalign{
+           width: 100% !important;
+       }
+  }
+}
+
+
+
+@media (max-width:1366px) and (min-width:1280px)  {
+    .trackhistoryview .tracksidenavwidth{
+      width: 90% !important;
+  }
+}
+
+@media (max-width:1024px) and (min-width:769px) {
+    #trackhistorylistview{
+        .modulealign{
+            display: block !important;
+            .accessmainheader{
+                display: block !important; 
+              }
+              .exporticon {
+                  margin-left: 0px !important;
+                  margin-top: 10px;
+              }
+        }
+        .masterTable {
+            .mat-row {
+                display: flex !important;
+                margin-bottom: 0px !important;
+                border-bottom: 0px !important;
+                box-shadow: none !important;
+                background: transparent !important;
+            }
+             .mat-cell {
+                padding: 10px !important;
+                padding-top: 10px !important;
+                position: relative;
+                
+            }
+           .mat-table .mat-cell:before {
+                display: none;
+            }
+            .mat-table .mat-header-row {
+                display: flex !important;
+               
+            }
+         }
+     }  
+}

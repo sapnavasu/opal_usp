@@ -1,0 +1,29 @@
+.mat-progress-spinner {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.message {
+  margin-left: 0.5em;
+}
+.description1{
+  display: flex;
+  justify-content: space-between;
+  div{
+    text-align: center;
+   color:#ef8436;
+   background: #fff9f3;
+    padding: 10px 0px;
+    width:22%;
+    border-radius: 3px;
+    p{
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+.bdbotttom{
+  border-bottom: 1px solid;
+    margin: 0px 4px !important;
+    padding-bottom: 2px;
+}

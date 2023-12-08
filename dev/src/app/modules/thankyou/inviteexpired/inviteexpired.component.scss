@@ -1,0 +1,76 @@
+
+@mixin flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
+}
+
+@mixin flexstart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center !important;
+}
+
+@mixin flexend {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center !important;
+}
+
+@mixin spacebetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin marginzero {
+  margin: 0;
+  white-space: normal !important;
+  text-align: left;
+}
+
+
+#expiredlistview{
+  // border-radius: 10px;
+  // background-clip: padding-box;
+  background-color: #fff;
+  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  // margin-left: auto;
+  // margin-right: auto;
+  // max-width: 80% !important;
+  // height: 100%;
+  // padding-top: 90px;
+  min-height: 470px; 
+  // text-align: center;
+  // margin-top: -158px;
+  @include flexcenter();
+  flex-direction: column;
+  height: calc(100vh - 65px);
+  .transfertextcolor{
+        p{
+            color: #333333;
+            font-size: 1rem;
+            margin: 0px;
+        }
+  }
+  .jsrscontactcolor{
+       h2{
+          color: #d91f24;
+          margin: 0px;
+          font-size: 1.125rem;
+          padding-top: 15px;
+          padding-bottom: 10px;
+       }
+  }
+  .loginbtn{
+      @include flexcenter();
+      margin-top: 30px;
+       button{
+           background: #4ba2ac;
+           width: 100px;
+           color: #fff;
+           border-radius: 2px !important;
+           @include flexcenter;
+       }
+  }
+}

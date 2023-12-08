@@ -1,0 +1,18 @@
+<div id="siteaudittab" class="m-t-30">
+    <mat-tab-group #matTab [(selectedIndex)]="mattab">
+        <mat-tab *ngFor="let tab of tabList,let i = index">
+            <ng-template mat-tab-label>
+                <div class="audittabs">
+                    <P class="fs-15">{{tab.tabtitle}}</P>
+                </div>
+            </ng-template>
+           <div class="m-t-20">
+               <mat-checkbox  #editchkbox (change)="checkAllFun($event.checked)"> <span class="txt-gry3 fs-16px fw-bold">{{ 'Approve All' | translate}}</span>
+               </mat-checkbox>
+               <div class="questions">
+                    <div></div>
+               </div>
+           </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

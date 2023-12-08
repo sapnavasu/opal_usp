@@ -1,0 +1,125 @@
+<div id="paymentone" #pageScroll fxLayoutAlign="center">
+    <app-responseloader *ngIf="loaderpage"></app-responseloader>
+    <div fxFlex.gt-sm="100" fxFlex="100">
+            <!-- validation button -->
+        <!-- <div class="view" fxLayoutAlign="end">
+            <app-validation [Validationplaceholder]="'Confirm Payment' | translate" [techoperatorValid]="true"></app-validation>
+        </div> -->
+        <div class="knowledgegrid m-t-5 m-b-5" fxLayout="column">
+            <div class="details pd-10" fxFlex="100">
+                <div class= "head" fxLayout="row wrap">
+                    <h4 class="headcolor fs-18 m-0 lh-15">{{ ifarabic ? technicalData?.omrm_companyname_ar ? technicalData?.omrm_companyname_ar : '-' : technicalData?.omrm_companyname_en ? technicalData?.omrm_companyname_en : '-'}}</h4>
+                   <!-- <div class="grade">
+                    <p class="grade d-flex fs-16" *ngIf="bronze"><img src="assets\images\opalimages\BRONZE.svg" alt="Grade">{{'invoice.bron' | translate}} </p>
+                    <p class="gold d-flex fs-16" *ngIf="gold"><img src="assets\images\opalimages\GOLD.svg" alt="Grade">{{'invoice.gold' | translate}}
+                    </p>
+                    <p class="silver d-flex fs-16"><img src="assets\images\opalimages\SILVER.svg" alt="Grade">{{'invoice.silv' | translate}} </p>
+                   </div> -->
+                </div>
+               <div class="m-t-20">
+                <p class="text-gray m-0 fs-15 ">{{'invoice.centrename' | translate}}:<span class="text-default"> {{ ifarabic ? technicalData?.omrm_tpname_ar ? technicalData?.omrm_tpname_ar : '-' : technicalData?.omrm_tpname_en ? technicalData?.omrm_tpname_en : '-'}}</span></p>
+               </div>
+                <div class="d-flex fs-15 m-t-20 m-b-20 " fxLayout="row wrap">
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.offitype' | translate}}: <span
+                            class="text-default">{{ technicalData?.appiim_officetype ? technicalData?.appiim_officetype : '-' }}</span>
+                    </p>  
+                    <!-- <p class="application-detais m-r-10 text-gray m-0">{{'invoice.branchname' | translate}}: <span
+                        class="text-default"> {{ technicalData?.appiim_branchname_en ? technicalData?.appiim_branchname_en : '-' }}</span></p> -->
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.opalmemb' | translate}}: <span
+                            class="text-default">{{ technicalData?.omrm_opalmembershipregnumber ? technicalData?.omrm_opalmembershipregnumber : '-' }}</span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.fee' | translate}}: <span
+                            class="text-default">{{ technicalData?.fsm_feestype ? technicalData?.fsm_feestype : '-' }} ({{technicalData?.fsm_applicationtype ? technicalData?.fsm_applicationtype : '-'}})</span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.proj' | translate}}: <span
+                                class="text-default"> {{ ifarabic ? technicalData?.pm_projectname_ar ? technicalData?.pm_projectname_ar : '-' : technicalData?.pm_projectname_en ? technicalData?.pm_projectname_en : '-'}}</span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.status' | translate}}: 
+                        <span class={{technicalData?.apid_invoicestatus}} >{{ technicalData?.apid_invoicestatus ? technicalData?.apid_invoicestatus : '-' }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div fxLayoutAlign="flex-start start" fxLayout="row wrap">
+            <div class="feedetails m-t-20 m-b-20" fxFlex.gt-md="50" fxFlex="100">
+                <h4 class="headcolor fs-18 m-0">{{'invoice.certfeedeta' | translate}}</h4>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invonumb' | translate}}</p>
+                    <span>{{ technicalData?.apid_invoiceno ? technicalData?.apid_invoiceno : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'Invoice Raised on' | translate}}</p>
+                    <span>{{ technicalData?.apid_raisedon ? technicalData?.invdate : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.nostaff' | translate}}</p>
+                    <span>{{ technicalData?.apid_noofstaffeval ? technicalData?.apid_noofstaffeval : '0' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'Certification Fee' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ technicalData?.apid_coursecertfee ? (+technicalData?.apid_coursecertfee).toFixed(3) : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.stafeval' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ technicalData?.apid_staffevalfee ? (+technicalData?.apid_staffevalfee).toFixed(3) : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.vat' | translate}} (5%)</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ technicalData?.apid_vatamount ? (+technicalData?.apid_vatamount).toFixed(3) : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.totaamou' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ technicalData?.total ? (+technicalData?.total).toFixed(3) : '-'  }}</span>
+                </div>
+            </div>
+            <div class="feedetails" ngClass.gt-md="m-t-20" fxFlex.gt-md="50"
+                fxFlex="100">
+                <h4 class="headcolor fs-18 m-0">{{'invoice.paymdeta' | translate}}</h4>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.paymmode' | translate}}</p>
+                    <span>{{ technicalData?.apid_paymentmode ? technicalData?.apid_paymentmode : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.tranid' | translate}}</p>
+                    <span *ngIf="technicalData?.apid_paymenttype == null">-</span>
+                    <span *ngIf="technicalData?.apid_paymenttype === 'Offline'">{{ technicalData?.apppdt_offlinerefno ? technicalData?.apppdt_offlinerefno : '-'}}</span>
+                    <span *ngIf="technicalData?.apid_paymenttype === 'Online'">{{ technicalData?.apppdt_transuniqueId ? technicalData?.apppdt_transuniqueId : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.bankname' | translate}}</p>
+                    <span>{{ technicalData?.apid_bankname ? technicalData?.apid_bankname : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.dateofpaym' | translate}}</p>
+                    <span>{{ technicalData?.pymtdate ? technicalData?.pymtdate : '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row" *ngIf="technicalData?.apid_paymenttype === 'Offline' ">
+                    <p class="m-0">{{'invoice.paymproo' | translate}}</p>
+                    <span class=""><a href="{{technicalData?.docUrl}}" target="_blank" class="txt-gry3" style="cursor: pointer;" fxLayout="row wrap" fxLayoutAlign="start center"><img class="document m-r-5" src="assets\images\opalimages\pdf_new.svg"
+                        alt="" cractivitydocument>{{'View' | translate}}</a></span>
+                </div>
+
+            </div>
+        </div>
+        <mat-divider class="m-t-20 m-t-20"></mat-divider>
+        <div class="comments m-t-10" *ngIf="technicalData?.apid_invoicestatus === 'Approved' || technicalData?.apid_invoicestatus === 'Declined'">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'invoice.verification' | translate}}</h4>
+                <span class="badge {{technicalData?.apid_invoicestatus === 'Approved' ? 'appr' : 'decl'}}">{{ technicalData?.apid_invoicestatus ? technicalData?.apid_invoicestatus : '-' }}</span>
+                <!-- <span class="badge appr" *ngIf="approved">{{'Approved' | translate}}</span> -->
+            </div>
+            <div class="m-l-0 m-r-0 m-b-20" [ngClass]="technicalData?.apid_invoicestatus === 'Approved'? 'successcmd' : 'declinecmd'">
+                <p class="18 comment">{{'invoice.comm' | translate}}</p>
+                <p class="16 m-b-30" [innerHTML]="technicalData?.apid_appdecComments ? technicalData?.apid_appdecComments : 'Nil'"></p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'invoice.lastvalion' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{ technicalData?.apdecdate ? technicalData?.apdecdate : '-' }}</span></p>
+                    <p class="fs-16 txt-gry" >{{'invoice.lastvaliby' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{ technicalData?.oum_firstname ? technicalData?.oum_firstname : '-' }}</span></p>
+                </div>
+            </div>
+        </div>
+         <!-- button -->
+         <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+            <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goBack('techTab')">{{'Back' | translate}}</button>
+         </div>
+    </div>
+</div>

@@ -1,0 +1,261 @@
+<div id="schedulesiteaudit_container" #pageScroll>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+        <div fxFlex="100">
+            <div class="knowledgegrid m-t-10 m-b-20">
+                <div class="details pd-15">
+                    <!--form-->
+                    <form class="example-form" [formGroup]="scheduleForm" (ngSubmit)="savestaff()">
+                        <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                            <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'scheduleedit.stfname' | translate}}</mat-label>
+                                    <mat-select [errorStateMatcher]="matcher" required
+                                    formControlName="staffname"
+                                    (closed)="searchinst_state = '';"
+                                    panelClass="select_with_search"
+                                    *ngIf="(staffArray | filter : searchinst_state) as inst_stateresult">
+
+                                    <div class="searchinmultiselect">
+                                        <mat-icon>search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchinst_state"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchinst_state = ''" class="reseticon" matSuffix
+                                        *ngIf="searchinst_state !='' && searchinst_state !=null">clear</mat-icon>
+                                    </div>
+
+                                    <div class="option-listing countryselectwithimage">
+                                        <mat-option *ngFor="let staf of staffArray | filter : searchinst_state"
+                                        [value]="staf.opalusermst_pk">
+                                        {{staf.oum_firstname}}
+                                        </mat-option>
+                                        <!-- <mat-option *ngFor="let staf of staffArray | filter : searchinst_state" [value]="staf.opalusermst_pk">
+                                            {{staf.oum_firstname}}
+                                        </mat-option> -->
+                                        <div *ngIf="inst_stateresult.length == 0" class="m-l-10">{{'addroles.nofoun' | translate}}</div>
+                                    </div>
+                            </mat-select>
+                                    <!-- <mat-select [errorStateMatcher]="matcher" required
+                                        formControlName="staffname">
+                                      
+                                    </mat-select> -->
+                                    <mat-error *ngIf="schform.staffname.errors?.required || scheduleForm.submitted">{{'scheduleedit.selctsatsnam' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                            ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                            <mat-form-field appearance="outline">
+                                    <mat-label>{{'scheduleedit.avaidate' | translate}}</mat-label>
+                                    <!-- <input required   formControlName="availabledate"
+                                    matInput type="text" autocomplete="off"
+                                    ngxDaterangepickerMd  [showCustomRangeLabel]="true"
+                                    [alwaysShowCalendars]="true"
+                                    [ranges]="ranges"
+                                    [locale]="locale"
+                                    [linkedCalendars]="true"
+                                    [showClearButton]="true"
+                                    [maxDate]='selected2'
+                                   readonly
+                                    class="form-control"/>
+                                    <mat-datepicker-toggle matSuffix></mat-datepicker-toggle> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input matInput type="text" id="login_session" formControlName="availabledate"
+                                        ngxDaterangepickerMd [showCustomRangeLabel]="true"
+                                        [alwaysShowCalendars]="true" [ranges]="ranges" [locale]="locale"
+                                         [linkedCalendars]="true" required
+                                        [showClearButton]="true" [minDate]="selected2"
+                                        [showClearButton]="true" readonly class="form-control" />
+                                            <div class="closeanddateicomax">
+                                                <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                            </div>
+
+                                    </div>
+                            <!-- <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                    <input matInput [min]="maxDate" required formControlName="availabledate"
+                                      [errorStateMatcher]="matcher" (mousedown)="picker2.open(); $event.preventDefault"
+                                      [matDatepicker]="picker2" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2
+                                      (closed)="formGroup.get('availabledate').markAsTouched()"></mat-datepicker> -->
+                                    <mat-error *ngIf="schform.availabledate.errors?.required || scheduleForm.submitted">
+                                            {{'scheduleedit.selctavaildate' | translate}}</mat-error>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                        
+                        <div fxLayout="row wrap" class="m-t-20" fxLayoutAlign="end">
+                            <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-end center">
+                                <button mat-raised-button type="button" color="secondary"
+                                    class="filterbtn m-r-10 height-45" (click)="resetschform()">{{'scheduleedit.clr' | translate}}</button>
+                                <button mat-raised-button type="submit" color="primary"
+                                    class="addbtn height-45">{{'scheduleedit.submt' | translate}}</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    
+                    <!--form-->
+
+                    <div class="example-container scheduletablecontainer m-t-30">
+                        <div class="paginationwithfilter masterPageTop ">
+                            
+                            <div fxLayout="row wrap" class="toppagination" fxLayoutAlign="space-between" fxFlex="100">
+                                    <!-- <mat-paginator class="masterPage masterPageTop" [length]="resultsLength" #paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator> -->
+                                    <mat-paginator class="masterPage masterPageTop"  #paginator [length]="resultsLength" [pageSize]="10"
+                                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                                <div fxLayoutAlign="flex-start center">
+                                    <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                        class="filter height-45">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <mat-table #table class="scheduletable" [dataSource]="scheduleData" matSortActive="auditscheddtls_pk"  matSortDirection="desc"  matSort multiTemplateDataRows matSort matSortDisableClear>
+                        
+                            <!-- staffname Column -->
+                            <ng-container matColumnDef="asd_opalusermst_fk">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header > {{'scheduleedit.stfname' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{element.oum_firstname}}  </div></mat-cell> 
+                            </ng-container>
+                        
+                            <!-- availdate Column -->
+                            <ng-container matColumnDef="asd_date">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'scheduleedit.avaidate' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">{{element.asd_date}} </div></mat-cell>  
+                            </ng-container>
+                        
+                            <!-- status Column -->
+                            <ng-container matColumnDef="asd_isavailable">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'scheduleedit.status' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">   <p *ngIf="element.asd_isavailable == '3'" class="booked flexaligntag Booked">{{'scheduleedit.bookd' | translate}}</p>
+                                    <p *ngIf="element.asd_isavailable == '2'"  class="notavailable flexaligntag Available Not">{{'scheduleedit.notavail' | translate}}</p>
+                                    <p *ngIf="element.asd_isavailable == '1'"  class="available flexaligntag Available">{{'scheduleedit.avail' | translate}}</p></div></mat-cell>
+                                  
+                            </ng-container>
+                        
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                            <mat-header-cell  *matHeaderCellDef> Action </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="element.isexpired == '0'">
+                                <div *ngIf="!tblplaceholder">  <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon class="txt-gry3">more_horiz</mat-icon></button>
+                                    <mat-menu #menu="matMenu" class="actionmatmenu">         
+                                            <button *ngIf="element.asd_isavailable == '1'" mat-menu-item (click)="changestatus(element.auditscheddtls_pk,2)" >{{'scheduleedit.mrknotavail' | translate}}</button>
+                                            <button *ngIf="element.asd_isavailable == '2'" mat-menu-item (click)="changestatus(element.auditscheddtls_pk,1)">Mark as Available</button>
+                                            <button *ngIf="element.asd_isavailable == '3' &&  element.isexpired == '0'" mat-menu-item (click)="routeTochangestaff(element.auditscheddtls_pk)">{{'scheduleedit.chngstaff' | translate}}</button>
+                                            <button *ngIf="element.asd_isavailable == 'booked' " mat-menu-item>{{'scheduleedit.viewcentdetl' | translate}}</button>
+                                                    
+                                        
+                                    </mat-menu> </div>
+                                </div>      
+                            </mat-cell>    
+                               
+                            </ng-container>
+
+                            <!--search row-->
+                            <ng-container matColumnDef="row-first">
+                                <mat-header-cell class="serachrow" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'scheduleedit.srch' | translate}}</mat-label>
+                                        <input matInput [formControl]="asd_opalusermst_fk">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-second">
+                                <mat-header-cell class="serachrow datepickerrangeform" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <div class="drpicker" id="regapp">
+                                            <input id="login_session" [formControl]="asd_date" #pickers matInput type="text" 
+                                            autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true" [ranges]="ranges"
+                                            [alwaysShowCalendars]="true" [locale]="locale" [linkedCalendars]="true"  
+                                            [showClearButton]="true"    readonly class="form-control" />
+                                            <div class="closeanddateicon">
+                                                <mat-datepicker-toggle matSuffix >
+                                                </mat-datepicker-toggle>
+                                            </div>
+                                        </div>
+                                    <!-- <input matInput [formControl]="availdatesearch" (click)="availdate.open()"
+                                        [matDatepicker]="availdate">
+                                    <mat-datepicker-toggle matSuffix [for]="availdate"></mat-datepicker-toggle>
+                                    <mat-datepicker #availdate></mat-datepicker> -->
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-three">
+                                <mat-header-cell class="serachrow" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'scheduleedit.select' | translate}}</mat-label>
+                                        <mat-select [formControl]="asd_isavailable" multiple>
+                                            <mat-option value="1">{{'scheduleedit.avail' | translate}}</mat-option>
+                                            <mat-option value="2">{{'scheduleedit.notavail' | translate}}</mat-option>
+                                            <mat-option value="3">{{'scheduleedit.bookd' | translate}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                           
+                            <ng-container matColumnDef="row-four" >
+                                <mat-header-cell class="serachrow" *matHeaderCellDef
+                                    style="text-align:center;">
+                                    <i class="fa fa-refresh m-l-15 cursorview"
+                                        (click)="clearFilterthird();filtersts=false;" aria-hidden="true"
+                                        matTooltip="{{'table.refresh' |translate}}"></i>
+                                </mat-header-cell>
+                            </ng-container>
+                            <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumns;"></mat-header-row>
+                            <mat-header-row id="searchrow"
+                            *matHeaderRowDef="['row-first','row-second','row-three','row-four']">
+                        </mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            <ng-container matColumnDef="disclaimer">
+                                <td mat-footer-cell *matFooterCellDef colspan="11">
+                                    <div [ngClass]="!tblplaceholder? 'nofound': ''" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                            <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                            class="NorecordLoader"></div>
+                                            <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder">
+                                            <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'common.noreco' | translate}}</p>
+                                </div>
+                            </div>
+                                </td>
+                            </ng-container>
+                            <ng-container>
+                                <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'" [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                    *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                </mat-footer-row>
+                            </ng-container>
+                        </mat-table>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator btmpagination">
+                            <mat-paginator ngClass.xs="block" ngClass.sm="block" showFirstLastButtons class="masterPage masterbottom "(page)="syncPrimaryPaginator($event)" 
+                            [pageSize]="paginator.pageSize" [pageIndex]="paginator.pageIndex"
+                            [length]="resultsLength" [pageSizeOptions]="paginator.pageSizeOptions">
+                            </mat-paginator>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+                <!-- <button mat-raised-button class="cancelbtn" (click)="cancle()"></button> -->
+               <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goBack()">{{'Back' | translate}}</button>
+               <!-- <button mat-raised-button class="submitbtn" type="button" (click)="subdate.emit()">{{'payment.subm' | translate}}</button> -->
+               </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,530 @@
+@mixin flexcenter {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+@mixin flexstart {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+@mixin flexend {
+  display: flex;
+  justify-content: flex-end !important;
+  align-items: center !important;
+}
+@mixin spacebetween {
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+@mixin commancssforptag {
+  color: #333;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.companyinfomcp {
+  @include flexstart();
+  align-items: flex-start !important;
+
+  img {
+    width: 44px;
+    height: 44px;
+  }
+  .lypisid {
+    color: #666666;
+    font-size: 0.75rem;
+  }
+  p {
+    margin: 0;
+    line-height: 1;
+    color: #000;
+  }
+}
+.text-center{
+  padding-left: 20px;
+}
+.borderbottom {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+.tabsectionadmin .mat-tab-label {
+  justify-content: flex-start !important;
+}
+.tabselectheadercontent {
+  padding-left: 10px;
+}
+
+.adddepartmentfrm {
+  width: 100%;
+}
+::ng-deep.addproductsmainselect {
+  background: #fff;
+  border: 1px solid #e2e4e8;
+  box-shadow: none !important;
+  padding: 10px !important;
+  margin: 0;
+
+  .mat-card-avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    color: #006cb7;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    i {
+      font-size: 1.5625rem;
+    }
+  }
+
+  .mat-card-header {
+    width: 100%;
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-card-content {
+    .productinfo {
+      color: #006cb7;
+    }
+  }
+  .selectsubtitle {
+    color: #656565;
+    font-size: 14px !important;
+  }
+  .mat-card-footer {
+    margin: 0;
+  }
+  .selectforward {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 15px;
+    i {
+      -webkit-transform: rotate(270deg);
+      transform: rotate(270deg);
+      color: #777;
+      font-size: 0.875rem;
+    }
+  }
+}
+.text-blue {
+  color: #006cb7;
+}
+.titletext {
+  width: 100% !important;
+}
+
+
+.depModulesTable label.deplabel {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep#modulecheckform {
+  .darken {
+    padding: 0 18px 0 0;
+    background-color: #e9ecef;
+    border-top: 1px solid #d7dce3 !important;
+    border-bottom: 1px solid #d7dce3 !important;
+  }
+
+  mat-cell label.deplabel {
+    color: #626b7e;
+    @include flexcenter();
+  }
+  .mat-table {
+    .mat-header-row {
+      margin-right: 0 !important;
+      padding: 10px 18px;
+      color: #fff;
+      min-height: auto;
+      line-height: 16px;
+    }
+    .mat-header-cell {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mat-row:hover {
+      background-color: #f3f3f4;
+    }
+    .mat-header-row + .mat-row {
+      background-color: #e8ebef;
+    }
+  }
+  .iconChk {
+    input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      left: -5px;
+      top: 0px;
+    }
+    span {
+      position: relative;
+    }
+    input[type="checkbox"]:checked + label {
+      color: #fff;
+      background-color: #006cb7;
+      border: 1px solid #006cb7 !important;
+      transition: all 0.2s;
+      &::before {
+        content: "\e91f";
+        font-size: 0.625rem;
+        transition: -webkit-transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+      }
+    }
+    label {
+      padding: 0;
+      cursor: pointer;
+      display: inline-block;
+      @include flexcenter();
+      color: #adadad;
+      white-space: nowrap;
+      margin: 3px 0px;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.2s;
+      height: 18px !important;
+      width: 18px !important;
+      vertical-align: middle;
+      border: 1px solid #c1c1c1;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+      &::before {
+        font-family: "bgi-icon" !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 0.875rem;
+        content: "";
+        transition: -webkit-transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+      }
+    }
+  }
+}
+.sidenavsamewidthall {
+  overflow: hidden !important;
+}
+.masterTable {
+  .mat-header-cell:last-child {
+    justify-content: center;
+  }
+  .mat-cell:last-child {
+    justify-content: center;
+  }
+}
+#modulecheckform .mat-table .mat-header-cell:first-child,
+#modulecheckform .mat-table .mat-row .mat-cell:first-child {
+  justify-content: flex-start !important;
+}
+#modulecheckform .mat-table .mat-header-cell,
+#modulecheckform .mat-table .mat-row .mat-cell {
+  justify-content: center !important;
+}
+.companyinfomcp {
+  @include flexstart();
+  align-items: flex-start !important;
+
+  img {
+    width: 44px;
+    height: 44px;
+  }
+  .lypisid {
+    color: #666666;
+    font-size: 0.75rem;
+  }
+  p {
+    margin: 0;
+    line-height: 1;
+    color: #000;
+  }
+}
+
+.borderbottom {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+::ng-deep.depModulesTable input.depinput:checked + label.deplabel:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  width: 4px;
+  height: 10px;
+  border: solid #0079bf;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+::ng-deep.selectalltoggle .mat-slide-toggle-label 
+{
+border: 0 !important;
+}
+
+.disabledtoggle{
+display: none;
+}
+::ng-deep.detailedselection {
+
+.deplabel:before {
+ content: "";
+ display: none !important;
+ 
+}
+}
+::ng-deep.mat-cell:last-of-type, .mat-footer-cell:last-of-type,.mat-header-cell:last-of-type {
+   padding-right: 0px; 
+}
+
+.depModulesTable label.deplabel {
+position: relative;
+cursor: pointer;
+display: flex;
+align-items: center;
+}
+
+::ng-deep#modulecheckform {
+.darken {
+  padding: 0 18px 0 0;
+  background-color: #e9ecef;
+  border-top: 1px solid #d7dce3 !important;
+  border-bottom: 1px solid #d7dce3 !important;
+}
+
+mat-cell label.deplabel {
+  color: #626b7e;
+  @include flexcenter();
+}
+.mat-table {
+  .mat-header-row {
+    margin-right: 0 !important;
+    padding: 10px 18px;
+    color: #fff;
+    min-height: auto;
+    line-height: 16px;
+  }
+  .mat-header-cell {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .mat-row:hover {
+    background-color: #f3f3f4;
+  }
+  .mat-header-row + .mat-row {
+    background-color: #e8ebef;
+  }
+}
+.iconChk {
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    left: -5px;
+    top: 0px;
+  }
+  span {
+    position: relative;
+  }
+  input[type="checkbox"]:checked + label {
+    color: #fff;
+    background: #006cb7;
+    background-color: #006cb7;
+    border: 1px solid #006cb7 !important;
+    transition: all 0.2s;
+    &::before {
+      content: "\e91f";
+      font-size: 0.625rem;
+      transition: -webkit-transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+    }
+  }
+  label {
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    @include flexcenter();
+    color: #adadad;
+    white-space: nowrap;
+    margin: 3px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s;
+    height: 18px !important;
+    width: 18px !important;
+    vertical-align: middle;
+    border: 1px solid #c1c1c1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    &::before {
+      font-family: "bgi-icon" !important;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 0.875rem;
+      content: "";
+      transition: -webkit-transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+    }
+  }
+}
+}
+.sidenavsamewidthall {
+overflow: hidden !important;
+}
+.masterTable {
+.mat-header-cell:last-child {
+  justify-content: center;
+}
+.mat-cell:last-child {
+  justify-content: center;
+}
+}
+#modulecheckform .mat-table .mat-header-cell:first-child,
+#modulecheckform .mat-table .mat-row .mat-cell:first-child {
+justify-content: flex-start !important;
+}
+#modulecheckform .mat-table .mat-header-cell,
+#modulecheckform .mat-table .mat-row .mat-cell {
+justify-content: center !important;
+}
+.companyinfomcp {
+@include flexstart();
+align-items: flex-start !important;
+
+img {
+  width: 44px;
+  height: 44px;
+}
+.lypisid {
+  color: #666666;
+  font-size: 0.75rem;
+}
+p {
+  margin: 0;
+  line-height: 1;
+  color: #000;
+}
+}
+
+.borderbottom {
+border-bottom: 1px solid #ddd;
+padding-bottom: 5px;
+}
+::ng-deep.depModulesTable input.depinput:checked + label.deplabel:after {
+content: "";
+display: block;
+position: absolute;
+top: 4px;
+left: 7px;
+width: 4px;
+height: 10px;
+border: solid #0079bf;
+border-width: 0 2px 2px 0;
+-webkit-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+
+::ng-deep.selectalltoggle .mat-slide-toggle-label 
+{
+border: 0 !important;
+}
+
+.disabledtoggle{
+display: none;
+}
+::ng-deep.detailedselection {
+
+.deplabel:before {
+content: "";
+display: none !important;
+
+}
+}
+.bottom{
+margin-top: 20px !important;
+}
+@media (max-width: 767px) {
+.mat-slide-toggle {
+  
+  margin-right: 9px;
+ 
+}
+#modulecheckform .iconChk label {
+padding: 0;
+cursor: pointer;
+display: inline-block;
+justify-content: center !important;
+align-items: center !important;
+color: #adadad;
+white-space: nowrap;
+margin: 3px 0px;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+transition: all 0.2s;
+height: 18px !important;
+width: 18px !important;
+vertical-align: middle;
+border: 1px solid #c1c1c1;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+}
+.depModulesTable input.depinput:checked + label.deplabel:after {
+content: "";
+display: block;
+position: absolute;
+top: 13px;
+left: 7px;
+width: 4px;
+height: 10px;
+border: solid #0079bf;
+border-width: 0 2px 2px 0;
+-webkit-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+#modulecheckform .iconChk input[type="checkbox"]:checked + label::before {
+content: "\e91f";
+font-size: 0.625rem;
+transition: -webkit-transform 0.3s ease-in-out;
+transition: transform 0.3s ease-in-out;
+transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+padding-right: 3px;
+}
+}

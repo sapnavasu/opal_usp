@@ -1,0 +1,84 @@
+<div *ngIf="!text" id="email_verification"  dir="{{dir}}" class="{{dir}}">
+  <div fXLayout="row wrap" fxLayoutAlign="center">
+    <div fxFlex="100" class="account_information">
+      <div fXLayout="row wrap" fxLayoutAlign="center" class="bread_title">
+        <!-- <span class="langbtn txt-gry" matTooltip="Back" (click)="backtoaccount()"><mat-icon
+          class="bgi bgi-back txt-gry fs-15 p-r-3" fxLayoutAlign="flex-start centre fs-25">keyboard_backspace</mat-icon>{{'twofactor.back' | translate}}</span> -->
+          <div fxLayoutAlign="center" fxFlex="100">
+            <h4 class="fs-18 txt-gry3 m-0 p-r-40" >{{'twofactor.editaccount' | translate}}</h4>
+        </div>
+      </div>
+      <div class="ban_er">
+        <div fxLayout="row" fxLayoutAlign="center" class="verify-form">
+          <div fxFlex="100" fxFlex.gt-sm="75">
+            <form autocomplete="off" [formGroup]="AccEditForm" (ngSubmit)="submitUserDtls()" class="m-t-25">
+              <div fxLayoutAlign="center">
+                <div fxFlex="50">
+                  <mat-form-field appearance="outline" *ngIf="isfocalpoint == true">
+                    <mat-label>{{'twofactor.name' | translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                      formControlName="name">
+                    <mat-error *ngIf="form.name.errors?.required || (form.name.touched) || AccEditForm.submitted">
+                      {{'twofactor.entename' | translate}} </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="m-t-13" *ngIf="isfocalpoint == true">
+                    <mat-label>{{'twofactor.desi' | translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                      formControlName="userdesig">
+                    <mat-error
+                      *ngIf="form.userdesig.errors?.required || (form.userdesig.touched) || AccEditForm.submitted">
+                      {{'twofactor.entedesi' | translate}} </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="m-t-13">
+                    <mat-label>{{'twofactor.emaiid' | translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" (keyup)="checkemail()"
+                      (change)="checkemailexists(form.useremailid.value)" [errorStateMatcher]="matcher" matInput
+                      required formControlName="useremailid"  pattern="[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]">
+                    <mat-spinner-button *ngIf="form.emailverified.value == 2" class="submitbtnedit verifytop" matSuffix
+                      (click)="openDialog()" [options]="spinnerButtonOptionsverify"></mat-spinner-button>
+                    <mat-spinner-button matSuffix type="button" *ngIf="form.emailverified.value == 1"
+                      class="submitbtnedit verifed" [options]="spinnerButtonOptionsverified">
+                    </mat-spinner-button>
+                    <mat-error
+                      *ngIf="form.useremailid.errors?.required && !form.useremailid.errors?.invalidGMemail || AccEditForm.submitted">
+                      {{'twofactor.enteemailid' | translate}}</mat-error>
+                    <mat-error *ngIf="form.useremailid.errors?.alreadyavailable ">
+                      {{'twofactor.emailalready' | translate}}</mat-error>
+                    <mat-error *ngIf="form.useremailid.errors?.pattern">
+                      {{'twofactor.entevaliemai' | translate}} </mat-error>
+                      
+                  </mat-form-field>
+                  <mat-error class="fs-14" *ngIf="form.emailverified.errors?.NotVerified == true">
+                    {{'twofactor.plsverifthe' | translate}} </mat-error>
+                  <mat-form-field appearance="outline" class="m-t-13" *ngIf="isfocalpoint == true">
+                    <mat-label>{{'twofactor.mobinum' | translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                      formControlName="usercontact" appNumberonly maxlength="8" minlength="8">
+                    <mat-error
+                      *ngIf="form.usercontact.errors?.required || AccEditForm.submitted">
+                      {{'twofactor.entemobinumb' | translate}} </mat-error>
+                      <mat-error
+                      *ngIf="form.usercontact.errors?.minlength">
+                      {{'Enter Minimum 8 digit' | translate}} </mat-error>
+                  </mat-form-field>
+                  <div fxLayoutAlign="flex-end center">
+                    <button type="button" (click)="backtoaccount()" mat-raised-button
+                      class="cancelbtn">{{'twofactor.canc' | translate}}</button>
+                    <!-- <button mat-raised-button class="savebtn m-l-15">{{'twofactor.saveandupda' | translate}}</button> -->
+                    <mat-spinner-button (click)="submitUserDtls()" mat-raised-button class="savebtn m-l-15"
+                      [options]="spinnerButtonOptionssaveupdate"></mat-spinner-button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="banners">
+  </div>
+  
+</div>
+
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

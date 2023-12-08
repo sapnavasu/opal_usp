@@ -1,0 +1,34 @@
+<div fxLayout="row wrap" class="p-t-25 upload_dialoglist">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div class="uploadfilecolor">
+      <h2>Upload Files</h2>
+    </div>
+    <div class="supportdoccolor">
+      <img src="assets/images/pdfnewimage.png" alt="pdfnewimage">
+      <p class="p-l-15">Supporting Document</p>
+    </div>
+    <div class="onlyviewcolor">
+      <div class="onlywidth">
+        <i class="bgi bgi-user fs-25"></i>
+        <!-- <i class="bgi bgi-Business_Source fs-25"></i> -->
+        <!-- <img src="assets/images/publicicon.png" alt="publicicon"> -->
+        <p class="p-l-15">Only you can View/Use this file.</p>
+        <!-- <p class="p-l-15">Anyone in your Organization can View/Use this file.</p> -->
+        <!-- <p class="p-l-15"> Anyone can View/Use this file.</p> -->
+      </div>
+      <div class="searchbydropdowncard">
+        <mat-form-field floatLabel="never">
+          <mat-select [disableOptionCentering]="true" >
+            <mat-option *ngFor="let searchBy of searchOptions" [value]="searchBy.value">
+              {{searchBy.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="flexend">
+      <button type="button" class="homebtn fs-15 m-r-10" (click)="onNoClick()" mat-buttons>Cancel</button>
+      <button type="button" class="loginbtn fs-15">Done</button>
+    </div>
+  </div>
+</div>

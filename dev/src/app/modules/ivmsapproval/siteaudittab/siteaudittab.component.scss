@@ -1,0 +1,33 @@
+#siteaudittab {
+    .fw-bild {
+        font-weight: bold;
+    }
+    .mat-tab-list {
+      height: 51px !important;
+    }
+    .mat-tab-header {
+        border-bottom: 1px solid #D7DCE3 !important;
+    }
+    .mat-tab-label {
+       height: auto !important;
+       background-color: transparent !important; 
+       .mat-tab-label-content {
+         p {
+            color: #262626;
+            font-weight: 500;
+         }
+       }
+       &:nth-child(2) {
+          min-width: 125px !important;
+          width: auto !important;
+       }
+    }
+    .mat-tab-label-active { 
+        border-bottom: 2px solid #ED1C27;
+        p {
+            color: #ED1C27 !important;
+        }
+        
+    }
+    
+}

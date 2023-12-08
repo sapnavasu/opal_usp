@@ -1,0 +1,106 @@
+<div id="ivms_container" class="commonForm" #pageScroll >
+    <app-responseloader *ngIf="doubleLoader"></app-responseloader>
+    <div class="commonTab pagescroll" fxLayout="row wrap"  fxFlex="100" fxLayoutAlign="center">
+        <div fxFlex.gt-sm="100" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center" class="m-b-15 btnvalidation groupBtns">
+            <app-validation  [submitbutton]="'validation.sumb' | translate" [addClass]="'validetbtn'" [dropIcon]="true" [buttonName]="'Validate Form' | translate" ></app-validation>
+            <button mat-raised-button type="button" class="standardbutton mat-white-bg">{{'desktop.audilog' | translate}}</button>
+        </div>
+        <app-ivmsinfocard fxFlex="100"></app-ivmsinfocard>
+        <mat-tab-group class="tabsdetials" [(selectedIndex)]="mattab" fxFlex="100">
+            <!--tab 1-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            1
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{tab1 | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-companyinfoivms (cancel)="cancel()" (next)="next()" ></app-companyinfoivms>
+           </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            2
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{tab2 | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-vendorinformation (cancel)="cancel()" (next)="next()" ></app-vendorinformation>
+           </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            3
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{tab3 | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-companydocumentivms (cancel)="cancel()" (next)="next()"></app-companydocumentivms >
+           </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            4
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{tab4 | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-ivmsoperator (cancel)="cancel()" (next)="next()" ></app-ivmsoperator>
+           </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            5
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{tab5 | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-ivmsdevicemodel (cancel)="cancel()" (next)="next()"></app-ivmsdevicemodel>
+           </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            6
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{tab6 | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-devicedocument (cancel)="cancel()" (next)="next()" (senddatacomp)="companyDetailsform($event)"></app-devicedocument>
+           </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            7
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{tab7 | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-ivmsstaff (cancel)="cancel()" (next)="next()"></app-ivmsstaff>
+           </mat-tab>
+        </mat-tab-group>
+    </div> 
+</div>
+
+                   

@@ -1,0 +1,69 @@
+#paymentcorse {
+    .paycard {
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 2px;
+            border: 1px solid #e3e2e4;
+        }
+
+        h4 {
+            color: #262626;
+        }
+
+        p {
+            color: #848484;
+
+            span {
+                color: #262626;
+            }
+        }
+
+        .btngroup {
+            align-items: center;
+            display: flex;
+            margin: 30px 0 0px 0;
+            justify-content: flex-end;
+
+            button {
+                height: 35px;
+            }
+
+            .viewcert {
+                border: 1px solid #0c4b9a !important;
+                color: #0c4b9a;
+                background-color: transparent;
+
+                &:hover {
+                    background-color: #0c4b9a;
+                    color: #fff;
+                }
+            }
+        }
+
+        .mat-raised-button {
+            box-shadow: none;
+            border-radius: 2px;
+            font-size: 16px;
+        }
+       
+    }
+    .detials {
+        .approved {
+            color: #00a551;
+        }
+
+        .update {
+            color: #0c4b9a;
+        }
+
+        .declined {
+            color: #ed1c27;
+        }
+
+        .new {
+            color: #f4811f;
+        }
+
+    }
+}

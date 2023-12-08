@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #e0f0ff;
+    /* height: 100vh; */
+}
+.title{
+    color:#f4811f;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom:1.6rem;
+}
+h5{
+    color:#666;
+    font-size: 13px;
+    line-height: 1.3rem;
+}
+.pagenotfound img,.servererr img{
+    width:500px;
+}
+.pagenotfound .btn-gohome{
+    border-radius:50px !important;
+    margin-top: 1.3rem;
+}
+/* ::ng-deep html body .topbar{
+    display: none;
+}         */

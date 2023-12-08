@@ -1,0 +1,105 @@
+<app-responseloader class="processloader"  *ngIf="showLoader"></app-responseloader>
+<div fXLayout="row wrap" fxLayoutAlign="center" id="certificatelistview">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div class="paymentviewgradient">
+      <div fXLayout="row wrap">
+        <div ngClass.xs="responsive" ngClass.sm="responsive" class="topheadermain p-t-25 p-l-25 p-r-25 alignwidth">
+          <div class="imagewithtext">
+            <span class="lypisfont-bold headinglinecolor">Certification Payment</span>
+          </div>
+          <div class="topbreadcrumb ">
+            <ul class="bredcrumblist">
+             <li *ngIf="((paymentStatus!=2 && paymentStatus!=4) || paymentDetails?.isexpired!=1)">
+               <span class="p-r-10"><i class="bgi bgi-back1"></i></span>
+               <a href="dashboard/supplier" class="m-r-0"><i class="bgi bgi-home" matTooltip="Home" matTooltipPosition="below"></i></a>
+             </li>
+             <li *ngIf="paymentDetails?.memberStatus=='A' && paymentStatus!=4">
+              <span class="p-r-10"><i class="bgi bgi-back1"></i></span>
+              <a [routerLink]="'/accountsettings'" class="m-r-0">Account Settings</a>
+            </li>
+             <li class="cursor active">                  
+               <span *ngIf="paymentDetails?.memberStatus!='A'">Certification Payment </span>                  
+               <span *ngIf="paymentDetails?.memberStatus=='A'">JSRS Certification Subscription - Payment </span>                  
+             </li>             
+           </ul>            
+         </div>
+        </div>
+      </div>
+      <div fXLayout="row wrap" fxLayoutAlign="center" fxLayout.xs="column">
+        <div fxFlex.gt-sm="95" fxFlex="100">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="13" fxFlex="100" class=" responsivewafterwidth">
+              <div class="normalimgview">
+                <img *ngIf="drv_companylogo == null" src="assets/images/Nologospace.svg" alt="Nologospace">
+                <img *ngIf="drv_companylogo" src="{{drv_companylogo}}" onError="this.src = 'assets/images/Nologospace.svg'" alt="Nologospace">
+              </div>
+            </div>
+            <div fxFlex.gt-sm="87" fxFlex="100" class="groupwidth">
+              <div fxLayout="row wrap" class="maxwidthpapernote">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="papernotewidth">
+                  <div class="header p-t-15 lh-32">
+                    <p class="m-0 mahindracolor">{{paymentDetails?.companyName}}</p>
+                    <p class=" m-0 imageview"><img class="p-r-8"
+                        src="assets/images/flags/{{paymentDetails?.countryPk}}.png"
+                        alt="omanflaglogo">{{paymentDetails?.countryName}}
+                      <!-- <img src="assets/images/flags/104.png" class="indiawidth" alt="104">India -->
+                    </p>
+                    <div class=" p-t-15 wordalign p-b-28">
+                      <div class=" aligncrn">
+                        <p class="m-0 regcolor clabel">CR Number</p>
+                        <p class="m-0 regcolor clabel">Registered as</p>
+                      </div>
+                      <div class="aligninvestor aligncrn">
+                        <p class="m-0 websitecolor cvalue">{{paymentDetails?.crregno}}</p>
+                        <p class="websitecolor m-0 cvalue" *ngIf="paymentDetails?.origin === 'INTERNATIONAL'">{{paymentDetails?.origin | titlecase}} Company</p>
+                        <p class="websitecolor m-0 cvalue" *ngIf="paymentDetails?.origin === 'NATIONAL'">Omani Company</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex.gt-sm="50" fxFlex="100" class="flexcenteralign" *ngIf="paymentDetails?.memberStatus=='A' && paymentModule=='RENEW'" >
+                  <div class="flexstartalign m-r-12 marginspace" >
+                    <img src="assets/images/renewallogo.png" alt="renewallogo">
+                    <div class="renewedcolor">
+                      <p class="clabel">Last Renewed on</p> 
+                      <span class="cvalue">{{paymentDetails?.renewdon}}</span>
+                    </div>
+                  </div>
+                  <!-- <div class="flexstartalign m-r-12 marginspace" >
+                    <img src="assets/images/renewallogo.png" alt="renewallogo">
+                    <div class="renewedcolor">
+                      <p>Registered on</p>
+                      <span>{{paymentDetails?.registeredOn}}</span>
+                    </div>
+                  </div> -->
+                  <div class="flexstartalign m-r-12 marginspace">
+                    <img src="assets/images/expirydayslogo.png" alt="expirydayslogo">
+                    <div class="renewedcolor imgwidth">
+                      <!-- <p>Date of Expiry <img src="assets/images/animatelogo.png" alt="animatelogo"></p> -->
+                      <p class="clabel">{{paymentDetails?.isexpired==1 ? 'Expired on' : 'Date of Expiry'}} <img *ngIf="paymentDetails?.isexpired==1" src="assets/images/animatelogo.png" alt="animatelogo"></p>
+                      <span class="cvalue">{{paymentDetails?.expirydate}}</span>
+                    </div>
+                  </div>
+                  <div class="flexstartalign">
+                    <img src="assets/images/expirelogo.png" alt="expirelogo">
+                    <!-- <img src="assets/images/ dateviewlogo.png" alt=" dateviewlogo"> -->
+                    <div class="renewedcolor">
+                      <p class="clabel">{{paymentDetails?.isexpired==1 ? 'Overdue by Days' : 'Days Left to Expire'}}</p>
+                      <!-- <p>Overdue by Days</p>
+                      <p>Days Left to Renew</p> -->
+                      <span class="cvalue">{{paymentDetails?.exdays}}</span>
+                      <!-- <span>27</span>
+                      <span>42</span> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-payofflinesuccesslistview [paymentMode]="paymentMode" [paymentStatus]="paymentStatus"
+      [paymentDetails]="paymentDetails" [offlineFormValue]="offlineFormValue"  [paymentConfirm]="paymentConfirm" [paymentModule]="paymentModule"  [contactusData]="contactusData"></app-payofflinesuccesslistview>    
+  </div>
+</div>

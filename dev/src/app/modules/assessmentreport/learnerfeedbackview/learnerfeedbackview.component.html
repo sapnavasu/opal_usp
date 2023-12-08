@@ -1,0 +1,80 @@
+<div id="feedbackview" *ngIf="alldata != null && !loading">
+
+    <div class="header" fxLayout="column" fxLayoutGap="18px">
+        <div fxLayout="column" fxLayoutGap="2px">
+          <div class="colsand" fxLayout="row" fxLayoutAligmnet="space-between center" fxLayoutGap="5px">
+            <div fxFlex="25">
+              <div class="txt-label">{{'learnerfdbck.batchnno' | translate}}</div>
+              <div class="txt-value">{{alldata.batchNo}}</div>
+            </div>
+            <div fxFlex="30">            
+              <div class="txt-label">{{'learnerfdbck.traingprvdr' | translate}}</div>
+              <div class="txt-value">{{alldata.trainer}}</div>
+            </div>
+            <div fxFlex="30">            
+              <div class="txt-label">{{'learnerfdbck.assmntcntre' | translate}}</div>
+              <div class="txt-value">{{alldata.assessor}}</div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="column" fxLayoutGap="2px">
+          <div class="colsand" fxLayout="row" fxLayoutAligmnet="space-between center" fxLayoutGap="5px">
+              <div fxFlex="25">
+                <div class="txt-label">{{'learnerfdbck.lrnrname' | translate}}</div>
+                <div class="txt-value">{{alldata.name}}</div>
+              </div>
+              <div fxFlex="30">            
+                <div class="txt-label">{{'learnerfdbck.cvlno' | translate}}</div>
+                <div class="txt-value">{{alldata.civilnumber}}</div>
+              </div>
+          </div>
+        </div>
+      </div>
+    <div class="trainfact " fxLayout="column">
+      <div fxLayout="column" *ngFor="let question of questions">
+        <div class="colblue m-t-20">
+          <p class="phadd">{{question.fdbkct_feedbacklist_en}} </p>
+        </div>
+        <div class="colwh responsive1" fxFlex="100" fxLayout="row" fxLayoutAlign="end ">
+            <p class="ppadd colsand">{{'learnerfdbck.disagree' | translate}}</p>
+            <p class="ppadd colsand">{{'learnerfdbck.agree' | translate}}</p>
+            <p class="ppadd colsand">{{'learnerfdbck.strngagre' | translate}}</p>
+        </div>
+        <ng-container *ngFor="let procced of question.questions ; index as i" >
+          <div>
+            <div class="responsive1" [class]="j+1 == data.length ? 'border' : i+1 !=question.questions.length ? 'border' : '' " fxLayout="row" fxLayoutAlign="space-between none">
+              <p class="pstat colli">{{procced.index}} . {{procced.fdbkqm_Question_en}} </p>
+              <div fxLayout="row">
+                <mat-radio-group aria-label="Select an option">
+                  <mat-radio-button class="pprdi colli " [checked]="procced.value == 1 ? true : false"  disabled="true" value=1></mat-radio-button>
+                  <mat-radio-button class="pprdi colli " [checked]="procced.value == 2 ? true : false" disabled="true" value=2 ></mat-radio-button>
+                  <mat-radio-button class="pprdi colli " [checked]="procced.value == 3 ? true : false"  disabled="true" value=3 ></mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="responsive2" [class]="j+1 == data.length ? 'border' : i+1 !=question.questions.length ? 'border' : '' " fxLayout="column" fxLayoutAlign="space-between none">
+              <p class="pstat colli">{{procced.index}} . {{procced.fdbkqm_Question_en}} </p>
+              <div fxLayout="column">
+                <mat-radio-group aria-label="Select an option">
+                  <mat-radio-button class="pprdi colli " [checked]="procced.value == 1 ? true : false"  disabled="true" value=1>{{'learnerfdbck.disagree' | translate}}</mat-radio-button>
+                  <mat-radio-button class="pprdi colli " [checked]="procced.value == 2 ? true : false" disabled="true" value=2 >{{'learnerfdbck.agree' | translate}}</mat-radio-button>
+                  <mat-radio-button class="pprdi colli " [checked]="procced.value == 3 ? true : false"  disabled="true" value=3 >{{'learnerfdbck.strngagre' | translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div>
+      <br><br>
+      <div >
+        <!-- <input class="comments"  placeholder="Enter Comments (if any)"> -->
+        <p class="comlab">{{'learnerfdbck.comments' | translate}}</p>
+        <p> {{alldata.comments}}</p>
+      </div>
+    </div>   
+  </div> 
+  <app-responseloader *ngIf="loading"></app-responseloader> 
+
+  

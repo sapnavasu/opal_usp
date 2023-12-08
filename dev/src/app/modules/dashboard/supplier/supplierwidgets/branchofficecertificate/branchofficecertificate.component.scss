@@ -1,0 +1,90 @@
+#branchofficecerti{
+    .titleinfolink{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        .viewalllink{
+            font-size:0.8125rem;
+            color:#666;
+            cursor:pointer;
+            &:hover{
+                color:#333;
+            }
+        }
+    }
+    .branchofficetbale{                
+        .mat-branchoffice{
+            width:100%;
+            border-collapse: collapse;
+            border:1px solid #e8e8e8;
+            .mat-header-row{
+                border:1px solid #e8e8e8 !important;
+                height: 50px;
+                th.mat-header-cell{
+                    &:first-of-type{
+                        padding-left:0px; 
+                        border-right:1px solid #e8e8e8 !important;
+                    }
+                    padding:10px !important;
+                    text-align:center;
+                    color:#333;
+                    font-size:0.875rem;
+                    border-right:1px solid #e8e8e8; 
+                    width:16%; 
+                    &:nth-child(4) , &:nth-child(1), &:nth-child(2){
+                        width:19%;
+                    }   
+                    @media (max-width:800px){
+                        font-size:11px;
+                    }              
+                }
+            }
+            .mat-row{
+                border:0px !important;
+                td.mat-cell{
+                    @media (min-width: 1900px) {
+                        height: 116px;
+                     }
+                    &:first-of-type{
+                        padding-left:0px; 
+                        border-right:1px solid #e8e8e8 !important;
+                    }
+                    padding:10px !important; 
+                    text-align:center;
+                    color:#000;
+                    font-size:1.625rem; 
+                    height:111px;
+                    vertical-align: middle;                    
+                    border-right:1px solid #e8e8e8;
+                    font-family: "opal_semibold", sans-serif; 
+                    width:16%; 
+                    &:nth-child(4) , &:nth-child(1), &:nth-child(2){
+                        width:19%;
+                    }
+                    &.mat-column-nearingexpiry{
+                        color:#ff871e;
+                    }
+                    &.mat-column-expired{
+                        color:#ff3636;
+                    }
+                    &.mat-column-suspended{
+                        color:#a6a6a6;
+                    }
+                }
+            }
+        }
+    }
+}
+[dir=rtl]{
+    #branchofficecerti{
+        .branchofficetbale{
+            .mat-branchoffice{
+                .linkarrow{
+                    i{
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+    }
+}

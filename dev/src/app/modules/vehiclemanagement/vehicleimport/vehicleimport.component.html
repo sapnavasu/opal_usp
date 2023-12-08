@@ -1,0 +1,55 @@
+<div id="vehicleformpage" fxLayoutAlign="center start">
+    <app-responseloader *ngIf="PageLoaders"></app-responseloader>
+    <div class="vehicleimport" fxFlex="100" fxFlex.gt-sm="100">
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" id="excelimprtlistview">
+                
+                <div [style.display]="!displaycounts ?'block':'none'" class="stepfollowrow">
+                    <h2 class="txt-blue fs-14">Steps to Follow</h2>
+                    <ul class="listrow">
+                        <li>Click here to <a  download href="{{sampleurl}}">Download Sample Template</a> Format</li>
+                        <li>Fill in the <span>New RAS Vehicle</span> details into the XLS and save the file</li>
+                        <li>Click on <span>Upload RAS Vehicle Data</span> and select the saved / updated file</li>
+                        <li>File upload is done and the next screen displays the status of the records which have all
+                        information correct as <span>Success</span> and records which have missing fields as <span>Failure</span></li>
+                    </ul>
+                    <div class="fileuploadcontainer m-t-30">
+                        <app-filee #assesmentrepot [notePosition]="'bottom'"  [fileMstRef]="drv_doc_upload" [fileuploadcommon]="false"
+                        [deleteicon]="true" (filesSelected)="fileeSelected($event,drv_doc_upload)"
+                         [notecontentrequired]="true" [uploaddocumentname]="'Upload RAS Vehicle details XLS Sheet' | translate">
+                    </app-filee> 
+                    </div>
+                </div>
+                <div [style.display]="displaycounts?'block':'none'" class="excelerrorreport">
+                    <div class="errorcountdiv m-t-30">
+                        <div class="fs-15 m-b-10 txt-blue">Uploaded Record Status</div>
+                        <ul>
+                            <li>
+                                <span id="totalrecords" class="errorcount txt-orange"></span>
+                                <span>Total Records Uploaded</span>
+                            </li>
+                            <li>
+                                <span id="uploadsuccess" class="errorcount txt-green"></span>
+                                <span>Records Uploaded Successfully</span>
+                            </li>
+                            <li>
+                                <span id="uploadfailure" class="errorcount txt-red"></span>
+                                <span>Records Uploaded with Failures</span>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="excelerrorreport">
+                    <div fxLayoutAlign="center">
+                        <!-- <button *ngIf="errors" mat-raised-button class="cancelbtn fs-16 m-r-30"  type="button" (click)="exportToCSV()" color="primary">{{'Download error report' | translate}}</button> -->
+                      
+                        <button  [style.display]="displaycounts?'block':'none'"   mat-raised-button class="cancelbtn fs-16 m-r-30"  type="button" (click)="uploadanother()" color="primary">{{'Upload another file' | translate}}</button>
+                    
+                        <button  mat-raised-button class="cancelbtn fs-16 m-r-30"  type="button" (click)="close()" color="primary">{{'Close' | translate}}</button>
+                     </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

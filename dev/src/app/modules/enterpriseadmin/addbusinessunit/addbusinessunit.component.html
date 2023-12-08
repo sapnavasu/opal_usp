@@ -1,0 +1,111 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+      <!-- column -->
+      <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <mat-icon (click)="closeBunit()" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+            <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.adddivi' | translate}} <mat-icon (click)="toggleShowDiv('descriptioncontentuserrole')"
+                class="bgi bgi-info">info_outline</mat-icon></h5>
+          </div>
+          <div class="clearandaddbutton">
+            <button type="button" mat-raised-button color="primary" class="clearbutton height-35 m-r-10 p-l-20 p-r-20"
+              (click)="clearBunitData()">{{'enterpriseadmin.clea' | translate}}</button>
+            <button color="preview" type="button" mat-raised-button class="addbutton height-35 p-l-20 p-r-20"
+              [disabled]="!addBunitForm.valid" (click)="onSubmit()">{{buttonName}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentuserrole"
+      [@slideInOut]="animationState">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+          <mat-card-header>
+            <div class="titletext">
+              <mat-card-subtitle class="informationtext fs-14">
+                {{'enterpriseadmin.adddiviinfotext' | translate}} 
+              </mat-card-subtitle>
+            </div>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="innnerpartofdrwer organisationinfo">
+          <form class="adddepartmentfrm" [formGroup]="addBunitForm" #bunitReset="ngForm">
+            <div fxLayout="row wrap" class="p-b-0 p-t-5">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <mat-select multiple required panelClass="myPanelClass" panelClass="select_with_search"
+                    [disableOptionCentering]="true" id="actsector" [errorStateMatcher]="matcher"
+                    (closed)="searchSector = '';" required placeholder="{{'enterpriseadmin.bussunitsect' | translate}}"
+                    formControlName="bunitSector" 
+                    *ngIf="(sectorlist | multisearchinput : searchSector : ['SecM_SectorName']) as sectoresult">
+                    <!-- (selectionChange)="sectorname = $event.source.triggerValue" -->
+                    <div class="searchinmultiselect">
+                      <i class="bgi bgi-search"></i>
+                      <input matInput name="searchsector" class="searchselect" type="Search" placeholder="{{'enterpriseadmin.sear' | translate}}"
+                        [(ngModel)]="searchSector" [ngModelOptions]="{standalone: true}">
+                      <mat-icon (click)="searchSector = ''" matTooltip="{{'enterpriseadmin.reset' | translate}}" matTooltipPosition="above"
+                        class="reseticon" matSuffix>clear
+                      </mat-icon>
+                    </div>
+                    <div class="option-listing">
+                      <mat-option
+                        *ngFor="let sect of sectorlist | multisearchinput : searchSector : ['SecM_SectorName']"
+                        [value]="sect.SectorMst_Pk">
+                        {{sect.SecM_SectorName}}
+                      </mat-option>
+                    </div>
+                    <div class="p-10" *ngIf="sectoresult.length == 0">
+                      {{'enterpriseadmin.nosectmatchyour' | translate}} 
+                    </div>
+                  </mat-select>
+                  <div *ngIf="f.bunitSector.touched && f.bunitSector.errors">
+                    <div *ngIf="f.bunitSector.touched &&  f.bunitSector.errors">{{'enterpriseadmin.choosect' | translate}}
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row wrap" class="p-b-15 p-t-5">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <input type="hidden" formControlName="bunitPk">
+                <mat-form-field class="example-full-width">
+                  <input placeholder="{{'enterpriseadmin.bussunitname' | translate}}" matInput required type="text" formControlName="bunitName"
+                    [ngClass]="{'is-invalid': f.bunitName.touched && f.bunitName.errors }"
+                    app-restrict-input="firstspace" appAlphanumsymb maxlength="250" />
+                  <div *ngIf="f.bunitName.touched && f.bunitName.errors" class="invalid-feedback">
+                    <div *ngIf="f.bunitName.touched &&  f.bunitName.errors">{{'enterpriseadmin.entebussname' | translate}}
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row wrap" class="p-b-0 p-t-5">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <textarea placeholder="Description" appAlphanumsymb app-restrict-input="firstspace"
+                    formControlName="bunitDesc" [errorStateMatcher]="matcher" matInput #message class="prosumm" required
+                    maxlength="255" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="20"></textarea>
+                  <mat-hint class="txt-black fs-14" align="end">{{message.value.length}} / 255</mat-hint>
+                  <div class="nonmaterror" *ngIf="f.bunitDesc.touched && f.bunitDesc.errors">
+                    <div *ngIf="f.bunitDesc.touched &&  f.bunitDesc.errors">{{'enterpriseadmin.entedesc' | translate}}
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

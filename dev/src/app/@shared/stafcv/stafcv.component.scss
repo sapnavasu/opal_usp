@@ -1,0 +1,48 @@
+.text{
+    color: #848484;
+}
+.subtext{
+    color:#262626
+}
+
+#stafcv{
+    .user{
+        background-color: #F6FAFF;
+        color: #262626;
+
+        .contactinfo{
+            display: flex;
+            
+            padding-left: 10px;
+            .border{
+                border-left: 3px solid #0C4B9A;
+                height: 50px;
+                
+            }
+            .contdetails-left{
+            color: #848484;
+            }
+            .contdetails-right{
+                margin-left: 25px;
+                color: #262626;
+            }
+        }
+       
+    }
+    .userinfo{
+        background-color: rgba(255, 255, 255, 0.97);
+    background-blend-mode:lighten;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 500px;
+        .persolnal-info{
+            .box{
+                border: 1px solid #D7DCE3;
+                .boxhead{
+                    border-bottom: 1px solid #D7DCE3;
+                }
+            }
+        }
+    }
+    
+}

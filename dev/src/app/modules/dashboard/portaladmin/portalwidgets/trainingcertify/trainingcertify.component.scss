@@ -1,0 +1,147 @@
+#trainingcerti{
+    .titleinfolink{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        .viewalllink{
+            font-size:0.8125rem;
+            color:#666;
+            cursor:pointer;
+            &:hover{
+                color:#333;
+            }
+        }
+    }
+    .trainingcertitbale{ 
+        padding:5px;
+        border:1px solid #e8e8e8; 
+        border-radius:3px;       
+        margin: 2px;     
+        .mat-trainingcerti{
+            width:100%;
+            border-collapse: collapse;
+            .mat-header-row{
+                border:0px !important;
+                height:40px;
+                th.mat-header-cell{
+                    white-space: nowrap;
+                    @media (max-width:767px){
+                        white-space: normal; 
+                    }
+                    &:first-of-type{
+                        padding-left:5px !important; 
+                    }
+                    padding:10px 8px 0px 8px !important;
+                    text-align:left;
+                    color:#848484;
+                    font-size:0.8rem;
+                    border-right:1px solid #e8e8e8;  
+                    @media (max-width:800px){
+                        font-size:11px;
+                    }
+                    &:last-child{
+                        border-right:0px;
+                    }              
+                }
+            }
+            .mat-row{
+                border:0px !important;
+                height:40px !important;
+                td.mat-cell{
+                    &:first-of-type{
+                        padding-left:5px !important; 
+                    }
+                    padding:0px 8px 10px 8px  !important; 
+                    color:#000;
+                    font-size:1rem; 
+                    vertical-align: middle;                    
+                    border-right:1px solid #e8e8e8;
+                    font-family: "opal_semibold", sans-serif;
+                    &:last-child{
+                        border-right:0px;
+                    } 
+                    .tablevalue{
+                        .linkarrow{
+                            visibility:hidden;
+                            color:#d61f1f;
+                            cursor:pointer;
+                        }
+                       
+                    }
+                    &:hover{
+                        color:#d61f1f;
+                        cursor:pointer;
+                        .linkarrow{
+                            visibility:visible;
+                        }   
+                       
+                    }
+                }
+            }
+        }
+        &:hover {
+                box-shadow: 0px 1px 5px 0px rgba(166,166,166,1);
+                border:1px solid transparent; 
+        }
+    }
+}
+
+[dir="rtl"], .rtl {
+    #trainingcerti{
+        .trainingcertitbale{            
+            .mat-trainingcerti{
+                .mat-header-row{
+                    th.mat-header-cell{
+                        white-space: nowrap;
+                        &:first-of-type{
+                            padding-left:5px !important; 
+                        }
+                        padding:10px 8px 0px 8px !important;
+                        text-align:right;
+                        color:#848484;
+                        font-size:0.8rem;
+                        border-left:1px solid #e8e8e8;  
+                        border-right:0px;  
+                        @media (max-width:800px){
+                            font-size:11px;
+                        }
+                        &:last-child{
+                            border-left:0px;
+                        }              
+                    }
+                }
+                .mat-row{
+                    td.mat-cell{
+                        &:first-of-type{
+                            padding-left:5px !important; 
+                        }
+                        padding:0px 8px 10px 8px  !important; 
+                        color:#000;
+                        font-size:1rem; 
+                        vertical-align: middle;                    
+                        border-left:1px solid #e8e8e8;
+                        border-right:0px;
+                        font-family: "opal_semibold", sans-serif;
+                        &:last-child{
+                            border-left:0px;
+                        } 
+                        .tablevalue{
+                            .linkarrow{
+                                visibility:hidden;
+                                color:#d61f1f;
+                                cursor:pointer;
+                            }
+                            &:hover{
+                                color:#d61f1f;
+                                cursor:pointer;
+                                .linkarrow{
+                                    visibility:visible;
+                                }   
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

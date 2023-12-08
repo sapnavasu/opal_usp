@@ -1,0 +1,505 @@
+[
+  {
+      "state": "profilemanagement",
+      "name": "Configuration",
+      "type": "sublevelone",
+      "icon": "bgi-settings",
+      "firstReg": "firstReg",
+      "levelone": [
+          {
+              "state": "profilemanagement",
+              "name": "Profile Management",
+              "icon": "bgi-profile_management",
+              "type": "subleveltwo",
+              "leveltwo": [
+                  {
+                      "state": "coporate-profile",
+                      "name": "Corporate Profile",
+                      "type": "sublevelthree",
+                      "icon": "",
+                      "levelthree": [
+                          {
+                              "state": "organizationdetail",
+                              "name": "Organisation Details",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          },
+                          {
+                              "state": "profile-description",
+                              "name": "Profile Description",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          },
+                          {
+                              "state": "message-form",
+                              "name": "Message From",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          },
+                          {
+                              "state": "visionandmision",
+                              "name": "Vision &  Mission",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          },
+                          {
+                              "state": "accomplishment",
+                              "name": "Accomplishments",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          }
+                      ]
+                  },
+                  {
+                      "state": "marketpresence",
+                      "name": "Market Presence",
+                      "type": "sublevelthree",
+                      "icon": "bgi-settings",
+                      "levelthree": [
+                          {
+                              "state": "branch",
+                              "name": "Branch",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          },
+                          {
+                              "state": "representativeoffice",
+                              "name": "Representative Office",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          },
+                          {
+                              "state": "clientele",
+                              "name": "Clientele",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          }
+                      ]
+                  },
+                  {
+                      "state": "products-services",
+                      "name": "Products & Services",
+                      "type": "sublevelthree",
+                      "icon": "bgi-settings",
+                      "levelthree": [
+                          {
+                              "state": "product-catalog",
+                              "name": "Product Catalog",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          },
+                          {
+                              "state": "service-catalog",
+                              "name": "Service Catalog",
+                              "type": "link",
+                              "icon": "bgi-settings"
+                          }
+                      ]
+                  },
+                  {
+                    "state": "contactinfo",
+                    "name": "Contact Info",
+                    "type": "maindirect",
+                    "icon": "bgi-settings",
+                    "levelthree": [  
+                    ]
+                }
+              ]
+          },
+          {
+              "state": "enterprise-admin",
+              "name": "Enterprise Admin",
+              "aliasname": "enterpriseadmin",
+              "icon": "bgi-department_management",
+              "type": "subleveltwo",
+              "leveltwo": [
+                  {
+                      "state": "adddepartment",
+                      "name": "Department",
+                      "type": "maindirect",
+                      "icon": "bgi-department_management"
+                  },
+                  {
+                      "state": "usermanagement",
+                      "name": "User Management",
+                      "type": "maindirect",
+                      "icon": "bgi-settings"
+                  }
+              ]
+          },
+          {
+              "state": "Market Presence",
+              "name": "Market Presence",
+              "sub_root": "",
+              "ga": "Management",
+              "title": "Management",
+              "type": "subchild",
+              "subchildren": [
+                  {
+                      "state": "Marke-Presence-profile-description",
+                      "name": "Marke-Presence-Profile Description",
+                      "sub_root": "",
+                      "ga": "Marke-Presence-Profile Description",
+                      "title": ""
+                  },
+                  {
+                      "state": "Marke-Presence-message-form",
+                      "name": "Marke-Presence-Message From",
+                      "sub_root": "",
+                      "ga": "Marke-Presence-Message From",
+                      "title": ""
+                  },
+                  {
+                      "state": "Marke-Presence-visionandmision",
+                      "name": "Marke-Presence-Vision & Mission",
+                      "sub_root": "",
+                      "ga": "Marke-Presence-Mission & Vision",
+                      "title": ""
+                  },
+                  {
+                      "state": "Marke-Presence-accomplishment",
+                      "name": "Marke-Presence-Accomplishment ",
+                      "sub_root": "",
+                      "ga": "Marke-Presence-Accomplishment",
+                      "title": ""
+                  },
+                  {
+                      "state": "Marke-Presence-organizationdetail",
+                      "name": "Marke-Presence-Organisation Details",
+                      "sub_root": "",
+                      "ga": "Marke-Presence-Organisation Details",
+                      "title": ""
+                  },
+                  {
+                      "state": "Marke-Presence-tenderboard",
+                      "name": "Marke-Presence-Oman Tender Board Registration",
+                      "sub_root": "",
+                      "ga": "Marke-Presence-Tender Board",
+                      "title": ""
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      "state": "home",
+      "name": "Home",
+      "type": "link",
+      "icon": "bgi-home"
+  },
+  {
+      "state": "workspace",
+      "name": "WorkSpace",
+      "type": "sublevelone",
+      "icon": "bgi-workspacelatest",
+      "levelone": [
+          {
+              "state": "dym",
+              "name": "WorkSpace",
+              "sub_root": "dym",
+              "ga": "Dynamic Form",
+              "type": "subleveltwo",
+              "icon": "bgi-workspacelatest",
+              "leveltwo": [
+                  {
+                      "state": "wpc",
+                      "name": "Workspace",
+                      "sub_root": "",
+                      "type": "link",
+                      "ga": "Work Space"
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      "state": "mastermaintance",
+      "name": "Master Maintance",
+      "type": "sublevelone",
+      "icon": "bgi-mastermaintenace",
+      "firstReg": "mastermaintanencemain",
+      "levelone": [
+          {
+              "state": "dym",
+              "name": "Master Maintance",
+              "sub_root": "dym",
+              "ga": "Dynamic Form",
+              "type": "subleveltwo",
+              "icon": "bgi-mastermaintenace",
+              "leveltwo": [
+                  {
+                      "state": "framework",
+                      "name": "Framework",
+                      "sub_root": "",
+                      "type": "link",
+                      "ga": "Manage offer Rule master"
+                  },
+                  {
+                      "state": "continent",
+                      "name": "Continent",
+                      "sub_root": "",
+                      "type": "link",
+                      "ga": "Manage offer Rule master"
+                  },
+                  {
+                      "state": "dym",
+                      "name": "Dynamic",
+                      "type": "link",
+                      "ga": "Dynamic Form"
+                  },
+                  {
+                      "state": "manageuser",
+                      "name": "User",
+                      "type": "link",
+                      "ga": "User List"
+                  },
+                  {
+                      "state": "managesector",
+                      "name": "Sector",
+                      "type": "link",
+                      "ga": "Sector List"
+                  },
+                  {
+                      "state": "manageindustry",
+                      "name": "Industry",
+                      "type": "link",
+                      "ga": "Industry List"
+                  },
+                  {
+                      "state": "manageactivities",
+                      "name": "Activities",
+                      "type": "link",
+                      "ga": "Activity List"
+                  },
+                  {
+                      "state": "managesegment",
+                      "name": "Segment Master",
+                      "type": "link",
+                      "ga": "Segment List"
+                  },
+                  {
+                      "state": "managecurrency",
+                      "name": "Currency",
+                      "type": "link",
+                      "ga": "Currency List"
+                  },
+                  {
+                      "state": "managefamily",
+                      "name": "Family",
+                      "type": "link",
+                      "ga": "Family List"
+                  },
+                  {
+                      "state": "manageclass",
+                      "name": "Class",
+                      "type": "link",
+                      "ga": "Class List"
+                  },
+                  {
+                      "state": "authentication",
+                      "name": "Authentication",
+                      "type": "link",
+                      "ga": "Authentication List"
+                  },
+                  {
+                      "state": "manageeventcategory",
+                      "name": "Event Category",
+                      "type": "link",
+                      "ga": "Category List"
+                  },
+                  {
+                      "state": "Manageclassification",
+                      "name": "Classification",
+                      "type": "link",
+                      "ga": "Classification List"
+                  },
+                  {
+                      "state": "managecountry",
+                      "name": "Country",
+                      "type": "link",
+                      "ga": "Country List"
+                  },
+                  {
+                      "state": "managestate",
+                      "name": "State",
+                      "type": "link",
+                      "ga": "State List"
+                  },
+                  {
+                      "state": "managecity",
+                      "name": "City",
+                      "type": "link",
+                      "ga": "City List"
+                  },
+                  {
+                      "state": "manageproducts",
+                      "name": "Products",
+                      "type": "link",
+                      "ga": "Products List"
+                  },
+                  {
+                      "state": "managespecification",
+                      "name": "Specifications",
+                      "type": "link",
+                      "ga": "Specification List"
+                  },
+                  {
+                      "state": "managemodule",
+                      "name": "Module",
+                      "type": "link",
+                      "ga": "Module List"
+                  },
+                  {
+                      "state": "managesubmodule",
+                      "name": "Sub Module",
+                      "type": "link",
+                      "ga": "Submodule List"
+                  },
+                  {
+                      "state": "createcocategory",
+                      "name": "Co Category",
+                      "type": "link",
+                      "ga": "Cocategory List"
+                  },
+                  {
+                      "state": "managempurpose",
+                      "name": "Meeting",
+                      "type": "link",
+                      "ga": "Meeting Purpose List"
+                  },
+                  {
+                      "state": "managearea",
+                      "name": "Area",
+                      "type": "link",
+                      "ga": "Area List"
+                  },
+                  {
+                      "state": "nlcmmanage",
+                      "name": "National Lookout Category",
+                      "type": "link",
+                      "ga": "National Lookout category"
+                  },
+                  {
+                      "state": "nlcmsubcatmanage",
+                      "name": "NLSCM",
+                      "type": "link",
+                      "ga": "NLSCM"
+                  },
+                  {
+                      "state": "omantbrmanage",
+                      "name": "Oman Tender Board Registration",
+                      "type": "link",
+                      "ga": "OMANTBR"
+                  },
+                  {
+                      "state": "omantbgmmanage",
+                      "name": "Oman Tender Board Grade Master",
+                      "type": "link",
+                      "ga": "OMANTBGM"
+                  },
+                  {
+                      "state": "managedomainmaster",
+                      "name": "Domain master",
+                      "type": "link",
+                      "ga": "ManageDomain"
+                  },
+                  {
+                      "state": "subscriptionPackageMastermanage",
+                      "name": "Subscription Package master",
+                      "type": "link",
+                      "ga": "Manage Package Master"
+                  },
+                  {
+                      "state": "adminmodulemanage",
+                      "name": "Admin Module master",
+                      "type": "link",
+                      "ga": "Manage Admin Module Master"
+                  },
+                  {
+                      "state": "adminsubmodulemanage",
+                      "name": "Admin Sub Module master",
+                      "type": "link",
+                      "ga": "Manage Admin Sub Module Master"
+                  },
+                  {
+                      "state": "manageusermaster",
+                      "name": "User Master",
+                      "type": "link",
+                      "ga": "Manage user master"
+                  },
+                  {
+                      "state": "manageoffermst",
+                      "name": "Offer Master",
+                      "type": "link",
+                      "ga": "Manage offer master"
+                  },
+                  {
+                      "state": "manageofferrulemst",
+                      "name": "Offer Rule Master",
+                      "type": "link",
+                      "ga": "Manage offer Rule master"
+                  },
+                  {
+                      "state": "framework",
+                      "name": "Framework",
+                      "type": "link",
+                      "ga": "Manage offer Rule master"
+                  },
+                  {
+                      "state": "continent",
+                      "name": "Continent",
+                      "type": "link",
+                      "ga": "Manage offer Rule master"
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      "state": "bizsearch",
+      "name": "BizSearch",
+      "type": "link",
+      "icon": "bgi-biz_search"
+  },
+  {
+      "state": "contentmanagement",
+      "name": "Content Management",
+      "type": "link",
+      "icon": "bgi-tender"
+  },
+  {
+      "state": "etender",
+      "name": "E Tender",
+      "type": "link",
+      "icon": "bgi-collbrate"
+  },
+  {
+      "state": "languagebgi",
+      "name": "Language",
+      "type": "sub",
+      "icon": "bgi-jsrs_connect",
+      "children": [
+          {
+              "state": "managelanguage",
+              "name": "Language Master",
+              "ga": "Manage language"
+          },
+          {
+              "state": "managekeyword",
+              "name": "Keyword master",
+              "ga": "Manage Keyword "
+          },
+          {
+              "state": "translate",
+              "name": "Translator",
+              "ga": "Translate"
+          }
+      ]
+  },
+  {
+      "state": "contact",
+      "name": "Contact",
+      "type": "link",
+      "icon": "bgi-contact-book"
+  }
+]

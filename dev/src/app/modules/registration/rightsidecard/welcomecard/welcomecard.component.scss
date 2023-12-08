@@ -1,0 +1,93 @@
+.rightsidecards {
+    border-radius: 10px; /* border radius */
+    background-clip: padding-box; /* prevents bg color from leaking outside the border */
+    background-color: #fff; /* layer fill content */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* drop shadow */
+    padding-top: 30px;
+    position: relative;
+
+    .eachcardbigheader {
+        color: #006cb7;
+        font-size: 1rem;
+        font-family: 'opal_semibold';
+        word-break: break-word;
+        max-width: 75%;
+    }
+    .headercontent {
+        color: #656565;
+        font-size: 0.9375rem;
+    }
+    .smallheader {
+        color: #ef8436;
+        font-size: 0.9375rem;
+        margin-bottom: 5px;
+    }
+
+    .mainheader {
+        color: #006cb7;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .bigheader {
+        color: #ef8436;
+        font-size: 1.375rem;
+        font-weight: bold;
+    }
+    .featurelist {
+        padding-left: 22px;
+        li {
+            padding-bottom: 12px;
+            color: #656565;
+            font-size: 0.9375rem;
+        }
+    }
+    .morefeature {
+        position: absolute;
+        height: 45px;
+        bottom: 0;
+        color: #fff;
+        font-size: 0.875rem;
+        font-weight: bold;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 20px;
+    }
+}
+
+.cardone {
+    position: relative;
+    img {
+        position: absolute;
+        top: 15px;
+        right: -65px;
+    }
+}
+
+.bottomcardone {
+    border-bottom-left-radius: 10px;
+    background: #c5dcff;
+    padding: 20px;
+    border-bottom-right-radius: 10px;
+    .morefeature {
+        color: #fff;
+    }
+
+    .eachitemcount {
+        display: flex;
+        p {
+            color: #006cb7;
+        }
+        p:first-child {
+            min-width: 85px;
+            color: #006cb7;
+            font-size: 1rem;
+        }
+    }
+}
+
+.organisationname {
+    max-width: 82%;
+    word-break: break-word;
+}

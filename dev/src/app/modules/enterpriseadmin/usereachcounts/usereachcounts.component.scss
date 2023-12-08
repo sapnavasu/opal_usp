@@ -1,0 +1,91 @@
+.usercountinfo {
+    display: flex;
+    border-radius: 2px; // border radius
+    background-clip: padding-box; // prevents bg color from leaking outside the border
+    background-color: #fff; // layer fill content
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15); // drop shadow
+    .loginarrow{
+        i{
+            color: #4aa1ac;
+            padding-left: 10px;
+        }
+     }
+    .eachcounts {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+
+        div {
+            border-right: 1px solid #e5e5e5;
+            padding-right: 10px;
+            padding: 5px;
+            padding-left: 5px !important;
+            width: 100%;
+        }
+        p {
+            margin: 0;
+        }
+        .counttitle {
+            color:#666;
+        }
+        .count {
+            color: #4aa1ac;
+            cursor: pointer;
+        }
+        &:last-child {
+            div {
+                border-right: 0;
+            }
+        }
+    }
+}
+@media (max-width: 620px) {
+    .makeitfullwidth {
+        width: 100% !important;
+    }
+    .filterouterdiv {
+        display: block;
+    }
+    .adduserbutton {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+    .usercountinfo {
+        flex-flow: row wrap;
+        .eachcounts {
+            width: calc(50% - 10px);
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border: 1px solid #ddd;
+            margin: 5px;
+            div {
+                border: 0;
+            }
+        }
+    }
+}
+@media (max-width: 475px) {
+    .usercountinfo .eachcounts {
+        width: calc(100% - 10px);
+    }
+}
+::ng-deep.rtl {
+    .usercountinfo {
+        .loginarrow {
+            i {
+                display: inline-flex;
+            }
+        }
+         .eachcounts {
+            div {
+                border-right: 0px solid #e5e5e5 !important;
+                border-left: 1px solid #e5e5e5 ;
+            }
+            &:nth-child(5) div {
+                border-left: 0px solid #e5e5e5 !important;
+            }
+        }
+    }
+}

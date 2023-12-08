@@ -1,0 +1,70 @@
+<!-- Breadcrumb -->
+
+<div class="page-breadcrumb p-t-20 p-b-20 p-l-30 p-r-30">
+    <div class="page-container">
+        <div fxLayout="row wrap">
+            <div *ngIf="gobackinbread" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="pagename align-self-center">
+                <h4 (click)="goback()" [ngClass]="{'removecode': pageInfo?.title === 'Centre Dashboard' || pageInfo?.title === 'لوحة التحكم المركزية' || pageInfo?.title === 'Portal Admin Dashboard' || pageInfo?.title === 'Training Evaluation Centre Certification - Payment' || pageInfo?.title === 'Training Evaluation Centre Certification - Audit Date Selection' }" class="page-title  m-0">{{ pageInfo?.title | translate}}</h4>
+                
+        </div>
+        <div  *ngIf="!gobackinbread" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="pagename align-self-center">
+            <h4 (click)="gobackhideandshow()" [ngClass]="{'removecode': pageInfo?.title === 'Centre Dashboard' || pageInfo?.title === 'لوحة التحكم المركزية' || pageInfo?.title === 'Portal Admin Dashboard' || pageInfo?.title === 'Training Evaluation Centre Certification - Payment' || pageInfo?.title === 'Training Evaluation Centre Certification - Audit Date Selection' }" class="page-title  m-0">{{ pageInfo?.title | translate}}</h4>        
+        </div>
+        <div fxLayout="row wrap"  [ngClass]="{'homeremove': pageInfo?.title === 'Centre Dashboard' || pageInfo?.title === 'Portal Admin Dashboard' || pageInfo?.title === 'Training Evaluation Centre Certification - Payment'  || pageInfo?.title === 'Training Evaluation Centre Certification - Audit Date Selection' }">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                <div class="breadcrumb d-flex float-left float-sm-left" id="breadCrubHide">
+                    <ul class="list-style-none d-flex" >
+                        <li class="breadcrumb-item">
+                            <!-- for portal admin -->
+                            <a *ngIf="stktypebc==1" routerLink="/dashboard/portaladmin">{{ 'common.home' | translate}}</a> 
+                            <!-- for centre/course  -->
+                            <a *ngIf="stktypebc!=1 && focalpoint == 1" routerLink="/dashboard/centre">{{ 'common.home' | translate}}</a>
+                            <a *ngIf="stktypebc!=1 && focalpoint != 1" routerLink="/batchindex/batchgridlisting">{{ 'common.home' | translate}}</a>
+                        </li>
+                       <!--  <ng-template ngFor let-url [ngForOf]="pageInfo?.urls" let-last="last">
+                            <li class="breadcrumb-item" *ngIf="!last" [routerLink]="url.url">
+                                <a [routerLink]="url.url">{{ pageInfo.title  | translate}}</a>
+                            </li>
+                            <li class="breadcrumb-item active" id="breadactive" *ngIf="last">{{ pageInfo.title | translate}}</li>
+                        </ng-template> -->
+                        <!-- <div *ngIf="this.partAfterFourthSlash == 'branchcentre'"> -->
+                            <li class="breadcrumb-item" *ngFor="let item of pageInfo?.urls; let i = index">
+                                <a *ngIf="!item?.last && item.url != ''  && coursePk == '' && item?.id == true" [routerLink]="item.url" [queryParams]="{ id: bookId}">{{ item.title  | translate}}</a>
+
+                                <a *ngIf="!item?.last && item.url != ''  && coursePk != '' && item?.id == true" [routerLink]="item.url" [queryParams]="{ id: bookId,course:coursePk}">{{ item.title  | translate}}</a>
+
+                                <a *ngIf="!item?.last &&  !item?.href  && !item?.page && item?.id != true"  [routerLink]="item.url"  (click)="tabRedirect(item);breadcurumfrontend(item.page)" >
+                                    {{ item.title  | translate}}
+                                </a>
+                                <a *ngIf="item?.page && item?.id != true"  style="cursor: pointer;" (click)="breadcurumfrontend(item.page)" >
+                                    {{ item.title  | translate}}
+                                </a>
+                                <a *ngIf="!item?.last && item?.href && item?.id != true"  href="{{baseurl}}{{item.url}}"   >
+                                    {{ item.title  | translate}}
+                                </a>
+                                <a  *ngIf="item?.last && item?.id != true" >
+                                    {{ item.title  | translate}}
+                                </a>
+                            </li>
+                        <!-- </div> -->
+                        <!-- <div *ngIf="this.partAfterFourthSlash == 'branchcentre'">
+                            <li class="breadcrumb-item" *ngFor="let item of pageInfo?.urls; let i = index">
+                                <a *ngIf="!item?.last &&  !item?.href"  [routerLink]="item.url"  (click)="tabRedirect(item);breadcurumfrontend(item.page)" >
+                                    {{ item.title  | translate}}
+                                </a>
+                                <a *ngIf="!item?.last && item?.href"  href="{{baseurl}}{{item.url}}"   >
+                                    {{ item.title  | translate}}
+                                </a>
+                                <a  *ngIf="item?.last" >
+                                    {{ item.title  | translate}}
+                                </a>
+                            </li>
+                        </div> -->
+                  
+                        <li class="breadcrumb-item active " id="breadactive"  *ngIf="last">{{ item.title | translate}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

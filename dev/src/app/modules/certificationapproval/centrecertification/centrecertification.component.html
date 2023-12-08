@@ -1,0 +1,653 @@
+<div id="centrecertificate" fxLayoutAlign="center" *ngIf="this.readaccess">
+    <div fxFlex="100">
+        <div class="paginationwithfilter masterPageTop ">
+            <mat-paginator class="masterPage masterPageTop"  #paginator [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+            <div fxLayout="row wrap" fxLayoutAlign="end">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <!-- <button mat-raised-button [matMenuTriggerFor]="menu"
+                        class="ShowHidefs-15 submit_btn m-r-10">{{'branch.applycourse' | translate}}<i
+                            class="fa fa-chevron-down m-l-5" aria-hidden="true"></i></button>
+                    <mat-menu #menu="matMenu" class="menu-panel">
+                        <button mat-menu-item (click)="ApplyCertificate();scrollTo('pagescroll')"
+                            class="fs-16">{{'branch.stand' | translate}}</button>
+                        <button mat-menu-item (click)="ApplyCertificate();scrollTo('pagescroll')"
+                            class="fs-16">{{'branch.cust' | translate}}</button>
+                    </mat-menu> -->
+                    
+                    <button mat-raised-button type="button"  *ngIf="this.downloadaccess"  (click)="saveexportdet(projectpk)" class="ShowHidefs-15 validet m-r-10">{{'branch.export' |
+                        translate}}
+                    </button> 
+                    
+                    
+                    <button mat-raised-button type="button"  *ngIf="(this.accessadmin &&  this.createaccess ) || this.accesssuperadmin"  (click)="schedule()"
+                        class="ShowHidefs-15 validet m-r-10">{{'branch.congi' | translate}}
+                    </button>
+                    <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                        class="filter">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew" >
+                <div class="awaredtable">
+                            <!-- show and hide -->
+                            <button mat-button [matMenuTriggerFor]="columnEdit" class="editcolumn">
+                                <mat-icon aria-hidden="false"
+                                    aria-label="Example home icon">more_horiz</mat-icon>
+                                <mat-menu #columnEdit="matMenu" class="master-menu edit-column-menu">
+                                    <div class="table-config-menu-options" fxLayout="column">
+                                        <mat-checkbox #chkWork [(ngModel)]="selectAllWork"
+                                            (change)="selectAllworkExperienceListFun($event)"> {{ 'All'
+                                            | translate}}
+                                        </mat-checkbox>
+                                        <ng-container
+                                            *ngFor="let wrk of BranchListData; let i = index">
+                                            <mat-checkbox (click)="$event.stopPropagation()"
+                                                [(ngModel)]="wrk.hideShow" #columnchkbox
+                                                (change)="updateSelectAllworkExperienceList(wrk)">
+                                                {{wrk.label | translate}}
+                                            </mat-checkbox>
+                                        </ng-container>
+                                    </div>
+                                </mat-menu>
+                            </button>
+                    <mat-table #table class="scrolldata" [dataSource]="appListData" matSortActive="appdt_updatedon"  matSortDirection="desc"  matSort multiTemplateDataRows matSort matSortDisableClear  >
+<!-- 1 -->
+                        <ng-container matColumnDef="appdt_appreferno">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'branch.applform' | translate}}</mat-header-cell>
+                            <mat-cell data-label="appdt_appreferno" fxFlex="200px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{BranchData.appdt_appreferno}}</div>
+                                </mat-cell>
+                        </ng-container>
+                        <!-- 2 -->
+                        <ng-container matColumnDef="appiit_officetype">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'branch.offitype' | translate}}</mat-header-cell>
+                            <mat-cell data-label="offictype" fxFlex="200px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span *ngIf="BranchData.appiit_officetype  == '1'">
+                                            {{this.i18n('table.main')}}
+                                    </span> 
+                                    <span *ngIf="BranchData.appiit_officetype  == '2'">
+                                            {{this.i18n('table.branch')}}
+                                    </span> 
+                                </div>
+                                 </mat-cell>
+                        </ng-container>
+                        <!-- 3 -->
+                        <ng-container matColumnDef="omrm_companyname_en">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'branch.compname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="compname" fxFlex="250px" *matCellDef="let BranchData"> 
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">  {{ifarabic == true ? BranchData.omrm_companyname_ar :
+                                    BranchData.omrm_companyname_en}}</div>
+                             
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 4 -->
+                        <ng-container matColumnDef="omrm_tpname_en">
+                            <mat-header-cell fxFlex="300px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'branch.trainprovname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="trainprovname" fxFlex="300px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{ifarabic == true ? BranchData.omrm_tpname_ar :
+                                    BranchData.omrm_tpname_en}}  </div>
+                                </mat-cell>
+                        </ng-container>
+                        <!-- centrename -->
+                        <ng-container matColumnDef="omrm_branch_en">
+                            <mat-header-cell fxFlex="300px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'addroles.centrenam' | translate}}</mat-header-cell>
+                            <mat-cell data-label="omrm_centre_en" fxFlex="300px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{ifarabic == true ? BranchData.omrm_branch_ar :
+                                    BranchData.omrm_branch_en}}  </div>
+                                </mat-cell>
+                        </ng-container>
+                        <!-- 5 -->
+                        <ng-container matColumnDef="appiit_branchname_en">
+                            <mat-header-cell fxFlex="270px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'branch.branchname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="branchname" fxFlex="270px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{ifarabic == true ? BranchData.appiit_branchname_ar :
+                                    BranchData.appiit_branchname_en}} </div>
+                                </mat-cell>
+                        </ng-container>
+
+                        <!-- 6 -->
+                        <ng-container matColumnDef="sitelocan">
+                            <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef>Site Location</mat-header-cell>
+                              
+                             
+                            <mat-cell data-label="sitelocan" fxFlex="150px" *matCellDef="let BranchData">
+                                 <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                               
+                                <div  *ngIf="!tblplaceholder && BranchData.appiit_locmapurl"> <a matTooltip="{{'table.viewlocat'|translate}}" href="https://{{BranchData.appiit_locmapurl}}"  target="_blank"><mat-icon class="fa fa-map-marker mapicon" ></mat-icon></a>  {{BranchData.sitelocan}} 
+                                </div>
+                                <span  *ngIf="!BranchData.appiit_locmapurl">-</span>
+                                 </mat-cell>
+                        </ng-container>
+                        <!-- 7 -->
+                        <ng-container matColumnDef="appdt_apptype">
+                            <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>
+                                Application Type</mat-header-cell>
+                            <mat-cell data-label="applytype" fxFlex="180px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">  {{(BranchData.appdt_apptype == 1) ? "Initial" : ((BranchData.appdt_apptype == 2)  ? "Renewal" : "Update")}}</div>
+                              
+                                <!-- <span *ngIf="BranchData.applytype == '1'">{{'table.initial'
+                                    |translate}}</span>
+                                <span *ngIf="BranchData.applytype == '2'">{{'table.update'
+                                    |translate}}</span>
+                                <span *ngIf="BranchData.applytype == '3'">{{'table.renewal'
+                                    |translate}}</span>  -->
+                                </mat-cell>
+                        </ng-container>
+
+                        <!-- 8 -->
+                        <ng-container matColumnDef="appdt_status">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'branch.applstat' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="applicationstatus" fxFlex="250px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"><span *ngIf="BranchData.appdt_status == '1'">{{'table.yettosubmit'
+                                    |translate}}</span>
+                                <span *ngIf="BranchData.appdt_status == '2'">Desktop Review Pending</span>
+                                <span *ngIf="BranchData.appdt_status == '3'">Missing Files</span>
+                                <span *ngIf="BranchData.appdt_status == '4'">Desktop Review Pending</span>
+                                <span *ngIf="BranchData.appdt_status == '5'">Payment Pending</span>
+                                <span *ngIf="BranchData.appdt_status == '6'">Confirm Payment</span> 
+                            <span *ngIf="BranchData.appdt_status == '7'">Yet to schedule for Site Audit</span> 
+                            <span *ngIf="BranchData.appdt_status == '8' && projectpk =='1'">Audit Date Selection (Training Provider)</span>
+                            <span *ngIf="BranchData.appdt_status == '8' && projectpk =='4'">Audit Date Selection (Inspection Centre)</span>
+                            <span *ngIf="BranchData.appdt_status == '9'">Ready for Audit</span>
+                            <span *ngIf="BranchData.appdt_status == '10'">Quality Manager Approval Pending</span>
+                            <span *ngIf="BranchData.appdt_status == '14'">Quality Manager Approval Pending</span>
+                            <span *ngIf="BranchData.appdt_status == '11'">Authority  Approval Pending</span>
+                            <span *ngIf="BranchData.appdt_status == '12'">CEO Approval Pending</span>
+                            <span *ngIf="BranchData.appdt_status == '13'">Site Audit Report Declined</span>
+                            <span *ngIf="BranchData.appdt_status == '17'">{{'table.approved'
+                                |translate}}</span>
+                            <span *ngIf="BranchData.appdt_status == '18'">{{'table.fineteam'
+                                    |translate}}</span>
+                            <span *ngIf="BranchData.appdt_status == '19'">{{'table.susb'
+                                |translate}}</span>
+                            <span *ngIf="BranchData.appdt_status == '20'">{{'Certification Form Declined'|translate}}</span>
+                            
+                            
+                            </div>
+                                
+                                 </mat-cell>
+                        </ng-container>
+                        <!-- 9 -->
+                        <ng-container matColumnDef="appdt_certificategenon">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'branch.certstat' | translate}} </mat-header-cell>
+                            <mat-cell data-label="certification" fxFlex="160px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                        <div *ngIf="!tblplaceholder"><span  *ngIf="!BranchData.appdt_certificategenon" class="red">{{'table.new'
+                            |translate}}</span>
+                        <span *ngIf="BranchData.appdt_certificategenon  && BranchData.isexpired == '0'" class="green">{{'table.acti'
+                                |translate}}</span>
+                         <span *ngIf="BranchData.appdt_certificategenon && BranchData.isexpired == '1'"  class="red">{{'table.expi'
+                            |translate}}</span></div>
+                                </mat-cell>
+                        </ng-container>
+                        <!-- 10 -->
+                        <ng-container matColumnDef="appdt_grademst_fk">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'branch.grad' |
+                                translate}}</mat-header-cell>
+                                <mat-cell data-label="grade" fxFlex="160px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> 
+                               
+                                    <span *ngIf="BranchData.appdt_grademst_fk == '1' && BranchData.appdt_certificategenon" class="bronze">{{'table.bronze'
+                                        |translate}}</span>
+                                    <span *ngIf="BranchData.appdt_grademst_fk == '2' && BranchData.appdt_certificategenon" class="silver">{{'table.silver'
+                                        |translate}}</span>
+                                    <span *ngIf="BranchData.appdt_grademst_fk == '3' && BranchData.appdt_certificategenon" class="gold">{{'table.gold'
+                                        |translate}}</span>
+                                     <span *ngIf="!BranchData.appdt_certificategenon || BranchData.appdt_grademst_fk == '-'">-</span>
+                                   </div>
+                                               
+                          
+                                </mat-cell>
+                        </ng-container>
+                        <!-- 10 -->
+                        <ng-container matColumnDef="asd_date">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Site Audit Scheduled On' |
+                                translate}}</mat-header-cell>
+                                <mat-cell data-label="asd_date" fxFlex="263px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> 
+                                    <span *ngIf="BranchData.asd_date">{{BranchData.asd_date}}</span>
+                                     <span *ngIf="!BranchData.asd_date">-</span></div>
+                                </mat-cell>
+                        </ng-container>
+                        <!-- 11 -->
+                        <ng-container matColumnDef="appdt_certificateexpiry">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>
+                                Date Of Expiry
+                            </mat-header-cell>
+                            <mat-cell data-label="dateofexpiry" fxFlex="263px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{BranchData.appdt_certificateexpiry}}</div>
+                                </mat-cell>
+                        </ng-container>
+                        <!-- 12 -->
+                        <ng-container matColumnDef="appdt_submittedon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                               Added On </mat-header-cell>
+                            <mat-cell data-label="addedon" fxFlex="263px" *matCellDef="let BranchData">
+                                
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{BranchData.appdt_submittedon}} </div></mat-cell>
+                        </ng-container> 
+                        <!-- 13 -->
+                        <ng-container matColumnDef="appdt_updatedon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                               Last Updated On</mat-header-cell>
+                            <mat-cell data-label="lastUpdated" fxFlex="263px" *matCellDef="let BranchData">
+                                
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{BranchData.appdt_updatedon}}</div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 14 -->
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="125px" mat-header-cell *matHeaderCellDef>{{'branch.action'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="125px" *matCellDef="let BranchData">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> <div class="manageoptions">
+                                    <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                    </button>
+                            <mat-menu #actionmenu="matMenu" class="master-menu whentootltipadded table_menu">
+                              
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '2' || BranchData.appdt_status == '4' ||  BranchData.appdt_status == '20') && BranchData.formstatus == '1'   && BranchData.accessdesktop_i && this.approvalaccess"  (click)='goToDesktopview(BranchData.applicationdtlstmp_pk, BranchData.accessdesktop_i)'><span>{{'table.btndeskreview' |
+                            translate}} </span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '2' || BranchData.appdt_status == '4' ||  BranchData.appdt_status == '20')  && BranchData.formstatus == '2'  &&  BranchData.accessdesktop_u && this.approvalaccess"  (click)='goToDesktopview(BranchData.applicationdtlstmp_pk, BranchData.accessdesktop_u)'><span>{{'table.btndeskreview' |
+                            translate}} </span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '2' || BranchData.appdt_status == '4' ||  BranchData.appdt_status == '20') &&  BranchData.formstatus == '3'   &&  BranchData.accessdesktop_up && this.approvalaccess"  (click)='goToDesktopview(BranchData.applicationdtlstmp_pk, BranchData.accessdesktop_up)'><span>{{'table.btndeskreview' |
+                            translate}} </span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '2' || BranchData.appdt_status == '4' ||  BranchData.appdt_status == '20') &&  BranchData.formstatus == '4'   &&  BranchData.accessdesktop_r && this.approvalaccess"  (click)='goToDesktopview(BranchData.applicationdtlstmp_pk, BranchData.accessdesktop_r)'><span>{{'table.btndeskreview' |
+                                    translate}} </span></button>
+                            <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '5' &&  BranchData.accesspayment_i  && BranchData.formstatus == '1'   && this.readaccess" (click)='viewinvoice(BranchData.applicationdtlstmp_pk,BranchData.accesspayment_i)' ><span>{{'table.viewinvo' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '5' &&  BranchData.accesspayment_up  && BranchData.formstatus == '3'  && this.readaccess" (click)='viewinvoice(BranchData.applicationdtlstmp_pk,BranchData.accesspayment_up)' ><span>{{'table.viewinvo' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '5' &&  BranchData.accesspayment_r && BranchData.formstatus == '4'   && this.readaccess" (click)='viewinvoice(BranchData.applicationdtlstmp_pk,BranchData.accesspayment_r)' ><span>{{'table.viewinvo' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '6' ) &&  BranchData.accesspayment_i && BranchData.formstatus == '1'  && this.approvalaccess"  (click)='paymentdetials(BranchData.applicationdtlstmp_pk,BranchData.accesspayment_i)'><span>{{'table.confpaym' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '6' ) &&  BranchData.accesspayment_up && BranchData.formstatus == '3'  && this.approvalaccess"  (click)='paymentdetials(BranchData.applicationdtlstmp_pk,BranchData.accesspayment_up)'><span>{{'table.confpaym' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '6' ) &&  BranchData.accesspayment_r && BranchData.formstatus == '4'  && this.approvalaccess"  (click)='paymentdetials(BranchData.applicationdtlstmp_pk,BranchData.accesspayment_r)'><span>{{'table.confpaym' |
+                            translate}}</span></button>
+                   
+                            <button type="button" mat-menu-item   *ngIf="BranchData.appdt_status >= 7  &&  BranchData.accesspayment_i && BranchData.formstatus == '1'  && this.readaccess"  (click)='paymentdetials(BranchData.applicationdtlstmp_pk , BranchData.accesspayment_i)'><span>{{'table.viewpaymdetai' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item   *ngIf="BranchData.appdt_status >= 7  &&  BranchData.accesspayment_up && BranchData.formstatus == '3'   && this.readaccess"  (click)='paymentdetials(BranchData.applicationdtlstmp_pk , BranchData.accesspayment_up)'><span>{{'table.viewpaymdetai' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item   *ngIf="BranchData.appdt_status >= 7  &&  BranchData.accesspayment_r && BranchData.formstatus == '4'  && this.readaccess"  (click)='paymentdetials(BranchData.applicationdtlstmp_pk , BranchData.accesspayment_r)'><span>{{'table.viewpaymdetai' |
+                            translate}}</span></button>
+
+                                                <button type="button" mat-menu-item  *ngIf="this.readaccess && this.accessproject"   (click)='goToView(BranchData.applicationdtlstmp_pk ,1)'><span>{{'branch.viewcertform' | translate}}</span></button>
+
+                            <button type="button" mat-menu-item   *ngIf="BranchData.appdt_status == '9'  &&  BranchData.accessauditor_i && BranchData.formstatus == '1'  && this.approvalaccess && BranchData.siteauditstaff"  (click)='siteaudit(BranchData.applicationdtlstmp_pk,BranchData.accessauditor_i)'><span>{{'table.siteaudi' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item   *ngIf="BranchData.appdt_status == '9'  &&  BranchData.accessauditor_up && BranchData.formstatus == '3'  && this.approvalaccess && BranchData.siteauditstaff"  (click)='siteaudit(BranchData.applicationdtlstmp_pk,BranchData.accessauditor_up)'><span>{{'table.siteaudi' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item   *ngIf="BranchData.appdt_status == '9'  &&  BranchData.accessauditor_r && BranchData.formstatus == '4'  && this.approvalaccess && BranchData.siteauditstaff"  (click)='siteaudit(BranchData.applicationdtlstmp_pk,BranchData.accessauditor_r)'><span>{{'table.siteaudi' |
+                            translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '10' || BranchData.appdt_status == '14')  &&  ( BranchData.appdt_apptype == '1' ||  BranchData.appdt_apptype == '2'   || (BranchData.appdt_apptype == '3'  && BranchData.formstatus == '3') ) && BranchData.accessqualitymanager_i && this.approvalaccess && BranchData.formstatus == '1' "  (click)='goToviewsiteaudit(BranchData ,3,BranchData.accessqualitymanager_i)'><span>{{'Approve Site Audit Report' | translate }}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '10' || BranchData.appdt_status == '14')  &&  ( BranchData.appdt_apptype == '1' ||  BranchData.appdt_apptype == '2'   || (BranchData.appdt_apptype == '3'  && BranchData.formstatus == '3') ) && BranchData.accessqualitymanager_up && this.approvalaccess && BranchData.formstatus == '3' "  (click)='goToviewsiteaudit(BranchData ,3,BranchData.accessqualitymanager_up)'><span>{{'Approve Site Audit Report' | translate }}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '10' || BranchData.appdt_status == '14')  &&  ( BranchData.appdt_apptype == '1' ||  BranchData.appdt_apptype == '2'   || (BranchData.appdt_apptype == '3'  && BranchData.formstatus == '3') ) && BranchData.accessqualitymanager_r && this.approvalaccess && BranchData.formstatus == '4' "  (click)='goToviewsiteaudit(BranchData ,3,BranchData.accessqualitymanager_r)'><span>{{'Approve Site Audit Report' | translate }}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '10' && (BranchData.appdt_apptype == '3'  && BranchData.formstatus == '2')   &&  BranchData.accessqualitymanager_u && this.approvalaccess && BranchData.formstatus == '2' "  (click)='goToView(BranchData.applicationdtlstmp_pk , 2)'><span>{{'Approve Certification form' | translate}}</span></button>
+
+                            <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '13' &&  BranchData.accessauditor_i && this.approvalaccess && BranchData.formstatus == '1'  && BranchData.siteauditstaff"  (click)='siteaudit(BranchData.applicationdtlstmp_pk , BranchData.accessauditor_i)'><span>{{'Update Site Audit Report' | translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '13' &&  BranchData.accessauditor_up && this.approvalaccess && BranchData.formstatus == '3'  && BranchData.siteauditstaff"  (click)='siteaudit(BranchData.applicationdtlstmp_pk , BranchData.accessauditor_up)'><span>{{'Update Site Audit Report' | translate}}</span></button>
+                            <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '13' &&  BranchData.accessauditor_r && this.approvalaccess && BranchData.formstatus == '4' && BranchData.siteauditstaff"  (click)='siteaudit(BranchData.applicationdtlstmp_pk , BranchData.accessauditor_r)'><span>{{'Update Site Audit Report' | translate}}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '11' || BranchData.appdt_status == '15') &&  ( BranchData.appdt_apptype == '1' ||  BranchData.appdt_apptype == '2'  ||  (BranchData.appdt_apptype == '3'  && BranchData.formstatus == '3') ) && BranchData.accessAuthority_i  && this.approvalaccess && BranchData.formstatus == '1' "  (click)='goToviewsiteaudit(BranchData ,4,BranchData.accessAuthority_i)'><span>{{'Approve Site Audit Report' | translate}}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '11' || BranchData.appdt_status == '15') &&  ( BranchData.appdt_apptype == '1' ||  BranchData.appdt_apptype == '2'  ||  (BranchData.appdt_apptype == '3'  && BranchData.formstatus == '3') ) && BranchData.accessAuthority_up  && this.approvalaccess && BranchData.formstatus == '3' "  (click)='goToviewsiteaudit(BranchData ,4,BranchData.accessAuthority_up)'><span>{{'Approve Site Audit Report' | translate}}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '11' || BranchData.appdt_status == '15') &&  ( BranchData.appdt_apptype == '1' ||  BranchData.appdt_apptype == '2'  ||  (BranchData.appdt_apptype == '3'  && BranchData.formstatus == '3') ) && BranchData.accessAuthority_r  && this.approvalaccess && BranchData.formstatus == '4' "  (click)='goToviewsiteaudit(BranchData ,4,BranchData.accessAuthority_r)'><span>{{'Approve Site Audit Report' | translate}}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="BranchData.appdt_status == '11' &&  ( BranchData.appdt_apptype == '3'  && BranchData.formstatus == '2' )   &&  BranchData.accessAuthority_u && this.approvalaccess && BranchData.formstatus == '2' "  (click)='goToView(BranchData.applicationdtlstmp_pk , 2)'><span>{{'Approve Certification form' | translate}}</span></button>
+
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '12' || BranchData.appdt_status == '16') && BranchData.accessceo_i && this.approvalaccess && BranchData.formstatus == '1'"  (click)='goToviewsiteaudit(BranchData , 5,BranchData.accessceo_i)'><span>{{'Approve Site Audit Report' | translate }}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '12' || BranchData.appdt_status == '16') && BranchData.accessceo_u && this.approvalaccess && BranchData.formstatus == '2'"  (click)='goToviewsiteaudit(BranchData , 5,BranchData.accessceo_u)'><span>{{'Approve Site Audit Report' | translate }}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '12' || BranchData.appdt_status == '16') && BranchData.accessceo_up && this.approvalaccess && BranchData.formstatus == '3'"  (click)='goToviewsiteaudit(BranchData , 5,BranchData.accessceo_up)'><span>{{'Approve Site Audit Report' | translate }}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '12' || BranchData.appdt_status == '16') && BranchData.accessceo_r && this.approvalaccess && BranchData.formstatus == '4'"  (click)='goToviewsiteaudit(BranchData , 5,BranchData.accessceo_r)'><span>{{'Approve Site Audit Report' | translate }}</span></button>
+                                                   <!-- ras view report certificate button -->
+                                                   <!-- <button type="button" mat-menu-item   *ngIf="(BranchData.appdt_status >= 9 && BranchData.appdt_status != 20 && BranchData.appdt_auditedreport)" (click)="downLoadPdf(BranchData.appdt_auditedreport)"><span>View Audit Report</span></button>   -->
+                                                   <button type="button" mat-menu-item  *ngIf="BranchData.appdt_certificatepath && this.readaccess && this.accessproject"  (click)='viewcertificate(BranchData.appdt_certificatepath ,BranchData.appdt_opalmemberregmst_fk)'><span>{{'branch.viewcert' | translate}}</span></button>
+
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '10'  || BranchData.appdt_status == '14'  ||  BranchData.appdt_status == '11' || BranchData.appdt_status == '12' || BranchData.appdt_status == '17' || BranchData.appdt_status == '13') && (BranchData.appdt_apptype != '3') && this.readaccess && this.accessproject && this.auditreportapproval"  (click)='goToviewsiteaudit(BranchData , 6,true)'><span>{{'View Site Audit Report' | translate}}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '17') &&  ((BranchData.accessadmin  &&  this.updateaccess)  || this.accesssuperadmin)"  (click)='supsendaction(BranchData.applicationdtlstmp_pk , 19 , BranchData.omrm_companyname_en)'><span>{{'Suspend' | translate}}</span></button>
+                                                    <button type="button" mat-menu-item  *ngIf="(BranchData.appdt_status == '19') &&  ((BranchData.accessadmin  &&  this.updateaccess)  || this.accesssuperadmin)"  (click)='supsendaction(BranchData.applicationdtlstmp_pk , 17 ,BranchData.omrm_companyname_en)'><span>{{'Activate' | translate }}</span></button>
+                                                    <button type="button" mat-menu-item    *ngIf="this.readaccess && this.accessproject"  (click)='auditlog(BranchData )'><span>{{'table.audilog' |
+                                                            translate}}
+                                                        </span></button>
+                                                        <!-- <button type="button" mat-menu-item (click)='auditlog()'><span>{{'table.audilog' |
+                                                            translate}}</span></button> -->
+                                                            <button type="button" mat-menu-item   *ngIf="(BranchData.appdt_status >= 9 && BranchData.appdt_status != 20 && BranchData.appdt_auditedreport  && this.readaccess &&  this.auditreportapproval)" (click)="downLoadPdf(BranchData.appdt_auditedreport)"><span>View Audit Report</span></button>
+                                            
+  
+                                    </mat-menu>
+                                </div></div>
+                               
+                            </mat-cell>
+                        </ng-container>
+                       
+                        <!-- <ng-container matColumnDef="expandedDetail" stickyEnd>
+                            <td mat-cell fxFlex="100%"  *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                              <div class="example-element-detail"
+                                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" *ngIf="element.appintit_status == '3' || element.appoprct_status == '4'" >
+                                <div class="example-element-diagram "  [ngClass]="element.appoprct_status == 3 ? 'successcmd' : 'declinecmd'">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <p class="fs-18 comment m-0">{{'institute.declcomm' | translate}}  </p>
+                                        <mat-icon  class="fs-18 comment" matTooltip="close" (click)="toggleExpansion()">close</mat-icon>
+                                       </div>
+                                        <p class="16 m-b-30" > test</p>
+                                            <mat-divider></mat-divider>
+                                           <div class="validinfo"  fxLayout="row wrap" >
+                                            <p class="fs-16 txt-gry m-r-40">{{'institute.lastvalion' | translate}}:<span class="fs-16 txt-gry3 m-l-10">{{element.appoprct_appdecon}}</span></p>
+                                            <p class="fs-16 txt-gry m-l-30">{{'institute.lastvaliby' | translate}}:<span class="fs-16 txt-gry3 m-l-10">{{element.username}}</span></p>
+                                           </div>
+                                </div>
+                              </div>
+                            </td>
+                          </ng-container> -->
+                        <!-- 1 -->
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appdt_appreferno">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 2 -->
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="appiit_officetype" multiple>
+                                        <mat-option value="1">{{'table.main' |translate}}</mat-option>
+                                        <mat-option value="2">{{'table.branch' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 3 -->
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="omrm_companyname_en">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 4 -->
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="300px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                        <input matInput [formControl]="omrm_tpname_en">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                         <!-- centre name -->
+                         <ng-container matColumnDef="row-centrename">
+                            <mat-header-cell fxFlex="300px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                        <input matInput [formControl]="omrm_branch_en">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 5 -->
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="270px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appiit_branchname_en">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 6 -->
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="150px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <!-- <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="course_cat">
+                                </mat-form-field> -->
+
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 7 -->
+                        <ng-container matColumnDef="row-seven">
+                            <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="appdt_apptype" multiple>
+                                        <mat-option value="1">{{'table.initial' |translate}}</mat-option>
+                                        <mat-option value="3">{{'table.update' |translate}}</mat-option>
+                                        <mat-option value="2">{{'table.renewal' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 8 -->
+                        <ng-container matColumnDef="row-eight">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |translate}}</mat-label>
+                                    <mat-select [formControl]="appdt_status" panelClass="select_with_search" multiple>
+                                        <div class="option-listing">
+                                            <!-- <mat-option value="1">{{'table.yettosubmit' |translate}}</mat-option> -->
+                                        <mat-option value="2">Desktop Review Pending</mat-option>
+                                        <mat-option value="3">Missing Files</mat-option>
+                                        <!-- <mat-option value="4">{{'table.resubmdesk' |translate}}</mat-option> -->
+                                        <mat-option value="5">Payment Pending</mat-option>
+                                        <mat-option value="6">Confirm Payment</mat-option>
+                                        <mat-option value="7">Yet to schedule for Site Audit</mat-option>
+                                        <mat-option value="8" *ngIf="projectpk == '1'" >Audit Date Selection (Training Provider)</mat-option>
+                                        <mat-option value="8" *ngIf="projectpk == '4'" >Audit Date Selection (Inspection Centre)</mat-option>
+                                        <mat-option value="9">Ready for Audit</mat-option>
+                                        <mat-option value="10">Quality Manager Approval Pending</mat-option>
+                                        <mat-option value="11">Authority  Approval Pending</mat-option>
+                                        <mat-option value="12">CEO Approval Pending</mat-option>
+                                        <mat-option value="13">Site Audit Report Declined</mat-option>
+                                        <!-- <mat-option value="14">{{'table.resubmforqual' |translate}}</mat-option>
+                                        <mat-option value="15">{{'table.resubmforauth' |translate}}</mat-option>
+                                        <mat-option value="16">{{'table.resubmforceoapp' |translate}}</mat-option> -->
+                                        <mat-option value="17">{{'table.approved' |translate}}</mat-option>
+                                        <mat-option value="18">{{'table.fineteam'|translate}}</mat-option>
+                                        <mat-option value="19">{{'table.susb'|translate}}</mat-option>
+                                        <mat-option value="20">{{'Certification Form Declined'|translate}}</mat-option>
+
+                                    </div>
+
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 9 -->
+                        <ng-container matColumnDef="row-nine">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="cert_status" multiple>
+                                        <mat-option value="1">{{'table.new' |translate}}</mat-option>
+                                        <mat-option value="2">{{'table.acti' |translate}}</mat-option>
+                                        <mat-option value="3">{{'table.expi' |translate}}</mat-option>
+                                    </mat-select>   
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 10 -->
+                        <ng-container matColumnDef="row-ten">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |translate}}</mat-label>
+                                    <mat-select [formControl]="appdt_grademst_fk" multiple>
+                                        <mat-option value="1">{{'table.bronze' |translate}}</mat-option>
+                                        <mat-option value="2">{{'table.silver' |translate}}</mat-option>
+                                        <mat-option value="3">{{'table.gold' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                            <!-- new -->
+                            <ng-container matColumnDef="row-new">
+                                <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <!-- <mat-label>Search</mat-label> -->
+                                        <div class="drpicker" id="regapp">
+                                            <input id="login_session" [formControl]="asd_date" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true" readonly class="form-control"/>
+                                            <div class="closeanddateicon">
+                                                <mat-datepicker-toggle matSuffix >
+                                                </mat-datepicker-toggle>
+                                            </div>
+                                        </div>
+                                          
+                                       
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                        <!-- 11 -->
+                        <ng-container matColumnDef="row-eleven">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>Search</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appdt_certificateexpiry" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" [max]="today"/>
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                      
+                                   
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 11 -->
+
+                        <!-- 12 -->
+                        <ng-container matColumnDef="row-twelve">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appdt_submittedon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" [max]="today"/>
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 13 -->
+                        <ng-container matColumnDef="row-thrideen">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appdt_updatedon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" [max]="today"/>
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-fourteen" stickyEnd>
+                            <mat-header-cell fxFlex="125px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+
+                                <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                    aria-hidden="true" matTooltip="{{'table.refresh'|translate}}"></i>
+                            </mat-header-cell>
+                        </ng-container>
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="getworkExperienceList();">
+                        </mat-header-row>
+                            <mat-header-row id="searchrow"
+                            *matHeaderRowDef="getBranchListDatasearch()">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: getworkExperienceList();"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                               
+                                    <div [ngClass]="!tblplaceholder? 'nofound': ''" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                                <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                    <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                                    class="NorecordLoader"></div>
+                                                    <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder">
+                                                    <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'common.noreco' | translate}}</p>
+                                        </div>
+                                    </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"[style.display]="(resultsLength > 0) ? 'none' : 'block' " 
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

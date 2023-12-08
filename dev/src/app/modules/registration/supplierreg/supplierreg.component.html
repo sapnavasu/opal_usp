@@ -1,0 +1,617 @@
+<ng-container>
+  <div #pageScroll (scroll)="pageonScroll($event)" *ngIf="!showThankYouForRegPage" id="centreregistration">
+    <div class="back-ground p-t-10 p-b-10" fxLayout="row wrap" fxLayoutAlign="center">
+      <div class="p-5 maxwidthinnerpart">
+        <div class="arrow-back" fxFlex="8" fxLayoutAlign="center">
+          <button class="langbtn txt-gry" matTooltip="{{'supplierreg.back' | translate}}" (click)="backtocanc()">
+            <mat-icon
+              class="txt-gry fs-15 p-r-5">keyboard_backspace</mat-icon>
+             <span class="m-l-5 txt-gry"> {{'supplierreg.back' | translate}}</span>
+          </button>
+        </div>
+        <div fxFlex="100">
+          <h2 class="fs-20 m-0 fw txt-gry text-center">{{'supplierreg.centrregi' | translate}} </h2>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center" id="supplierreg_container">
+      <div class="centerarrange maxwidthinnerpart">
+        <div class="p-t-15">
+          <form class="example-form" [formGroup]="supplierForm" #ngForm="ngForm" #pageScroll
+            (ngSubmit)="submitRegistration()" autocomplete="off">
+            <div class="tabcontent errorvalidate">
+              <div fxLayout="row wrap" class="triggeredto">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <div fxLayout="row wrap" class="p-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="register">
+                      <mat-form-field appearance="outline">
+                        <mat-select required formControlName="registeras" disabled>
+                          <mat-option [value]="'1'">{{'supplierreg.traieval' | translate}} </mat-option>
+                          <mat-option [value]="'2'">{{'supplierreg.techeval' | translate}} </mat-option>
+                        </mat-select>
+                        <mat-label>{{'supplierreg.regifor' | translate}} </mat-label>
+                        <!-- <mat-error *ngIf="form.registeras.errors?.required || (form.registeras.touched)">Select
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                    <div  *ngIf="form.registeras.value == '2'" fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                    ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="register">
+                      <mat-form-field appearance="outline">
+                        <mat-select required formControlName="projectpk">
+                          <mat-option [value]="'4'">{{'Roadworthiness Assurance Standards (RAS) Inspection Centre Evaluation' | translate}} </mat-option>
+                          <mat-option [value]="'5'">{{'In-Vehicle Monitoring System (IVMS) Centre Evaluation' | translate}} </mat-option>
+                        </mat-select>
+                        <mat-label>{{'Technical Evaluation Centre' | translate}} </mat-label>
+                        <!-- <mat-error *ngIf="form.registeras.errors?.required || (form.registeras.touched)">Select
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="formheader">
+                    <p class="header m-0 fs-18 txt-red">
+                      <span>{{'supplierreg.thecomp' | translate}} </span>
+                    </p>
+                  </div>
+                  <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'supplierreg.opalmemb' | translate}}</mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                          app-restrict-input="numspecsymbol" maxlength="45"
+                          (change)="checkByType(form.opal_memb_no.value,'opal_memb_no')" formControlName="opal_memb_no">
+                        <mat-icon matSuffix *ngIf="!memshpverify"
+                          matTooltip="{{'supplierreg.ifyouareopaloman' | translate}} ">info_outline</mat-icon>
+                        <mat-spinner-button matSuffix type="button" *ngIf="memshpverify" (click)="verifybtn()"
+                          class="submitbtnedit verifytop" [options]="spinnerButtonOptionsEmail">
+                        </mat-spinner-button>
+                        <!-- <mat-spinner-button matSuffix type="button" *ngIf="memshpverify" 
+                              class="submitbtnedit verifed" [options]="spinnerButtonOptions">
+                            </mat-spinner-button> -->
+                        <mat-error *ngIf="form.opal_memb_no.errors?.required  || supplierForm.submitted">
+                          {{'supplierreg.enteropalmem' | translate}} </mat-error>
+                        <mat-error *ngIf="form.opal_memb_no.errors?.alreadyavailable">
+                          {{'supplierreg.youarealread' | translate}} </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div *ngIf="date_exp || !memshpverify" fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                      ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'supplierreg.opalmembexpi' | translate}} </mat-label>
+                        <input matInput [min]="maxDate" required formControlName="opal_memb_expiry"
+                          [errorStateMatcher]="matcher" (mousedown)="picker2.open(); $event.preventDefault" [disabled]="picker2.opened"
+                          [matDatepicker]="picker2" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2
+                          ></mat-datepicker>
+                        <mat-icon matSuffix class="m-b-4"
+                          matTooltip="{{'supplierreg.provtheopal' | translate}} ">info_outline</mat-icon>
+                        <mat-error *ngIf="form.opal_memb_expiry.errors?.required  || supplierForm.submitted">
+                          {{'supplierreg.seleopalmemb' | translate}} </mat-error>
+                      </mat-form-field>
+
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{'supplierreg.compcrnumb' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" matInput
+                          (change)="checkByType(form.comp_cr_no.value,'comp_cr_no')" required
+                          app-restrict-input="numspecsymbol" maxlength="250" formControlName="comp_cr_no">
+                        <mat-icon matSuffix *ngIf="!crnumverify"
+                          matTooltip=" {{'supplierreg.thecommregi' | translate}} ">info_outline</mat-icon>
+                        <mat-spinner-button matSuffix type="button" *ngIf="crnumverify" (click)="verify()"
+                          class="submitbtnedit verifytop" [options]="spinnerButtonOptionsmobile">
+                        </mat-spinner-button>
+                        <!-- <mat-spinner-button matSuffix type="button" *ngIf="crnumverify" 
+                              class="submitbtnedit verifed" [options]="spinnerButtonOption">
+                            </mat-spinner-button> -->
+                        <!-- <button matSuffix (click)="verify()" >Verify</button> -->
+                        <mat-error *ngIf="form.comp_cr_no.errors?.required  || supplierForm.submitted">
+                          {{'supplierreg.entecompcr' | translate}} </mat-error>
+                        <mat-error *ngIf="form.comp_cr_no.errors?.alreadyavailable">
+                          {{'supplierreg.compcrnumbalre' | translate}} </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div *ngIf="date_expiry || !crnumverify" fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                      ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'supplierreg.commregiexpidate' | translate}} </mat-label>
+                        <input matInput [min]="maxDate" (mousedown)="picker3.open(); $event.preventDefault" [disabled]="picker3.opened"
+                          formControlName="comp_cr_expiry" [matDatepicker]="picker3" required readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3
+                          ></mat-datepicker>
+                        <mat-error *ngIf="form.comp_cr_expiry.errors?.required || supplierForm.submitted">
+                          {{'supplierreg.selecommregi' | translate}} </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                    <div fxFlex="100" class="paddingspacing file_upload" ngClass.sm="m-0">
+                      <mat-icon class="info_icon m-l-10" matPrefix
+                        matTooltip="{{'supplierreg.uploayourcomp' | translate}} ">info_outline</mat-icon>
+                      <app-fileupload #company_logo [placeholder]="'supplierreg.complogo' | translate"
+                        [ifrequired]="false" [key]=8 (fileuploaded)="checkfile($event,1)"></app-fileupload>
+                      <mat-hint class="fs-14 txt-gry">{{'supplierreg.onlyjpgjpeg' | translate}} </mat-hint>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-15">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{'supplierreg.compnameinengl' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                          appAlphanumspecificsymb app-restrict-input="englishspace" required (change)="changeincompname();"
+                          formControlName="company_name_en" maxlength="250">
+                        <mat-error *ngIf="form.company_name_en.errors?.required || supplierForm.submitted">
+                          {{'supplierreg.entecompnameinengl' | translate}}
+                        </mat-error>
+                        <!-- <mat-error *ngIf="form.company_name_en.errors?.alreadyavailable">
+                           company name already exits
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-15">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                      <mat-form-field class="example-full-width arabiclanguage" appearance="outline">
+                        <mat-label>{{'supplierreg.compnameinarab' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                          (change)="changeincompname()" app-restrict-input="arabic" required
+                          formControlName="company_name_ar" maxlength="250">
+                        <mat-error *ngIf="form.company_name_ar.errors?.required || supplierForm.submitted">
+                          {{'supplierreg.entecompnameinarab' | translate}}
+                        </mat-error>
+                        <!-- <mat-error *ngIf="form.company_name_ar.errors?.alreadyavailable">
+                                  company name already exits
+                                </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div *ngIf="!ifopalstar" fxLayout="row wrap" class="p-t-10 m-b-20"
+                    fxLayoutAlign="space-between center">
+                    <div fxFlex="100" id="cr_activity" class="paddingspacing file_upload" ngClass.sm="m-0">
+                      <app-fileupload *ngIf="!ifopalstar" [placeholder]="'supplierreg.cractideta' | translate"
+                        [ifrequired]="true" [key]=9 (fileuploaded)="checkfile($event,2)"
+                        (deletedSelected)="deleteSelectedFile($event,2)"></app-fileupload>
+                      <mat-hint>{{'supplierreg.onlyonepdf' | translate}} </mat-hint>
+                      <mat-error *ngIf="form.cr_activity.errors?.required && ngForm.submitted">
+                        {{'supplierreg.plsdoupload' | translate}}
+                      </mat-error>
+                    </div>
+
+                  </div>
+                  <mat-checkbox (change)="ifcompnamesame(form.isCompNameSame.value)" formControlName="isCompNameSame">
+                  </mat-checkbox>
+                  <span *ngIf="ifopalstar" class="fs-16 txt-gry p-l-3">{{'supplierreg.ifthetrain' | translate}} </span>
+                  <span *ngIf="!ifopalstar" class="fs-16 txt-gry p-l-3">{{'supplierreg.ifthecentename' | translate}}
+                  </span>
+                  <div *ngIf="ifopalstar">
+                    <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-15">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="read_only">
+                        <mat-form-field class="example-full-width read_only" appearance="outline">
+                          <mat-label>{{'supplierreg.traiprovinengl' | translate}} </mat-label>
+                          <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="englishspace" required formControlName="tp_name_en" maxlength="250"
+                            [readonly]="form.isCompNameSame.value == true">
+                          <mat-error *ngIf="form.tp_name_en.errors?.required || (form.tp_name_en.touched)">
+                            {{'supplierreg.entetnenameengl' | translate}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-15">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="read_only">
+                        <mat-form-field class="example-full-width arabiclanguage" appearance="outline">
+                          <mat-label>{{'supplierreg.trainarab' | translate}} </mat-label>
+                          <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="arabic" required formControlName="tp_name_ar" maxlength="250"
+                            [readonly]="form.isCompNameSame.value == true">
+                          <mat-error *ngIf="form.tp_name_ar.errors?.required || (form.tp_name_ar.touched)">
+                            {{'supplierreg.entetrainarab' | translate}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!ifopalstar">
+                    <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-15">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>{{'supplierreg.centernameinengl' | translate}}</mat-label>
+                          <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                          app-restrict-input="english" required formControlName="branch_name_en" maxlength="250">
+                          <mat-error *ngIf="form.branch_name_en.errors?.required || (form.branch_name_en.touched)">
+                            {{'supplierreg.entecentename' | translate}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-15">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <mat-form-field class="example-full-width arabiclanguage" appearance="outline">
+                          <mat-label>{{'supplierreg.entenameinarab' | translate}} </mat-label>
+                          <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="arabic" required formControlName="branch_name_ar" maxlength="250">
+                          <mat-error *ngIf="form.branch_name_ar.errors?.required || (form.branch_name_ar.touched)">
+                            {{'supplierreg.entecentenamearab' | translate}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <p *ngIf="ifopalstar && form.isCompNameSame.value" class="fs-16 txt-gry m-0">
+                    {{'supplierreg.toeditthetrain' | translate}}</p>
+                  <p *ngIf="!ifopalstar && form.isCompNameSame.value" class="fs-16 txt-gry m-0">
+                    {{'supplierreg.toeditthecenter' | translate}} </p>
+                  <div *ngIf="!ifopalstar" fxLayout="row wrap" class="p-t-20" fxLayoutAlign="space-between center">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{'supplierreg.officetype' | translate}}</mat-label>
+                        <mat-select [errorStateMatcher]="matcher" required
+                        (selectionChange)="selectedBranchType($event)"
+                        formControlName="branchtype"
+                          >
+                          <div class="option-listing countryselectwithimage">
+                            <mat-option *ngFor="let state of branchType | filter: searchGovernorate "
+                              [value]="state.id">
+                              {{state.branch | translate}}
+                            </mat-option>
+                            <div class="p-t-10" *ngIf="branchType.length == 0">
+                              {{'supplierreg.nocounmatc' | translate}}
+                            </div>
+                          </div>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="form.governorate.errors?.required || (form.governorate.touched)">{{'Select office type from the Drop-down'
+                          | translate}} </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!ifopalstar && isBranchOfficType">
+                    <div fxLayout="row wrap"  fxLayoutAlign="end" class="p-t-15">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="read_only">
+                        <mat-form-field class="example-full-width read_only" appearance="outline">
+                          <mat-label>{{'supplierreg.branchineng' | translate}}</mat-label>
+                          <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="englishspace" required formControlName="branchname_en" maxlength="250"
+                            >
+                          <mat-error *ngIf="form.branchname_en.errors?.required || (form.branchname_en.touched)">
+                            {{'supplierreg.branchnameengl' | translate}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-15">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="read_only">
+                        <mat-form-field class="example-full-width arabiclanguage" appearance="outline">
+                          <mat-label>{{'supplierreg.branchineab' | translate}} </mat-label>
+                          <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="arabic" required formControlName="branchname_ar" maxlength="250"
+                            >
+                          <mat-error *ngIf="form.branchname_ar.errors?.required || (form.branchname_ar.touched)">
+                            {{'supplierreg.branchnameab' | translate}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  
+                 
+                  <div fxLayout="row wrap" class="p-t-20" fxLayoutAlign="space-between center">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{'supplierreg.gove' | translate}} </mat-label>
+                        <mat-select [errorStateMatcher]="matcher" required
+                          (closed)="searchGovernorate = '';selectedGovernorate(form.governorate.value)"
+                          formControlName="governorate" panelClass="select_with_search" [disableOptionCentering]="true"
+                          *ngIf="(governoratelist | filter : searchGovernorate) as goverresult"
+                          (selectionChange)="selectedGovernorate(form.governorate.value)">
+                          <div class="searchinmultiselect">
+                            <mat-icon class="">search</mat-icon>
+                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                              class="searchselect" type="Search" placeholder="{{'supplierreg.sear' | translate}} "
+                              (keydown)="$event.stopPropagation();" [(ngModel)]="searchGovernorate"
+                              [ngModelOptions]="{standalone: true}" autocomplete="off">
+                            <mat-icon (click)="searchGovernorate = ''" class="reseticon" matSuffix
+                              *ngIf="searchGovernorate !='' && searchGovernorate !=null">clear</mat-icon>
+                          </div>
+                          <mat-select-trigger class="flagwithcode countryestab">
+                            {{ifarabic == true ? selectedEstGovernorateAr : selectedEstGovernorate}}
+                          </mat-select-trigger>
+                          <div class="option-listing countryselectwithimage">
+                            <mat-option *ngFor="let state of governoratelist | filter: searchGovernorate "
+                              [value]="state.opalstatemst_pk">
+                              {{ifarabic == true ? state.osm_statename_ar : state.osm_statename_en}}
+                            </mat-option>
+                            <div class="p-t-10" *ngIf="goverresult.length == 0">
+                              {{'supplierreg.nocounmatc' | translate}}
+                            </div>
+                          </div>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="form.governorate.errors?.required || (form.governorate.touched)">{{'supplierreg.selegover'
+                          | translate}} </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                      ngClass.xl="p-l-30" fxFlex="100">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{'supplierreg.wila' | translate}} </mat-label>
+                        <mat-select [errorStateMatcher]="matcher" (closed)="searchCity = '';" required
+                          formControlName="wilayat" panelClass="select_with_search" [disableOptionCentering]="true"
+                          *ngIf="(wilayatlist | filter : searchCity) as cityresult">
+                          <div class="searchinmultiselect">
+                            <mat-icon class="">search</mat-icon>
+                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                              class="searchselect" type="Search" placeholder="{{'supplierreg.sear' | translate}} "
+                              (keydown)="$event.stopPropagation();" [(ngModel)]="searchCity"
+                              [ngModelOptions]="{standalone: true}" autocomplete="off">
+                            <mat-icon (click)="searchCity = ''" class="reseticon" matSuffix
+                              *ngIf="searchCity !='' && searchCity !=null">clear</mat-icon>
+                          </div>
+                          <div class="option-listing countryselectwithimage">
+                            <mat-option *ngFor="let city of wilayatlist | filter: searchCity"
+                              [value]="city.opalcitymst_pk">
+                              {{ifarabic == true ? city.ocim_cityname_ar : city.ocim_cityname_en}}
+                            </mat-option>
+                            <div class="p-t-10" *ngIf="cityresult.length == 0">
+                              {{'supplierreg.nocounmatc' | translate}}
+                            </div>
+                          </div>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="(form.wilayat.errors?.required || (form.governorate.value !== '')) || (form.wilayat.touched) || supplierForm.submitted">
+                          {{'supplierreg.selewila' | translate}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" class="p-t-15">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                          <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>{{'supplierreg.addreline' | translate}} 1</mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                              app-restrict-input="firstspace" matInputClearOnBackspace matInput formControlName="address1" required
+                              maxlength="250" (keyup)="onKeyUp($event)">
+                            <mat-error
+                              *ngIf="form.address1.errors?.required || (form.address1.touched) || supplierForm.submitted">
+                              {{'supplierreg.entetheaddr' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-l-30"
+                          ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+                          <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>{{'supplierreg.addreline' | translate}} 2</mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                              app-restrict-input="firstspace" matInputClearOnBackspace matInput formControlName="address2" maxlength="250" (keyup)="onKeyUp($event)">
+                            <mat-error
+                              *ngIf="form.address2.errors?.required || (form.address2.touched) || supplierForm.submitted">
+                              {{'supplierreg.entetheaddr' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formheader">
+                    <p class="header m-0 fs-18 txt-red">
+                      <span>{{'supplierreg.genemanag' | translate}} </span>
+                    </p>
+                  </div>
+                  <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                      <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.name' | translate}} </mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                              app-restrict-input="firstspace" appAlphabetonly   (change)="changeingmdtls()" required
+                              formControlName="gm_name" maxlength="100" matInputClearOnBackspace >
+                            <mat-error
+                              *ngIf="form.gm_name.errors?.required || (form.gm_name.touched) || supplierForm.submitted">
+                              {{'supplierreg.entename' | translate}} </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                          ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.email' | translate}} </mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                              pattern="[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+" app-restrict-input="english"
+                              (change)="changeingmdtls()" required formControlName="gm_emailid" maxlength="255">
+                            <mat-error *ngIf="form.gm_emailid.errors?.required || supplierForm.submitted">
+                              {{'supplierreg.enteanemail' | translate}} </mat-error>
+                            <mat-error
+                              *ngIf="supplierForm.get('gm_emailid').hasError('pattern')">{{'supplierreg.entevalidemail'
+                              | translate}} </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.mobinumb' | translate}}</mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                              (change)="changeingmdtls()" required formControlName="gm_mobnum" appNumberonly
+                              pattern="[1-9]{1,}[0-9]{7,}" maxlength="8" minlength="8">
+                            <mat-error
+                              *ngIf="(form.gm_mobnum.errors?.required || supplierForm.submitted) && !supplierForm.get('gm_mobnum').hasError('pattern')">
+                              {{'supplierreg.entemobi' | translate}} </mat-error>
+                            <mat-error *ngIf="form.gm_mobnum.errors?.minlength"> {{'supplierreg.minleng' | translate}}
+                            </mat-error>
+                            <mat-error *ngIf="form.gm_mobnum.errors?.pattern && !form.gm_mobnum.errors?.minlength">{{'supplierreg.entervalidmobile'
+                              | translate}} </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div *ngIf="ifopalstar" fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                          ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.mohegrad' | translate}} </mat-label>
+                            <mat-select required formControlName="moheri_grade" panelClass="select_with_search">
+                              <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let list of moherigradinglist"
+                                  [value]="list.opalmoherigradingmst_pk">
+                                  {{ifarabic == true ? list.omgm_gradename_ar : list.omgm_gradename_en}}
+                                </mat-option>
+                              </div>
+                            </mat-select>
+                            <mat-icon matSuffix
+                              matTooltip=" {{'supplierreg.selethegrad' | translate}}">info_outline</mat-icon>
+                            <mat-error *ngIf="form.moheri_grade.errors?.required || (form.moheri_grade.touched) || supplierForm.submitted">
+                              {{'supplierreg.selemohegrad' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <mat-checkbox (change)="ifgmsameasfp(form.ifFpSameAsGm.value)" formControlName="ifFpSameAsGm"
+                        class="fs-16 txt-gry">
+                      </mat-checkbox>
+                      <span class="fs-16 txt-gry p-l-3">
+                        {{'supplierreg.ifthefocalpoint' | translate}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="formheader m-t-20">
+                    <p class="header m-0 fs-18 txt-red">
+                      <span>{{'supplierreg.foacpointdetial' | translate}}</span>
+                    </p>
+                  </div>
+                  <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                      <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0" class="read_only">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.name' | translate}} </mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" 
+                              [errorStateMatcher]="matcher" matInput maxlength="100" matTooltip="{{'supplierreg.notetoeditthefoacl'
+                            | translate}}" [matTooltipDisabled]="!form.ifFpSameAsGm.value"   app-restrict-input="firstspace" appAlphabetonly  
+                              required formControlName="focalpoint_name" [readonly]="form.ifFpSameAsGm.value == true">
+                            <mat-error
+                              *ngIf="form.focalpoint_name.errors?.required || (form.focalpoint_name.touched) || supplierForm.submitted">
+                              {{'supplierreg.entename' | translate}} </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                          ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="read_only">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.desig' | translate}} </mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                              app-restrict-input="firstspace" required formControlName="focalpoint_desig" maxlength="250">
+                            <mat-error
+                              *ngIf="form.focalpoint_desig.errors?.required || (form.focalpoint_desig.touched) || supplierForm.submitted">
+                              {{'supplierreg.entedesig' | translate}} </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0" class="read_only">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.email' | translate}} </mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                              pattern="[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+"
+                              (change)="checkByType(form.focalpoint_emailid.value,'focalpoint_emailid');" required
+                              maxlength="255" matTooltip="{{'supplierreg.notetoeditthefoacl'| translate}}"
+                              [matTooltipDisabled]="!form.ifFpSameAsGm.value" app-restrict-input="english"
+                              formControlName="focalpoint_emailid" [readonly]="form.ifFpSameAsGm.value == true">
+                            <mat-icon matSuffix
+                              matTooltip=" {{'supplierreg.thisemaiidwill' | translate}} ">info_outline</mat-icon>
+                            <mat-error *ngIf="form.focalpoint_emailid.errors?.required ||  supplierForm.submitted">
+                              {{'supplierreg.enteanemail' | translate}} </mat-error>
+                            <mat-error
+                              *ngIf="supplierForm.get('focalpoint_emailid').hasError('pattern')">{{'supplierreg.entevalidemail'
+                              | translate}} </mat-error>
+                            <mat-error
+                              *ngIf="form.focalpoint_emailid.errors?.alreadyavailable && form.ifFpSameAsGm.value == false">
+                              {{'supplierreg.emailalready' | translate}}
+                            </mat-error>
+                            <mat-error
+                              *ngIf="form.focalpoint_emailid.errors?.alreadyavailable && form.ifFpSameAsGm.value == true">
+                              {{'supplierreg.emailalready' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                          ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="read_only">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{'supplierreg.mobinumb' | translate}}</mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                              pattern="[1-9]{1,}[0-9]{7,}" (change)="changeingmdtls()" required
+                              formControlName="focalpoint_mobno" appNumberonly
+                              matTooltip="{{'supplierreg.notetoeditthefoacl'| translate}}"
+                              [matTooltipDisabled]="!form.ifFpSameAsGm.value" maxlength="8" minlength="8"
+                              [readonly]="form.ifFpSameAsGm.value == true">
+                            <mat-error
+                              *ngIf="(form.focalpoint_mobno.errors?.required || supplierForm.submitted) && !supplierForm.get('focalpoint_mobno').hasError('pattern')">
+                              {{'supplierreg.entemobi' | translate}} </mat-error>
+                            <mat-error
+                              *ngIf="form.focalpoint_mobno.errors?.minlength && !(form.focalpoint_mobno.errors?.required || supplierForm.submitted)">
+                              {{'supplierreg.minleng' | translate}}
+                            </mat-error>
+                            <mat-error
+                              *ngIf="!form.focalpoint_mobno.errors?.minlength && form.focalpoint_mobno.errors?.pattern">{{'supplierreg.entervalidmobile'
+                              | translate}} </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="image_container m-t-25">
+                <div class="agreecolor p-b-20" id="termsvlaue" fxLayoutAlign="flex-start center">
+                  <mat-checkbox type="checkbox" [disabled]="ReadOnlyStyleGuideNotes" [checked]="agreeData"
+                    formControlName="userCheck">
+                  </mat-checkbox>
+                  <p class="m-0 fs-13 p-l-10 txt-gry">{{'supplierreg.ihavefullytoopal' | translate}} <a
+                      href="javascript:void(0)" (click)="opendialogterms();"><span
+                        class="termscolor_new txt-red">&nbsp;{{'supplierreg.terms&condi' | translate}}
+                      </span></a>{{'supplierreg.iamauthbymy' | translate}}</p>
+                </div>
+                <div class="contactpersoninfo">
+                  <div fxLayout="row wrap" class="p-t-15 p-b-40">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="text-right aligncapsha">
+                      <div class="forcaptch">
+                        <img src="assets/images/opalimages/captcha.png" alt="captcha">
+                        <span fxLayout="row wrap" class="fs-14 txt-gry p-l-10 recap_cont"> {{'supplierreg.opalisprot' |
+                          translate}} <a href="https://policies.google.com/privacy" target="_blank"
+                            class="feecolorconf txt-red">
+                            &nbsp;{{'supplierreg.privpoli' | translate}} </a>&nbsp;{{'supplierreg.and' | translate}}
+                          &nbsp;<a href="https://policies.google.com/terms" target="_blank"
+                            class="feecolorconf txt-red"> {{'supplierreg.termofserv' | translate}}
+                          </a>&nbsp;{{'supplierreg.appl' | translate}} </span>
+                        <app-recaptcha #recaptcha (captchaToken)="setCaptcha($event)" (expired)="captcha = $event">
+                        </app-recaptcha>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="cancelandpublish m-t-30">
+                  <button mat-raised-button class="m-r-12 cancelbtn button-45 fs-16" type="button"
+                    (click)="cancelreg()">{{'supplierreg.canc' | translate}}
+                  </button>
+                  <button mat-raised-button color="primary" id="savecontinue" type="submit"
+                    class="button-45 fs-16  submit_btn m-l-15">{{'supplierreg.submit' | translate}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <span (click)="scrollTo('pagescroll')" *ngIf="isShowBtnScrollTop" class="scrolltoppage" matTooltip="Go to top"
+      matTooltipPosition="above">
+      <mat-icon>arrow_upward</mat-icon>
+    </span>
+  </div>
+  <div *ngIf="showThankYouForRegPage">
+    <app-thankyou></app-thankyou>
+  </div>
+</ng-container>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

@@ -1,0 +1,259 @@
+<div fxLayoutAlign="center" id="addstandardcourse" class="changeassessor" >
+    <form [formGroup]="standardcourseform" (ngSubmit)="standardcourseform.valid ? submit(standardcourseform.value) : focusInvalidInput(standardcourseform)">
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Course Title (English)' |translate}}</mat-label>
+                    <input matInput  required (keydown.enter)="$event.preventDefault()" 
+                     appAlphabetonly app-restrict-input="englishspace" formControlName="title_en">
+                    <mat-error *ngIf="form.title_en.errors?.required || form.submitted">
+                        {{'Enter the Course Title in English' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  class="arabiclanguage" appearance="outline">
+                    <mat-label>{{'Course Title (Arabic)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" app-restrict-input="arabic" appAlphabetonly formControlName="title_ar">
+                    <mat-error *ngIf="form.title_ar.errors?.required || form.submitted">
+                        {{'Enter the Course Title in Arabic' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Assessment in' | translate}}</mat-label>
+                    <mat-select required formControlName="assessmentin">
+                        <mat-option *ngFor="let list of assessmentinlist" [value]="list.pk">
+                            {{ifarbic == true ? (list.name_ar): (list.name_en)}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.assessmentin.errors?.required || form.submitted">
+                        {{'Select the Assessment in from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Request For' | translate}}</mat-label>
+                    <mat-select required multiple formControlName="requestfor">
+                        <mat-option *ngFor="let list of requestforlist" [value]="list.pk">
+                            {{ifarbic == true ? (list.name_ar): (list.name_en)}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.requestfor.errors?.required || form.submitted">
+                        {{'Select the Request For from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp">
+                 <mat-form-field appearance="outline" class="filter" >
+                    <mat-label>{{'Course Level' | translate}} </mat-label>
+                    <mat-select  formControlName="courselevel" required  (closed)="courselevel_search = '';" panelClass="select_with_search"
+                     *ngIf="(courselevellist | filter : courselevel_search) as inst_stateresult">
+                           <div class="searchinmultiselect"><mat-icon class="">search</mat-icon>
+                                 <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput class="searchselect"
+                                   type="Search"  placeholder="{{'Search' | translate}} " (keydown)="$event.stopPropagation();"
+                                     [(ngModel)]="courselevel_search" [ngModelOptions]="{standalone: true}"  autocomplete="off">
+                                        <mat-icon (click)="courselevel_search = ''" class="reseticon" matSuffix
+                                         *ngIf="courselevel_search !='' && courselevel_search !=null">clear</mat-icon></div>
+                                            <div class="option-listing countryselectwithimage">
+                                                <mat-option *ngFor="let list of courselevellist | filter : courselevel_search" [value]="list.pk">
+                                                    {{ifarbic == true ? (list.name_ar): (list.name_en)}}
+                                                </mat-option>
+                                                <div *ngIf="inst_stateresult.length == 0">{{'No Result Found' | translate}}</div>
+                                            </div>
+                    </mat-select>
+                           <mat-error > {{'Select the Course Level from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field appearance="outline" class="filter" >
+                    <mat-label>{{'Course Category' | translate}} </mat-label>
+                    <mat-select  formControlName="coursecategory"  required (closed)="coursecategory_search = '';" panelClass="select_with_search"
+                     *ngIf="(coursecategorylist | filter : coursecategory_search) as inst_stateresult">
+                           <div class="searchinmultiselect"><mat-icon class="">search</mat-icon>
+                                 <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput class="searchselect"
+                                   type="Search"  placeholder="{{'Search' | translate}} " (keydown)="$event.stopPropagation();"
+                                     [(ngModel)]="coursecategory_search" [ngModelOptions]="{standalone: true}"  autocomplete="off">
+                                        <mat-icon (click)="coursecategory_search = ''" class="reseticon" matSuffix
+                                         *ngIf="coursecategory_search !='' && coursecategory_search !=null">clear</mat-icon></div>
+                                            <div class="option-listing countryselectwithimage">
+                                                <mat-option *ngFor="let list of coursecategorylist | filter : coursecategory_search" [value]="list.coursecategorymst_pk">
+                                                    {{ifarbic == true ? (list.ccm_catname_ar): (list.ccm_catname_en)}}
+                                                </mat-option>
+                                                <div *ngIf="inst_stateresult.length == 0">{{'No Result Found' | translate}}</div>
+                                            </div>
+                    </mat-select>
+                           <mat-error > {{'Select the Course Category from the drop-down' | translate}} </mat-error>
+                    </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp">
+                 <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does International recognition and accreditation is mandatory to be collection from the centre?' | translate}}</mat-label>
+                    <mat-select required formControlName="interreg">
+                        <mat-option value ="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value ="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.interreg.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">
+            <p class="title">Fee Subscription</p>
+            <div fxFlex="100">
+                <p class="subtitle">Main Office</p>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Certification Fee - Initial (OMR)' |translate}}</mat-label>
+                    <input matInput  required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="main_cfi">
+                    <mat-error *ngIf="form.main_cfi.errors?.required || form.submitted">
+                        {{'Enter the Certification Fee for Initial in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  appearance="outline">
+                    <mat-label>{{'Certification Fee - Renewal (OMR)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="main_cfr">
+                    <mat-error *ngIf="form.main_cfr.errors?.required || form.submitted">
+                        {{'Enter the Certification Fee for Renewal in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Staff Evaluation Fee - Initial (OMR)' |translate}}</mat-label>
+                    <input matInput  required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="main_sefi">
+                    <mat-error *ngIf="form.main_sefi.errors?.required || form.submitted">
+                        {{'Enter the Staff Evaluation Fee for Initial in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  appearance="outline">
+                    <mat-label>{{'Staff Re-Evaluation Fee - Initial (OMR)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="main_srefi">
+                    <mat-error *ngIf="form.main_srefi.errors?.required || form.submitted">
+                        {{'Enter the Staff Re-Evaluation Fee for Initial in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Staff Evaluation Fee - Update/Renewal (OMR)' |translate}}</mat-label>
+                    <input matInput  required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="main_sefu">
+                    <mat-error *ngIf="form.main_sefu.errors?.required || form.submitted">
+                        {{'Enter the Staff Evaluation Fee for Update/Renewal  in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  appearance="outline">
+                    <mat-label>{{'Staff Re-Evaluation Fee -  Update/Renewal (OMR)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="main_srefu">
+                    <mat-error *ngIf="form.main_srefu.errors?.required || form.submitted">
+                        {{'Enter the Staff Re-Evaluation Fee for Update/Renewal  in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">
+            <div fxFlex="100" *ngIf="this.pagetype == 'add'">
+                <mat-checkbox class="example-margin" formControlName="samefee" (change)="issamefee($event.checked)">If the Fee Subscription - Branch Office are the same as the Main Office, please tick the checkbox provided.</mat-checkbox>
+            </div>
+            <div fxFlex="100" *ngIf="!standardcourseform.get('samefee').value">
+                <p class="subtitle">Branch Office</p>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="!standardcourseform.get('samefee').value">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Certification Fee - Initial (OMR)' |translate}}</mat-label>
+                    <input matInput  required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="branch_cfi">
+                    <mat-error *ngIf="form.branch_cfi.errors?.required || form.submitted">
+                        {{'Enter the Certification Fee for Initial in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  appearance="outline">
+                    <mat-label>{{'Certification Fee - Renewal (OMR)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="branch_cfr">
+                    <mat-error *ngIf="form.branch_cfr.errors?.required || form.submitted">
+                        {{'Enter the Certification Fee for Renewal in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center"  *ngIf="!standardcourseform.get('samefee').value">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Staff Evaluation Fee - Initial (OMR)' |translate}}</mat-label>
+                    <input matInput  required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="branch_sefi">
+                    <mat-error *ngIf="form.branch_sefi.errors?.required || form.submitted">
+                        {{'Enter the Staff Evaluation Fee for Initial in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  appearance="outline">
+                    <mat-label>{{'Staff Re-Evaluation Fee - Initial (OMR)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="branch_srefi">
+                    <mat-error *ngIf="form.branch_srefi.errors?.required || form.submitted">
+                        {{'Enter the Staff Re-Evaluation Fee for Initial in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="!standardcourseform.get('samefee').value">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Staff Evaluation Fee - Update/Renewal (OMR)' |translate}}</mat-label>
+                    <input matInput  required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="branch_sefu">
+                    <mat-error *ngIf="form.branch_sefu.errors?.required || form.submitted">
+                        {{'Enter the Staff Evaluation Fee for Update/Renewal  in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  appearance="outline">
+                    <mat-label>{{'Staff Re-Evaluation Fee -  Update/Renewal (OMR)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="branch_srefu">
+                    <mat-error *ngIf="form.branch_srefu.errors?.required || form.submitted">
+                        {{'Enter the Staff Re-Evaluation Fee for Update/Renewal  in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" >
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Is Royalty Fee applicable?' | translate}}</mat-label>
+                    <mat-select required formControlName="isroyal" (selectionChange)="isroyalty($event.value)" >
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.isroyal.errors?.required || form.submitted">
+                        {{'Select "Yes" if Royalty Fee is applicable, and "No" if it is not' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30" *ngIf="standardcourseform.get('isroyal').value == 1" >
+                <mat-form-field  appearance="outline">
+                    <mat-label>{{'Royalty Fee (OMR)' |translate}}</mat-label>
+                    <input matInput required (keydown.enter)="$event.preventDefault()" appNumberonly formControlName="royal">
+                    <mat-error *ngIf="form.royal.errors?.required || form.submitted">
+                        {{'Enter the Royalty Fee in OMR (Omani Rial)' | translate}} </mat-error>
+                        <mat-error *ngIf="form.royal.invalid && (form.royal.errors.max || form.royal.errors.min)">{{'Minimum value should be greater than zero' | translate}}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">
+            <div class="buttonalign" >
+                <button mat-raised-button type="button"  class="btnwhite" (click)="cancel()">{{'Cancel' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15" *ngIf="this.pagetype == 'add' && createaccess" >{{'Save and Next' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15" *ngIf="this.pagetype == 'edit' && updateaccess" >{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

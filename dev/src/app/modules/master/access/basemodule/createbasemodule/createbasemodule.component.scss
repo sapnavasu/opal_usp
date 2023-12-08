@@ -1,0 +1,85 @@
+.searchinmultiselect {
+  display: flex;
+  align-items: center;
+  padding: 15px 15px;
+  background: #e9edf0;
+}
+
+.searchselect {
+  width: calc(100% - 25px) !important;
+  padding-left: 10px;
+}
+.addbasemodulelables
+{
+ label {
+  min-width: 65px;
+  display: inline-flex;
+}
+.mat-checkbox
+{
+  margin-right: 14px;
+
+  display: inline-block;
+
+}
+}
+
+.acessandstatustable
+{
+  width: 87%;
+    margin-left: 30px;
+        margin-bottom: 5px;
+  th
+  {
+  
+    text-align: center;
+    color: #555;
+     font-family: 'opal_semibold';
+    &:first-child
+    {    padding-left: 25px;
+
+    }
+  }
+}
+::ng-deep.accessselectinfo .mat-checkbox-label
+{
+visibility: hidden;
+}
+.flexbase{
+  display: flex;
+  align-items: baseline;
+}
+@media (max-width: 767px){
+  .selectproductheaderwithclose {
+    height: auto !important;
+  }
+  .selectproductheaderwithclose .titletext {
+    display: block !important;
+  }
+  .selectproductheaderwithclose .closeandadd {
+    margin-bottom: 10px;
+  }
+  .spacing{
+      padding-right: 10px !important;
+  }
+  i.bgi.bgi-close.p-l-25.fs-14 {
+      padding-left: 0px !important;
+    }
+}
+
+::ng-deep.countryFilter {
+  overflow: hidden !important;
+  max-height: 100%!important;
+  margin-top: 30px;
+}
+
+@media (max-width: 767px){
+  ::ng-deep .accessselectinfo .mat-checkbox-label{
+    visibility: inherit;
+    }
+  .acessandstatustable{
+    tr{
+      display: none;
+    }
+}
+}

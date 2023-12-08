@@ -1,0 +1,39 @@
+#ivmsinfobox{
+    .txt-gry {
+        color: #848484;
+    }
+    .txt-gry3 {
+        color: #262626;
+    }
+    .txt-gry9 {
+        color: #999999;
+    }
+    .fw-m {
+        font-weight: bold;
+    }
+    .contain 
+    {
+        gap: 5px;
+    }
+    
+    .infoCard {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 4px #0000000F;
+        border: 1px solid #E8E8E8;
+        border-radius: 4px;
+        padding: 20px;
+
+
+        .infocontent {
+            min-width: 400px;
+             @media (max-width: 1560px) {
+                min-width: 358px;
+             }
+             @media (max-width: 600px) {
+                min-width: auto;
+             }
+        }
+    }
+}.view_Cert {
+    color: #ffffff !important;
+  }

@@ -1,0 +1,36 @@
+{
+    "company_logo_cpm_corporate": {
+        "dmsFileType": "jpg,jpeg,png,pdf",
+        "dmsSize": "5300000",
+        "dmsCategory": "Certificates",
+        "dmsLimit": 1,
+        "dmsDefaultImage": "D:/xampp7/htdocs/v3/uploads/",
+        "temp":0,
+        "type":"ext",
+        "temppath":"D:/xampp7/htdocs/v3/gbf/src/assets/temp/"
+    },
+    "cr_certificate_cpm_corporate": {
+        "dmsFileType": "jpg,jpeg,png,pdf",
+        "dmsSize": "530000",
+        "dmsLimit": 1,
+        "dmsCategory": "certificates/",
+        "dmsBasePath": "D:/xampp7/htdocs/v3/app/web/uploads/suppliers/",
+        "dmsDefaultImage": "D:/xampp7/htdocs/v3/uploads/"
+    },
+    "ch_certificate_cpm_corporate": {
+        "dmsFileType": "jpg,jpeg,png,pdf",
+        "dmsSize": "530000",
+        "dmsLimit": 1,
+        "dmsCategory": "certificates/",
+        "dmsBasePath": "D:/xampp7/htdocs/v3/app/web/uploads/suppliers/",
+        "dmsDefaultImage": "D:/xampp7/htdocs/v3/uploads/"
+    },
+    "municipality_cpm_corporate": {
+        "dmsFileType": "jpg,jpeg,png,pdf",
+        "dmsSize": "5300000",
+        "dmsLimit": 1,
+        "dmsCategory": "certificates/",
+        "dmsBasePath": "D:/xampp7/htdocs/v3/app/web/uploads/suppliers/",
+        "dmsDefaultImage": "D:/xampp7/htdocs/v3/uploads/"
+    }
+}

@@ -1,0 +1,272 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="{{'organisationdetailtracker.clos' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="organisertrackerdrawer.toggle();" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">{{'organisationdetailtracker.orgdettracker' | translate}}<i class="bgi bgi-info"
+            (click)="organiserlistview('organiserlistviewdetail')"></i></h5>
+      </div>
+      <!-- <div class="clearandaddbutton">
+        <button (click)="organisertrackerdrawer.toggle();" type="button" mat-raised-button color="primary"
+          class="clearbutton height-35 p-l-20 p-r-20 spacemargin">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 organiserlistviewdetail"
+  [@slideInOut]="animationState6">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+      <mat-card-header>
+        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+          <mat-card-subtitle class="informationtext fs-14">
+            {{'organisationdetailtracker.infocontent' | translate}}
+          </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div *ngIf="organiserdetailloader" class="projlstngph w-100 listsector">
+  <div class="leftmainspace">
+      <div class="subcontent">
+          <span class="pagetitle secondwidth"></span>
+          <span class="pagetitle secondwidth"></span>
+          <span class="pagetitle secondwidth"></span>
+          <div class="descriptitlesector">
+              <p class="pagetitle"></p>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+          </div>
+      </div>
+  </div>
+</div>
+<div [style.display]="!organiserdetailloader ? 'block' :'none'"  class="innnerpartofdrwer">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="organisertrackerlistview">
+      <div class="organiselistheader">
+        <div class="organsierlisttitle">
+          <h2>{{basicdata?.MCM_CompanyName || "-"}}</h2>
+        </div>
+        <div class="gatewaysalign">
+          <div class="organisertitlealign widthorg">
+            <p>OPAL Code</p>
+            <span>{{basicdata?.MRM_ValSubStatus=='A'? basicdata?.MCM_SupplierCode:'Yet to issue'}}</span>
+          </div>
+          <div class="organisertitlealign widthorg">
+            <p>{{'organisationdetailtracker.updatedon' | translate}}</p>
+            <span>{{trackerdetails?.updatedon}}</span>
+          </div>
+          <div class="organisertitlealign">
+            <p>{{'organisationdetailtracker.updatedby' | translate}}</p>
+            <span>{{trackerdetails?.updatedby}}</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="trackerdetails?.iscompanynamechange == 1 || trackerdetails?.iscompanynamearchange == 1 || trackerdetails?.isemailchange == 1 || trackerdetails?.isprimarycontactchange == 1 || trackerdetails?.isincorpstylechnage == 1" fxLayout="row wrap" class="detailbackground">
+        <div fxFlex.gt-sm="50" fxFlex="100">
+          <div class="detailview m-r-20">
+            <h2>{{'organisationdetailtracker.curorgdet' | translate}}</h2>
+          </div>
+          <div *ngIf="trackerdetails?.iscompanynamechange == 1" class="organisertitlealign p-t-25 p-b-25">
+            <p>{{'organisationdetailtracker.companyname' | translate}}</p>
+            <span>{{trackerdetails?.companyname_new}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.iscompanynamearchange == 1" class="organisertitlealign p-t-25 p-b-25">
+            <p>{{'organisationdetailtracker.companynamearab' | translate}}</p>
+            <span>{{trackerdetails?.companynamear_new}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.isemailchange == 1" class="organisertitlealign p-b-20">
+            <p>{{'organisationdetailtracker.email' | translate}}</p>
+            <span>{{trackerdetails?.email_new}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.isincorpstylechnage == 1" class="organisertitlealign p-b-20">
+            <p>{{'organisationdetailtracker.styincorp' | translate}}</p>
+            <span>{{trackerdetails?.incorpstyle_new}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.isprimarycontactchange == 1" fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="m-r-20">
+              <div class="primarytextcolor">
+                <h2>{{'organisationdetailtracker.OPALpricont' | translate}}</h2>
+              </div>
+              <div class="addedcertificate m-b-10">
+                <div fxLayout="row wrap" class="certificates">
+                  <div class="certificateimage imgalignflex">
+                    <img src="{{trackerdetails?.userdp_new}}" onError="this.src = 'assets/images/NoimageJPG.jpg'" alt="NoimageJPG">
+                  </div>
+                  <div class="companyandofficeinfo p-l-20">
+                    <h3 class="name">{{trackerdetails.primarycont_name_new}}</h3>
+                    <div fxLayout="row wrap" class="countryandcrinfo">
+                      <div class="eachitem countrywidth">
+                        <p><span class="lablename">{{'organisationdetailtracker.designation' | translate}}</span></p>
+                        <div class="flexoman">
+                          <span matTooltipPosition="above"
+                            matTooltip="{{trackerdetails.primarycont_designation_new}}">
+                            {{trackerdetails.primarycont_designation_new | truncate:[[25]]}}</span>
+                        </div>
+                      </div>
+                      <div class="eachitem phonewidth">
+                        <p><span class="lablename">{{'organisationdetailtracker.mobilenumber' | translate}}</span></p>
+                        <p class="datavalue">{{trackerdetails.primarycont_mobile_new}}</p>
+                      </div>
+                    </div>
+                    <div class="eachitem phonewidth p-t-15">
+                      <p><span class="lablename">{{'organisationdetailtracker.emailid' | translate}}</span></p>
+                      <p ngClass.xs="widthset" ngClass.sm="widthset" class="datavalue" matTooltipPosition="above"
+                        matTooltip="{{trackerdetails.primarycont_email_new}}">
+                        {{trackerdetails.primarycont_email_new | truncate:[[25]]}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex.gt-sm="50" fxFlex="100">
+          <div class="detailviewexting">
+            <h2>{{'organisationdetailtracker.previousorgdet' | translate}}</h2>
+          </div>
+          <div *ngIf="trackerdetails?.iscompanynamechange == 1" class="organisertitlealign p-t-25 p-b-25">
+            <p>{{'organisationdetailtracker.companyname' | translate}}</p>
+            <span>{{trackerdetails?.companyname_old}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.iscompanynamearchange == 1" class="organisertitlealign p-t-25 p-b-25">
+            <p>{{'organisationdetailtracker.companynamearab' | translate}}</p>
+            <span>{{trackerdetails?.companynamear_old}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.isemailchange == 1" class="organisertitlealign p-b-20">
+            <p>{{'organisationdetailtracker.email' | translate}}</p>
+            <span>{{trackerdetails?.email_old}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.isincorpstylechnage == 1" class="organisertitlealign p-b-20">
+            <p>{{'organisationdetailtracker.styincorp' | translate}}</p>
+            <span>{{trackerdetails?.incorpstyle_old}}</span>
+          </div>
+          <div *ngIf="trackerdetails?.isprimarycontactchange == 1" fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="primarytextcolor">
+                <h2>{{'organisationdetailtracker.OPALpricont' | translate}}</h2>
+              </div>
+              <div class="addedcertificate m-b-10">
+                <div fxLayout="row wrap" class="certificates">
+                  <div class="certificateimage imgalignflex">
+                    <img src="{{trackerdetails?.userdp_old}}" onError="this.src = 'assets/images/NoimageJPG.jpg'" alt="NoimageJPG">
+                  </div>
+                  <div class="companyandofficeinfo p-l-20">
+                    <h3 class="name">{{trackerdetails?.primarycont_name_old}}</h3>
+                    <div fxLayout="row wrap" class="countryandcrinfo">
+                      <div class="eachitem countrywidth">
+                        <p><span class="lablename">{{'organisationdetailtracker.designation' | translate}}</span></p>
+                        <div class="flexoman">
+                          <span matTooltipPosition="above"
+                            matTooltip="{{trackerdetails?.primarycont_designation_old}}">{{trackerdetails?.primarycont_designation_old | truncate:[[25]]}}</span>
+                        </div>
+                      </div>
+                      <div class="eachitem phonewidth">
+                        <p><span class="lablename">{{'organisationdetailtracker.mobilenumber' | translate}}</span></p>
+                        <p class="datavalue">{{trackerdetails?.primarycont_mobile_old}}</p>
+                      </div>
+                    </div>
+                    <div class="eachitem phonewidth p-t-15">
+                      <p><span class="lablename">{{'organisationdetailtracker.emailid' | translate}}</span></p>
+                      <p ngClass.xs="widthset" ngClass.sm="widthset" class="datavalue" matTooltipPosition="above"
+                        matTooltip="{{trackerdetails?.primarycont_email_old}}">
+                        {{trackerdetails?.primarycont_email_old | truncate:[[25]]}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="trackerdetails?.issubscptionchnage == 1" fxLayout="row wrap" class="detailbackground p-b-25 borderbottomorg">
+        <div fxFlex.gt-sm="50" fxFlex="100">
+          <div class="detailview m-b-25">
+            <h2>{{'organisationdetailtracker.cursubdetail' | translate}}</h2>
+          </div>
+          <div class="headcountempcolor" *ngIf="trackerdetails?.updatein!=''">
+            <p>{{'organisationdetailtracker.cursubdetail' | translate}}</p>
+            <span>{{trackerdetails?.updatein}}</span>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.headcount' | translate}}</p>
+            <span>{{trackerdetails?.headcount_new}}</span>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.annualsaleomr' | translate}}</p>
+            <span>{{trackerdetails?.annualslaes_new}}</span>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.enterclassify' | translate}}</p>
+            <span 
+            [class.micro]="trackerdetails?.classification_new?.toLowerCase().includes('sme-micro')"
+            [class.small]="trackerdetails?.classification_new?.toLowerCase().includes('sme-small')"
+            [class.medium]="trackerdetails?.classification_new?.toLowerCase().includes('sme-medium')"
+            [class.large]="trackerdetails?.classification_new?.toLowerCase().includes('non-sme')"
+            >{{trackerdetails?.classification_new}}</span>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.totalcertfee' | translate}}</p>
+            <span>{{'organisationdetailtracker.omr' | translate}} {{trackerdetails?.certificationfee_new}}</span>
+          </div>
+        </div>
+        <div fxFlex.gt-sm="50" fxFlex="100">
+          <div class="detailviewexting m-b-25">
+            <h2>{{'organisationdetailtracker.previoussubdetail' | translate}}</h2>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.headcount' | translate}}</p>
+            <span>{{trackerdetails?.headcount_old}}</span>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.annualsaleomr' | translate}}</p>
+            <span>{{trackerdetails?.annualslaes_old || 'Nil'}}</span>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.enterclassify' | translate}}</p>
+            <span 
+            [class.micro]="trackerdetails?.classification_old?.toLowerCase().includes('sme-micro')"
+            [class.small]="trackerdetails?.classification_old?.toLowerCase().includes('sme-small')"
+            [class.medium]="trackerdetails?.classification_old?.toLowerCase().includes('sme-medium')"
+            [class.large]="trackerdetails?.classification_old?.toLowerCase().includes('non-sme')"
+            >{{trackerdetails?.classification_old}}</span>
+          </div>
+          <div class="headcountempcolor">
+            <p>{{'organisationdetailtracker.totalcertfee' | translate}}</p>
+            <span>{{'organisationdetailtracker.omr' | translate}} {{trackerdetails?.certificationfee_old}}</span>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="supplierreqdetails">
+        <h3>{{'organisationdetailtracker.supplierreqdetail' | translate}}</h3>
+        <div class="reqdetailbox">
+          <div *ngIf="trackerdetails?.isshowsupplierprofdoc == 1" class="w-100 fs-12">{{'organisationdetailtracker.suppliereqproof' | translate}}</div>
+          <div *ngIf="trackerdetails?.isshowsupplierprofdoc == 1" class="w-100">
+            <div class="proofdiv">
+              <a href="{{trackerdetails?.supplieruploadlink}}" target="_blank">
+                <span><img src="assets/images/bgisvg/{{trackerdetails?.supplieruploadext}}.svg" alt="Supplier Request"/>
+                  {{trackerdetails?.supplieruploadname}}</span>
+              </a>
+            </div>
+          </div>
+          <div class="w-100 fs-12 m-t-15">{{'organisationdetailtracker.comments' | translate}}</div>
+          <div class="w-100">{{trackerdetails?.comments || "-"}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

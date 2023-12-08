@@ -1,0 +1,103 @@
+<div fxFlex.gt-sm="100" fxFlex="100" id="invoicemanagement" class="flex-column invoicemanagement">
+        <div class="titleinfolink m-t-40">
+            <h5 class="m-t-0 m-b-0 fs-16 title">
+                    {{'centredashboard.invoicemgmnt' | translate}}  <span class="m-l-5 infoicon" matTooltip="{{'info.invoice' | translate}}"><mat-icon>info_outline</mat-icon></span>
+            </h5>
+            <span class="viewalllink">{{'centredashboard.viewall' | translate}}</span>
+        </div> 
+        <div  [disabled]="invoiceManagement" [ngClass]=" invoiceManagement ? 'commignsoon' : ''">
+            <mat-tab-group class="tabsdetials dashtabs">
+                <!--Assessment Tab-->
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <div class="tabtitle">
+                                <p class="fs-14">{{'centredashboard.assessfee' | translate}}</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="invoiceassesstbale">
+                        <table mat-table [dataSource]="assessfeedataSource" class="mat-invoiceassessmanage scrolldata">
+                            <!-- ianame Column -->
+                            <ng-container matColumnDef="ianame">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let element"> {{element.ianame}} </td>
+                            </ng-container>
+                            <!-- iatotalinvoice Column -->
+                            <ng-container matColumnDef="iatotalinvoice">
+                                <th mat-header-cell *matHeaderCellDef> {{'centredashboard.totalinvoice' | translate}}</th>
+                                <td mat-cell *matCellDef="let element"> {{element.iatotalinvoice}} </td>
+                            </ng-container>
+                            
+                            <!-- iaamount Column -->
+                            <ng-container matColumnDef="iaamount">
+                                <th mat-header-cell *matHeaderCellDef>{{'centredashboard.amtomr' | translate}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.iaamount}} </td>
+                            </ng-container>
+                            
+                            <!-- iadueinvoice Column -->
+                            <ng-container matColumnDef="iadueinvoice">
+                                <th mat-header-cell *matHeaderCellDef> {{'centredashboard.dueinvoice' | translate}} </th>
+                                <td mat-cell *matCellDef="let element" > {{element.iadueinvoice}} </td>
+                            </ng-container>
+
+                            <!-- iatotamount Column -->
+                            <ng-container matColumnDef="iatotamount">
+                                    <th mat-header-cell *matHeaderCellDef> {{'centredashboard.amtomr' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.iatotamount}} </td>
+                                </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="assessfeedisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: assessfeedisplayedColumns;"></tr>
+                        </table>
+                    </div>
+                </mat-tab>
+                <!--Royal Tab-->
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <div class="tabtitle">
+                                <p class="fs-14">{{'centredashboard.royalfee' | translate}}</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="invoiceroyaltbale">
+                        <table mat-table [dataSource]="royalfeedataSource" class="mat-invoiceroyal scrolldata">
+                            <!-- rfname Column -->
+                            <ng-container matColumnDef="rfname">
+                                    <th mat-header-cell *matHeaderCellDef></th>
+                                    <td mat-cell *matCellDef="let element"> {{element.rfname}} </td>
+                                </ng-container>
+                                <!-- rftotalinvoice Column -->
+                                <ng-container matColumnDef="rftotalinvoice">
+                                    <th mat-header-cell *matHeaderCellDef> {{'centredashboard.totalinvoice' | translate}}</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.rftotalinvoice}} </td>
+                                </ng-container>
+                                
+                                <!-- rfamount Column -->
+                                <ng-container matColumnDef="rfamount">
+                                    <th mat-header-cell *matHeaderCellDef> {{'centredashboard.amtomr' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.rfamount}} </td>
+                                </ng-container>
+                                
+                                <!-- rfdueinvoice Column -->
+                                <ng-container matColumnDef="rfdueinvoice">
+                                    <th mat-header-cell *matHeaderCellDef> {{'centredashboard.dueinvoice' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.rfdueinvoice}} </td>
+                                </ng-container>
+        
+                                <!-- rftotamount Column -->
+                                <ng-container matColumnDef="rftotamount">
+                                        <th mat-header-cell *matHeaderCellDef> {{'centredashboard.amtomr' | translate}} </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.rftotamount}} </td>
+                                    </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="royalfeedisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: royalfeedisplayedColumns;"></tr>
+                        </table>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>    
+    </div>
+    

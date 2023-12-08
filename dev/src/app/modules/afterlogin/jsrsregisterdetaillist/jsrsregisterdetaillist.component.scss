@@ -1,0 +1,465 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+}
+
+#jsrsdetaillist {
+    .contactus{
+        cursor: pointer;      
+        text-decoration: underline;
+        color: #f47f1f;
+    }
+    .invoicecolor{
+        color: #006cb7 !important;
+    }
+    .usercolor {
+        background-color: #006cb7;
+        color: #fff;
+        border-radius: 2px !important;
+        @include flexcenter();
+        line-height: 1.5px;
+        height: 30px;
+    }
+    .notecolorrole {
+        padding-bottom: 20px;
+        p {
+            color: #333333;
+            margin: 0px;
+            font-size: 0.875rem;
+            span {
+                color: #f4811f;
+            }
+        }
+    }
+
+    .widthload {
+        width: 100%;
+        background: #fff;
+    }
+    .headerpopview {
+        max-height: 70px;
+        background: #006cb7;
+        min-height: 70px;
+    }
+    .invoicefont {
+        p {
+            font-family: 'opal_semibold';
+        }
+    }
+    .smecolor {
+        padding-left: 6px;
+        padding-right: 6px;
+        color: #fff !important;
+        background-color: #71c015;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-size: 0.75rem;
+    }
+    .aftercolortext {
+        cursor: pointer;
+    }
+
+    .aftercolortext {
+        font-size: 0.875rem;
+        color: #f4811f;
+    }
+    .regborder {
+        border: 1px solid #dadada;
+        border-top: none;
+        padding-bottom: 0px !important;
+    }
+
+    .spencercoorpaymentclassification {
+        background-color: #f5f6f9;
+        position: inherit !important;
+        max-height: 72px;
+        border: 1px solid #dadada;
+        border-bottom: none;
+        p {
+            color: #333333;
+            font-family: 'opal_semibold';
+        }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .alignpassword {
+        @include flexend();
+    }
+    .innerrows {
+        .eachtwoboxes {
+            width: 100%;
+        }
+        .cmpnyinfo {
+            margin: 0px;
+            @include flexstart();
+            align-items: flex-start !important;
+            padding-bottom: 22px;
+            .labelcmp {
+                display: block;
+                min-width: 250px;
+            }
+        }
+        .imgewidth {
+            width: 30px;
+        }
+    }
+}
+
+:host::ng-deep.popover_maincontainer{
+    .popover-body {
+        padding: 0px !important;
+    }
+    .popover.popover-content .popover-body p {
+        color: #fff;
+        font-size: 0.75rem;
+        line-height: 1.5;
+    }
+    .popover.popover-content .popover-body p, .popover.popover-content .popover-body span {
+        color: white;
+        font-size: 0.75rem;
+        line-height: 1.5;
+        font-family: "opal_regular";
+        font-weight: 100;
+    }
+    .popover.popover-content.sm {
+        background-color: #fff;
+        min-width: 366px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.20);
+        z-index: 9999;
+    }
+    .popover.popover-content .popover-body {
+        color: #333;
+        font-size: 0.75rem;
+        line-height: 1.5;
+        box-shadow: 0 0 20px rgba(0, 0, 0,  0.20);
+    }
+    .popover.popover-content.bs-popover-top .arrow::before,
+    .popover.popover-content.bs-popover-top .arrow::after,
+    .popover.popover-content.bs-popover-top-right .arrow::before,
+    .popover.popover-content.bs-popover-top-right .arrow::after,
+    .popover.popover-content.bs-popover-top-left .arrow::before,
+    .popover.popover-content.bs-popover-top-left .arrow::after {
+        content: "";
+        border-top: 18px solid #fff;
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        position: absolute;
+        -webkit-transform: rotate(-180deg);
+        transform: rotate(-360deg);
+        left: -70px;
+        top: -8px;
+    }
+    .popover.popover-content.bs-popover-bottom .arrow::after,
+    .popover.popover-content.bs-popover-bottom-right .arrow::after,
+    .popover.popover-content.bs-popover-bottom-left .arrow::after {
+        top: 0rem;
+        border-bottom-color: #fff;
+    }
+    .popover.popover-content.bs-popover-bottom .arrow::before,
+    .popover.popover-content.bs-popover-bottom-right .arrow::before,
+    .popover.popover-content.bs-popover-bottom-left .arrow::before {
+        border-bottom-color: #fff;
+    }
+    .popover.popover-content.bs-popover-bottom .arrow::before,
+    .popover.popover-content.bs-popover-bottom .arrow::after,
+    .popover.popover-content.bs-popover-bottom-right .arrow::before,
+    .popover.popover-content.bs-popover-bottom-right .arrow::after,
+    .popover.popover-content.bs-popover-bottom-left .arrow::before,
+    .popover.popover-content.bs-popover-bottom-left .arrow::after {
+        top: -2px;
+        border-width: 0 8px 8px 8px;
+    }
+    .popover.popover-content.bs-popover-bottom .arrow:before,
+    .popover.popover-content.bs-popover-bottom .arrow:after,
+    .popover.popover-content.bs-popover-bottom-right .arrow:before,
+    .popover.popover-content.bs-popover-bottom-right .arrow:after,
+    .popover.popover-content.bs-popover-bottom-left .arrow:before,
+    .popover.popover-content.bs-popover-bottom-left .arrow:after {
+        top: -2px !important;
+    }
+    .changeclassifyspace {
+        .positionname {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.20);
+        }
+        .seniorcolor{
+            line-height: 0.8 !important;
+        }
+        @include flexstart();
+        .headerevent {
+            position: relative;
+            h2 {
+                color: #fff;
+                margin: 0px;
+                padding-top: 4px;
+                line-height: 38px;
+            }
+        }
+        .cmpnyinfo {
+            margin-bottom: 0;
+            display: flex;
+            line-height: 1;
+            justify-content: flex-start;
+            align-items: flex-start !important;
+            .labelcmpdep {
+                min-width: 100px;
+            }
+        }
+        .labelcmp {
+            color: #666666;
+            font-size: 0.875rem;
+            display: block;
+            min-width: 165px;
+        }
+        .infocmp {
+            color: #333;
+            font-size: 0.875rem;
+        }
+      
+    }
+}       
+
+
+.classifywidth .classifysidenavwidth {
+    width: 75%;
+}
+
+.classifywidth {
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .classifywidth .classifysidenavwidth {
+        width: 95% !important;
+    }
+    #jsrsdetaillist {
+        .widthload {
+            width: 100% !important;
+        }
+        .spacepayment {
+            margin-top: 10px;
+            margin-left: 0px !important;
+        }
+        .spacerightalign {
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+        }
+        .logogandcompnayinfo {
+            display: block !important;
+        }
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .classifywidth .classifysidenavwidth {
+        width: 95% !important;
+    }
+    #jsrsdetaillist {
+        .alignend {
+            display: block !important;
+        }
+        .spacerightalign {
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+        }
+        .widthload {
+            width: 100% !important;
+        }
+        .spacepayment {
+            margin-top: 10px;
+            margin-left: 0px !important;
+        }
+        .spacerightalign {
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+        }
+    }
+}
+@media (max-width: 1366px) and (min-width: 1280px) {
+    .classifywidth .classifysidenavwidth {
+        width: 85% !important;
+    }
+}
+@media (max-width: 767px) {
+    .usercolor {
+        margin-bottom: 10px;
+    }
+    ::ng-deep.changeclassifyspace .popover.popover-content.sm {
+        background-color: #fff;
+        min-width: 315px !important;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        left: 50px !important;
+    }
+    .classifywidth .classifysidenavwidth {
+        width: 100% !important;
+    }
+    .selectproductheaderwithclose {
+        height: auto !important;
+    }
+    .selectproductheaderwithclose .titletext {
+        display: block !important;
+    }
+    .selectproductheaderwithclose .closeandadd {
+        margin-bottom: 10px;
+    }
+    .spacing {
+        padding-right: 10px !important;
+    }
+
+    .selectproductheaderwithclose .clearandaddbutton {
+        justify-content: flex-start !important;
+        width: 100% !important;
+    }
+    #jsrsdetaillist {
+        .alignpaythrough {
+            display: block !important;
+        }
+        .changeclassifyspace {
+            display: block !important;
+        }
+        .aftercolortext {
+            margin-left: 0px !important;
+        }
+        .innerrows .cmpnyinfo {
+            margin-bottom: 0;
+            display: block !important;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            padding-bottom: 15px;
+        }
+        .alignpassword {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start !important;
+            margin-top: 10px;
+        }
+        .spencercoorpaymentclassification {
+            display: block !important;
+            max-height: 105px !important;
+        }
+        .widthload {
+            width: 100% !important;
+        }
+        .spacepayment {
+            margin-top: 10px;
+            margin-left: 0px !important;
+        }
+        .spacerightalign {
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+        }
+    }
+}
+
+.micro {
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #fff !important;
+    background-color: #3e78d8;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 0.75rem;
+}
+.small {
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #fff !important;
+    background-color: #f2ac1d;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 0.75rem;
+}
+.medium {
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #fff !important;
+    background-color: #2fd0d4;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 0.75rem;
+}
+.large {
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #fff !important;
+    background-color: #62a125;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 0.75rem;
+}
+
+@media (max-width: 500px) {
+    .agreecolor {
+        .mat-checkbox-layout {
+            white-space: inherit !important;
+        }
+    }
+    .changeclassifyspace .popover.popover-content.sm {
+        background-color: #fff;
+        min-width: 0px !important;
+        box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        -webkit-transform: translateX(-7rem) !important;
+        transform: translateX(-2rem);
+        max-width: 19rem !important;
+    }
+}
+
+:host::ng-deep.changecolor {
+    background-color: #e0f0ff;
+    color: #006cb7;
+    height: 30px !important;
+    border: 1px solid #006cb7;
+    min-width: 110px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    .mat-button-wrapper {
+        display: flex;
+        align-items: center;
+        max-height: 100%;
+    }
+}
+
+.spacebtn {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#jsrsdetaillist{
+    .clable{
+        color: #006bb7 !important;
+        font-size: 0.875rem !important;
+        line-height: 1rem !important;
+      }
+      .cvalue{
+        color: #333333 !important;
+        font-size: 0.9375rem !important;
+        line-height: 1rem !important;
+      }
+}
+

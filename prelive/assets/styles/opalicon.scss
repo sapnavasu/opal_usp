@@ -1,0 +1,175 @@
+@import "opalicon-variable";
+
+@font-face {
+  font-family: '#{$oicomoon-font-family}';
+  src:  url('#{$oicomoon-font-path}/#{$oicomoon-font-family}.eot?7m4bgb');
+  src:  url('#{$oicomoon-font-path}/#{$oicomoon-font-family}.eot?7m4bgb#iefix') format('embedded-opentype'),
+    url('#{$oicomoon-font-path}/#{$oicomoon-font-family}.ttf?7m4bgb') format('truetype'),
+    url('#{$oicomoon-font-path}/#{$oicomoon-font-family}.woff?7m4bgb') format('woff'),
+    url('#{$oicomoon-font-path}/#{$oicomoon-font-family}.svg?7m4bgb##{$oicomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i.opalicon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$oicomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.opal-Dashboard {
+  &:before {
+    content: $opal-Dashboard; 
+  }
+}
+.opal-Training-Evaluation-Centre-Certification-Management {
+  &:before {
+    content: $opal-Training-Evaluation-Centre-Certification-Management; 
+  }
+}
+.opal-Technical-Inspection-Centre-Certification-Management-04 {
+  &:before {
+    content: $opal-Technical-Inspection-Centre-Certification-Management-04; 
+  }
+}
+.opal-Contact-us {
+  &:before {
+    content: $opal-Contact-us; 
+  }
+}
+.opal-Manage-Roles {
+  &:before {
+    content: $opal-Manage-Roles; 
+  }
+}
+.opal-Manage-Users {
+  &:before {
+    content: $opal-Manage-Users; 
+  }
+}
+.opal-Manage-Users1 {
+  &:before {
+    content: $opal-Manage-Users1; 
+  }
+}
+.opal-Approval-Management {
+  &:before {
+    content: $opal-Approval-Management; 
+  }
+}
+.opal-Invoice-Management {
+  &:before {
+    content: $opal-Invoice-Management; 
+  }
+}
+.opal-Learner-Card-Log {
+  &:before {
+    content: $opal-Learner-Card-Log; 
+  }
+}
+.opal-Batch-Management {
+  &:before {
+    content: $opal-Batch-Management; 
+  }
+}
+.opal-Learner-Feedback {
+  &:before {
+    content: $opal-Learner-Feedback; 
+  }
+}
+.opal-comment {
+  &:before {
+    content: $opal-comment; 
+  }
+}
+.opal-upload {
+  &:before {
+    content: $opal-upload; 
+  }
+}
+.opal-datepicker {
+  &:before {
+    content: $opal-datepicker; 
+  }
+}
+.opal-documentupload {
+  &:before {
+    content: $opal-documentupload; 
+  }
+}
+.opal-search {
+  &:before {
+    content: $opal-search; 
+  }
+}
+.opal-approval {
+  &:before {
+    content: $opal-approval; 
+  }
+}
+.opal-editdocument {
+  &:before {
+    content: $opal-editdocument; 
+  }
+}
+.opal-male {
+  &:before {
+    content: $opal-male; 
+  }
+}
+.opal-certification {
+  &:before {
+    content: $opal-certification; 
+  }
+}
+.opal-edit {
+  &:before {
+    content: $opal-edit; 
+  }
+}
+.opal-filter {
+  &:before {
+    content: $opal-filter; 
+  }
+}
+.opal-home {
+  &:before {
+    content: $opal-home; 
+  }
+}
+.opal-Facebook {
+  &:before {
+    content: $opal-Facebook; 
+  }
+}
+.opal-Instagram {
+  &:before {
+    content: $opal-Instagram; 
+  }
+}
+.opal-Linkdin {
+  &:before {
+    content: $opal-Linkdin; 
+  }
+}
+.opal-Youtube {
+  &:before {
+    content: $opal-Youtube; 
+  }
+}
+.opal-twitter {
+  &:before {
+    content: $opal-twitter; 
+  }
+}
+

@@ -1,0 +1,43 @@
+<div id="paymentcorse" fxLayout="row wrap" fxLayoutAlign="center">
+    <div fxFlex="90">
+        <div class="pay_card m-b-20" fxLayout="column">
+            <div fxFlex="100" class="paycard" fxLayout="row wrap" fxLayoutAlign="flex-start">
+                <div fxFlex="100" fxFlex.gt-sm="60">
+                    <h4 class="fs-18">Computer Programming Language</h4>
+                </div>
+            </div>
+            <div fxFlex="100" class="paycard" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="company_detials" fxFlex="60"  fxLayout="row wrap">
+                    <div fxFlex="50">
+                        <div class="detials m-b-15">
+                            <p class="fs-13 txt-gry3 m-0" fxFlex="50">{{'payment.applino' | translate}}:
+                            </p>
+                            <span class="fs-13 txt-gry">{{paymentinfo.appdt_appreferno}}</span>
+                        </div>
+                        <div class="detials">
+                            <p class="fs-13 txt-gry3 m-0" fxFlex="50">{{'payment.applstatus' | translate}}: </p>
+                            <span class="fs-13 txt-gry">Payment Pending</span>
+                        </div>
+                       
+                    </div>
+                    <div class="detials" fxFlex="50">
+                        <p class="fs-13 txt-gry3 m-0" fxFlex="50">{{'payment.certstatus' | translate}}:</p>
+                        <span class="fs-13 new"></span>
+                        <!-- <span class="fs-13 approved">Approved</span>
+                        <span class="fs-13 approved">UpdaTe</span>
+                        <span class="fs-13 approved">New</span> -->
+                    </div>
+                </div>
+                <div class="btngroup" fxFlex="40">
+                    <button color="primary" mat-raised-button class="paynote">{{'payment.paymnote' |
+                        translate}}</button>
+                    <button mat-raised-button class="viewcert m-l-10">{{'payment.viewcertform' |
+                        translate}}</button>
+                </div>
+            </div>
+           
+        </div>
+      
+    </div>
+</div>
+<app-opalpayment [payment]="paymentinfo" [record]="paymentinfos" ></app-opalpayment>

@@ -1,0 +1,577 @@
+<div id="addsubcategory"  class=" clflex flex-column">
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+
+    <div class="coursesinfotbale" *ngIf="coursedata">
+        <div class="batchheader clflex flex-column rwidth">
+            <div class="batchdetails flex-column">
+                <div fxLayout="row" class="clflex rwidth p-l-10 p-r-10 p-t-10 p-b-5">
+                    <div fxLayout="row" class="clflex rwidth ">
+                        <p class="fs-15 txt-gry title">{{ifarbic == true ? (coursedata.title_ar):
+                            (coursedata.title)}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row" class="clflex rwidth statusrow p-l-10 p-r-10">
+                    <p class="bor fs-15 txt-gry">Assessment in : <span>{{ifarbic == true ? (coursedata.assessmentin_ar):
+                        (coursedata.assessmentin)}}</span></p>
+                    <p class="bor fs-15 txt-gry">Request For: <span>{{ifarbic == true ? (coursedata.requestfor):
+                        (coursedata.requestfor)}}</span></p>
+                    <p class="bor fs-15 txt-gry">Course Level: <span>{{ifarbic == true ? (coursedata.courselevel):
+                        (coursedata.courselevel)}}</span></p>
+                    <p class="bor fs-15 txt-gry">Course Category: <span>{{ifarbic == true ? (coursedata.coursecategory_ar):
+                        (coursedata.coursecategory)}}</span></p>
+                </div>
+                <div fxLayout="row" class="clflex rwidth statusrow p-l-10 p-r-10 p-b-20">
+                    <p class="bor fs-15 txt-gry">Is International Recognition and Accreditation is mandated?: <span>{{coursedata.scm_isintlreorgreq == 1 ? 'Yes': 'No'}}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="cardbtn">
+            <button mat-raised-button color="primary" class="applybtn "
+                (click)="viewfee();">{{viewname}}</button>
+        </div>
+        <div id="feediv" class="feediv" style="display: none">
+            <p class="title">Fee Subscription</p>
+            <p class="subtitle">Main Office</p>
+            <table >
+                <tr>
+                    <td class="txt-gry">Certification Fee - Initial (OMR)</td>
+                    <td class="pd-l-30">{{main_cfi}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Certification Fee - Renewal (OMR)</td>
+                    <td class="pd-l-30">{{main_cfr}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Evaluation Fee - Initial (OMR)</td>
+                    <td class="pd-l-30">{{main_sefi}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Re-Evaluation Fee - Initial (OMR)</td>
+                    <td class="pd-l-30">{{main_srefi}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Evaluation Fee - Update/Renewal (OMR)</td>
+                    <td class="pd-l-30">{{main_sefu}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Re-Evaluation Fee -  Update/Renewa (OMR)</td>
+                    <td class="pd-l-30">{{main_srefu}}</td>
+                </tr>
+            </table>
+
+            <p class="subtitle">Branch Office</p>
+
+            <table>
+                <tr>
+                    <td class="txt-gry">Certification Fee - Initial (OMR)</td>
+                    <td class="pd-l-30">{{branch_cfi}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Certification Fee - Renewal (OMR)</td>
+                    <td class="pd-l-30">{{branch_cfr}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Evaluation Fee - Initial (OMR)</td>
+                    <td class="pd-l-30">{{branch_sefi}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Re-Evaluation Fee - Initial (OMR)</td>
+                    <td class="pd-l-30">{{branch_srefi}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Evaluation Fee - Update/Renewal (OMR)</td>
+                    <td class="pd-l-30">{{branch_sefu}}</td>
+                </tr>
+                <tr>
+                    <td class="txt-gry">Staff Re-Evaluation Fee -  Update/Renewa (OMR)</td>
+                    <td class="pd-l-30">{{branch_srefu}}</td>
+                </tr>
+            </table>
+
+            <p class="subtitle">Royalty Fee</p>
+            <table class="royal">
+                <tr>
+                    <td class="txt-gry">Is Royalty Fee applicable ?</td>
+                    <td *ngIf="isroyal == 1">Yes</td>
+                    <td *ngIf="isroyal == 2">No</td>
+                </tr>
+                <tr *ngIf="isroyal == 1">
+                    <td class="txt-gry">Royalty Fee (OMR)</td>
+                    <td>{{royal}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <form [formGroup]="subcategoryform" (ngSubmit)="subcategoryform.valid ? submit(subcategoryform.value) : ''" class="p-t-20">
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Course Sub-Category' | translate}}</mat-label>
+                    <mat-select required formControlName="subcourse" [disabled]="isreadonly">
+                        <mat-option *ngFor="let list of subcourselist" [value]="list.coursecategorymst_pk">
+                            {{ifarbic == true ? (list.ccm_catname_ar): (list.ccm_catname_en)}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.subcourse.errors?.required || form.submitted">
+                        {{'Select Course Sub-Category from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div> 
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does this course have on-job training?' | translate}}</mat-label>
+                    <mat-select required formControlName="onjobtraining" [disabled]="isreadonly">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.onjobtraining.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does this course print Final Permit card (Certificate)?' | translate}}</mat-label>
+                    <mat-select required formControlName="printfinalpermitcard" [disabled]="isreadonly">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.printfinalpermitcard.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp" [ngClass]="isreadonly ? 'readonlyfield' : ' '" >
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does this course Batch Limit of Learner?' | translate}}</mat-label>
+                    <mat-select required formControlName="limitoflearner" [disabled]="isreadonly" (selectionChange)="learnerlimit($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.limitoflearner.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="subcategoryform.get('limitoflearner').value == 1">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp"[ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does this course has Theory class?' | translate}}</mat-label>
+                    <mat-select required formControlName="isthyclass" [disabled]="isreadonly" (selectionChange)="thylimit($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.isthyclass.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" *ngIf="subcategoryform.get('isthyclass').value == 1" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'What is the Batch Limit of Learner? (Theory)' |translate}}</mat-label>
+                    <input required matInput  formControlName="thyclasslimit" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.thyclasslimit.errors?.required || form.submitted">
+                        {{'Enter the Batch Limit of the Learner  for Theory Class' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="subcategoryform.get('limitoflearner').value == 1">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does this course has Practical class?' | translate}}</mat-label>
+                    <mat-select required formControlName="ispratclass" [disabled]="isreadonly" (selectionChange)="pralimit($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.ispratclass.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '" *ngIf="subcategoryform.get('ispratclass').value == 1">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'What is the Batch Limit of Learner? (Practical)' |translate}}</mat-label>
+                    <input required matInput formControlName="practclasslimit" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.practclasslimit.errors?.required || form.submitted">
+                        {{'Enter the Batch Limit of the Learner for Practical Class' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="subcategoryform.get('limitoflearner').value == 1">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'What is the Batch Limit of Learner? (Assessment)' |translate}}</mat-label>
+                    <input required matInput  formControlName="asmtbatchlimit" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.asmtbatchlimit.errors?.required || form.submitted">
+                        {{'Enter the Batch Limit of the Learner to attend the Assessment' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '" *ngIf="subcategoryform.get('ispratclass').value == 1">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does this course has Pratical class for Refrehser Batch?' | translate}}</mat-label>
+                    <mat-select required formControlName="ispratclassrefresher" [disabled]="isreadonly">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.ispratclassrefresher.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does the Learner has age limit to attend this course?' | translate}}</mat-label>
+                    <mat-select required formControlName="hasagelimit" (selectionChange)="agelimit($event.value)" [disabled]="isreadonly">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.hasagelimit.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '" *ngIf="subcategoryform.get('hasagelimit').value == 1">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'What is the Age Limit?' |translate}}</mat-label>
+                    <input required matInput  formControlName="agelimit" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.agelimit.errors?.required || form.submitted">
+                        {{'Enter the Age Limit' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <p class="title">Course Sub-category Configuration</p>
+
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Pre-Requisite' | translate}}</mat-label>
+                    <mat-select multiple formControlName="prerequesit" [disabled]="isreadonly">
+                        <mat-option *ngFor="let list of prereqlist" [value]="list.id">
+                            {{ifarbic == true ? (list.name): (list.name)}}</mat-option>
+                    </mat-select>
+                    
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does the Card/Certificate issues for Learner has expiry period?' | translate}}</mat-label>
+                    <mat-select required formControlName="iscertexpiry" (selectionChange)="isexpiry($event.value)" [disabled]="isreadonly">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.iscertexpiry.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '" *ngIf="subcategoryform.get('iscertexpiry').value == 1">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Is the Period of expiry based on their marks?' | translate}}</mat-label>
+                    <mat-select required formControlName="iscertexpirybasedonmarks" (selectionChange)="expirymonth($event.value)" [disabled]="isreadonly">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.iscertexpirybasedonmarks.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="title" *ngIf="subcategoryform.get('iscertexpiry').value == 1 && subcategoryform.get('iscertexpirybasedonmarks').value">Configure Validity Period</p>
+        <div formArrayName="markpercent" class="courebox m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-start baseline" *ngIf="subcategoryform.get('iscertexpirybasedonmarks').value == 1">
+            <div *ngFor="let mark of markprecFormArr.controls; let i = index" fxFlex="94">
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15 units"
+                    [formGroupName]="i">
+                    <div fxFlex.gt-sm="35" fxFlex.gt-md="35" fxFlex="100" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'Mark Percentage From' | translate}} </mat-label>
+                            <input required matInput formControlName="min" appNumberonly [readonly]="isreadonly" (input)="validatepercentage(i)" >
+                            <mat-error
+                                *ngIf="getmarkperceFormArr(i).controls['min'].hasError('required') ||subcategoryform.submitted">
+                                {{'Enter the Percentage for the starting mark' | translate}} </mat-error>
+                            <mat-error
+                                *ngIf="getmarkperceFormArr(i).controls['min'].hasError('max') ||subcategoryform.submitted">
+                                {{'The starting Mark Percentage should be less than the To Percentage' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="35" fxFlex.gt-md="35" fxFlex="100"  ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                        ngClass.lg="p-l-20" ngClass.xl="p-l-20" >
+                        <mat-form-field appearance="outline"  [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                            <mat-label>{{'Mark Percentage To' | translate}} </mat-label>
+                            <input required matInput formControlName="max" appNumberonly [readonly]="isreadonly" (input)="validatepercentage(i)" >
+                            <mat-error
+                                *ngIf="getmarkperceFormArr(i).controls['max'].hasError('required') ||subcategoryform.submitted">
+                                {{'Enter the Percentage for the ending mark' | translate}} </mat-error>
+                            <mat-error
+                                *ngIf="getmarkperceFormArr(i).controls['max'].hasError('min') ||subcategoryform.submitted">
+                                {{'The Ending Mark Percentage should be greater than the From Percentage' | translate}} </mat-error>
+                            <mat-error
+                            *ngIf="getmarkperceFormArr(i).controls['max'].hasError('max') ||subcategoryform.submitted">
+                            {{'The Percentage for the Ending Mark should not be greater than 100' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="30" fxFlex.gt-md="29" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                        ngClass.lg="p-l-20" ngClass.xl="p-l-20" >
+                        <mat-form-field appearance="outline" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                            <mat-label>{{'Card Validity in Month' | translate}} </mat-label>
+                            <input required matInput formControlName="expinmonth" appNumberonly [readonly]="isreadonly">
+                            <mat-error
+                                *ngIf="getmarkperceFormArr(i).controls['expinmonth'].hasError('required') ||subcategoryform.submitted">
+                                {{'Enter the Card Validity period in months' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div  class="icongroup p-l-10" fxFlex="1" fxLayout="row wrap">
+                        <div
+                            *ngIf="subcategoryform.get('markpercent').controls.length > 1 && subcategoryform.get('markpercent').controls.length != i+1">
+                            <mat-icon matTooltip="{{'Delete' | translate}}"
+                                class="delete m-b-19 fa fa-trash-o"
+                                (click)="removemarkprec(i)"></mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="icongroup p-l-10" fxLayout="row wrap" >
+                <mat-icon matTooltip="{{'Add' | translate}}" class="add p-t-5"
+                    (click)="addmarkprec()">add</mat-icon>
+            </div>
+        </div>
+        <div class="courebox m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-start baseline" *ngIf="subcategoryform.get('iscertexpirybasedonmarks').value == 2">
+            <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" fxFlex="94">
+                <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                     fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                    <mat-form-field class="filter"  appearance="outline">
+                        <mat-label>{{'What is the Period of the Expiry (in years)?' |translate}}</mat-label>
+                        <input required matInput formControlName="certexpiryinmonths" appNumberonly [readonly]="isreadonly">
+                        <mat-error *ngIf="form.certexpiryinmonths.errors?.required || form.submitted">
+                            {{'Enter the expiry period in months' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <p class="title">Knowledge Assessment</p>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does the course contain knowledge assessment?' | translate}}</mat-label>
+                    <mat-select required formControlName="isknwlasmt" [disabled]="isreadonly" (selectionChange)="knwassem($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.isknwlasmt.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="subcategoryform.get('isknwlasmt').value == 1">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'What is the minimum Pass Mark for the Knowledge Assessment?' |translate}}</mat-label>
+                    <input required matInput  formControlName="minmarkfrknwlasmt" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.minmarkfrknwlasmt.errors?.required || form.submitted">
+                        {{'Enter the minimum Pass Mark for the Knowledge Assessment' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline" >
+                    <mat-label>{{'Total Mark - Knowledge Assessment' |translate}}</mat-label>
+                    <input required matInput  formControlName="totalmarkfrknwlasmt" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.totalmarkfrknwlasmt.errors?.required || form.submitted">
+                        {{'Enter the Total Mark for the Knowledge Assessment' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <p class="title">Practical Assessment</p>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does the course contain Practical assessment?' | translate}}</mat-label>
+                    <mat-select required formControlName="ispratasmt" [disabled]="isreadonly" (selectionChange)="pratasmt($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.ispratasmt.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="subcategoryform.get('ispratasmt').value == 1">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does the Practical assessment have grade/mark?' | translate}}</mat-label>
+                    <mat-select required formControlName="ispartasmtmark" [disabled]="isreadonly" (selectionChange)="pramark($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.ispartasmtmark.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center" *ngIf="subcategoryform.get('ispartasmtmark').value == 1">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'What is the minimum Pass Mark for the Practical Assessment?' |translate}}</mat-label>
+                    <input matInput required formControlName="partasmtminmark" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.partasmtminmark.errors?.required || form.submitted">
+                        {{'Enter the minimum Pass Mark for the Practical Assessment' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Total Mark - Practical Assessment' |translate}}</mat-label>
+                    <input matInput required formControlName="partasmttotalmark" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.partasmttotalmark.errors?.required || form.submitted">
+                        {{'Enter the Total Mark for the Practical Assessment' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <p class="title">Required Number of Staff Configuration</p>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does centre allow to add a Staff with Tutor/Instructor role alone?' | translate}}</mat-label>
+                    <mat-select required formControlName="istutorrole" [disabled]="isreadonly" (selectionChange)="tutorrole($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.istutorrole.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '" *ngIf="subcategoryform.get('istutorrole').value == 1">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'No. of Tutor/Instructor' |translate}}</mat-label>
+                    <input matInput required formControlName="tutorlimit" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.tutorlimit.errors?.required || form.submitted">
+                        {{'Enter the No. of Tutor/Instructor' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-20" ngClass.md="p-l-20" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Does centre allow to add a Staff with Assessor role alone?' | translate}}</mat-label>
+                    <mat-select required formControlName="isassessorrole" [disabled]="isreadonly" (selectionChange)="astrole($event.value)">
+                        <mat-option value="1">{{'Yes' | translate }}</mat-option>
+                        <mat-option value="2">{{'No' | translate }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.isassessorrole.errors?.required || form.submitted">
+                        {{'Select either Yes or No from the drop-down' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp p-l-20" [ngClass]="isreadonly ? 'readonlyfield' : ' '" *ngIf="subcategoryform.get('isassessorrole').value == 1">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'No. of Assessor' |translate}}</mat-label>
+                    <input required matInput formControlName="assessorlimit" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.assessorlimit.errors?.required || form.submitted">
+                        {{'Enter the No. of Assessor' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'No. of Tutor/Instructor and Assessor' |translate}}</mat-label>
+                    <input matInput required  formControlName="tutor_assessorlimt" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.tutor_assessorlimt.errors?.required || form.submitted">
+                        {{'Enter the No. of Tutor/Instructor and Assessor' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'No. of Program Manager' |translate}}</mat-label>
+                    <input matInput required formControlName="pmlimit" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.pmlimit.errors?.required || form.submitted">
+                        {{'Enter the No. of Program Manager' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="title">Fee Subscription</p>
+        <p class="subtitle">Initital Batch</p>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Learner Traning Fee (OMR)' |translate}}</mat-label>
+                    <input matInput required formControlName="inti_ltf" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.inti_ltf.errors?.required || form.submitted">
+                        {{'Enter the Learner Training Fee for Initial Batch in OMR (Omani Rial) ' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Learner Assessment Fee (OMR)' |translate}}</mat-label>
+                    <input matInput required formControlName="inti_laf" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.inti_laf.errors?.required || form.submitted">
+                        {{'Enter the Learner Assessment Fee for Initial Batch in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="subtitle">Refresher Batch</p>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Learner Traning Fee (OMR)' |translate}}</mat-label>
+                    <input matInput required formControlName="ref_ltf" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.ref_ltf.errors?.required || form.submitted">
+                        {{'Enter the Learner Training Fee for Refresher Batch in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp " [ngClass]="isreadonly ? 'readonlyfield' : ' '">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Learner Assessment Fee (OMR)' |translate}}</mat-label>
+                    <input matInput required formControlName="ref_laf" appNumberonly [readonly]="isreadonly">
+                    <mat-error *ngIf="form.ref_laf.errors?.required || form.submitted">
+                        {{'Enter the Learner Assessment Fee for Refresher Batch in OMR (Omani Rial)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">
+            <div class="buttonalign" >
+                <button mat-raised-button type="button"  (click)="cancel()" class="btnwhite">{{'Cancel' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15" type="submit" *ngIf="createaccess">{{'Submit' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,66 @@
+agm-map {
+    height: 300px !important;
+    width: 100%; 
+  }
+
+.profilelinkboxshadow{
+    // box-shadow: 0 0 5px #ddd;
+    width:100%;
+    padding: 0 5px;
+   
+   
+  }
+  .searchinmap
+  {
+    width: calc(100% - 50px);
+  }
+  .borderflex{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 45px;
+  }
+  .Searchcolor{
+    color: #a9a9a9;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .Search{
+    p{
+      color:#a9a9a9;
+    }
+  }
+  .border{
+    border: none !important;
+    width:96% !important;
+  }
+
+ 
+  ::ng-deep.searchtextmap {
+    display: flex;
+    .mat-form-field-appearance-legacy .mat-form-field-ripple {
+        display: none;
+    }
+    .mat-form-field-flex
+    {
+      align-items: center;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper
+    {
+      padding-bottom: 0;
+    }
+    .mat-form-field.mat-focused .mat-form-field-label {
+        color: #006cb7;
+        opacity: 0;
+    }
+    .mat-form-field-infix
+    {
+      border-top:0
+    }
+  }
+  .pac-container {
+    border-top: none !important;
+  }
+  .txt-gry {
+    color: #848484;
+  }

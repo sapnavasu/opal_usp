@@ -1,0 +1,201 @@
+.thanktextcolor {
+    h2 {
+        font-size: 1.25rem;
+        font-weight: normal;
+        color: #70c015;
+    }
+}
+.formcolor {
+    color: #ececec;
+}
+.homebtn {
+    width: 110px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    color: #888;
+    border: 1px solid #ccc !important;
+    border: none;
+}
+.loginbtn {
+    width: 92px;
+    height: 34px;
+    border-radius: 2px;
+    background-color: #71c015;
+    color: #ffffff;
+    border: none;
+}
+.widthdialog {
+    width: 500px;
+    min-height: 220px;
+}
+.nextcolor {
+    color: black;
+}
+.flexend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+.gridalign {
+    display: grid;
+}
+
+::ng-deep.gridalign .mat-radio-label-content {
+    padding-left: 15px;
+}
+.background {
+    height: 60px;
+    background-color: #f3f5f6;
+    width: 100%;
+}
+::ng-deep.after {
+    height: 50px;
+    width: 50px;
+    background-color: #e3f2d0;
+    border-radius: 50%;
+    display: inline-block;
+}
+::ng-deep.after:after {
+    display: inline-block;
+    content: "";
+    display: block;
+    width: 12px;
+    height: 20px;
+    border: solid #70c015;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg) !important;
+    transform: rotate(45deg) !important;
+    position: relative;
+    left: 19px;
+    top: 12px;
+}
+.usertextsize {
+    font-size: 1.375rem;
+    font-weight: bold;
+    color: #006cb7;
+    margin: 0px;
+    height: 45px;
+    padding-top: 10px;
+}
+.textcolorhead {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333333;
+    margin-top: 0px;
+    padding-left: 10px !important;
+}
+.backgroundgradient {
+    background-color: rgba(250, 252, 250, 0.7);
+}
+.lypistext {
+    span {
+        font-weight: bold;
+        color: white;
+    }
+    p {
+        font-size: 1rem;
+        font-weight: normal;
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+}
+.userwidth {
+    background-color: white;
+}
+
+.mat-expansion-panel {
+    background: #ffffff;
+    color: rgba(0, 0, 0, 0.87);
+}
+.mat-expansion-panel {
+    box-shadow: none;
+}
+::ng-deep.widthdialog
+    .mat-expansion-panel:not(.mat-expanded)
+    .mat-expansion-panel-header:not([aria-disabled="true"]).cdk-keyboard-focused,
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled="true"]).cdk-program-focused,
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled="true"]):hover {
+    background: white;
+}
+::ng-deep.widthdialog .mat-expansion-panel-body {
+    padding: 0 9px 0px;
+}
+.boxshadowuuser {
+    color: #63686e;
+    line-height: 40px;
+    width: 206px;
+    height: 78px;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: #e8ebf0;
+    margin-right: 12px;
+}
+.textcolorhead {
+    color: #333333;
+    font-weight: bold;
+    padding-top: 15px;
+    width: 100% !important;
+}
+::ng-deep.widthdialog
+{
+    .mat-expansion-panel-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px 0px;
+        border-radius: inherit;
+    }
+    .mat-expansion-indicator::after {
+        border-style: solid;
+        border-width: 0 2px 2px 0;
+        content: "";
+        display: inline-block;
+        padding: 2px;
+        transform: rotate(45deg);
+        vertical-align: middle;
+        position: relative;
+        bottom: 4px;
+        left: 8px;
+    }
+} 
+
+.colormail {
+    color: #999999;
+    margin: 0px;
+    padding-bottom: 20px;
+}
+.aftererror {
+    height: 50px;
+    width: 50px;
+    background-color: #ffe1e1;
+    border-radius: 50%;
+    display: inline-block;
+    img {
+        width: 20px;
+        height: 20px;
+        margin-left: 14px;
+        margin-top: 15px;
+    }
+}
+::ng-deep.widthdialog span.mat-expansion-indicator {
+    height: 23px;
+    width: 23px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+::ng-deep.widthdialog
+    .mat-expansion-panel.mat-expansion-panel._mat-animation-noopable.mat-expanded.mat-expansion-panel-spacing {
+    margin: 0px;
+}
+
+
+.alreadyinvited
+{
+    max-height: 450px !important;
+    height: auto !important;
+}

@@ -1,0 +1,505 @@
+
+
+.contractapproval{
+    .mat-drawer-container{
+        z-index:15;
+        .mat-drawer{
+            &.sidenavsamewidthall{
+                @media screen and (max-width:1366px){
+                    width:70%;
+                }
+                .feesapproval{
+                    .selectcontactheaderwithclose{
+                        @media screen and (max-width:599px){
+                            padding:8px 10px;
+                        }
+                    }
+                    .descriptioncontent{
+                        .mat-card{
+                            &.headerinformationtext{
+                                margin:0 0 5px;
+                                .mat-card-header{
+                                    position: relative;
+                                }
+                            }
+                        }
+                    }
+                    .innnerpartofdrwer{
+                        display:flex;
+                        padding:0px;
+                        position:relative;
+                        align-items: center;
+                        justify-content: flex-start;
+                        min-height: inherit !important;
+                        max-height: calc(100vh - 75px) !important;
+                        .projectdtls{
+                            box-shadow:0px 1px 1px 0px rgba(0,0,0,0.20);
+                            position:relative;
+                            background:#f5f6fa;
+                            padding:5px 30px;
+                            height:60px;
+                            @media screen and (max-width:599px){
+                                height:auto;
+                            }
+                            .mat-card{
+                                box-shadow:0px 1px 1px 0px rgba(0,0,0,0);
+                                justify-content:start; 
+                                align-items: center;
+                                position: relative;
+                                background:none;
+                                display:flex;
+                                height:auto;
+                                padding:0;
+                                .mat-card-header{
+                                    position: relative;
+                                    display:flex;
+                                    align-items: center;
+                                    width:100%;
+                                    padding:0;
+                                    .mat-card-avatar{
+                                        width:45px;
+                                        height:45px;
+                                        display:flex;
+                                        padding:5px;
+                                        border-radius:0px;
+                                        align-items:center;
+                                        justify-content: center;
+                                        border:1px solid #d7dce2;
+                                        img{
+                                            &.example-header-image{ 
+                                                border-radius: 0;
+                                                width:35px;
+                                                height:auto;
+                                            }
+                                        }
+                                    }
+                                    .mat-card-header-text{
+                                        width:100%;
+                                        position:relative;
+                                        .mat-card-subtitle{
+                                            span{
+                                                position:relative;
+                                                &.eoistatus{
+                                                    display:flex;
+                                                    align-items:center;
+                                                    justify-content:start;
+                                                    &>img{
+                                                        width:17px;
+                                                        height:17px;
+                                                        margin:0 5px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .mat-card{
+                            &.tendercard{
+                                border:1px solid #d7dce3;
+                                justify-content:start; 
+                                align-items: center;
+                                position: relative;
+                                background:#fff;
+                                border-radius:3px;
+                                box-shadow:none;
+                                padding:15px;
+                                display:flex;
+                                height:auto;
+                                .mat-card-header{
+                                    position: relative;
+                                    width: 100%;
+                                    padding: 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: start;
+
+                                    .mat-card-header-text{
+                                        width:100%;
+                                        line-height:25px;
+                                        position:relative;
+                                    }
+                                }
+                            }
+                        }
+                        .graybox{
+                            background:#fbfbfd;
+                            padding:25px;
+                        }
+                        .feestatus{
+                            &.approve{
+                                color:#239b02;
+                            }
+                            &.declined{
+                                color:#ee1b1b;
+                            }
+                        }
+                        @media screen and (max-width:768px){
+                            padding:0px !important;
+                        }
+                    }
+                    .mat-tab-group{
+                        &.icvrecord-tab{
+                            z-index:2;
+                            width:100%;
+                            display:flex;
+                            padding-top:0px;
+                            align-items:start;
+                            flex-direction: column;
+                            justify-content: start;
+                            .mat-tab-header{
+                                border-bottom:0px;
+                                background:none;
+                                margin-bottom:0px;
+                                width:100%;
+                                display: flex;
+                                overflow: hidden;
+                                position: relative;
+                                flex-shrink: 0;
+                    
+                                @media screen and (max-width:559px){
+                                    justify-content:start;
+                                    align-items:center;
+                                    position:relative;
+                                }
+                                .mat-tab-header-pagination {
+                                    display:none;
+                                    @media screen and (max-width:599px){
+                                        display: flex;
+                                        border-radius: 0;
+                                        background: none;
+                                        padding: 30px 0px;
+                                        align-items: center;
+                                        justify-content: center;
+                                        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.25);
+                                    }
+                                }
+                                &> .mat-tab-label-container{
+                                    padding:0px;
+                                    overflow: visible;
+                                    position: relative;
+                                    align-items: center;
+                                    justify-content: flex-start;
+                                    @media screen and (max-width:599px){
+                                        width:100%;
+                                        display: flex;
+                                        flex-grow: 1;
+                                        overflow: hidden;
+                                        z-index: 1;
+                                    }
+                                    &> .mat-tab-list{
+                                        // height: auto !important;
+                                        padding: 0px !important;
+                                        opacity: 1 !important;
+                                        display: flex !important;
+                                        align-items:center;
+                                        margin-bottom:0px;
+                                        flex-grow: 0;
+                                        .mat-ink-bar{
+                                            display:none;
+                                        }
+                                        &> .mat-tab-labels{
+                                            justify-content: flex-end;
+                                            align-items: flex-end;
+                                            background: #e5e7ec;
+                                            flex-direction: row;
+                                            border-radius:3px;
+                                            padding:5px;
+                                            display: flex;
+                                            width:100%;
+                                            @media screen and (max-width:599px){
+                                                flex-direction: row !important;
+                                                width: 100%;
+                                                align-items: start;
+                                                justify-content: start;
+                                            }
+                                            &> .mat-tab-label{
+                                                box-shadow:0px 0px 3px 0px rgba(0, 0, 0, 0);
+                                                padding: 3px 15px !important;
+                                                border: 0px solid #e3e3e3;
+                                                height:40px !important;
+                                                min-height: 40px !important;
+                                                justify-content: start;
+                                                background: #fff;
+                                                opacity: 1 !important;
+                                                margin-right: 5px;
+                                                border-radius: 3px;
+                                                font-weight: 500;
+                                                margin-top: 0px;
+                                                cursor: pointer;
+                                                min-width:120px;
+                                                width:auto;
+                                                &:first-child{
+                                                    margin-top:0px;
+                                                }                                                         
+                                                &:last-child{
+                                                    margin-right:0px;
+                                                }      
+                                                &> .mat-tab-label-content{
+                                                    display:flex;
+                                                    display:flex;
+                                                    flex: 1 1 100%;
+                                                    max-width: 100%;
+                                                    align-items: center;
+                                                    justify-content: start;
+                                                    h3{
+                                                        color: #333;
+                                                        font-size: 15px !important;
+                                                        font-family: "opal_semibold";
+                                                        font-weight: 500 !important;
+                                                    }
+                                                    img{
+                                                        margin-left:10px;
+                                                        &.arrow{
+                                                            width:20px;
+                                                            height:20px;
+                                                        }
+                                                    }
+                                                    .count{
+                                                        font-family: "opal_regular";
+                                                        background: #e0e0e0;
+                                                        border-radius: 10px;
+                                                        display: flex;
+                                                        padding: 0px 8px;
+                                                        font-size: 0.875rem;
+                                                        height: 21px;
+                                                        color: #333;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                    }
+                                                    div[class*="head"]{
+                                                        display:flex;
+                                                        align-items: center;
+                                                        justify-content: space-between;
+                                                    }
+                                                }
+                                                &.mat-tab-label-active{
+                                                    overflow:visible;
+                                                    background:#57626E !important;
+                                                    color:#fff;
+                                                        &> .mat-tab-label-content{
+                                                        h3{
+                                                            color:#ffffff;
+                                                        }
+                                                    }
+                                                    .count{
+                                                        background:#fff;
+                                                        color:#57626E;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .mat-tab-body-wrapper{
+                                margin-right: inherit;
+                                position:relative;
+                                overflow:visible;
+                                padding: 0px;
+                                width:100%;
+                                .mat-tab-body{
+                                    margin-right: inherit;
+                                    padding: inherit;
+                                    .mat-tab-body-content{
+                                        overflow:visible;
+                                    }
+                                    &.mat-tab-body-active{
+                                        position: relative;
+                                        overflow-x:visible;
+                                        overflow-y:visible;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .mobile-view{
+                        display:none;
+                        @media screen and(max-width:959px){
+                            display:block;
+                        }
+
+                    }
+                    button{
+                        &.contracts-btn{
+                            position:absolute;
+                            top:10px;
+                            z-index:5;
+                            right:0px;
+                            width:150px;
+                            display: flex;
+                            align-items:center;
+                            @media screen and (max-width:959px){
+                                position:relative;
+                                top:inherit;
+                                right:0;
+                            }
+                            .mat-button-wrapper{
+                                width:100%;
+                                display:flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                .count{
+                                    font-family: "opal_regular";
+                                    background: #e0e0e0;
+                                    border-radius: 10px;
+                                    display: flex;
+                                    padding: 0px 8px;
+                                    font-size: 0.875rem;
+                                    height: 21px;
+                                    color: #333;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                            }
+                            @media screen and(max-width:959px){
+                                display:none;
+                            }
+                        }
+                    }
+                    .mobile-view{
+                        display:none;
+                        @media screen and(max-width:959px){
+                            display:block;
+                            button{
+                                &.contracts-btn{
+                                    display:block;
+                                    position:relative;
+                                    top:inherit;
+                                    right:0;
+                                }
+                            }
+                        }
+
+                    }
+                    .mat-card{
+                        &.bidderactivity{
+                            border:0px solid #d7dbe4;
+                            flex-direction:column;
+                            justify-content:start; 
+                            align-items: center;
+                            position: relative;
+                            background:#fff;
+                            border-radius:0px;
+                            box-shadow:none;
+                            padding:0px;
+                            display:flex;
+                            height:auto;
+                            &:after{
+                                top:5px;
+                                left:0;
+                                width:4px;
+                                z-index:2;
+                                content:"";
+                                height:100%;
+                                position:absolute;
+                                background:#67b61d;
+                                border-left:0px solid #67b61d;
+                            }
+                            .mat-card-header{
+                                position: relative;
+                                width: 100%;
+                                padding:0px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: start;
+                                border-bottom:0px solid #d7dbe4;
+
+                                .mat-card-header-text{
+                                    width:100%;
+                                    line-height:25px;
+                                    position:relative;
+                                    .mat-card-title{
+                                        border-bottom: 0px;
+                                    }
+                                }
+                            }
+                            .mat-card-content{
+                                width:100%;
+                                padding:0px;
+                                position: relative;
+                                background:none;
+                                padding-left:30px;
+                                &:before{
+                                    top:5px;
+                                    left:-5px;
+                                    z-index:3;
+                                    width:10px;
+                                    content:"";
+                                    height:10px;
+                                    position:absolute;
+                                    background:#fff;
+                                    border-radius:100%;
+                                    border:2px solid #67b61d;
+                                    
+                                }
+                            }
+                            &:last-child{
+                                &:after{
+                                    display:none;
+                                }
+                            }
+                            &.terminated{
+                                &:after{
+                                    background:#d42b19;
+                                    border-left:0px solid #d42b19;
+                                }
+                                .mat-card-content{
+                                    &:before{
+                                        content:"";
+                                        background:#fff;
+                                        border:2px solid #d42b19;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // .mat-form-field{
+                    //     &> .mat-form-field-wrapper{
+                    //         padding-bottom:0px;
+                    //         .mat-form-field-underline{
+                    //             display:none;
+                    //             height:0px;
+                    //         }
+                    //         .mat-form-field-flex{
+                    //             .mat-form-field-infix{
+                    //                 background: #fff;
+                    //                 border-radius: 3px;
+                    //                 padding: 5px 6px;
+                    //                 border-top: 0px;
+                    //                 width: 100%;
+                    //                 margin: 0px;
+                    //                 .mat-select{
+                    //                     font-size:14px;
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    .ckeditorborder {
+                        padding-bottom: 15px;
+                        border-bottom: 1px solid #949494 !important;
+                        margin-top: 0px;
+                        min-height:15px;
+                        height: auto;
+                        color: #333;
+                        word-break: break-all;
+                        position: relative;
+                    }
+                    .ck-content{
+                        height:180px !important;
+                    }
+                }
+            }
+            img{
+                &.payproof{
+                    width:auto;
+                    height:auto;
+                }
+            }
+            
+        }
+    }
+}

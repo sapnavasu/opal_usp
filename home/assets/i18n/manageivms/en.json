@@ -1,0 +1,36 @@
+{
+	"table": {
+		"search": "Search",
+		"refresh":"Refresh",
+        "hidefilt":"Hide Filter",
+		"showfilt": "Show Filter",
+		"sele": "Select"
+	},
+	"uploadfile": {
+		"uploafileorsele": "Upload Document",
+		"note": "Note:",
+		"youcanupload": "You can upload",
+		"files": "files",
+		"file": "file",
+		"ofmaxsize": "of max. size",
+		"each": "each.",
+		"view": "View",
+		"down": "Download",
+		"clicontheboxtoupload": "Click on the box to upload the Your Profile Image. You can upload 1 file",
+		"addphoto": "Add Photo",
+		"bann": "Banner",
+		"oplonewbann": "Upload New Banner",
+		"photo": "Photo",
+		"docu": "Document",
+		"youhaveuploa": "You have uploaded the maximum allowed number of file",
+		"notetodeve": "Note to developer: Record to be inserted in filemst",
+		"succ": "Success !",
+		"docudelesucc": "Document Deleted Successfully!",
+		"doyouwant": "Do you want to delete this Document?",
+		"nomodal": "No",
+		"yesmodal": "Yes",
+		"youdonthaveperm": "You don't have permission to access",
+		"warn": "Warning !",
+		"delete":"Delete"
+	}
+}	

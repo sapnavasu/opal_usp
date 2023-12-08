@@ -1,0 +1,573 @@
+<div id="deviceformpage" class="commonForm" fxLayoutAlign="center start">
+    <app-responseloader *ngIf="PageLoaders"></app-responseloader>
+    <div class="vehicleinspection" fxFlex="100" fxFlex.gt-sm="100">
+        <form autocomplete="off" [formGroup]="deviceForm" (ngSubmit)="Deviceregister()" #deviceform="ngForm">
+            <!-- office type -->
+            <div class="secondtab" fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Office Type' | translate}}</mat-label>
+                        <mat-select formControlName="offtype" (selectionChange)="selectOffice(Form.offtype.value)"
+                            required panelClass="select_with_search" [disableOptionCentering]="true" [disabled]="editvehicle">
+                            <mat-option value="1">{{'Main Office' |translate}}</mat-option>
+                            <mat-option value="2" *ngIf="branchlist?.length > 0" >{{'Branch Office' |translate}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="Form.offtype.errors?.required || deviceform.submitted">{{'Select the Office Type from the drop-down' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- branch name -->
+            <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center"
+                *ngIf="Form.offtype.value == 2">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Branch Name' | translate}} </mat-label>
+                        <mat-select formControlName="brancheng" [errorStateMatcher]="matcher" panelClass="myPanelClass"
+                            (closed)="searchBranch = ''" required (selectionChange)="selectedBranch= $event.source.triggerValue;selectedBranchDtl(Form.brancheng.value)"
+                            *ngIf="(branchlist | filter: searchBranch ) as branchresult" [disabled]="editvehicle"
+                            panelClass="select_with_search">
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput class="searchselect" type="Search" placeholder="{{'Search' | translate}}"
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchBranch" 
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchBranch = ''" class="reseticon" matSuffix *ngIf="searchBranch !='' && searchBranch !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing">
+                                <mat-option *ngFor="let list of branchlist | filter: searchBranch"  [value]="list.appmainpk">
+                                    {{(ifarabic == true? (list.branchname_ar):(list.branchname_en))}}
+                                </mat-option>
+                                <mat-optgroup  *ngIf="branchresult.length == 0">{{"No Result found" | translate}}
+                                </mat-optgroup>
+                            </div>
+                        </mat-select>
+                        <mat-error *ngIf="Form.brancheng.errors?.required || deviceform.submitted">{{'Select the Branch Name from the drop-down' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- owner name -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Owner Name (English)' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="englishspace" [matAutocomplete]="auto" required appAlphabetonly
+                            app-restrict-input="firstspace"
+                            formControlName="ownName" (keyup)="getpreviouslist($event.target.value,1)">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option (onSelectionChange)="setcrnumber(item,1)" *ngFor="let item of ownerlist"
+                                [value]="item.name_en">{{ item.name_en }}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="Form.ownName.errors?.required || deviceform.submitted">{{'Enter the Owner Name in English' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- owner arb -->
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <mat-form-field appearance="outline" class="arabiclanguage">
+                        <mat-label>{{'Owner Name (Arabic)' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="arabic" appAlphabetonly required formControlName="ownNameArb">
+                        <mat-error *ngIf="Form.ownNameArb.errors?.required || deviceform.submitted">{{'Enter the Owner Name in Arabic' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- cr number -->
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start satrt" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'CR Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="numspecsymbol" required formControlName="crNumber">
+                        <mat-error *ngIf="Form.crNumber.errors?.required || deviceform.submitted">
+                            {{'Enter the CR Number' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start start" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- contact email -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Contact Person Email ID' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                        pattern="[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+"
+                            app-restrict-input="english" formControlName="gm_emailid">
+                        <mat-error *ngIf="Form.gm_emailid.errors?.pattern || deviceform.submitted">
+                            {{'Enter valid email ID' | translate}} </mat-error>
+                    </mat-form-field>
+                   <mat-hint class="txt-gry fs-14">{{'Note' | translate}}: <span class="txt-gry3 fs-14">{{'Provide the Email ID to communicate the status of the Application' | translate}}</span></mat-hint>
+                </div>
+                <!-- mobile number -->
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Contact Person Mobile Number' | translate}}</mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            formControlName="gm_mobnum" appNumberonly maxlength="8" minlength="8">
+                        <mat-error *ngIf="Form.gm_mobnum.errors?.minlength"> {{'Enter the Minimum 8 digits' |
+                            translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- vechicle reg -->
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field appearance="outline" [ngClass]="schdulereplace ? 'viewOnly': 'null'" >
+                        <mat-label>{{'Vehicle Registration Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()"
+                            (keyup)="checkByType(Form.vehiclenumber.value,'vehiclenumber')" [readonly]="schdulereplace"
+                            [errorStateMatcher]="matcher" matInput app-restrict-input="firstspace" required
+                            formControlName="vehiclenumber">
+                        <mat-error *ngIf="Form.vehiclenumber.errors?.required">
+                            {{'Enter the Vehicle Registration Number' | translate}} </mat-error>
+                        <mat-error *ngIf="Form.vehiclenumber.errors?.pattern">
+                            {{'Invalid Format, kindly provide Vehicle number in the format \'123-XYZ\'' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="Form.vehiclenumber.errors?.another">
+                            {{'This Vehicle Registration Number is already registered with another Centre for Device Installation.' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="Form.vehiclenumber.errors?.alreadyavailable">
+                            {{'This Vehicle Registration Number is already registered. Please enter a different Number.'
+                            | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- chassie -->
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <mat-form-field appearance="outline" [ngClass]="schdulereplace ? 'viewOnly': 'null'">
+                        <mat-label>{{'Chassis Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()"   [readonly]="schdulereplace"
+                            (keyup)="checkByType(Form.chassNumber.value,'chassNumber')" [errorStateMatcher]="matcher"
+                            matInput app-restrict-input="firstspace" required formControlName="chassNumber">
+                        <mat-error *ngIf="Form.chassNumber.errors?.required || deviceform.submitted">
+                            {{'Enter the Chassis Number' | translate}} </mat-error>
+                        <mat-error *ngIf="Form.chassNumber.errors?.another">
+                            {{'This Chassis Number is already registered with another Centre for Device Installation.' | translate}} </mat-error>
+                        <mat-error *ngIf="Form.chassNumber.errors?.alreadyavailable">
+                            {{'This Chassis Number is already registered. Please enter a different Number.' |
+                            translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- ivms device model -->
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="ivmsdevicemodel"
+                            panelClass="select_with_search" (selectionChange)="updateSftwVersion($event.value);getInspectorname()"  [disabled]="editvehicle"
+                            [disableOptionCentering]="true"  *ngIf="(devicemodelnolist | filter : searchdevicemodel) as devicemodelresult">
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'Search' | translate}} " 
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchdevicemodel" 
+                                   
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchdevicemodel = ''" class="reseticon" matSuffix *ngIf="searchdevicemodel !='' && searchdevicemodel !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let list of devicemodelnolist | filter : searchdevicemodel"
+                                    [value]="list.devicePk">{{list.modelno}}
+                                </mat-option>
+                                <mat-optgroup *ngIf="devicemodelresult.length == 0">{{"No Result found" | translate}}</mat-optgroup>
+                            </div>
+                        </mat-select>
+                        <mat-label>{{'IVMS Device Model Number' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.ivmsdevicemodel.errors?.required || deviceform.submitted">{{'Select the IVMS Device Model Number from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- software -->
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <mat-form-field appearance="outline" class="viewOnly">
+                        <mat-label>{{'Software Version' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput readonly
+                            formControlName="softVersion" app-restrict-input="firstspace">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- Manufacture -->
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="vechicelmanufact"
+                            panelClass="select_with_search" (selectionChange)="getInspectorname()"
+                            [disableOptionCentering]="true"  *ngIf="(manufaturersList | filter : searchvechicelmanufact) as vechicelmanufactresult">
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'Search' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchvechicelmanufact"
+                                   
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchvechicelmanufact = ''" class="reseticon" matSuffix *ngIf="searchvechicelmanufact !='' && searchvechicelmanufact !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let list of manufaturersList | filter : searchvechicelmanufact"
+                                    [value]="list.pk">{{(ifarabic == true?(list.name_ar):(list.name_en))}}
+                                </mat-option>
+                                <mat-optgroup *ngIf="vechicelmanufactresult.length == 0">{{"No Result found" | translate}}</mat-optgroup>
+                                </div>
+                        </mat-select>
+                        <mat-label>{{'Vehicle Manufacturer' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.vechicelmanufact.errors?.required || deviceform.submitted">{{'Select the Vehicle Manufacturer from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- odometer -->
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Odometer Reading (in km)' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            appNumberonly maxlength="7" required formControlName="odometer">
+                        <mat-error *ngIf="Form.odometer.errors?.required || deviceform.submitted">
+                            {{'Enter the Odometer Reading (in km)' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- device serial -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Device Serial Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="firstspace" required formControlName="deviceserial">
+                        <mat-error *ngIf="Form.deviceserial.errors?.required || deviceform.submitted">
+                            {{'Enter the Device Serial Number' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <!-- device imei -->
+                        <mat-label>{{'Device IMEI Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="englishspace" required formControlName="deviceimei"
+                            app-restrict-input="firstspace">
+                        <mat-error *ngIf="Form.deviceimei.errors?.required || deviceform.submitted">
+                            {{'Enter the Device IMEI Number' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- vechicel cate -->
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="vehiclecat"
+                            panelClass="select_with_search" (selectionChange)="getvehiclesubcatList($event.value)"
+                            [disableOptionCentering]="true" *ngIf="(categoryList | filter : searchVehicleCat) as vehiclecatresult">
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'Search' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchVehicleCat"
+                                    
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchVehicleCat = ''" class="reseticon" matSuffix *ngIf="searchVehicleCat !='' && searchVehicleCat !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage" >
+                                <mat-option *ngFor="let list of categoryList | filter : searchVehicleCat"
+                                    [value]="list.rascatpk"> {{(ifarabic == true?
+                                    (list.category_ar):(list.category_en))}}
+                                </mat-option>
+                                <mat-optgroup *ngIf="vehiclecatresult.length == 0">{{"No Result found" | translate}}</mat-optgroup>
+                            </div>
+                        </mat-select>
+                        <mat-label>{{'Vehicle Category' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.vehiclecat.errors?.required || deviceform.submitted">
+                            {{'Select the Vehicle Category from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <!-- vechicle type  -->
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="vechicletype"
+                            panelClass="select_with_search" (selectionChange)="getInspectorname()"
+                                    *ngIf="(subcategoryList | filter : searchvechicletype) as vechicletyperesult"
+                                    [disableOptionCentering]="true" >
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'Search' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchvechicletype"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchvechicletype = ''" class="reseticon" matSuffix
+                                    *ngIf="searchvechicletype !='' && searchvechicletype !=null">clear</mat-icon>
+                            </div>
+                            
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let list of subcategoryList | filter : searchvechicletype"
+                                    [value]="list.pk">{{(ifarabic == true?(list.name_ar):(list.name_en))}}
+                                </mat-option>
+                                <mat-optgroup *ngIf="vechicletyperesult.length == 0">{{"No Result found" |
+                                    translate}}</mat-optgroup>
+                            </div>
+                        </mat-select>
+                        <mat-label>{{'Vehicle Sub-Category' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.vechicletype.errors?.required || deviceform.submitted">
+                            {{'Select the Vehicle Sub-Category from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- device serial -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Driver Fatigue Management System Model' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="firstspace"  formControlName="devfatigsysmdl">
+                        <mat-error *ngIf="Form.devfatigsysmdl.errors?.required || deviceform.submitted">
+                            {{'Enter the Driver Fatigue Management System Model' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <!-- device imei -->
+                        <mat-label>{{'Driver Fatigue Management System Serial Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="englishspace"  formControlName="devfatigsysnum"
+                            app-restrict-input="firstspace">
+                        <mat-error *ngIf="Form.devfatigsysnum.errors?.required || deviceform.submitted">
+                            {{'Enter the Driver Fatigue Management Serial Number' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                    <!-- sim card -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'SIM Card Number' | translate}}</mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                            formControlName="simnmber" appNumberonly>
+                        <mat-error *ngIf="Form.simnmber.errors?.required || deviceform.submitted">
+                            {{'Enter the SIM Card Number' | translate}} </mat-error>
+                        <mat-error *ngIf="Form.simnmber.errors?.minlength"> {{'maincenter.minleng' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <!-- sim provider -->
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="simprovider"
+                            panelClass="select_with_search" (selectionChange)="getInspectorname()"
+                                    *ngIf="(simproviderList | filter : searchsimprovider) as simproviderresult"
+                                    [disableOptionCentering]="true" >
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'Search' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchsimprovider"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchsimprovider = ''" class="reseticon" matSuffix
+                                    *ngIf="searchsimprovider !='' && searchsimprovider !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let list of simproviderList | filter : searchsimprovider"
+                                    [value]="list.pk">{{(ifarabic == true?(list.name_ar):(list.name_en))}}
+                                </mat-option>
+                                <mat-option  value="other">
+                                    {{'Others' | translate}}
+                                  </mat-option>
+                                <mat-optgroup *ngIf="simproviderresult.length == 0">{{"No Result found" | translate}}</mat-optgroup>
+                            </div>
+                        </mat-select>
+                        <mat-label>{{'SIM Service Provider' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.simprovider.errors?.required || deviceform.submitted">{{'Select the SIM Service Provider from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div *ngIf="Form.simprovider.value == 'other'" fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" fxFlex="100">
+                    <!-- sim provider -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'SIM Service Provider (Others)' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="englishspace" required formControlName="simproviderother"
+                            app-restrict-input="firstspace">
+                        <mat-error *ngIf="Form.simproviderother.errors?.required || deviceform.submitted">
+                            {{'Enter the SIM Service Provider (Others)' | translate}} </mat-error>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                    <!-- primary speed -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Primary Speed Source (VSS/CANBUS)' | translate}}</mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                            formControlName="primaryspeed" appAlphabetonly>
+                        <mat-error *ngIf="Form.primaryspeed.errors?.required || deviceform.submitted">
+                            {{'Enter the Primary Speed Source (VSS/CANBUS)' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <!-- secondary speed -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Secondary Speed Source' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            app-restrict-input="englishspace" required formControlName="secondaryspeed" appAlphabetonly
+                            app-restrict-input="firstspace">
+                        <mat-error *ngIf="Form.simprovider.errors?.required || deviceform.submitted">
+                            {{'Enter the Secondary Speed Source' | translate}} </mat-error>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- speed limiter -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Speed Limiter Serial Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                            formControlName="speedlimit" app-restrict-input="firstspace">
+                        <mat-error *ngIf="Form.speedlimit.errors?.required || deviceform.submitted">
+                            {{'Enter the Speed Limiter Serial Number' | translate}} </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <!-- vechicel fleet -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Vehicle Fleet Number' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput required
+                            formControlName="vehiclefleet" app-restrict-input="firstspace">
+                        <mat-error *ngIf="Form.vehiclefleet.errors?.required || deviceform.submitted">
+                            {{'Enter the Vehicle Fleet Number' | translate}} </mat-error>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- rop -->
+                    <mat-form-field appearance="outline">
+                        <mat-label> {{'First ROP Registration Date' | translate}}</mat-label>
+                        <input matInput required formControlName="ropRegister"
+                            (mousedown)="picker3.open(); $event.preventDefault" [disabled]="picker3.opened"
+                            [matDatepicker]="picker3" readonly [max]="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                        <mat-error *ngIf="Form.ropRegister.errors?.required || deviceform.submitted">
+                            {{'Select the First ROP Registration Date' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- model year -->
+                <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                    <mat-form-field appearance="outline">
+                    
+                        <mat-label> {{'Model Year' | translate}}</mat-label>
+                             <!-- <input matInput required [formControl]="modelYear"  (mousedown)="dp.open(); $event.preventDefault;" 
+                              [disabled]="dp.opened" [matDatepicker]="dp" readonly>
+                             <mat-datepicker-toggle matSuffix [for]="dp" ></mat-datepicker-toggle>
+                             <mat-datepicker #dp  startView="multi-year" 
+                             (yearSelected)="chosenYearHandler($event, dp)"></mat-datepicker> -->
+                             <input  (keydown.enter)="$event.preventDefault()"
+                             [errorStateMatcher]="matcher" matInput appNumberonly (change)="checkYear($event.target.value)"
+                             required formControlName="modelYear" maxlength="4" minlength="4">
+                              <mat-error *ngIf="Form.modelYear.errors?.required || Form.submitted">
+                            {{'Enter the Model Year' | translate}} </mat-error> 
+                            <mat-error *ngIf="Form.modelYear.errors?.minlength">
+                                {{'Enter Minimum 4 digit' | translate}} </mat-error>
+                            <mat-error *ngIf="Form.modelYear.errors?.futureYear">
+                                    {{'Enter a Model Year that is earlier than the upcoming year.' | translate}} </mat-error> 
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start start" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <!-- installation date -->
+                    <mat-form-field appearance="outline" [ngClass]="editvehicle ? 'viewOnly':'null'">
+                        <mat-label> {{'Installation Date' | translate}}</mat-label>
+                        <input matInput required formControlName="installDate"
+                            (mousedown)="picker.open(); $event.preventDefault" 
+                            (dateChange)="setInstallTime();getInspectorname()" [disabled]="picker.opened || editvehicle"
+                            [matDatepicker]="picker" readonly [min]="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="Form.installDate.errors?.required || deviceform.submitted">
+                            {{'Select the Date of Installation' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100" class="m-t-4" >
+                   <div [ngClass]="editvehicle ? 'viewOnly':'null'">
+                        <div class="drpickerasset timeaddpicker" [ngClass]="(Form.inspStarttime.errors?.required  || Form.inspEndtime.errors?.required ) && (deviceform.submitted || deviceForm.controls.inspStarttime.touched) ? 'borderError': 'borderColor'">
+                            <div fxLayoutAlign="flex-start" class="pos-relative">
+                                <div class="drpickerstartend borderbrfore" >
+                                    <mat-label class="txt-gry" [ngClass]="Form.inspStarttime.errors?.required && (deviceform.submitted || deviceForm.controls.inspStarttime.touched) ? 'labelError' : 'null'">{{'Start Time' |translate}} <span class="labelError">*</span></mat-label>
+                                    <mat-form-field class="beforrshow" >
+                                        <input matTimepicker #t="matTimepicker"
+                                            (timeChange)="setInstallTime();getInspectorname()" [strict]="false" 
+                                            formControlName="inspStarttime" [maxDate]="Form.inspEndtime.value" required>
+                                        <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                                        <mat-error class="fs-12" *ngIf="Form.inspStarttime.errors?.required  || Form.inspEndtime.errors?.required  || deviceform.submitted">
+                                            {{'Select the Start Time' | translate}} </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="drpickerstartend m-l-40">
+                                    <mat-label class="txt-gry" [ngClass]="Form.inspEndtime.errors?.required && (deviceform.submitted || deviceForm.controls.inspStarttime.touched) ? 'labelError' : 'null'">{{'End Time' | translate}} <span class="labelError">*</span></mat-label>
+                                    <mat-form-field >
+                                        <input matTimepicker #t="matTimepicker" [minDate]="Form.inspStarttime.value"
+                                            (timeChange)="setInstallTime();getInspectorname()" [strict]="false" 
+                                            formControlName="inspEndtime" required>
+                                        <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                                        <mat-error class="fs-12" *ngIf="Form.inspStarttime.errors?.required  || Form.inspEndtime.errors?.required  || deviceform.submitted">
+                                            {{'Select the End Time' | translate}} </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="drpickerhader m-b-24">
+                    <!-- install name -->
+                    <mat-form-field appearance="outline" [ngClass]="editvehicle ? 'viewOnly':'null'">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="installName" [disabled]="editvehicle"
+                                    *ngIf="(inspectorlist | filter : searchcountry) as intyperesult"
+                                    panelClass="select_with_search" [disableOptionCentering]="true" >
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'Search' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchcountry"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchcountry = ''" class="reseticon" matSuffix *ngIf="searchcountry !='' && searchcountry !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let inspc of inspectorlist | filter : searchcountry" [value]="inspc.pk">
+                                    {{ifarabic == true ? inspc.oum_firstname : inspc.oum_firstname}}
+                                </mat-option>
+                                <mat-optgroup *ngIf="intyperesult.length == 0">{{"No Result found" | translate}}</mat-optgroup>
+                            </div>
+                        </mat-select>
+                        <mat-label>{{'Installer Name' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.installName.errors?.required || deviceform.submitted"> {{'Select the Installer Name from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-end center" class="groupBtns m-t-20">
+                <button mat-raised-button type="button" (click)="cancle();" class="standardbutton mat-white-bg">{{'Cancel' | translate}}</button>
+                <button mat-raised-button type="submit" class="standardbutton mat-red-bg"><span *ngIf="!editvehicle">{{'Submit' | translate}}</span><span *ngIf="editvehicle">{{'Update' | translate}}</span></button>
+            </div>
+        </form>
+    </div>
+</div>

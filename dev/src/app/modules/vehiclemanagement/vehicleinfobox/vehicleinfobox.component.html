@@ -1,0 +1,100 @@
+<div fxLayoutAlign="center start" id="infoBox">
+    <div fxFlex="100" fxFlex.gt-sm="100">
+        <div class="knowledgegrid m-t-10 m-b-20 p-10" fxLayout="column">
+                <div class="head" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div class="owner_name">
+                        <p class="text-gray m-0 fs-16 p-b-6">{{'Owner Name' | translate }}</p>
+                        <h2 class="headcolor fs-18 m-0 lh-15">
+                          {{ifarbic == true ? (viewdata.owner_ar):
+                            (viewdata.owner_en)}}
+                        </h2>
+                    </div>
+                  <!-- <div class="meuoption">
+                    <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                    aria-label="Example icon-button with a menu">
+                    <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                </button>
+                <mat-menu #actionmenu="matMenu"
+                    class="master-menu whentootltipadded table_menu">
+                    <button type="button" mat-menu-item><span>{{'Inspect Now' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'View & Approve' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'View Details' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'View RAS Sticker' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'Print RAS Sticker' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'Renew Now' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'Audit Log' |translate}}</span></button>
+                </mat-menu>
+                  </div> -->
+                </div>
+                <div class="fs-13 m-t-20 m-b-20" fxLayout="row wrap">
+                  <p class="application-detais m-r-10 text-gray m-0">{{'Office Type' | translate}}: <span
+                    class="text-default">
+                    <span *ngIf="viewdata.appiim_officetype == 1">{{'Main Office' | translate}}</span>
+                    <span *ngIf="viewdata.appiim_officetype == 2">{{'Branch Office' | translate}}</span></span>
+            </p>
+            <p class="application-detais m-r-10 text-gray m-0">{{'Branch Name' | translate}}: <span
+                    class="text-default">{{(viewdata.appiim_officetype == 2)?(ifarbic == true?
+                      (viewdata.appiim_branchname_ar):(viewdata.appiim_branchname_en)):('-')}} </span>
+            </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'Vehicle Reg. number' | translate}}: <span
+                            class="text-default">{{viewdata.rvrd_vechicleregno}} </span>
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'Chassis Number' | translate}}: <span
+                            class="text-default">{{viewdata.rvrd_chassisno}} </span>
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'Vehicle Category' | translate}}: <span
+                            class="text-default">{{ifarbic == true ?
+                              (viewdata.vehtype_ar):(viewdata.vehtype_en)}} </span>
+
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'Road Type' | translate}}: <span
+                            class="text-default">{{ifarbic == true ?
+                              (viewdata.roadtype_ar):(viewdata.roadtype_en)}}</span>
+
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'Inspector Name' | translate}}: <span
+                        class="text-default">
+                        {{viewdata.inspectorname ? viewdata.inspectorname : '-'}}</span>
+
+                </p>
+                <p class="application-detais m-r-10 text-gray m-0">{{'Inspection Date and Time' | translate}}: <span
+                    class="text-default">{{viewdata.dateofinspetcion}}<span *ngIf="viewdata?.startTime && viewdata?.endTime">&nbsp;({{viewdata?.startTime}} - {{viewdata?.endTime}})</span></span>
+
+              </p>
+              <p class="application-detais m-r-10 text-gray m-0">{{'Applicant Type' | translate}}: <span
+                class="text-default">
+                <span *ngIf="viewdata.rvrd_applicationtype == 1">{{'Initial' | translate}}</span>
+                <span *ngIf="viewdata.rvrd_applicationtype == 2">{{'Renewal' | translate}}</span></span>
+
+              </p>
+              <p class="application-detais m-r-10 text-gray m-0">{{'Inspection Status' | translate}}: <span
+                class="text-default">
+               
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 1">{{'Inspection Pending'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 2">{{'Verification Pending'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 3">{{'Completed'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 4">{{'Supervisor Approval Pending'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 5">{{'Declined by Verifier'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 6">{{'Declined by Supervisor'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 7">{{'Re-Inspection Required'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 8">{{'Rejected'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 9">{{'Rejected and Cancelled'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_inspectionstatus == 10">{{'Cancelled(Renewal)'| translate}}</span>
+                
+              </span>
+
+             </p>
+             <p class="application-detais m-r-10 text-gray m-0">{{'Permit Status' | translate}}: <span
+                class="text-default"> <span *ngIf="viewdata.rvrd_permitstatus == 1" class="New">{{'New'| translate}}</span>
+                <span *ngIf="viewdata.rvrd_permitstatus == 2" class="Active">{{'Valid' | translate}}</span>
+                <span *ngIf="viewdata.rvrd_permitstatus == 3" class="New">{{'Expired' | translate}}</span>
+                <span *ngIf="viewdata.rvrd_permitstatus == 4" class="Cancelled">{{'Cancelled' | translate}}</span></span>
+
+             </p> <p class="application-detais m-r-10 text-gray m-0">{{'Date of Expiry' | translate}}: <span
+                class="text-default">{{viewdata.dateofexp ? viewdata.dateofexp : '-'}}</span>
+
+             </p>
+            </div>
+        </div>
+    </div>
+</div>

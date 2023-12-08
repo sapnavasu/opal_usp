@@ -1,0 +1,276 @@
+<div fxLayoutAlign="center" id="viewlearner" class="viewlearner">
+    <div class="batchheader clflex flex-column rwidth" *ngIf="batchdata_data != null">
+        <div class="batchdetails flex-column">
+            <div fxLayout="row" class="clflex rwidth">
+                <div fxLayout="row" class="clflex rwidth ">
+                    <p>{{'viewlearners.trainevaent' | translate}} : <span>{{batchdata_data.traning_center}}</span></p>
+                    <p>{{'viewlearners.batchno' | translate}}: <span>{{batchdata_data.batach_no}}</span></p>
+                    <p>{{'viewlearners.batchtyp' | translate}}: <span>{{batchdata_data.batch_type}}</span></p>
+                </div>
+                <p>
+                    <button mat-icon-button class="batchIcon" [matMenuTriggerFor]="menu"
+                        aria-label="Example icon-button with a menu">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu class="topmenu" #menu="matMenu">
+                        <button mat-menu-item>
+                            <span>{{'viewlearners.edit' | translate}}</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>{{'viewlearners.changasseso' | translate}}</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>{{'viewlearners.dowattereport' | translate}}</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>{{'viewlearners.assechanreqtop' | translate}}</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>{{'viewlearners.reqforbacktrac' | translate}}</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>{{'viewlearners.auditlog' | translate}}</span>
+                        </button>
+                    </mat-menu>
+                </p>
+            </div>
+            <div fxLayout="row" class="clflex rwidth">
+                <p class="bor">{{'viewlearners.stat' | translate}}: <span class="colgreen">{{getassessmentstatus(batchdata_data.status)}}</span></p>
+                <p class="bor">{{'viewlearners.offityp' | translate}} : <span>{{batchdata_data.office_type==1 ? 'Main Office' : 'Branch Office'}}</span></p>
+                <p class="bor">{{'viewlearners.branname' | translate}}: <span>{{batchdata_data.branch_name}}</span></p>
+            </div>
+        </div>
+
+        <div class="batchdetails1" fxLayout="row">
+            <div class="batchdetails1innerdiv clflex flex-column">
+                <p>{{'viewlearners.traiduar' | translate}} </p>
+                <p class="fontblack">{{batchdata_data.start_date}} to {{batchdata_data.end_date}}</p>
+            </div>
+            <div class="batchdetails1innerdiv clflex flex-column">
+                <p>{{'viewlearners.totallear' | translate}}</p>
+                <p class="fontblack">{{batchdata_data.total_learners}}/{{batchdata_data.total}}</p>
+            </div>
+            <div class=" batchdetails1innerdiv clflex flex-column">
+                <p>{{'viewlearners.remaicapa' | translate}}</p>
+                <p class="fontblack">{{batchdata_data.reamaining_learners}}/{{batchdata_data.total}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="leanertable m-t-40">
+        <div class="leanertable1 clflex flex-row m-b-20">
+            <div class="clflex flex-row toppage">
+                <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="5"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                <button mat-stroked-button>{{'viewlearners.movetoquachk' | translate}}</button>
+            </div>
+            <button mat-flat-button color="primary" (click)="clickEvent()">{{hidefilder ? 'Hide Filter' : 'Show Filter'}} <i
+                    class="fa fa-filter m-l-6" aria-hidden="true"></i></button>
+                    <!-- <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                            class="filter">{{filtername}}<i class="fa fa-filter m-l-6" aria-hidden="true"></i></button>
+ -->
+        </div>
+        <div class="example-container">
+            <mat-table [dataSource]="dataSource" matSort class="learnerList">
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <mat-header-cell fxFlex="65px" mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell data-label="select" fxFlex="65px" *matCellDef="let element">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(element) : null"
+                            [checked]="selection.isSelected(element)" [aria-label]="checkboxLabel(element)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <!-- civilNumber Column -->
+                <ng-container matColumnDef="civilNumber">
+                    <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef mat-sort-header> {{'viewlearners.civinum' | translate}}
+                    </mat-header-cell>
+                    <mat-cell fxFlex="200px" *matCellDef="let element"> {{element.civilNumber}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="learnerName">
+                    <mat-header-cell fxFlex="150px" class="exwid" mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{'viewlearners.learname' | translate}} </mat-header-cell>
+                    <mat-cell fxFlex="200px" *matCellDef="let element"> {{element.learnerName}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="emailID">
+                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef mat-sort-header> {{'viewlearners.emaiid' | translate}}
+                    </mat-header-cell>
+                    <mat-cell fxFlex="150px" *matCellDef="let element"> {{element.emailID}} </mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="age">
+                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef mat-sort-header> {{'viewlearners.age' | translate}}
+                    </mat-header-cell>
+                    <mat-cell fxFlex="150px" *matCellDef="let element"> {{element.age}} </mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="gender">
+                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef mat-sort-header> {{'viewlearners.gend' | translate}}
+                    </mat-header-cell>
+                    <mat-cell fxFlex="150px" *matCellDef="let element"> {{element.gender}} </mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef mat-sort-header> Status
+                    </mat-header-cell>
+                    <mat-cell fxFlex="150px" *matCellDef="let element" [ngSwitch]="element.status">
+                        <span *ngSwitchCase="'Assessment'" class="colpurple">{{element.status}}</span>
+                        <span *ngSwitchCase="'Completed'" class="colgreen">{{element.status}}</span>
+                        <span *ngSwitchCase="'Retake Assessment'" class="colpurple">{{element.status}}</span>
+                        <span *ngSwitchDefault>{{element.status}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Knowledge Assessment Column -->
+                <ng-container matColumnDef="knowledgeAssessment">
+                    <mat-header-cell fxFlex="150px" mat-header-cell class="exwid" *matHeaderCellDef mat-sort-header>
+                        {{'viewlearners.knowassesmen' | translate}} </mat-header-cell>
+                    <mat-cell fxFlex="150px" *matCellDef="let element" [ngSwitch]="element.knowledgeAssessment">
+                        <span *ngSwitchCase="'Pending'" class="colorange">{{element.knowledgeAssessment}}</span>
+                        <span *ngSwitchCase="'Pass'" class="colgreen">{{element.knowledgeAssessment}}</span>
+                        <span *ngSwitchCase="'Fail'" class="colred">{{element.knowledgeAssessment}}</span>
+                        <span *ngSwitchDefault>{{element.knowledgeAssessment}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Practical Assessment Column -->
+                <ng-container matColumnDef="practicalAssessment">
+                    <mat-header-cell fxFlex="150px" mat-header-cell class="exwid" *matHeaderCellDef mat-sort-header>
+                        {{'viewlearners.practassesment' | translate}} </mat-header-cell>
+                    <mat-cell fxFlex="150px" *matCellDef="let element" [ngSwitch]="element.practicalAssessment">
+                        <span *ngSwitchCase="'Pending'" class="colorange">{{element.practicalAssessment}}</span>
+                        <span *ngSwitchCase="'Pass'" class="colgreen">{{element.practicalAssessment}}</span>
+                        <span *ngSwitchCase="'Fail'" class="colred">{{element.practicalAssessment}}</span>
+                        <span *ngSwitchCase="'Competent'" class="colgreen">{{element.practicalAssessment}}</span>
+                        <span *ngSwitchCase="'Non-Competent'" class="colred">{{element.practicalAssessment}}</span>
+                        <span *ngSwitchDefault>{{element.practicalAssessment}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef> {{'viewlearners.actio' | translate}} </mat-header-cell>
+                    <mat-cell fxFlex="150px" *matCellDef="let element">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" class="tablemenu">
+                            <button mat-menu-item *ngFor="let item of actionOption; let i=index">
+                                <span>{{item}}</span>
+                            </button>
+                        </mat-menu>
+
+                    </mat-cell>
+                </ng-container>
+                <div id ="table_align">
+                    <ng-container matColumnDef="row-first">
+                        <mat-header-cell fxFlex="50px" mat-header-cell class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <!-- <mat-form-field class="filter" appearance="outline">
+                            <mat-label>search</mat-label>
+                            <input matInput [formControl]="Awarding">
+                        </mat-form-field> -->
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-second">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-three">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow exwid" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-four">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-five">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-six">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-seven">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-eight">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow exwid" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="row-nine">
+                        <mat-header-cell fxFlex="150px" mat-header-cell class="serachrow exwid" *matHeaderCellDef
+                            style="text-align:center">
+                            <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'viewlearners.sear' | translate}}</mat-label>
+                                <input matInput [formControl]="Awarding">
+                            </mat-form-field>
+                        </mat-header-cell>
+                    </ng-container>
+                </div>
+                    <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-header-row id="searchrow"
+                        *matHeaderRowDef="['row-first' , 'row-second'  , 'row-three' , 'row-four', 'row-five' , 'row-six' , 'row-seven', 'row-eight', 'row-nine']"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                    <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block" class="masterPage masterbottom "
+                        showFirstLastButtons [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                        [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                        [pageSizeOptions]="paginator?.pageSizeOptions">
+                    </mat-paginator>
+                </div>
+            </div>
+    </div>
+</div>
+</div>

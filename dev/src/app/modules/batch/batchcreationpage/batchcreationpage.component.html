@@ -1,0 +1,1078 @@
+<div fxLayout="row wrap" fxLayoutAlign="center" id="batchcreationlist">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <form autocomplete="off" [formGroup]="batchform">
+            <div class="formcontainer m-t-15">
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15" >
+                    <div fxFlex.gt-sm="50" fxFlex="100" >
+                        <mat-form-field appearance="outline" *ngIf="stktype == 1">
+                            <mat-label>{{'course.trainingevlocenter' | translate}} </mat-label>
+                            <mat-select formControlName="trainingevlocenter" [errorStateMatcher]="matcher"
+                                panelClass="myPanelClass" (closed)="searchTrainingCentre = ''"
+                                (selectionChange)="selectedTrainingCentre(cour.trainingevlocenter.value);selectedTrCentr = $event.source.triggerValue;"
+                              *ngIf="(trainingEvalutionCentrelist | filter: searchTrainingCentre ) as trainingresult" panelClass="select_with_search">
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchTrainingCentre"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchTrainingCentre = ''" class="reseticon" matSuffix
+                                        *ngIf="searchTrainingCentre !='' && searchTrainingCentre !=null">clear
+                                    </mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option
+                                        *ngFor="let list of trainingEvalutionCentrelist | filter: searchTrainingCentre"
+                                        [value]="list.regpk">
+                                        {{ifarabic == true ? list.compname_ar : list.compname_en}}
+                                    </mat-option>
+                                    <div class="p-t-10 p-l-16 p-b-5" *ngIf="trainingresult.length == 0">
+                                        {{'course.nofound' | translate}}  
+                                    </div>
+                                </div>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="cour.trainingevlocenter.errors?.required || cour.trainingevlocenter.touched"
+                                class="text-danger font-14">
+                                {{'course.trainingevloerror' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.offtype' | translate}} </mat-label>
+                            <mat-select required formControlName="office_type"
+                                (selectionChange)="selectOffice(cour.office_type.value)" required
+                                panelClass="select_with_search">
+                                <mat-option [value]="1">{{'table.main' | translate}}</mat-option>
+                                <mat-option [value]="2" *ngIf="branchlist?.length > 0">{{'table.branch' | translate}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="cour.office_type.errors?.required || batchform.submitted">
+                                {{'course.selectofftype' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15"
+                    *ngIf="cour.office_type.value == 2">
+                    <div fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.branchname' | translate}}</mat-label>
+                            <mat-select formControlName="bran_ch" [errorStateMatcher]="matcher"
+                                panelClass="myPanelClass" (closed)="searchBranch = ''" required
+                                (selectionChange)="selectedBranch= $event.source.triggerValue;selectedBranchDtl(cour.bran_ch.value)"
+                                *ngIf="(branchlist | filter: searchBranch ) as branchresult"
+                                panelClass="select_with_search">
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchBranch"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchBranch = ''" class="reseticon" matSuffix
+                                        *ngIf="searchBranch !='' && searchBranch !=null">clear</mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option *ngFor="let list of branchlist | filter: searchBranch"
+                                        [value]="list.appmainpk">
+                                        {{ifarabic == true ? list.branchname_ar : list.branchname_en}}
+                                    </mat-option>
+                                    <div class="p-t-10 p-l-16 p-b-5" *ngIf="branchresult.length == 0">
+                                        {{'course.nofound' | translate}}  
+                                    </div>
+                                </div>
+                            </mat-select>
+                            <mat-error *ngIf="cour.bran_ch.errors?.required || batchform.submitted">
+                                {{'course.selectbranchname' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.courtitl' | translate}}</mat-label>
+                            <mat-icon matSuffix class="txt-gry" matTooltip="{{'Note: Only the Certified Courses that are not suspended will be listed here for Batch creation.' | translate}} ">info_outline</mat-icon>
+                            <mat-select formControlName="stdcoursedtlsmstpk" [errorStateMatcher]="matcher"
+                                panelClass="myPanelClass" (closed)="searchCourse = ''" required
+                                (selectionChange)="selectedCourseDtls(cour.stdcoursedtlsmstpk.value);selectedCourse = $event.source.triggerValue;"
+                                *ngIf="(courselist | filter: searchCourse ) as courseresult"
+                                panelClass="select_with_search">
+                                
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchCourse"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchCourse = ''" class="reseticon" matSuffix
+                                        *ngIf="searchCourse !='' && searchCourse !=null">clear</mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option *ngFor="let list of courselist | filter: searchCourse"
+                                        [value]="list.pk">
+                                        {{ifarabic == true ? list.course_ar : list.course_en}}
+                                    </mat-option>
+                                    <div class="p-t-10 p-l-16 p-b-5" *ngIf="courseresult.length == 0">
+                                        {{'course.nofound' | translate}}  
+                                    </div>
+                                </div>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="cour.stdcoursedtlsmstpk.errors?.required || cour.stdcoursedtlsmstpk.touched"
+                                class="text-danger font-14">
+                                {{'course.coursetitleerror' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                        ngClass.xl="p-l-30" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.courcate' | translate}}</mat-label>
+                            <mat-select formControlName="cour_cate" [errorStateMatcher]="matcher"
+                                panelClass="myPanelClass" (closed)="searchCate = ''" disabled
+                                (selectionChange)="selectedCategory(cour.cour_cate.value);selectedCate= $event.source.triggerValue;"
+                                *ngIf="(categorylist | filter: searchCate ) as catcourseresult"
+                                panelClass="select_with_search">
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchCate"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchCate = ''" class="reseticon" matSuffix
+                                        *ngIf="searchCate !='' && searchCate !=null">clear</mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option *ngFor="let list of categorylist | filter: searchCate"
+                                        [value]="list.coursecategorymst_pk">
+                                        {{ifarabic == true ? list.ccm_catname_ar : list.ccm_catname_en}}
+                                    </mat-option>
+                                    <div class="p-t-10 p-l-16 p-b-5" *ngIf="catcourseresult.length == 0">
+                                        {{'course.nofound' | translate}}  
+                                    </div>
+                                </div>
+                            </mat-select>
+                            <mat-error *ngIf="cour.cour_subcate.errors?.required || cour.cour_subcate.touched"
+                                class="text-danger font-14">
+                                {{'course.selecourcate' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.coursubcate' | translate}}</mat-label>
+                            <mat-select formControlName="cour_subcate" [errorStateMatcher]="matcher"
+                                panelClass="myPanelClass" (closed)="searchSubcate = ''" required
+                                (selectionChange)="selectedSubCategory = $event.source.triggerValue;selectedSubCat(cour.cour_subcate.value)"
+                                *ngIf="(subcategorylist | filter: searchSubcate ) as subcourseresult"
+                                panelClass="select_with_search">
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchSubcate"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchSubcate = ''" class="reseticon" matSuffix
+                                        *ngIf="searchSubcate !='' && searchSubcate !=null">clear</mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option *ngFor="let list of subcategorylist | filter: searchSubcate"
+                                        [value]="list.coursecategorymst_pk">
+                                        {{ifarabic == true ? list.ccm_catname_ar : list.ccm_catname_en}}
+                                    </mat-option>
+                                    <div class="p-t-10 p-l-16 p-b-5" *ngIf="subcourseresult.length == 0">
+                                        {{'course.nofound' | translate}}  
+                                    </div>
+                                </div>
+                            </mat-select>
+                            <mat-error *ngIf="cour.cour_subcate.errors?.required || cour.cour_subcate.touched"
+                                class="text-danger font-14">
+                                {{'course.selectthesub' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                        ngClass.xl="p-l-30" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-select required formControlName="batchtype"  (selectionChange)="selectedBatchtype($event.value)"panelClass="select_with_search">
+
+                                <mat-option *ngFor="let list of batchtypelist" [value]="list.pk">
+                                    {{ifarabic == true ? list.name_ar : list.name_en | translate}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-label>{{'course.courbatchtype' | translate}}</mat-label>
+                            <mat-error *ngIf="cour.batchtype.errors?.required || batchform.submitted">
+                                {{'course.batchtypeerror' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="courebox m-t-15">
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15 units">
+                        <div fxFlex.gt-sm="50" fxFlex="100">
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>{{'course.courtutorasslang' | translate}} </mat-label>
+                                <mat-select required formControlName="assmntlanauge" (selectionChange)="checkassessoravailabilty(cour.assessmentdate.value)" panelClass="select_with_search">
+                                    <mat-option *ngFor="let list of tutorlanglist" [value]="list.pk">
+                                        {{ifarabic == true ? list.name_ar : list.name_en}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="cour.assmntlanauge.errors?.required || batchform.submitted">
+                                    {{'course.tutorinassesslanerror' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="assessmentindiff == true">
+                    <div class="timeduration_contain p-t-40 p-b-20">
+                        <h5 class="trainingdurationtitle m-0 fs-16">{{'Training Location' | translate}} <!--mat-icon
+                            matSuffix class="m-l-15 fs-20" matTooltip="{{'course.selecinfo' | translate}} ">info_outline</mat-icon-->
+                        </h5>
+                    </div>
+                    <div class="courebox m-t-15">
+                        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15 units">
+                            <div fxFlex.gt-sm="50" fxFlex="100"> 
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'Governorate' | translate}} </mat-label>
+                                    <mat-select  formControlName="governorate"
+                                        [errorStateMatcher]="matcher" panelClass="select_with_search"
+                                        [disableOptionCentering]="true" [required]="assessmentindiff == true"
+                                        *ngIf="(governoratelist | filter : searchGovernorate) as goverresult"
+                                        (selectionChange)="selectedGovernorate(cour.governorate.value)">
+                                        <div class="searchinmultiselect">
+                                            <mat-icon >search</mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb
+                                                matInput class="searchselect" type="Search"
+                                                placeholder="{{'course.sear' | translate}} "
+                                                (keydown)="$event.stopPropagation();"
+                                                [(ngModel)]="searchGovernorate"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchGovernorate = ''" class="reseticon"
+                                                matSuffix
+                                                *ngIf="searchGovernorate !='' && searchGovernorate !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                            <mat-option *ngFor="let state of governoratelist | filter: searchGovernorate "
+                                            [value]="state.opalstatemst_pk">
+                                             {{ifarabic == true ? state.osm_statename_ar : state.osm_statename_en}}
+                                          </mat-option>
+                                            <div *ngIf="goverresult?.length == 0">{{'course.nofound' | translate}}</div>
+                                        </div>
+                                    </mat-select>
+                                    <mat-error
+                                        *ngIf="cour.governorate.errors?.required || batchform.submitted">
+                                        {{'course.selectgoverate' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                                ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'Wilayat' | translate}} </mat-label>
+                                    <mat-select [errorStateMatcher]="matcher" (closed)="searchCity = '';"  [required]="assessmentindiff == true"
+                                      formControlName="wilayat" panelClass="select_with_search" [disableOptionCentering]="true" (selectionChange)="checkassessoravailabilty(cour.assessmentdate.value)"
+                                      *ngIf="(wilayatlist | filter : searchCity) as cityresult">
+                                      <div class="searchinmultiselect">
+                                        <mat-icon class="">search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                          class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                          (keydown)="$event.stopPropagation();" [(ngModel)]="searchCity"
+                                          [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchCity = ''" class="reseticon" matSuffix
+                                          *ngIf="searchCity !='' && searchCity !=null">clear</mat-icon>
+                                      </div>
+                                      <div class="option-listing countryselectwithimage">
+                                        <mat-option *ngFor="let city of wilayatlist | filter: searchCity"
+                                          [value]="city.opalcitymst_pk">
+                                          {{ifarabic == true ? city.ocim_cityname_ar : city.ocim_cityname_en}}
+                                        </mat-option>
+                                        <div class="p-t-10" *ngIf="cityresult.length == 0">
+                                          {{'course.nofound' | translate}}
+                                        </div>
+                                      </div>
+                                    </mat-select>
+                                    <mat-error
+                                      *ngIf="(cour.wilayat.errors?.required || (cour.governorate.value !== '')) || (cour.wilayat.touched) || batchform.submitted">
+                                      {{'course.selewila' | translate}}
+                                    </mat-error>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeduration_contain p-t-40 p-b-20">
+                    <h5 class="trainingdurationtitle m-0 fs-16">{{'course.learcapa' | translate}} <!--mat-icon
+                        matSuffix class="m-l-15 fs-20" matTooltip="{{'course.selecinfo' | translate}} ">info_outline</mat-icon-->
+                    </h5>
+                </div>
+                <div class="courebox m-t-15">
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15 units">
+                        <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field appearance="outline" [ngClass]="updated == true ? 'readonlyfield' : ' '">
+                                <mat-label>{{'course.traintheo' | translate}}</mat-label>
+                                <input (keydown.enter)="$event.preventDefault()" matInput
+                                appNumberonly formControlName="theorybatchlimit" [readonly]="updated">
+
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100">
+                            <mat-form-field appearance="outline" [ngClass]="updated == true ? 'readonlyfield' : ' '" *ngIf="ispracticalenabled == true">
+                                <mat-label>{{'course.traintheop' | translate}}</mat-label>
+                                <input (keydown.enter)="$event.preventDefault()" matInput  
+                                appNumberonly formControlName="particalbatchlimit" [readonly]="updated">
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15 units">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline" [ngClass]="updated == true ? 'readonlyfield' : ' '">
+                            <mat-label>{{'course.asse' | translate}}</mat-label>
+                                <input (keydown.enter)="$event.preventDefault()" matInput
+                                appNumberonly formControlName="assesmentbatchlimit" [readonly]="updated">
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="timeduration_contain p-t-40 p-b-20">
+                    <h5 class="trainingdurationtitle m-0 fs-16">{{'course.courtrainingdur' | translate}} <mat-icon matSuffix
+                            class="m-l-15 fs-20" matTooltip="{{'course.selecinfo' | translate}}">info_outline</mat-icon></h5>
+                </div>
+                <div fxLayout="row wrap" class="dateformfieldrange datepickerrangeform">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-20 maincontainertable">
+                        <div fxLayout="row wrap" class="drpickerhader ">
+                            <div fxFlex.gt-sm="50" fxFlex="100" class="datepickerrangeform">
+                                <mat-form-field class="filter daterangetime" appearance="outline">
+                                    <mat-label>{{'course.courstartdate' | translate}}</mat-label>
+                                    <div class="drpicker" id="regapp">
+                                        <input matInput type="text" id="login_session" [formControl]="daterange"
+                                           [minDate]="minValueDateRange" [maxDate]="maxValueDateRangetheory"  required ngxDaterangepickerMd [showCustomRangeLabel]="true"
+                                            [alwaysShowCalendars]="true" [ranges]="ranges" [locale]="locale"
+                                            [linkedCalendars]="true" (datesUpdated)="dateFltrChange($event);theoryschedule = false;"
+                                            [showClearButton]="true" [showClearButton]="true" readonly
+                                            class="form-control" />
+                                        <div class="closeanddateicomax">
+                                            <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                        </div>
+
+                                    </div>
+                                    <mat-error
+                                    *ngIf="daterange.hasError('required')">
+                                    {{'course.dateranged' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                <div class="total_header" fxLayoutAlign="space-between center">
+                                    <p class="fs-18 p-l-20" >
+                                        <span *ngIf="batchform.controls['days'].value > 0">
+                                            {{'course.totalcount' |
+                                            translate}}:&nbsp;{{batchform.controls['days'].value}}&nbsp;{{'course.dayscount'
+                                            | translate}}
+                                        </span>
+                                        </p>
+                                    <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish">
+                                        <button mat-raised-button class="cancelbtn ShowHidefs-15" type="button"
+                                            (click)="cleartableTheory()">
+                                            {{'course.courclear' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="pd-20 tabletopconatiner">
+                                
+                                <div class="awaredtable">
+                                    <mat-table #table class="scrolldata" [dataSource]="batchtrainingdata" matSort
+                                        matSortDisableClear>
+                                        <ng-container matColumnDef="selecteddate">
+                                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef
+                                                mat-sort-header>{{'course.courseleteddate' |
+                                                translate}}</mat-header-cell>
+                                            <mat-cell data-label="Selected Date" fxFlex="260px"
+                                                *matCellDef="let BatchData">
+                                                <span>
+                                                    {{BatchData.selecteddate}}
+                                                </span>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="schedule">
+                                            <mat-header-cell fxFlex="210px" mat-header-cell *matHeaderCellDef
+                                                mat-sort-header>{{'course.courdayschdeule' |
+                                                translate}}</mat-header-cell>
+                                            <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="210px"
+                                                *matCellDef="let BatchData;">
+                                                <mat-form-field class="filter">
+                                                    <mat-label>{{'course.courselect' | translate}}</mat-label>
+                                                    <mat-select #selectElements formControlName="available" id="select_{{BatchData.id}}"
+                                                        (selectionChange)="checkData(BatchData.id, this.cour.available.value ,'theory');theoryschedule = false;">
+                                                        <mat-option *ngFor="let list of dayschedulelist"
+                                                            [value]="list.pk">
+                                                           {{list.pk == 64 ? "Schedule Training" : (ifarabic == true ? list.name_ar : list.name_en)}}
+                                                           
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="startendtime">
+                                            <mat-header-cell fxFlex="809px" class="p-l-15" mat-header-cell
+                                                *matHeaderCellDef mat-sort-header>{{'course.courstarttime' |
+                                                translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{'course.courendtime'
+                                                | translate}}</mat-header-cell>
+                                            <mat-cell id="{{z}}" data-label="{{'batch.officetype' | translate}}"
+                                                fxFlex="809px" *matCellDef="let BatchData;let z = index;">
+                                                <div fxLayoutAlign="space-between" class="w-100">
+                                                    <div fxLayoutAlign="flex-start">
+                                                        <div fxLayoutAlign="flex-start center"
+                                                            class="slottag borderslot p-l-20">
+                                                            <form *ngIf="BatchData.subarr.length > 0" class="usrfrm"
+                                                                [formGroup]="userForm">
+                                                                <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center"
+                                                                    *ngFor="let phone of BatchData.subarr; let i = index">
+                                                                    <mat-form-field class="w-110 m-l-15">
+                                                                        <input matTimepicker #t="matTimepicker"
+                                                                            [minDate]="minValue" [maxDate]="maxValue"
+                                                                            [strict]="false"
+                                                                            formControlName="sstartdata"
+                                                                            id="form{{z}}{{i}}"
+                                                                            (timeChange)="calculateTimeDifference(z,i,BatchData.id);theoryschedule = false;"
+                                                                            [required]="BatchData.schedule == availablepk"
+                                                                            required>
+                                                                        <mat-icon matSuffix (click)="t.showDialog()">
+                                                                            access_time</mat-icon>
+                                                                    </mat-form-field>
+                                                                    <mat-form-field class="w-110 m-l-15">
+                                                                        <input matTimepicker #et="matTimepicker"
+                                                                            [minDate]="userForm.controls['sstartdata'].value"
+                                                                            [required]="BatchData.schedule == availablepk"
+                                                                            [maxDate]="maxValue" [strict]="false"
+                                                                            formControlName="senddata" id="to{{z}}{{i}}"
+                                                                            (timeChange)="calculateTimeDifference(z,i,BatchData.id);theoryschedule = false;"
+                                                                            required>
+                                                                        <mat-icon matSuffix (click)="et.showDialog()">
+                                                                            access_time</mat-icon>
+                                                                    </mat-form-field>
+                                                                    <span class="fs-12 hrstag m-l-15"><span
+                                                                            id="difference{{z}}{{i}}">{{formattedTime}}</span>
+                                                                        Hr(s)</span>
+                                                                    <button class="m-l-15 fs-12 removebtn" (click)="removePhone(i, z)"><mat-icon>remove</mat-icon>{{'institute.remove' | translate}}</button>  
+                                                                </div>
+                                                            </form>
+                                                            <button class="m-l-15 m-b-15 fs-13 addbtn" type="button"(click)="addPhone(z)"
+                                                                *ngIf="BatchData.schedule == availablepk">
+                                                                <mat-icon>add</mat-icon>{{'international.add' | translate}}
+                                                            </button>
+                                                            <span *ngIf="BatchData.schedule == 30"
+                                            class="fs-14 weekededtag liteorange">{{'batchview.week' | translate}}  </span>
+                                        <span *ngIf="BatchData.schedule == 29"
+                                            class="fs-14 weekededtag liteorange">{{'batchview.notavai' | translate}}</span>
+                                        <span *ngIf="BatchData.schedule == 31"
+                                            class="fs-14 weekededtag liteorange">{{'batchview.holi' | translate}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div fxLayoutAlign="center center">
+                                                        <button mat-raised-button id="btn_{{BatchData.id}}" class="m-r-10 clearbtn ShowHide fs-15" (click)="clearRecordData(BatchData.id)"
+                                                            type="button">{{'course.courclear' | translate}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="row-first">
+                                            <mat-header-cell fxFlex="260px" class="serachrow datepickerrangeform"
+                                                *matHeaderCellDef style="text-align:center">
+                                                <mat-form-field class="filter" appearance="outline">
+                                                    <div class="drpicker" id="regapp">
+                                                        <input id="login_session" [formControl]="date" #pickers matInput
+                                                            type="text" autocomplete="off" ngxDaterangepickerMd
+                                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true"
+                                                            [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                                            [showClearButton]="true" [maxDate]='selected2' readonly
+                                                            class="form-control" [max]="today" />
+                                                        <div class="closeanddateicon">
+                                                            <mat-datepicker-toggle matSuffix>
+                                                            </mat-datepicker-toggle>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </mat-form-field>
+                                            </mat-header-cell>
+
+                                        </ng-container>
+                                        
+                                        <ng-container matColumnDef="row-second">
+                                            <mat-header-cell fxFlex="210px" class="serachrow" *matHeaderCellDef
+                                                style="text-align:center">
+                                                <mat-form-field class="filter" appearance="outline">
+                                                    <mat-label>{{'course.courselect' | translate}}</mat-label>
+                                                    <mat-select [formControl]="select" multiple>
+                                                        <mat-option value="1">{{'batchview.availa' | translate}}
+                                                        </mat-option>
+                                                        <mat-option value="2">{{'batchview.notavai' | translate}}
+                                                        </mat-option>
+                                                        <mat-option value="3">{{'batchview.holi' | translate}}
+                                                        </mat-option>
+                                                        <mat-option value="4">{{'batchview.week' | translate}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </mat-header-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="row-third">
+                                            <mat-header-cell fxFlex="700px" class="serachrow" *matHeaderCellDef
+                                                style="text-align:center">
+
+                                            </mat-header-cell>
+                                        </ng-container>
+                                        <mat-header-row id="headerrowcells"
+                                            *matHeaderRowDef="BatchtrainingData;sticky: true">
+                                        </mat-header-row>
+                                        <!-- <mat-header-row id="searchrow"
+                                            *matHeaderRowDef="['row-first' , 'row-second' , 'row-third']">
+                                        </mat-header-row> -->
+                                        <mat-row mat-row *matRowDef="let row; columns: BatchtrainingData;"></mat-row>
+                                        <ng-container matColumnDef="disclaimer">
+                                            <td mat-footer-cell *matFooterCellDef colspan="11">
+
+                                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100"
+                                                    fxFlex="100" *ngIf="batchtraningdata_data.length <= 0">
+                                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                        <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container>
+                                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'" [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                            </mat-footer-row>
+                                        </ng-container>
+
+                                    </mat-table>
+                                </div>
+                                <!-- <div class="paginationwithfilter masterPageTop p-b-10"> -->
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <div class="fs-14 red"  fxLayoutAlign="start center">
+                                           <span  *ngIf="table1msg">Note: {{table1msg}}</span> 
+                                        </div>
+                                        <div fxFlex.gt-sm="50" fxFlex="50" fxLayoutAlign="end center">
+                                            <button mat-raised-button color="primary"
+                                                (click)="getTutorAvailabilityList(1)" type="button" 
+                                                class="ShowHidefs-15 submit_btn m-r-10">{{'course.coursave' |
+                                                translate}}
+                                            </button>
+                                    </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+                <!--Practical-->
+                <div *ngIf="ispracticalenabled == true">
+                <div class="timeduration_contain p-t-40 p-b-20">
+                    <h5 class="trainingdurationtitle m-0 fs-16">{{'course.courtrainingdurpart' | translate}} <mat-icon
+                            matSuffix class="m-l-15 fs-20" matTooltip="{{'course.seledate' | translate}} ">info_outline</mat-icon>
+                    </h5>
+                </div>
+                <div fxLayout="row wrap" class="dateformfieldrange datepickerrangeform">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-20 maincontainertable">
+                        <div fxLayout="row wrap" class="drpickerhader ">
+                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                <mat-form-field class="filter daterangetime" appearance="outline">
+                                    <mat-label>{{'course.courstartdate' | translate}}</mat-label>
+                                    <div class="drpicker" id="regapp">
+                                        <input matInput type="text" id="login_session"
+                                            [formControl]="daterangepractical" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true"  [minDate]="practDate"  [maxDate]="maxValueDateRangepractAss"
+                                            (datesUpdated)="dateFltrChangepractical($event);practschedule = false;" [showClearButton]="true"
+                                            [showClearButton]="true" readonly class="form-control" />
+                                        <div class="closeanddateicomax">
+                                            <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                        </div>
+
+                                    </div>
+                                    <mat-error
+                                        *ngIf="daterangepractical.hasError('required')">
+                                        {{'course.dateranged' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                <div class="total_header" fxLayoutAlign="space-between center">
+                                    <p class="fs-18 p-l-20" >
+                                        <span *ngIf="batchform.controls['dayspract'].value > 0">
+                                            {{'course.totalcount' |
+                                            translate}}:&nbsp;{{batchform.controls['dayspract'].value}}&nbsp;{{'course.dayscount'
+                                            | translate}}
+                                        </span>
+                                        </p>
+                                    <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish">
+                                        <button mat-raised-button class="cancelbtn ShowHidefs-15" type="button"
+                                            (click)="cleartablepractical()">
+                                            {{'course.courclear' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="pd-20 tabletopconatiner">
+                                
+                                <div class="awaredtable">
+                                    <mat-table #tablepract class="scrolldata" [dataSource]="batchtrainingdatapract"
+                                        matSort matSortDisableClear>
+                                        <ng-container matColumnDef="selecteddate">
+                                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef
+                                                mat-sort-header>
+                                                {{'course.courseleteddate' |
+                                                translate}}</mat-header-cell>
+                                            <mat-cell data-label="Selected Date" fxFlex="260px"
+                                                *matCellDef="let BatchDatapract">
+                                                <span>
+                                                    {{BatchDatapract.selecteddate}}
+                                                </span>
+                                            </mat-cell>
+
+                                        </ng-container>
+                                        <ng-container matColumnDef="schedule">
+                                            <mat-header-cell fxFlex="210px" mat-header-cell *matHeaderCellDef
+                                                mat-sort-header>
+                                                {{'course.courdayschdeule' |
+                                                translate}}</mat-header-cell>
+                                            <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="210px"
+                                                *matCellDef="let BatchDatapract">
+                                                <mat-form-field class="filter">
+                                                    <mat-label>{{'course.courselect' | translate}}</mat-label>
+                                                    <mat-select formControlName="availabledates"
+                                                        (selectionChange)="checkData(BatchDatapract.id, this.cour.availabledates.value,'pract');practschedule = false;">
+                                                        <mat-option *ngFor="let list of dayschedulelist"
+                                                            [value]="list.pk">
+                                                            {{list.pk == 64 ? "Schedule Training" : (ifarabic == true ? list.name_ar : list.name_en)}}
+                                                           
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="startendtime">
+                                            <mat-header-cell fxFlex="809px" class="p-l-15" mat-header-cell
+                                                *matHeaderCellDef mat-sort-header>{{'course.courstarttime' |
+                                                translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{'course.courendtime'
+                                                | translate}}</mat-header-cell>
+                                            <mat-cell id="{{y}}" data-label="{{'batch.officetype' | translate}}"
+                                                fxFlex="809px" *matCellDef="let BatchDatapract;let y = index;">
+
+                                                <div fxLayoutAlign="space-between" class="w-100">
+                                                    <div fxLayoutAlign="flex-start">
+                                                        <div fxLayoutAlign="flex-start center"
+                                                            class="slottag borderslot p-l-20">
+                                                            <form *ngIf="BatchDatapract.subarrpract.length > 0"
+                                                                class="usrfrm" [formGroup]="userpractForm">
+                                                                <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center"
+                                                                    *ngFor="let pract of BatchDatapract.subarrpract; let i = index">
+                                                                    <mat-form-field class="w-110 m-l-15">
+                                                                        <input matTimepicker #p="matTimepicker"
+                                                                            [minDate]="minValue" [maxDate]="maxValue"
+                                                                            [strict]="false" 
+                                                                            formControlName="sstarttimepract"
+                                                                            (timeChange)="calculateTimeDifferencepract(y,i,BatchDatapract.id);practschedule = false;"
+                                                                            id="formpract{{y}}{{i}}" required>
+                                                                        <mat-icon matSuffix (click)="p.showDialog()">
+                                                                            access_time
+                                                                        </mat-icon>
+                                                                    </mat-form-field>
+                                                                    <mat-form-field class="w-110 m-l-15">
+                                                                        <input matTimepicker #ep="matTimepicker"
+                                                                            [minDate]="userpractForm.controls['sstarttimepract'].value" [maxDate]="maxValue"
+                                                                            [strict]="false"
+                                                                            formControlName="sendtimepract"
+                                                                            id="topract{{y}}{{i}}"
+                                                                            (timeChange)="calculateTimeDifferencepract(y,i,BatchDatapract.id);practschedule = false;"
+                                                                            required>
+                                                                        <mat-icon matSuffix (click)="ep.showDialog()">
+                                                                            access_time
+                                                                        </mat-icon>
+                                                                    </mat-form-field>
+                                                                    <span class="fs-12 hrstag m-l-15"><span
+                                                                            id="differencepract{{y}}{{i}}">{{formattedTimed}}</span>
+                                                                        Hr(s)</span>
+                                                                        <button class="m-l-15 fs-12 removebtn" (click)="removePract(i, y)"><mat-icon>remove</mat-icon>{{'institute.remove' | translate}}</button>  
+                                                                    </div>
+                                                                </form>
+                                                                <button class="m-l-15 m-b-15 fs-13 addbtn" type="button" (click)="addPract(y)"
+                                                                    *ngIf="BatchDatapract.schedule == availablepk">
+                                                                    <mat-icon>add</mat-icon>{{'international.add' | translate}}
+                                                                </button>
+                                                            <span *ngIf="BatchDatapract.schedule == 30"
+                                                            class="fs-14 weekededtag liteorange">{{'batchview.week' | translate}}</span>
+                                                        <span *ngIf="BatchDatapract.schedule == 29"
+                                                            class="fs-14 weekededtag liteorange">{{'batchview.notavai' | translate}}</span>
+                                                        <span *ngIf="BatchDatapract.schedule == 31"
+                                                            class="fs-14 weekededtag liteorange">{{'batchview.holi' | translate}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div fxLayoutAlign="flex-start">
+                                                        <button mat-raised-button class="m-r-10 clearbtn ShowHide fs-15" (click)="clearRecordDataPract(BatchDatapract.id)"
+                                                            type="button">{{'course.courclear' | translate}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="row-first">
+                                            <mat-header-cell fxFlex="260px" class="serachrow datepickerrangeform"
+                                                *matHeaderCellDef style="text-align:center">
+                                                <mat-form-field class="filter" appearance="outline">
+                                                    <div class="drpicker" id="regapp">
+                                                        <input id="login_session" [formControl]="dateexpiry" #pickers
+                                                            matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true"
+                                                            [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                                            [showClearButton]="true" [maxDate]='selected2' readonly
+                                                            class="form-control" [max]="today" />
+                                                        <div class="closeanddateicon">
+                                                            <mat-datepicker-toggle matSuffix>
+                                                            </mat-datepicker-toggle>
+                                                        </div>
+                                                    </div>
+                                                </mat-form-field>
+                                            </mat-header-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="row-second">
+                                            <mat-header-cell fxFlex="210px" class="serachrow" *matHeaderCellDef
+                                                style="text-align:center">
+                                                <mat-form-field class="filter" appearance="outline">
+                                                    <mat-label>{{'course.courselect' | translate}}</mat-label>
+                                                    <mat-select [formControl]="select" multiple>
+                                                        <mat-option value="1">{{'batchview.availa' | translate}}
+                                                        </mat-option>
+                                                        <mat-option value="2">{{'batchview.notavai' | translate}}
+                                                        </mat-option>
+                                                        <mat-option value="3">{{'batchview.holi' | translate}}
+                                                        </mat-option>
+                                                        <mat-option value="4">{{'batchview.week' | translate}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </mat-header-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="row-third">
+                                            <mat-header-cell fxFlex="809px" class="serachrow" *matHeaderCellDef
+                                                style="text-align:center">
+
+                                            </mat-header-cell>
+                                        </ng-container>
+                                        <mat-header-row id="headerrowcells" *matHeaderRowDef="BatchtrainingData">
+                                        </mat-header-row>
+                                        <!-- <mat-header-row id="searchrow"
+                                            *matHeaderRowDef="['row-first' , 'row-second' , 'row-third']">
+                                        </mat-header-row> -->
+                                        <mat-row mat-row *matRowDef="let row; columns: BatchtrainingData;"></mat-row>
+                                        <ng-container matColumnDef="disclaimer">
+                                            <td mat-footer-cell *matFooterCellDef colspan="11">
+
+                                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100"
+                                                    fxFlex="100" *ngIf="batchtraningdata_data.length <= 0">
+                                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                        <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container>
+                                            <mat-footer-row [class.stickyclass]="(resultsLengthtwo > 0) ? 'none' : 'block'" [style.display]="(resultsLengthtwo > 0) ? 'none' : 'block' "
+                                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                            </mat-footer-row>
+                                        </ng-container>
+                                    </mat-table>
+                                </div>
+                                <!-- <div class="paginationwithfilter masterPageTop p-b-10"> -->
+                                    
+                                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                        <div class="fs-14 red"  fxLayoutAlign="start center" >
+                                            <span  *ngIf="table2smsg">Note: {{table2msg}}</span> 
+                                        </div>
+                                        <div fxFlex.gt-sm="50" fxFlex="50" fxLayoutAlign="end center">
+                                            <button mat-raised-button color="primary"
+                                                (click)="getTutorAvailabilityList(2)" type="button"
+                                                class="ShowHidefs-15 submit_btn m-r-10">{{'course.coursave' |
+                                                translate}}
+                                            </button>
+                                    </div>
+                                <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+                <!---end-->
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-t-25 dateformfieldrange datepickerrangeform">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.courassesdate' | translate}}</mat-label>
+                            <input formControlName="assessmentdate" required matInput (click)="dateexpiry.open();" [min]="assessorDate" [max]="maxValueAssessment"
+                                (dateChange)="setassessmenttimes();checkassessoravailabilty(cour.assessmentdate.value)"
+                                [matDatepicker]="dateexpiry">
+                            <mat-datepicker-toggle matSuffix [for]="dateexpiry"></mat-datepicker-toggle>
+                            <mat-datepicker #dateexpiry></mat-datepicker>
+                            <mat-error *ngIf="cour.assessmentdate.errors?.required || batchform.submitted">
+                                {{'course.courseasseserror' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                        ngClass.xl="p-l-30" fxFlex="100" class="drpickerhader">
+                        <div class="drpickerasset timeaddpicker">
+                            <div fxLayoutAlign="flex-start" class="pos-relative">
+                                <div class="drpickerstartend borderbrfore">
+                                    <mat-label>{{'course.courstarttime' |
+                                        translate}}</mat-label>
+                                    <mat-form-field class="beforrshow">
+                                        <!-- The timepicker input -->
+
+                                        <input matTimepicker #t="matTimepicker" [minDate]="minValue" (timeChange)="setassessmenttimes();checkassessoravailabilty(cour.assessmentdate.value)"
+                                            [maxDate]="maxValue" [strict]="false" formControlName="starttimeassessment"
+                                            required>
+                                        <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                                        <mat-error class="m-t-10"
+                                            *ngIf="cour.starttimeassessment.errors?.required || batchform.submitted || cour.endtimeasssessment.errors?.required">
+                                            {{'course.starttimeerror' | translate}} </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="drpickerstartend m-l-40">
+                                    <mat-label>{{'course.courendtime' |
+                                        translate}}</mat-label>
+                                    <mat-form-field>
+                                        <input matTimepicker #t="matTimepicker"
+                                            [minDate]="cour.starttimeassessment.value" [maxDate]="maxValue" (timeChange)="setassessmenttimes();checkassessoravailabilty(cour.assessmentdate.value)"
+                                            [strict]="false" formControlName="endtimeasssessment" required>
+                                        <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                                        <mat-error class="m-t-10"
+                                        *ngIf="cour.endtimeasssessment.errors?.required || batchform.submitted">
+                                        {{'course.starttimeerror' | translate}} </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-error
+                            *ngIf="cour.endtimeasssessment.errors?.minDate && batchform.controls['endtimeasssessment'].touched || batchform.submitted">
+                            {{'common.valusome' | translate}}   </mat-error>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.courstutortheo' | translate}}</mat-label>
+                            <mat-select formControlName="tutor" [errorStateMatcher]="matcher" panelClass="myPanelClass"
+                                (closed)="searchTutor = ''" *ngIf="(tutorlist | filter: searchTutor ) as tutorresult" [disabled]="!theoryschedule"
+                                [disabled]="!theoryschedule" matTooltip="{{'common.inputtool' | translate}}" (selectionChange)="checkifstaffselected(cour.tutor.value,'tutor')"
+                                [matTooltipDisabled]="theoryschedule"
+                                panelClass="select_with_search">
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchTutor"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchTutor = ''" class="reseticon" matSuffix
+                                        *ngIf="searchTutor !='' && searchTutor !=null">clear</mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option *ngFor="let list of tutorlist | filter: searchTutor" [value]="list.pk">
+                                        {{ifarabic == true ? list.staffname_ar : list.staffname_en}}
+                                    </mat-option>
+                                   
+                                </div>
+                            </mat-select>
+                            <mat-error *ngIf="cour.tutor.errors?.required || batchform.submitted">
+                                {{'course.tutorerrortheo' | translate}} </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                        ngClass.xl="p-l-30" fxFlex="100"  *ngIf="ispracticalenabled == true">
+                        <mat-form-field appearance="outline" *ngIf="tutorcount <= 1">
+                            <mat-label>{{'course.courstutorpract' | translate}}</mat-label>
+                            <mat-select formControlName="tutorone" [errorStateMatcher]="matcher"  (selectionChange)="checkifstaffselected(cour.tutorone.value,'tutorone')"
+                                panelClass="myPanelClass" (closed)="searchTutor = ''" [disabled]="!practschedule" matTooltip="Schedule Training Duration to conduct practical class and save to check the availability of Trainer (Practical)."
+                                [matTooltipDisabled]="practschedule" [required]="ispracticalenabled == true"
+                                *ngIf="(tutorlistpract | filter: searchTutor ) as tutorresultpract"
+                                panelClass="select_with_search multiple">
+                             
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchTutor"  
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchTutor = ''" class="reseticon" matSuffix
+                                        *ngIf="searchTutor !='' && searchTutor !=null">clear</mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option *ngFor="let list of tutorlistpract | filter: searchTutor"
+                                        [value]="list.pk">
+                                        {{ifarabic == true ? list.staffname_ar : list.staffname_en}}
+                                    </mat-option>
+                                    <div class="p-t-10 p-l-16 p-b-5" *ngIf="tutorresultpract.length == 0">
+                                        {{'course.nofound' | translate}}  
+                                    </div>
+                                </div>
+                            </mat-select>
+                            <mat-error *ngIf="cour.tutorone.errors?.required || batchform.submitted">
+                                {{'course.tutorerrorpract' | translate}} </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" *ngIf="tutorcount > 1">
+                            <mat-label>{{'course.courstutorpract' | translate}}</mat-label>
+                            <mat-select formControlName="tutorone" [errorStateMatcher]="matcher" multiple (selectionChange)="checkcount(cour.tutorone.value);checkifstaffselected($event.value,'tutorone')"
+                                panelClass="myPanelClass" (closed)="searchTutor = ''" [disabled]="!practschedule" matTooltip="{{'common.inputtooltwo' | translate}}"
+                                [matTooltipDisabled]="practschedule"
+                                *ngIf="(tutorlistpract | filter: searchTutor ) as tutorresultpract"
+                                panelClass="select_with_search multiple">
+                                <mat-select-trigger>
+                                    {{batchform.controls['tutorone'].value ? coursesubcate :''}}
+                                    <span *ngIf="batchform.controls['tutorone'].value?.length > 1"
+                                        class="example-additional-selection">
+                                        (+{{batchform.controls['tutorone'].value.length - 1}}
+                                        {{batchform.controls['tutorone'].value?.length === 2 ?
+                                        'other' : 'others'}})
+                                    </span>
+                                </mat-select-trigger>
+                                <div class="searchinmultiselect">
+                                    <mat-icon class="">search</mat-icon>
+                                    <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                        class="searchselect" type="Search" placeholder="{{'course.sear' | translate}}"
+                                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchTutor"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                    <mat-icon (click)="searchTutor = ''" class="reseticon" matSuffix
+                                        *ngIf="searchTutor !='' && searchTutor !=null">clear</mat-icon>
+                                </div>
+                                <div class="option-listing">
+                                    <mat-option *ngFor="let list of tutorlistpract | filter: searchTutor"
+                                    
+                                    [value]="list.pk">
+                                    {{ifarabic == true ? list.staffname_ar : list.staffname_en}}
+                                </mat-option>
+                                    <div class="p-t-10 p-l-16 p-b-5" *ngIf="tutorresultpract.length == 0">
+                                        {{'course.nofound' | translate}}  
+                                    </div>
+                                </div>
+                            </mat-select>
+                            <mat-error *ngIf="cour.tutorone.errors?.required || batchform.submitted">
+                                {{'course.tutorerrorpract' | translate}} </mat-error>
+                            <mat-error *ngIf="cour.tutorone.errors?.count">
+                                    {{'Select' | translate}} {{tutorcount}} {{'Tutor/Trainers' | translate}} </mat-error>
+                                    <mat-hint *ngIf="tutorcount > 1" class="fs-15"> {{'common.noteetutor' | translate}} {{tutorcount}}
+                                    </mat-hint>
+                        </mat-form-field>
+                        
+
+                    </div>
+                </div>
+
+
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15" >
+                        <div formArrayName="assessorarr" fxFlex="100"
+                            *ngFor="let a of batchform.get('assessorarr').controls; let i = index">
+                            <div [formGroupName]="i" style="margin-bottom: 10px;">
+                                <div fxFlex.gt-sm="50" fxFlex="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'course.coursassesso' | translate}} <span
+                                            *ngIf="assessorcount >= 2">{{i+1}}</span>
+                                    </mat-label>
+                                    <mat-select formControlName="assessor" [errorStateMatcher]="matcher"  [disabled]="assigned[i] == true || accessorslist.length == 0"
+                                        panelClass="myPanelClass" (closed)="searchAssessor = ''" required
+                                        (selectionChange)="selectedAssessor = $event.source.triggerValue;selectIVQAStaff($event.value,i);checkifstaffselected($event.value,'assessor',i);"
+                                        *ngIf="(accessorslist | filter: searchAssessor ) as assessorresult" 
+                                        matTooltip="{{'There is no Assessor available on the selected duration. Please check the availability of the Assessor and plan the Assessment.' | translate }}"
+                                      [matTooltipDisabled]="accessorslist.length != 0"
+                                        panelClass="select_with_search">
+                                        <div class="searchinmultiselect">
+                                            <mat-icon class="">search</mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                                class="searchselect" type="Search"
+                                                placeholder="{{'course.sear' | translate}}"
+                                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchAssessor"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchAssessor = ''" class="reseticon" matSuffix
+                                                *ngIf="searchAssessor !='' && searchAssessor !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing">
+                                            <mat-option *ngFor="let list of accessorslist | filter: searchAssessor"
+                                                [value]="list.pk">
+                                                {{(ifarabic == true ? list.staffname_ar : list.staffname_en)+" From "+ (ifarabic == true ? list.companyname_ar : list.companyname_en)}}
+                                            </mat-option>
+                                            <div class="p-t-10 p-l-16 p-b-5" *ngIf="assessorresult.length == 0">
+                                                {{'course.nofound' | translate}}  
+                                            </div>
+                                        </div>
+                                    </mat-select>
+                                    <mat-error
+                                      *ngIf="this.batchform.get('assessorarr').get('0').get('assessor').errors?.required || batchform.submitted">
+                                       {{'course.coursassessoerror' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                        ngClass.xl="p-l-30" fxFlex="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'course.coursubstaff' | translate}} <span
+                                        *ngIf="assessorcount >= 2">{{i+1}}</span>
+                                </mat-label>
+                                    <mat-select formControlName="IVQAStaff" [errorStateMatcher]="matcher"  [disabled]="(assignediv[i] && assignediv[i] == true) == true || ivqastafflist.length == 0"
+                                        panelClass="select_with_search" (closed)="searchIVQAStaff = ''" required
+                                        (selectionChange)="selectedAssessor = $event.source.triggerValue;selectedivqa($event);checkifstaffselected($event.value,'IVQAStaff',i)"
+                                        *ngIf="(ivqastafflist | filter: searchIVQAStaff ) as ivqastafflist"
+                                        matTooltip="{{'There is no IV/QA Staff available on the selected duration. Please check the availability of the IV/QA Staff and plan the Assessment.' | translate}}"
+                                 [matTooltipDisabled]="accessorslist.length != 0"
+                                        panelClass="select_with_search">
+                                        <div class="searchinmultiselect">
+                                            <mat-icon class=""></mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                                class="searchselect" type="Search"
+                                                placeholder="{{'course.sear' | translate}}"  
+                                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchIVQAStaff"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchIVQAStaff = ''" class="reseticon" matSuffix
+                                                *ngIf="searchIVQAStaff !='' && searchIVQAStaff !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing">
+                                            <mat-option *ngFor="let list of ivqastafflist | filter: searchIVQAStaff" 
+                                                [value]="list.pk" >
+                                                {{(ifarabic == true ? list.staffname_ar : list.staffname_en)+" From "+ (ifarabic == true ? list.companyname_ar : list.companyname_en)}}
+                                            </mat-option>
+                                            <div class="p-t-10 p-l-16 p-b-5" *ngIf="ivqastafflist.length == 0">
+                                                {{'course.nofound' | translate}}  
+                                            </div>
+                                        </div>
+                                    </mat-select>
+                                    <mat-error
+                                    *ngIf="this.batchform.get('assessorarr').get('0').get('IVQAStaff').errors?.required || batchform.submitted">
+                                    {{'course.stafferror' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish m-t-30">
+                <button mat-raised-button class="m-r-10 cancelbtn ShowHidefs-15" (click)="backdata()"
+                    type="button">{{'course.canc' | translate}}
+                </button>
+                <button mat-raised-button color="primary" type="submit" [disable]="disableSubmitButton"
+                    class="ShowHidefs-15 submit_btn m-l-10" (click)="batchAdd()">{{'course.submit' | translate}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

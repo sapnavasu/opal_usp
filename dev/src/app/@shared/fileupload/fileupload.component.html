@@ -1,0 +1,29 @@
+<div id="uploaded" [formGroup]="fileuplode" >
+    <div class="filers">
+        <mat-label *ngIf="!hidedelicon">{{placeholder}}<span *ngIf="ifrequired"> *</span></mat-label>
+        <mat-form-field appearance="outline" [ngClass]="!fileuplode.controls['upload_files'].value?'null':'disabledFields'">
+              <mat-spinner-button matPrifix   (click)="f_uplode.click()"  [disabled]="twofiles" mat-raised-button class="subbtn"
+            [options]="spinnerButtonOptionsupload" ></mat-spinner-button><i class="opalicon opal-upload subbtnt fs-18 m-r-15"></i>
+            <input type="text" matInput readonly formControlName="upload_files"  [disabled]="files != null "  
+                (click)="f_uplode.click()" >
+            <input multiple class="choosefileinput" hidden type='file' #f_uplode [disabled]="files != null "  
+                (change)="uploadFile($event.target.files,$event)">
+        </mat-form-field>
+    </div>
+    <div class="document" *ngIf="fileuplode.controls['upload_files'].value">
+        <mat-label>{{'upload.Document' | translate}}<span *ngIf="ifrequired"> *</span></mat-label>
+        <mat-form-field appearance="outline" floatLabel="always" [required]="ifrequired">
+            <a target="_blank" href='{{fileUrl}}' matTooltip="{{'upload.click' | translate}}"><img matPrefix src="assets/images/opalimages/{{fileUploadedType}}_new.svg" alt="Brochure"></a>
+            <mat-icon   matTooltip="{{'upload.Delete' | translate}}"  (click)="deleteSelected()" class="close_icons">close</mat-icon>
+            <input readonly matInput formControlName="files">
+            <input multiple type="file" hidden #f_input #f_uplode>
+            <span matSuffix class="fs-14  view_btn">{{'upload.View' | translate}}</span>
+            <!-- <mat-spinner-button  mat-raised-button matSuffix class="uploadbtn fs-16"
+                [options]="spinnerButtonOptionsupload"   (click)="f_uplode.click()"></mat-spinner-button> -->
+            <!-- <mat-icon >delete_outline</mat-icon> -->
+                <mat-icon matSuffix   matTooltip="{{'upload.Delete' | translate}}" *ngIf="!hidedelicon" 
+                (click)="deleteSelected()" class="fa fa-trash-o delete_icon" aria-hidden="true"></mat-icon>
+            <!-- <mat-icon matSuffix  matTooltip="">info_outline</mat-icon> -->
+        </mat-form-field>
+    </div>
+</div>

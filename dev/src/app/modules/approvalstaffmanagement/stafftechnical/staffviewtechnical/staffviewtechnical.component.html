@@ -1,0 +1,488 @@
+<div id="technicalcentreView" fxLayoutAlign="center start">
+    <!-- pageloader -->
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+    <div class="staffView" fxLayout="column" fxFlex="100">
+        <app-staffinfocard [traningCentre]="false" [data]="viewStaffResponse"></app-staffinfocard>
+        <div fxLayout="row" fxLayoutAlign="end center" class="m-t-15" *ngIf="this.commonAvailabilty == true">
+            <button class="showhideButton fs-16" color="primary" mat-raised-button (click)="hideShowBtn()">{{showHide |
+                translate}}</button>
+        </div>
+        <div class="staffdetials" fxLayout="column" *ngIf="commonAvailabilty ==  false">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Personal Information' | translate}} </h4><mat-divider fxFlex="4"
+                    class="matDivider"></mat-divider>
+            </div>
+            <div class="company_dtlview m-l-20" fxFlex="100" fxFlex.gt-sm="80">
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Date of Birth' | translate}}</p>
+                    <span>{{viewStaffResponse?.dob ? viewStaffResponse?.dob : '-'}}</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Age' | translate}}</p>
+                    <span>{{viewStaffResponse?.age ? viewStaffResponse?.age : '-'}}</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Gender' | translate}}</p>
+                    <span>{{viewStaffResponse?.gender ? viewStaffResponse?.gender : '-'}}</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Nationality' | translate}}</p>
+                    <span>{{ifarbic ? viewStaffResponse?.nationality_ar ? viewStaffResponse?.nationality_ar : '-'
+                        :viewStaffResponse?.nationality_en ? viewStaffResponse?.nationality_en :'-'}}</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Job Title' | translate}}</p>
+                    <span>{{viewStaffResponse?.job ? viewStaffResponse?.job : '-'}}</span>
+                </div>
+
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Contract Type' | translate}}</p>
+                    <span>{{ifarbic ? viewStaffResponse?.contract_type_ar ? viewStaffResponse?.contract_type_ar : '-'
+                        :viewStaffResponse?.contract_type_en ? viewStaffResponse?.contract_type_en :'-'}}</span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Permanent Residence' | translate}}</p>
+                    <!-- <span *ngIf="viewStaffResponse?.address != ''"> {{viewStaffResponse?.address}}, Oman</span> 
+                    <span class="fs-16 txt-gry3"
+                        *ngIf="viewStaffResponse?.address == '' && viewStaffResponse?.state_en == null && viewStaffResponse?.city_en == null">-</span>
+                    <span class="fs-16 txt-gry3"
+                        *ngIf="viewStaffResponse?.address == '' && viewStaffResponse?.city_en != null && viewStaffResponse?.state_en != null">{{ifarbic
+                        ? viewStaffResponse?.city_ar+", "+viewStaffResponse?.state_ar :
+                        viewStaffResponse?.city_en+","+viewStaffResponse?.state_en}}, Oman</span> -->
+                    <span>{{(viewStaffResponse?.address != '')?viewStaffResponse?.address + ', ':''}}
+                        {{(viewStaffResponse?.address2 != '')?viewStaffResponse?.address2 + ', ':''}}
+                        {{(viewStaffResponse?.per_city_ar != '' && ifarbic)?viewStaffResponse?.per_city_ar + ', ':''}}
+                        {{(viewStaffResponse?.per_city_en != '' && !ifarbic)?viewStaffResponse?.per_city_en + ', ':''}}
+                        {{(viewStaffResponse?.per_state_ar != '' && ifarbic)?viewStaffResponse?.per_state_ar + ', ':''}}
+                        {{(viewStaffResponse?.per_state_en != '' && !ifarbic)?viewStaffResponse?.per_state_en + ',
+                        ':''}}
+                        Oman
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="staffdetials" fxLayout="column" *ngIf="showPersonalInfo">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Project Information' | translate}} </h4><mat-divider fxFlex="4"
+                    class="matDivider"></mat-divider>
+            </div>
+            <div class="company_dtlview m-l-20" fxFlex="100" fxFlex.gt-sm="80">
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Roles' | translate}}</p>
+                    <span class="p-t-6">
+                        <ul *ngIf="ifarbic">
+                            <p *ngIf="viewStaffResponse?.rolecourse_ar == null">-</p>
+                            <li *ngFor="let role of viewStaffResponse?.rolecourse_ar.split(',')">{{role}}</li>
+                        </ul>
+                        <ul *ngIf="!ifarbic">
+                            <p *ngIf="viewStaffResponse?.rolecourse_en == null">-</p>
+                            <li *ngFor="let role of viewStaffResponse?.rolecourse_en.split(',')">{{role}}</li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="view_dtl" fxLayout="row">
+                    <p class="m-0">{{'Inspection Categories' | translate}}</p>
+                    <span class="p-t-6">
+                        <ul *ngIf="ifarbic">
+                            <li *ngIf="viewStaffResponse?.categories_ar == ''">-</li>
+                            <li *ngFor="let role of viewStaffResponse?.categories_ar.split(',')">{{role}}</li>
+                        </ul>
+                        <ul *ngIf="!ifarbic">
+                            <li *ngIf="viewStaffResponse?.categories_en == ''">-</li>
+                            <li *ngFor="let role of viewStaffResponse?.categories_en.split(',')">{{role}}</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="staffdetials tab" fxLayout="column" *ngIf="commonAvailabilty ==  false">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Educational & Work Information' | translate}} </h4><mat-divider
+                    fxFlex="4" class="matDivider"></mat-divider>
+            </div>
+            <mat-tab-group>
+                <mat-tab label="{{'Educational Qualification' | translate}}">
+                    <div class="tab-content m-l-20" *ngIf="eduresultLength !=0">
+                        <div class="paginationwithfilter masterPageTop pd-0 d-flex m-t-20" *ngIf="eduresultLength>5">
+                            <mat-paginator class="masterPage masterPageTop" #paginator [length]="eduresultLength"
+                                [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                        </div>
+                        <div class="educationValues m-t-20" *ngFor="let educate of education"
+                            [ngClass]="eduresultLength<6? 'm-t-20':'topContition'">
+                            <p class="txt-gry3 fs-16 comp_Name m-l-17 m-r-17">{{educate?.institutename ?
+                                educate?.institutename : '-'}}</p>
+                            <mat-divider></mat-divider>
+                            <div class="educationFormValue company_dtlview m-15 lh-28" fxLayout="column"
+                                fxLayoutGap="5px">
+                                <div fxFlex="100" flexLayout="row wrap">
+                                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'Certificate Title' | translate}}</p>
+                                        <span class="fs-16 txt-gry3">{{educate?.certificateTitle ?
+                                            educate?.certificateTitle : '-'}}</span>
+                                    </div>
+                                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'Educational Level' | translate}}</p>
+                                        <span class="fs-16 txt-gry3">{{ifarbic ? educate.edulevel_ar ?
+                                            educate.edulevel_ar : '-' : educate.edulevel_en ? educate.edulevel_en
+                                            :'-'}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="100" flexLayout="row wrap">
+                                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'Graduation Date' | translate}}</p>
+                                        <span class="fs-16 txt-gry3">{{educate.gradDate?educate.gradDate:"-"}}</span>
+                                    </div>
+                                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'GPA / Grade' | translate}}</p>
+                                        <span class="fs-16 txt-gry3">{{educate.grade?educate.grade:"-"}}</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="view_details" fxLayout="row">
+                                    <p class="m-0 text-gry fs-16">{{'Uploaded Certificate' | translate}}</p>
+                                    <span *ngIf="educate?.memcompfiledtls_pk == null" class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="educate?.memcompfiledtls_pk != null" class="fs-16 txt-gry3"><a
+                                            href="{{educate?.url}}" target="_blank" class="txt-gry3 fs-15"
+                                            fxLayoutAlign="start center"><img src="assets/images/opalimages/pdf_new.svg"
+                                                alt="pdf" class="m-r-15" fxFlex="20">{{'View' | translate }}</a></span>    
+                                </div> -->
+
+                                <div class="view_details" fxLayout="row">
+                                    <p class="m-0 text-gry fs-16">{{ 'Uploaded Certificate' | translate }}</p>
+                                    <ng-container *ngIf="educate?.memcompfiledtls_pk != null; else noCertificate">
+                                        <ng-container [ngSwitch]="educate.edu_fileType?.toLowerCase()">
+                                            <ng-container *ngSwitchCase="'pdf'">
+                                                <a [href]="educate?.url" target="_blank" class="txt-gry3 fs-15"
+                                                    fxLayoutAlign="start center">
+                                                    <img src="assets/images/opalimages/pdf_new.svg" alt="pdf"
+                                                        class="m-r-15" fxFlex="20">
+                                                    {{ 'View' | translate }}
+                                                </a>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'jpg'">
+                                                <a [href]="educate?.url" target="_blank" class="txt-gry3 fs-15"
+                                                    fxLayoutAlign="start center">
+                                                    <img src="assets/images/opalimages/jpg_new.svg" alt="jpg"
+                                                        class="m-r-15" fxFlex="20">
+                                                    {{ 'View' | translate }}
+                                                </a>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'png'">
+                                                <a [href]="educate?.url" target="_blank" class="txt-gry3 fs-15"
+                                                    fxLayoutAlign="start center">
+                                                    <img src="assets/images/opalimages/png_new.svg" alt="png"
+                                                        class="m-r-15" fxFlex="20">
+                                                    {{ 'View' | translate }}
+                                                </a>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'jpeg'">
+                                                <a [href]="educate?.url" target="_blank" class="txt-gry3 fs-15"
+                                                    fxLayoutAlign="start center">
+                                                    <img src="assets/images/opalimages/jpeg_new.svg" alt="jpeg"
+                                                        class="m-r-15" fxFlex="20">
+                                                    {{ 'View' | translate }}
+                                                </a>
+                                            </ng-container>
+                                            <ng-container *ngSwitchDefault>
+                                                -
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                    <ng-template #noCertificate>
+                                        <span class="fs-16 txt-gry3">-</span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30" *ngIf="eduresultLength>5">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom " showFirstLastButtons
+                                    [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                    [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="100" class="norecordfound" fxLayout="column" fxLayoutAlign="center center"
+                        *ngIf="eduresultLength == 0">
+                        <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                        <p class="m-t-10 txt-gry3 fs-16">{{'No Records' | translate}}
+                        </p>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{'Work Experience' | translate}}">
+                    <div class="tab-content m-l-20" *ngIf="workresultLength !=0">
+                        <div class="paginationwithfilter masterPageTop pd-0 d-flex m-t-20" *ngIf="workresultLength>5">
+                            <mat-paginator class="masterPage masterPageTop" #paginatortwo [length]="workresultLength"
+                                [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="workPaginator($event);"></mat-paginator>
+                        </div>
+                        <div class="educationValues m-t-20" *ngFor="let work of workexperience"
+                            [ngClass]="workresultLength<5? 'm-t-20':'topContition'">
+                            <p class="txt-gry3 fs-16 comp_Name m-l-17 m-r-17">{{work?.institutename ?
+                                work?.institutename : '-'}}</p>
+                            <mat-divider></mat-divider>
+                            <div class="company_dtlview educationFormValue m-15 lh-28" fxLayout.gt-sm="row wrap"
+                                fxLayout="column wrap" fxLayoutGap="5px">
+                                <div fxFlex="100" flexLayout="row wrap">
+                                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'Job Title' | translate}}</p>
+                                        <span class="fs-16 txt-gry3">{{work?.jobTitle ? work?.jobTitle : '-'}}</span>
+                                    </div>
+                                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'Date of Joining' | translate}}</p>
+                                        <span class="fs-16 txt-gry3">{{work?.doj ? work?.doj : '-'}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="100" flexLayout="row wrap">
+                                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'Worked Till' | translate}}</p>
+                                        <span class="fs-16 txt-gry3">{{work?.eod ? work?.eod : '-'}}</span>
+                                    </div>
+
+                                    <!-- <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                                        <p class="m-0 text-gry fs-16">{{'Uploaded Document' | translate}}</p>
+                                        <span *ngIf="educate?.memcompfiledtls_pk == null"
+                                            class="fs-16 txt-gry3">-</span>
+                                        <span *ngIf="educate?.memcompfiledtls_pk != null" class="fs-16 txt-gry3"><a
+                                                href="{{work?.url}}" target="_blank" class="txt-gry3 fs-15"
+                                                fxLayoutAlign="start center"><img
+                                                    src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15"
+                                                    fxFlex="20">{{'View' | translate }}</a></span>
+                                    </div> -->
+
+                                    <div class="view_details" fxLayout="row">
+                                        <p class="m-0 text-gry fs-16">{{ 'Uploaded Document' | translate }}</p>
+                                        <ng-container *ngIf="work?.memcompfiledtls_pk != null; else noCertificate">
+                                            <ng-container [ngSwitch]="work.certi_fileType?.toLowerCase()">
+                                                <ng-container *ngSwitchCase="'pdf'">
+                                                    <a [href]="work?.url" target="_blank" class="txt-gry3 fs-15"
+                                                        fxLayoutAlign="start center">
+                                                        <img src="assets/images/opalimages/pdf_new.svg" alt="pdf"
+                                                            class="m-r-15" fxFlex="20">
+                                                        {{ 'View' | translate }}
+                                                    </a>
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="'jpg'">
+                                                    <a [href]="work?.url" target="_blank" class="txt-gry3 fs-15"
+                                                        fxLayoutAlign="start center">
+                                                        <img src="assets/images/opalimages/jpg_new.svg" alt="jpg"
+                                                            class="m-r-15" fxFlex="20">
+                                                        {{ 'View' | translate }}
+                                                    </a>
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="'png'">
+                                                    <a [href]="work?.url" target="_blank" class="txt-gry3 fs-15"
+                                                        fxLayoutAlign="start center">
+                                                        <img src="assets/images/opalimages/png_new.svg" alt="png"
+                                                            class="m-r-15" fxFlex="20">
+                                                        {{ 'View' | translate }}
+                                                    </a>
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="'jpeg'">
+                                                    <a [href]="work?.url" target="_blank" class="txt-gry3 fs-15"
+                                                        fxLayoutAlign="start center">
+                                                        <img src="assets/images/opalimages/jpeg_new.svg" alt="jpeg"
+                                                            class="m-r-15" fxFlex="20">
+                                                        {{ 'View' | translate }}
+                                                    </a>
+                                                </ng-container>
+                                                <ng-container *ngSwitchDefault>
+                                                    -
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+                                        <ng-template #noCertificate>
+                                            <span class="fs-16 txt-gry3">-</span>
+                                        </ng-template>
+                                    </div>
+
+
+                                </div>
+                                <!-- <div class="view_details" fxLayout="row">
+                                        <p class="m-0 text-gry fs-16">{{'Upload Certificate' | translate}}:</p>
+                                            <span class="fs-16 txt-gry3"><a href="#" target="_blank" class="txt-gry3 fs-15" fxLayoutAlign="start center"><img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15" fxFlex="20">{{'View' | translate }}</a></span>
+                                    </div> -->
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30" *ngIf="workresultLength>5">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom " showFirstLastButtons
+                                    [pageSize]="paginatortwo?.pageSize" (page)="workPaginator($event);"
+                                    [pageIndex]="paginatortwo?.pageIndex" [length]="paginatortwo?.length"
+                                    [pageSizeOptions]="paginatortwo?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="100" class="norecordfound" fxLayout="column" fxLayoutAlign="center center"
+                        *ngIf="workresultLength == 0">
+                        <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                        <p class="m-t-10 txt-gry3 fs-16">{{'No Records' | translate}}
+                        </p>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <!-- others document -->
+            <div class="moheriCard company_dtlview m-t-20" fxLayout="column"
+                *ngIf="viewStaffResponse?.rolecourse_en?.includes('Inspector')">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <h4 class="fs-18 txt-gry3 m-r-7">{{'Other Documents' | translate}} </h4><mat-divider fxFlex="4"
+                        class="matDivider"></mat-divider>
+                </div>
+
+                <div class="view_dtl" fxLayout="row" fxFlex.lt-md="100" fxFlex="50" fxLayoutAlign="start center">
+                    <p class="m-0 text-gry fs-16">{{'ID Card' | translate}}</p>
+                    <span class="fs-16 txt-gry3">
+                        <div [ngSwitch]="viewStaffResponse.id_front_fileType">
+                            <span *ngSwitchCase="'pdf' || 'PDF'">
+                                <a href="{{viewStaffResponse?.id_front}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'jpg' || 'JPG'">
+                                <a href="{{viewStaffResponse?.id_front}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/jpg_new.svg" alt="jpg" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'png' || 'PNG'">
+                                <a href="{{viewStaffResponse?.id_front}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/png_new.svg" alt="png" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'jpeg' || 'JPEG'">
+                                <a href="{{viewStaffResponse?.id_front}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/jpeg_new.svg" alt="jpeg" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchDefault>
+                                -
+                            </span>
+                        </div>
+
+                    </span>
+                </div>
+
+                <div class="view_dtl m-t-20" fxLayout="row" fxFlex.lt-md="100" fxFlex="50" fxLayoutAlign="start center">
+                    <p class="m-0 text-gry fs-16">{{'ROP Driver License' | translate}}</p>
+                    <span class="fs-16 txt-gry3">
+                        <div [ngSwitch]="viewStaffResponse.license_type">
+                            <span *ngSwitchCase="'pdf' || 'PDF'">
+                                <a href="{{viewStaffResponse?.license}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'jpg' || 'JPG'">
+                                <a href="{{viewStaffResponse?.license}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/jpg_new.svg" alt="jpg" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'png' || 'PNG'">
+                                <a href="{{viewStaffResponse?.license}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/png_new.svg" alt="png" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'jpeg' || 'JPEG'">
+                                <a href="{{viewStaffResponse?.license}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/jpeg_new.svg" alt="jpeg" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchDefault>
+                                -
+                            </span>
+                        </div>
+                    </span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row" fxFlex.lt-md="100" fxFlex="50" fxLayoutAlign="start center">
+                    <p class="m-0 text-gry fs-16">{{'MOL Employment Contract' | translate}}</p>
+                    <span class="fs-16 txt-gry3">
+                        <div [ngSwitch]="viewStaffResponse.sir_fileType">
+                            <span *ngSwitchCase="'pdf' || 'PDF'">
+                                <a href="{{viewStaffResponse?.sir_moheridoc}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'jpg' || 'JPG'">
+                                <a href="{{viewStaffResponse?.sir_moheridoc}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/jpg_new.svg" alt="jpg" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'png' || 'PNG'">
+                                <a href="{{viewStaffResponse?.sir_moheridoc}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/png_new.svg" alt="png" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchCase="'jpeg' || 'JPEG'">
+                                <a href="{{viewStaffResponse?.sir_moheridoc}}" target="_blank" class="txt-gry3 fs-15"
+                                    fxLayoutAlign="start center">
+                                    <img src="assets/images/opalimages/jpeg_new.svg" alt="jpeg" class="m-r-15"
+                                        fxFlex="20">
+                                    {{'View' | translate }}
+                                </a>
+                            </span>
+                            <span *ngSwitchDefault>
+                                -
+                            </span>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <!-- mohercard -->
+            <div class="moheriCard company_dtlview m-t-25">
+                <div class="cardUpload" fxLayout="row">
+                    <p class="m-0" fxFlex="20">{{'Curriculum Vitae (CV)' | translate}}</p>
+                    <span *ngIf="viewStaffResponse?.sir_staffcv == null">-</span>
+                    <button mat-raised-button color="primary" class="viewButton"
+                        (click)="staffCv(viewStaffResponse?.sir_staffcv)">{{'View Curriculum Vitae (CV)'}}</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="commonAvailabilty ==  true && viewStaffResponse">
+            <app-approvalcalendarview (setData)="recData($event)" [technical]="true"
+                [data]="viewStaffResponse"></app-approvalcalendarview>
+        </div>
+        <div fxLayoutAlign="end center" fxFlex="100" class="m-t-20" *ngIf="!receivedValue">
+            <button mat-raised-button class="backButton fs-15 txt-gry3" (click)="backBtn()">{{'Back' | translate
+                }}</button>
+        </div>
+    </div>
+</div>

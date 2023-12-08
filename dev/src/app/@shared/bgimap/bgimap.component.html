@@ -1,0 +1,50 @@
+<!-- <p>bgimap works!</p> -->
+<div id="map">
+    <form [formGroup]="myForm">
+        <div *ngIf="city_auto_list_filed" fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div fxFlex fxFlexAlign="center" class="autocomplete-container">
+              <div class="profilelinkboxshadow m-b-20" *ngIf="searchboxApperance == 'standard'">
+                <div fxLayout="row wrap" class="">
+                  <div fxFlex.gt-sm="100" fxFlex="100" class="borderflex Search searchtextmap">
+                    <!-- <div class="searchicon">
+                      <i class="bgi bgi-search Searchcolor"></i>
+                    </div> -->
+                    <!-- <div class="searchinmap"> -->
+                      <mat-form-field class="no-line" floatLabel="never" appearance="outline">
+                        <mat-label clsss="fs-16 txt-gry"> {{'maincenter.map' | translate}}</mat-label>
+                        <input app-restrict-input="firstspace" matInput  class="border"
+                          matGoogleMapsAutocomplete [types]="['bank']" [formControl]="control"
+                          (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                          (onLocationSelected)="onLocationSelected($event)">
+                          <mat-icon matPrefix class="m-r-6">search</mat-icon>
+                      </mat-form-field>
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+              <mat-google-maps-autocomplete *ngIf="searchboxApperance != 'standard'" [placeholderText]="placeholderText"
+                [types]="['bank']" #gsearch [appearance]="appearance.STANDARD"
+                (onAutocompleteSelected)="onAutocompleteSelected($event)" (onLocationSelected)="onLocationSelected($event)">
+              </mat-google-maps-autocomplete>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <!-- [streetViewControl]="streetViewControl"-->
+            <agm-map #agmMap  [latitude]="latitude" [longitude]="longitude"
+              [scrollwheel]="false" [zoom]="zoom_level">
+              <agm-marker #mapMarker [markerDraggable]="draggable" (dragEnd)='getCurrentLocation($event)'
+                [latitude]="latitude" [longitude]="longitude"></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+      
+          <mat-form-field *ngIf="address_field">
+            <input matInput placeholder="Selected Address" #selected_city formControlName="selected_address" value="">
+          </mat-form-field>
+        </div>
+      </form>
+</div>

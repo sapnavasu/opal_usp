@@ -1,0 +1,123 @@
+<div id="calendarView" fxLayout="center start">
+    <div class="calendar" fxFlex="100" fxFlex.ft-sm="100" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <h4 class="fs-18 txt-gry3 m-r-7">{{'Calendar View' | translate}} </h4><mat-divider fxFlex="4" class="matDivider"></mat-divider>
+        </div>
+        <div class="infoForCanlendar" fxLayoutAlign="center start">
+           <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex.gt-sm="95" fxFlex="100">
+            <h4 class="txt-gry3 fs-18 month">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h4>
+           <div class="colorDiffer" fxLayout="row wrap"> 
+               <div class="availableDetails m-r-15" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+                   <span class="available" fxLayout="row warp" fxLayoutAlign="start center">
+                      <span class="cube available m-r-10"></span> <span class="Available">{{'Available' | translate}}</span>
+                   </span>
+                   <span class="booked" fxLayout="row warp" fxLayoutAlign="start center">    
+                      <span class="cube booked m-r-10"></span> <span class="">{{'Booked' | translate}}</span>
+                   </span>
+                   <span class="notavailable" fxLayout="row warp" fxLayoutAlign="start center">
+                      <span class="cube notAvailable m-r-10"></span> <span>{{'Not Available' | translate}}</span>
+                   </span>
+                   <span class="holiday" fxLayout="row warp" fxLayoutAlign="start center">
+                      <span class="cube holiday m-r-10"></span> <span class="New">{{'Holiday' | translate}}</span>
+                   </span>
+               </div>
+               <!-- Previous Month -->
+               <button *ngIf="viewPerivious" mat-raised-button mwlCalendarPreviousView [disabled]="dateWishView"  [view]="view" [(viewDate)]="viewDate" class="monthChangeButton fs-16" color="primary" (click)="monthSelectButton()">
+                 <mat-icon class="fs-20 m-r-6">keyboard_arrow_left</mat-icon>{{buttonName | translate}}
+               </button>
+               <!-- current Month -->
+               <button *ngIf="!viewPerivious" mat-raised-button mwlCalendarToday [(viewDate)]="viewDate" [disabled]="dateWishView" class="monthChangeButton fs-16" color="primary" (click)="monthSelectButton()">
+               {{buttonName | translate}}<mat-icon class="fs-20 m-l-6">keyboard_arrow_right</mat-icon>
+              </button>
+              <!-- Next Month -->
+              <!-- <button  mat-raised-button mwlCalendarNextView  [view]="view" [(viewDate)]="viewDate" [disabled]="dateWishView" class="monthChangeButton fs-16" color="primary" (click)="monthSelectButton()">
+                {{buttonName | translate}}<mat-icon class="fs-20 m-l-6">keyboard_arrow_right</mat-icon>
+               </button> -->
+           </div>
+           </div>
+        </div>
+        <div class="m-t-15 eventCalendar" *ngIf="!dateWishView" fxLayoutAlign="center start">
+           <div fxFlex.gt-sm="95" fxFlex="100">
+            <mwl-calendar-month-view [activeDayIsOpen]="activeDayIsOpen" [cellTemplate]="customCellTemplate" [events]="events" (dayClicked)="dayClicked($event.day,'true')" [viewDate]="viewDate"  [dateFormatter]="customDateFormatter" [calendarOptions]="calendarOptions">
+            </mwl-calendar-month-view>
+            <ng-template #customCellTemplate let-day="day" let-locale="locale" let-event="event">
+                <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+                <!-- <ng-container *ngIf="day.date.getDay() === 1 || day.date.getDay() === 2 || day.date.getDay() === 3 || day.date.getDay() === 4 || day.date.getDay() === 0">
+                     <div *ngFor="let event of events; let i = index" class="dateTime lh-25">
+                         <span class="fs-14 baDge available p-l-8 p-r-8" [ngClass]="" *ngIf="i < 2">{{ event.title}}</span>
+                     </div>
+                     <span *ngIf="holiday" class="baDge holiday">{{'Holiday' | translate }}</span>
+                     <span class="fs-14 m-t-10" *ngIf="events.length > 2">
+                        <button type="button" (click)="dayClicked($event.day)" mat-icon-button class="icon_button"><mat-icon>more_horiz</mat-icon></button>
+                     </span>
+                </ng-container> -->
+                <mwl-calendar-event *ngFor="let event of day.events; let i = index" [event]="event">
+                    <ng-container *ngIf="i < 2">
+                      <mwl-calendar-event-title [event]="event" view="month" [class]="event.cssClass"></mwl-calendar-event-title>
+                    </ng-container>
+                    <span class="fs-14 m-t-10" *ngIf="day.events.length > 2 && i === 1">
+                      <button type="button" (click)="showMoreClicked(day)" mat-icon-button class="icon_button">
+                        <mat-icon>more_horiz</mat-icon>
+                      </button>
+                    </span>
+                  </mwl-calendar-event>
+                
+                <ng-container *ngIf="day.date.getDay() === 5 || day.date.getDay() === 6"><span class="fs-14 holidays weekEnd">{{'Holiday' | translate }}</span></ng-container>
+              </ng-template>
+           </div>
+        </div>
+        <div class="dateWishCalendar m-t-30" fxLayoutAlign="center center" *ngIf="dateWishView">
+              <div class="dateDetails" fxFlex="100" fxFlex.gt-sm="40">
+                    <div class="dayanddate" >
+                       <div fxLayout="row" fxLayoutAlign="start end" class="m-b-20">
+                            <span class="Date fs-26" fxLayoutAlign="center center">
+                                {{ selectedDay }}
+                            </span>
+                            <span fxLayout="column" class="daydetails" class="m-l-15">
+                                <span class="fs-18 fw-semi txt-gry3 monthYear" >
+                                    {{ selectedMonth }} {{selectedYear}}
+                                </span>
+                                <span clas="fs-16 txt-gry3">
+                                    {{selectedDates}}    
+                                </span>
+                            </span>
+                       </div>
+                       <div class="timeDetails" *ngFor="let time of eventDetails">
+                            <mat-divider></mat-divider>
+                            <div fxLayout="row" fxLayoutGap="10%" fxLayoutAlign="space-between center" class="menuValues">
+                                <div *ngIf="tableplaceholder" class="w-100 p-t-5 p-b-5">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <span *ngIf="!tableplaceholder" class="txt-gry3 fs-15" fxFlex="40">{{time.start.getHours() < 10? '0' : ''}}{{ time.start.getHours() > 12 ? time.start.getHours() % 12 : time.start.getHours()}}:{{time.start.getMinutes() < 10? '0' : ''}}{{time.start.getMinutes()}}{{time.start.getHours() >= 12? 'PM' : 'AM'}} - {{time.end.getHours() < 10? '0' : ''}}{{ time.end.getHours() > 12 ? time.end.getHours() % 12 : time.end.getHours()}}:{{time.end.getMinutes() < 10? '0' : ''}}{{time.end.getMinutes()}}{{time.end.getHours() >= 12? 'PM' : 'AM'}}</span>
+                                <!-- <span *ngIf="!tableplaceholder" class="txt-gry3 fs-15" fxFlex="40">{{time.start.getHours() < 10? '0' : ''}}{{time.start.getHours()}}:{{time.start.getMinutes() < 10? '0' : ''}}{{time.end.getMinutes()}}{{time.start.getHours() >= 12? 'PM' : 'AM'}} - {{time.end.getHours() < 10? '0' : ''}}{{time.end.getHours()}}:{{time.end.getMinutes() < 10? '0' : ''}}{{time.start.getMinutes()}} </span> -->
+                                <span *ngIf="!tableplaceholder" class="status fs-15 txt-align" fxFlex="25">
+                                    <span class="Available" *ngIf="time.cssClass=='availableColor'">{{'Available' | translate }}</span>
+                                    <span class="booking" *ngIf="time.cssClass=='bookingColor'">{{'Booked' | translate }}</span>
+                                    <span class="notavailable" *ngIf="time.cssClass=='3'">{{'Not Available' | translate }}</span>
+                                    <span class="holidays" *ngIf="time.cssClass=='notColor'">{{'Holiday' | translate }}</span>
+                                </span>
+                                <span *ngIf="!tableplaceholder" class="action" fxFlex="10">
+                                    <button class="menubutton txt-gry" mat-icon-button [matMenuTriggerFor]="beforeMenu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                    </button>
+                                    <mat-menu #beforeMenu="matMenu" xPosition="before"
+                                        class="master-menu whentootltipadded table_menu">
+                                        <button type="button" mat-menu-item><span>{{'View' |translate}}</span></button>
+                                        <button type="button" mat-menu-item><span>{{'Edit' |translate}}</span></button>
+                                        <button type="button" mat-menu-item><span>{{'Mark as Not Available' |translate}}</span></button>
+                                        <button type="button" mat-menu-item><span>{{'Mark as Holiday' |translate}}</span></button>
+                                    </mat-menu>
+                                </span>
+                            </div>
+                       </div>
+                    </div>
+              </div>
+              
+        </div>
+        <div fxLayoutAlign="end center" fxFlex="100" *ngIf="dateWishView">
+            <button mat-raised-button class="transformbtn fs-16" (click)="backToview('false')">{{'Back' | translate }}</button>
+          </div>
+    </div>
+</div>
+

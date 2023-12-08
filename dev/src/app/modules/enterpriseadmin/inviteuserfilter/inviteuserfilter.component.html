@@ -1,0 +1,91 @@
+<form [formGroup]='filterform'>
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div class="searchandfilter">
+        <div class="searchhere" (click)="toggleShowDiv('searchhistorydropdown')">
+          <!-- <input type="text" id="filterKeyWord" placeholder="Search by keywords" #reference />
+          <i class="bgi bgi-close closesymbol" (click)="reference.value='';advanceFilter();changeClass(false);" [class.disabled]="(searchClear == true)?false:true"></i>
+          <i class="bgi bgi-search" (click)="advanceFilter();changeClass(true);" [class.disabled]="(searchClear == true)?true:false"></i>  -->
+          <mat-form-field [floatLabel]="'never'">
+            <input autocomplete="off" class="input-text-color"
+            placeholder="Search by Email ID"
+              matInput [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
+              (keyup.enter)="advanceFilter();showSearchIcon=(search == ''?true:false);showSearchIcon=false">
+
+            <button type="button" *ngIf="showSearchIcon" [disabled]="!search" mat-button matSuffix mat-icon-button
+              aria-label="Search" (click)="advanceFilter();showSearchIcon=false">
+              <mat-icon matSuffix>search</mat-icon>
+            </button>
+            <button type="button" *ngIf="!showSearchIcon" mat-button matSuffix mat-icon-button aria-label="Clear"
+              (click)="search = '';advanceFilter('',8,0,'out');showSearchIcon=true">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class=" searchhistorydropdown filtercontent" [@slideInOut]="animationState1">
+            <div class="recentsearchinfo">
+              <h6>{{'enterpriseadmin.recesear' | translate}}Recently Searched</h6>
+              <div class="searcheddata">
+                <p><i class="bgi bgi-search"></i> <span>Seenivasan</span></p>
+                <p><i class="bgi bgi-search"></i> <span>Balaji</span></p>
+                <p><i class="bgi bgi-search"></i> <span>Balaji</span></p>
+                <p><i class="bgi bgi-search"></i> <span>Prasanna</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterhere">
+          <button type="button" (click)="toggleShowDiv('descriptioncontentfilter')" class="filterbutton"
+            mat-raised-button color="primary">
+            <i class="bgi bgi-configuration m-r-10 txt-white"></i><span *ngIf="filtercount == 0">{{'enterpriseadmin.filt' | translate}}Filter</span><span
+              *ngIf="filtercount != 0">{{'enterpriseadmin.filt' | translate}}Filter({{filtercount}})</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" descriptioncontentfilter filtercontent" [@slideInOut]="animationState">
+    <div class="filterheader">
+      <p  class="header">{{'enterpriseadmin.filt' | translate}}Filter</p>
+      <span (click)='formreset()' class="clearingfilter">{{'enterpriseadmin.cleaall' | translate}}Clear All</span>
+    </div>
+    <hr class="m-0">
+    <div class="filtersearchcontent p-t-20 p-b-0  p-l-40 p-r-40" *ngIf="!showInvitedUser">
+      <!-- Division & Branch Name Ends -->
+      <div fxLayout="row wrap" *ngIf="filterFor != 'monitorlog'">
+        <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 statusing">
+          <p>{{'enterpriseadmin.inacuserstat' | translate}}Invited Users Status</p>
+          <div class="activeandinactive">
+            <mat-radio-group formControlName="Status">
+              <mat-radio-button value="A" class="p-r-30" (change)="filterRadioSelected($event);">{{'enterpriseadmin.active' | translate}}Active
+              </mat-radio-button>
+              <mat-radio-button value="I" (change)="filterRadioSelected($event);">{{'enterpriseadmin.inacive' | translate}}In-active</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filtersearchcontent p-t-20 p-b-0  p-l-40 p-r-40" *ngIf="showInvitedUser">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="activeandinactive m-t-15">
+            <mat-checkbox class="m-r-15" [checked]="checkedFilterArr.includes(status.value)" *ngFor="let status of invitedFilterCheckBoxArr; let i = index" (change)="checkInvitedFilter(status.value)">{{status.viewValue}}</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="m-b-0">
+    <div class="filterfooter">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="filtercloseapply">
+            <button (click)="toggleShowDiv('descriptioncontentfilter')" type="button" mat-raised-button color="primary"
+              class="clearbutton height-35 m-r-10 p-l-30 p-r-30">{{'enterpriseadmin.clos' | translate}}Close</button>
+            <button color="primary" [disabled]="!filterform.valid && this.checkedFilterArr.length == 0" mat-raised-button
+              class="applybutton height-35 p-l-30 p-r-30" (click)="advanceFilter('',8,0,'in',true)">{{'enterpriseadmin.appl' | translate}}Apply</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

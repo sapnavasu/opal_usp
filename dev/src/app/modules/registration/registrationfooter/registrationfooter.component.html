@@ -1,0 +1,147 @@
+<div id="opalfooter_layout">
+    <div fxLayout="row wrap" fxLayoutAlign="center" class="footer_container maxwidthinnerpart">
+        <div fxFlex.gt-sm="100" fxFlex="100" id="footer_main" class="p-t-20 p-b-20 p-s-10 p-e-10">
+            <div fxLayout="row wrap" class="p-t-15 p-b-15" fxLayoutGap="15px">
+                <div fxFlex.gt-sm="calc(30%-15px)" fxFlex="" class="m-t-15">
+                    <div class="foot_logo">
+                        <div class="opalimg">
+                            <img class="opallogo m-15" src="assets/images/opalimages/address.png" alt="OPAL logo">
+                        </div>
+                        <div fxFlex="calc(100% - 120px)" class="m-l-25">
+                            <h4 class="fs-24 m-0 foottitle p-l-0">{{'registrationfooter.addr' | translate}}</h4>
+                            <p class="fs-14 m-0 p-t-20 txt-gray3">{{'registrationfooter.tamicompbuil' | translate}} <br>{{'registrationfooter.alghumus' | translate}} </p>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="calc(30%-15px)" fxFlex="" class="m-t-15">
+                    <div class="foot_logo">
+                         <div class="opalimg">
+                            <img class="opallogo m-15" src="assets/images/opalimages/contact.png" alt="OPAL logo">
+                         </div>
+                        <div fxFlex="calc(100% - 100px)" class="m-l-25">
+                            <h4 class="fs-24 m-0 foottitle p-l-0">{{'registrationfooter.cont' | translate}}</h4>
+                            <div class="p-t-20 fs-14">
+                                <div class="d-flex txt-gray3 emailtxt">
+                                    <span class="w-20 setwit">{{'registrationfooter.email' | translate}}</span>
+                                    <a href="mailto:usp@opaloman.org"> 
+                                        <span>:&nbsp; &nbsp; usp@opaloman.org</span>
+                                    </a>
+                                </div>
+                                <div class="d-flex txt-gray3 ">
+                                    <span class="w-20 setwit">{{'registrationfooter.phone' | translate}}</span>
+                                    <span *ngIf="eng">:&nbsp; &nbsp; +968 24605700 </span>
+                                    <span *ngIf="!eng">:&nbsp; &nbsp; 24605700 968+ </span>
+                                </div>
+                                <div class="d-flex txt-gray3">
+                                    <span class="w-20 setwit">{{'registrationfooter.fax' | translate}}</span>
+                                    <span *ngIf="eng">:&nbsp; &nbsp; +968 24604255 </span>
+                                    <span *ngIf="!eng">:&nbsp; &nbsp; 24604255 968+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="calc(30%-15px)" fxFlex="" class="m-t-15">
+                    <div class="foot_logo">
+                        <div class="opalimg">
+                            <img class="opallogo m-15" src="assets/images/opalimages/timing.png" alt="OPAL logo">
+                        </div>
+                        <div fxFlex="calc(100% - 100px)" class="m-l-25">
+                            <h4 class="fs-24 m-0 foottitle p-l-0">{{'registrationfooter.timin' | translate}}</h4>
+                            <div class="p-t-20 fs-14">
+                                <div class="d-flex txt-gray3">
+                                    <span class="w-50">{{'registrationfooter.sundthus' | translate}}</span>
+                                    <span>:&nbsp; &nbsp; 8.00 {{'registrationfooter.am' | translate}} - 5.00 {{'registrationfooter.pm' | translate}} </span>
+                                </div>
+                                <div class="d-flex txt-gray3">
+                                    <span class="w-50">{{'registrationfooter.fridsat' | translate}}</span>
+                                    <span>:&nbsp; &nbsp; {{'registrationfooter.clos' | translate}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div fxLayout="row wrap" class="p-t-15 p-b-15" fxLayoutGap="20px">
+                <div fxFlex.gt-sm="calc(30%-20px)" fxFlex="calc(100%-20px)" class="p-t-30  p-l-0">
+                    <h4 class="fs-24 m-0 foottitle p-l-0">{{'registrationfooter.quilink' | translate}}</h4>
+                    <div fxLayoutAlign="flex-start center" class="p-t-30 maplocation effect">
+                        <div class="p-l-0">
+                            <a href="https://opaloman.org/" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.omansociforpet' | translate}}</a>
+                        </div>
+                    </div>
+                    <!-- <div fxLayoutAlign="flex-start center" class="p-t-10 maplocation">
+                        <div class="p-l-0">
+                            <a href="#" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.sitmap' | translate}}</a>
+                        </div>
+                    </div> -->
+                    <!-- <div fxLayoutAlign="flex-start center" class="p-t-10 maplocation effect">
+                        <div class="p-l-0">
+                            <a *ngIf="eng" href="{{basePath}}/faq/" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.faq' | translate}}</a>
+                            <a *ngIf="!eng" href="{{basePath}}/faq_ar/" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.faq' | translate}}</a>
+                        </div>
+                    </div> -->
+                    <div fxLayoutAlign="flex-start center" class="p-t-10 maplocation effect">
+                        <div class="p-l-0">
+                            <a *ngIf="eng" href="{{basePath}}/policies/" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.polic' | translate}}</a>
+                            <a *ngIf="!eng" href="{{basePath}}/policies_ar/" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.polic' | translate}}</a>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="flex-start center" class="p-t-10 maplocation effect">
+                        <div class="p-l-0">
+                            <a *ngIf="eng" href="{{basePath}}/terms-and-conditions/" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.tercondit' | translate}}</a>
+                            <a *ngIf="!eng" href="{{basePath}}/terms-and-condition-ar/" target="_blank" class="txt-gray3 m-0 fs-16">{{'registrationfooter.tercondit' | translate}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="calc(30%-20px)" fxFlex="calc(100%-20px)" class="p-t-30">
+                    <div fxLayout="row wrap">
+                        <div fxFlex.gt-sm="85" fxFlex="100">
+                            <h4 class="fs-24 m-0 foottitle p-l-0">{{'registrationfooter.cont' | translate}}</h4>
+                            <p class="fs-16 m-0 txt-gray3 p-t-30 lh-26">
+                                {{'registrationfooter.inpubliandgrapdesin' | translate}}
+                            </p>
+                            <div class="w-100 m-t-20">
+                                <button color="primary" class="fs-16 text-center button-45 w-100">{{'registrationfooter.cont' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="calc(30%-20px)" fxFlex="calc(100%-20px)" class="m-t-20" fxLayoutAlign="flex-end end">
+                    <div fxLayout="row wrap">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <div class="socialmedialist">
+                                <a href="https://www.facebook.com/OPALsocietyOman" target="_blank" class="socialicons m-r-15"><i class="opalicon opal-Facebook fs-25"></i></a>
+                                <a href="https://www.instagram.com/opalsocietyoman/" class="socialicons m-r-15" target="_blank"><i class="opalicon opal-Instagram fs-25"></i></a>
+                                <a href="https://www.youtube.com/channel/UCbVlwSlhOCWa-8LBKdvh7Mg" class="socialicons m-r-15" target="_blank"><i class="opalicon opal-Youtube fs-25"></i></a>
+                                <a href="https://www.linkedin.com/company/opal-oman-society-for-petroleum-services?original_referer=https%3A%2F%2Fopaloman.om%2F" class="socialicons m-r-15" target="_blank"><i class="opalicon opal-Linkdin fs-25"></i></a>
+                                <a href="https://twitter.com/opal_oman" class="socialicons m-r-15" target="_blank"><i class="opalicon opal-twitter fs-25"></i></a>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center" class="footer_copyrights p-t-10 p-b-10 footlast">
+        <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.gt-md="100" fxFlex.gt-lg="73" fxFlex.gt-lg="73">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="innerfooter">
+                <div fxFlex="<grow> <shrink> 100" fxLayoutAlign='end' class="fs-14 adminfooter res_dis-con"
+                    id="res_white-spc">
+                    <div ngClass.xs="fs-14 p-r-24 p-t-12" ngClass.sm="fs-14 p-r-24 p-t-12 " id="res_pr-0 ">
+                        <p class="res_center"> <span class="p-r-5 p-l-5"> &copy;</span> 2023 {{'registrationfooter.omansociforpetserv' | translate}}</p>
+                    </div>
+                </div>
+                <div fxFlex="<grow> <shrink> 100" class="fs-14 adminfooter footerspace m-r-15">
+                    <div ngClass.xs="fs-14 p-r-24 p-t-12" ngClass.sm="fs-14 p-r-24 p-t-12" id="res_pr-0" fxLayout="row">
+                        <p class="m-r-15">{{'registrationfooter.implemenby' | translate}}</p>
+                        <img *ngIf="eng" class="foot_bgilogo" src="assets/images/opalimages/bgilogo.png" alt="Businessgateways International"> 
+                        <img *ngIf="!eng" class="foot_bgilogo" src="assets/images/opalimages/bgiarbiclogo.png" alt="Businessgateways International">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

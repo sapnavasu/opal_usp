@@ -1,0 +1,67 @@
+<div id="ivmsinfo" class="commonForm"  fxLayoutAlign="center start">
+     <div fxFlex="100" fxLayout="column" class="ivmsInfocard m-b-40">
+           <div class="profile p-l-20 p-r-20">
+               <h4 class="blue fs-16 m-b-10">{{companyTitle}}</h4>
+               <p class="txt-gry p-b-10 m-0 fs-15">{{'Centre Name' | translate}}:<span class="txt-gray3"> {{centre_Name}}</span></p>
+               <div fxLayout="row wrap" class="gap-15">
+                    <div class="infoBadge" fxLayout="row">
+                        <p class="fs-15 m-0 txt-gry">{{'desktop.applirefno' | translate}}: <span> {{appdt_appreferno}}</span></p>
+                    </div>
+                    <div class="infoBadge" fxLayout="row">
+                        <p class="fs-15 m-0 txt-gry">{{'desktop.applytype' | translate}}: <span> {{appdt_apptype}}</span></p>
+                    </div>
+                    <div class="infoBadge" fxLayout="row">
+                        <p class="fs-15 m-0 txt-gry">{{'desktop.applstat' | translate}}:  <span class="txt-gry3">
+                            <span *ngIf="appdt_status == '1'" class="txt-gry">{{'table.yettosubmit'| translate}}</span>
+                            <span *ngIf="appdt_status == '2'" class="txt-gry">{{'table.deskreview'| translate}}</span>
+                            <span *ngIf="appdt_status == '3'" class="txt-gry">{{'Missing Files' | translate}}</span>
+                            <span *ngIf="appdt_status == '4'" class="txt-gry">{{'table.deskreview'| translate}}</span>
+                            <span *ngIf="appdt_status == '5'" class="txt-gry">{{'desktop.paypend' | translate }}</span>
+                            <span *ngIf="appdt_status == '6'" class="txt-gry">{{'table.confpaym' | translate}}</span>
+                            <span *ngIf="appdt_status == '7'" class="txt-gry">{{'Yet to schedule for Site Audit' | translate}}</span> 
+                            <span *ngIf="appdt_status == '8'" class="txt-gry">{{'Audit Date Selection(Training Provider)' | translate}}</span>
+                            <span *ngIf="appdt_status == '9'" class="txt-gry">{{'table.readforaudit' | translate}}</span>
+                            <span *ngIf="appdt_status == '10'" class="txt-gry">{{'Quality Manager Approval Pending' | translate}}</span>
+                            <span *ngIf="appdt_status == '11'" class="txt-gry">{{'Authority  Approval Pending' | translate}}</span>
+                            <span *ngIf="appdt_status == '12'" class="txt-gry">{{'table.confpaym' | translate}}</span>
+                            <span *ngIf="appdt_status == '13'" class="txt-gry">{{'table.confpaym' | translate}}</span> 
+                            <span *ngIf="appdt_status == '14'" class="txt-gry"> {{'table.resubmforqual'| translate}}</span> 
+                            <span *ngIf="appdt_status == '15'" class="txt-gry">{{'table.resubmforauth' | translate}}</span>
+                            <span *ngIf="appdt_status == '16'" class="txt-gry">{{'table.resubmforceoapp' | translate}}</span> 
+                            <span *ngIf="appdt_status == '17'" class="txt-gry">{{'table.approved' | translate}}</span>
+                            <span *ngIf="appdt_status == '18'" class="txt-gry">{{'table.fineteam'| translate}}</span>
+                            <span *ngIf="appdt_status == '19'" class="txt-gry">{{'table.susb' | translate}}</span>
+                            <span *ngIf="appdt_status == '20'" class="txt-gry">{{'table.confpaym' | translate}}</span>
+                          </span></p>
+                    </div>
+                    <div class="infoBadge" fxLayout="row">
+                        <p class="application-detais fs-14 m-r-10 txt-gry m-0">{{'desktop.certstat' | translate}}:
+                            <span  *ngIf="!appdt_certificategenon" class="red bold">{{'table.new' | translate}}</span>
+                            <span *ngIf="appdt_certificategenon && isexpired == '0'" class="green bold"> {{'table.acti' |translate}}</span>
+                            <span *ngIf="appdt_certificategenon && isexpired == '1'"  class="red bold">{{'table.expi'|translate}}</span>
+                        </p>
+                    </div>
+               </div>
+            </div>
+            <div class="profileDetails p-t-15 p-b-15 m-t-20 p-l-20 p-r-20" fxFlex="100">
+                <div class="gap-15" fxFlex="100" fxLayoutAlign="space-between center" fxLayout="row wrap" fxFlex.gt-sm="70" fxFlex.gt-md="60">
+                    <div class="addinfo">
+                        <p class="txt-gry fs-14 m-0">{{'desktop.siteloca' | translate}}</p>
+                        <span class="txt-gry3"><a matTooltip="{{'table.viewlocat'|translate}}"  target="_blank" href="#"  ><mat-icon class="fa fa-map-marker mapicon fs-20 txt-gry3" ></mat-icon></a></span>
+                    </div>
+                    <div class="addinfo">
+                        <p class="txt-gry fs-14 m-0">{{'desktop.dateexoi' | translate}}</p>
+                        <span class="txt-gry3">{{(appdt_certificateexpiry)?appdt_certificateexpiry:'-'}}</span>
+                    </div>
+                    <div class="addinfo">
+                        <p class="txt-gry fs-14 m-0">{{'desktop.addon' | translate}}</p>
+                        <span class="txt-gry3">{{(appdt_submittedon)?appdt_submittedon:'-'}}</span>
+                    </div>
+                    <div class="addinfo">
+                        <p class="txt-gry fs-14 m-0">{{'desktop.lastupdat' | translate}}</p>
+                        <span class="txt-gry3">{{(appdt_updatedon)?appdt_updatedon:'-'}}</span>
+                    </div>
+                </div>
+            </div>
+     </div>
+</div>

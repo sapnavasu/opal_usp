@@ -1,0 +1,18 @@
+{
+    "cronName": [
+        "seenu",
+        "kaliaperumal"
+    ],
+    "cronUrl": [
+        "www.seenu.com",
+        "www.kaliaperumal.com"
+    ],
+    "cronExecute": [
+        "12",
+        "5"
+    ],
+    "cronStatus": [
+        "on",
+        "on"
+    ]
+}

@@ -1,0 +1,554 @@
+#ivmsview {
+.text-ble {
+    color: #0c4b9a;
+}
+.text-rd {
+    color:#ed1c27;  
+}
+.font-fam{
+    font-family: "opal_semibold", sans-serif;
+}
+.masterPageTop {
+    display: flex;
+}
+
+.masterPageTop {
+    .mat-paginator-range-actions button {
+        display: none;
+    }
+}
+
+.moheriCard {
+    padding: 22px 17px; 
+}
+
+.moheriCards.cardUpload {
+    box-shadow:0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+    border: 1px solid #D7DCE3;
+    border-radius: 2px;
+    font-size: 16px;
+    padding: 18px;
+}
+.followStep li{
+    line-height: 24px;
+}
+
+.stepFollow{
+    font-size: 18px;
+    font-weight: 500;
+    color: #0c4b9a !important;
+}
+
+.uploadText{
+    margin-top: 60px;
+}
+
+#ivmsview .matDivider {
+    border-top-width: 2px;
+    background-color: #ed1c27;
+}
+
+hr {
+    border: 0px;
+    height: 2px;
+    background: rgba(120, 130, 140, 0.13); 
+}
+.uploadRecordFlex {
+    display: flex;
+    gap: 25px;
+}
+.tabOne{
+    display: flex;
+    gap: 11px;
+    position: relative;
+    background-color: #F8F8F8;
+    width: 330px;
+    height: 90px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.tabIcon {
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tabText span {
+    color: #0c4b9a;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 28px;
+    margin: 0;
+}
+.tabText P {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 38px;
+    margin: 0;
+    padding: 0;
+}
+
+.backButton {
+    background-color: #ffffff;
+    height: 45px;
+    min-width: 100px;
+    border: 1px solid #e8e8e8;
+    box-shadow: none;
+    
+}
+.footButton{
+    display: flex;
+    gap: 17px;
+    margin: 30px 0 20px 0;
+}
+
+.skipButton{
+    background-color: #0c4b9a;
+    color: #ffffff;
+}
+
+.dividerCustom h4{
+    position: relative;
+}
+
+.dividerCustom h4::after {
+    position: absolute;
+    top: 10px;
+    right: -67px;
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: red;
+}
+
+// Responsive  Mobile Devices
+@media screen and (max-width: 480px) {
+    .uploadRecordFlex{
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .footButton{
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .dividerCustom h4::after {
+        top: 31px;
+        right: 75px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+    .uploadRecordFlex{
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .footButton{
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .dividerCustom h4::after {
+        top: 31px;
+        right: 75px;
+    }
+}
+
+// FOr Tablet Ipad
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .uploadRecordFlex{
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .footButton{
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .dividerCustom h4::after {
+        top: 31px;
+        right: 75px;
+    }
+}
+
+
+.uploadText{
+    margin-top: 60px;
+}
+
+#ivmsview .matDivider {
+    border-top-width: 2px;
+    background-color: #ed1c27;
+}
+
+.dividerCustom h4{
+    position: relative;
+}
+
+.dividerCustom h4::after {
+    position: absolute;
+    top: 10px;
+    right: -67px;
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: red;
+}
+
+// Bullet Color
+::marker{
+    color: #0c4b9a;
+}
+
+// Breadcurmb last child color
+::ng-deep div#breadCrubHide ul > li:last-child > a {
+     color: #0c4b9a !important; 
+     font-weight: 600;
+}
+
+
+@media (max-width:767px) {
+    .dividerCustom h4::after {
+        top: 31px;
+        right: 75px;
+    }
+}
+
+.excelimprtviewlist{
+    .mat-card-header{
+        align-items: center;
+    }
+    .arabicview{
+        display: flex;
+        flex-direction: row-reverse;
+      }
+      .englishview{
+        position: absolute;
+        left: 12px !important;
+        bottom: 15px;
+      }
+      .informationtext{
+        .selectforward {
+          position: absolute;
+          right: 12px;
+          bottom: 15px;
+        }
+      }
+      
+}
+#excelimprtlistview{
+    border:1px solid #f2f2f2;
+    box-shadow:0 0 0 1px #efefef;
+    .txt-blue{
+        color:#006ab5;
+    }
+    .firstrowbtn{
+        display:flex;
+        justify-content: space-between;
+        border-bottom:1px solid #ddd;
+        padding:20px;
+        .auditbtn{
+            background: #f4f3f5 !important;
+            min-width: 110px !important;
+            box-shadow: none;
+            border: none !important;
+            color: #333;
+            font-size: 0.9375rem;
+            box-shadow: none;
+            cursor:pointer;
+        }
+        .contractcategorybtn{
+            padding: 10px;
+            background: #f68220 !important;
+            min-width: 110px !important;
+            box-shadow: none;
+            border: none !important;
+            color: #fff;
+            font-size: 0.9375rem;
+            box-shadow: none;
+            cursor:pointer;
+        }
+    }
+    .stepfollowrow, .excelerrorreport{
+        padding:20px;
+    }
+    .stepfollowrow, .highlightsrow{
+        margin-top:5px;
+        h2{
+            margin: 0 0 8px 0;
+            font-weight: normal;
+            text-transform:uppercase;
+            font-family: "segoesemibold";
+        }
+        .listrow{
+                list-style:none;
+                padding:0;
+                margin:0;
+                li{
+                    color: #333333;
+                    font-size: 0.875rem;
+                    margin: 0 0 10px 0;
+                    padding-left: 1.3em;
+                    &:before{
+                        content: "\f18e"; 
+                        font-family: FontAwesome;
+                        display: inline-block;
+                        margin-left: -1.3em; 
+                        width: 1.3em; 
+                        color:#006ab5; 
+                        font-size:12px;                   
+                    }
+                    a{
+                        color:#f68220;
+                        text-decoration:underline;
+                    }
+                    span{
+                        color:#000;
+                        font-family: "segoesemibold";
+                    }
+                }
+        }
+        .fileuploaddiv{
+            /*padding: 5px;
+            border: 1px dashed #999;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;*/
+            display: inline-block;
+            width:100%; 
+            .uploadbtn{
+                border: 0;
+                color: #333;
+                background-color: white;
+                padding: 8px 20px;
+                border-radius: 2px;
+                font-size: 0.875rem;
+                height:45px;
+                background:#f3f4f6;
+                width:100%;
+                text-align:center;
+                font-family: 'segoesemibold';
+                cursor:pointer;
+                span{
+                    color:#006ab5;
+                }
+            }
+            input[type=file] {
+                font-size: 100px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                width:100%;
+                cursor:pointer;
+            }
+        }
+    }
+}
+.showresult
+{
+    display:none;
+}
+#resultview{
+    // border:1px solid #f2f2f2;
+    // box-shadow:0 0 0 1px #ddd;
+    margin-top:30px;
+    .errorreportdiv{
+        display:flex;
+        justify-content: space-between;
+        // padding:20px;
+        .fullscreenbtn{
+            background: #f4f3f5 !important;
+            min-width: 110px !important;
+            box-shadow: none;
+            border: none !important;
+            color: #333;
+            font-size: 0.8125rem;
+            box-shadow: none;
+            cursor:pointer;
+            height:32px;
+            line-height:30px;
+            display:inline-flex;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            .mat-icon{
+                width: 14px;
+                height: 14px;
+                line-height: 14px;
+                text-align: center;
+            }
+        }
+        .exportcsvbtn{
+            background: #f68220 !important;
+            min-width: 110px !important;
+            box-shadow: none;
+            border: none !important;
+            color: #fff;
+            font-size: 0.8125rem;
+            box-shadow: none;
+            cursor:pointer;
+            height:32px;
+            line-height:30px;
+        }
+    }
+    .successmsg{
+        color:#77c014;
+        margin-top:20px;    }
+}
+.excelerrorreport{    
+    .errorcountdiv{
+        ul{
+            list-style:none;
+            margin:0;
+            padding:10px 15px;
+            box-sizing:border-box;
+            border:1px solid #ddd;
+            border-radius:4px;
+            background:#f9f9fa;
+            display:flex;
+            li{
+                padding-right:4.85%;
+                padding-left:4%;
+                border-right:1px solid #ddd;
+                display:flex;
+                flex-direction: column;
+                &:last-child{
+                    border:0;
+                }
+                &:nth-child(2), &:last-child{
+                    padding-left:30px;
+                }
+                &:first-child{
+                    padding-left:0;
+                }
+                .txt-orange{
+                    color:#f68220;
+                }
+                .txt-green{
+                    color:#77c014;
+                }
+                .txt-red{
+                    color:#fe3330;
+                }
+                .errorcount{
+                    font-size:24px;
+                    line-height:22px;
+                    margin-bottom:5px;
+                    font-family:'segoesemibold';
+                }
+                span{
+                    width:100%;
+                    font-size:13px;
+                }
+            }
+        }
+    }
+}
+#reimportbtndiv{
+    margin-top:30px;
+    margin-bottom:10px;
+    button{
+        min-width: 110px !important;
+        box-shadow: none;
+        border: none !important;
+        font-size: 0.9375rem;
+        box-shadow: none; 
+        cursor:pointer; 
+        padding:10px 15px;
+        border-radius:2px;
+        font-family: "segoeregular";
+        
+    }
+}
+#skipandimport{
+    background: #006ab5 !important;
+    color: #fff;
+}
+#reimport{
+    background: #f68220 !important;
+    color: #fff;
+    margin-left:10px;
+}
+#cancelimport{
+    background: #f4f3f5 !important;
+    color: #333;
+    margin-left:10px;
+}
+
+.innnerpartofdrwer{
+    &.maxscreen{
+        padding:10px !important;
+        #excelimprtlistview{
+            display:none !important;
+        }
+        #resultview{
+           margin-top:10px;
+           border:0px;
+           box-shadow:none;
+           .errorreportdiv{
+                padding: 0 0 10px 0;
+           }
+           .resulttablecontainer{
+               padding:0;
+           }
+        }
+    }
+} 
+@media (min-width: 1280px) {
+    .stepfollowrow{
+        width:70%;
+    } 
+    .highlightsrow, .errorcountdiv{
+        width:75%;
+    }
+}
+
+.mat-drawer{
+    &.excelfileupload, &.excelauditwidthsidenav{
+        position: relative;
+        min-width:95%;
+        width:95%;
+    }
+}
+.arabicview{
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .englishview{
+    position: absolute;
+    left: 12px !important;
+    bottom: 15px;
+  }
+  .informationtext{
+    .selectforward {
+      position: absolute;
+      right: 12px;
+      bottom: 15px;
+    }
+  }
+  .mat-raised-button {
+    border-radius: 2px;
+    box-shadow: none;
+    height: 45px;
+    min-width: 110px;
+    font-size: 16px;
+  }
+
+ .importbtn {
+    background-color: #ffffff;
+    color: #262626;
+    border: 1px solid #D7DCE3;
+ }
+}

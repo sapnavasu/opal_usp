@@ -1,0 +1,57 @@
+<div class="usercountinfo">
+  <div class="eachcounts" >
+    <div >
+      <p class="counttitle fs-13">
+        {{'enterpriseadmin.divi' | translate}}
+      </p>
+      <p class="count loginarrow fs-18" (click)="divisionRedirect()">
+        {{enterpriseCnt?.division}}
+        <i class="bgi bgi-gotothelink fs-13"></i>
+      </p>
+    </div>
+  </div>
+  <div class="eachcounts" >
+    <div >
+      <p class="counttitle fs-13">
+        {{'enterpriseadmin.depa' | translate}}
+      </p>
+      <p class="count loginarrow fs-18" (click)="departmentRedirect()">
+        {{enterpriseCnt?.department}}
+        <i class="bgi bgi-gotothelink fs-13"></i>
+      </p>
+    </div>
+  </div>
+  <div class="eachcounts" >
+    <div >
+      <p class="counttitle fs-13">
+        {{'enterpriseadmin.actiuser' | translate}}
+      </p>
+      <p class="count loginarrow fs-18" (click)="userRedirect('A')">
+        {{enterpriseCnt?.activeUser}}
+        <i class="bgi bgi-gotothelink fs-13"></i>
+      </p>
+    </div>
+  </div>
+  <div class="eachcounts" >
+    <div class="cursor" >
+      <p class="counttitle fs-13">
+        {{'enterpriseadmin.inacuser' | translate}}
+      </p>
+      <p class="count loginarrow fs-18" (click)="userRedirect('I')">
+        {{enterpriseCnt?.inactiveUser}}
+        <i class="bgi bgi-gotothelink fs-13"></i>
+      </p>
+    </div>
+  </div>
+  <div class="eachcounts" >
+    <div >
+      <p class="counttitle fs-13">
+        {{'enterpriseadmin.inviuser' | translate}}
+      </p>
+      <p (click)="invitedRedirect()" class="count loginarrow fs-18">
+        {{enterpriseCnt?.invitedUser}}
+        <i class="bgi bgi-gotothelink fs-13"></i>
+      </p>
+    </div>
+  </div>
+</div>

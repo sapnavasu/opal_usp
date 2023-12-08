@@ -1,0 +1,675 @@
+<div fxLayout="row wrap" *ngIf="!showPaymentPage && !paymentDtl">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="gradientbackgrounds">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div ngClass.xs="responsive" ngClass.sm="responsive" class="topheadermain p-l-20 p-r-20 p-t-20 alignwidth">
+          <div class="imagewithtext">
+            <span class="p-l-20  lypisfont-bold spancolor">Subscription</span>
+          </div>
+          
+        </div>
+        <div class="groupcolor p-l-40">
+          <h2 class="fs-20 m-0">{{stakeholderDtl?.companyName}}</h2>
+        </div>
+        <div class="flex  p-l-40 m-t-8">
+          <img src="/assets/images/flags/{{stakeholderDtl?.countryPk}}.png" alt="245">
+          <span class="fs-14 p-l-10">{{stakeholderDtl?.countryName}}</span>
+        </div>
+        <div class=" p-l-40 webalign p-t-20 p-b-20">
+          <div class="crmunber">
+            <p>CR Number</p>
+            <p>Website</p>
+          </div>
+          <div class="indcolor p-l-65">
+            <p>{{stakeholderDtl?.crregno}}</p>
+            <p>{{stakeholderDtl?.website ? stakeholderDtl?.website : 'NIL'}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+    <div fxLayout="row wrap" class="m-l-40 m-r-40 widthradius">
+      <div fxFlex.gt-sm="62" fxFlex="100" class="sourcewidth">
+
+        <form [formGroup]="packageForm">
+          <div class="alignheadcount nonehaeder" *ngIf="stakeholderDtl && stakeholderDtl['origin'] != 'INTERNATIONAL'">
+            <div class="headerwidth ">
+              <div class="headerpart p-t-6 p-l-20 p-r-20">
+                <h2 class="fs-15">Head Count</h2>
+              </div>
+
+            </div>
+            <div class="headerwidth">
+              <div class="headerpart p-t-6 p-l-8 p-r-20 radiussalesspacing">
+                <h2 class="fs-15">Annual Sales (OMR)</h2>
+              </div>
+            </div>
+            <div class="headerwidth ">
+              <div class="headerpart p-t-6 p-l-46 p-r-20">
+                <h2 class="fs-15">Package</h2>
+              </div>
+            </div>
+            <div class="headerwidth ">
+              <div class="headerpart p-t-6  p-r-20">
+                <h2 class="fs-15">Classification & Fee</h2>
+              </div>
+            </div>
+          </div>
+          <div class="alignheadcount classification" *ngIf="stakeholderDtl && stakeholderDtl['origin'] != 'INTERNATIONAL'">
+            <div class="headerwidth">
+              <div class="emplborder ">
+                <mat-radio-group formControlName="headCount" (change)="getPackageDtls();selectedAddnlPackage = []">
+                  <div class="p-l-20 borderbottomcount heightgroup">
+                    <mat-radio-button [value]="'1 - 5'" class="p-t-6">
+                      <p class="fs-15  m-0">1 &gt; 5 <span class="fs-12">Empl</span></p>
+                    </mat-radio-button>
+                  </div>
+                  <div class="p-l-20 borderbottomcount heightgroup">
+                    <mat-radio-button [value]="'6 - 25'" class="p-t-6">
+                      <p class="fs-15  m-0">6 &gt; 25 <span class="fs-12">Empl</span></p>
+                    </mat-radio-button>
+                  </div>
+                  <div class="p-l-20 borderbottomcount heightgroup">
+                    <mat-radio-button [value]="'26 - 99'" class="p-t-6">
+                      <p class="fs-15  m-0">26 &gt; 99 <span class="fs-12">Empl</span></p>
+                    </mat-radio-button>
+                  </div>
+                  <div class="p-l-20 heightgroup millionborder">
+                    <mat-radio-button [value]="'Greather than 99'" class="p-t-6">
+                      <p class="fs-15  m-0">&gt; 99 <span class="fs-12">Empl</span></p>
+                    </mat-radio-button>
+                  </div>
+                </mat-radio-group>
+              </div>
+
+            </div>
+            <div class="headerwidthempl">
+              <div class="emplborder">
+                <mat-radio-group formControlName="annualSales" (change)="getPackageDtls();selectedAddnlPackage = []">
+                  <div class="borderbottomcount p-l-20 heightgroup">
+                    <mat-radio-button [value]="'Less than 100000'" class="p-t-6">
+                      <p class="fs-15  m-0">
+                        &lt; 100,000</p>
+                    </mat-radio-button>
+                  </div>
+                  <div class="borderbottomcount p-l-20 heightgroup">
+                    <mat-radio-button [value]="'100000 - 500000'" class="p-t-6">
+                      <p class="fs-15  m-0">&gt; 100,000 - 500,000</p>
+                    </mat-radio-button>
+                  </div>
+                  <div class="borderbottomcount p-l-20 heightgroup">
+                    <mat-radio-button [value]="'500000 - 3 Million'" class="p-t-6">
+                      <p class="fs-15  m-0">&gt; 500,000 - 3 Million</p>
+                    </mat-radio-button>
+                  </div>
+                  <div class="p-l-20 heightgroup millionborder">
+                    <mat-radio-button [value]="'Greater than 3 Million'" class="p-t-6">
+                      <p class="fs-15  m-0"> &gt; 3 Million</p>
+                    </mat-radio-button>
+                  </div>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="headerwidthselected emplborder align p-t-40 ">
+              <p *ngIf="packageDtl?.subscription?.duration" class=" p-b-8"><sub
+                  class="fs-32 vertical year">{{packageDtl?.subscription?.duration?.Years}}</sub><span class="fs-12 ">
+                  Yr</span></p>
+              <div *ngIf="packageDtl?.subscription?.duration">
+                <button (click)="selectdecription('all')" class="fs-15 yearcolor">Select Validity<i
+                    class="bgi bgi-dropdown fs-6 p-l-6 colorlogo"></i>
+                  <div fxLayout="row wrap" class="p-t-0 all" [@slideInOut]="animationState">
+                    <div class="widthyear">
+                      <div class="primary">
+                        <span class="colortextyear fs-15">1 Year Validity</span>
+                      </div>
+                      <div class="primary">
+                        <span class="colortextyear fs-15">2 Year Validity</span>
+                      </div>
+                      <div class="primary">
+                        <span class="colortextyear fs-15">3 Year Validity</span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="headerwidthsmecolor">
+              <div class="centeralign p-t-30" *ngIf="packageDtl?.subscription">
+                <span class="fs-12 smecolor">{{packageDtl?.classificationName}}</span>
+                <h2 class="fs-32 p-t-10 m-0">
+                  {{packageDtl?.subscription?.packageBasePrice ? (packageDtl?.subscription?.packageBasePrice).toFixed(2) : ''}}
+                </h2>
+                <p class="fs-14 ">{{packageDtl?.subscription?.packageBaseCurrencySymbol}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" class="mainrowborder" *ngIf="stakeholderDtl && stakeholderDtl['origin'] == 'INTERNATIONAL'">
+            <div fxFlex.gt-sm="54" fxFlex="100" class="tender">
+              <div fxLayout="row wrap" class="m-l-30 m-r-30 m-t-30 m-b-30 bottomresponsive">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="ordertext">
+                  <h2 class="fs-18 m-0">{{packageDtl?.subscription?.packageName}}</h2>
+                  <p class="fs-14 startcolor">{{packageDtl?.subscription?.packageDesc}}.</p>
+      
+                  <ul>
+                    <li class="fs-14 "><span>Can access full biz search.</span></li>
+                    <li><span>Additional package provide the additional services.</span></li>
+                    <li><span>Can access the extensive information about Procurement and Investment.</span></li>
+                  </ul>
+      
+                </div>
+              </div>
+            </div>
+            <div fxFlex.gt-sm="18" fxFlex="100" class="alignflex">
+              <div>
+                <!-- <p class="align p-b-8"><sub class="fs-32 vertical year">1</sub><span class="fs-12 "> Yr</span></p> -->
+                <p *ngIf="packageDtl?.subscription?.duration" class="align p-b-8"><sub
+                  class="fs-32 vertical year">{{packageDtl?.subscription?.duration?.Years}}</sub><span class="fs-12 ">
+                  Yr</span></p>
+                <div>
+                <button (click)="selectdecription('all')" class="fs-15 yearcolor">Select Validity<i
+                  class="bgi bgi-dropdown fs-6 p-l-6 colorlogo"></i>
+                <div fxLayout="row wrap" class="p-t-0 all" [@slideInOut]="animationState">
+                  <div class="widthyear">
+                    <div class="primary">
+      
+                      <span class="colortextyear fs-15">1 Year Validity</span>
+                    </div>
+                    <div class="primary">
+                      <span class="colortextyear fs-15">2 Year Validity</span>
+                    </div>
+                    <div class="primary">
+      
+                      <span class="colortextyear fs-15">3 Year Validity</span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+                </div>
+              </div>
+            </div>
+            <div fxFlex.gt-sm="28" fxFlex="100" class="flexcenter">
+              <div class="alignfreecolor responsivetopspacing">
+                <span class="fs-12 freecolor smecolor">FREE</span>
+                <p class="fs-14 m-0 p-t-15">{{packageDtl?.subscription?.packageBaseCurrencySymbol}}</p>
+                <h2 class="fs-32">{{packageDtl?.subscription?.packageBasePrice ? (packageDtl?.subscription?.packageBasePrice).toFixed(2) : ''}}</h2>
+              </div>
+            </div>
+          </div>
+
+          
+
+          <div fxLayout="row wrap" *ngIf="(isPackageSelected || stakeholderDtl['origin'] == 'INTERNATIONAL') && packageDtl?.additionalpackage?.length !== 0">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <h2 class="mainheader p-t-35">Additional Value Package(s)</h2>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" class="mainrow" formArrayName="addnlPackage"
+            *ngFor="let additionalPackage of addnlPackageFormArrControl; let i = index">
+            <div fxFlex.gt-sm="54" fxFlex="100" class="tender">
+              <div fxLayout="row wrap" class="m-l-25 m-r-25 m-t-20 m-b-20 bottomresponsive">
+                <div fxFlex.gt-sm="7" fxFlex="100" class="p-t-8 tenderwidth">
+                  <mat-checkbox
+                    [checked]="selectedAddnlPackage.includes(packageDtl?.additionalpackage[i]?.subscriptionPk)"
+                    [formControlName]="i"
+                    (change)="selectAdditionalPackage($event,packageDtl?.additionalpackage[i].subscriptionPk);calculateSubTotal();">
+                  </mat-checkbox>
+                </div>
+                <div fxFlex.gt-sm="93" fxFlex="100" class="ordertext">
+                  <h2 class="fs-15 m-0 linespace">{{ packageDtl?.additionalpackage[i].packageName }} </h2>
+                  <p class="fs-14 startcolor">{{packageDtl?.additionalpackage[i].packageDesc}}</p>
+                  <ul>
+                    <li class="fs-14 "><span>Can access full biz search.</span></li>
+                    <li><span>Additional package provide the additional services.</span></li>
+                    <li><span>Can access the extensive information about Procurement and Investment.</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div fxFlex.gt-sm="18" fxFlex="100" class="align p-t-40 yearspacing">
+              <p class="align p-b-8"><sub class="fs-32 vertical year">1</sub><span class="fs-12 "> Yr</span></p>
+              <div>
+                <button (click)="toggleShowDiv('select')" class="fs-15 yearcolor">Select Validity<i
+                    class="bgi bgi-dropdown fs-6 p-l-6 colorlogo"></i>
+                  <div fxLayout="row wrap" class="p-t-0 select " [@slideInOut]="animationState1">
+                    <div class="widthyear">
+                      <div class="primary">
+                        <span class="colortextyear fs-15">1 Year Validity</span>
+                      </div>
+                      <div class="primary">
+                        <span class="colortextyear fs-15">2 Year Validity</span>
+                      </div>
+                      <div class="primary">
+                        <span class="colortextyear fs-15">3 Year Validity</span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div fxFlex.gt-sm="28" fxFlex="100" class="flexcenter">
+              <div class="responsivetopspacing">
+                <h2 class="fs-32 m-0">
+                  {{packageDtl?.additionalpackage[i].packageBasePrice ? (packageDtl?.additionalpackage[i].packageBasePrice).toFixed(2) : ''}}
+                </h2>
+                <p class="fs-14 ">{{packageDtl?.additionalpackage[i].packageBaseCurrencySymbol}}</p>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div fxLayout="row wrap" *ngIf="isPackageSelected || stakeholderDtl['origin'] == 'INTERNATIONAL'">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <h2 class="mainheader p-t-35">Payment Contact Information</h2>
+          </div>
+        </div>
+        <div class="contactpersoninfo" class="mainrow" *ngIf="isPackageSelected || stakeholderDtl['origin'] =='INTERNATIONAL'">
+          <div class="radiotextcolor borderbottommake pd-15">
+            <mat-slide-toggle [formControl]="mapToggle" (change)="slideToggle($event)">
+              <span class="fs-15 p-l-10">Make the primary contact same payment contact</span>
+            </mat-slide-toggle>
+          </div>
+          <form [formGroup]="afterform" autocomplete="off" #contactForm="ngForm" class="pd-45 formspace">
+            <div fxLayout="row wrap" class="p-t-10" class="numberresponsive">
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <mat-form-field class="example-full-width">
+                  <input maxlength="50" matInput placeholder="First Name" required app-restrict-input="firstspace"
+                    appAlphaname formControlName="firstname" [errorStateMatcher]="matcher">
+                  <mat-error
+                    *ngIf="afterform.controls['firstname'].hasError('required') && afterform.controls['firstname'].touched"
+                    class="text-danger font-12">Enter first name
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 numberresponsive">
+                <mat-form-field class="example-full-width">
+                  <input maxlength="50" matInput placeholder="Last Name" required app-restrict-input="firstspace"
+                    appAlphaname formControlName="lastname" [errorStateMatcher]="matcher">
+                  <mat-error
+                    *ngIf="afterform.controls['lastname'].hasError('required') && afterform.controls['lastname'].touched"
+                    class="text-danger font-12">Enter last name
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-5">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="numberresponsive">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="Department" panelClass="selectspacing" [errorStateMatcher]="matcher"
+                    formControlName="department" required (selectionChange)="deptChanges($event)">
+                    <mat-option *ngFor="let department of deptlist" [value]="department?.deptPk">
+                      {{department?.deptName}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.department.errors?.required && form.department.touched ">
+                    Select department
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="numberresponsive p-l-15"
+                *ngIf="form.department.value == '' || form.department.value != 0">
+                <mat-form-field>
+                  <input [errorStateMatcher]="matcher" placeholder="Designation" matInput type="text"
+                    formControlName="designation" required app-restrict-input="firstspace" appAlphanumsymb
+                    maxlength="50" />
+                  <mat-error *ngIf="form.designation.touched &&  form.designation.errors?.required"> Enter designation
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing"
+                *ngIf="form.department.value != '' && form.department.value == 0">
+                <mat-form-field class="example-full-width">
+                  <input [errorStateMatcher]="matcher" formControlName="otherdept" placeholder="Specify Department"
+                    matInput type="text" required maxlength="50" appAlphabetonly app-restrict-input="firstspace">
+                  <mat-error *ngIf="form.otherdept.touched &&  form.otherdept.errors?.required"> Enter department
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-5" *ngIf="form.department.value != '' && form.department.value == 0">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <input [errorStateMatcher]="matcher" placeholder="Designation" matInput type="text"
+                    formControlName="designation" required
+                    [ngClass]="{'is-invalid': form.designation.touched && form.designation.errors}"
+                    app-restrict-input="firstspace" appAlphanumsymb maxlength="50" />
+                  <mat-error *ngIf="form.designation.touched &&  form.designation.errors?.required fontdesignation">
+                    Enter designation
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-0 countryfalgandcode ">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="searchwidthresponsive">
+                <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-0 countryfalgandcode flexend">
+                  <div fxFlex.gt-sm="20" fxFlex="100" class=" widthresponsiveside searchwidthresponsive flagwidth">
+                    <mat-form-field class="country-flag">
+                      <mat-select [(value)]="mobile_country_code_flag" panelClass="search"
+                        (closed)="searchMobileCC = ''" (selectionChange)="setcountryFlag($event.value,'mobile');"
+                        [disableOptionCentering]="true" [disabled]="mapToggle.value"
+                        *ngIf="(countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en') as cntryresult">
+                        <div class="searchinmultiselect">
+                          <i class="bgi bgi-search"></i>
+                          <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="Search"
+                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchMobileCC"
+                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                          <mat-icon (click)="searchMobileCC = ''" class="reseticon" matSuffix
+                            *ngIf="searchMobileCC !='' && searchMobileCC !=null">clear
+                          </mat-icon>
+                        </div>
+
+                        <mat-select-trigger class="flagwithcode">
+                          <img src="assets/images/flags/{{mobile_country_code_flag}}.png" alt="Country Flag">
+                        </mat-select-trigger>
+                        <div class="option-listing">
+                          <mat-option class="countrynameselect"
+                            *ngFor="let country of countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en'"
+                            [value]="country.CountryMst_Pk">
+                            <img src="assets/images/flags/{{country.CountryMst_Pk}}.png" alt="Country Flag">
+                            {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                          </mat-option>
+                          <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                            No country match your search criteria!
+                          </div>
+                        </div>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="80" fxFlex="100" class=" mobilenumwidth p-l-15">
+                    <mat-form-field class="numberandcode" floatLabel="always">
+                      <span ngClass.xs="p-r-0" ngClass.sm="p-r-0" class="p-r-5 countrycodecolor">{{mobilecode}}</span>
+                      <input matInput appNumberonly minlength="5" maxlength="20" formControlName="mobileno"
+                        [errorStateMatcher]="matcher" placeholder="Mobile" required>
+                      <input matInput hidden='true' formControlName="mobilecc" placeholder="Phone Code">
+                      <mat-error
+                        *ngIf="form.mobileno.errors?.required  && (form.mobileno.touched || contactForm.submitted)"
+                        class="text-danger nowrap font-12">Enter mobile number
+                      </mat-error>
+                      <mat-error
+                        *ngIf="form.mobileno.errors?.minlength && (form.mobileno.touched || contactForm.submitted)"
+                        class="text-danger nowrap font-12">Enter minimum 5 digits
+                      </mat-error>
+                      <mat-error *ngIf="form.mobileno.errors?.alreadyavailable">Mobile number
+                        already exist
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <div fxLayout="row wrap" fxLayoutAlign="end" class=" countryfalgandcode flexend">
+                  <div fxFlex.gt-sm="18" fxFlex="100" class="searchwidth searchwidthresponsive flagwidth p-l-15">
+                    <mat-form-field class="country-flag">
+                      <mat-select [(value)]="landline_country_code_flag" panelClass="select_with_search"
+                        (closed)="searchLandLineCC = ''" panelClass="myPanelClass"
+                        (selectionChange)="setcountryFlag($event.value);" [disableOptionCentering]="true"
+                        [disabled]="mapToggle.value"
+                        *ngIf="(countrylist | searchFilter : searchLandLineCC:'CyM_CountryName_en') as cntryresult">
+                        <div class="searchinmultiselect">
+                          <i class="bgi bgi-search"></i>
+                          <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="Search"
+                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchLandLineCC"
+                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                          <mat-icon (click)="searchLandLineCC = ''" class="reseticon" matSuffix
+                            *ngIf="searchLandLineCC !='' && searchLandLineCC !=null">clear
+                          </mat-icon>
+                        </div>
+                        <mat-select-trigger class="flagwithcode">
+                          <img src="assets/images/flags/{{landline_country_code_flag}}.png" alt="Country Flag">
+                        </mat-select-trigger>
+                        <div class="option-listing">
+                          <mat-option class="countrynameselect"
+                            *ngFor="let country of countrylist | searchFilter : searchLandLineCC:'CyM_CountryName_en'"
+                            [value]="country.CountryMst_Pk">
+                            <img src="assets/images/flags/{{country.CountryMst_Pk}}.png" alt="Country Flag">
+                            {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                          </mat-option>
+                          <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                            No country match your search criteria!
+                          </div>
+                        </div>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="67" fxFlex="100" class=" landlinewidth landcodewidth p-l-10">
+                    <mat-form-field floatLabel="always" class="numberandcode">
+                      <span class="p-r-5 countrycodecolor">{{landlinecode}}</span>
+                      <input id="landlineno" #landlinenumber matInput [errorStateMatcher]="matcher" appNumberonly
+                        minlength="5" maxlength="20" formControlName="landlineno" placeholder="Landline">
+                      <input matInput hidden='true' formControlName="landlinecc" placeholder="Phone Code">
+                      <mat-error
+                        *ngIf="form.landlineno.errors?.minlength && (form.landlineno.touched || contactForm.submitted)"
+                        class="text-danger nowrap font-12">Enter minimum 5 digits
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="15" fxFlex="100" class="p-l-10 numberresponsive">
+                    <mat-form-field>
+                      <input matInput appNumberonly formControlName="landlineext" maxlength="5" placeholder="Ext.">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-5">
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Email ID" maxlength="250" app-restrict-input="firstspace" appAlphanumsymb
+                    formControlName="emailid" required [errorStateMatcher]="matcher">
+                  <mat-error
+                    *ngIf="afterform.controls['emailid'].hasError('required') && afterform.controls['emailid'].touched"
+                    class="text-danger font-12">Enter email ID
+                  </mat-error>
+                  <mat-error
+                    *ngIf="afterform.controls['emailid'].errors?.pattern && afterform.controls['emailid'].touched">
+                    Enter valid email ID
+                  </mat-error>
+                  <mat-error *ngIf="form.emailid.errors?.alreadyavailable">Email ID
+                    already exist</mat-error>
+                  <mat-error *ngIf="form.emailid.errors?.alreadyInvited">OPAL invite has already been sent to your
+                    email ID, Kindly proceed with the link provided in the email.</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 numberresponsive">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Re-enter Email ID" maxlength="250" blockCopyPaste
+                    formControlName="renteremailid" required [errorStateMatcher]="matcher"
+                    (blur)="checkEmailHasValue()">
+
+                  <mat-error
+                    *ngIf="afterform.controls['renteremailid'].hasError('required') && afterform.controls['renteremailid'].touched"
+                    class="text-danger font-12">Enter email ID
+                  </mat-error>
+                  <mat-error
+                    *ngIf="afterform.controls['renteremailid'].errors?.pattern && afterform.controls['renteremailid'].touched">
+                    Enter valid email ID
+                  </mat-error>
+                  <mat-error *ngIf="form.renteremailid.errors?.mustMatch">Email IDs do not match</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="termscheckall p-t-15">
+              <mat-checkbox [formControl]="termsandconditions" class="coloragree">I have read, understood & agree to the
+                <a class="termsandcondtions" href="javascript:void(0)">Terms & Conditions</a>
+              </mat-checkbox>
+              <mat-error *ngIf="termsandconditions.errors?.required && termsandconditions.touched">Please confirm the
+                above</mat-error>
+            </div>
+            <div class="textcolor p-l-24">
+              <p class="fs-14">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                to make
+                a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                typesetting.
+              </p>
+            </div>
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="cancelsubsription m-t-30">
+                <button type="button" mat-raised-button (click)="onCancellingSubscription()" color="primary"
+                  class="cancelbtn m-r-15">Cancel Subscription
+                </button>
+                <button mat-raised-button class="paybtn" (click)="submitAndGenerateInvoice()"
+                  [disabled]="afterform.invalid || !termsandconditions.value">Generate Invoice & Proceed
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Right Side Card Starts -->
+      <div fxFlex.gt-sm="38" fxFlex="100" class="p-l-40 companyalignment">
+        <div class="mainrow alignrow p-l-22 p-r-22 p-t-22 p-b-22" *ngIf="isPackageSelected">
+          <div class="companyrow">
+            <h2 class="fs-18 m-0">Company Classification -</h2>
+            <span class="fs-12 spancolor">{{packageDtl?.classificationName}}</span>
+            <h3 class="fs-14 p-t-10">Key Features:</h3>
+            <p class="m-0 p-b-8">{{packageDtl?.subscription?.packageDesc}}</p>
+            <!-- <p class="m-0 p-b-8">1. Unlimited Products & Services</p>
+            <p>2.Oman National Business Framework</p> -->
+          </div>
+          <div class="validity">
+            <h2 class="fs-18 m-0">
+              {{packageDtl?.subscription?.packageBasePrice ? (packageDtl?.subscription?.packageBasePrice).toFixed(2) : ''}}
+              {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+            <p class="fs-14">{{packageDtl?.subscription?.duration?.Years}} Year(s) Validity</p>
+          </div>
+        </div>
+
+        <div class="mainrow alignrow p-l-22 p-r-22 p-t-22 p-b-22" *ngIf="stakeholderDtl['origin'] == 'INTERNATIONAL'">
+          <div class="companyrow">
+            <h2 class="fs-18 m-0">{{ stakeholderDtl['origin'] == 'INTERNATIONAL' ? packageDtl?.subscription?.packageName : 'Company Classification' }} -</h2>
+            <span class="fs-12 spancolor" *ngIf="isPackageSelected">{{ packageDtl?.classificationName}}</span>
+            <h3 class="fs-14 p-t-10">Key Features:</h3>
+            <p class="m-0 p-b-8">{{packageDtl?.subscription?.packageDesc}}</p>
+            <!-- <p class="m-0 p-b-8">1. Unlimited Products & Services</p>
+            <p>2.Oman National Business Framework</p> -->
+          </div>
+          <div class="validity">
+            <h2 class="fs-18 m-0">
+              {{packageDtl?.subscription?.packageBasePrice ? (packageDtl?.subscription?.packageBasePrice).toFixed(2) : ''}}
+              {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+            <p class="fs-14">{{packageDtl?.subscription?.duration?.Years}} Year(s) Validity</p>
+          </div>
+        </div>
+
+        <ng-container *ngFor="let additionalPackage of packageDtl?.additionalpackage; let i = index">
+          <div class="mainrow   p-l-22 p-r-22 p-t-22 p-b-22"
+            *ngIf="selectedAddnlPackage.includes(additionalPackage?.subscriptionPk)">
+            <p class="fs-14 Additionalcolor p-b-12"
+              *ngIf="selectedAddnlPackage[0] == additionalPackage?.subscriptionPk">Additional Value Package(s)</p>
+            <div class="flexvalidityspace">
+              <div class="companyrow valuelinetext">
+
+                <h2 class="fs-15 m-0">{{additionalPackage?.packageName}} <span class="p-l-50 councilspace">-</span></h2>
+                <div class="removerow p-t-20 cursor">
+                  <i class="bgi bgi-delete " (click)="removeAdditionalPackage(additionalPackage?.subscriptionPk)"><span
+                      class="fs-15 p-l-10">Remove</span></i>
+                </div>
+              </div>
+              <div class="validity">
+                <h2 class="fs-18 m-0">
+                  {{additionalPackage?.packageBasePrice ? (additionalPackage?.packageBasePrice).toFixed(2) : ''}}
+                  {{additionalPackage?.packageBaseCurrencySymbol}}</h2>
+                <p class="fs-14">{{additionalPackage?.duration?.Years}} Year(s) Validity</p>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+
+
+        <div class="mainrow" *ngIf="(isPackageSelected || stakeholderDtl['origin'] == 'INTERNATIONAL') && !promoApplied">
+          <div class="alignrow borderpromocode p-l-22 p-r-22 p-t-22 p-b-22">
+            <div class="companyrow">
+              <span (click)="openDialog()" class="fs-15 viewcolor cursor">View offer disclaimers</span>
+              <p class="fs-14 Additionalcolor p-t-20">Do you have promo code?</p>
+              <div class="applyflex">
+                <div class="promoalign">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Promo Code" app-restrict-input="firstspace" appAlphanum
+                      autocomplete="off" [formControl]="promoCodeCtrl">
+                    <mat-error *ngIf="promoCodeCtrl.errors?.invalidPromo && promoCodeCtrl.touched">Invalid promo code
+                    </mat-error>
+                  </mat-form-field>
+                  <i class="bgi bgi-info formationcolor"></i>
+                </div>
+                <div class="applyspace">
+                  <button type="button" [disabled]="!promoCodeCtrl.value" mat-raised-button color="primary"
+                    (click)="applyPromoCode()" class="applybtn m-l-15">Apply</button>
+                </div>
+              </div>
+            </div>
+            <div class="validity" *ngIf="promoCodeCtrl.value">
+              <div class="removerow cursor">
+                <i class="bgi bgi-delete " (click)="cancelPromo()"><span class="fs-12 p-l-10">Remove Pack</span></i>
+              </div>
+            </div>
+          </div>
+          <div class="spaceend pd-15">
+            <div class="totalcolor">
+              <h2 class="fs-18">Sub Total</h2>
+            </div>
+            <div class="omrcolor">
+              <h2 class="fs-18">
+                {{subTotal + additionalPackageTotalPrice ? (subTotal + additionalPackageTotalPrice).toFixed(2) : ''}}
+                {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="mainrow" *ngIf="promoApplied">
+          <div class="alignrow borderpromocode m-l-22 m-r-22 p-t-22 p-b-22">
+            <div class="companyrow ">
+              <span (click)="openDialog()" class="fs-15 viewcolor cursor">View offer disclaimers</span>
+              <!-- <p class="fs-14 discountcolor p-t-24">Additional Charges (12%)</p> -->
+              <p class="fs-14  formationcolor p-t-20">Promo Code:<span
+                  class="Additionalcolor p-l-6">{{promoCodeCtrl.value}}</span></p>
+              <p class="fs-14 discountcolor m-0">Discount Amount</p>
+            </div>
+            <div class="validity ">
+              <div class="removerow">
+                <i class="bgi bgi-delete cursor" (click)="cancelPromo()"><span class="fs-12 p-l-10">Remove
+                    Pack</span></i>
+                <!-- <h2 class="fs-18 p-t-15 m-0">{{packageDtl?.subscription?.packageBasePrice}} {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2> -->
+                <h2 class="fs-18 p-t-20 lh-22">{{promoDtl?.discount}}</h2>
+                <h2 class="fs-18 m-0">-{{promoDtl?.discountAmount ? (promoDtl?.discountAmount).toFixed(2) : ''}}
+                  {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+              </div>
+            </div>
+          </div>
+          <div class="spaceend pd-15">
+            <div class="totalcolor">
+              <h2 class="fs-18">Sub Total</h2>
+            </div>
+            <div class="omrcolor">
+              <h2 class="fs-18">
+                {{subTotal + additionalPackageTotalPrice ? (subTotal + additionalPackageTotalPrice).toFixed(2) : ''}}
+                {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="rightsidecards cardtwo p-l-20 p-r-20 p-t-60 p-b-10" *ngIf="showNameCard || mapToggle.value">
+          <p class="personname">Hi, {{firstname | titlecase}}</p>
+          <p>{{designation | titlecase}}</p>
+          <p class="personemail">{{renteremailid}}</p>
+          <p class="mailcontent">You will receive invoice & receipt to this given email id, </p>
+          <p class="disclosetext m-0">For any queries, kindly click for support.</p>
+        </div>
+      </div>
+      <!-- Right Side Card Ends -->
+    </div>
+
+  </div>
+</div>
+<app-responseloader *ngIf="showResponsiveLoader"></app-responseloader>
+<app-payment *ngIf="showPaymentPage && !paymentDtl" [stakeholderDtl]="stakeholderDtl" [packageDtl]="packageDtl"
+  [selectedAddnlPackage]="selectedAddnlPackage" [promoApplied]="promoApplied" [promoDtl]="promoDtl"
+  [promoCodeCtrl]="promoCodeCtrl" [invoiceref]="invoiceref" [subTotal]="subTotal"
+  [additionalPackageTotalPrice]="additionalPackageTotalPrice" [invoiceDownloadLink]="invoiceDownloadLink"
+  (showPaymentSuccess)="paymentDtl = $event"></app-payment>
+
+  <app-paymentsuccess *ngIf="paymentDtl" [paymentDtl]="paymentDtl"></app-paymentsuccess>

@@ -1,0 +1,30 @@
+<div fxLayoutAlign="center" id="addVehiclemanudacturer" class="changeassessor" *ngIf="!disableSubmitButton">
+    <form [formGroup]="vehiclemanufacturer" (ngSubmit)="vehiclemanufacturer.valid ? submit(vehiclemanufacturer.value) : focusInvalidInput(vehiclemanufacturer)">
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp">
+                 <mat-form-field appearance="outline">
+                    <mat-label>{{'Vehicle Manudacturer Name (English)' | translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" matInput   app-restrict-input="englishspace"  formControlName="name_en" required>
+                    <mat-error *ngIf="form.name_en.errors?.required || form.submitted"> {{'Enter the Vehicle Manudacturer Name  (English)' | translate}} </mat-error>
+                </mat-form-field>
+                
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field class="filter" class="arabiclanguage" appearance="outline">
+                    <mat-label>{{'Vehicle Manudacturer Name  (Arabic)' | translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" matInput  app-restrict-input="arabic" appAlphabetonly formControlName="name_ar" required>
+                    <mat-error *ngIf="form.name_ar.errors?.required || form.submitted"> {{'Enter the Vehicle Manudacturer Name  (Arabic)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">            
+            <div class="buttonalign" >
+                <button mat-raised-button type="button"  class="btnwhite" (click)="cancel()">{{'Cancel' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15" *ngIf="pagetype == 'add'" >{{'Submit' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15" *ngIf="pagetype == 'edit'" >{{'Update' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

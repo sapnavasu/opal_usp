@@ -1,0 +1,204 @@
+.txt-red {
+    color: #ED1C27;
+}
+
+.txt-gry {
+    color: #626366 !important;
+}
+
+.fs-36 {
+    font-size: 36px !important;
+}
+
+.fs-30 {
+    font-size: 30px !important;
+}
+
+.fs-16 {
+    font-size: 16px !important;
+}
+
+.fs-15 {
+    font-size: 15px;
+}
+
+.fs-18 {
+    font-size: 18px !important;
+}
+
+.fs-24 {
+    font-size: 24px !important;
+}
+
+.primary {
+    background-color: #ED1C27 !important;
+    color: #fff !important;
+}
+
+.txt-blue1 {
+    color: #cfd9f8 !important;
+}
+
+.fw {
+    font-weight: bold;
+}
+
+.lh-30 {
+    line-height: 30px;
+}
+
+.lh-28 {
+    line-height: 28px;
+}
+
+.m-t-30 {
+    margin-top: 30px;
+}
+
+.m-b-30 {
+    margin-bottom: 30px;
+}
+
+#contact_form {
+    background: #fff;
+
+    .background_welcome {
+        background-color: #f6f6f6;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .mat-raised-button {
+        box-shadow: none !important;
+        border-radius: 2px !important;
+        font-size: 1rem;
+        color: #ffff;
+        text-decoration: none;
+        padding: 5px 10px;
+    }
+
+    .maxwidthinnerpart {
+        max-width: 1366px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .image_border {
+        width: 60%;
+        height: 100px;
+        margin-top: -105px;
+        background: rgb(255 255 255 / 73%);
+        position: absolute;
+        border-radius: 0px 94px 0px 0px;
+        -moz-border-radius: 0px 94px 0px 0px;
+        -webkit-border-radius: 0px 94px 0px 0px;
+        border: 0px solid #000000;
+    }
+
+    .banner_headersection {
+        position: relative;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .tabcontent {
+        .mat-form-field-appearance-outline {
+            .mat-form-field-outline-start {
+                border-radius: 1px !important;
+            }
+            .mat-form-field-outline-end {
+                border-radius: 1px !important;
+            }
+        }
+        .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker {
+            color: #ED1C27 !important;
+        }
+    
+        .mat-form-field-should-float mat-label {
+            color: #999999;
+        }
+    
+        .mat-form-field label {
+            color: #999999;
+    
+            span {
+                color: #ED1C27 !important;
+            }
+        }
+    
+       
+    
+        .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+            color: #ED1C27 !important;
+        }
+    
+        .mat-form-field-appearance-outline.mat-hover .mat-form-field-outline-thick {
+            color: #ED1C27 !important;
+        }
+    
+        .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+            color: #ED1C27 !important;
+        }
+    
+        .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+            color: #ED1C27 !important;
+        }
+    }
+    .line {
+        flex: 4;
+        .mat-divider {
+            width: 12%;
+            margin-left: 20px;
+            border-top-width: 3px;
+            border-color: #ED1C27;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    #contact_form {
+        .back_img {
+            place-content: center !important;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .main_content {
+        line-height: 35px;
+    }
+}
+
+[dir=rtl] {
+    #contact_form {
+        .bulletlist_orgcert {
+            padding-right: 0px;
+        }
+
+        .bulletlist_orgcert li::before {
+            padding-right: 0px !important;
+            padding-left: 15px !important;
+
+        }
+
+        .headermenushowreg {
+            .reverse {
+                .bgi.bgi-next-1 {
+                    display: inline-block;
+                    rotate: 180deg;
+                }
+            }
+        }
+
+    }
+
+}
+
+@media (min-width:1367px) {
+    .centerarrange,
+        #regfooter_maincontainer {
+            max-width: 1366px !important;
+        }
+}

@@ -1,0 +1,179 @@
+<!--button [matMenuTriggerFor]="flags" mat-icon-button class="m-r-5"> 
+  <i class="flag-icon flag-icon-{{ selectedLanguage.icon }}"> </i>
+</button>
+<mat-menu #flags="matMenu" class="mymegamenu">
+  <button mat-menu-item *ngFor="let lang of languages" (click)="changeLanguage(lang)">
+    <i class="flag-icon flag-icon-{{ lang.icon }} m-r-10"></i>
+    <span>{{ lang.language }}</span>
+  </button>
+</mat-menu-->
+
+<!-- ============================================================== -->
+<!-- Notification - style you can find in header.scss -->
+<!-- ============================================================== -->
+<!--button [matMenuTriggerFor]="notification" mat-icon-button class="m-r-5">
+  <mat-icon>message</mat-icon>
+  <div class="notify">
+    <span class="heartbit"></span>
+    <span class="point"></span>
+                            </div>
+</button>
+<mat-menu #notification="matMenu" class="mymegamenu">
+    <div class="mailbox">
+        <ul>
+            <li>
+        <div class="drop-title text-muted">{{ 'Notifications' | translate }}</div>
+            </li>
+            <li>
+                <div class="message-center">
+          <perfect-scrollbar [config]="config">
+
+            <a href="#" *ngFor="let notification of notifications">
+              <div class="round {{ notification.round }}">
+                <i class="{{ notification.icon }}"></i>
+                            </div>
+              <div class="mail-content">
+                <h5>{{ notification.title }}</h5>
+                <span class="mail-desc text-muted">{{ notification.subject }}</span>
+                <span class="time text-muted">{{ notification.time }}</span>
+                            </div>
+            </a>
+          </perfect-scrollbar>
+                </div>
+            </li>
+        </ul>
+    </div>
+</mat-menu-->
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+<!--button [matMenuTriggerFor]="message" mat-icon-button class="m-r-5">
+  <mat-icon>email</mat-icon>
+  <div class="notify">
+    <span class="heartbit"></span>
+    <span class="point"></span>
+        </div>
+</button>
+<mat-menu #message="matMenu" class="mymessage">
+    <div class="mailbox">
+        <ul>
+            <li>
+        <div class="drop-title text-muted">You have 4 new messages</div>
+            </li>
+            <li>
+                <div class="message-center">
+                    <perfect-scrollbar [config]="config">
+            <a href="#" *ngFor="let mymessage of mymessages">
+              <div class="user-img">
+                <img src="{{ mymessage.useravatar }}" alt="user" class="img-circle" width="40" />
+                <span class="profile-status {{ mymessage.status }} pull-right"></span>
+                            </div>
+              <div class="mail-content">
+                <h5>{{ mymessage.from }}</h5>
+                <span class="mail-desc text-muted">{{ mymessage.subject }}</span>
+                <span class="time text-muted">{{ mymessage.time }}</span>
+              </div>
+                        </a>
+                    </perfect-scrollbar>
+                </div>
+            </li>
+        </ul>
+    </div>
+</mat-menu-->
+<!--div class="popnotify">
+    <button popover="Notifications" popoverPlacement="bottom" [popoverOnHover]="true"
+        [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false" [popoverDisabled]="!tooltipType"
+        [popoverAnimation]="true" [routerLink]="['/notification']" class="notifypos" mat-icon-button>
+        <span class="notifycount">05</span>
+        <i class="bgi bgi-notification"></i>
+    </button>
+</div-->
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+<div class="myusrmegamenu" fxLayout="row" fxLayoutAlign="center center">
+    <div class="menuhead">
+        <div *ngIf="isadmin != 1">
+         <img  src="{{companylogo?companylogo:'assets/images/opalimages/avatar.svg'}}" alt="user" class="profile-pic" />
+        </div>
+        <mat-divider *ngIf="isadmin == 1" [vertical]="true"></mat-divider>
+        <span class="usrdets m-l-10">
+            <span class="usrtitles">{{user_name}}</span>
+            <span class="usrcontents">{{designation}}
+                <!-- <span *ngIf="isadmin == '1'">- Focal Point</span> -->
+            </span>
+        </span>
+    </div>
+    <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5 p-b-10" [disableRipple]="true">    
+    <span class="usrdropdown"><span><i class="fa fa-angle-down ng-tns-c465-3"></i></span></span>
+</button>
+</div>
+
+
+  <mat-menu #profile="matMenu" class="myusrmegamenu m-t-20">    
+    <button mat-menu-item  *ngIf="stakeHolderType != '1'" [routerLink]="'/accountsettings/home'" ><mat-icon>settings</mat-icon>{{ 'Settings' | translate }}</button>
+    <button mat-menu-item  *ngIf="stakeHolderType == '1'" [routerLink]="'/accountsettings/changepassword'" ><mat-icon>settings</mat-icon>{{ 'Change Password' | translate }} </button>
+    <!-- <button mat-menu-item  ><mat-icon>account_box</mat-icon> Profile</button>
+    <button mat-menu-item><mat-icon>notifications_off</mat-icon> Disable notifications</button> -->
+    <div class="menufoot" fxFlex="100" fxLayoutAlign="start center">
+        <button mat-menu-item fxFlex="100" (click)="logout()"><mat-icon>exit_to_app</mat-icon> {{ 'Sign Out' | translate }}</button>
+    </div>
+  </mat-menu>
+
+<!--span class="usrdetails">
+    <span class="usrbg">
+        <img src="{{logo_url}}" onError="this.src = 'assets/images/noimagenewlogo.png'" alt="LYPIS" /> 111
+    </span>
+    <span class="usrdet" >
+        <span class="usrcontent" *ngIf="stakeHolderType == 8" >
+        </span>
+        <span class="usrtitle">{{companyname}}</span>
+        <span class="usrcontent" *ngIf="stakeHolderType != 7 && stakeHolderType != 4 && stakeHolderType != 1 && jsrsstatus=='A' ">{{'superadminheader.OPALcode' | translate}}:
+            {{supplierId?supplierId:'-'}}</span>
+        <span class="usrcontent" *ngIf="stakeHolderType != 7 && stakeHolderType != 4 && stakeHolderType != 1 && jsrsstatus!='A' && stakeHolderType != 8">{{'superadminheader.OPALregno' | translate}}
+            {{mcm_RegistrationNo?mcm_RegistrationNo:'-'}}</span>
+
+        <span class="usrcontent" *ngIf="stakeHolderType == 7 && stakeHolderType != 4 && stakeHolderType != 1 && industryType != 1">{{'superadminheader.buyecode' | translate}}:
+            {{buyerId?buyerId:'-'}}</span>
+        <span class="usrcontent" *ngIf="stakeHolderType == 7 && stakeHolderType != 4 && stakeHolderType != 1 && industryType == 1">{{'superadminheader.operid' | translate}}:
+            {{buyerId?buyerId:'-'}}</span>
+    </span>
+    <span class="usrdropdown">
+        <span [matMenuTriggerFor]="profile"><i class="fa fa-angle-down"></i></span>
+    </span>
+</span>
+<mat-menu #profile="matMenu" class="myusrmegamenu">
+    <div class="menuhead">
+        <span class="usrbgs">
+            <img src="{{user_logo_url}}" onError="this.src = 'assets/images/avatar.svg'" alt="LYPIS" />
+        </span>
+        <span class="usrdets">
+            <span  *ngIf="user_name?.length > 25" class="usrtitles" popover="{{user_name}}" popoverPlacement="top" [popoverOnHover]="true"
+            [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+            [popoverAnimation]="true" >{{user_name | truncate:[25]}}</span>
+            <span  *ngIf="user_name?.length < 26" class="usrtitles">{{user_name}}</span>
+            <span  *ngIf="designation?.length > 30" class="usrcontents" popover="{{designation}}" popoverPlacement="top" [popoverOnHover]="true"
+                [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                [popoverAnimation]="true" >{{designation | truncate:[30]}}</span>
+            <span *ngIf="designation?.length < 30"  class="usrcontents">{{designation}}</span>
+        </span>
+    </div>
+    <button  mat-menu-item [disabled]="mcpbutton" (click) = "mcpcheck()">
+        <i class="bgi bgi-MasterCompanyprofile"></i> {{'superadminheader.mastcomp' | translate}} 
+    </button>
+    <button  mat-menu-item [disabled]="profilebutton" [routerLink]="'/profilecreation/profilecreationlist'">
+        <i class="bgi bgi-User-Profile"></i> {{'superadminheader.myprof' | translate}}
+    </button>
+    <button  [disabled]="accsettbutton"  mat-menu-item (click)="chkUserPermission()">
+        <i class="bgi bgi-services" aria-hidden="true"></i> {{'superadminheader.accosett' | translate}}
+    </button>
+  
+    <button mat-menu-item>
+        <i class="fa fa-question-circle bgi-blue" aria-hidden="true"></i> {{'superadminheader.help' | translate}}
+    </button>
+    <div class="menufoot">\
+        <button mat-menu-item class="logalign" (click)="logout()">
+            {{'superadminheader.logo' | translate}}
+        </button>
+    </div>
+</mat-menu-->

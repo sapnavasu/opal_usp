@@ -1,0 +1,14 @@
+/vendor
+/api/exceltemplates
+node_modules
+/config-demo.net.php
+/nbproject/private/
+backend/assets/
+api/web/
+api/modules/backend/documents/
+nbproject/project.properties
+nbproject/project.xml
+dev/report.*
+dev/src/environments/environment.ts
+config.php
+dev/src/environments/environment.local.ts

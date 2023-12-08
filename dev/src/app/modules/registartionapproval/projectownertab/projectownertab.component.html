@@ -1,0 +1,181 @@
+<div fxLayout="row wrap" class="background m-l-40 m-r-40">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="masterTable pd-25">
+    <div class="paginationwithfilter masterPageTop ">
+      <mat-paginator class="masterPage masterPageTop" [style.visibility]="(resultsLength > 5) ? 'visible' : 'hidden' "
+      #paginator [length]="resultsLength" [pageSize]="10" (page)="onPaginateChange($event);"
+        [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      <div fxLayout="row">
+          <mat-form-field>
+              <input autocomplete="off" placeholder="Search" matInput [formControl]="searchControl">
+              <button  mat-button matSuffix mat-icon-button
+                (click)="fetchProjOwnData()" aria-label="Search">
+                <mat-icon matSuffix>search</mat-icon>
+              </button>
+              <button  mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()" *ngIf="searchControl.value">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+      </div>
+    </div>
+    <mat-table [style.visibility]="(resultsLength != 0) ? 'visible' : 'hidden' " class="protablewithbottomscroll" [dataSource]="projOwnListData"   #sort="matSort" matSort matSortActive="MemberRegMst_Pk"
+    matSortDirection="desc" matSortDisableClear>
+      <ng-container matColumnDef="mcm_referenceno">
+        <mat-header-cell class="lypiscodeclmn" fxFlex="20" *matHeaderCellDef mat-sort-header>
+            Supplier Code
+        </mat-header-cell>
+        <mat-cell class="lypiscodeclmn" fxFlex="20" *matCellDef="let fleetData" data-label=" JSRS Code">
+          {{fleetData.refNo}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="mrm_projownerid">
+        <mat-header-cell class="projectowneridclmn" fxFlex="18" *matHeaderCellDef mat-sort-header>
+          Project Owner ID
+        </mat-header-cell>
+        <mat-cell fxFlex="18" class="projectowneridclmn" *matCellDef="let fleetData" data-label="Project Owner ID">
+          {{fleetData.projectOwnerId}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="MCM_CompanyName">
+        <mat-header-cell class="companynameclmn" fxFlex="45" *matHeaderCellDef mat-sort-header>
+          Organisation Name
+        </mat-header-cell>
+        <mat-cell fxFlex="45" [title]="fleetData.companyName" class="companynameclmn" *matCellDef="let fleetData" data-label="Organisation Name">
+          {{fleetData.companyName | truncate:[20]}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="prjt_referenceno">
+        <mat-header-cell class="projectrefnoclmn" fxFlex="18" *matHeaderCellDef mat-sort-header>
+          Project Ref. No.
+        </mat-header-cell>
+        <mat-cell fxFlex="18" class="projectrefnoclmn" *matCellDef="let fleetData" data-label="Project Ref.No.">
+          {{fleetData.projectRefNo}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="prjt_projname">
+        <mat-header-cell class="projecnameclmn" fxFlex="30" *matHeaderCellDef mat-sort-header>Project Name</mat-header-cell>
+        <mat-cell fxFlex="30" [title]="fleetData.projectName" class="projecnameclmn" *matCellDef="let fleetData" data-label="Register On">
+          {{fleetData.projectName | truncate:[20]}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="prjt_sectormst_fk">
+        <mat-header-cell class="secotorclmn" fxFlex="25" *matHeaderCellDef mat-sort-header>Sector</mat-header-cell>
+        <mat-cell fxFlex="25" [title]="fleetData.sectorName" class="secotorclmn" *matCellDef="let fleetData" data-label="Sector">
+          {{fleetData.sectorName}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CyM_CountryName_en">
+        <mat-header-cell class="countrynameclmn" fxFlex="20" *matHeaderCellDef mat-sort-header>Country
+          <div class="edit">
+
+          </div>
+        </mat-header-cell>
+        <mat-cell fxFlex="20" class="countrynameclmn" *matCellDef="let fleetData" data-label="Country">
+          {{fleetData.countryName}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="prjt_submittedon">
+        <mat-header-cell class="registeredonclmn" fxFlex="20" *matHeaderCellDef mat-sort-header>Submitted on
+          <div class="edit">
+
+          </div>
+        </mat-header-cell>
+        <mat-cell fxFlex="20" class="registeredonclmn" *matCellDef="let fleetData" data-label="Country">
+          {{fleetData.submittedOn}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="MRM_CreatedOn">
+        <mat-header-cell class="registeredonclmn" fxFlex="20" *matHeaderCellDef mat-sort-header>Registered on
+          <div class="edit">
+
+          </div>
+        </mat-header-cell>
+        <mat-cell fxFlex="20" class="registeredonclmn" *matCellDef="let fleetData" data-label="Country">
+          {{fleetData.createdOn}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="MRM_MemberStatus">
+        <mat-header-cell fxFlex="24" class="memberstatusclmn"  *matHeaderCellDef [popover]="users" popoverPlacement="bottom"
+          [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false"
+          [popoverAnimation]="true">
+
+          <popover-content #users placement="bottom" [animation]="true" [closeOnClickOutside]="true">
+            <form [formGroup] = "supplierStatusFilterFormGroup" (ngSubmit)="fetchProjOwnData()">
+              <div class="popovermaincontent">
+                <div class="popovertexts">
+                  <div class="primary" *ngFor="let filterVal of filterList;  let i=index;">
+                    <mat-checkbox (change)="filterChange($event);" [value]="filterVal.id"></mat-checkbox>
+                    <span class=" p-l-8">{{filterVal.name}}</span>
+                  </div>
+                  <div class="applyspace m-t-10">
+                    <button type="submit" mat-raised-button color="primary" class="applybtn">Apply</button>
+                    <button type="clear" mat-raised-button color="primary" class="cancelbtn m-l-15">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </popover-content>
+          Project Status
+          <div class="edit">
+
+          </div>
+
+        </mat-header-cell>
+        <mat-cell fxFlex="24" class="memberstatusclmn"  *matCellDef="let fleetData" data-label="Project Status">
+
+          <mat-chip-list aria-label="Status">
+            <mat-chip class={{fleetData.projStatusCls}}>{{fleetData.projStatus}}</mat-chip>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <mat-header-cell fxFlex="8" class="actionclmn" *matHeaderCellDef>Action
+
+
+        </mat-header-cell>
+        <mat-cell fxFlex="8" class="user actionclmn" [matMenuTriggerFor]="menutop"   *matCellDef="let fleetData" data-label="Action">
+          <button mat-icon-button class="mainhover">
+            <mat-icon class="maticonview">more_vert</mat-icon>
+          </button>
+          <mat-menu #menutop="matMenu"class="master-menu">
+            <button mat-menu-item (click)="viewpage(fleetData.regPk)">
+              <span>View & Validate</span>
+
+            </button>
+
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+        <input type="text" name="value">
+      </mat-row>
+
+    </mat-table>
+    <div fxLayout="row wrap" *ngIf="resultsLength == 0" class="nodata noducumentaddedyet">
+      <div fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <img src="./assets/images/Add.svg" alt="nocollateral">
+          <p class="fs-16 lypisfont-bold txt-tropaz m-0 lh-25 p-t-15">No Project Owners match your search criteria.</p>
+          
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-paginator class="masterPage masterbottom" showFirstLastButtons [style.visibility]="(resultsLength > 5) ? 'visible' : 'hidden' "
+          (page)="onPaginateChange($event);syncPrimaryPaginator($event);"
+          [pageSize]="paginator?.pageSize" [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+          [pageSizeOptions]="paginator?.pageSizeOptions">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

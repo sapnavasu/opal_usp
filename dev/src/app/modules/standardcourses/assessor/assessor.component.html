@@ -1,0 +1,350 @@
+<div id="assesorDate" fxLayoutAlign="center">
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+    
+        <div fxFlex="100">
+            <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+                <div class="details pd-15"  fxLayout="row">
+                    <div  fxLayout="row wrap" fxFlex="95">
+                        <div class="head" fxLayout="row wrap" fxFlex="100">
+                            <h2 class="headcolor fs-18 m-0 lh-15">
+                                {{ifarbic == true ?(staffinfodata?.sir_name_ar):(staffinfodata?.sir_name_en)}}
+                            </h2>
+                        </div>
+                        <div class="m-t-10" fxLayout="row wrap" fxFlex="100">
+                            <p class="txt-gry m-0 fs-15 ">{{'staff.roleofcourse' | translate }}: <span
+                                    class="txt-gry3">
+                                    {{(ifarbic == true ?(staffinfodata.rm_rolename_ar+(staffinfodata?.rolecnt >= 1 ?'(+'+staffinfodata?.rolecnt+')':'')):(staffinfodata?.rm_rolename_en+(staffinfodata?.rolecnt >= 1 ?'(+'+staffinfodata?.rolecnt+')':'')))}}
+                                </span></p>
+                            <p class="txt-gry m-0 fs-15 m-l-10">{{'staff.coursubcate' | translate }}: <span class="txt-gry3">
+                                {{(ifarbic == true ?(staffinfodata.ccm_catname_ar+(staffinfodata?.subcat >= 1 ?'(+'+staffinfodata?.subcat+')':'')):(staffinfodata?.ccm_catname_en+(staffinfodata?.subcat >= 1 ?'(+'+staffinfodata?.subcat+')':'')))}}    
+                            </span></p>
+                        </div>
+                        <div *ngIf="!training" class="fs-13 m-t-20 m-b-20" fxLayout="row wrap" fxFlex="100">
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'staff.civinumb' | translate}}: <span
+                                    class="txt-gry3">{{staffinfodata?.sir_idnumber}}</span>
+                            </p>
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'staff.stat' | translate}}:
+                                <span *ngIf="staffinfodata?.appsit_status == '1'" class="red">{{'table.new'|translate}}</span>
+                                <span *ngIf="staffinfodata?.appsit_status == '2'" class="blue">{{'table.updated'|translate}}</span>
+                                <span *ngIf="staffinfodata?.appsit_status == '3'" class="green">{{'table.approv' |translate}}</span>
+                                <span *ngIf="staffinfodata?.appsit_status == '4'" class="red">{{'table.decl' |translate}}</span>
+                            </p>
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'staff.compcard' | translate}}:
+                            <span *ngIf="staffinfodata?.competcard == '1'"class="New">{{'New' | translate}}</span>
+                            <span *ngIf="staffinfodata?.competcard == '2'"class="approved">{{'Active' | translate}}</span>
+                            <span *ngIf="staffinfodata?.competcard == '3'" class="red">{{'Expired' | translate}}</span>
+                            <span *ngIf="staffinfodata?.competcard == '4'"class="blue">{{'Posted for Card Upgrade' | translate}}</span>
+                            </p>
+                        </div>
+                        <div *ngIf="training" class="fs-13 m-t-20 m-b-20" fxLayout="row wrap" fxFlex="100">
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'staff.civinumb' | translate}}: <span class="txt-gry3">{{staffinfodata?.sir_idnumber}}</span></p>
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'Email ID' | translate }}: <span class="txt-gry3">{{staffinfodata?.email_id}}</span></p>
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'Account Status' | translate }}: 
+                                <span class="approved" *ngIf="staffinfodata?.oum_status == 'A'">{{'Active' | translate}}</span>
+                                <span class="red" *ngIf="staffinfodata?.oum_status == 'I'">{{'In-Active' | translate}}</span>
+                                <span class="blue" *ngIf="staffinfodata?.oum_status == 'E'">{{'Email Confirmation Pending' | translate}}</span>
+                                <span class="teaching" *ngIf="staffinfodata?.oum_status == null">{{'Yet to Create Account' | translate}}</span>
+                            </p>
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'staff.compcard' | translate}}:
+                                <span class="approved" *ngIf="staffinfodata?.competency_card == '1'">{{'Active' | translate}}</span>
+                                <span class="red" *ngIf="staffinfodata?.competency_card == '2'">{{'Expired' | translate}}</span>
+                                </p>
+                            <!-- <p class= "txt-gry boxItems">{{'Course' | translate }}: <span class="txt-gry3">{{ifarbic ? staffinfodata?.categories_ar ?staffinfodata?.categories_ar : '-' :staffinfodata?.categories_en ? staffinfodata?.categories_en :'-'}}</span></p> -->
+                            <p class="application-detais m-r-10 txt-gry m-0">{{'Last Approved On' | translate }}: <span class="txt-gry3">{{staffinfodata?.last_approved ? staffinfodata?.last_approved : '-'}}</span></p>
+                        </div>
+                    </div>
+                    <div *ngIf="training" class="cardMenu" fxFlex="5">
+                        <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu" aria-label="Example icon-button with a menu">
+                            <mat-icon class="moremenucolor txt-gry">more_horiz</mat-icon>
+                        </button>
+                        <mat-menu #actionmenu="matMenu"class="master-menu whentootltipadded table_menu">
+                            <button type="button" mat-menu-item *ngIf="deleteaccess && stktype == 1" (click)="removeCenter(staffinfodata.staffinforepo_pk)"><span>{{'Remove from this Centre' |translate}}</span></button>
+                            <button type="button" mat-menu-item *ngIf="readaccess" (click)="viewtechButton('viewstaff', staffinfodata?.sir_idnumber,staffinfodata?.coursePk)"><span>{{'View Staff Details' |translate}}</span></button>
+                            <button type="button" mat-menu-item *ngIf="readaccess" (click)="viewtechButton('viewAvailabilty', staffinfodata?.sir_idnumber,staffinfodata?.coursePk)" ><span>{{'View Availability' |translate}}</span></button>
+                            <button type="button" mat-menu-item (click)="genrateCompetency(staffinfodata.staffinforepo_pk)" *ngIf="staffinfodata?.scch_verificationcode == null && createaccess && stktype == 1"><span>{{'Generate Competency Card' |translate}}</span></button>
+                            <button type="button" mat-menu-item (click)="reGenrateCompetency(staffinfodata.staffinforepo_pk)" *ngIf="staffinfodata?.scch_verificationcode != null && createaccess && stktype == 1"><span>{{'Regenerate Competency Card' |translate}}</span></button>
+                            <button *ngIf="staffinfodata?.scch_verificationcode != null && downloadaccess" type="button" mat-menu-item (click)="printCompetency(staffinfodata?.staffinforepo_pk)"><span>{{'Print Competency Card'
+                                |translate}}</span></button>
+                            <button *ngIf="staffinfodata?.scch_verificationcode != null && readaccess" type="button" mat-menu-item (click)="viewCompetency(staffinfodata?.staffinforepo_pk)"><span>{{'View Competency Card'
+                                |translate}}</span></button>
+                            <button type="button" *ngIf="downloadaccess" mat-menu-item (click)="openDatepickerDialog(staffinfodata.sir_idnumber,staffinfodata.appostaffinfotmp_pk,(ifarbic ? staffinfodata.sir_name_ar ?staffinfodata.sir_name_ar : '-' :staffinfodata.sir_name_en ? staffinfodata.sir_name_en :'-'),(ifarbic ? staffinfodata.categories_ar ?staffinfodata.categories_ar : '-' :staffinfodata.categories_en ? staffinfodata.categories_en :'-'),staffinfodata?.coursePk)" ><span>{{'Export Staff Availability' |translate}}</span></button>
+                                              
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+            <div class="availablecard ">
+                <form  [formGroup]="availabelDate" #availabelFormRest="ngForm" class="p-l-10 p-r-10 p-b-25">
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-t-15">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="serachrow datepickerrangeform" [ngClass]="editDateavailabilty?'disablededit': 'null'">
+                            <!-- <mat-form-field appearance="outline" >
+                                <mat-label> {{'staff.assesavai' | translate}}</mat-label>
+                                <input matInput required formControlName="selectedDate"
+                                    (mousedown)="picker2.open(); $event.preventDefault" [disabled]="picker2.opened"
+                                    [matDatepicker]="picker2" [readonly]="updated" [min]="today">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                                <mat-error
+                                *ngIf="form.selectedDate.errors?.required">
+                                {{'staff.seleassesavail' | translate}} </mat-error>
+                            </mat-form-field> -->
+                            <mat-form-field class="filter" appearance="outline" >
+                                <mat-label> {{'staff.assesavai' | translate}}</mat-label>
+                                <div class="drpicker" id="regapp">
+                                    <!-- <mat-label> {{'staff.assesavai' | translate}}</mat-label> -->
+                                    <input id="login_session" formControlName="selectedDate"  [(ngModel)]="selectedDaterange" #selectedDateInput [minDate]="minDate" [required]="editDateavailabilty?false:true" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"    class="form-control" [max]="today"/>
+                                    <div class="closeanddateicomax">
+                                        <mat-datepicker-toggle matSuffix >
+                                        </mat-datepicker-toggle>
+                                    </div>
+                                </div>
+                                <mat-error
+                                *ngIf="form.selectedDate.errors?.required">
+                                {{'staff.seleassesavail' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div  fxFlex.gt-md="25" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                            <mat-form-field appearance="outline">
+                                <mat-label>{{'course.courstarttime' | translate}} </mat-label>
+                                <input  matTimepicker #t="matTimepicker" [strict]="false" 
+                                 id="form" formControlName="startDate" readonly
+                                required>
+                            <mat-icon matSuffix
+                                (click)="t.showDialog()">access_time</mat-icon> 
+                               
+                                <mat-error
+                                *ngIf="form.startDate.errors?.required">
+                                {{'course.starttime' | translate}} </mat-error>   
+                            </mat-form-field>
+                        </div>
+                        <div  fxFlex.gt-md="25" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                        ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'End Time' | translate}} </mat-label>
+                            <input matTimepicker #pickerTo_i="matTimepicker"  readonly
+                            [strict]="false" (timeChange)="updateTime()" [minDate]="this.availabelDate.controls['startDate'].value"
+                             id="form"  formControlName="EndDate"
+                            required>
+                        <mat-icon matSuffix 
+                            (click)="pickerTo_i.showDialog()">access_time</mat-icon>    
+                           
+                            <mat-error
+                            *ngIf="form.EndDate.errors?.required">
+                            {{'course.endtime' | translate}} </mat-error>  
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div class="note fs-14 txt-gry3" fxLayoutAlign="end center">
+                         <p>{{'Note: It will not be possible to conduct the Assessment session if the whole day is selected for the Assessment/Training. Therefore, the  recommendation is to schedule the session in two different time slots as suggested here: 06:00 AM to 12:00 PM and 12:00 PM to 06:00 PM.' | translate}}</p>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="end center" class="m-t-15">
+                          <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="clear()">{{'Clear' | translate}}</button>
+                          <button mat-raised-button class="submitbtn" type="button" *ngIf="!staffpK" (click)="submitdata()">{{'payment.subm' | translate}}</button>
+                          <button mat-raised-button class="submitbtn" type="button" *ngIf="staffpK" (click)="editData()">{{'Update' |
+                            translate}}</button>
+                    </div>
+                </form>
+              <div class="p-l-10 p-r-10">
+                <div class="paginationwithfilter masterPageTop ">
+                    <!-- [style.visibility]="(resultsLength > 5) ? 'visible' : 'hidden' " -->
+                    <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                    <div fxLayout="row wrap" fxLayoutAlign="end">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                class="filter">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                        <div class="awaredtable">
+                            <mat-table #table class="scrolldata" [dataSource]="TrainingtimeData" matSort
+                                matSortDisableClear>
+                                <ng-container matColumnDef="date">
+                                    <mat-header-cell fxFlex="300px" fxFlex.lg="400px" fxFlex.gt-lg="400px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'Date' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="date" fxFlex="300px" fxFlex.lg="400px" fxFlex.gt-lg="400px" *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                        <div *ngIf="!tblplaceholder">{{TrainingData.date}} </div>
+                                        </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="time">
+                                    <mat-header-cell fxFlex="350px" fxFlex.lg="420px" fxFlex.gt-lg="450px" mat-header-cell *matHeaderCellDef
+                                       >{{'Time' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="time" fxFlex="350px" fxFlex.lg="420px" fxFlex.gt-lg="450px" *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                        <div *ngIf="!tblplaceholder">{{TrainingData.times}} </div>
+                                         </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="status">
+                                    <mat-header-cell fxFlex="250px" fxFlex.lg="300px" fxFlex.gt-lg="300px" mat-header-cell *matHeaderCellDef >
+                                        {{'course.stat' | translate}} </mat-header-cell>
+                                    <mat-cell data-label="status" fxFlex="250px" fxFlex.lg="300px" fxFlex.gt-lg="300px" *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                
+                                        <div *ngIf="!tblplaceholder">
+                                           <span class={{TrainingData.rm_name_en}}>{{ifarbic == true ?(TrainingData.rm_name_ar):(TrainingData.rm_name_en)}}</span> 
+                                        </div></mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="action" stickyEnd>
+                                    <mat-header-cell fxFlex="128px" fxFlex.gt-lg="157px" mat-header-cell *matHeaderCellDef>{{'branch.action'
+                                        | translate}}
+                                    </mat-header-cell>
+                                    <mat-cell data-label="action" fxFlex="128px" fxFlex.gt-lg="157px" *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <div class="manageoptions"  *ngIf="TrainingData.dtype == 'yes'">  
+                                                <button *ngIf="training" class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                                    aria-label="Example icon-button with a menu">
+                                                    <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                                </button>
+
+                                                <button *ngIf="!training"  class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu2"
+                                                    aria-label="Example icon-button with a menu">
+                                                    <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                                </button>
+
+                                                <mat-menu  #actionmenu="matMenu" class="master-menu whentootltipadded table_menu">
+                                                    <!-- edit -->
+                                                    <button   *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule == 64 && updateaccess" type="button" mat-menu-item (click)="edit(TrainingData?.appstaffscheddtls_pk,staffinfodata?.coursePk)"><span>{{'Edit' |translate}}</span></button>
+
+                                                    <button *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule == 29 && updateaccess" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,64)"><span>{{'Mark as Available' | translate}} </span></button>
+                                                    <button *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule == 64 && updateaccess" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,29)"><span>{{'Mark as Not Available' | translate}} </span></button>
+                                                    <!-- <button *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule != 32 && TrainingData.assd_dayschedule != 30" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,30)"><span>{{'Mark as Weekend'| translate}} </span></button> -->
+                                                    <button *ngIf="TrainingData.dtype == 'yes' && (TrainingData.assd_dayschedule == 29 || TrainingData.assd_dayschedule == 64) && updateaccess" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,31)"><span>{{'Mark as Holiday'| translate}} </span></button>
+                                                    <!-- <button  type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,32)"><span>{{'Mark as Booked'| translate}} </span></button> -->
+                                                    <button *ngIf="TrainingData.assd_dayschedule == 32 && readaccess" type="button" mat-menu-item (click)="navigatebatch(TrainingData.assd_appstaffinfotmp_fk,TrainingData.assd_date)"><span>{{'View Batch' | translate}} </span></button>
+                                                </mat-menu>
+
+                                                <mat-menu #actionmenu2="matMenu" class="master-menu whentootltipadded table_menu">
+                                                    <!-- edit -->
+                                                    <button   *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule == 64" type="button" mat-menu-item (click)="edit(TrainingData?.appstaffscheddtls_pk)"><span>{{'Edit' |translate}}</span></button>
+
+                                                    <button *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule == 29" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,64)"><span>{{'Mark as Available' | translate}} </span></button>
+                                                    <button *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule == 64" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,29)"><span>{{'Mark as Not Available' | translate}} </span></button>
+                                                    <!-- <button *ngIf="TrainingData.dtype == 'yes' && TrainingData.assd_dayschedule != 32 && TrainingData.assd_dayschedule != 30" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,30)"><span>{{'Mark as Weekend'| translate}} </span></button> -->
+                                                    <button *ngIf="TrainingData.dtype == 'yes' && (TrainingData.assd_dayschedule == 29 || TrainingData.assd_dayschedule == 64)" type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,31)"><span>{{'Mark as Holiday'| translate}} </span></button>
+                                                    <!-- <button  type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,32)"><span>{{'Mark as Booked'| translate}} </span></button> -->
+                                                    <button *ngIf="TrainingData.assd_dayschedule == 32 && TrainingData?.batchStatus != 3 && TrainingData?.batchStatus != null" type="button" mat-menu-item (click)="navigatebatch(TrainingData.assd_appstaffinfotmp_fk,TrainingData.assd_date)"><span>{{'View Batch' | translate}} </span></button>
+                                                </mat-menu>
+
+                                                <mat-menu #actionmenu="matMenu"  *ngIf="TrainingData.dtype == 'no' && TrainingData.assd_dayschedule == 32"
+                                                    class="master-menu whentootltipadded table_menu">
+                                                    <button *ngIf="TrainingData.assd_dayschedule == 32" type="button" mat-menu-item (click)="navigatebatch(TrainingData.assd_appstaffinfotmp_fk,TrainingData.assd_date)"><span>{{'View Batch' | translate}} </span></button>
+                                                </mat-menu>
+
+                                                <mat-menu #actionmenu2="matMenu"  *ngIf="TrainingData.dtype == 'no' && TrainingData.assd_dayschedule == 32"
+                                                    class="master-menu whentootltipadded table_menu">
+                                                    <button *ngIf="TrainingData.assd_dayschedule == 32" type="button" mat-menu-item (click)="navigatebatch(TrainingData.assd_appstaffinfotmp_fk,TrainingData.assd_date)"><span>{{'View Batch' | translate}} </span></button>
+                                                </mat-menu>
+
+                                            </div>
+                                            <div class="manageoptions"  *ngIf="TrainingData.dtype == 'no' && TrainingData.assd_dayschedule == 32">
+                                                <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                                    aria-label="Example icon-button with a menu">
+                                                    <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                                </button>
+                                                
+                                            <mat-menu #actionmenu="matMenu" 
+                                            class="master-menu whentootltipadded table_menu">
+                                            <button *ngIf="TrainingData.assd_dayschedule == 32" type="button" mat-menu-item (click)="navigatebatch(TrainingData.assd_appstaffinfotmp_fk,TrainingData.assd_date)"><span>{{'View Batch' | translate}} </span></button>
+                                        </mat-menu>
+                                            </div>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-first">
+                                    <mat-header-cell fxFlex="300px" fxFlex.lg="400px" fxFlex.gt-lg="400px"  class="serachrow datepickerrangeform" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <div class="drpicker" id="regapp">
+                                                <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                                <input id="login_session"  [formControl]="addeddate" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" [max]="today"/>
+                                                <div class="closeanddateicon">
+                                                    <mat-datepicker-toggle matSuffix >
+                                                    </mat-datepicker-toggle>
+                                                </div>
+                                            </div>
+                                        </mat-form-field>
+                                        </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-second">
+                                    <mat-header-cell fxFlex="350px" fxFlex.lg="420px" fxFlex.gt-lg="450px"  class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                      
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-three">
+                                    <mat-header-cell fxFlex="250px" fxFlex.lg="300px" fxFlex.gt-lg="300px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'table.sele' |
+                                                translate}}</mat-label>
+                                            <mat-select [formControl]="status"  (selectionChange)="applyFilter($event.value,'cert')" multiple>
+                                                <mat-option value="64">{{'batchview.availa' | translate}}</mat-option>
+                                                <mat-option value="29">{{'batchview.notavai' | translate}}</mat-option>
+                                                <mat-option value="30">{{'batchview.week' | translate}}</mat-option>
+                                                <mat-option value="31">{{'batchview.holi' | translate}}</mat-option>
+                                                <mat-option value="32">{{'Booked' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-four" stickyEnd>
+                                    <mat-header-cell fxFlex="128px"  fxFlex.gt-lg="157px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+    
+                                        <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFiltersecound();filtersts=false;"
+                                            aria-hidden="true" matTooltip="{{'table.refr' |translate}}"></i>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <mat-header-row id="headerrowcells" *matHeaderRowDef="TrainingDate;" >
+                                </mat-header-row>
+                                <mat-header-row id="searchrow"
+                                    *matHeaderRowDef="['row-first' , 'row-second' , 'row-three' , 'row-four']">
+                                </mat-header-row>
+                                <mat-row mat-row *matRowDef="let row; columns: TrainingDate;"></mat-row>
+                                <ng-container matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="11">
+                                        <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                    </div>
+                                </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container>
+                                  
+                                    <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'" [style.display]="(resultsLength > 0) ? 'none' : 'block' " 
+                                        *matFooterRowDef="['disclaimer']" style="justify-content: center;display: none;">
+                                    </mat-footer-row>
+                                </ng-container>
+                            </mat-table>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom " showFirstLastButtons
+                                    [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                    [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+             <!-- <button mat-raised-button class="cancelbtn" (click)="cancle()"></button> -->
+            <button *ngIf="!training" mat-raised-button class="cancelbtn m-r-15" type="button" (click)="cancle.emit()">{{'Back' | translate}}</button>
+            <button *ngIf="training" mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goback()">{{'Back' | translate}}</button>
+
+            <!-- <button mat-raised-button class="submitbtn" type="button" (click)="subdate.emit()">{{'payment.subm' | translate}}</button> -->
+            </div>
+        </div>
+    </div>

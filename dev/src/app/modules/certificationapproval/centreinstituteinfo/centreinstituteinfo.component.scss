@@ -1,0 +1,113 @@
+#institue_container {
+    .txt-gry {
+        color: #848484 !important;
+    }
+
+    .txt-gry3 {
+        color: #262626 !important;
+    }
+
+    .title {
+        h4 {
+            color: #0c4b9a;
+            font-size: 18px;
+        }
+
+        .badge {
+            color: #fff !important;
+            padding: 3px 5px;
+            font-size: 15px;
+            border-radius: 3px;
+
+            &.new {
+                background-color: #0c4b9a;
+            }
+
+            &.update {
+                background-color: #0c4b9a;
+            }
+
+            &.appr {
+                background-color: #00a551;
+            }
+
+            &.decl {
+                background-color: #ed1c27;
+            }
+
+        }
+
+    }
+
+    .mat-raised-button {
+        border-radius: 2px;
+        box-shadow: none;
+    }
+
+    .company_dtlview {
+        h4 {
+            color: #262626;
+        }
+
+        .view_dtl {
+            p {
+                min-width: 322px;
+                color: #848484;
+                font-size: 16px;
+                width: 100px;
+                @media(max-width: 768px) {
+                    min-width: 142px;
+                    width: 141px;
+                }
+
+            }
+
+            span {
+                color: #262626;
+                font-size: 16px;
+
+                .document {
+                    width: 22px;
+                    height: 28px;
+                }
+            }
+        }
+    }
+
+    .declinecmd {
+        border: 1px solid #ED1C27;
+        border-radius: 3px;
+        padding: 15px 15px 10px 15px;
+        background-color: #fff8f8;
+
+        .comment {
+            color: #ED1C27 !important;
+        }
+
+        p {
+            color: #262626;
+        }
+    }
+    .successcmd {
+        border: 1px solid #00a551;
+        border-radius: 3px;
+        padding: 15px 15px 10px 15px;
+        background-color: #f8fffb;
+
+        .comment {
+            color: #00a551 !important;
+        }
+
+        p {
+            color: #262626;
+        }
+    }
+        .validet {
+            background-color: #0c4b9a !important;
+            color: #fff !important;
+            height: 45px;
+            min-width: 120px;
+            border: 1px solid #d7dce3;
+            box-shadow: none;
+    }
+}

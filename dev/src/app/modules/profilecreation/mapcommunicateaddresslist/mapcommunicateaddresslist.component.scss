@@ -1,0 +1,100 @@
+
+
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#regofflistview{
+    .regofficelistview{
+        .countryalign{
+            @include flexstart();
+            .countrytextcolor{
+                min-width: 230px;
+            }
+            p{
+                color: #666666 !important;
+                margin: 0px;
+                font-size: 14px !important;
+            }
+            span{
+                color: #333333;
+                margin: 0px;
+                font-size: 0.9375rem;
+            }
+        }
+        .offeredview{
+            border-bottom: 1px solid #dadada;
+            .regofficetextcolor{
+                h2{
+                    font-size: 0.9375rem;
+                    color: #333333;
+                    margin: 0px;
+                }
+            }
+            .alignchecking{
+                  display: flex;
+                  justify-content: flex-start;
+                  padding-bottom: 20px;
+                  .noteintercolor{
+                      padding-left: 10px;
+                       h2{
+                         font-size: 1rem;
+                         color: #333333;
+                         margin: 0px;
+                       }
+                       p{
+                       
+                          margin: 0px; 
+                          span{
+                              @extend p;
+                          }
+                       }
+                  }
+                  .officeaddresscolor{
+                      p{
+                        margin: 0px;  
+                      }
+                      span{
+                          @extend p;
+                      }
+                  }
+            }
+        }
+       
+    }
+}
+
+
+@media (max-width: 767px){
+    #regofflistview{
+        .alignchecking{
+            display: block !important;
+             .noteintercolor{
+                padding-left: 0px !important;
+            }
+        }
+        .countryalign{
+            display: block !important;
+        }
+    }
+}

@@ -1,0 +1,43 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+      <!-- column -->
+      <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <mat-icon (click)="draweraddingdep.toggle()" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+            <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.adddepa' | translate}} <mat-icon (click)="toggleShowDiv('descriptioncontentuserrole')" class="bgi bgi-info">info_outline</mat-icon></h5>
+          </div>
+          <div class="clearandaddbutton">
+            <button type="button" mat-raised-button color="primary" class="clearbutton height-35 m-r-10 p-l-20 p-r-20" >{{'enterpriseadmin.clea' | translate}}</button>
+            <button color="preview" type="button"   mat-raised-button class="addbutton height-35 p-l-20 p-r-20">{{'enterpriseadmin.add' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentuserrole" [@slideInOut]="animationState">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+          <mat-card-header>
+            <div class="titletext">
+              <mat-card-subtitle class="informationtext fs-14">
+                {{'enterpriseadmin.adduserdepaandassi' | translate}} 
+              </mat-card-subtitle>
+            </div>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="innnerpartofdrwer organisationinfo">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+             <app-adddepartment></app-adddepartment>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

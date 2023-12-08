@@ -1,0 +1,59 @@
+.ck-editor {
+    min-height: 500px !important;
+    height: 200px;
+}
+
+.cancelbtn {
+    color: #262626;
+    background-color: #fff;
+    border: 1px solid #e8e8e8;
+    min-width: 110px;
+    border: 1px solid #e8e8e8;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 45px;
+    font-size: 15px;
+    box-shadow: none;
+}
+
+.submitbtn {
+    min-width: 110px;
+    border: 1px solid #e8e8e8;
+    color: #fff;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 45px;
+    font-size: 15px;
+    box-shadow: none;
+    background-color: #ED1C27;
+}
+
+.descCount{
+    justify-content: end !important;
+    padding-top: 0px;
+    margin-top: 0px;
+
+}
+#regapp {
+    .closeanddateicomax {
+        top: 11px !important;
+    }
+}
+
+.label{
+    font-size: 15px;
+    color: #848484;
+    padding-left: 0px;
+}
+#addsubcategory{
+    margin:20px;
+}
+::ng-deep #addsubcategory .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+    height: 230px !important; 
+}
+
+::ng-deep #addsubcategory .ck-editor{
+    height: 300px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}

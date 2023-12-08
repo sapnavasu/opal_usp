@@ -1,0 +1,137 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+      <!-- column -->
+      <div fxFlex.gt-sm="100" fxFlex="100" class="selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <mat-icon (click)="closeConfigModule()" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+            <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.confbymodu' | translate}}</h5>
+          </div>
+          <div class="clearandaddbutton">
+            <!-- <button type="button" mat-raised-button color="primary"
+              class="clearbutton height-35 m-r-10 p-l-20 p-r-20">Clear</button> -->
+            <button mat-raised-button class="addbutton height-35 p-l-20 p-r-20" [disabled]="addDisable" (click)="commonSubmit()">
+              {{'enterpriseadmin.add' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxFlexAlign="center">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottom">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="companyinfomcp p-l-75">
+            <img src="./assets/images/uploadthelogo.png" alt="upload logo" />
+            <div class="p-l-10">
+              <p class="p-b-8 fs-15">{{'enterpriseadmin.dfgh' | translate}}</p>
+              <p class="lypisid"><span>{{'enterpriseadmin.jsraid' | translate}}</span> <span>-</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="innnerpartofdrwer organisationinfo tabforclientelenew">
+          <div fxLayout="row wrap" class="">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabsection">
+              <mat-tab-group #tab  (selectedIndexChange)="tabChange($event)">
+                <mat-tab label="First">
+                  <ng-template mat-tab-label>
+                    <div class="tabselectheadercontent">
+                      <div class="selectionlogo">
+                        <i class="bgi bgi-Existing align"></i>
+                      </div>
+                      <div class="selectiontext">
+                        <h4 class="resolutionwidth">{{'enterpriseadmin.mapfromhere' | translate}}</h4>
+                        <p class="savedresolution">
+                          {{'enterpriseadmin.seleyourexis' | translate}} 
+                        </p>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <form>
+                    <div fxLayout="row wrap" class="m-t-20">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div class="search">
+                          <mat-form-field class="example-full-width serchform" appearance="none">
+                            <div class="spacebetween">
+                              <div class="space">
+                                <mat-icon class="searchicon" matPrefix (click)="moduleUserSearch()"><i class="bgi bgi-search"></i></mat-icon>
+                                <input autocomplete="off" class="p-l-12" appAlphanumsymb type="text fs-15" matInput
+                                  [formControl]="searchControl" placeholder="Search by Keywords" />
+                              </div>
+                              <div>
+                                <span (click)="resetModuleUSerSearch()" style="cursor: pointer;">
+                                  <mat-icon class="reseticon" matSuffix>clear1111</mat-icon>
+                                </span>
+                              </div>
+                            </div>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="setflexwidth" *ngFor="let moduleDetail of moduleUserDetails; let k = index">
+                        <div>
+                          <label class="control control--checkbox m-l-10 m-r-20 fs-15 m-t-10 color">
+                            <div class="control__indicator"></div>
+                            {{ moduleDetail?.departmentName }}
+                          </label>
+                        </div>
+                        <div *ngFor="let UserDetail of moduleDetail?.UserDetails; let l = index">
+                          <ul id="officeLocatiion" (click)="moduleUserAllocation(UserDetail?.userPk);">
+                            <li [ngClass]=" selectedPk == UserDetail?.userPk ? 'selectedVal':'notSelectedVal'" (click)="selectedPk=UserDetail?.userPk">
+                              <div class="invite cursor">
+                                <div class="inviteimage"> 
+                                  <img src="assets/images/avatar.svg" alt="Investor Image" />
+                                  <span class="selected-tick"><i class="bgi bgi-tick" title="Selected"></i></span>
+                                </div>
+                                <div class="p-l-30 invitedata">
+                                  <h4 class="fs-15 m-0" [title]="UserDetail?.userName">
+                                    {{ UserDetail?.userName | truncate: [30] }}
+                                  </h4>
+                                  <p class="fs-12 m-0 p-t-10">
+                                    <span class="txt-gray91 sub-heading">{{'enterpriseadmin.desi' | translate}}</span>
+                                  </p>
+                                  <p class="fs-15 m-0">
+                                    <span>{{ UserDetail?.designationName }}</span>
+                                  </p>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div *ngIf="moduleUserDetails?.length === 0" style="padding: 24px; align-items: center;">
+                        <h3>{{'enterpriseadmin.nouserfoun' | translate}}</h3>
+                      </div>
+                    </div>
+                  </form>
+                </mat-tab>
+
+                <mat-tab label="Second">
+                  <ng-template mat-tab-label>
+                    <div class="tabselectheadercontent">
+                      <div class="selectionlogo">
+                        <i class="bgi bgi-New_icon align"></i>
+                      </div>
+                      <div ngClass.xs="p-t-10" ngClass.sm="p-t-10" class="selectiontext">
+                        <h4 class="createresolution p-t-20">{{'enterpriseadmin.creanew' | translate}}</h4>
+                        <p class="savedresolution">
+                          {{'enterpriseadmin.creamapnewuser' | translate}}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <app-addinguser [triggercountrymst]="triggercountryser" #addUpdateUser (addUserData)="addUserData($event)" (hideResponseLoader)="showResponsiveLoader = $event" (closeSideNav)="closeUserSIdeNav($event)"> </app-addinguser>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #draweruserlallocationnew class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-usermoduleallocation [draweruserlallocationnew]="draweruserlallocationnew" #addUpdateDeptAccess></app-usermoduleallocation>
+  </mat-drawer>
+</mat-drawer-container>

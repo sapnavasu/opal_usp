@@ -1,0 +1,141 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  @mixin commancssforptag {
+    color: #333;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  .companyinfomcp {
+    @include flexstart();
+    align-items: flex-start !important;
+  
+    img {
+      width: 44px;
+      height: 44px;
+    }
+    .lypisid {
+      color: #666666;
+      font-size: 0.75rem;
+    }
+    p {
+      margin: 0;
+      line-height: 1;
+      color: #000;
+    }
+  }
+  .borderbottom {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+  }
+  .tabsectionadmin .mat-tab-label {
+    justify-content: flex-start !important;
+  }
+  .tabselectheadercontent {
+    padding-left: 10px;
+  }
+
+  .adddepartmentfrm {
+    width: 100%;
+  }
+  ::ng-deep.addproductsmainselect {
+    background: #fff;
+    border: 1px solid #e2e4e8;
+    box-shadow: none !important;
+    padding: 10px !important;
+    margin: 0;
+  
+    .mat-card-avatar {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      color: #006cb7;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      i {
+        font-size: 1.5625rem;
+      }
+    }
+  
+    .mat-card-header {
+      width: 100%;
+      padding-left: 0;
+      display: flex;
+      align-items: center;
+    }
+  
+    .mat-card-content {
+      .productinfo {
+        color: #006cb7;
+      }
+    }
+    .selectsubtitle {
+      color: #656565;
+      font-size: 14px !important;
+    }
+    .mat-card-footer {
+      margin: 0;
+    }
+    .selectforward {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      cursor: pointer;
+      margin-left: 15px;
+      i {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+        color: #777;
+        font-size: 0.875rem;
+      }
+    }
+  }
+  .text-blue {
+    color: #006cb7;
+  }
+  .titletext {
+    width: 100% !important;
+  }
+  
+  ::ng-deep.select_with_search,
+  ::ng-deep.mat-select-panel
+  {
+    overflow: hidden;
+  }
+  .reseticon 
+  {
+    cursor: pointer;
+  }
+  .nonmaterror
+  {
+    position: absolute;
+    bottom: -18px;
+    color: #f44336;
+    font-size: 0.8125rem;
+  }
+
+  @media (max-width: 580px) {
+    ::ng-deep.select_with_search {
+      min-width: auto !important;
+     }
+  }

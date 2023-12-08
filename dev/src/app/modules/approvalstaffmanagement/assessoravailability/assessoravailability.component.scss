@@ -1,0 +1,325 @@
+#assesorDate {
+    .Available {
+        color: #00a551 !important;
+    }
+    .Available.Not {
+        color: #ed1c27 !important;
+    }
+    .Weekend {
+        color: #f4811f !important;
+    }
+    .Holiday {
+        color: #f4811f !important;
+    }
+    .Booked {
+        color: #0c4b9a !important;
+    }
+    .mat-sort-header-arrow {
+        color: #ED1C27;
+    }
+    .moremenucolor {
+        color: #848484;
+    }
+    .knowledgegrid {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 8px #0000001a;
+        border: 1px solid #D7DCE3;
+        border-radius: 4px;
+        opacity: 1;
+
+        .headcolor {
+            color: #0C4B9A;
+        }
+
+        .txt-gry {
+            color: #848484;
+        }
+
+        .txt-gry3 {
+            color: #262626 !important;
+            font-weight: 500;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        .details {
+            border-bottom: 1px solid #D7DCE3;
+
+            .head {
+                justify-content: space-between;
+                align-items: center;
+                height: 40px;
+
+                .grade {
+                    align-items: center;
+                    color: #895B37;
+                }
+
+                .gold {
+                    align-items: center;
+                    color: #BA9666;
+                }
+
+                .silver {
+                    align-items: center;
+                    color: #B9BABC;
+                }
+            }
+
+            .application-detais {
+                border: 1px solid #D7DCE3;
+                padding: 5px;
+                font-size: 16px;
+                margin-top: 10px !important;
+
+            }
+
+        }
+    }
+
+    .availablecard {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 8px #0000001a;
+        border: 1px solid #D7DCE3;
+        border-radius: 4px;
+        opacity: 1;
+
+        form {
+            background-color: #f8f8f8; 
+             
+            .mat-icon {
+              color: #848484;
+              font-size: 22px;
+              cursor: pointer;
+              margin-left: 4px;
+            }
+        }
+
+        .mat-form-field-appearance-outline {
+            .mat-form-field-outline {
+                color: #d9d9d9;
+                background-color: #fff;
+            }
+
+            .mat-form-field-outline-start {
+                border-radius: 3px 0 0 3px;
+            }
+
+            .mat-form-field-outline-end {
+                border-radius: 0 3px 3px 0;
+            }
+
+            .mat-form-field-required-marker {
+                color: #ED1C27;
+            }
+
+            .mat-form-field-outline-thick {
+                color: #6ba5ec;
+                background-color: #f8f8f8;
+            }
+
+            &.mat-focused {
+                .mat-form-field-outline-thick {
+                    color: #0c4b9a;
+                    background-color: #f8f8f8;
+                }
+
+                &.mat-form-field-can-float {
+                    &.mat-form-field-should-float {
+                        .mat-form-field-label {
+                            color: #0c4b9a;
+                        }
+                    }
+                }
+            }
+
+            &.mat-form-field-disabled {
+                .mat-form-field-outline {
+                    background-color: #f8f8f8;
+                }
+            }
+
+
+            &.mat-form-field-invalid.mat-form-field-invalid {
+                .mat-form-field-outline-thick {
+                    color: #dc4c64;
+                    background-color: #f8f8f8;
+                }
+            }
+
+            &.mat-form-field-can-float {
+                &.mat-form-field-should-float {
+                    .mat-form-field-label {
+                        transform: translateY(-.9rem) scale(0.75);
+                        color: #848484;
+
+                        .mat-form-field-required-marker {
+                            color: #ED1C27;
+                        }
+                    }
+
+                    .mat-form-field-outline-gap {
+                        width: 0px !important;
+                    }
+                }
+            }
+        }
+
+        .mat-form-field {
+            &.mat-form-field-invalid {
+                .mat-form-field-label {
+                    color: #dc4c64 !important;
+                }
+            }
+        }
+    }
+
+    .mat-raised-button {
+        box-shadow: none;
+        border-radius: 2px;
+        font-size: 15px;
+        height: 45px;
+        min-width: 110px;
+    }
+
+    .cancelbtn {
+        color: #262626;
+        background-color: #fff;
+        border: 1px solid #e8e8e8;
+    }
+
+    .submitbtn {
+        color: #fff;
+        background-color: #ED1C27;
+    }
+    .scrolldata {
+        position: relative;
+        z-index: 1;
+        display: block;
+        overflow-x: auto;
+        background-color: #fff;
+        scroll-behavior: smooth;
+
+        &::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #ccc;
+        }
+    }
+
+    .awaredtable {
+        border-radius: 2px;
+        background-clip: padding-box;
+        background-color: #fff;
+        margin: 10px 0px;
+
+        .manageoptions {
+            padding-right: 15px;
+        }
+
+        .mat-row {
+            width: fit-content;
+
+            &:hover {
+                background-color: #f5f5f5 !important;
+
+            }
+        }
+
+
+        .mat-cell {
+            color: #262626;
+        }
+
+        .mat-header-cell {
+            color: #626366 !important;
+            background-color: #eaedf2;
+            font-size: 15px;
+        }
+    }
+    .paginationwithfilter {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .masterPageTop {
+        display: flex;
+    }
+
+    .masterPageTop {
+        .mat-paginator-range-actions button {
+            display: none;
+        }
+    }
+
+    .mat-paginator-container {
+        .mat-paginator-page-size-label {
+            color: #999;
+            font-size: 15px;
+        }
+
+        .mat-select-value {
+            color: #626366;
+            font-size: 15px;
+        }
+
+        .mat-paginator-range-label {
+            color: #999;
+            font-size: 15px;
+            margin: 0px 10px !important;
+        }
+    }
+    .footerpaginator {
+        .mat-paginator-outer-container {
+            .mat-paginator-container {
+                padding: 0px !important;
+
+                @media (max-width:768px) {
+                    display: block !important;
+                }
+            }
+
+            .mat-paginator-range-actions {
+                width: calc(100% - 186px);
+                color: #0c4b9a;
+
+                .mat-paginator-range-label {
+                    width: calc(100% - 186px);
+
+                }
+
+                @media(max-width: 768px) {
+                    width: auto !important;
+                }
+            }
+        }
+    }
+    #regapp {
+        .closeanddateicomax {
+            top: 11px !important;
+        }
+    }
+    .date_exp {
+        .mat-form-field-appearance-outline {
+            .mat-form-field-suffix {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}

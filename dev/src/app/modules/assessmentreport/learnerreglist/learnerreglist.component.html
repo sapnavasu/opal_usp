@@ -1,0 +1,323 @@
+<div id="learnerreglist" #pageScroll>
+        <div class="learnerreglist" fxLayout="row wrap" fxLayoutAlign="center">
+            <div fxFlex="90">
+                <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+                    <div class="details pd-15" fxFlex="100">
+                        <div fxLayout="row wrap" class="m-t-5">
+                            <div class="add-details" fxFlex.gt-sm="35" fxFlex="50">
+                                <p class="text-gray m-0 fs-15 ">{{'learnerreglist.trainevacent' | translate}}:<span
+                                    class="text-default"> CVN0076787</span></p>
+                            </div>
+                            <div class="add-details" fxFlex.gt-sm="25" fxFlex="50">
+                                <p class="text-gray m-0 fs-15 ">{{'learnerreglist.batcno' | translate}}:<span
+                                    class="text-default"> BID11232323</span></p>
+                            </div>
+                            <div class="add-details" fxFlex.gt-sm="25" fxFlex="50">
+                                <p class="text-gray m-0 fs-15 ">{{'learnerreglist.batchtyp' | translate}}:<span
+                                    class="text-default"> {{'learnerreglist.initi' | translate}}</span></p>
+                            </div>
+                        </div>
+                        <div class="fs-13 m-t-5 m-b-5" fxLayout="row wrap">
+                            <p class="application-detais m-r-10 text-gray m-0">{{'learnerreglist.stat' | translate}}:<span
+                                    class="text-default">{{'learnerreglist.prin' | translate}}</span></p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'learnerreglist.ofiztyp' | translate}}:<span
+                                    class="text-default">{{'learnerreglist.branoffic' | translate}} </span></p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'learnerreglist.branname' | translate}}:<span
+                                    class="text-default">{{'learnerreglist.southzonai' | translate}}</span></p>
+                        </div>
+                        <button class="actionmenubtn" mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+                        <mat-menu #menu="matMenu" class="actionmatmenu">
+                            <button mat-menu-item>Menu 1</button>
+                            <button mat-menu-item>Menu 2</button>
+                            <button mat-menu-item>Menu 3</button>
+                        </mat-menu>  
+                    </div>
+                    <div class="address  p-l-15" fxLayout="row wrap" fxFlex.gt-sm="60" fxFlex="100">
+                        <div class="add-details" fxFlex.gt-sm="25" fxFlex="50">
+                            <p class="text-gray fs-14">{{'learnerreglist.traindura' | translate}}<br>
+                                <span class="text-default">01-01-2023 to 08-01-2023</span>
+                            </p>
+                        </div>
+                        <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                            <p class="text-gray fs-14">{{'learnerreglist.totalear' | translate}}<br>
+                                <span class="text-default">55/80</span>
+                            </p>
+                        </div>
+                        <div class="add-details" fxFlex.gt-sm="25" fxFlex="50">
+                            <p class="text-gray fs-14">{{'learnerreglist.remaicapac' | translate}}<br>
+                                <span class="text-default">25/80</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="90">
+                <div class="learnerregdetails pd-15">
+                    <div class="example-container learnerreglstcontainer m-t-30">
+                        <div class="paginationwithfilter masterPageTop ">
+                            
+                            <div fxLayout="row" class="toppagination" fxLayoutAlign="space-between">
+                                    <mat-paginator class="masterPage masterPageTop" #paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+                                <div fxLayoutAlign="flex-start center">
+                                    <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                        class="filter height-45">{{filtername}}<i class="fa fa-filter m-l-6" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <mat-table #table class="scheduletable scrolldata" [dataSource]="learnerregdataSource" matSort multiTemplateDataRows matSortDisableClear>
+                        
+                            <!-- sno Column -->
+                            <ng-container matColumnDef="sno">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header > 
+                                <mat-checkbox class="example-margin"></mat-checkbox>   
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <mat-checkbox class="example-margin"></mat-checkbox>  
+                             </mat-cell>
+                            </ng-container>
+                        
+                            <!-- cvlno Column -->
+                            <ng-container matColumnDef="civilno">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'learnerreglist.civino' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.civilno}} </mat-cell>
+                            </ng-container>
+
+                            <!-- learnername Column -->
+                            <ng-container matColumnDef="learnername">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'learnerreglist.learname' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.learnername}} </mat-cell>
+                            </ng-container>
+
+                            <!-- email Column -->
+                            <ng-container matColumnDef="email">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>{{'learnerreglist.emai' | translate}}  </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+                            </ng-container>
+
+                            <!-- Age Column -->
+                            <ng-container matColumnDef="age">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'learnerreglist.age' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.age}} </mat-cell>
+                            </ng-container>
+
+                            <!-- Gender Column -->
+                            <ng-container matColumnDef="gender">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>{{'learnerreglist.gend' | translate}}  </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.gender}} </mat-cell>
+                            </ng-container>
+
+                            <!-- Theorytutor Column -->
+                            <ng-container matColumnDef="theorytutor">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'learnerreglist.tutortrainertheory' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.theorytutor}} </mat-cell>
+                            </ng-container>
+
+                            <!-- Practcltutor Column -->
+                            <ng-container matColumnDef="practltutor">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'learnerreglist.tutortraipractical' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.practltutor}} </mat-cell>
+                            </ng-container>
+
+                            <!-- Theorytutor Column -->
+                            <ng-container matColumnDef="assessor">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'learnerreglist.asseso' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.assessor}} </mat-cell>
+                            </ng-container>
+
+                            <!-- ivqastaff Column -->
+                            <ng-container matColumnDef="ivqastaff">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{'learnerreglist.ivqastaf' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.ivqastaff}} </mat-cell>
+                            </ng-container>
+
+                            <!-- feestatus Column -->
+                            <ng-container matColumnDef="feestatus">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>{{'learnerreglist.learfeestat' | translate}} </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <p *ngIf="element.feestatus == 'Paid'" class="paid flexaligntag">{{'learnerreglist.paid' | translate}}</p>  
+                                <p *ngIf="element.feestatus == 'Yet to Pay'" class="yettopay flexaligntag">{{'learnerreglist.yettopay' | translate}}</p>      
+                            </mat-cell>
+                            </ng-container>
+
+                            <!-- Status Column -->
+                            <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>{{'learnerreglist.stat' | translate}}</mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <p *ngIf="element.status == 'New'" class="new flexaligntag">{{'learnerreglist.new' | translate}}</p>    
+                            </mat-cell>
+                            </ng-container>
+
+                            <!-- knowledgeassessmnt Column -->
+                            <ng-container matColumnDef="knowledgeassessmnt">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>{{'learnerreglist.knoledgeasses' | translate}}  </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <p *ngIf="element.knowledgeassessmnt == 'Fail'" class="fail flexaligntag">{{'learnerreglist.fail' | translate}}</p>
+                                <p *ngIf="element.knowledgeassessmnt == 'Pass'"  class="pass flexaligntag">{{'learnerreglist.pass' | translate}}</p>
+                                <p *ngIf="element.knowledgeassessmnt == 'Pending'"  class="pending flexaligntag">{{'learnerreglist.pend' | translate}}</p>
+                            </mat-cell>
+                            </ng-container>
+
+                            <!-- practicalassessmnt Column -->
+                            <ng-container matColumnDef="practicalassessmnt">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>{{'learnerreglist.practicaasses' | translate}}  </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <p *ngIf="element.practicalassessmnt == 'Fail'" class="fail flexaligntag">{{'learnerreglist.fail' | translate}}</p>
+                                <p *ngIf="element.practicalassessmnt == 'Pass'"  class="pass flexaligntag">{{'learnerreglist.pass' | translate}}</p>
+                                <p *ngIf="element.practicalassessmnt == 'Pending'"  class="pending flexaligntag">{{'learnerreglist.pend' | translate}}</p>
+                            </mat-cell>
+                            </ng-container>
+                        
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                            <mat-header-cell  *matHeaderCellDef>{{'learnerreglist.actio' | translate}}  </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> 
+                                <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+                                <mat-menu #menu="matMenu" class="actionmatmenu">                                    
+                                    <button mat-menu-item>{{'learnerreglist.updapaystat' | translate}}</button>
+                                    <button mat-menu-item>{{'learnerreglist.maraspres' | translate}}</button>
+                                    <button mat-menu-item>{{'learnerreglist.markasnosho' | translate}}</button>
+                                </mat-menu>
+                            </mat-cell>
+                            </ng-container>
+
+                            <!--search row-->
+                            <ng-container matColumnDef="row-first">
+                            <mat-header-cell class="searchrow" *matHeaderCellDef>
+                                <div class="checkholder"></div>
+                            </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-second">
+                                <mat-header-cell class="searchrow " *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                        <input matInput [formControl]="civilnosrch">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-three">
+                                <mat-header-cell class="searchrow" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                        <input matInput [formControl]="learnernamesrch">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-four">
+                                <mat-header-cell class="searchrow dispnone" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                        <input matInput [formControl]="emailsrch">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-five">
+                            <mat-header-cell class="searchrow" *matHeaderCellDef>
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                    <input matInput [formControl]="agesrch">
+                                </mat-form-field>
+                            </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-six">
+                                <mat-header-cell class="searchrow " *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                        <input matInput [formControl]="gendersrch">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-seven">
+                                <mat-header-cell class="searchrow" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                        <input matInput [formControl]="theorytutorsrch">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-eight">
+                                <mat-header-cell class="searchrow dispnone" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                        <input matInput [formControl]="practltutorsrch">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="row-nine">
+                                    <mat-header-cell class="searchrow dispnone" *matHeaderCellDef>
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="assessorsrch">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-ten">
+                                <mat-header-cell class="searchrow" *matHeaderCellDef>
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                        <input matInput [formControl]="ivqastaffsrch">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-eleven">
+                                    <mat-header-cell class="searchrow " *matHeaderCellDef>
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="feestatussrch">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-twelve">
+                                    <mat-header-cell class="searchrow" *matHeaderCellDef>
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="statusrsrch">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-thirteen">
+                                    <mat-header-cell class="searchrow dispnone" *matHeaderCellDef>
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="knowledgeassessmntsrch">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-fourteen">
+                                    <mat-header-cell class="searchrow dispnone" *matHeaderCellDef>
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="practicalassessmntsrch">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-fifteen">
+                                    <mat-header-cell class="searchrow dispnone" *matHeaderCellDef>
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'learnerreglist.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="actionsrch">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                        
+                            <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-header-row id="searchrow"
+                            *matHeaderRowDef="['row-first','row-second','row-three','row-four','row-five','row-six','row-seven','row-eight','row-nine','row-ten','row-eleven','row-twelve','row-thirteen','row-fourteen','row-fifteen']">
+                            </mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator btmpagination">
+                            <mat-paginator ngClass.xs="block" ngClass.sm="block" showFirstLastButtons class="masterPage masterbottom "(page)="syncPrimaryPaginator($event)" 
+                            [pageSize]="paginator.pageSize" [pageIndex]="paginator.pageIndex"
+                            [length]="paginator.length" [pageSizeOptions]="paginator.pageSizeOptions">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+                       
+            </div>
+        </div>
+    </div>

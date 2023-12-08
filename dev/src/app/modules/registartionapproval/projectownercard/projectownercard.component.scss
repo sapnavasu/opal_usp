@@ -1,0 +1,99 @@
+@mixin flexcenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+
+.projectdetail{
+    h2{
+        color: #345f9f;
+    }
+    .projectflex{
+      
+        display: flex;
+       
+        p{
+            color: #808080;
+        }
+        img{
+            width: 18px;
+            height: 22px;
+        }
+        .sectortextcolor{
+            line-height: 1.6;
+            .sectorheight{
+                margin-top: 20px !important;
+            }
+            p{
+                color: #666666;
+            }
+            .citycolor{
+                color: #333333;
+            }
+        }
+        .submitcolor{
+            p{
+                color: #333333;
+            }
+        }
+        .completecolor{
+            p{
+                color: #50ae48;
+            }
+        }
+        .mediumbackground {
+            @include flexcenter();
+            span {
+                height: 54px;
+                width: 54px;
+                @include flexcenter();
+                border-radius: 100%;
+                background: #fff;
+                
+                i {
+                    font-size: 1.375rem;
+                    color:#40c0ea;
+                }
+            }
+        }
+        .mapitcolor{
+            @include flexcenter();
+            span {
+                height: 54px;
+                width: 54px;
+                @include flexcenter();
+                border-radius: 100%;
+                background: #fff;
+                
+                i {
+                    font-size: 1.375rem;
+                    color:#eaa748;
+                }
+            }
+        }
+
+    }
+    .civilcolor{
+       h2{
+        color: #345f9f;
+       } 
+    }
+    .borderproject{
+        border: 3px solid #eeeeee;
+    }
+    .heightsector{
+        min-height:65px;
+        background-color: #eeeeee;
+        
+    }
+}

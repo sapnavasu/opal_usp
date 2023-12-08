@@ -1,0 +1,604 @@
+<div id="vehiclelistpage" *ngIf="readaccess || adminreadaccess  || isfocalpoint == 1" fxLayoutAlign="center start">
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+    <div class="vehicleinspection" fxFlex="100" fxFlex.gt-sm="100">
+        <div class="paginationwithfilter masterPageTop ">
+            <mat-paginator #paginator class="masterPage masterPageTop" [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100] " (page)="syncPrimaryPaginator($event);"></mat-paginator>
+            <div fxLayout="row wrap" fxLayoutAlign="end">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <button *ngIf="isInspector == true" mat-raised-button color="danger" type="button"
+                            (click)="viewSchedule();"
+                            class="ShowHidefs-15 submit_btn m-r-10">{{'View My Schedule' | translate}}
+                        </button>
+                    <button mat-raised-button type="button" *ngIf="this.stktype == 1" 
+                    class="transformbtn m-r-15" (click)="exportgridData();" >{{'Export' | translate}}</button>
+                    
+                    <button mat-raised-button type="button" *ngIf="this.stktype != 1 && (createaccess || isfocalpoint ==1)" (click)="registerNow();"
+                    class="transformbtns m-r-15">{{'Register New Vehicle' | translate}}</button>
+                    <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                        class="filter">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                            aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+      
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div #TABLE class="awaredtable">
+                    <button mat-button [matMenuTriggerFor]="editcolumn" class="editcolumn">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #editcolumn="matMenu" class="master-menu edit-column-menu">
+                          <div class="table-config-menu-options" fxLayout="column">
+                            <mat-checkbox #editchkbox [(ngModel)]="selectAllVisible"  (change)="selectAllFun($event)"> {{ 'All' | translate}}
+                          </mat-checkbox>
+                          <ng-container *ngFor="let cd of displayedColumns; let i = index">
+                            <mat-checkbox 
+                              (click)="$event.stopPropagation()" 
+                              [(ngModel)]="cd.visible" #columnchkbox (change)="updateSelectAllVisible(cd)">
+                              {{cd.label | translate}}
+                            </mat-checkbox>
+                        </ng-container>
+                          </div>
+                      </mat-menu>
+                      </button>	
+                    <mat-table id="ExampleMaterialTable" #table class="scrolldata" [dataSource]="dataSource"
+                        matSort matSortDisableClear>
+                        <!-- new 1 -->
+                        <ng-container matColumnDef="centre_name">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Centre Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="centre_name" fxFlex="280px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.compname_en}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                         <!-- new 1 -->
+                         <ng-container matColumnDef="rvrd_applicationrefno">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'RASIC Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="rvrd_applicationrefno" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.rvrd_applicationrefno}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                         <ng-container matColumnDef="appiim_officetype">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Office Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="appiim_officetype" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.appiim_officetype == 1 ? this.i18n('Main Office' | translate) :this.i18n('Branch Office' | translate)}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 2 -->
+                        <ng-container matColumnDef="appiim_branchname_en">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Branch Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="appiim_branchname_en" fxFlex="280px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                <div *ngIf="element.appiim_officetype == 2" [matTooltip]="ifarbic ? (element.appiim_branchname_ar) : (element.appiim_branchname_en)"
+                                [matTooltipDisabled]="(ifarbic ? (element.appiim_branchname_ar) : (element.appiim_branchname_en)).length <= 25" [style.cursor]="(ifarbic ? (element.appiim_branchname_ar) : (element.appiim_branchname_en)).length <= 25?'auto':'pointer'">
+                                    {{ifarbic ? (element.appiim_branchname_ar) : (element.appiim_branchname_en) | slice:0:25 }}
+                                    <span *ngIf="(ifarbic == true ? (element.appiim_branchname_ar) : (element.appiim_branchname_en)).length > 25">....</span>
+                                </div>
+                                <div *ngIf="element.appiim_officetype != 2">
+                                     -
+                                </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 1 -->
+                        <ng-container matColumnDef="owner_en">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Owner Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="owner_en" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder" [matTooltip]="ifarbic ? (element.owner_ar) : (element.owner_en)"
+                                [matTooltipDisabled]="(ifarbic ? (element.owner_ar) : (element.owner_en)).length <= 25" [style.cursor]="(ifarbic ? (element.owner_ar) : (element.owner_en)).length <= 25?'auto':'pointer'">
+                                {{ ifarbic == true ? (element.owner_ar) : (element.owner_en) | slice:0:25 }}
+                                <span *ngIf="(ifarbic == true ? (element.owner_ar) : (element.owner_en)).length > 25">....</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 2 -->
+                        <ng-container matColumnDef="rvrd_vechicleregno">
+                            <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Vehicle Reg. Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="rvrd_vechicleregno" fxFlex="180px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.rvrd_vechicleregno}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 3 -->
+                        <ng-container matColumnDef="rvrd_chassisno">
+                            <mat-header-cell fxFlex="220px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Chassis Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="rvrd_chassisno" fxFlex="220px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.rvrd_chassisno}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="rvrd_odometerreading">
+                            <mat-header-cell fxFlex="220px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Odometer Reading (in km)' | translate}}</mat-header-cell>
+                            <mat-cell data-label="rvrd_odometerreading" fxFlex="220px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.rvrd_odometerreading ? element.rvrd_odometerreading : '-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 4 -->
+                        <ng-container matColumnDef="vehtype_en">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Vehicle Category' | translate}}</mat-header-cell>
+                            <mat-cell data-label="vehtype_en" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{ifarbic == true ? (element.vehtype_ar):
+                                    (element.vehtype_en)}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 5 -->
+                        <ng-container matColumnDef="roadtype_en">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Road Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="roadtype_en" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{ifarbic == true ? (element.roadtype_ar):
+                                    (element.roadtype_en)}} </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 6 -->
+                        <ng-container matColumnDef="inspectorname">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'Inspector Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="inspectorname" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder" [matTooltip]="element.inspectorname"
+                                [matTooltipDisabled]="element.inspectorname && element.inspectorname?.length <= 20 && element.inspectorname?.length > 0" [style.cursor]="(element.inspectorname && element.inspectorname?.length <= 20 && element.inspectorname?.length > 0)?'auto':'pointer'">
+                                   {{element.inspectorname | slice:0:20}}
+                                    <span *ngIf="element.inspectorname && element.inspectorname.length > 20">....</span>
+                                
+                                <!-- <div *ngIf="!tblplaceholder">{{element.inspectorname}} -->
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 6 -->
+                        <ng-container matColumnDef="inspectDateTime">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'Inspector Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="inspectDateTime" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.inspectDateTime}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 7 -->
+                        <ng-container matColumnDef="dateofinspetcion">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                >{{'Inspection Date and Time' | translate}}</mat-header-cell>
+                            <mat-cell data-label="dateofinspetcion" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.dateofinspetcion}}<span *ngIf="element?.startTime && element?.endTime">&nbsp;({{element?.startTime}} - {{element?.endTime}})</span></div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 8 -->
+                        <ng-container matColumnDef="rvrd_applicationtype">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Applicant Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="rvrd_applicationtype" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span *ngIf="element.rvrd_applicationtype == 1">{{'Initial' | translate}}</span>
+                                    <span *ngIf="element.rvrd_applicationtype == 2">{{'Renewal' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 9 -->
+                        <ng-container matColumnDef="rvrd_inspectionstatus">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Inspection Status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="rvrd_inspectionstatus" fxFlex="230px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span *ngIf="element.rvrd_inspectionstatus == 1">{{'Inspection Pending'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 2">{{'Verification Pending'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 3">{{'Completed'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 4">{{'Supervisor Approval Pending'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 5">{{'Declined by Verifier'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 6">{{'Declined by Supervisor'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 7">{{'Re-Inspection Required'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 8">{{'Rejected'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 9">{{'Rejected and Cancelled'| translate}}</span>
+                                    <span *ngIf="element.rvrd_inspectionstatus == 10">{{'Cancelled(Renewal)'| translate}}</span>
+                                    
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 10 -->
+                        <ng-container matColumnDef="rvrd_permitstatus">
+                            <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Permit Status' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="rvrd_permitstatus" fxFlex="180px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.perStatus}}
+                                    <span *ngIf="element.rvrd_permitstatus == 1" class="New">{{'New' | translate}}</span>
+                                    <span *ngIf="element.rvrd_permitstatus == 2" class="Active">{{'Valid' | translate}}</span>
+                                    <span *ngIf="element.rvrd_permitstatus == 3" class="New">{{'Expired' | translate}}</span>
+                                    <span *ngIf="element.rvrd_permitstatus == 4" class="Cancelled">{{'Cancelled' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 11 -->
+                        <ng-container matColumnDef="dateofexp">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Date of Expiry' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="dateofexp" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.dateofexp?element.dateofexp:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- 12 -->
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="125px" mat-header-cell *matHeaderCellDef>{{'Action'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="125px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.irm_intlrecogname_en}}
+                                    <div class="manageoptions">
+                                        <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                            aria-label="Example icon-button with a menu">
+                                            <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                        </button>
+                                        <mat-menu #actionmenu="matMenu"
+                                            class="master-menu whentootltipadded table_menu">     
+                                            <button type="button" mat-menu-item *ngIf="(element.rvrd_inspectionstatus == 1 ) && isInspector && (userPk == element.rvrd_inspectorname) && (createaccess || isfocalpoint == 1)" (click)="inspectNow(element,1)"><span>{{'Inspect Now' |translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.rvrd_inspectionstatus == 5 || element.rvrd_inspectionstatus == 6 ||element.rvrd_inspectionstatus == 7 ) && isInspector && (userPk == element.rvrd_inspectorname)  && (createaccess || isfocalpoint == 1)" (click)="inspectNow(element,2)"><span>{{'Update Inspection Report' |translate}}</span></button>
+                                            <button type="button" mat-menu-item  *ngIf="element.rvrd_inspectionstatus == 2 && isVerifier && (userPk != element.rvrd_inspectorname) && (approvalaccess || isfocalpoint == 1)" (click)="viewstatus(element ,2)"><span>{{'View & Approve' |translate}}</span></button>
+                                            <button type="button" mat-menu-item  *ngIf="element.rvrd_inspectionstatus == 4 && isSupervisor && (userPk != element.rvrd_inspectorname) && (approvalaccess || isfocalpoint == 1)"  (click)="viewstatus(element,4)"><span>{{'View & Approve' |translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="((stktype == 1) || (((element.rvrd_inspectionstatus != 1 ) || (element.rvrd_inspectionstatus == 1 && userPk != element.rvrd_inspectorname)) && stktype == 2)) && (readaccess  || adminreadaccess || isfocalpoint == 1)" (click)="view(element)"><span>{{'View Details' |translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf=" element.rvrd_inspectionstatus == 3 && stktype == 1 && (adminupdateaccess || isfocalpoint == 1)" (click)="generatesticker(element)" ><span>{{'Re-generate RAS Sticker' |translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="element.rvrd_viewstickerpath && element.rvrd_permitstatus == 2 && (viewstickeraccess || adminreadaccess || isfocalpoint == 1)" (click)="printorviewsticker(element,1)" ><span><a target="_blank"  href="{{this.url+element.rvrd_viewstickerpath}}?v={{version}}">{{'View RAS Sticker' |translate}}</a></span></button>
+                                            <button type="button" mat-menu-item *ngIf="element.rvrd_printstickerpath && element.rvrd_permitstatus == 2 && stktype != 1 && (printstickeraccess || isfocalpoint == 1)" (click)="printorviewsticker(element,2)" ><span><a target="_blank"  href="{{this.url+element.rvrd_printstickerpath}}?v={{version}}">{{'Print RAS Sticker' |translate}}</a></span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.ifExpired == 1 || element.ifNearingExpiry == 1) && element.rvrd_permitstatus != 1 && element.rvrd_permitstatus != 4 && element.rvrd_inspectionstatus == 3 && ((createaccess  || isfocalpoint == 1) && stktype == 2 ) " (click)="renewNow(element)"><span>{{'Renew Now' |translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="((element.rvrd_inspectionstatus == 1  && stktype == 2 && isfocalpoint == 1))" (click)="EditVehiclDtls(element)"><span>{{'Edit Vehicle Details' |translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.rvrd_inspectionstatus == 8 ) && isfocalpoint == 1 && stktype == 2 " (click)="CancelVehicle(element)"><span>{{'Cancel Registration' |translate}}</span></button>
+                                            <!-- <button type="button" mat-menu-item><span>{{'Audit Log' |translate}}</span></button> -->
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 1 -->
+                        <ng-container matColumnDef="row-firstonewone">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="centrename" (keyup)="applyFilter($event.target.value,'centrename')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- new 1 -->
+                        <ng-container matColumnDef="row-firstnew">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="rasicnum" (keyup)="applyFilter($event.target.value,'rasicnum')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-new">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="officetype" multiple (selectionChange)="applyFilter($event.value,'officetype')">
+                                        <mat-option value="1">{{'Main Office' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Branch Office' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- new 2 -->
+                        <ng-container matColumnDef="row-newone">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="branch_name" (keyup)="applyFilter($event.target.value,'branch_name')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 1 -->
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appl_form_filter" (keyup)="applyFilter($event.target.value,'appl_form_filter')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 2 -->
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="officetype_filter"  (keyup)="applyFilter($event.target.value,'officetype_filter')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 3 -->
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="220px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="trainingprovide_filter" (keyup)="applyFilter($event.target.value,'trainingprovide_filter')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-three-one">
+                            <mat-header-cell fxFlex="220px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="odometerfilter" (keyup)="applyFilter($event.target.value,'odometerfilter')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 4 -->
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="cour_type_filter" (keyup)="applyFilter($event.target.value,'cour_type_filter')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 5 -->
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="course_titles_filter" multiple (selectionChange)="applyFilter($event.value,'course_titles_filter')">
+                                        <mat-option *ngFor="let req of roadtype"
+                                                value={{req.referencemst_pk}}>{{ifarbic == true ?
+                                                (req.rm_name_ar):(req.rm_name_en)}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 6 -->
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="course_cat_filter"  (keyup)="applyFilter($event.target.value,'course_cat_filter')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- new 6 -->
+                        <ng-container matColumnDef="row-newsix">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.search' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="time_Date"
+                                            (ngModelChange)="applyFilter($event,'time_Date')" #pickers matInput
+                                            type="text" autocomplete="off" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [maxDate]='selected2' readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix>
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 7 -->
+                        <ng-container matColumnDef="row-seven">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.search' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="cour_subcate_filter"
+                                            (datesUpdated)="changeDateInsp($event,'cour_subcate_filter')" #pickers matInput
+                                            type="text" autocomplete="off" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [maxDate]='selected2' readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix>
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 8 -->
+                        <ng-container matColumnDef="row-eight">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="appl_type_filter" multiple (selectionChange)="applyFilter($event.value,'appl_type_filter')">
+                                        <mat-option value="1">{{'Initial' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Renewal' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 9 -->
+                        <ng-container matColumnDef="row-nine">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                        
+                                    <mat-select  panelClass="select_with_search" [formControl]="appl_status_filter" multiple (selectionChange)="applyFilter($event.value,'appl_status_filter')">
+                                        <div class="option-listing countryselectwithimage">  
+                                        <mat-option value="1">{{'Inspection Pending' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Verification Pending' |translate}}</mat-option>
+                                        <mat-option value="3">{{'Completed' |translate}}</mat-option>
+                                        <mat-option value="5">{{'Declined by Verifier' |translate}}</mat-option>
+                                        <mat-option value="4">{{'Supervisor Approval Pending' |translate}}</mat-option>
+                                        <mat-option value="6">{{'Declined by Supervisor' |translate}}</mat-option>
+                                        <mat-option value="7">{{'Re-Inspection Required' |translate}}</mat-option>
+                                        <mat-option value="8">{{'Rejected' |translate}}</mat-option>
+                                        <mat-option value="9">{{'Rejected and Cancelled' |translate}}</mat-option>
+                                        <mat-option value="10">{{'Cancelled(Renewal)' |translate}}</mat-option>
+                                        </div>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 10 -->
+                        <ng-container matColumnDef="row-ten">
+                            <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center ">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="cert_status_filter" multiple (selectionChange)="applyFilter($event.value,'cert_status_filter')">
+                                        <mat-option value="1">{{'New' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Valid' |translate}}</mat-option>
+                                        <mat-option value="3">{{'Expired' |translate}}</mat-option>
+                                        <mat-option value="4">{{'Cancelled' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 11 -->
+                        <ng-container matColumnDef="row-eleven">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.search' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="lastUpdated_branch_filter"
+                                            (datesUpdated)="changeDateExp($event,'lastUpdated_branch_filter')" #pickers matInput
+                                            type="text" autocomplete="off" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [maxDate]='selected2' readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix>
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 12 -->
+                        <ng-container matColumnDef="row-twelve" stickyEnd>
+                            <mat-header-cell fxFlex="125px" class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                aria-hidden="true" matTooltip="{{'table.refresh'|translate}}"></i>
+                        </mat-header-cell>
+                        </ng-container>
+                       
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="getdisplayedColumns()">
+                        </mat-header-row>
+                           
+                        <mat-header-row id="searchrow" *matHeaderRowDef="getdisplayedsearch()">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: getdisplayedColumns();"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                                        class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'No Records' | translate}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div id="paymentpop">
+    <div class="notes">
+         <h4 class="head m-5">{{'payment.paymentnotes' | translate}}</h4>
+    </div>
+    <div class="content">
+        <ul>
+            <li>{{'payment.pointone' | translate}}</li>
+            <li>{{'payment.pointtewo' | translate}}<a href="https://en.wikipedia.org/wiki/3-D_Secure" target="_blank" >{{'payment.here' | translate}}</a>{{'payment.pointlast' | translate}}</li>
+            <li>{{'payment.pointthree' | translate}}</li>
+            <li>{{'payment.pointfour' | translate}}</li>
+        </ul>
+    </div>
+    <div class="btn" fxLayoutAlign="end center">
+         <button class="ok fs-16" (click)="closedialog()" color="primary" mat-raised-button >{{'uploadfile.ok' | translate}}</button>
+    </div>
+</div>

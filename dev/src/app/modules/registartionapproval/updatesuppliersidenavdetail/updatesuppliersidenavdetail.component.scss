@@ -1,0 +1,596 @@
+
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#updatesupplierlistview{
+  .arabiclanguage{
+    input, .mat-form-field-label{
+      text-align:right;
+    }  
+    .mat-form-field-label{
+      text-align:right;
+      span{
+        float:right;
+      }
+    }
+  }
+    .caseclass {
+         text-transform: inherit !important; 
+    }
+    .clabel {
+       color: #4aa1ac !important;
+    }
+    .supplychaincolor{
+        color: #4aa1ac;
+    }
+    .supplierreqcolor{
+        P{
+            color: #333333;
+            font-size: 0.75rem;
+            margin: 0px;
+        }
+    }
+    .updatetextcolor{
+        margin-bottom: 8px;
+        h2{
+            font-size: 0.9375rem;
+            color: #333333;
+            margin: 0px;
+        }
+     }
+     .imgalignflex{
+        img{
+          object-fit: cover;
+          border-radius: 4px;
+        }
+        }
+          .addedcertificate {
+            padding: 20px;
+            @include spacebetween();
+            background: #f2f3f7;
+          .certificates {
+            display: flex;
+          }
+          .phonewidth{
+            min-width: 165px;
+             }
+           
+             .countrywidth{
+               min-width: 170px;
+             }
+           
+             .mailwidth{
+               min-width: 210px;
+             }
+             .flexoman{
+                 span{
+                     color: #333333;
+                     font-size: 0.9375rem;
+                 }
+             }
+             .editview {
+                display: inline-flex;
+                .edit {
+                    opacity: 1 !important;
+                    background: #e5e5e5;
+                    color: #666;
+                    border-radius: 50%;
+                }
+                i {
+                  font-size: 0.75rem;
+                }
+                span {
+                  opacity: 0;
+                  width: 35px;
+                  height: 35px;
+                  @include flexcenter();
+                  cursor: pointer;
+                }
+              }
+          .companyandofficeinfo {
+            p {
+              margin: 0;
+            }
+            .crandbranchids {
+              @include flexstart();
+              padding-top: 10px;
+              padding-bottom: 10px;
+              .count {
+                font-family: 'opal_semibold';
+              }
+            }
+            padding-left: 20px;
+            .title {
+              color: #999;
+              font-size: 0.75rem;
+              margin: 0;
+              line-height: 0.9;
+              padding-bottom: 6px;
+            }
+            .lablename {
+                color: #4aa1ac;
+                font-size: 0.8125rem;
+            }
+            .name {
+              color: #4aa1ac;
+              font-size: 1rem;
+              line-height: 35px;
+            }
+            .countryandcrinfo{
+                .eachitem{
+                    padding-right:12px;
+                }
+            }
+             }
+            }
+       .jsrscertificatebackground{
+        display: flex;
+        align-items: center;
+        background-clip: padding-box; 
+        background-color: #fff; 
+        border-radius: 2px;
+        border: 1px solid #dadada;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        padding: 25px 20px 25px 20px;
+       .jsrstextcolor{
+           width: 50%;
+           p{
+            margin: 0px;
+           }
+       } 
+       .borderrightjsrscertify{
+          border-right: 1px solid #dadada;
+       }
+    }
+    .curentcardclassify{
+        .currentcolor{
+            h2{
+                color: #333333;
+                font-size: 0.9375rem;
+                margin: 0px;
+                margin-bottom: 8px;
+            }
+        }
+        .statuscardcertifcate{
+            background-color: #fff; 
+            border: 1px solid #dadada;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+            padding:20px;
+        }
+        .currentclassifyalign{
+            display: flex;
+            align-items: center;
+            background-clip: padding-box; 
+           .headcounttextalign{
+            width: 33.33%;
+            p{
+                line-height: 2.5 !important;
+                margin: 0px;
+               }
+          }  
+        }
+        .omrcountcolor{
+            padding-top: 20px;
+            p{
+                margin: 0px;
+               }
+               span{
+                   color: #333333;
+                   font-size: 1.125rem;
+                   font-family: 'opal_semibold';
+            }
+        }
+        .jsrsenterpriseclassify{
+            margin-top: 8px;
+            padding: 20px;
+            border: 1px solid #dadada;
+            .totalsubscription{
+                p{
+                    margin: 0px;
+                    line-height: 2.5 !important;
+                   }
+                   span{
+                       color: #333333;
+                       font-size: 1.125rem;
+                       font-family: 'opal_semibold';
+                }
+            }
+            .enterpriseclassify{
+                p{
+                    margin: 0px;
+                    line-height: 2.5 !important;
+                   }
+            }
+        }
+        .micro{
+            padding-left: 6px;
+            padding-right: 6px;
+            color:#fff !important;
+            background-color:#3e78d8;
+            padding-top: 2px;
+            padding-bottom: 2px;  
+            border-radius: 2px;
+            margin: 0px;
+        }
+        .small{
+            padding-left: 6px;
+            padding-right: 6px;
+            color:#fff !important;
+            background-color:#f2ac1d;
+            padding-top: 2px;
+            padding-bottom: 2px;  
+            border-radius: 2px;
+            margin: 0px;
+        }
+        .medium{
+            padding-left: 6px;
+            padding-right: 6px;
+            color:#fff !important;
+            background-color:#2fd0d4;
+            padding-top: 2px;
+            padding-bottom: 2px;  
+            border-radius: 2px;
+            margin: 0px;
+        }
+        .large{
+            padding-left: 6px;
+            padding-right: 6px;
+            color:#fff !important;
+            background-color:#62a125;
+            padding-top: 2px;
+            padding-bottom: 2px;  
+            border-radius: 2px;
+            margin: 0px;
+        }
+    } 
+}
+
+
+
+@media (max-width:768px) and (min-width:766px) {
+  #updatesupplierlistview{
+    .certificates {
+         width: 100% !important;
+    }
+   .paddingleftspace{
+       padding-left: 20px;
+   }
+   .widthofenterprise{
+       max-width: 50% !important;
+   }
+   .paddingarounspace{
+       padding-right: 0px !important;
+   }
+   .countrywidth{
+        min-width: 130px !important;
+    }
+   }
+  }
+
+  @media (max-width:767px){
+    #updatesupplierlistview{
+     .paddingbetween{
+        padding-left: 0px !important;
+     }
+     .companyandofficeinfo{
+        padding-left: 0px !important;
+        padding-top: 15px;
+    }
+    .borderrightjsrscertify {
+        border-right: none !important;
+    }
+     .paddingarounspace{
+        padding-right: 0px !important;
+     }
+    .jsrscertificatebackground{
+        display: block !important;
+        }
+       .jsrstextcolor{
+           width: 100% !important;
+       }
+       .currentclassifyalign{
+        display: block !important;
+        }
+       .headcounttextalign{
+        width: 100% !important;
+       }
+    }
+   }
+ 
+
+.mobilewidth{
+     min-width: 200px;
+}
+
+
+.listsector{
+    .viewclear{
+       min-width: 165px;
+       height: 40px;
+    }
+    .leftmainspace{
+        .subcontent{
+          max-width: 85%;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 25px;
+           .widthoffirst{
+              width: 50%;
+              height: 55px;
+              margin-bottom: 25px;
+           }
+           .secondwidth{
+              @extend .widthoffirst;
+              width:100% !important;
+           }
+           .sectorheight{
+              @extend .widthoffirst;
+              width:100% !important;
+              height: 45px !important;
+              margin-bottom: 6px !important;
+           }
+           .firstviewcontent{
+            p{
+              width: 35%;
+              height: 20px;
+              margin-bottom: 20px;
+            }
+           }
+           .descriptitlesector{
+            p{
+              width: 20%;
+              height: 15px;
+              margin-bottom: 20px;
+            }
+            .descriptioncontent{
+              @extend .widthoffirst;
+              width:100% !important;
+              height: 85px !important;
+           }
+         }
+        }
+    }
+    .clearpro{
+       min-width: 80px;
+       height: 40px;
+    }
+    .addviewload{
+       @extend .clearpro;
+       min-width: 95px !important;
+    }
+    .alignload{
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+    }
+    .addviewload
+    .heightofbtn{
+       height: 40px;
+    }
+    
+  }
+  
+  
+  .spacing{
+    .flexspacerow{
+       display: flex;
+    }
+    .viewwidth{
+       width: 55%;
+    }
+    .projimgmapuser{
+     width: 65px;
+     margin-right:20px;
+   }
+  }
+  .placeholder-content {
+    height: 320px;
+    background: #000;
+    position: relative;
+    // Animation
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: #f6f7f8; // Fallback
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px; // Animation Area
+    }
+    .placeholder-content_item {
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    z-index: 2;
+    }
+    .placeholder-content_item:after,
+    .placeholder-content_item:before {
+    width: inherit;
+    height: inherit;
+    content: "";
+    position: absolute;
+    }
+    @keyframes placeholderAnimate {
+    0% {
+        background-position: -650px 0;
+    }
+    100% {
+        background-position: 650px 0;
+    }
+    }
+    .pagetitle {
+    background: #000;
+    position: relative;
+    // Animation
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: pagetitleAnimate;
+    background: #f6f7f8; // Fallback
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px; // Animation Area
+    }
+    .pagetitle:before {
+        width: inherit;
+        height: inherit;
+        content: "";
+        position: absolute;
+        }
+    @keyframes pagetitleAnimate {
+     0% {
+       background-position: -650px 0;
+     }
+     100% {
+       background-position: 650px 0;
+     }
+    }
+    
+    .projlstngph{        
+        span{
+            display:block;
+            &.tphid{width:30%;height:12px;margin-top:12px;}
+            &.tphtitle{width:60%;height:12px;margin-top:12px;}
+            &.tphtype{width:20%;height:12px;margin-top:12px;}
+            &.tphstatus{width:100px;height:12px;margin-top:12px;}
+            &.tphcount{width:40px;height:12px;margin-top:12px;}
+            &.tphdesp{width:100%;height:12px;margin-top:12px;}
+        }
+        .tphmore{
+          position:absolute;
+          top:10px;
+          right:10px;
+          color:#999;
+        }
+        .docrow{
+            display:flex;
+            width:100%;
+            
+            .docimg{
+                width:80px;
+                height:80px;
+                margin-right:20px;
+            }
+            .doccontent{
+                display:flex;
+                flex-direction:column;
+                .doctitle{
+                    width:50%;height:12px;
+                }
+                .doccol{
+                    display:flex;
+                    flex-direction: row;
+                    .doccoldata{
+                        width:25%;
+                        margin-right:30px;
+                        display:flex;
+                        flex-direction:column;
+                        .docdate{
+                            width:150px;height:12px;
+                        }
+                    }
+                }
+                
+            }
+        }
+        hr{
+            width:100%;
+            border-top:1px solid #ddd;
+            margin:20px 0;
+        }
+        .targetjustify{
+          display:flex;
+          justify-content: space-between;
+          flex-direction: row;
+          .pager{
+            width:25%;
+            height:32px;
+          }
+          .search{
+            width:25%;
+            height:32px;
+          }
+        }
+        .tablerow{
+          display:flex;
+          justify-content: space-around;
+          flex-direction: row;
+          width:100%;
+          .tabletitle{
+            width:18%;
+            margin-right:2%;
+            height:32px;
+          }
+        }
+  
+        .project-lst{
+          border: 1px solid rgba(204, 204, 204, 0.5);
+          border-radius: 4px;
+          background-clip: padding-box;
+          background-color: #fff;
+          min-height: 242px;
+          width: 100%;
+          padding: 0px;
+          margin-top:20px;
+          .project-lst-header{
+            min-height:180px;
+            width:100%;
+            display:flex;
+            flex-direction:row;
+            padding:15px;
+            position:relative;
+            .projimg{
+              width:160px;
+              height:160px;
+              margin-right:20px;
+            }
+            .projdet{
+              display:flex;
+              flex-direction:column;
+              width:calc(100% - 160px);
+            }
+          }
+          .project-lst-footer{
+            min-height: 60px;
+            border-radius: 2px;
+            background-clip: padding-box;
+            background-color: #ebeff5;
+            padding: 8px 0px !important;
+            align-items: center;
+            justify-content: space-between;
+          }
+        }
+    }
+
+    [dir=rtl]{
+      #updatesupplierlistview{
+        .paddingcertfication{
+          padding-right: 20px;
+       }
+       .addedcertificate .companyandofficeinfo .name{
+            padding-right: 12px;
+       }
+      }
+  }

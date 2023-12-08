@@ -1,0 +1,271 @@
+
+
+  @mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#spacepartdrawer{
+         padding-left: 50px !important;
+         padding-right: 50px !important;
+}
+    
+
+#subpaydetaillist{
+    .cancelbtndragdrop{
+        background-color:#ececec;
+        color:#666666;
+        border-radius:2px !important;
+        min-width:158px;
+        height:35px;
+        margin-bottom:20px;
+    }
+    .title{
+        color: red;
+    }
+    .imgsize{
+        img{
+            max-width: 100%;
+            height: 28px;
+        }
+   }
+    .submitbtnwidth{
+        min-width:158px;    
+    }
+    .bluegreen{
+        color: #4aa2ac !important;
+        margin: 0px;
+    }
+    .specialdis{
+        padding: 10px 12px;
+        background-color: #f6f6f6;
+        min-width: 230px;
+    }
+    .OPALcolorinner{
+          background-color: #fff;
+          padding: 6px 10px;
+    }
+    .floatalign{
+        float: right;
+   }
+    .backgrounjsrs{
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        border: 1px solid #dadada;
+        border-radius: 2px;
+    }
+
+    .flexwidth{
+        @include flexend();
+        width: 40%;
+        span{
+            color: #333333; 
+        }
+        p{
+             color: #333333;
+             min-width: 115px;
+        }
+   }
+   .widthfirttag{
+        width: 60%;
+        color: #666;
+   }
+   .subscriptiontitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    P{
+         margin: 0px;
+    }
+    .spacingwidth{
+        position: relative;
+    }
+}
+   .paymenttitlecolor{
+    padding: 10px;
+    background-color: #f6f6f6;
+    @include spacebetween();
+    margin-bottom: 20px;
+    p{
+        color: #333333;
+        margin: 0px;
+    }
+    .spacingwidthtotal{
+        min-width: 242px;
+        margin: 0px;
+        position: relative;
+        span{
+            position: absolute;
+            right: 30px;
+        }
+        
+    }
+    .spacingalignwidthomr{
+        min-width: 70px;
+        margin: 0px;
+    }
+
+}
+    .offlinecolorconfirm{
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        border: 1px solid #dadada;
+        border-radius: 2px;
+        padding: 15px 20px;
+        h2{
+            color: #ff3333;
+            font-size: 0.875rem;
+        }
+        
+        li{
+            color: #ff3333;
+            font-size: 0.875rem;
+            list-style-type: disc;
+            padding-bottom: 10px;
+            line-height: 1.5;
+    
+        }
+    }
+    
+    .Notecolorpay{
+        p{
+            font-size: 0.875rem;
+            color: #333333;
+    
+        }
+        span{
+            font-size: 0.875rem;
+            color: #f4811f; 
+        }
+    }
+    .widthlabel{
+        width: 60%;
+   }
+   .widthinnerlabel{
+        width: 40%;
+   }
+    .statuscardcertifcate{
+        background-color: #fff; 
+        border-radius: 2px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        &.box_removepaydet{
+             border: 1px solid #ddd;
+             box-shadow: none;
+        }
+        .updateclassifyview{
+             padding: 15px 20px;
+             border-bottom: 1px solid #ddd;
+        }
+        .background_totalpay{
+            background-color: #f6f6f6;
+            padding: 8px 20px 8px 20px !important;
+        }
+        .updateflex{
+            @include flexstart();
+            &:last-child{
+                 padding-bottom: 0px !important;
+            }
+            .clabel{
+                 line-height: inherit !important;
+            }
+            .cvalue{
+                line-height: inherit !important;
+            }
+            padding-bottom: 4px;
+            .floatalign{
+                 float: right;
+            }
+          
+            .widthomr{
+                 min-width: 75px;
+            }
+            .minwidthdate{
+                  min-width: 186px;
+            }
+            .smemediumtag {
+                background-color: #2fd0d4;
+                color: #fff;
+                border-radius: 2px;
+                padding: 0px 5px;
+                font-size: 	0.75rem;
+            }
+            .smesmalltag{
+                 @extend .smemediumtag;
+                 background-color: #71c015;
+            }
+            .largetag{
+                 @extend .smemediumtag;
+                 background-color: #62a125;
+            }
+        }   
+    }
+    .borderbottomrenewallist{
+        width: 100%;
+        border-bottom: 1px solid #dadada;
+        .clabel{
+              color: #666 !important;
+        }
+        .borderbottomrenwalalign{
+            width: 100%;
+            .interbold{
+                line-height: 20px;
+                word-break: break-word;
+            }
+          } 
+          .renewalalign{
+              @include flexstart();
+          }  
+      }
+}
+  
+.paymentproofsidenav .paymentproofwidth{
+    width: 74%;
+  }
+
+
+  @media (max-width:767px)  {
+    .paymentproofsidenav .paymentproofwidth{
+      width: 100% !important;
+    }
+  }
+
+
+@media (max-width: 1280px) and (min-width: 1276px) {
+    .paymentproofsidenav .paymentproofwidth{
+        width: 80% !important;
+    }
+}
+
+@media (min-width:769px) and (max-width:1024px){
+    .paymentproofsidenav .paymentproofwidth{
+        width: 98% !important;
+    }
+}
+
+[dir=rtl]{
+    .backgrounjsrs{
+        .floatalign{
+             float: left !important;
+        }
+    }
+}

@@ -1,0 +1,187 @@
+<div fXLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100" id="jsrsdetaillist">
+    <div class="widthload  borderspeccompanycolordownloadanother spacepayment">
+      <div class="spencercoorpaymentclassification p-t-25 p-b-25">
+        <p class="fs-15 p-r-20 m-0">OPAL Certification Subscription Details</p>
+       
+      </div>
+      <div class="regborder pd-25">
+        <div class="innerrows">
+          <div class="eachtwoboxes">
+            <div class="eachitem firstbox">
+              <p class="cmpnyinfo">
+                <span class="labelcmp clable">OPAL Registration Number
+                </span>
+                <span class="infocmp cvalue">{{paymentDetails?.regno || 'NIL'}}</span>
+              </p>
+              <p class="cmpnyinfo">
+                <span class="labelcmp clable">Date of Registration</span>
+                <span class="cvalue">{{paymentDetails?.dateofreg || 'NIL'}}</span>
+              </p>
+              <p *ngIf="paymentDetails?.countryName" class="cmpnyinfo">
+                <span class="labelcmp clable">Country</span>
+                <span class="cvalue"><img class="p-r-8 imgewidth"
+                    src="assets/images/flags/{{paymentDetails?.countryPk}}.png"
+                    alt="omanflaglogo">{{paymentDetails?.countryName}}
+                  <!-- <img src="assets/images/flags/104.png" alt="104"> -->
+                </span>
+              </p>
+              <p class="cmpnyinfo">
+                <span class="labelcmp clable">Company Classification</span>
+                <span [class.micro]="paymentDetails?.classificationType.toLowerCase().includes('micro')"
+                  [class.small]="paymentDetails?.classificationType.toLowerCase().includes('small')"
+                  [class.medium]="paymentDetails?.classificationType.toLowerCase().includes('medium')"
+                  [class.large]="paymentDetails?.classificationType.toLowerCase().includes('large') || paymentDetails?.classificationType.toLowerCase().includes('international')">{{paymentDetails?.classificationType
+                  || 'NIL'}}</span>
+              </p>
+              <p class="cmpnyinfo" *ngIf="paymentDetails?.origin == 'NATIONAL' && !hideChangeSubscription">
+                <span class="labelcmp clable">Head Count</span>
+                <span class="cvalue"
+                  *ngIf="!paymentDetails?.headCount?.toLowerCase().includes('employees')">{{paymentDetails?.headCount ||
+                  'NIL'}} Employees</span>
+                <span class="cvalue"
+                  *ngIf="paymentDetails?.headCount?.toLowerCase().includes('employees')">{{paymentDetails?.headCount ||
+                  'NIL' }}</span>
+              </p>
+              <p class="cmpnyinfo" *ngIf="paymentDetails?.origin == 'NATIONAL' && !hideChangeSubscription">
+                <span class="labelcmp clable">Annual Sale/Turnover (OMR)</span>
+                <span class="cvalue">{{paymentDetails?.annualSales || 'NIL'}}</span>
+              </p>
+              <p class="cmpnyinfo"> 
+                <span class="labelcmp clable">Validity</span>
+                <span *ngIf="paymentDetails?.packageDtl?.subscription?.duration?.Years"
+                  class="cvalue">{{paymentDetails?.packageDtl?.subscription?.duration?.Years}}
+                  {{paymentDetails?.packageDtl?.subscription?.duration?.Years > 1 ? 'Years' : 'Year'}}</span>
+                <span *ngIf="!paymentDetails?.packageDtl?.subscription?.duration?.Years" class="cvalue">NIL</span>
+              </p>
+              <p class="cmpnyinfo">
+                <span class="labelcmp clable">Products & Services Pack</span>
+                <span class="cvalue">Unlimited</span>
+              </p>
+              <p class="cmpnyinfo">
+                <span class="labelcmp clable">OPAL Certification Fee</span>
+                <span *ngIf="paymentDetails?.packageDtl?.subscription?.packageBasePrice"
+                  class="cvalue">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} {{paymentDetails?.packageDtl?.subscription?.packageBasePrice}}</span>
+                <span *ngIf="!paymentDetails?.packageDtl?.subscription?.packageBasePrice" class="cvalue">NIL</span>
+              </p>
+              <!-- <p class="cmpnyinfo" *ngIf="paymentMode === 'online'">
+                <span class="labelcmp">Additional Charges (2.31%)</span>
+                <span *ngIf="paymentDetails?.packageDtl?.subscription?.additionalPrice" class="infocmp">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} {{ paymentDetails?.packageDtl?.subscription?.additionalPrice }}</span>
+                <span *ngIf="!paymentDetails?.packageDtl?.subscription?.additionalPrice" class="infocmp">NIL</span>
+              </p> -->
+              <p class="cmpnyinfo" *ngIf="false">
+                <span class="labelcmp clable">Processing Charges</span>
+                <span class="cvalue">USD 23L</span>
+              </p>
+              <!-- <p class="cmpnyinfo">
+                <span class="labelcmp">Total Payable Amount</span>
+                <span class="infocmp" *ngIf="paymentDetails?.packageDtl?.subscription?.totalPrice && paymentMode === 'online'">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} {{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.totalPrice.toFixed(3) : paymentDetails?.packageDtl?.subscription?.totalPrice.toFixed(2)}}</span>
+                <span class="infocmp" *ngIf="paymentDetails?.packageDtl?.subscription?.packageBasePrice && paymentMode === 'offline'">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}} {{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? paymentDetails?.packageDtl?.subscription?.packageBasePrice.toFixed(3) : paymentDetails?.packageDtl?.subscription?.packageBasePrice.toFixed(2)}}</span>
+                <span class="infocmp" *ngIf="!paymentDetails?.packageDtl?.subscription?.totalPrice && paymentMode === 'online'">NIL</span>
+                <span class="infocmp" *ngIf="!paymentDetails?.packageDtl?.subscription?.packageBasePrice && paymentMode === 'offline'">NIL</span>
+              </p> -->
+              <div class="popover_maincontainer">
+                <div class="changeclassifyspace">
+                  <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-start center">
+                      <button mat-raised-button color="primary" *ngIf="!hideChangeSubscription && paymentStatus!=1 && paymentStatus!=2 && paymentStatus!=3" class="button-30 fs-14 m-r-10"
+                      (click)="changeclassifydrawer.toggle()">Change Classification</button>
+                      <div class="alignpassword spacebtn">
+                        <button mat-raised-button class="changecolor m-r-8 fs-14"><i
+                            class="bgi bgi-download fs-12 colorlogo p-r-8"></i><span><a class="invoicecolor fs-13"
+                              href="{{paymentDetails?.invoiceLink}}" target="blank">Invoice</a></span></button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <button mat-raised-button *ngIf="!hideChangeSubscription" class="usercolor fs-14" (click)="changeclassifydrawer.toggle()">Change
+                        Validity</button> -->
+                 
+                </div>
+                <span class="aftercolortext"  [popover]="users"
+                popoverPlacement="top" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                [popoverCloseOnMouseOutside]="false" [popoverAnimation]="true">
+                <popover-content #users placement="top" [animation]="true" [closeOnClickOutside]="true">
+                  <div class="popovermaincontent  afternext">
+                    <div class="popovertexts positionname">
+                      <div class="headerevent">
+                        <div class="headerpopview p-l-18">
+                          <h2
+                            *ngIf="paymentDetails?.paymentContact?.firstname && paymentDetails?.paymentContact?.lastname"
+                            class="fs-15">{{paymentDetails?.paymentContact?.firstname}}
+                            {{paymentDetails?.paymentContact?.lastname}}</h2>
+                          <h2
+                            *ngIf="!paymentDetails?.paymentContact?.firstname && !paymentDetails?.paymentContact?.lastname"
+                            class="fs-15">NIL</h2>
+                          <p class="fs-15 seniorcolor m-0 p-t-18">{{paymentDetails?.paymentContact?.designation || 'NIL'}}
+                          </p>
+                        </div>
+                        <div class="p-l-18">
+                          <div class="cmpnyinfo p-t-20">
+                            <span class="labelcmpdep m-0 clable">Department</span><span class="p-r-25 cvalue">:</span>
+                            <span class="cvalue m-0">{{paymentDetails?.paymentContact?.department || 'NIL'}}</span>
+                          </div>
+                          <div class="cmpnyinfo">
+                            <span class="labelcmpdep m-0 clable">Mobile</span><span class="p-r-25 cvalue">:</span>
+                            <span *ngIf="paymentDetails?.paymentContact?.mobileno"
+                              class="cvalue m-0">{{paymentDetails?.paymentContact?.mobileDialCode}}
+                              {{paymentDetails?.paymentContact?.mobileno}}</span>
+                            <span *ngIf="!paymentDetails?.paymentContact?.mobileno" class="cvalue m-0">NIL</span>
+                          </div>
+                          <div class="cmpnyinfo">
+                            <span class="labelcmpdep m-0 clable">Landline</span><span class="p-r-25 cvalue">:</span>
+                            <span *ngIf="paymentDetails?.paymentContact?.landlineno"
+                              class="cvalue m-0">{{paymentDetails?.paymentContact?.landlineDialCode}}
+                              {{paymentDetails?.paymentContact?.landlineno}}
+                              {{paymentDetails?.paymentContact?.landlineext}}</span>
+                            <span *ngIf="!paymentDetails?.paymentContact?.landlineno" class="cvalue m-0">NIL</span>
+                          </div>
+                          <div class="cmpnyinfo">
+                            <span class="labelcmpdep m-0 clable">Email ID</span><span class="p-r-25 cvalue">:</span>
+                            <span class="cvalue m-0">{{paymentDetails?.paymentContact?.emailid || 'NIL'}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </popover-content>Show Payment Contact<i class="fa fa-angle-right p-l-8" aria-hidden="true"></i>
+              </span>
+              </div>
+           
+              <p class="fs-14 m-t-15" *ngIf="hideChangeSubscription"><span class="notenewcolor">Note:</span> Since the
+                company's Incorporation Style is Foreign Company Branch the SME Classification is not applicable
+                therefore the Enterprise Classification is 'Large' by default. Kindly
+                <span class="contactus" (click)="drawercontactus.toggle()">contact us </span> to change your style of
+                incorporation.
+              </p>
+              <div class="notecolorrole  p-t-25">
+                <p *ngIf="paymentMode === 'online'"><span>Note:</span> Processing of Payment validation will take minimum of one
+                  week.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+<mat-drawer-container class="example-container classifywidth">
+  <mat-drawer #changeclassifydrawer disableClose class="example-sidenav sidenavsamewidthall classifysidenavwidth"
+    mode="over" position="end">
+    <app-changeclassifylistview (changed)="updatePaymentDetails($event)" [currentSubscription]="paymentDetails"
+      [changeclassifydrawer]="changeclassifydrawer">
+    </app-changeclassifylistview>
+  </mat-drawer>
+</mat-drawer-container>
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawercontactus class="example-sidenav sidenavsamewidthall filtersidenav renew" mode="over"
+    position="end">
+    <app-contactusnav [drawercontactus]="drawercontactus" [contactussubjectext]="contactussubjectext" [contactusData]="contactusData"></app-contactusnav>
+  </mat-drawer>
+</mat-drawer-container>

@@ -1,0 +1,142 @@
+ <!-- ============================================================== -->
+<!-- Logo - style you can find in header.scss -->
+<!-- ============================================================== -->
+<div class="navbar-header">
+    <a class="navbar-brand" href="/">
+      <img src="assets/images/opalimages/opalheaderlogo.svg" alt="OPAL" class="dark-logo">
+    </a>
+</div>
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+<div *ngIf="focalpoint != 1" class="user-profile">
+    <!-- User profile image -->
+    <div class="profile-img">
+      <img src="{{companylogo?companylogo:'assets/images/opalimages/avatar.svg'}}" alt="user" (click)="handleNotify()" /> 
+   <!--    <i class="bgi bgi-edit_new"></i> -->
+    </div>
+    <!-- User profile text-->
+    <!-- ============================================================== -->
+    <!-- Profile - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <div class="profile-text">
+        <span class="user-name">{{user_name}}</span>
+        <span class="user-pos">{{designation}}</span>
+      <!--a [matMenuTriggerFor]="sdprofile" class="d-flex align-items-center">        
+        <i class="ti-angle-down font-12 ml-auto"></i>
+      </a-->
+    </div>
+    <!--mat-menu #sdprofile="matMenu" class="mymegamenu">
+      <button mat-menu-item *ngIf="stakeHolderType != '1'" [routerLink]="'/accountsettings/home'" ><mat-icon>settings</mat-icon> Settings</button>
+      <button mat-menu-item *ngIf="stakeHolderType == '1'" [routerLink]="'/accountsettings/changepassword'" ><mat-icon>settings</mat-icon> Password</button>
+      <button mat-menu-item><mat-icon>account_box</mat-icon> Profile</button>
+      <button mat-menu-item><mat-icon>notifications_off</mat-icon> Disable notifications</button>
+      <button mat-menu-item><mat-icon>exit_to_app</mat-icon> Sign Out</button>
+    </mat-menu-->
+  </div>
+  
+  <mat-nav-list appAccordion>
+    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()"  routerLinkActive="selected" group="{{ menuitem.state }}" (click)="scrollToTop()">
+      <a class="" appAccordionToggle href="{{menuitem.state}}" [ngClass]="disablemenu ? 'menudisabled' : ''"  *ngIf="menuitem.type === 'link'"  (click)="handleNotify()" >
+        <i class="opalicon {{ menuitem.icon }} fs-24"></i>
+       <!--  <mat-icon  class="opalicon {{ menuitem.icon }}"></mat-icon> -->
+        <span>{{ menuitem.name | translate }}</span>
+        <span fxFlex></span>
+        <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value}}</span>
+      </a>
+      <a class="" appAccordionToggle  *ngIf="menuitem.type === 'check'"   (click)="handleNotify();checkuserpermission(menuitem.state, menuitem.name);">
+        <i  class="opalicon {{ menuitem.icon }} fs-24"></i>
+        <span>{{ menuitem.name | translate }}</span>
+        <span fxFlex></span>
+        <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value}}</span>
+      </a>
+      <a class="" appAccordionToggle  *ngIf="menuitem.type === 'click'"   (click)="handleNotify();contactsidenavdata();">
+        <i  class="opalicon {{ menuitem.icon }} fs-24"></i>
+        <span>{{ menuitem.name | translate }}</span>
+        <span fxFlex></span>
+        <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value}}</span>
+      </a>
+      <a class="" appAccordionToggle href="{{ menuitem.state }}" *ngIf="menuitem.type === 'extLink'">
+        <i  class="opalicon {{ menuitem.icon }} fs-24"></i>
+        <span>{{ menuitem.name | translate }}</span>
+        <span fxFlex></span>
+        <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{badge.value}}</span>
+      </a>
+  
+      <a class="" appAccordionToggle href="{{ menuitem.state }}" target="_blank" *ngIf="menuitem.type === 'extTabLink'" >
+        <i  class="opalicon {{ menuitem.icon }} fs-24"></i>
+        <span>{{ menuitem.name | translate }}</span>
+        <span fxFlex></span>
+        <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{badge.value}}</span>
+      </a>
+  
+      <a class="" appAccordionToggle href="javascript:;" *ngIf="menuitem.type === 'sub'">
+        <i  class="opalicon {{ menuitem.icon }} fs-24"></i>
+        <span>{{ menuitem.name | translate }}</span>
+        <span fxFlex></span>
+        <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{badge.value}}</span>
+        <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+      </a>
+  
+      <mat-nav-list class="sub-item" *ngIf="menuitem.type === 'sub'">
+        <mat-list-item *ngFor="let childitem of menuitem.children; let j = index; let i = childitem"  routerLinkActive="selected" >
+          <a routerLink="{{childitem.state}}" [ngClass]="disablemenu ? 'menudisabled' : ''"  *ngIf="childitem.type === 'link'" class="relative"  routerLinkActive="selected" (click)="itemSelect[i] = j" (click)="handleNotify()" >
+            {{ childitem.name | translate }}
+         </a>
+        </mat-list-item>
+  
+        <mat-list-item *ngFor="let childitem of menuitem.children; let j = index; let i = childitem">
+          <a class="" href="javascript: void(0);" *ngIf="childitem.type === 'subchild'" (click)="addExpandClass(childitem.name)" [ngClass]="{ selected: showMenu === childitem.name }">
+            <span>{{ childitem.name | translate }}</span>
+            <span fxFlex></span>
+            <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+          </a>
+  
+          <mat-nav-list class="child-sub-item" *ngIf="childitem.type === 'subchild'">
+            <mat-list-item *ngFor="let child of childitem.subchildren" routerLinkActive="selected">
+              <a [routerLink]="['/', menuitem.state, childitem.state, child.state]"  routerLinkActive="selected" >
+                {{ child.name | translate }}
+                </a>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <a class="" appAccordionToggle href="javascript:;" *ngIf="menuitem.type === 'sub-inc'">
+        <i  class="opalicon {{ menuitem.icon }} fs-24"></i>
+        <span>{{ menuitem.name | translate }}</span>
+        <span fxFlex></span>
+        <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{badge.value}}</span>
+        <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+      </a>
+
+      <mat-nav-list class="sub-item" *ngIf="menuitem.type === 'sub-inc'">
+        <mat-list-item *ngFor="let childitem of menuitem.children; let j = index; let i = childitem"  routerLinkActive="selected" >
+          <a routerLink="{{childitem.state}}" [ngClass]="disablemenu ? 'menudisabled' : ''"  *ngIf="childitem.type === 'link'" class="relative"  routerLinkActive="selected" (click)="handleNotify();" (click)="itemSelect[i] = j">
+            {{ childitem.name | translate }}
+         </a>
+        </mat-list-item>
+  
+        <mat-list-item *ngFor="let childitem of menuitem.children; let j = index; let i = childitem">
+          <a class="" href="javascript: void(0);" *ngIf="childitem.type === 'subchild'" (click)="addExpandClass(childitem.name)" [ngClass]="{ selected: showMenu === childitem.name }">
+            <span>{{ childitem.name | translate }}</span>
+            <span fxFlex></span>
+            <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+          </a>
+  
+          <mat-nav-list class="child-sub-item" *ngIf="childitem.type === 'subchild'">
+            <mat-list-item *ngFor="let child of childitem.subchildren" routerLinkActive="selected">
+              <a [routerLink]="['/', menuitem.state, childitem.state, child.state]"  routerLinkActive="selected" >
+                {{ child.name | translate }}
+                </a>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-list-item>
+      </mat-nav-list>
+  
+      <div class="saperator text-muted" *ngIf="menuitem.type === 'saperator'">
+        <span>{{ menuitem.name | translate }}</span>
+      </div>
+    </mat-list-item>
+  </mat-nav-list>
+  

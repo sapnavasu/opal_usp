@@ -1,0 +1,299 @@
+<div id="centerwidth">
+  <mat-drawer-container>
+    <mat-drawer-content class="setpassdrawer">
+      <app-registrationheader></app-registrationheader>
+      <div [ngSwitch]="externalProfile" dir="{{dir}}" class="scrollerdata " #pageScroll (scroll)="pageonScroll($event)">
+        <div class="pagescroll">
+          <ng-template [ngSwitchCase]="'home'">
+            <div id="homesectionreg">
+              <div class="banner_headersection" *ngIf="reglandingpage">
+                <div class="background_welcome">
+                  <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="80">
+                      <img src="assets/images/opalimages/landinbanner.svg" alt="organiserindustrialbannernew">
+                    </div>
+                    <div fxFlex="100" fxLayoutAlign="flex-start end">
+                      <div class="image_border">
+                        <div fxLayout="row wrap" fxLayoutAlign="center" class="bre_ad">
+                          <div fxFlex.gt-sm="90" fxFlex.gt-lg="56" fxFlex="100" class="centerarrange" fxLayout="column">
+                            <h2 class="main_content fs-36 txt-gry4 fw">
+                              {{'registration.welctoopal' | translate}}
+                            </h2>
+                            <!-- <bgi-breadcrumb></bgi-breadcrumb>  -->
+                            <div class="breadcrumbs">
+                              <ul fxLayout="row">
+                                <li>{{'registrationheader.home' | translate}}</li>
+                                <mat-icon class="txt-gry">keyboard_arrow_right</mat-icon>
+                                <li class="txt-red">{{'registrationheader.regi' | translate}}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-tab-group [disableRipple]="true" class='tabsdetail' [(selectedIndex)]="mattab">
+                  <mat-tab>
+                    <ng-template mat-tab-label>
+                      <div class="maxwidthinnerpart">
+                        <div (click)="changestk(1)" class="fs-16 ">
+                          {{'registration.traineavl' | translate}}
+                        </div>
+                      </div>
+                    </ng-template>
+                    <div class="tabcontent m-b-20 m-t-30" fxLayout="column">
+                      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                        <div fxFlex.gt-sm="70" fxFlex="100">
+                          <div fxLayout="row wrap" fxLayoutAlign="start center">
+                            <h4 class="main_content fs-24 txt-red m-0 lypisfont-semibold p-t-0 p-b-15 lh-38 fw">
+                              {{'registration.traineavl' | translate}}
+                            </h4>
+                            <div class="line p-l-15"><mat-divider class="m-b-14 "></mat-divider></div>
+                          </div>
+                          <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="100" fxFlex="100">
+                              <p class="fs-16 txt-gry m-t-15  lh-30"> {{'registration.content' |
+                                translate}}</p>
+                              <ul class="bulletlist_orgcert firstchildprovide m-l-5">
+                                <li class="fs-15 txt-gry m-0  lh-30">
+                                  <span>{{'registration.qualassu' | translate}}</span>
+                                </li>
+                                <li class="fs-15 txt-gry m-0"><span>{{'registration.stancour' |
+                                    translate}}</span></li>
+                                <li class="fs-15 txt-gry m-0"><span>{{'registration.standeli' |
+                                    translate}}</span>
+                                </li>
+                                <li class="fs-15 txt-gry m-0"><span>{{'registration.stancost' |
+                                    translate}}</span></li>
+                              </ul>
+                            </div>
+                           
+                          <div>
+                            <p class="fs-16 txt-gry m-t-15  lh-30"> {{'registration.secondedcontent' |
+                              translate}}</p>
+                            <h4 class="main_content fs-20 txt-gry3 m-0 lypisfont-semibold p-t-0 p-b-15 lh-38 fw">
+                              {{'registration.thirdedcontent' | translate}}
+                            </h4> 
+                          </div>
+                            <p class="fs-16 txt-gry m-t-15  lh-30"> {{'registration.fourthcontent' |
+                              translate}}</p>
+                            <ul class="m-l-5">
+                              <li class="fs-15 txt-gry m-0  lh-30">
+                                <span>{{'registration.courseone' | translate}}</span>
+                              </li>
+                              <li class="fs-15 txt-gry m-0 "><span>{{'registration.courstwo' |
+                                  translate}}</span></li>
+                            </ul>
+                            <p class="fs-16 txt-gry m-t-15 lh-30"> {{'registration.fifthcontent' |
+                              translate}}</p>
+                          </div>
+                        </div>
+                        <div class="p-l-30" fxFlex.gt-sm="30" fxFlex="100">
+                          <button (click)="compcertpaydata('2','1');scrollTo('pagescroll')" mat-raised-button 
+                            color="primary" class="primary button-55 fs-18 w-100">{{'registration.regifortrain' |  translate}}</button>
+                          <mat-card class="m-t-35 img-card">
+                            <img mat-card-image src="assets/images/opalimages/awarded.svg" alt="opallogo">
+                          </mat-card>
+                        </div>
+                      </div>
+                      <div class="back-ground" fxFlex="100" *ngIf="raw">
+                        <p class="fs-16 txt-gry text-center m-t-15 r lh-30">
+                          {{'registration.theopalstar' | translate}}</p>
+                      </div>
+                      <div fxFlex="100">
+                        <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-30 m-b-30">
+                          <h4 class="main_content fs-24 txt-red m-0 lypisfont-semibold p-t-0 p-b-15 lh-38 fw">
+                            {{'registration.apprproc' | translate}}
+                          </h4>
+                          <div class="line p-l-15"><mat-divider class="m-b-14 "></mat-divider></div>
+                        </div>
+                        <div class="cards m-t-30 m-b-30 m-l-30" fxLayoutAlign="flex-start center" fxLayout="row wrap">
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header class="p-l-35 txt-gry">{{'registration.onliregi'  | translate}}</mat-card-header><span
+                              class="step-count fs-16  lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">01</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.login'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">02</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header class="p-l-10 txt-gry">
+                              {{'registration.componli' | translate}} </mat-card-header><span
+                              class="step-count f-child fs-16 lh-28">{{'registration.step' | translate}}
+                              <br> <span class="fs-30">03</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.deskrevi'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">04</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.paym'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">05</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.siteaudit' | translate}}
+                            </mat-card-header><span class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' |
+                              translate}} <br> <span class="fs-30">06</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.finarepo'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1 m-b-10">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">07</span></span></mat-card>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab>
+                    <ng-template mat-tab-label>
+                      <div (click)="changestk(2)" class="fs-16">
+                        {{'registration.techeval' | translate}}
+                      </div>
+                    </ng-template>
+                    <div class="tabcontent m-b-20 m-t-30" fxLayout="column">
+                      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                        <div fxFlex.gt-sm="70" fxFlex="100">
+                          <div fxLayout="row wrap" fxLayoutAlign="start center">
+                            <h4 class="main_content fs-24 txt-red m-0 lypisfont-semibold p-t-0 p-b-15 lh-38 fw">
+                              {{'registration.techeval' | translate}}
+                            </h4>
+                            <div class="line p-l-15"><mat-divider class="m-b-14 "></mat-divider></div>
+                          </div>
+                          <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="100" fxFlex="100">
+                              <p class="fs-16 txt-gry m-t-15 lh-30">{{'registration.contentfirst'
+                                | translate}}
+                              </p>
+                              <p class="fs-16 txt-gry m-t-15  lh-30">
+                                {{'registration.contentsecond' | translate}}</p>
+                              <ul class="bulletlist_orgcert firstchildprovide m-l-5">
+                                <li class="fs-15 txt-gry m-0  lh-30">
+                                  <span>{{'registration.roadassustant' | translate}}</span>
+                                </li>
+                                <li class="fs-15 txt-gry m-0 "><span>{{'registration.invehimoni' |
+                                    translate}}</span></li>
+                              </ul>
+                            </div>
+                            <h4 class="main_content fs-20 txt-gry3 m-0 lypisfont-semibold p-t-0 p-b-15 lh-38 fw">
+                              {{'registration.thirdedcontenteval' | translate}}
+                            </h4>
+                            <p class="fs-16 txt-gry m-t-15  lh-30"> {{'registration.secondonefourthcontent' |
+                              translate}}</p>
+                            <p class="fs-16 txt-gry m-0 p-b-10 lh-30"> {{'registration.theorgancanregi' |
+                              translate}}</p>
+                            <p class="fs-16 txt-gry m-0 p-b-10 lh-30"> {{'registration.thetechevalcent' |
+                              translate}}</p>
+                            <p class="fs-16 txt-gry m-0 p-b-10 lh-30"> {{'registration.ifanorgaoffe' |
+                              translate}}</p>
+                          </div>
+                        </div>
+                        <div class="p-l-30" fxFlex.gt-sm="30" fxFlex="100">
+                          <button (click)="compcertpaydata('2','2');scrollTo('pagescroll')"  mat-raised-button 
+                            color="primary" class="primary button-55 fs-18 w-100  p-0">{{'registration.regifortech' |  translate}}</button>
+                          
+                            <mat-card class="m-t-35 img-card">
+                            <img mat-card-image src="assets/images/opalimages/awarded.svg" alt="opallogo">
+                          </mat-card>
+                        </div>
+                      </div>
+                      <div class="back-ground" fxFlex="100" *ngIf="raw">
+                        <p class="fs-16 txt-gry text-center m-t-15 lypisfont-regular lh-30">
+                          {{'registration.onceyouareregiasareco' | translate}}</p>
+                      </div>
+                      <div fxFlex="100" class="m-t-30 p-t-30">
+                        <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-30 m-b-30">
+                          <h4 class="main_content fs-24 txt-red m-0 lypisfont-semibold p-t-0 p-b-15 lh-38 fw">
+                            {{'registration.apprproc' | translate}}
+                          </h4>
+                          <div class="line p-l-15"><mat-divider class="m-b-14 "></mat-divider></div>
+                        </div>
+                        <div class="cards m-t-30 m-b-30 m-l-30" fxLayoutAlign="flex-start center" fxLayout="row wrap">
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.onliregi'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16  lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">01</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.login'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">02</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header class="p-l-10 txt-gry">
+                              {{'registration.componli' | translate}} </mat-card-header><span
+                              class="step-count f-child fs-16 lh-28">{{'registration.step' | translate}}
+                              <br> <span class="fs-30">03</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.deskrevi'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">04</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.staff'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">05</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.eval'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">06</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.paym'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">07</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.siteaudit' | translate}}
+                            </mat-card-header><span class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' |
+                              translate}} <br> <span class="fs-30">08</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-30"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.staffprac'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">09</span></span></mat-card>
+                          <mat-card fxFlex="40" fxFlex.gt-sm="18" fxFlex.lt-sm="74" fxFlex.md="40"
+                            class="text-center m-t-40 m-b-10"><mat-card-header
+                              class="p-l-35 txt-gry">{{'registration.cert'
+                              | translate}}</mat-card-header><span
+                              class="step-count fs-16 lh-28 txt-blue1">{{'registration.step' | translate}} <br> <span
+                                class="fs-30">10</span></span></mat-card>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+          </ng-template>
+          <app-supplierreg [countrylist]="countrylist" (supplieregdata)="reglandingpagedata($event)"
+            (DirtyControl)="DirtyControl($event)" [mattab]="mattab" [paymentdisable]="paymentdisable"
+            (certificatehide)="certifyhidedata($event)" *ngIf="companyinfocert"></app-supplierreg>
+          <app-registrationfooter></app-registrationfooter>
+          <!-- <app-regfooter></app-regfooter> -->
+          <span (click)="scrollTo('pagescroll')" *ngIf="isShowBtnScrollTop" class="scrolltoppagearr" matTooltip="{{'registration.gototop' | translate}}"
+            matTooltipPosition="above">
+            <mat-icon>arrow_upward</mat-icon>
+          </span>
+        </div>
+      </div>
+      <div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

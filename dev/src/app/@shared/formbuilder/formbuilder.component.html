@@ -1,0 +1,529 @@
+<div fxLayout="row wrap" *ngIf="model && !report" class="formmainheader">
+    <div fxFlex="100" class="white-bg">
+        <div class="diligenceform" fxFlex="row wrap" fxLayoutGap.sm="10px grid" fxLayoutGap.md="20px grid"
+            fxLayoutGap.lg="30px grid" fxLayoutGap.xl="30px grid" fxLayoutGap="0px grid">
+            <div fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex="100">
+                <div class="fields m-b-10" *ngFor="let item of fieldModels">
+                    <div class="field pointer shadow-bg" [dndDraggable]="item" [dndEffectAllowed]="'copy'"
+                        (dndEnd)="onDragEnd($event)">
+                        <i [ngClass]="item.icon" class="fa pull-left"></i>
+                        <h5>{{item.label}}</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div fxFlex.sm="80" fxFlex.md="80" fxFlex.lg="80" fxFlex.xl="80" fxFlex="100" class="formdiligence">
+                <div fxFlex="row wrap">
+                    <div fxFlex="100">
+                        <div class="form-group header"  style="margin-bottom: 0px !important;"
+                            [style.backgroundColor]="model.theme.bgColor" [style.color]="model.theme.textColor">
+                            <input style="font-size:24px;"  class="form-control backgroundhide" type="text" placeholder="Enter form name" [(ngModel)]="model.name" (keyup)="checkValidation()" />
+                            <input style="font-size:20px;"  class="form-control backgroundhide" type="text" placeholder="Enter form description" [(ngModel)]="model.description" (keyup)="checkValidation()" />
+                        </div>
+                        <div fxLayout="row wrap" *ngIf="formdatalist" fxLayoutAlign="flex-start"
+                            class="p-t-0 formbuilderpopup formbuilpoplist">
+                            <div fxFlex.gt-sm="100" fxFlex="100" id="cardcolor" class="p-b-0 formbuildinnerpart">
+                                <mat-card class="headerinformationtext m-r-0 backgroundcard">
+                                    <div fxFlex.gt-sm="100" fxFlex="100" class="form-box">
+                                        <section>
+                                            <div class="headingpfform">
+                                                <h4>Form name</h4>
+                                            </div>
+                                            <div class="field">
+                                                <div class="form-group">
+                                                    <div class="toggle-Wrapper">
+                                                        <div class="form-group">
+                                                            <label>Type</label>
+                                                            <select [(ngModel)]="model.nameheaderheight"
+                                                                (selected)="model.nameheaderheight"
+                                                                class="form-control">
+                                                                <option value="h1" selected>h1</option>
+                                                                <option value="h2">h2</option>
+                                                                <option value="h3">h3</option>
+                                                                <option value="h4">h4</option>
+                                                                <option value="h5">h5</option>
+                                                                <option value="h6">h6</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <div class="cardformfooter">
+                                            <button type="button" (click)="closeform()"
+                                                class="cancelbutton">Cancel</button>
+                                            <button type="button" (click)="addformnameproperty()"
+                                                class="submitbutton">Ok</button>
+                                        </div>
+                                    </div>
+                                </mat-card>
+
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" *ngIf="formdatalistdescrip" fxLayoutAlign="flex-start"
+                            class="p-t-0 formbuilderdescrip formbuilpoplist">
+                            <div fxFlex.gt-sm="100" fxFlex="100" id="cardcolor" class="p-b-0 formdescrip_place">
+                                <mat-card class="headerinformationtext m-r-0 backgroundcard">
+                                    <div fxFlex.gt-sm="100" fxFlex="100" class="form-box">
+                                        <section>
+                                            <div class="headingpfform">
+                                                <h4>Form description</h4>
+                                            </div>
+                                            <div class="field">
+                                                <div class="form-group">
+                                                    <div class="toggle-Wrapper">
+                                                        <div class="form-group">
+                                                            <label>Type</label>
+                                                            <select [(ngModel)]="model.descriptionheaderheight"
+                                                                (selected)="model.descriptionheaderheight"
+                                                                class="form-control">
+                                                                <option value="h1" selected>h1</option>
+                                                                <option value="h2">h2</option>
+                                                                <option value="h3">h3</option>
+                                                                <option value="h4">h4</option>
+                                                                <option value="h5">h5</option>
+                                                                <option value="h6">h6</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <div class="cardformfooter">
+                                            <button type="button" (click)="closeformdescrip()"
+                                                class="cancelbutton">Cancel</button>
+                                            <button type="button" (click)="addformdescproperty()"
+                                                class="submitbutton">Ok</button>
+                                        </div>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </div>
+                        <div class="form-box">
+                            <div class="btn-cont" fxFlex="100" class="m-b-20" fxLayoutAlign="end">
+                                <button (click)="datatoserve(model.attributes)" type="button"
+                                    [disabled]="!formvalid || submit_buttton_disable || model.attributes?.length == 0"
+                                    mat-button class="savebutton">Save</button>
+                            </div>
+                            <div fxFlex="100">
+                                <section dndDropzone (dndDragover)="onDragover($event)"
+                                    (dndDrop)="onDrop($event,model.attributes)" class="dndDropArea"
+                                    [ngClass]="{'empty':model.attributes?.length == 0}"
+                                    [style.backgroundColor]="model.theme.bgColor" [style.color]="model.theme.textColor">
+
+                                    <div class="field" *ngFor="let item of model.attributes;let i= index;"
+                                        (dndStart)="onDragStart($event)" (dndCanceled)="onDragCanceled($event)"
+                                        (dndMoved)="onDragged(item, model.attributes, 'move')"
+                                        [dndEffectAllowed]="'all'" [dndDraggable]="item">
+                                        <div class="form-group">
+                                            <div class="formfield">
+                                                <div class="w-100">
+                                                    <div *ngIf="item.type=='text'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <input type="{{item.texttype}}" appAlphanumsymb
+                                                            class="form-control" id="{{item.name}}"
+                                                            placeholder="{{item.placeholder}}">
+                                                    </div>
+                                                    <div *ngIf="item.type=='email'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <input type="email" appAlphanumsymb class="form-control"
+                                                            id="{{item.name}}" placeholder="{{item.placeholder}}">
+                                                    </div>
+                                                    <div *ngIf="item.type=='phone'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <input type="text" appAlphanumsymb class="form-control"
+                                                            id="{{item.name}}" min="{{item.min}}" max="{{item.max}}"
+                                                            placeholder="{{item.placeholder}}">
+                                                    </div>
+                                                    <div *ngIf="item.type=='number'" id="headerslidercustom">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <input *ngIf="item.type=='number' && item.numbertype == 1"
+                                                            type="number" appAlphanumsymb class="form-control"
+                                                            id="{{item.name}}" min="{{item.min}}" max="{{item.max}}"
+                                                            placeholder="{{item.placeholder}}">
+                                                        <mat-slider *ngIf="item.type=='number' && item.numbertype == 2"
+                                                            style="width: 300px;" id="{{item.name}}" thumbLabel
+                                                            min="{{item.min}}" max="{{item.max}}"></mat-slider>
+                                                    </div>
+                                                    <div *ngIf="item.type=='date'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <input type="{{item.datetype}}" appAlphanumsymb
+                                                            class="form-control" id="{{item.name}}"
+                                                            placeholder="{{item.placeholder}}">
+                                                    </div>
+                                                 
+                                                    <div *ngIf="item.type=='textarea'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <textarea class="form-control" appAlphanumsymb
+                                                            id="{{item.name}}"
+                                                            [(value)]="item.value ? item.value : item.predefvalue"
+                                                            placeholder="{{item.placeholder}}"> </textarea>
+                                                    </div>
+                                                    <div *ngIf="item.type=='file'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <app-filee #temporary [notePosition]="'bottom'"
+                                                            id="{{item.name}}" [fileMstRef]="item.name"
+                                                            (filesSelected)="fileeSelected($event,item.name)"
+                                                            isMandatory="true">
+                                                        </app-filee>
+                                                        <p>Note: You can upload {{item.maxfilecount}} file
+                                                            ({{item.fileaccept}}) of max. size {{item.maxfilesize}} MB.
+                                                        </p>
+                                                    </div>
+                                                    <div *ngIf="item.type=='paragraph'">
+                                                        <p class="form-text">{{item.placeholder}}  <label *ngIf="item.required"
+                                                            class="text-danger">*</label></p>
+                                                    </div>
+                                                    <div *ngIf="item.type=='autocomplete'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <select class="form-control" id="{{item.name}}">
+                                                            <option *ngFor="let v of item.values" [value]="v.value">
+                                                                {{v.label}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div *ngIf="item.type=='checkbox'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <div *ngFor="let v of item.values" class="inline-form-group">
+                                                            <label class="cust-check-bx">
+                                                                <input type="checkbox" [value]="v.value"
+                                                                    name="{{item.name}}" (click)="toggleValue(v)">
+                                                                {{v.label}}
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="item.type=='radio'">
+                                                        <label>{{item.label}}</label> <label *ngIf="item.required"
+                                                            class="text-danger">*</label>
+                                                        <div *ngFor="let v of item.values" class="inline-form-group">
+                                                            <label class="cust-check-bx">
+                                                                <input type="radio" [value]="v.value"
+                                                                    name="{{item.name}}">
+                                                                {{v.label}}
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngIf="item.type=='header'">
+                                                        <h1 *ngIf="item.size == 'h1'"> {{item.value}} </h1>
+                                                        <h2 *ngIf="item.size == 'h2'"> {{item.value}} </h2>
+                                                        <h3 *ngIf="item.size == 'h3'"> {{item.value}} </h3>
+                                                        <h4 *ngIf="item.size == 'h4'"> {{item.value}} </h4>
+                                                        <h5 *ngIf="item.size == 'h5'"> {{item.value}} </h5>
+                                                        <h6 *ngIf="item.size == 'h6'"> {{item.value}} </h6>
+                                                    </div>
+
+                                                    <div *ngIf="item.type=='button'" class="btn-cont">
+                                                        <input type="{{item.subtype}}" (click)="submit()"
+                                                            value="{{item.label}}" class="btn btn-primary"
+                                                            id="{{item.name}}">
+                                                    </div>
+                                                </div>
+                                                <div class="actionicons">
+                                                    <i class="bgi bgi-move dndHandle m-r-15 fs-17" dndHandle></i>
+                                                    <i (click)="removeField(i)" class="bgi bgi-delete m-r-15 fs-17"></i>
+                                                    <i *ngIf="item.toggle" (click)="item.toggle=false"
+                                                        class="fa fa-angle-up m-r-15 fs-17 "></i>
+                                                    <i *ngIf="!item.toggle" (click)="item.toggle=true"
+                                                        class="fa fa-angle-down m-r-15 fs-17 "></i>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="item.toggle" class="toggle-Wrapper m-t-20 p-l-5 p-r-5">
+                                                <div class="form-group">
+                                                    <label class="m-r-15">Mandatory required</label>
+                                                    <i *ngIf="item.required" (click)="item.required=false"
+                                                        class="fa fa-toggle-on red switch-btn"></i>
+                                                    <i *ngIf="!item.required" (click)="item.required=true"
+                                                        class="fa fa-toggle-off switch-btn"></i>
+                                                </div>
+                                                
+                                                <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                                    <div *ngIf="item.type !== 'header'"
+                                                        fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
+                                                        fxFlex="100" class="form-group">
+                                                        <label>Label Name</label>
+                                                        <input class="form-control" appAlphanumsymb type="text"
+                                                            [(ngModel)]="item.label" />
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                                    <div *ngIf="item.type !== 'file' && item.type !== 'header'"
+                                                        fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+                                                        fxFlex="100" class="form-group">
+                                                        <label>Placeholder</label>
+                                                        <input class="form-control" appAlphanumsymb type="text"
+                                                            [(ngModel)]="item.placeholder" />
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                                    <div *ngIf="item.type === 'file'" fxFlex.sm="100" fxFlex.md="100"
+                                                        fxFlex.lg="100" fxFlex.xl="100" fxFlex="100" class="form-group">
+                                                        <mat-form-field>
+                                                            <mat-select multiple panelClass="myPanelClass" [disableOptionCentering]="true"
+                                                            panelClass="select_with_filter" id="actsector" [errorStateMatcher]="matcher"
+                                                            (closed)="searchDivision = '';" placeholder="File Accept" [(value)]="item.fileaccept"
+                                                            [(ngModel)]="item.fileaccept"> 
+                                                            <mat-select-search panelClass="mat-select-search-inner" [formControl]="sectorFilter"
+                                                              [placeholderLabel]="'Search'" [noEntriesFoundLabel]="'No File Format match your search criteria!'">
+                                                            </mat-select-search>
+                                                            <div class="option-listing">
+                                                                <mat-option value="jpg">.jpg</mat-option>
+                                                                <mat-option value="jpeg">.jpeg</mat-option>
+                                                                <mat-option value="png">.png</mat-option>
+                                                                <mat-option value="pdf">.pdf</mat-option>
+                                                                <mat-option value="xlsx">.xlsx</mat-option>
+                                                                <mat-option value="xls">.xls</mat-option>
+                                                                <mat-option value="rar">.rar</mat-option>
+                                                                <mat-option value="zip">.zip</mat-option>
+                                                            </div>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+
+                                                <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                                    <div *ngIf="item.type === 'file'" fxFlex.sm="100" fxFlex.md="100"
+                                                        fxFlex.lg="100" fxFlex.xl="100" fxFlex="100">
+                                                        <div class="form-group">
+                                                            <label>Max file count</label>
+                                                            <input appNumberonly class="form-control" type="text"
+                                                                [(ngModel)]="item.maxfilecount" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                                    <div *ngIf="item.type === 'file'" fxFlex.sm="100" fxFlex.md="100"
+                                                        fxFlex.lg="100" fxFlex.xl="100" fxFlex="100">
+                                                        <div class="form-group">
+                                                            <label>Max file size</label>
+                                                            <input appNumberonly class="form-control" type="text"
+                                                                [(ngModel)]="item.maxfilesize" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                                    <div fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
+                                                        fxFlex="100" *ngIf="item.type === 'date'" class="form-group">
+                                                        <label>Type</label>
+                                                        <select class="form-control" [(value)]="item.datetype"
+                                                            [(ngModel)]="item.datetype">
+                                                            <option value="date">Date</option>
+                                                            <option value="datetime-local">DateTime-Local</option>
+                                                            <option value="time">Time</option>
+                                                            <option value="month">Month</option>
+                                                            <option value="week">Week</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div *ngIf="item.type === 'header'" class="form-group">
+                                                    <label>Size</label>
+                                                    <select class="form-control" [(value)]="item.size"
+                                                        [(ngModel)]="item.size">
+                                                        <option value="h1">h1</option>
+                                                        <option value="h2">h2</option>
+                                                        <option value="h3">h3</option>
+                                                        <option value="h4">h4</option>
+                                                        <option value="h5">h5</option>
+                                                        <option value="h6">h6</option>
+                                                    </select>
+                                                </div>
+
+                                                <div *ngIf="item.type === 'header'" class="form-group">
+                                                    <div fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+                                                        fxFlex="100">
+                                                        <div class="form-group">
+                                                            <label>Value</label>
+                                                            <input class="form-control" type="text"
+                                                                [(ngModel)]="item.value" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="item.type === 'text'" class="form-group">
+                                                    <label>Type</label>
+                                                    <select class="form-control" [(value)]="item.texttype"
+                                                        [(ngModel)]="item.texttype">
+                                                        <option value="text">Text</option>
+                                                        <option value="tel">Tel</option>
+                                                        <option value="url">URL</option>
+                                                     
+                                                    </select>
+                                                </div>
+
+                                                <div *ngIf="item.regex" class="form-group">
+                                                    <label>Error Validation Message</label>
+                                                    <input class="form-control" appAlphanumsymb type="text"
+                                                        [(ngModel)]="item.errorText" />
+                                                </div>
+                                                <div *ngIf="item.type=='number' || item.type=='text'"
+                                                    fxLayout="row wrap" fxLayoutGap.sm="10px grid"
+                                                    fxLayoutGap.md="10px grid" fxLayoutGap.lg="10px grid"
+                                                    fxLayoutGap.xl="10px grid" fxLayoutGap="0px grid">
+                                                    <div fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
+                                                        fxFlex="100">
+                                                        <div *ngIf="item.type=='number'" class="form-group">
+                                                            <label>Type</label>
+                                                            <select class="form-control" [(value)]="item.numbertype"
+                                                                [(ngModel)]="item.numbertype">
+                                                                <option value="1">Number</option>
+                                                                <option value="2">Range</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+                                                        fxFlex="100">
+                                                        <div class="form-group">
+                                                            <label>Min</label>
+                                                            <input type="number" [max]="item.max" class="form-control" 
+                                                                [(ngModel)]="item.min" />
+                                                        </div>
+                                                    </div>
+                                                    <div fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+                                                        fxFlex="100">
+                                                        <div class="form-group">
+                                                            <label>Max</label>
+                                                            <input type="number" class="form-control" [min]="item.min"
+                                                                [(ngModel)]="item.max" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="item.type === 'textarea'" class="form-group">
+                                                    <div fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
+                                                        fxFlex="100">
+                                                        <div class="form-group">
+                                                            <label>Predefined Value</label>
+                                                            <textarea class="form-control" type="text"
+                                                                [(ngModel)]="item.predefvalue"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    *ngIf="item.type=='radio'|| item.type=='checkbox' || item.type=='autocomplete'">
+                                                    <div fxLayout="row wrap" fxLayoutGap.sm="10px grid"
+                                                        fxLayoutGap.md="10px grid" fxLayoutGap.lg="10px grid"
+                                                        fxLayoutGap.xl="10px grid" fxLayoutGap="0px grid">
+                                                        <div fxFlex.sm="45" fxFlex.md="45" fxFlex.lg="45" fxFlex.xl="45"
+                                                            fxFlex="100">
+                                                            <div class="form-group">
+                                                                <label>Label</label>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex.sm="45" fxFlex.md="45" fxFlex.lg="45" fxFlex.xl="45"
+                                                            fxFlex="100">
+                                                            <div class="form-group">
+                                                                <label>Value</label>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xl="10"
+                                                            fxFlex="100">
+                                                            <div class="form-group labelact">
+                                                                <label>Action</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngFor="let i of item.values; let valueIndex=index;"
+                                                        fxLayout="row wrap" fxLayoutGap.sm="10px grid"
+                                                        fxLayoutGap.md="10px grid" fxLayoutGap.lg="10px grid"
+                                                        fxLayoutGap.xl="10px grid" fxLayoutGap="0px grid">
+                                                        <div fxFlex.sm="45" fxFlex.md="45" fxFlex.lg="45" fxFlex.xl="45"
+                                                            fxFlex="100">
+                                                            <div class="form-group">
+                                                                <input class="form-control" appAlphanumsymb type="text"
+                                                                    [(ngModel)]="i.label" />
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex.sm="45" fxFlex.md="45" fxFlex.lg="45" fxFlex.xl="45"
+                                                            fxFlex="100">
+                                                            <div class="form-group">
+                                                                <input class="form-control" appAlphanumsymb type="text"
+                                                                    [(ngModel)]="i.value" />
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xl="10"
+                                                            fxFlex="100">
+                                                            <div class="form-group labelact">
+                                                                <label
+                                                                    (click)="item.values.splice(valueIndex,1)">remove</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div fxLayout="row wrap" fxLayoutGap.sm="10px grid"
+                                                        fxLayoutGap.md="10px grid" fxLayoutGap.lg="10px grid"
+                                                        fxLayoutGap.xl="10px grid" fxLayoutGap="0px grid">
+                                                        <div fxFlex.sm="45" fxFlex.md="45" fxFlex.lg="45" fxFlex.xl="45"
+                                                            fxFlex="100">
+                                                            <div class="form-group">
+                                                                <input class="form-control" appAlphanumsymb type="text"
+                                                                    [(ngModel)]="value.label" />
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex.sm="45" fxFlex.md="45" fxFlex.lg="45" fxFlex.xl="45"
+                                                            fxFlex="100">
+                                                            <div class="form-group">
+                                                                <input class="form-control" appAlphanumsymb type="text"
+                                                                    [(ngModel)]="value.value" />
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xl="10"
+                                                            fxFlex="100">
+                                                            <div class="form-group labelact">
+                                                                <label (click)="addValue(item.values)">Add</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dndPlaceholder" dndPlaceholderRef> </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div fxLayout="row wrap" *ngIf="report">
+    <div class="white-bg">
+        <div class="row">
+            <div class="col-12 btn-cont">
+                <button (click)="report=false" class="btn btn-primary">
+                    << Back</button>
+            </div>
+            <div class="col-12 spacer30">
+            </div>
+            <div *ngIf="reports?.length > 0" class="col-12">
+                <div *ngFor="let records of reports" class="report-block">
+                    <div *ngFor="let record of records.attributes">
+                        <div *ngIf="record.type !='button' && record.type !='paragraph'" class="row">
+                            <div class="col-4">{{record.label}}</div>
+                            <div class="col-8">{{record.value}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="reports?.length == 0" class="col-12 btn-cont">
+                No response found
+            </div>
+        </div>
+    </div>
+</div>

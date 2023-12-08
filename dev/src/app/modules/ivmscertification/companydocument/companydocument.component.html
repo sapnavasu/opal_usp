@@ -1,0 +1,101 @@
+<div class="commonForm m-t-40">
+    <form autocomplete="off" [formGroup]="documentForm" id="documentFormivms">
+       <div  formArrayName="documentArray">
+        <div class="requiredfiels m-t-25" *ngFor="let doc of documentList ;let i=index;">
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start" class="m-b-15">
+                <div class="titleCard" fxFlex="60" fxLayout="row" fxLayoutAlign="start start">
+                    <h4 class="m-0 fs-16 txt-gry3">{{i+1}}{{'.'}}&nbsp;</h4>
+                    <h4 class="m-0 fs-16 txt-gry3">{{doc.title}}
+                        <mat-icon class="infoIcon cur-pointer txt-gry m-l-5" matTooltip="info">info_outline</mat-icon>
+                        <span class="comment" *ngIf="doc.appdst_status == 3 || doc.appdst_status == 4">
+                            <img class="p-l-5 cur-pointer" matTooltip="View Comments" (click)="toggle(i)" mat-button  src="assets/images/statusicon.svg" alt="statusicon">
+                        </span>
+                    </h4>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start end">
+                    <p class="txt-gry fs-13 m-0 ">{{'branch.addon' | translate}}: <span class="txt-gry3 fs-13">{{doc.createdon || '-'}}</span></p>
+                    <mat-divider [vertical]="true" class="m-r-8 m-l-8"></mat-divider>
+                    <p class="txt-gry fs-13 m-0">{{'branch.lastupdat' | translate}}:
+                        <span class="txt-gry3 fs-13">{{doc.updatedon || '-'}}</span>
+                    </p>
+                    <span *ngIf="doc.appdst_status == 1" class="badge mainnew m-l-20">{{'table.new' | translate}}</span>
+                    <span *ngIf="doc.appdst_status == 2" class="badge mainupdate m-l-20">{{'table.updated' | translate}}</span>
+                    <span *ngIf="doc.appdst_status == 3" class="badge mainappr m-l-20">{{'table.approv' | translate}}</span>
+                    <span *ngIf="doc.appdst_status == 4" class="badge maindecl m-l-20">{{'table.decl' | translate}}</span>
+                </div>
+            </div>
+            <div *ngIf="isopen[i]" [@fadeInOut] class="m-t-10">
+                <div class="successcmd m-l-0 m-r-0 m-b-20" *ngIf="doc.appdst_status == 3 || doc.appdst_status == 4" [ngClass]="doc.appdst_status == 4 ? 'declinecmd' : 'successcmd'">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <p class="18 comment">{{'institute.approvalcmd' | translate}}</p>
+                        <mat-icon fxLayoutAlign="center center" class="close fs-18" style="cursor: pointer;" (click)="toggle(i)" matTooltip="{{'common.close' | translate}}">close</mat-icon>
+                    </div>
+                    <p class="16 m-b-30 m-0" *ngIf="doc.appdst_appdeccomment" [innerHTML]="doc.appdst_appdeccomment | striphtml"></p>
+                    <p class="16 m-b-30" *ngIf="!doc.appdst_appdeccomment">{{'Nil' | translate}}</p>
+                    <mat-divider class="m-t-15"></mat-divider>
+                    <div class="validinfo" fxLayout="row wrap">
+                        <p class="fs-16 txt-gry m-r-40">{{'institute.lastvalion' | translate}} : <span
+                                class="fs-16 txt-gry3">{{doc.createdon}}</span></p>
+                        <p class="fs-16 txt-gry m-l-30">{{'institute.lastvaliby' | translate}} : <span
+                                class="fs-16 txt-gry3">{{doc.updatedon}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+           <div [formGroupName]="i">
+            <div class="m-t-20" fxLayout="row" [ngClass]="viewForm == false?'null':'viewOnly'">
+                <p class="m-r-40 m-0">{{'documents.prov' | translate}}<span class="req m-l-5 requiredSymb" *ngIf="!viewForm">*</span></p>
+                <mat-radio-group aria-label="Select an option" (change)="ChangeValue($event, i)" formControlName="checkBox">
+                    <mat-radio-button value="1"  class="m-r-30 m-l-30">{{'documents.yes' | translate}}</mat-radio-button>
+                    <mat-radio-button value="2"  class="m-l-30">{{'documents.no'| translate}}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div fxLayout="column" *ngIf="fileUpload[i]">
+                 <div fxLayout.gt-sm="row" fxLayout.sm="row" fxLayout="row wrap" >
+                   <div fxFlex="100" fxFlex.gt-sm="50" class="m-t-20 groupBtns">
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50"  [ngClass]="viewForm == true? 'viewOnly' : 'null'"  class="example-full-width read_only" appearance="outline">
+                            <mat-label>{{'Date of Issue' | translate}} </mat-label>
+                            <input matInput formControlName="startDate" (mousedown)="picker.open(); $event.preventDefault"
+                            [disabled]="picker.opened" [matDatepicker]="picker" [readonly]="!viewForm">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="100" fxFlex.gt-sm="50" [ngClass]="viewForm == true? 'viewOnly' : 'null'"  class="example-full-width read_only" appearance="outline">
+                            <mat-label>{{'Date of Expiry' | translate}} </mat-label>
+                            <input matInput formControlName="endDate" (mousedown)="picker2.open(); $event.preventDefault"
+                            [disabled]="picker2.opened" [matDatepicker]="picker2" [readonly]="!viewForm">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                   </div>
+                 </div>
+                 <div [ngClass]="viewForm == false?'null':'viewOnly'">
+                    <app-filee #cractivity [fileMstRef]="requireddoc" [deleteicon]="!viewForm" [fileuploadcommon]="false"
+                        [uploaddocumentname]="'Upload Document' | translate" (filesSelected)="fileeSelected($event,requireddoc)"
+                        formControlName="file_qa" [notePosition]="'bottom'" [requiredfield]="textareastatus">
+                    </app-filee>
+                     <mat-hint class="txt-gry fs-14"> {{'Only(1) PDF are allowed up to 5MB in size.' | translate}}</mat-hint>
+                     <mat-error class="fs-14" >{{'Please Upload a file' | translate}} </mat-error>
+                 </div>
+            </div>
+            <div *ngIf="!fileUpload[i]" class="m-t-20">
+                <mat-form-field appearance="outline" [ngClass]="!viewForm? 'null':'viewOnly'">
+                <mat-label>{{'documents.remark' | translate}}</mat-label>
+                <textarea [readonly]="ViewForm" matInput [(ngModel)]="uploadlength"  placeholder="{{'documents.pleaspecwhy' | translate}}"
+                    maxlength="1000" rows="3" [required]="!textareastatus"  formControlName="remark_fst"></textarea>
+                <mat-error class="text-danger errormsgtext font-14" > {{'validation.entemess' | translate}}</mat-error>
+            </mat-form-field>
+            <!-- <mat-hint class="fs-13 txt-gry"   *ngIf="getChecklistForm(i).get('chklistcomments').invalid || getChecklistForm(i).get('chklistcomments').touched"> {{uploadlength.length}}/1000</mat-hint> -->
+            <!-- <mat-hint class="fs-13 txt-gry arabicrtl" *ngIf="arabicrtl">1000/{{uploadlength[i] || 0}}</mat-hint> -->
+            </div>
+           </div>
+        </div>    
+      <!-- buttons -->
+        <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish groupBtns m-t-30">
+            <button mat-raised-button type="button" (click)="cancelform()" class="standardbutton mat-white-bg">{{'institute.prev' | translate}}</button>
+            <button mat-raised-button type="submit" *ngIf="!viewForm" class="standardbutton mat-red-bg"><span *ngIf="!updatedForms">{{'maincenter.saveandnext' | translate}}</span> <span *ngIf="updatedForms">{{'updateandnext' | translate }}</span></button>
+            <button mat-raised-button type="button" (click)="next.emit()" class="standardbutton mat-red-bg">{{'international.next' | translate}}</button>
+        </div>
+       </div>
+    </form>
+</div>

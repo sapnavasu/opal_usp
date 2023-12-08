@@ -1,0 +1,249 @@
+.otpfields {
+    .mat-dialog-container {
+        padding: 0 !important;
+        overflow: inherit;
+    }
+}
+#email_verification {
+   
+    .banners {
+        background-image: url("~/assets/images/opalimages/backbanner.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 430px;
+    }
+    .login_footer {
+        margin-top: -7%;
+    }
+
+    .langbtn {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        &:hover {
+            .mat-icon {
+                color: #ED1C27;
+            }
+        }
+        .mat-icon {
+            display: flex;
+            align-items: center;
+            font-size: 25px !important;
+            &:hover {
+                color: #ED1C27;
+            }
+        }
+    }
+
+    .txt-gry {
+        color: #262626;
+    }
+
+    .txt-gry3 {
+        color: #848484;
+    }
+
+    .account_information {
+
+        .bredcrumblist {
+            list-style-type: none;
+            margin: 0;
+            display: flex;
+            align-items: center;
+
+            li {
+                display: flex;
+                align-items: center;
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    color: #626366;
+                    font-size: 0.875rem;
+                }
+
+                a {
+                    color: #626366;
+                    font-size: 14px;
+                }
+            }
+
+            &:last-child {
+                margin-right: 0;
+
+                a {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .mat-form-field-appearance-outline {
+            .mat-form-field-outline {
+                color: #d9d9d9;
+            }
+
+            .mat-form-field-outline-start {
+                border-radius: 3px 0 0 3px;
+            }
+
+            .mat-form-field-outline-end {
+                border-radius: 0 3px 3px 0;
+            }
+
+            .mat-form-field-required-marker {
+                color: #ED1C27;
+            }
+
+            .mat-form-field-outline-thick {
+                color: #6ba5ec;
+                background-color: #f8f8f8;
+            }
+
+            &.mat-focused {
+                .mat-form-field-outline-thick {
+                    color: #0c4b9a;
+                    background-color: #f8f8f8;
+                }
+
+                &.mat-form-field-can-float {
+                    &.mat-form-field-should-float {
+                        .mat-form-field-label {
+                            color: #0c4b9a;
+                        }
+                    }
+                }
+            }
+
+            &.mat-form-field-disabled {
+                .mat-form-field-outline {
+                    background-color: #f8f8f8;
+                }
+            }
+
+
+            &.mat-form-field-invalid.mat-form-field-invalid {
+                .mat-form-field-outline-thick {
+                    color: #dc4c64;
+                    background-color: #f8f8f8;
+                }
+            }
+
+            &.mat-form-field-can-float {
+                &.mat-form-field-should-float {
+                    .mat-form-field-label {
+                        transform: translateY(-.9rem) scale(0.75);
+                        color: #848484;
+
+                        .mat-form-field-required-marker {
+                            color: #ED1C27;
+                        }
+                    }
+
+                    .mat-form-field-outline-gap {
+                        width: 0px !important;
+                    }
+                }
+            }
+        }
+
+
+        .read_only {
+            input[readonly] {
+                cursor: no-drop;
+            }
+        }
+
+        .mat-raised-button {
+            box-shadow: none !important;
+            border-radius: 2px !important;
+            font-size: 1rem;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        .cancelbtn {
+            min-width: 110px;
+            background-color: #e8e8e8;
+            color: #58626e;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        .savebtn {
+            min-width: 110px;
+            height: 45px;
+            background-color: #ED1C27;
+            color: #ffffff !important;
+            display: inline-block;
+        }
+
+        .mat-form-field {
+            &.mat-form-field-invalid {
+                .mat-form-field-label {
+                    color: #dc4c64 !important;
+                }
+            }
+        }
+
+        .mat-form-field-suffix {
+            .mat-icon {
+                color: #999999;
+            }
+        }
+
+           
+
+        .verifytop {
+            background-color: #C4C4C4;
+            color: #fff !important;
+            font-size: 14px;
+            position: relative;
+            top: -7px;
+            padding: 2px 0px;
+            border-radius: 20px;
+
+            span {
+                font-size: 14px;
+                height: 0px;
+            }
+        }
+
+        .verifed {
+            background-color: #009c3a;
+            color: #fff !important;
+            font-size: 14px;
+            padding: 2px 0px;
+            position: relative;
+            top: -7px;
+            border-radius: 20px;
+
+            span {
+                font-size: 14px;
+                height: 0px;
+            }
+        }
+
+    }
+
+    .button-text {
+        line-height: 45px !important;
+        font-size: 14px;
+        color: #fff;
+    }
+
+    // .spinnercircle {
+    button {
+        .spinner {
+            top: auto !important;
+            bottom: auto !important;
+        }
+
+        .mat-progress-spinner.mat-warn circle,
+        .mat-spinner.mat-warn circle {
+            stroke: #fff !important;
+        }
+    }
+
+    // }
+}

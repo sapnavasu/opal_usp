@@ -1,0 +1,291 @@
+
+#viewlistcard{
+    background: #ffffff;
+    .leftspace{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+    }
+    .lineheightbusunit{
+         line-height: 24px !important;
+         word-break:  break-word;
+    }
+    .webpresalignspaceyears{
+        padding-bottom: 18px;
+    }
+    .backgroundinfospace{
+        border-bottom: 1px solid #ddd;
+        padding-left: 0px !important;
+    }
+    .webtextcolorinfo{
+        h2{
+            color: #341f44;
+            font-size: 0.9375rem;
+          }  
+    }
+    .certfiletype{
+         img{
+             height: 30px;
+             margin-top: 4px;
+         }
+    }
+    .textorgange{
+        color: #dfad66 !important;
+    }
+    .displayflexemp{
+         display: flex;
+         align-items: center;
+         padding-bottom: 15px;
+         .minemnpid{
+              min-width: 100px;
+         }
+    }
+    .pdfspacing{
+        padding-top: 6px;
+        display: flex;
+        span{
+            margin-right: 15px;
+        }
+    }
+    .imgview{
+        img{
+            width: 68px;
+            height: 68px;
+            object-fit: cover;
+            border: 1px solid #d6dbe3;
+            border-radius: 4px;
+        }
+    } 
+    .relatedcolor{
+           color: #666666;
+           font-size: 0.8125rem;
+    }
+    .papernotecolor{
+        h2{
+          color: #333333;
+          margin: 0px;
+          font-size: 1rem;
+        }
+        p{
+           margin: 0px;
+           span{
+              @extend p;
+           }
+        }
+    }
+    .addresscolor{
+         p{
+           margin: 0px;
+         }
+         span{
+            margin: 0px;
+      
+         }
+    }
+.pincodetext{
+    margin-top: -2px !important;
+}
+.borderright{
+    border-right: 1px solid #dadada;
+}
+
+.borderbottom{
+    border-bottom: 1px solid #dadada;
+}
+.certificatecolor{
+    width: 58px;
+    height: 58px;
+    background: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999999;
+}
+
+.datecolor{
+    color: #999999;
+    font-size: 0.875rem;
+}
+.coloricon{
+    i{
+        color: #6e6e6e;  
+        font-size: 1.75rem;
+    }
+    }
+    .yearsinfo{
+        padding-bottom: 5px;
+        word-break: break-word;
+        padding-right: 10px;
+    }
+    .centeralign{
+        margin-left:auto;
+        margin-right: auto;
+    }
+    .headtitle{
+        background: #f4f6f9;
+        padding: 4px 12px 4px 12px;
+        h2{
+            color: #333333;
+            font-size: 0.9375rem;
+            margin: 0px;
+        }
+    }
+    .noducumentaddedyet{
+        p{
+            color: #dfad66 !important; 
+        }
+    }
+    .alignspaceyears{
+        display: flex;
+        justify-content: flex-start;
+        .widthyear{
+            min-width: 250px;
+            word-break: breakword;
+            max-height: 250px;
+        }
+    }
+    .lhroleresp{
+          line-height: 25px !important;
+    }
+    .backgroundinfo{
+        background: #ffffff;
+        border-radius: 4px;
+        padding-bottom: 20px;
+    }
+    .webtextcolor{
+        h2{
+          color: #666666;
+          font-size: 0.9375rem;
+        }
+       
+      }
+
+      .textcoloryear{
+        word-break: breakword;
+        p{
+            font-size: 0.9375rem;
+            margin:0px;
+            word-break: break-word;
+            padding-bottom: 6px;
+        }
+    }
+}
+
+@media (max-width: 767px){
+    .leftspace{
+        margin-top: 15px;
+    }
+    .backgroundinfospace{
+        padding: 10px !important;
+    }
+    .alignmargin{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .paddingspace{
+        padding-left: 0px !important;
+    }
+    .paddingtopalign{
+        padding-top: 12px;
+        padding-left: 0px !important;
+        width: auto !important;
+    }
+    .blockalign{
+    display: block !important;
+    }
+    .backgroundinfo{
+    margin-right: 0px !important;
+        }
+.borderright{
+    border: none !important;
+    padding-right: 0px !important;
+}
+
+}
+
+@media (max-width: 768px){
+    .alignmargin{
+        display: block !important;
+    }
+    .alignmargin{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .backgroundinfo{
+        margin-right: 0px !important;
+            }
+            .leftspace{
+                margin-top: 15px;
+            }
+    }
+
+    @media (max-width:1024px) and (min-width:769px) {
+        .alignmargin{
+            display: block !important;
+        }
+        .backgroundinfo{
+            margin-right: 0px !important;
+            max-width: 100% !important;
+        
+                }
+                .leftspace{
+                    margin-top: 15px;
+                    max-width: 100% !important;
+                }
+        }
+    
+
+.empwidth{
+    width: 50%;
+}
+
+
+   .updatecommentscroll{
+    max-height: 300px !important;
+    overflow: auto !important;
+    }
+    .updatecommentscroll::-webkit-scrollbar {
+        width: 0.5em;
+        position: absolute;
+        right: 0;
+    }
+    .updatecommentscroll::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    .updatecommentscroll::-webkit-scrollbar-thumb {
+        background-color: #b8c3cb;
+    }
+
+    .clabel{
+        color: #666666 !important;
+        font-size: 0.875rem !important;
+        line-height: 1.125rem !important;
+        font-weight:400 !important;
+      }
+      .cvalue{
+        color: #333333 !important;
+        font-size: 0.9375rem !important;
+        line-height: 1.125rem !important;
+        font-weight:400 !important;
+      }
+
+
+      ::ng-deep.profilebottomwidth{
+        .clabel{
+            color: #666666 !important;
+            font-size: 0.875rem !important;
+            line-height: 1.125rem !important;
+            font-weight:400 !important;
+          }
+          .cvalue{
+            color: #333333 !important;
+            font-size: 0.9375rem !important;
+            line-height: 1.125rem !important;
+            font-weight:400 !important;
+          }
+            .centeralign{
+                  max-width: 100% !important;
+            }
+      }

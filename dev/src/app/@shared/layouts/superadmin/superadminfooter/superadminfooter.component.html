@@ -1,0 +1,15 @@
+<div ngClass.xs="responsivefooter" ngClass.sm="responsivefooter" class="login_footer pd-10 p-l-20 p-r-20" fxLayout="row wrap"
+  fxLayoutAlign="space-between end">
+  <div  fxFlex="<grow> <shrink> 100" fxLayoutAlign='end' class="fs-14 adminfooter res_dis-con" id="res_white-spc">
+    <div ngClass.xs="fs-14 p-r-24 p-t-12" ngClass.sm="fs-14 p-r-24 p-t-12 " id="res_pr-0 ">
+      <p class="res_center"> &copy; {{currentyear}} {{'Oman Energy Association. All rights reserved.' | translate}}</p>
+    </div>
+  </div>
+  <div  fxFlex="<grow> <shrink> 100" class="fs-14 adminfooter footerspace">
+    <div ngClass.xs="fs-14 p-r-24 p-t-12" ngClass.sm="fs-14 p-r-24 p-t-12" id="res_pr-0">
+      <p class="rightside">{{'Powered By' | translate}}  <img *ngIf="eng" class="img_hig-mar m-l-10" src="./assets/images/bgi.svg" alt="Businessgateways International">
+      <img *ngIf="!eng" class="img_hig-mar m-l-10" src="./assets/images/opalimages/bgiarbiclogo.png" alt="Businessgateways International">
+</p>
+    </div>
+  </div>
+</div> 

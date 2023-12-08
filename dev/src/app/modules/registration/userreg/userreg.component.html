@@ -1,0 +1,495 @@
+<div class="headerstylings">
+    <div class="topheaderimage">
+        <div class="makeitright m-l-10">
+            <img src="assets/images/OPAL_logo.svg" alt="regitration">
+        </div>
+        <div class="topbar telative">
+            <app-superadminheader class="d-flex"></app-superadminheader>
+        </div>
+    </div>
+    
+    <div class="bottominfo" *ngIf="!showThankYouForRegPage">
+        <div class="leftisideinfo">
+            <div class="headers">
+                <p class="mat-pagetitle-1 p-t-35">User Registration</p>
+            </div>
+            <div fxLayout="row wrap" class="userregistrationheight">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="userwidth">
+                    <form [formGroup]="userRegForm" autocomplete="off" (ngSubmit)="submitUserForm()">
+                        <div class="userspacing formsection">
+                            <div fxLayout="row wrap" class="m-t-15">
+                                <div fxFlex.gt-sm="50" fxFlex.xl="33.33%" fxFlex="100" ngClass.lg="p-r-15" ngClass.md="p-r-15"
+                                ngClass.xs="p-r-0" ngclass.sm="p-r-0"  ngClass.xl="p-r-15" class=" mailidspacing filed">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Employee ID" class="inputcolor" matInput
+                                            formControlName="emp_id" app-restrict-input="firstspace"
+                                            [errorStateMatcher]="matcher" appAlphanumsymb maxlength="50" required>
+                                        <mat-error *ngIf="userRegForm.controls['emp_id'].errors?.required && 
+                                userRegForm.controls['emp_id'].touched" class="text-danger fs-12">
+                                            Enter employee ID </mat-error>
+                                        <mat-error *ngIf="userRegForm.controls['emp_id'].hasError('alreadyavailable')">
+                                            Employee ID
+                                            already exist</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-l-0" ngClass.xl="p-r-15" ngclass.sm="p-l-0" class="filed">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Username" class="inputcolor" matInput
+                                            formControlName="username" app-restrict-input="firstspace"  (keydown.space)="$event.preventDefault()"
+                                            [errorStateMatcher]="matcher" appAlphanum maxlength="50" required>
+                                        <mat-error *ngIf="userRegForm.controls['username'].errors?.required && 
+                                userRegForm.controls['username'].touched" class="text-danger fs-12">
+                                            Enter username </mat-error>
+                                        <mat-error
+                                            *ngIf="userRegForm.controls['username'].hasError('alreadyavailable')">
+                                            Username already exists in OPAL portal</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-r-15 m-t-20" ngClass.md="p-r-15"
+                                ngClass.xs="p-r-0" ngClass.xl="p-r-15" ngclass.sm="p-r-0" class=" mailidspacing filed">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="First Name" class="inputcolor" matInput
+                                            formControlName="firstname" appAlphabetonly [errorStateMatcher]="matcher"
+                                            app-restrict-input="firstspace" maxlength="50" required
+                                            (blur)="showNameCard = (firstName) ? true : false">
+                                        <mat-error *ngIf="userRegForm.controls['firstname'].errors?.required && 
+                                userRegForm.controls['firstname'].touched" class="text-danger fs-12">
+                                            Enter first name </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-l-0" ngClass.xl="p-r-15" ngclass.sm="p-l-0" class="filed m-t-20">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Middle Name" class="inputcolor" matInput
+                                            formControlName="middlename" appAlphabetonly app-restrict-input="firstspace"
+                                            maxlength="50">
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-r-15" ngClass.md="p-r-15"
+                                ngClass.xs="p-r-0" ngclass.sm="p-r-0" ngClass.xl="p-r-15" class="mailidspacing filed m-t-20">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Last Name" class="inputcolor" matInput
+                                            formControlName="lastname" appAlphabetonly [errorStateMatcher]="matcher"
+                                            app-restrict-input="firstspace" maxlength="50" required>
+                                        <mat-error *ngIf="userRegForm.controls['lastname'].errors?.required && 
+                                userRegForm.controls['lastname'].touched" class="text-danger fs-12">
+                                            Enter last name </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-l-0" ngClass.xl="p-r-15" ngclass.sm="p-l-0" class="filed m-t-20">
+                                    <mat-form-field>
+                                        <input (click)="picker.open()" appAlphanumsymb placeholder="DOB" class="inputcolor" matInput
+                                            formControlName="dob" appAlphabetonly [errorStateMatcher]="matcher"
+                                            app-restrict-input="firstspace" maxlength="50" [matDatepicker]="picker" [readonly]="true" required>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="userRegForm.controls['dob'].errors?.required && 
+                                userRegForm.controls['dob'].touched" class="text-danger fs-12">
+                                            DOB required </mat-error>
+                                    </mat-form-field>
+                                </div> -->
+                                <!-- <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="" ngClass.md=" p-l-10"
+                                ngClass.xs="p-r-0" ngclass.sm="p-r-0" ngClass.xl="p-l-15" class="mailidspacing filed">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="DOB" class="inputcolor" matInput
+                                            formControlName="lastname" appAlphabetonly [errorStateMatcher]="matcher"
+                                            app-restrict-input="firstspace" maxlength="50" [matDatepicker]="picker" required>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="userRegForm.controls['lastname'].errors?.required && 
+                                userRegForm.controls['lastname'].touched" class="text-danger fs-12">
+                                             </mat-error>
+                                    </mat-form-field>
+                                </div> -->
+                                <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-l-0" ngclass.sm="p-l-0" ngClass.xl="p-l-15" class="m-t-20">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Email ID" class="inputcolor userregemail" matInput
+                                            formControlName="email" [errorStateMatcher]="matcher" required>
+                                    </mat-form-field>
+                                </div>
+                                
+                            </div>
+                            <div fxLayout="row wrap">
+                                <!-- <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-r-15" ngClass.md="p-r-15"
+                                ngClass.xs="p-r-0" ngClass.xl="p-r-15" ngclass.sm="p-r-0" class=" mailidspacing filed">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="First Name" class="inputcolor" matInput
+                                            formControlName="firstname" appAlphabetonly [errorStateMatcher]="matcher"
+                                            app-restrict-input="firstspace" maxlength="50" required
+                                            (blur)="showNameCard = (firstName) ? true : false">
+                                        <mat-error *ngIf="userRegForm.controls['firstname'].errors?.required && 
+                                userRegForm.controls['firstname'].touched" class="text-danger fs-12">
+                                            Enter first name </mat-error>
+                                    </mat-form-field>
+                                </div> -->
+                                <!-- <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-l-0" ngclass.sm="p-l-0" class="filed">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Middle Name" class="inputcolor" matInput
+                                            formControlName="middlename" appAlphabetonly app-restrict-input="firstspace"
+                                            maxlength="50">
+                                    </mat-form-field>
+                                </div> -->
+                            </div>
+                            <div fxLayout="row wrap">
+                                <!-- <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-r-15" ngClass.md="p-r-15"
+                                ngClass.xs="p-r-0" ngclass.sm="p-r-0" ngClass.xl="p-r-15" class="mailidspacing filed">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Last Name" class="inputcolor" matInput
+                                            formControlName="lastname" appAlphabetonly [errorStateMatcher]="matcher"
+                                            app-restrict-input="firstspace" maxlength="50" required>
+                                        <mat-error *ngIf="userRegForm.controls['lastname'].errors?.required && 
+                                userRegForm.controls['lastname'].touched" class="text-danger fs-12">
+                                            Enter last name </mat-error>
+                                    </mat-form-field>
+                                </div> -->
+                                <!-- <div fxFlex.gt-sm="50" fxFlex="100"  ngClass.lg="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-l-0" ngclass.sm="p-l-0" class="">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Date of Birth" class="inputcolor"
+                                            formControlName="dob" matInput [max]="maxDate" [matDatepicker]="picker"
+                                            [errorStateMatcher]="matcher" readonly required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="userRegForm.controls['dob'].errors?.required && 
+                                userRegForm.controls['dob'].touched" class="text-danger fs-12">
+                                            Select date of birth </mat-error>
+                                    </mat-form-field>
+                                </div> -->
+                                <!-- <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-l-0" ngclass.sm="p-l-0" ngClass.xl="p-l-15" class=" mailidspacing">
+                                    <mat-form-field>
+                                        <input appAlphanumsymb placeholder="Email ID" class="inputcolor" matInput
+                                            formControlName="email" [errorStateMatcher]="matcher" required>
+                                    </mat-form-field>
+                                </div> -->
+                            </div>
+                           
+                            <div fxLayout="row wrap" class="flexsame">
+                                <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-0" ngClass.md="p-l-0"
+                                ngClass.xs="p-r-0" ngclass.sm="p-r-0" ngClass.xl="p-l-0" class="mailidspacing ">
+                                    <div fxLayout="row wrap" class="flexsame countryflagsame">
+                                        <div fxFlex.gt-sm="20" fxFlex="100"
+                                            class="p-r-20 paddingspacing widthresponsiveside mailidspacing">
+                                            <mat-form-field class="country-flag">
+                                                <mat-select placeholder="Code" [(value)]="mobile_country_code_flag"
+                                                    (closed)="searchMobileCC = ''"
+                                                    (selectionChange)="setcountryFlag($event.value,'mobile');"
+                                                    [disableOptionCentering]="true" panelClass="select_with_search"
+                                                    *ngIf="(countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en') as cntryresult">
+                                                    <div class="searchinmultiselect">
+                                                        <i class="bgi bgi-search"></i>
+                                                        <input appAlphanumsymb matInput class="searchselect"
+                                                            type="Search" placeholder="Search"
+                                                            (keydown)="$event.stopPropagation();"
+                                                            [(ngModel)]="searchMobileCC"
+                                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                                        <mat-icon (click)="searchMobileCC = ''" class="reseticon"
+                                                            matSuffix
+                                                            *ngIf="searchMobileCC !='' && searchMobileCC !=null">clear
+                                                        </mat-icon>
+                                                    </div>
+
+                                                    <mat-select-trigger class="flagwithcode">
+                                                        <img src="assets/images/flags/{{mobile_country_code_flag}}.png"
+                                                            alt="Country Flag">
+                                                    </mat-select-trigger>
+                                                    <div class="option-listing">
+                                                        <mat-option class="countrynameselect"
+                                                            *ngFor="let country of countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en'"
+                                                            [value]="country.CountryMst_Pk">
+                                                            <img src="assets/images/flags/{{country.CountryMst_Pk}}.png"
+                                                                alt="Country Flag">
+                                                            {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                                                        </mat-option>
+                                                        <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                                                            No country match your search criteria!
+                                                        </div>
+                                                    </div>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div fxFlex.gt-sm="80" ngClass.lg="p-r-15" ngClass.xl="p-r-15" ngClass.md="p-r-15" ngClass.xs="p-l-0"
+                                        ngClass.sm="p-l-0" fxFlex="100">
+                                            <mat-form-field  class="m-t-14 numberandcode" floatLabel="always">
+                                                <span ngClass.xs="p-r-0" ngClass.sm="p-r-0"
+                                                    class="responsivespace inputcolor lanlinespacebet">{{mobilecode}}</span>
+                                                <input appAlphanumsymb class="inputcolor" matInput appNumberonly
+                                                [minlength]="mobile_country_code_flag == 31? 8 : 5" [maxlength]="mobile_country_code_flag == 31? 8 : 20" formControlName="mobileno" placeholder="Mobile"
+                                                    [errorStateMatcher]="matcher" required>
+                                                <mat-error *ngIf="userRegForm.controls['mobileno'].errors?.required && 
+                                        userRegForm.controls['mobileno'].touched" class="text-danger fs-12 p-l-30">
+                                                    Enter mobile number </mat-error>
+                                                <mat-error *ngIf="userRegForm.controls['mobileno'].errors?.minlength"
+                                                    class="text-danger fs-12 p-l-30">
+                                                    Enter minimum 5 digits </mat-error>
+                                                <mat-error class="p-l-30"
+                                                    *ngIf="userRegForm.controls['mobileno'].hasError('alreadyavailable')">
+                                                    Mobile number already exists</mat-error>
+                                                <input appAlphanumsymb class="inputcolor" matInput hidden='true'
+                                                    formControlName="mobilecode" [errorStateMatcher]="matcher"
+                                                    placeholder="Mobile Code">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" fxFlex.xl="33.33%" ngClass.lg="p-l-15" ngClass.xl="p-l-15" ngClass.md="p-l-15"
+                                ngClass.xs="p-r-0" ngclass.sm="p-r-0">
+                                    <div fxLayout="row wrap" class="flexsame countryflagsame">
+                                        <div fxFlex.gt-sm="20" fxFlex="100"
+                                            class="p-r-10 paddingspacing widthresponsiveside mailidspacing">
+                                            <mat-form-field class="country-flag">
+                                                <mat-select placeholder="Code" [(value)]="landline_country_code_flag"
+                                                    (closed)="searchlandlineCC = ''"
+                                                    (selectionChange)="setcountryFlag($event.value,'landline');"
+                                                    [disableOptionCentering]="true" panelClass="select_with_search"
+                                                    *ngIf="(countrylist | searchFilter : searchlandlineCC:'CyM_CountryName_en') as cntryresult">
+                                                    <div class="searchinmultiselect">
+                                                        <i class="bgi bgi-search"></i>
+                                                        <input appAlphanumsymb appAlphanumsymb matInput
+                                                            class="searchselect" type="Search" placeholder="Search"
+                                                            (keydown)="$event.stopPropagation();"
+                                                            [(ngModel)]="searchlandlineCC"
+                                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                                        <mat-icon (click)="searchlandlineCC = ''" class="reseticon"
+                                                            matSuffix
+                                                            *ngIf="searchlandlineCC !='' && searchlandlineCC !=null">
+                                                            clear
+                                                        </mat-icon>
+                                                    </div>
+
+                                                    <mat-select-trigger class="flagwithcode">
+                                                        <img src="assets/images/flags/{{landline_country_code_flag}}.png"
+                                                            alt="Country Flag">
+                                                    </mat-select-trigger>
+                                                    <div class="option-listing">
+                                                        <mat-option class="countrynameselect"
+                                                            *ngFor="let country of countrylist | searchFilter : searchlandlineCC:'CyM_CountryName_en'"
+                                                            [value]="country.CountryMst_Pk">
+                                                            <img src="assets/images/flags/{{country.CountryMst_Pk}}.png"
+                                                                alt="Country Flag">
+                                                            {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                                                        </mat-option>
+                                                        <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                                                            No country match your search criteria!
+                                                        </div>
+                                                    </div>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+
+                                        <div fxFlex.gt-sm="65" ngClass.lg="p-l-10" ngClass.md="p-l-10" ngClass.xs="p-l-0"
+                                                ngClass.sm="p-l-0" class="m-t-14 numberandcode" ngClass.xl="p-l-10" fxFlex="100" >
+                                            <mat-form-field  floatLabel="always">
+                                                <span ngClass.xs="p-r-0" ngClass.sm="p-r-0"
+                                                    class="responsivespace inputcolor lanlinespacebet">{{landlinecode}}</span>
+                                                <input appAlphanumsymb class="inputcolor" matInput appNumberonly
+                                                [minlength]="landline_country_code_flag== 31?8:5" [maxlength]="landline_country_code_flag== 31? 8 : 20" formControlName="landlinno"
+                                                    placeholder="Landline" [errorStateMatcher]="matcher">
+                                                <mat-error *ngIf="userRegForm.controls['landlinno'].errors?.required && 
+                                        userRegForm.controls['landlinno'].touched" class="text-danger fs-12 p-l-30">
+                                                    Enter landline number </mat-error>
+                                                <mat-error *ngIf="userRegForm.controls['landlinno'].errors?.minlength"
+                                                    class="text-danger fs-12 p-l-30">
+                                                    Enter minimum 5 digits </mat-error>
+                                                <input appAlphanumsymb class="inputcolor" matInput hidden='true'
+                                                    formControlName="landlinecode" [errorStateMatcher]="matcher"
+                                                    placeholder="Landline Code">
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxFlex.gt-sm="15" fxFlex="100" 
+                                        ngClass.xs="p-r-0" ngclass.sm="p-r-0" class="extleftpadding">
+                                            <mat-form-field>
+                                                <input appAlphanumsymb matInput appNumberonly
+                                                    formControlName="landlineextn" maxlength="5" placeholder="Extn.">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                            </div>
+
+                            <!-- <div fxLayout="row wrap">
+                                <div fxFlex.gt-sm="50" fxFlex="100"
+                                    class="p-r-15 mailidspacing filed paddingspacing widthresponsiveside">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-select [disableOptionCentering]="true" [errorStateMatcher]="matcher"
+                                            placeholder="Department" formControlName="department" required (selectionChange)="deptChanges($event)"
+                                            panelClass="select_with_search" (closed)="searchDepartment = ''"
+                                            *ngIf="(departmentList | searchFilter: searchDepartment : 'deptName') as deptresult">
+                                            <div class="searchinmultiselect">
+                                                <i class="bgi bgi-search"></i>
+                                                <input matInput class="searchselect" [(ngModel)]="searchDepartment"
+                                                    type="Search" placeholder="Search"
+                                                    (keydown)="$event.stopPropagation();"
+                                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                                <i (click)="searchDepartment = ''" class="reseticon" matSuffix
+                                                    *ngIf="searchDepartment !='' && searchDepartment !=null"
+                                                    class="bgi bgi-close"></i>
+                                            </div>
+                                            <div class="option-listing">
+                                                <mat-option class="countrynameselect"
+                                                    *ngFor="let deptList of departmentList | searchFilter: searchDepartment : 'deptName'"
+                                                    [value]="deptList.deptPk">
+                                                    {{deptList.deptName}}
+                                                </mat-option>
+                                            </div>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="userRegForm.controls['department'].errors?.required && userRegForm.controls['department'].touched">
+                                            Select department
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" class="filed p-l-15"
+                                    *ngIf="userRegForm.controls.department.value == '' || userRegForm.controls.department.value == null || userRegForm.controls.department.value != 0">
+                                    <mat-form-field>
+                                        <input [errorStateMatcher]="matcher" placeholder="Designation" matInput
+                                            type="text" formControlName="designation" required
+                                            [ngClass]="{'is-invalid': userRegForm.controls.designation.touched && userRegForm.controls.designation.errors}"
+                                            app-restrict-input="firstspace" appAlphanumsymb maxlength="50" />
+                                        <mat-error
+                                            *ngIf="userRegForm.controls['designation'].touched && userRegForm.controls['designation'].errors?.required">
+                                            Enter designation</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 filled"
+                                    *ngIf="userRegForm.controls.department.value != '' && userRegForm.controls.department.value == 0">
+                                    <mat-form-field class="example-full-width">
+                                        <input [errorStateMatcher]="matcher" formControlName="otherdept"
+                                            placeholder="Specify Department" matInput type="text" required
+                                            maxlength="50" appAlphabetonly app-restrict-input="firstspace">
+                                        <mat-error
+                                            *ngIf="userRegForm.controls.otherdept.touched &&  userRegForm.controls.otherdept.errors?.required">
+                                            Enter department</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap">
+                                <div fxFlex.gt-sm="50" fxFlex="100" class="filed p-r-15"
+                                    *ngIf="userRegForm.controls.department.value != '' && userRegForm.controls.department.value == 0">
+                                    <mat-form-field>
+                                        <input [errorStateMatcher]="matcher" placeholder="Designation" matInput
+                                            type="text" formControlName="designation" required
+                                            [ngClass]="{'is-invalid': userRegForm.controls.designation.touched && userRegForm.controls.designation.errors}"
+                                            app-restrict-input="firstspace" appAlphanumsymb maxlength="50" />
+                                        <mat-error
+                                            *ngIf="userRegForm.controls['designation'].touched && userRegForm.controls['designation'].errors?.required">
+                                            Enter designation</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex.gt-sm="50" fxFlex="100" class="mailidspacing"
+                                    [class.p-r-15]="userRegForm.controls.department.value == '' || userRegForm.controls.department.value != 0"
+                                    [class.p-l-15]="userRegForm.controls.department.value != '' && userRegForm.controls.department.value == 0">
+                                    <mat-form-field>
+                                        <mat-select [disableOptionCentering]="true" formControlName="timezone"
+                                            [errorStateMatcher]="matcher" placeholder="Timezone"
+                                            (closed)="searchTimezone=''" required
+                                            *ngIf="(timezonelist | searchFilter : searchTimezone:'tz_countryname') as tzresult"
+                                            panelClass="select_with_search">
+                                            <div class="searchinmultiselect">
+                                                <i class="bgi bgi-search"></i><input matInput name="searchtimezone"
+                                                    class="searchselect" type="Search" placeholder="Search"
+                                                    [(ngModel)]="searchTimezone" [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                            <div class="option-listing">
+                                                <mat-option (onSelectionChange)="searchTimezone = ''"
+                                                    *ngFor="let timezone of timezonelist | searchFilter: searchTimezone : 'tz_countryname'"
+                                                    [value]="timezone.timezone_pk">
+                                                    {{timezone.tz_countryname}}
+                                                </mat-option>
+                                            </div>
+                                            <div class="p-t-10" *ngIf="tzresult.length == 0">
+                                                No timezone match your search criteria!
+                                            </div>
+                                        </mat-select>
+                                        <mat-error *ngIf="userRegForm.controls['timezone'].errors?.required && 
+                                    userRegForm.controls['timezone'].touched" class="text-danger fs-12">
+                                            Select time zone </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <div fxLayout="row wrap">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-40 termsandconditions margin_spaceterm">
+                                    <div fxLayoutAlign="flex-start">
+                                        <mat-checkbox formControlName="termsandconditions">
+                                        </mat-checkbox>
+                                        <p class="fs-14 checkdecl m-0">I hereby declare that I am a staff of&nbsp;{{companyName}}&nbsp;and I have received an email to register on the OPAL as a User.</p>
+                                    </div>
+                                    <mat-error *ngIf="userRegForm.controls['termsandconditions'].errors?.required && 
+                                userRegForm.controls['termsandconditions'].touched" class="DOBtext-danger fs-12">
+                                        Select the Checkbox </mat-error>
+                                </div>
+                            </div>
+                            <!-- <div fxLayout="row wrap">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="flexitems p-l-25 p-t-10"> -->
+                                    <!-- JSRS is protected by reCAPTCHA and the <a href="https://policies.google.com/privacy"
+                                        target="_blank"> Privacy
+                                        Policy </a>&nbsp;and&nbsp;<a href="https://policies.google.com/terms"
+                                        target="_blank"> Terms of Service </a>&nbsp;apply. -->
+                                        <!-- reCAPTCHA Content Will come here -->
+                                <!-- </div>
+                            </div> -->
+                        </div>
+                        <div class="submitdetails">
+                            <div fXLayout="row wrap" fxLayout.xs="column">
+                                <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-end" class="xs">
+                                    <button type="button" mat-raised-button class="cancelbtn m-b-0 fs-15"
+                                        (click)="cancelAction();">Cancel</button>
+                                    <button  color="primary" type="submit" mat-raised-button class="submitbtn fs-15"
+                                        [disabled]="userRegForm.invalid || disableSubmitButton">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    
+    </div>
+
+    <ng-container *ngIf="showThankYouForRegPage">
+        <app-thankyou [forUser]="true"></app-thankyou>
+    </ng-container>
+
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+
+    <div class="regfooter">
+        <div class="login_footer" fxFlex="100" fxFlex.gt-xs="90" fxFlex.gt-md="83.33">
+            <div class="login_footer_left" fxHide="true" fxHide.gt-md='false'>
+                <ul>
+                    <li>
+                        <a href="#">Terms of Service</a>
+                    </li>
+                    <li>
+                        <a href="#">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="#">Help Center</a>
+                    </li>
+                    <li>
+                        <a href="#" class="marinspacefooter"><i class="bgi bgi-facebook" aria-hidden="true"></i></a>
+                        <a href="#" class="marinspacefooter"><i class="bgi bgi-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="bgi bgi-instagram" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="login_footer_right">
+                <span>All Rights Reserved &copy; Business Gateways International 2022.</span>
+            </div>
+            <div class="drivenalign">
+                <P class="fs-14 m-0 p-t-38">Driven by </P>
+                <img src="assets/images/bgi.svg" alt="Business Gateways International">
+            </div>
+        </div>
+    </div>
+
+</div>

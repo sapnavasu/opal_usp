@@ -1,0 +1,510 @@
+<div id="paymentpage" fxLayout="row wrap" fxLayoutAlign="center" (maindata)="makepayment($event)">
+    <div fxFlex="100" [ngSwitch]="payTemplate" >
+        <div class="paymentType " [ngClass]="this.classadd == false?'classfortab':''">
+            <ng-template [ngSwitchCase]="'typeofpayment'">
+                <app-paymentcentre [paybtn]="paybtn" [paymentdtls]="paymentinfo" [dataFromParent]="projectType" [courseinfo]="courseinfo"></app-paymentcentre>
+                <div [ngSwitch]="selectTypepayment">
+                    <ng-template [ngSwitchCase]="'typeofPay'">
+                        <mat-tab-group class="tabpayments " [(selectedIndex)]="mattab" (selectedTabChange)="onTabSelect($event)">
+                            <!--tab 1-->
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <div class="tabscontent">
+                                        <div class="tabtitle">
+                                            <P class="fs-14">{{'payment.payonline' | translate}}</P>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <div class="decline m-l-0 m-r-0 m-b-10 m-t-20" *ngIf="paymentinfo?.apppdt_status == 4">
+                                    <h4 class="18 m-5 m-l-0">{{'Declined Comments' | translate }}</h4>
+                                    <p class="16 m-0"  [innerHtml]='paymentinfo?.apppdt_appdeccomment'></p> 
+                                </div>
+                                <div fxLayout="row wrap" class="cards">
+                                    <div fxFlex="100" fxFlex.gt-sm="40" class="first_card">
+                                        <mat-card>
+                                            <mat-card-header>
+                                                <mat-card-title><h4
+                                                        class="text-center fs-18 m-b-10">{{'payment.paythro' |
+                                                        translate}}</h4></mat-card-title>
+                                            </mat-card-header>
+                                            <img mat-card-image src="assets/images/opalimages/pay.jpg"
+                                                alt="logo">
+                                            <button mat-raised-button *ngIf="paybtn" (click)="proceedtopay()" class="procbtn fs-16 m-t-25">{{'payment.proctopay' | translate}}</button>
+                                            <button class="fs-16 laterbtn m-t-15" (click)="paylater()">{{'payment.paylate' |
+                                                translate}}</button>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-sm="55" class="p-l-0" class="second_carded">
+                                        <mat-card>
+                                            <mat-card-header>
+                                                <mat-card-title>
+                                                    <h4 *ngIf="paymentinfo?.appdt_projectmst_fk==1 || paymentinfo?.appdt_projectmst_fk==4" class="text-center fs-20 m-b-10">{{'payment.certfee' | translate}}</h4>
+                                                    <h4 *ngIf="(paymentinfo?.appdt_projectmst_fk==2 || paymentinfo?.appdt_projectmst_fk==3) && (courseinfo?.appdt_apptype ==1 || courseinfo?.appdt_apptype ==2)" class="text-center fs-20 m-b-10">{{(paymentinfo?.apid_staffevalfee > 0)? this.i18n('payment.courcertstaff'): this.i18n('payment.courcertfee')}}</h4>
+                                                    <h4 *ngIf="(paymentinfo?.appdt_projectmst_fk==2 || paymentinfo?.appdt_projectmst_fk==3) && (courseinfo?.appdt_apptype ==3)" class="text-center fs-20 m-b-10">{{'payment.stafevalfee' | translate}}</h4>
+                                                    <h4 *ngIf="courseinfo?.length>0 && courseinfo?.pm_projtype ==2 && (courseinfo?.appdt_apptype ==1 || courseinfo?.appdt_apptype ==2)" class="text-center fs-20 m-b-10">{{'payment.centcert' | translate}}</h4>
+                                                    <h4 *ngIf="courseinfo?.length>0 && courseinfo?.pm_projtype ==2 && courseinfo?.appdt_apptype ==3" class="text-center fs-20 m-b-10">{{'payment.stafevalfee' | translate}}</h4>
+                                                </mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content class="p-l-0">
+                                                <div fxLayout="row" class="m-t-25">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.invonumb' |
+                                                            translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{(paymentinfo?.apid_invoiceno)? paymentinfo?.apid_invoiceno: '-'}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-25" *ngIf="paymentinfo?.appdt_projectmst_fk!=1 && paymentinfo?.apppdt_noofstaffeval>0">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.noofstaf' | translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_noofstaffeval}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-15" *ngIf="paymentinfo?.apppdt_amount>0">
+                                                    <div fxFlex="50">
+                                                        <span *ngIf="paymentinfo?.appdt_projectmst_fk==1 || paymentinfo?.appdt_projectmst_fk==4" class="fs-16 txt-gry3">{{'payment.certfee' | translate}}</span>
+                                                        <span *ngIf="(paymentinfo?.appdt_projectmst_fk==2 || paymentinfo?.appdt_projectmst_fk==3)" class="fs-16 txt-gry3">{{'payment.courcertfee' | translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1? this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apppdt_amount}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-25" *ngIf="paymentinfo?.appdt_projectmst_fk!=1 && paymentinfo?.apid_staffevalfee>0">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.stafevalfee' | translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apid_staffevalfee}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-15">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.vat' | translate}}
+                                                            ({{paymentinfo?.apppdt_vatpercent | number: '1.0-0'}}%)</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp;&nbsp;&nbsp; {{paymentinfo?.apppdt_vatchrgs}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-15" *ngIf="paymentinfo?.apppdt_addchrgs">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.addichar' | translate}}
+                                                            (2.31%)</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apppdt_addchrgs}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-18">
+                                                    <div fxFlex="50">
+                                                        <h4 class="fs-16 txt-gry3">{{'payment.totapayaamou' |
+                                                            translate}}</h4>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <h4 class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfos?.total}}</h4>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <div class="tabscontent">
+                                        <div class="tabtitle">
+                                            <P class="fs-14">{{'payment.payoffli' | translate}}</P>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <div class="decline m-l-0 m-r-0 m-b-10 m-t-20" *ngIf="paymentinfo?.apppdt_status == 4">
+                                    <h4 class="18 m-5 m-l-0">{{'payment.declcomm' | translate}}</h4>
+                                    <p class="16 m-0" [innerHtml]='paymentinfo?.apppdt_appdeccomment'></p>
+                                </div>
+                                <div fxLayout="row wrap" class="cards">
+                                    <div fxFlex="100" fxFlex.gt-sm="50" class="first_card">
+                                        <!-- <mat-card> -->
+                                        <form autocomplete="off" class="m-t-15" [formGroup]="transferForm">
+                                            <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                                                <div fxFlex="100">
+                                                    <mat-form-field required appearance="outline">
+                                                        <mat-label>{{'payment.selepaymmode' | translate}}</mat-label>
+                                                        <mat-select formControlName="choose_type"
+                                                            panelClass="select_with_choose"
+                                                            (selectionChange)="paymentmode($event)" required>
+                                                            <mat-option value="2">{{'payment.banktran' |
+                                                                translate}}</mat-option>
+                                                            <mat-option value="1">{{'payment.cheq' |
+                                                                translate}}</mat-option>
+                                                            <mat-option value="3">{{'payment.cash' |
+                                                                translate}}</mat-option>
+                                                        </mat-select>
+                                                        <mat-error
+                                                            *ngIf="tran.choose_type.errors?.required || transferForm.submitted">
+                                                            {{'payment.selepaymmodeer' | translate}}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-10">
+                                                <div fxFlex="100">
+                                                    <mat-form-field required appearance="outline">
+                                                        <mat-label>{{'payment.bankname' | translate}}</mat-label>
+                                                        <input matInput formControlName="bankname" required>
+                                                        <mat-error
+                                                            *ngIf="tran.bankname.errors?.required || transferForm.submitted">
+                                                            {{'payment.entebankname' | translate}}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-10">
+                                                <div fxFlex.gt-sm="50" fxFlex="100">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>{{'payment.dateofpaym' | translate}}</mat-label>
+                                                        <input matInput formControlName="paydate" (dateChange)="addEvent('paydate', $event)"
+                                                            (mousedown)="pickerpay.open();" [matDatepicker]="pickerpay"
+                                                            required [max]="maxDate" readonly>
+                                                        <mat-datepicker-toggle matSuffix
+                                                            [for]="pickerpay"></mat-datepicker-toggle>
+                                                        <mat-datepicker #pickerpay
+                                                            (closed)="formGroup.get('paydate').markAsTouched()"></mat-datepicker>
+                                                        <mat-error
+                                                            *ngIf="tran.paydate.errors?.required || transferForm.submitted">
+                                                            {{'payment.seledateofpaym' | translate}}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                                                    ngClass.md="p-l-0" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                                                    fxFlex="100">
+                                                    <mat-form-field *ngIf="displaypaymode == 1" appearance="outline">
+                                                        <mat-label>{{'payment.cheqname' | translate}}</mat-label>
+                                                        <input matInput formControlName="cheque" [required]="displaypaymode == 1">
+                                                        <mat-error
+                                                            *ngIf="tran.cheque.errors?.required || transferForm.submitted">
+                                                            {{'payment.entecheqname' | translate}}
+                                                        </mat-error> 
+                                                    </mat-form-field>
+                                                    <mat-form-field *ngIf="displaypaymode == 2" appearance="outline">
+                                                        <mat-label>{{'payment.tranid' | translate}}</mat-label>
+                                                        <input matInput formControlName="transaction" [required]="displaypaymode == 2">
+                                                        <mat-error
+                                                            *ngIf="tran.transaction.errors?.required || transferForm.submitted">
+                                                            {{'payment.entetranid' | translate}}
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-10">
+                                                <div fxFlex="100">
+                                                    <!-- <app-fileupload [placeholder]="'maincenter.cractideta' | translate"
+                                                        [hidedelicon]='true' [ifrequired]="true" [key]=2
+                                                        (fileuploaded)="checkfile($event,2)"
+                                                        (deletedSelected)="deleteSelectedFile($event,2)">
+                                                    </app-fileupload> -->
+                                                    <app-filee #pymtproof [fileMstRef]="drvInputed"  [notedcontent]="notedcontent" [paymentNote]="true"
+                                                    (filesSelected)="fileeSelected($event,drvInputed)" formControlName="document_upload"
+                                                    [notePosition]="'bottom'" isMandatory="true">
+                                                </app-filee>
+                                                    <!-- <mat-hint>{{'payment.emaiid' | translate}} </mat-hint> -->
+                                                </div>
+                                            </div>
+                                            <div fxLayout="row" fxLayoutAlign="end center" class="cancelandpublish m-t-30">
+                                                <button mat-raised-button class="m-r-10 cancelbtn "
+                                                    type="button" (click)="offlinereset()" [disabled]="disableBtn">{{'payment.canc' | translate}}</button>
+                                                <button mat-raised-button color="primary" type="button" (click)="savepayment()"
+                                                    class="ShowHidefs-15 submit_btn m-l-10" [disabled]="!transferForm.valid">{{'payment.subm' |
+                                                    translate}}
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <!-- </mat-card> -->
+                                    </div>
+                                    <div fxFlex="100" fxFlex.gt-sm="47" class="m-l-20" class="second_card">
+                                        <mat-card>
+                                            <mat-card-header>
+                                                <mat-card-title>
+                                                    <h4 *ngIf="paymentinfo?.appdt_projectmst_fk==1 || paymentinfo?.appdt_projectmst_fk==4" class="text-center fs-20 m-b-10 ">{{'payment.certfee' | translate}}</h4>
+                                                    <h4 *ngIf="(paymentinfo?.appdt_projectmst_fk==2 || paymentinfo?.appdt_projectmst_fk==3) && (courseinfo?.appdt_apptype ==1 || courseinfo?.appdt_apptype ==2)" class="text-center fs-20 m-b-10 ">{{(paymentinfo?.apid_staffevalfee > 0)? this.i18n('payment.courcertstaff'): this.i18n('payment.courcertfee')}}</h4>
+                                                    <h4 *ngIf="(paymentinfo?.appdt_projectmst_fk==2 || paymentinfo?.appdt_projectmst_fk==3) && (courseinfo?.appdt_apptype ==3)" class="text-center fs-20 m-b-10 ">{{'payment.stafevalfee' | translate}}</h4>
+                                                    <h4 *ngIf="courseinfo?.length>0 && courseinfo?.pm_projtype ==2 && (courseinfo?.appdt_apptype ==1 || courseinfo?.appdt_apptype ==2)" class="text-center fs-20 m-b-10">{{'payment.centcert' | translate}}</h4>
+                                                    <h4 *ngIf="courseinfo?.length>0 && courseinfo?.pm_projtype ==2 && courseinfo?.appdt_apptype ==3" class="text-center fs-20 m-b-10 ">{{'payment.stafevalfee' | translate}}</h4>
+                                                </mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content class="p-l-0">
+                                                <div fxLayout="row" class="m-t-25">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.invonumb' |
+                                                            translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{(paymentinfo?.apid_invoiceno)? paymentinfo?.apid_invoiceno: '-'}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-25" *ngIf="paymentinfo?.appdt_projectmst_fk!=1 && paymentinfo?.apppdt_noofstaffeval>0">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.noofstaf' | translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_noofstaffeval}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-15" *ngIf="paymentinfo?.apppdt_amount>0">
+                                                    <div fxFlex="50">
+                                                        <span *ngIf="paymentinfo?.appdt_projectmst_fk==1 || paymentinfo?.appdt_projectmst_fk==4" class="fs-16 txt-gry3">{{'payment.certfee' | translate}}</span>
+                                                        <span *ngIf="(paymentinfo?.appdt_projectmst_fk==2 || paymentinfo?.appdt_projectmst_fk==3)" class="fs-16 txt-gry3">{{'payment.courcertfee' | translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apppdt_amount}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-25" *ngIf="paymentinfo?.appdt_projectmst_fk!=1 && paymentinfo?.apid_staffevalfee>0">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.stafevalfee' | translate}}</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apid_staffevalfee}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-15">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.vat' | translate}}
+                                                            ({{paymentinfo?.apppdt_vatpercent | number: '1.0-0'}}%)</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp;&nbsp;&nbsp; {{paymentinfo?.apppdt_vatchrgs}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-15" *ngIf="paymentinfo?.apppdt_addchrgs">
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry3">{{'payment.addichar' | translate}}
+                                                            (2.31%)</span>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <span class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apppdt_addchrgs}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" class="m-t-18">
+                                                    <div fxFlex="50">
+                                                        <h4 class="fs-16 txt-gry3">{{'payment.totapayaamou' |
+                                                            translate}}</h4>
+                                                    </div>
+                                                    <div fxFlex="50">
+                                                        <h4 class="fs-16 txt-gry">{{paymentinfo?.apppdt_currency == 1?this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfos?.total}}</h4>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'siteAudit'">
+                        <form [formGroup]="requestForm" *ngIf="appstatus==8">
+                            <div class="" fxLayout="row wrap" fxFlex="100" fxFlex.gt-sm="80"
+                                fxLayoutAlign="space-between">
+                                <div class="request" fxFlex="100" fxFlex.gt-sm="50">
+                                    <p class="fs-18">{{'payment.seleaudit' | translate}}</p>
+                                    <mat-form-field appearance="outline">
+                                        <input matInput [min]="maxDate" [matDatepickerFilter]="myFilter" formControlName="request_date"
+                                            (mousedown)="picker.open(); $event.preventDefault" [matDatepicker]="picker">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker
+                                            (closed)="formGroup.get('request_date').markAsTouched()"></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                        <div fxLayout="row" fxLayoutAlign="end center"  *ngIf="appstatus==8" class="cancelandpublish m-t-30">
+                            <button mat-raised-button class="m-r-10 cancelbtn " (click)="cancelSiteAudit()" type="button">{{'payment.canc' |
+                                translate}}</button>
+                            <button mat-raised-button color="primary" type="button" (click)="saveSiteAudit()"
+                                class="ShowHidefs-15 submit_btn m-l-10" [disabled]="!requestForm.controls['request_date'].value">{{'payment.subm' | translate}}
+                            </button>
+                        </div>
+                        <div class="site_audit nodata m-t-25" fxLayout="row wrap" *ngIf="appstatus==7" fxFlex="100" fxFlex.gt-sm="100" >
+                          <div fxLayoutAlign="center center" fxFlex="60" class="record">
+                            <div fxFlex="16" class="nofound">
+                                <img src="assets/images/opalimages/noaudit.svg" alt="noauditimg">
+                              </div>
+                                <div class="request" fxFlex="80" fxFlex.gt-sm="0">
+                                    <p class="fs-16 txt-gry3">{{'payment.audiarenot' | translate}}</p>                                
+                                    <p class="fs-16 txt-gry3">{{'payment.youwillbenoti' | translate}}</p>                                
+                                </div>
+                          </div>
+                        </div>
+                        <div class="site_audit m-t-25" fxLayout="row wrap" *ngIf="appstatus==9 && !corssedorcompleted" fxFlex="100" fxFlex.gt-sm="80" fxLayoutAlign="space-between">
+                            <div fxLayoutAlign="center center" fxFlex="100" class="record">
+                                <div fxFlex="16" class="nofound">
+                                    <img src="assets/images/opalimages/noaudit.svg" alt="noauditimg">
+                                  </div>
+                            <div class="request" fxFlex="100" fxFlex.gt-sm="100">
+                                <p class="fs-16 txt-gry3">{{'payment.seloedateforsite' | translate}}</p>
+                                <p class="fs-16 txt-gry3">{{'payment.date' | translate}}: {{auditdate}}</p>
+                                <p class="fs-16 txt-gry3">{{'payment.siteaudi' | translate}}: {{auditorname}}</p>
+                                <p class="fs-16 txt-gry3">{{'payment.note' | translate}}: <span>{{'payment.theopalteam' | translate}}</span></p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="site_audit m-t-25" fxLayout="row wrap" *ngIf="corssedorcompleted" fxFlex="100" fxFlex.gt-sm="100" fxLayoutAlign="space-between">
+                            <div fxLayoutAlign="center center" fxFlex="70" class="record">
+                            <div fxFlex="16" class="nofound">
+                                <img src="assets/images/opalimages/noaudit.svg" alt="noauditimg">
+                              </div>
+                            <div class="request" fxFlex="100" fxFlex.gt-sm="100">
+                                <p class="fs-16 txt-gry3">{{crossedcontent}} {{auditdate}}</p>
+                                <p class="fs-16 txt-gry3" *ngIf="!renewalpaymentfine && !updatepayment"><span>{{'payment.theaudireport' | translate}}{{projname}}.</span></p>
+                                <p class="fs-16 txt-gry3" *ngIf="renewalpaymentfine"><span>{{'The Audited Report is subject to approval by OPAL Authorities. You will be notified receiving the renewed eCertification for your' | translate}}{{projname}}.</span></p>
+                                <p class="fs-16 txt-gry3" *ngIf="updatepayment"><span>{{'The Audited Report is subject to approval by OPAL Authorities. You will be notified on receiving the approval.' | translate}}</span></p>
+
+                            </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-template>
+            <ng-template [ngSwitchCase]="'staus_payment'">
+                <div fxLayout="row wrap" fxLayoutAlign="center center" class="m-t-20 m-b-20">
+                    <div fxFlex="100" id="thanks_page">
+                        <div fxLayout="row wrap" fxLayoutAlign="center" class="thankyoupage">
+                            <div fxFlex="53">
+                                <div *ngIf="paymentinfo?.apppdt_status==2" class="successtick" fxLayoutAlign="center">
+                                    <div class="succes_icon">
+                                        <mat-icon class="">check</mat-icon>
+                                    </div>
+                                </div>
+                                <div *ngIf = "paymentinfo?.apppdt_status==6 || paymentinfo?.apppdt_status==7" class="warning" fxLayoutAlign="center">
+                                    <div class="waring_icon">
+                                        <mat-icon class="">error</mat-icon>
+                                    </div>
+                                </div> 
+                                <div class="successtexts text-center" fxLayout="column wrap" fxLayoutAlign="center">
+                                    <div *ngIf="paymentinfo?.apppdt_paymenttype==1">
+                                        <!-- <p class="thankstext fs-18 m-t-15">{{'payment.paymdetasubm' | translate}}</p>
+                                        <p class="m-t-10 fs-16 txt-gry3">{{'payment.thanyouforupload' | translate}} <br>
+                                            {{'payment.ourteamwillvalid' | translate}} </p>
+                                        <p class="fs-15 txt-orange m-t-5">{{'payment.forquerplea' | translate}}
+                                            <br><span class="supportcolor"><a href="mailto:usp@opaloman.org">usp@opaloman.org</a></span> </p> -->
+                                    </div>
+                                    <div *ngIf="paymentinfo?.apppdt_status==6 || paymentinfo?.apppdt_status==7">
+                                        <p class="warnstext fs-18 m-t-15">{{'payment.paymfail' | translate}}</p>
+                                        <p class="m-t-10 fs-16 txt-gry3" style="cursor: pointer" (click)="paymentpage()">Click here to payment page </p>
+                                    </div>
+                                    <!-- <div *ngIf="paymentinfo?.apppdt_paymenttype==2 && paymentinfo?.apppdt_paymentmode==1"> -->
+                                    <div *ngIf="paymentinfo?.apppdt_status==2">
+                                        <p class="thankstext fs-18 m-t-15">{{'payment.paymdetasubm' | translate}}</p>
+                                        <div *ngIf="projectType == 1">
+                                            <!-- <p class="thankstext fs-18 m-t-15">{{'payment.paymdetasubm' | translate}}</p> -->
+                                            <p class="m-t-10 fs-16 txt-gry3" *ngIf="!renewalpaymentfine && !updatepayment && paymentinfo?.apppdt_paymenttype==2">{{'payment.thanyouforupload' | translate}} {{(paymentinfo?.appdt_projectmst_fk==1)?  this.i18n('payment.trainevalcente'): courseinfo?.pm_projectname_en}} {{'payment.feepaym' | translate}} </p>
+                                            <p class="m-t-10 fs-16 txt-gry3" *ngIf="renewalpaymentfine">{{'payment.thanyouforupload' | translate}} {{(paymentinfo?.appdt_projectmst_fk==1)?  this.i18n('payment.trainevalcente'): courseinfo?.pm_projectname_en}} {{'Fee Payment Proof for re-certification.' | translate}} </p>
+                                            <p class="m-t-10 fs-16 txt-gry3" *ngIf="updatepayment">{{'Thank you for uploading your Staff Evaluation' | translate}} {{(paymentinfo?.appdt_projectmst_fk==1)?  this.i18n('payment.trainevalcente'): courseinfo?.pm_projectname_en}} {{'payment.feepaym' | translate}} </p>
+    
+                                        </div>
+                                        <div *ngIf="projectType == 4">
+                                           <p class="m-t-10 fs-16 txt-gry3" *ngIf="!renewalpaymentfine && !updatepayment  && paymentinfo?.apppdt_paymenttype==2">{{'payment.thanyouforupload' | translate}} {{'Roadworthiness Assurance Standards (RAS)' | translate}} {{'payment.feepaym' | translate}} </p>
+                                           <p class="m-t-10 fs-16 txt-gry3" *ngIf="renewalpaymentfine">{{'payment.thanyouforupload' | translate}} {{'Roadworthiness Assurance Standards (RAS)' | translate}} {{'Fee Payment Proof for re-certification.' | translate}} </p>
+                                           <p class="m-t-10 fs-16 txt-gry3" *ngIf="updatepayment">{{'Thank you for uploading your Staff Evaluation' | translate}} {{'Roadworthiness Assurance Standards (RAS)' | translate}} {{'payment.feepaym' | translate}} </p>
+                                        </div>
+                                        <p class="m-t-10 fs-16 txt-gry3">{{'payment.ourteamwillvalid' | translate}} </p>
+                                        <p class="fs-15 txt-orange m-t-5">{{'payment.forquerplea' | translate}}
+                                            <br><span class="supportcolor"><a href="mailto:usp@opaloman.org">usp@opaloman.org</a></span> </p>
+                                    </div>
+                                    <!-- <div *ngIf="paymentinfo?.apppdt_paymenttype==2 && paymentinfo?.apppdt_paymentmode==2">
+                                        <p class="thankstext fs-18 m-t-15">Payment Details Submitted!</p>
+                                        <p class="m-t-10 fs-16 txt-gry3">{{'payment.yourpaymwillbeacco' | translate}} </p>
+                                        <p class="fs-15 txt-orange m-t-5">{{'payment.forquerplea' | translate}}
+                                            <br><span class="supportcolor"><a href="mailto:usp@opaloman.org">usp@opaloman.org</a></span> </p>
+                                    </div>
+                                    <div *ngIf="paymentinfo?.apppdt_paymenttype==2 && paymentinfo?.apppdt_paymentmode==3">
+                                        <p class="thankstext fs-18 m-t-15">Payment Details Submitted!</p>
+                                        <p class="fs-15 txt-orange m-t-5">{{'payment.forquerplea' | translate}}
+                                            <br><span class="supportcolor"><a href="mailto:usp@opaloman.org">usp@opaloman.org</a></span> </p>
+                                    </div> -->
+                                    <div *ngIf="paymentinfo?.apppdt_paymenttype==1 || paymentinfo?.apppdt_paymenttype==2">
+                                        
+                                        <p *ngIf="paymentinfo?.apppdt_status == 2 && paymentinfo?.apppdt_paymenttype==2" class="fs-16 m-b-0  paytablehead">{{'payment.paymprofsubm' | translate}} </p>
+
+                                        <p *ngIf="paymentinfo?.apppdt_status == 2 && paymentinfo?.apppdt_paymenttype==1" class="fs-16 m-b-0  paytablehead">Submitted Payment Details</p>
+
+                                        <p *ngIf="paymentinfo?.apppdt_status == 6 || paymentinfo?.apppdt_status == 7" class="fs-16 m-b-0  paytablehead">Payment Details </p>
+
+                                        <div fxLayout="row wrap" fxLayoutAlign="start" class="thankyoupage">
+                                            <div fxFlex="100">
+                                                <div class="company_dtlview">
+                                                    <!-- <div class="view_dtl m-t-25" fxLayout="row">
+                                                        <p class="m-0">{{'company.applrefno' | translate}}:</p>
+                                                        <span>{{appdt_appreferno}}</span>
+                                                    </div> -->
+                                                    <div class="view_dtl m-t-25" fxLayout="row">
+                                                        <p class="m-0">{{'payment.paymmode' | translate}}</p>
+                                                        <span>{{(paymentinfo?.apppdt_paymenttype==1)?  this.i18n('payment.online'):  this.i18n('payment.offl')}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row" *ngIf="paymentinfo?.apppdt_paymenttype==2 && paymentinfo?.apppdt_paymentmode!=3">
+                                                        <p class="m-0">{{(paymentinfo?.apppdt_paymentmode==1)? this.i18n('payment.cheqname') :  this.i18n('payment.tranid')}}</p>
+                                                        <span>{{paymentinfo?.apppdt_offlinerefno}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row" *ngIf="paymentinfo?.apppdt_paymenttype==2">
+                                                        <p class="m-0">{{'payment.bankname' | translate}}</p>
+                                                        <span>{{paymentinfo?.apppdt_bankname}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row">
+                                                        <p class="m-0">{{'payment.dateofpaym' | translate}}</p>
+                                                        <span>{{paymentinfo?.apppdt_dateofpymt | date: 'dd-MM-yyyy'}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row" *ngIf="paymentinfo?.apppdt_amount != '0.000'">
+                                                        <p class="m-0">{{'payment.certfee' | translate}}</p>
+                                                        <span>{{(paymentinfo?.apppdt_currency==1)? this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apppdt_amount}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row" *ngIf="paymentinfo?.appdt_projectmst_fk!=1 && paymentinfo?.apppdt_noofstaffeval>0">
+                                                        <p class="m-0">{{'payment.noofstaf' | translate}}</p>
+                                                        <span>{{paymentinfo?.apppdt_noofstaffeval}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row" *ngIf="paymentinfo?.appdt_projectmst_fk!=1 && paymentinfo?.apid_staffevalfee>0">
+                                                        <p class="m-0">{{'payment.stafevalfee' | translate}}</p>
+                                                        <span>{{(paymentinfo?.apppdt_currency==1)? this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.apid_staffevalfee}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row">
+                                                        <p class="m-0">{{'payment.vat' | translate}} ({{paymentinfo?.apppdt_vatpercent | number: '1.0-0'}}%)</p>
+                                                        <span>{{(paymentinfo?.apppdt_currency==1)? this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp;&nbsp;&nbsp; {{paymentinfo?.apppdt_vatchrgs}}</span>
+                                                    </div>
+                                                    <div class="view_dtl m-t-25" fxLayout="row" *ngIf="paymentinfo?.apppdt_paymenttype==2">
+                                                        <p class="m-0">{{'payment.paymproo' | translate}}</p>
+                                                        <span >  <a fxLayoutAlign="start center" target="_blank" *ngIf="filetype=='pdf' || filetype=='PDF'" href="{{proofdoc}}" class="txt-gry3">
+                                                            <img src="assets/images/opalimages/pdf_new.svg" alt="pdf" class="p-r-5">{{'View' | translate}}
+                                                          </a>
+                                                          <a  fxLayoutAlign="start center" target="_blank" *ngIf="filetype=='jpeg' || filetype=='JPEG'" href="{{proofdoc}}" class="imgsize txt-gry3">
+                                                            <img src="assets/images/opalimages/jpeg_new.svg" alt="jpeg" class="p-r-5">{{'View' | translate}}
+                                                          </a>
+                                                          <a  fxLayoutAlign="start center" target="_blank" *ngIf="filetype=='jpg' || filetype=='JPG'" href="{{proofdoc}}" class="imgsize txt-gry3">
+                                                            <img src="assets/images/opalimages/jpg_new.svg" alt="jpg" class="p-r-5">{{'View' | translate}}
+                                                          </a>
+                                                          <a  fxLayoutAlign="start center" target="_blank" *ngIf="filetype=='PNG' || filetype=='png'" href="{{proofdoc}}" class="imgsize txt-gry3">
+                                                            <img src="assets/images/opalimages/png_new.svg" alt="png" class="p-r-5">{{'View' | translate}}
+                                                          </a></span>
+                                                    </div>
+                                                    <div class="view_dtl total m-t-25" fxLayout="row">
+                                                        <p class="m-0">{{'payment.totapai' | translate}}</p>
+                                                        <span>{{(paymentinfo?.apppdt_currency==1)? this.i18n('payment.omr'): this.i18n('payment.usd')}}&nbsp; {{paymentinfo?.total_amount}}</span>
+                                                    </div>
+                                                    </div>
+                                               
+                                               
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

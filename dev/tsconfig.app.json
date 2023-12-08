@@ -1,0 +1,22 @@
+{
+  "enableIvy": true,
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": []
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "fullTemplateTypeCheck": false,
+    "strictInjectionParameters": true,
+    "preserveWhitespaces": true,
+	"disableTypeScriptVersionCheck":true
+  }
+}

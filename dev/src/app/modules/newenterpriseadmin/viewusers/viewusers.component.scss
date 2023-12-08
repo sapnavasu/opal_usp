@@ -1,0 +1,330 @@
+#viewusers{
+    .viewusersnew{
+        padding:0 30px;
+        margin-bottom:50px;
+        .mat-form-field-appearance-outline {
+            .mat-form-field-outline {
+                color: #d9d9d9;
+            }
+    
+            .mat-form-field-outline-start {
+                border-radius: 3px 0 0 3px;
+            }
+    
+            .mat-form-field-outline-end {
+                border-radius: 0 3px 3px 0;
+            }
+    
+            .mat-form-field-required-marker {
+                color: #ED1C27;
+            }
+    
+            .mat-form-field-outline-thick {
+                color: #6ba5ec;
+                background-color: #f8f8f8;
+            }
+    
+            &.mat-focused {
+                .mat-form-field-outline-thick {
+                    color: #0c4b9a;
+                    background-color: #f8f8f8;
+                }
+    
+                &.mat-form-field-can-float {
+                    &.mat-form-field-should-float {
+                        .mat-form-field-label {
+                            color: #0c4b9a;
+                        }
+                    }
+                }
+            }
+    
+            &.mat-form-field-disabled {
+                .mat-form-field-outline {
+                    background-color: #f8f8f8;
+                }
+            }
+    
+    
+            &.mat-form-field-invalid.mat-form-field-invalid {
+                .mat-form-field-outline-thick {
+                    color: #dc4c64;
+                    background-color: #f8f8f8;
+                }
+            }
+    
+            &.mat-form-field-can-float {
+                &.mat-form-field-should-float {
+                    .mat-form-field-label {
+                        transform: translateY(-.9rem) scale(0.75);
+                        color: #848484;
+    
+                        .mat-form-field-required-marker {
+                            color: #ED1C27;
+                        }
+                    }
+    
+                    .mat-form-field-outline-gap {
+                        width: 0px !important;
+                    }
+                }
+            }
+        }
+        .mat-form-field-readonly{
+            .mat-form-field-flex{
+                .mat-form-field-outline{
+                    background:#eaedf2;
+                }
+            }            
+        }
+        .aligncenter{
+            display:flex;
+            align-items: center;
+            .mat-icon{
+                width: 16px;
+                height: 16px;
+                color: #666;
+                cursor: pointer;
+                font-size: 20px;
+                margin-top: 5px;
+            }
+        }
+
+        .permissiontable{
+            width:100%;
+            table {
+                width: 100%;
+                box-shadow:none;
+              }
+              
+              tr.example-detail-row {
+                height: 0;
+              }
+              
+              tr.example-element-row:not(.example-expanded-row):hover {
+                background: whitesmoke;
+              }
+              
+              tr.example-element-row:not(.example-expanded-row):active {
+                background: #efefef;
+              }
+              
+              .example-element-row td {
+                border-bottom-width: 0;
+              }
+              
+              .example-element-detail {
+                overflow: hidden;
+                display: flex;
+              }
+              
+              .example-element-diagram {
+                min-width: 80px;
+                border: 2px solid black;
+                padding: 8px;
+                font-weight: lighter;
+                margin: 8px 0;
+                height: 104px;
+              }
+              
+              .example-element-symbol {
+                font-weight: bold;
+                font-size: 40px;
+                line-height: normal;
+              }
+              
+              .example-element-description {
+                padding: 16px;
+              }
+              
+              .example-element-description-attribution {
+                opacity: 0.5;
+              }
+              table th{
+                  background:#eaedf2;
+                  font-size:14px;
+                  color:#333;
+                  font-weight:600;
+                  text-align:center;
+                  min-width:75px;
+                    max-width:75px;
+                  &:first-child{
+                    text-align:left;
+                    min-width:250px;
+                  }
+              }
+              table td{
+                  position:relative;
+                  text-align:center;
+                  min-width:75px;
+                  max-width:75px;
+                  &:first-child{
+                    text-align:left;
+                    min-width:250px;
+                    color:#0c4b9a;
+                  }
+                  .expandicon{
+                      position:absolute;
+                      right:20px;
+                      top:50%;
+                      transform:translateY(-50%);
+                      .mat-icon{
+                          width:18px;
+                          height:18px;
+                          color:#666;
+                          cursor:pointer;
+                      }
+                  }
+                  .subtable{
+                    tr th, thead{
+                        display: none !important;
+                    }
+                    tr td{
+                        position:relative;
+                        text-align:center;
+                        min-width:72px;
+                        max-width:72px;
+                        &:first-child{
+                          max-width: 240px;
+                          min-width: 240px;
+                          text-align:left;
+                          color:#333333;
+                        }
+                    }
+                }
+              }
+              .checkcontainer {
+                display: inline-block;
+                position: relative;
+                margin-bottom: 12px;
+                padding-left:25px;
+                cursor: pointer;
+                font-size: 22px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+              }
+              
+              /* Hide the browser's default checkbox */
+              .checkcontainer input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+              }
+              
+              /* Create a custom checkbox */
+              .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 16px;
+                width: 16px;
+                background-color: #fff;
+                border:1px solid #bbb;
+              }
+              
+              /* On mouse-over, add a grey background color */
+              .checkcontainer:hover input ~ .checkmark {
+                background-color: #ccc;
+              }
+              
+              /* When the checkbox is checked, add a blue background */
+              .checkcontainer input:checked ~ .checkmark {
+                background-color: #0c4b9a;
+              }
+              /* When the checkbox is disabled, add a blue background */
+              .checkcontainer input:disabled ~ .checkmark {
+                background-color: #ddd;
+                cursor:no-drop;
+              }
+              
+              /* Create the checkmark/indicator (hidden when not checked) */
+              .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+              }
+              
+              /* Show the checkmark when checked */
+              .checkcontainer input:checked ~ .checkmark:after {
+                display: block;
+              }
+              
+              /* Style the checkmark/indicator */
+              .checkcontainer .checkmark:after {
+                left: 4px;
+                top: 1px;
+                width: 4px;
+                height: 7px;
+                border: solid white;
+                border-width: 0 2px 2px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+              }
+              .nopaddingtd{
+                  padding:0px !important;
+              }
+              
+        }
+
+        @media (max-width: 768px) {    
+            .paddingspacing {
+                padding-right: 0px !important;
+                padding-left: 0px !important;
+            }
+            .permissiontable{
+                overflow:auto;
+            }
+        }
+    }
+}
+
+[dir="rtl"], .rtl{
+    #viewusers{
+        .viewusersnew{
+            .permissiontable{
+                table th{
+                    &:first-child{
+                      text-align:right;
+                    }
+                }
+                table td{
+                    &:first-child{
+                      text-align:right;
+                    }
+                    .expandicon{
+                        position:absolute;
+                        left:20px;
+                        right:auto;
+                        top:50%;
+                        transform:translateY(-50%);
+                        .mat-icon{
+                            width:18px;
+                            height:18px;
+                            color:#666;
+                            cursor:pointer;
+                        }
+                    }
+                    .subtable{
+                      tr th, thead{
+                          display: none !important;
+                      }
+                      tr td{
+                          &:first-child{
+                            text-align:right;
+                          }
+                      }
+                  }
+                }
+                .checkcontainer {
+                    padding-right:25px;
+                    padding-left:0px;
+                  }
+            } 
+        }
+    }
+}

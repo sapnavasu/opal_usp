@@ -1,0 +1,24 @@
+
+
+[
+  {
+    "category": "Chemical Energy",
+    "subcategory": [ "Chemical Energy1", "Chemical Energy2"]
+  },  
+  {
+    "category": "Engineering Project Construction",
+    "subcategory": [ "Engineering Project Construction1", "Engineering Project Construction2"]
+  },
+  {
+    "category": "Equipment",
+    "subcategory": [ "Equipment1", "Equipment2"]
+  },
+  {
+    "category": "Misc Goods",
+    "subcategory": [ "Misc Goods1", "Misc Goods2"]
+  },
+  {
+    "category": "Wells",
+    "subcategory": [ "Wells1", "Wells2"]
+  } 
+]

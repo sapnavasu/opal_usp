@@ -1,0 +1,77 @@
+<div id="addsubcategory" class=" clflex flex-column">
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+
+    <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="saveFormDetails()" #rgform="ngForm">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-t-10">
+            <mat-label class="label">{{'Description' | translate}}</mat-label>
+            <div fxFlex.gt-sm="100" fxFlex="100">
+                <ckeditor class="ck-editor" [ngClass]="{'is-invalid': f.description.touched && f.description.errors }" formControlName="description" [(ngModel)]="contact"  [editor]="Editor" [config]="config" 
+                [required]="true" [disabled]="ck.ckeditor_count(contact)>999">
+                </ckeditor>
+                
+                <!-- <mat-error *ngIf="f.description.errors?.required">dd </mat-error> -->
+                <p class="label" fxLayoutAlign="flex-end" class="txt-gry descCount"> {{ck.ckeditor_count(contact)}}/1000</p>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-t-10">
+            <div fxFlex.gt-sm="50" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'From Date' | translate}}</mat-label>
+                    <div class="drpicker" id="regapp">
+
+                        <input class="form-control" matInput required formControlName="from_date"
+                            (mousedown)="picker.open(); $event.preventDefault" [disabled]="picker.opened"
+                            [matDatepicker]="picker" readonly>
+                        <div class="closeanddateicomax">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                    </div>
+                    <mat-error *ngIf="f.from_date.errors?.required">Select the From Date</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'Start Time' | translate}}</mat-label>
+                    <input matTimepicker #t="matTimepicker" formControlName="start_time" required>
+                    <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                    <mat-error class="fs-13" *ngIf="f.start_time.errors">Select the Start time</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-t-10">
+            <div fxFlex.gt-sm="50" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'To date' | translate}}</mat-label>
+                    <input matInput required formControlName="end_date"
+                        (mousedown)="pickerA.open(); $event.preventDefault" [disabled]="pickerA.opened"
+                        [matDatepicker]="pickerA" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="pickerA"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerA></mat-datepicker>
+                    <mat-error *ngIf="f.end_date.errors?.required">Select the End Date </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100">
+                <mat-form-field appearance="outline">
+                    <!-- The timepicker input -->
+                    <mat-label>{{'End Time' | translate}}</mat-label>
+                    <input matTimepicker #t="matTimepicker" formControlName="end_time" required>
+                    <mat-icon matSuffix (click)="t.showDialog()">end_time</mat-icon>
+                    <mat-error class="fs-13" *ngIf="f.end_time.errors">Select the End time</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="btnGroup" fxLayoutAlign="end center" gdgap="10px">
+            <button mat-raised-button class="cancelbtn fs-16 txt-gry3 px-4 m-r-15" (click)="cancel()"
+                type="button">{{'Cancel'}}</button>
+            <!-- <button mat-raised-button class="submitbtn" type="button"  *ngIf="isDataUpdate == false" (click)="submitdata()">{{'payment.subm' |
+                    translate}}</button> -->
+            <button mat-raised-button class="submitbtn" type="button" (click)="updateData()">{{'Update'}}</button>
+        </div>
+    </form>
+</div>

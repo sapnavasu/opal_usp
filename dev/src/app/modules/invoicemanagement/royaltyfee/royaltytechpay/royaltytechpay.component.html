@@ -1,0 +1,403 @@
+<div id="royalpaymentone" #pageScroll fxLayoutAlign="center">
+    <app-responseloader *ngIf="fullpageloader"></app-responseloader>
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <div *ngIf="royaltyTech?.paymentstatus != 4 && royaltyTech.paymentstatus != 2" class="view" fxLayoutAlign="end">
+            <!-- validation button -->
+            <app-validation [Validationplaceholder]="'Confirm Payment' | translate" [feePaymentId]="royaltyTechId"
+                [royaltytrainFeebtn]="true" (booleanValue)="submitPayment($event)"></app-validation>
+        </div>
+        <!-- info box -->
+        <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+            <div class="details pd-10" fxFlex="100">
+                <div class="head" fxLayout="row wrap">
+                    <h4 class="headcolor fs-18 m-0 lh-15">
+                        {{ifarabic ? royaltyTech?. companyname_ar ?
+                        royaltyTech?. companyname_ar : '-' : royaltyTech?. companyname_en ?
+                        royaltyTech?. companyname_en : '-' }}
+                    </h4>
+                </div>
+                <div class="m-t-10">
+                    <p class="text-gray m-0 fs-15 ">{{'invoice.centrename' | translate}}:<span class="text-default">
+                            {{ifarabic ? royaltyTech?. trainingprovider_ar ?
+                            royaltyTech?. trainingprovider_ar : '-' : royaltyTech?. trainingprovider_en ?
+                            royaltyTech?. trainingprovider_en : '-' }}</span></p>
+                </div>
+                <div class="d-flex fs-15 m-t-20" fxLayout="row wrap">
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.offitype' | translate}}:
+                        <!-- <span class="text-default">{{'invoice.main' | translate}}</spanbranchname_en>
+                        <span class="text-default">{{'invoice.branch' | translate}}</span> -->
+                        <span class="text-default">{{royaltyTech.officetype}}</span>
+                    </p>
+                    <p *ngIf="royaltyTech.officetype != 'Main Office'" class="application-detais m-r-10 text-gray m-0">
+                        {{'invoice.branchname' | translate}}:
+                        <span class="text-default">{{ifarabic ? royaltyTech.branchname_ar ? royaltyTech.branchname_ar :
+                            '-' : royaltyTech.branchname_en ? royaltyTech.branchname_en : '-'}}</span>
+                    </p>
+                    <!-- <p class="application-detais status m-r-10 text-gray m-0">{{'invoice.courtitle' | translate}}:
+                        <span class="text-default">Branch</span>
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.courcate' | translate}}:
+                        <span class="text-default">Branch</span>
+                    </p> -->
+                    <p class="application-detais status m-r-10 text-gray m-0">{{'invoice.opalmemb' | translate}}:
+                        <span class="text-default">{{royaltyTech.opalmember}}</span>
+                    </p>
+                    <p class="application-detais status m-r-10 text-gray m-0">{{'invoice.status' | translate}}:
+                        <span class="Pending" *ngIf="royaltyTech?.paymentstatus == '1'">{{'invoice.pending'
+                            |translate}}</span>
+                        <span class="Paid Pending Verification" *ngIf="royaltyTech?.paymentstatus == '2'">{{'invoice.paidackn'
+                            |translate}}</span>
+                        <span class="Overdue" *ngIf="royaltyTech?.paymentstatus == '3'">{{'invoice.over'
+                            |translate}}</span>
+                        <span class="Active" *ngIf="royaltyTech?.paymentstatus == '4'">{{'invoice.receive'
+                            |translate}}</span>
+                        <span class="Overdue" *ngIf="royaltyTech?.paymentstatus == '5'">{{'invoice.notrece'
+                            |translate}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- details -->
+        <div fxLayoutAlign="flex-start center" fxLayout="row wrap" class="m-b-40">
+            <div class="feedetails m-t-20" fxFlex.gt-md="50" fxFlex="100">
+                <h4 class="headcolor fs-18 m-0">{{'invoice.invodeta' | translate}}</h4>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invonumb' | translate}}</p>
+                    <span>{{royaltyTech.invoiceno?royaltyTech.invoiceno:" -"}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invoofthemon' | translate}}</p>
+                    <span>{{royaltyTech.invoicemonth?royaltyTech.invoicemonth:" -"}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invodate' | translate}}</p>
+                    <span>{{royaltyTech.invoicedate?royaltyTech.invoicedate:" -"}}</span>
+                </div>
+                <div *ngIf="royaltyTech.paymentstatus != 4 && royaltyTech.paymentstatus != 2" class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.invoage' | translate}}</p>
+                    <span *ngIf="royaltyTech.invoiceage != '0'">{{royaltyTech.invoiceage?royaltyTech.invoiceage:" -"}} {{'invoice.days' | translate}}</span>
+                    <span *ngIf="royaltyTech.invoiceage == '0'"> -</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.royafee' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{royaltyTech.amount?royaltyTech.amount:" -"}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.vat' | translate}} 5% ({{'invoice.omr' | translate}})</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{royaltyTech.vat?royaltyTech.vat:" -"}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row">
+                    <p class="m-0">{{'invoice.totaamou' | translate}} ({{'invoice.omr' | translate}})</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{royaltyTech.invoiceamount?royaltyTech.invoiceamount:"
+                        -"}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- vehicle details -->
+        <div class="vehicle">
+            <h4 class="fs-18">{{'invoice.vechdeta' | translate}}</h4>
+            <div class="paginationwithfilter masterPageTop " fxLayout="row wrap">
+                <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <button (click)="download(royaltyTech.roy_pk)" mat-raised-button class="cancelbtn m-r-10 m-l-10"
+                            type="button">{{'invoice.export' | translate}} </button>
+                            
+                        <button mat-raised-button type="button" color="primary" (click)="clickedEvent()"
+                            class="filter fs-15">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- table -->
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                    <div class="awaredtable">
+                        <!-- <button mat-button [matMenuTriggerFor]="editcolumn" class="editcolumn">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">more_horiz</mat-icon>
+                            <mat-menu #editcolumn="matMenu" class="master-menu edit-column-menu">
+                                <div class="table-config-menu-options" fxLayout="column">
+                                    <mat-checkbox #alllistChkBox [(ngModel)]="selectlistChkbox"
+                                        (change)="selecttablelable($event)"> {{ 'All' | translate}}
+                                    </mat-checkbox>
+                                    <mat-checkbox *ngFor="let vehicleslist of VehicleListData; let i = index"
+                                        (click)="$event.stopPropagation()" [(ngModel)]="vehicleslist.vehiclehide"
+                                        #columnchkbox (change)="updateSelectAll(vehicleslist)">
+                                        {{vehicleslist.label | translate}}
+                                    </mat-checkbox>
+                                </div>
+                            </mat-menu>
+                        </button> -->
+                        <mat-table #table class="scrolldata" [dataSource]="vehicleData" matSort matSortDisableClear (matSortChange)="announceSortChange($event)">
+                            <!-- column 1 -->
+                            <ng-container matColumnDef="chassisnumber">
+                                <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'invoice.chasnumb' | translate}}</mat-header-cell>
+                                <mat-cell data-label="chassisnumber" fxFlex="230px"
+                                    *matCellDef="let trainingEvaluationData">
+                                    <div *ngIf="loaderfortable" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!loaderfortable">
+                                        {{trainingEvaluationData.chassisnumber?trainingEvaluationData.chassisnumber:'-'}}
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 2 -->
+                            <ng-container matColumnDef="vehiclenumber">
+                                <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'invoice.vehinumb' | translate}}</mat-header-cell>
+                                <mat-cell data-label="vehiclenumber" fxFlex="230px"
+                                    *matCellDef="let trainingEvaluationData">
+                                    <div *ngIf="loaderfortable" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!loaderfortable">
+                                        {{trainingEvaluationData.vehiclenumber?trainingEvaluationData.vehiclenumber:'-'}}
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 3 -->
+                            <ng-container matColumnDef="ownername">
+                                <mat-header-cell fxFlex="350px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'invoice.ownenmae' | translate}}</mat-header-cell>
+                                <mat-cell data-label="ownername" fxFlex="350px"
+                                    *matCellDef="let trainingEvaluationData">
+                                    <div *ngIf="loaderfortable" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!loaderfortable">
+                                        {{ifarabic ? trainingEvaluationData?. ownername_ar ?
+                                        trainingEvaluationData?. ownername_ar : '-' : trainingEvaluationData?.
+                                        ownername_en ?
+                                        trainingEvaluationData?. ownername_en : '-' }}
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 5 -->
+                            <ng-container matColumnDef="status">
+                                <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'invoice.vehistatus' | translate}}</mat-header-cell>
+                                <mat-cell data-label="status" fxFlex="230px" *matCellDef="let trainingEvaluationData">
+                                    <div *ngIf="loaderfortable" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!loaderfortable">
+                                        <p class="application-detais status m-r-10 text-gray m-0">
+                                            <span class="Pending"
+                                                *ngIf="trainingEvaluationData.status == '1'">{{'invoice.inspection'
+                                                |translate}}</span>
+                                            <span class="Teaching"
+                                                *ngIf="trainingEvaluationData.status == '2'">{{'invoice.verifi'
+                                                |translate}}</span>
+                                            <span class="Completed"
+                                                *ngIf="trainingEvaluationData.status == '3'">{{'invoice.compl'
+                                                |translate}}</span>
+                                            <span class="requested"
+                                                *ngIf="trainingEvaluationData.status == '4'">{{'invoice.super'|translate}}</span>
+                                            <span class="cancelled"
+                                                *ngIf="trainingEvaluationData.status == '5'">{{'invoice.decline_ver'|translate}}</span>
+                                            <span class="cancelled"
+                                                *ngIf="trainingEvaluationData.status == '6'">{{'invoice.decline_sup'|translate}}</span>
+                                            <span class="Assessment"
+                                                *ngIf="trainingEvaluationData.status == '7'">{{'invoice.re_ins'|translate}}</span>
+                                            <span class="cancelled"
+                                                *ngIf="trainingEvaluationData.status == '8'">{{'invoice.rejected'|translate}}</span>
+                                            <span class="litered"
+                                                *ngIf="trainingEvaluationData.status == '9'">{{'invoice.rejectncncl'|translate}}</span>
+                                            <span class="Cancelled"
+                                                *ngIf="trainingEvaluationData.status == '10'">{{'invoice.cancelled'|translate}}</span>
+
+                                                
+                                        </p>
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 6 -->
+                            <ng-container matColumnDef="royaltypaid">
+                                <mat-header-cell fxFlex="190px" mat-header-cell *matHeaderCellDef
+                                    mat-sort-header>{{'invoice.royalpaid' | translate}}</mat-header-cell>
+                                <mat-cell data-label="royaltypaid" fxFlex="190px"
+                                    *matCellDef="let trainingEvaluationData">
+                                    <div *ngIf="loaderfortable" class="w-100">
+                                        <div class="tabledataloader"></div>
+                                    </div>
+                                    <div *ngIf="!loaderfortable">
+                                        {{trainingEvaluationData.royaltypaid?trainingEvaluationData.royaltypaid:'-'}}
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <!-- column 6 -->
+                            <ng-container matColumnDef="action" stickyEnd>
+                                <mat-header-cell fxFlex="100px" mat-header-cell *matHeaderCellDef>{{'invoice.action' |
+                                    translate}}</mat-header-cell>
+                                <mat-cell data-label="action" fxFlex="100px" *matCellDef="let trainingEvaluationData">
+                                </mat-cell>
+                            </ng-container>
+                            <!-- search filter column1 -->
+                            <ng-container matColumnDef="row-first">
+                                <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="chassisnumber"
+                                            (keyup)="searchbatchgrid($event.target.value,'chassisnumber')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 2 -->
+                            <ng-container matColumnDef="row-second">
+                                <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="vehiclenumber"
+                                            (keyup)="searchbatchgrid($event.target.value,'vehiclenumber')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 3 -->
+                            <ng-container matColumnDef="row-third">
+                                <mat-header-cell fxFlex="350px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                        <input matInput [formControl]="ownername"
+                                            (keyup)="searchbatchgrid($event.target.value,'ownername')">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 4 -->
+                            <ng-container matColumnDef="row-fourth">
+                                <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <mat-form-field class="filter" appearance="outline">
+                                        <mat-label>{{'invoice.select' | translate}}</mat-label>
+                                        <mat-select [formControl]="vehistatus" (selectionChange)="mltiSelectBranch($event,'vehistatus')" multiple panelClass="select_with_search">
+                                            <div class="option-listing countryselectwithimage">
+                                            <mat-option value="1">{{'invoice.inspection' |translate}}</mat-option>
+                                            <mat-option value="2">{{'invoice.verifi' |translate}}</mat-option>
+                                            <mat-option value="3">{{'invoice.compl' |translate}}</mat-option>
+                                            <mat-option value="4">{{'invoice.super' |translate}}</mat-option>
+                                            <mat-option value="5">{{'invoice.decline_ver' |translate}}</mat-option>
+                                            <mat-option value="6">{{'invoice.decline_sup' |translate}}</mat-option>
+                                            <mat-option value="7">{{'invoice.re_ins' |translate}}</mat-option>
+                                            <mat-option value="8">{{'invoice.rejected' |translate}}</mat-option>
+                                            <mat-option value="9">{{'invoice.rejectncncl' |translate}}</mat-option>
+                                            <mat-option value="10">{{'invoice.cancelled' |translate}}</mat-option>
+                                            </div>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 5 -->
+                            <ng-container matColumnDef="row-fifth">
+                                <mat-header-cell fxFlex="190px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- column 5 -->
+                            <ng-container matColumnDef="row-refresh" stickyEnd>
+                                <mat-header-cell fxFlex="100px" class="serachrow" *matHeaderCellDef
+                                    style="text-align:center">
+                                    <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                        aria-hidden="true" matTooltip="{{'Refresh' |translate}}"></i>
+                                </mat-header-cell>
+                            </ng-container>
+                            <!-- end -->
+                            <mat-header-row id="headerrowcells" *matHeaderRowDef="VehicleListDatafun()">
+                            </mat-header-row>
+                            <mat-header-row id="searchrow" *matHeaderRowDef="VehicleListDatasear()">
+                            </mat-header-row>
+                            <!-- <mat-header-row id="searchrow"
+                                *matHeaderRowDef="['row-first' , 'row-second' , 'row-third' , 'row-fourth' , 'row-fifth']">
+                            </mat-header-row> -->
+                            <mat-row mat-row *matRowDef="let row; columns: VehicleListDatafun();"></mat-row>
+                            <!-- no record -->
+                            <ng-container matColumnDef="disclaimer">
+                                <td mat-footer-cell *matFooterCellDef colspan="11">
+                                    <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" *ngIf="isData">
+                                            <div fxLayout="row wrap" fxLayoutAlign="center center"
+                                                *ngIf="loaderfortable" class="NorecordLoader"></div>
+                                            <img src="assets/images/opalimages/norecord.svg" alt="norecord"
+                                                *ngIf="!loaderfortable">
+                                            <p class="m-t-10 txt-gry3 fs-16" *ngIf="!loaderfortable">{{'No Records' |
+                                                translate}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-container>
+                                <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                    [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                    *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                </mat-footer-row>
+                            </ng-container>
+                        </mat-table>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                            <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                                (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                                [length]="resultsLength" [pageSizeOptions]="paginator?.pageSizeOptions">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- comment -->
+        <!-- <div class="comments m-t-10">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'invoice.verification' | translate}}</h4>
+                <span class="badge decl" *ngIf="!approved">{{'Declined' | translate}}</span>
+                <span class="badge appr" *ngIf="approved">{{'Approved' | translate}}</span>
+            </div>
+            <div class="m-l-0 m-r-0 m-b-20" [ngClass]="approved? 'successcmd' : 'declinecmd'">
+                <p class="18 comment">{{'invoice.comm' | translate}}</p>
+                <p class="16 m-b-30">Does the course recognised by International Organisation? If Yes
+                    Select
+                    the International Organisation </p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'invoice.lastvalion' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">11-02-2023</span></p>
+                    <p class="fs-16 txt-gry">{{'invoice.lastvaliby' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">Sameer Mohammed</span></p>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="comments m-t-10" *ngIf="royaltyTech?.paymentstatus == 4 || royaltyTech?.paymentstatus == 5">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'invoice.verification' | translate}}</h4>
+                <span class="badge decl" *ngIf="royaltyTech?.paymentstatus=='5'">{{'invoice.notrece'
+                    |translate}}</span>
+                <span class="badge appr" *ngIf="royaltyTech?.paymentstatus=='4'">{{'invoice.receive'
+                    |translate}}</span>
+            </div>
+            <div class="m-l-0 m-r-0 m-b-20" [ngClass]="royaltyTech?.paymentstatus=='4'? 'successcmd' : 'declinecmd'">
+                <p class="18 comment">{{'invoice.comm' | translate}}</p>
+                <p class="16 m-b-30" [innerHTML]="royaltyTech?.rasf_appdecComments ? royaltyTech?.rasf_appdecComments : 'Nil'"></p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'invoice.lastvalion' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{royaltyTech?.rasf_appdecon ?
+                            royaltyTech?.rasf_appdecon : '-'}}</span></p>
+                    <p class="fs-16 txt-gry">{{'invoice.lastvaliby' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{royaltyTech?.confirmedBy ?
+                            royaltyTech?.confirmedBy : '-'}}</span></p>
+                </div>
+            </div>
+        </div>
+         <!-- button -->
+         <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+            <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goBack('techTab')">{{'Back' | translate}}</button>
+         </div>
+    </div>
+</div>

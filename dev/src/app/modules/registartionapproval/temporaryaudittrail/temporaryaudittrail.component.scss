@@ -1,0 +1,119 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#temporaryaudittriallist{
+    .audittrailgradient {
+        .successcolor{
+            color: #339933; 
+           }
+           .expiredcolor{
+            color: #fe0006;  
+        }
+        background: linear-gradient(to bottom, #e0f0ff 165px, #fff -8px 11%);
+        .headerviewcontract{
+            padding: 0px 40px 20px 40px;
+            @include spacebetween();
+            .mat-headline {
+                margin: 0px;
+            }
+            .imagewithtext h4 {
+                margin: 0 !important;
+                padding-left: 0px; 
+            }  
+        }
+        .audittrailbackground{
+            background-color: #fff;
+            min-height: 410px;
+            overflow: hidden;
+            border-radius: 2px;
+            margin-left: 40px;
+            margin-right: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            .updatedfiledcolor{
+                padding-top: 30px;
+                padding-bottom: 10px;
+                h2{
+                    font-size: 1rem;
+                    color: #57626E;
+                }
+            }
+        }
+        .tracklistheader{
+            background-color: #fff; 
+            .gatewaysalign{
+                @include flexstart();
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid #dadada;
+                width: 100%;
+                .tracklistviewalign{
+                    @include flexstart();
+                    width:25%;
+                      p{
+                        color: #57626E;
+                        font-size: 0.75rem;
+                        margin: 0px;
+                        line-height: 2.2;
+                      }
+                      span{
+                        color: #333333;
+                        font-size: 0.9375rem;
+                        padding-left: 20px;
+                      }
+                      .activecolor{
+                        color: #50af49;
+                    }
+                }
+            }
+           .headerlistview{
+               border-bottom: 1px solid #dadada;
+               padding-bottom: 20px;
+               h2{
+                   color: #333333;
+                   font-size: 1.125rem;
+                   margin: 0px;
+               }
+           } 
+        }
+    }
+}
+  
+@media (max-width:768px){
+     .gatewaysalign{
+      display: block !important;
+    .tracklistviewalign{
+        width: 100% !important;
+     }
+   }
+  }
+
+@media (max-width:767px){
+    .headerviewcontract{
+        padding: 0px 20px 20px 20px !important;
+    }
+    .audittrailbackground{
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+    }
+}

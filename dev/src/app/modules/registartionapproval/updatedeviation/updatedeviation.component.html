@@ -1,0 +1,70 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="{{'updatedeviation.clos' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="Updatepaymentalert()" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">{{'updatedeviation.updadevi' | translate}}</h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button type="button" mat-raised-button color="primary"
+          class="clearbutton height-35 m-r-10 p-l-20 p-r-20 spacemargin">{{'updatedeviation.canc' | translate}}</button>
+        <button color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+          class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxFlexAlign="center" class="borderbottomrenewallist">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottomrenwalalign p-l-50 p-r-50">
+    <div class="p-t-8 p-b-8">
+      <div class="renewalalign">
+        <p class="p-b-8 fs-15 interbold lh-12">Business Gateways International - India Pvt. Ltd.</p><span
+          class="renewalfreshcolor">{{'updatedeviation.rene' | translate}}</span>
+      </div>
+      <p class="fs-14 space"><span class="codecolor">{{'updatedeviation.suppcode' | translate}}</span> <span class="textcolorno">: OMN177261</span>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="innnerpartofdrwer">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="paymentonlinetistview">
+      <div [formGroup]="UpdatedeviationForm">
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-20">
+            <mat-form-field>
+              <textarea appAlphanum app-restrict-input="firstspace" #message [matAutocomplete]="auto" maxlength="500" matInput
+                placeholder="{{'updatedeviation.comm' | translate}}" required cdkTextareaAutosize [formControl]="myControl"
+                #autosize="cdkTextareaAutosize" formControlName="comments" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+              <mat-autocomplete #auto="matAutocomplete">
+                <div class="updatecommentscroll">
+                  <mat-option *ngFor="let option of updateOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </div>
+              </mat-autocomplete>
+              <mat-hint class="txt-black fs-14" align="end">{{message.value.length}} /500</mat-hint>
+              <mat-error
+                *ngIf="UpdatedeviationForm.controls['comments'].hasError('required') && UpdatedeviationForm.controls['comments'].touched"
+                class="text-danger font-14">{{'updatedeviation.entecomm' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="p-b-12">
+          <div fxFlex.gt-sm="50" fxFlex="100">
+            <mat-form-field>
+              <input matInput formControlName="pipedriverref" placeholder="{{'updatedeviation.pipefresrefeno' | translate}}" required
+                [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+              <mat-error
+                *ngIf="UpdatedeviationForm.controls['pipedriverref'].hasError('required') && UpdatedeviationForm.controls['pipedriverref'].touched"
+                class="text-danger font-14">{{'updatedeviation.entepaymtracnumb' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

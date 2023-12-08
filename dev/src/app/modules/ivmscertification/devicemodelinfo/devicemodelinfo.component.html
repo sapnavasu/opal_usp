@@ -1,0 +1,118 @@
+<div class="commonForm m-t-40" id="deviceForm" fxFlex="100">
+  <app-responseloader *ngIf="pageloader"></app-responseloader>
+  <form [formGroup]="deviceinfoform" (ngSubmit)="submit()" #device="ngForm">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-t-15">
+        <!-- IVMS -->
+        <div fxFlex.gt-md="50" fxFlex="100"  ngClass.sm="m-0">
+            <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                <mat-label>{{'IVMS Manufacturer' | translate}}</mat-label>
+                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" app-restrict-input="firstspace" matInput
+                    formControlName="ivmsmanufact" [required]="viewForm"> 
+                <mat-error *ngIf="form.ivmsmanufact.errors?.required || device.submitted">
+                    {{'Enter the IVMS Manufacturer' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <!-- Model -->
+        <div fxFlex.gt-md="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-l-0" ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+            <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                <mat-label>{{'Model No.' | translate}}</mat-label>
+                <input (keydown.enter)="$event.preventDefault()"  [errorStateMatcher]="matcher" app-restrict-input="firstspace" matInput
+                    formControlName="modelno" [required]="viewForm">
+                <mat-error *ngIf="form.modelno.errors?.required || device.submitted">
+                    {{'Enter the Model No.' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-t-15">
+        <!-- software -->
+        <div fxFlex.gt-md="50" fxFlex="100"  ngClass.sm="m-0">
+            <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                <mat-label>{{'Software Version' | translate}}</mat-label>
+                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" app-restrict-input="firstspace" matInput
+                    formControlName="softversion" [required]="viewForm"> 
+                <mat-error *ngIf="form.softversion.errors?.required || device.submitted">
+                    {{'Enter the Software Version' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <!-- orgin -->
+        <div fxFlex.gt-md="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-l-0" ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+            <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                <mat-label>{{'Country of Origin' | translate}} </mat-label>
+                <mat-select [errorStateMatcher]="matcher" [required]="viewForm == false" formControlName="count" (closed)="searchinst_state = '';"
+                    panelClass="select_with_search" *ngIf="(countyOrgin | filter : searchinst_state) as inst_stateresult">
+                    <div class="searchinmultiselect">
+                        <mat-icon class="">search</mat-icon>
+                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput class="searchselect" type="Search"
+                            placeholder="{{'course.sear' | translate}} " (keydown)="$event.stopPropagation();" [(ngModel)]="searchinst_state"
+                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                        <mat-icon (click)="searchinst_state = ''"  class="reseticon" matSuffix *ngIf="searchinst_state !='' && searchinst_state !=null">clear</mat-icon>
+                    </div>
+                    <div class="option-listing countryselectwithimage">
+                        <mat-option  *ngFor="let stattut of countyOrgin | filter : searchinst_state" [value]="stattut.osm_statename_en">
+                            {{ifarabic == true ? stattut.osm_statename_ar : stattut.osm_statename_en}}
+                        </mat-option>
+                        <div *ngIf="inst_stateresult.length == 0" class="m-l-20"> {{'maincenter.nofoun' | translate}}</div>
+                    </div>
+                </mat-select>
+                <mat-error *ngIf="form.count.errors?.required || form.submitted">{{'Select the Country of Origin from drop-down' | translate}} </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <!-- certification no -->
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-t-15">
+        <div fxFlex.gt-md="50" fxFlex="100"  ngClass.sm="m-0">
+            <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                <mat-label>{{'TRA Certification No.' | translate}}</mat-label>
+                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" app-restrict-input="firstspace" matInput
+                    formControlName="tracert" [required]="viewForm"> 
+                <mat-error *ngIf="form.tracert.errors?.required || device.submitted">
+                    {{'Enter the TRA Certification No.' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-t-15">
+        <div fxFlex.gt-md="100" fxFlex="100" ngClass.sm="m-0">
+            <app-filee [notePosition]="'bottom'" [deleteicon]="!viewForm" [requiredfield]="!viewForm" [fileMstRef]="traapproval" [fileuploadcommon]="false" [uploaddocumentname]="'Upload TRA Approval Certificate' | translate" [notePosition]="'bottom'" (filesSelected)="fileeSelected($event,traapproval)"
+            formControlName="uploadtra" [documentname]="true" [datedetials]="true">
+        </app-filee>
+        <mat-hint class="txt-gry fs-14"> {{'Note: Only (3),JPG,JPEG,PNG,PDF are allowed up to 3MB in size' | translate}}</mat-hint>
+            <mat-error class="fs-14" *ngIf="this.deviceinfoform.controls.uploadtra.invalid && device.submitted">{{ 'Please Upload a file' | translate}}</mat-error>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-t-15">
+        <!-- tra -->
+        <div fxFlex.gt-md="50" fxFlex="100"  ngClass.sm="m-0">
+            <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                <mat-label>{{'TRA Approval Validity' | translate}}</mat-label>
+                <input matInput required formControlName="traapproval" (mousedown)="picker2.open(); $event.preventDefault"
+                    [disabled]="picker2.opened" [matDatepicker]="picker2" [readonly]="viewForm">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="form.traapproval.errors?.required || device.submitted">{{'Select the TRA Approval Validity' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <!-- vendor -->
+        <div fxFlex.gt-md="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-l-0" ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+            <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                <mat-label>{{'Vendor Name (as in TRA Registration)' | translate}}</mat-label>
+                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" app-restrict-input="firstspace" matInput
+                    formControlName="vendorname" [required]="viewForm">
+                <mat-error *ngIf="form.vendorname.errors?.required || device.submitted">
+                    {{'Enter the Vendor Name (as in TRA Registration)' | translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+      <!-- buttons -->
+        <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish groupBtns m-t-30">
+            <button mat-raised-button type="button" (click)="cancelform()" class="standardbutton mat-white-bg">{{'institute.prev' | translate}}</button>
+            <button mat-raised-button type="submit" *ngIf="!viewForm" class="standardbutton mat-red-bg"><span *ngIf="!updatedForms">{{'maincenter.saveandnext' | translate}}</span> <span *ngIf="updatedForms">{{'maincenter.updateandnext' | translate }}</span></button>
+            <button mat-raised-button type="button" (click)="next.emit()" class="standardbutton mat-red-bg">{{'international.next' | translate}}</button>
+        </div>
+  </form>
+</div>  

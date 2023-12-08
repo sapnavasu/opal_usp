@@ -1,0 +1,187 @@
+<div id="desktop_approval" #pageScroll>
+    <div class="desktop" fxLayout="row wrap" fxLayoutAlign="center">
+        <div fxFlex="100">
+            <div class="infobtns" fxLayoutAlign="end center" fxLayout="row wrap">
+                <!-- <button mat-raised-button [matMenuTriggerFor]="menu" color="primary"
+                    class="ShowHidefs-15 menubtn m-r-10 m-t-10">{{'desktop.valicentre' | translate}}<i
+                        class="fa fa-chevron-down m-l-5" aria-hidden="true"></i></button> -->
+                <!-- <mat-menu #menu="matMenu" class="menu-panel">
+                    <button mat-menu-item class="fs-16">{{'desktop.stand' | translate}}</button>
+                    <button mat-menu-item class="fs-16">{{'desktop.cust' | translate}}</button>
+                </mat-menu> -->
+                <app-viewvalidation *ngIf="viewcertificate" [staffpopup]="staffnew" [hidebtn]="true" [standardcourse]="true" [overallform]="true" [validatestatus]="approv"></app-viewvalidation>
+
+                <!-- <button mat-raised-button class="valid menu" color="primary">Valid centre Form</button> -->
+                <button mat-raised-button class="m-l-15 auditbtn " [routerLink]="['/centrecertification/auditlogstanddesk', id, security.encrypt(2)]">{{'desktop.audilog' | translate}}</button>
+            </div>
+            <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+                <div class="details pd-15" fxFlex="100">
+                    <div class="head" fxLayout="row wrap">
+                        <h2 class="headcolor fs-18 m-0 lh-15">
+                            {{ifarabic ? company_name_ar : company_name}}
+                        </h2>
+                    </div>
+                    <div class="m-t-10">
+                        <p class="text-gray m-0 fs-15 ">{{'desktop.traiprovname' | translate }}: <span class="text-default"> {{ifarabic ? traiprovname_ar : traiprovname}}</span></p>
+                    </div>
+                    <div class="fs-13 m-t-20 m-b-20" fxLayout="row wrap">
+                        <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applirefno' | translate}}: <span class="text-default"> {{applirefno}}</span>
+                        </p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applytype' | translate}}: <span class="text-default">
+                            
+                                <sapn *ngIf="applytype == 1">{{'table.initial' |translate}}</sapn>
+                                <sapn *ngIf="applytype == 2">{{'table.renewal' |translate}}</sapn>
+                                <sapn *ngIf="applytype == 3">{{'table.update' |translate}}</sapn>
+                            
+                            
+                            
+                            
+                            
+                            
+                            </span></p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'desktop.courstype' | translate}}: <span class="text-default">
+                            
+                            
+                                <span *ngIf="courstype == 2">
+                                    {{'table.standcou' |translate}} 
+                                </span>
+                            <span *ngIf="courstype == 3">
+                                    {{'table.custcou' |translate}} 
+                                </span>
+
+
+                            </span>
+                        </p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applstat' | translate}}: <span class="text-default">
+                            
+                                <span *ngIf="applstat == 1">{{'table.yettosubmit' |translate}}</span>
+                            <span *ngIf="applstat == 2">{{'Desktop review Pending'}}</span>
+                            <span *ngIf="applstat == 3">{{'Missing Files'}}</span>
+                            <span *ngIf="applstat == 4">{{'Desktop review Pending'}}</span>
+                            <span *ngIf="applstat == 5">{{'Payment Pending'}}</span>
+                            <span *ngIf="applstat == 6">{{'Confirm Payment'}}</span>
+                            <span *ngIf="applstat == 7">{{'Yet to Schedule for Site Audit'}}</span>
+                            <span *ngIf="applstat == 8">{{'Audit Date Selection (Training Provider)'}}</span>
+                            <span *ngIf="applstat == 9">{{'table.readforaudit' |translate}}</span>
+                            <span *ngIf="applstat == 10">{{'Quality Manager Approval Pending'}}</span>
+                            <span *ngIf="applstat == 11">{{'Authority Approval Pending'}}</span>
+                            <span *ngIf="applstat == 12">{{'table.submforceo' |translate}}</span>
+                            <span *ngIf="applstat == 13">{{'Site Audit Report Declined'}}</span>
+                            <span *ngIf="applstat == 14">{{'Quality Manager Approval Pending'}}</span>
+                            <span *ngIf="applstat == 15">{{'Authority Approval Pending'}}</span>
+                            <span *ngIf="applstat == 16">{{'table.resubmforceoapp' |translate}}</span>
+                            <span *ngIf="applstat == 17">{{'table.approved' |translate}}</span>
+                            <span *ngIf="applstat == 18">{{'Declined by Finance Team'}}</span>
+                            <span *ngIf="applstat == 19">{{'Suspended' | translate}}</span>
+                            <span *ngIf="applstat == 20">{{'Certification Form Declined' | translate}}</span>
+
+
+
+                            </span>
+                        </p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'desktop.certstat' | translate}}:
+                            <!-- <span class="liteorange">Pending</span> -->
+
+                            <span *ngIf="certification == 2" class="green">{{'table.acti'
+                                |translate}}</span>
+                            <!-- <span  *ngIf="BranchData.certification == 'E'"  class="update">{{'table.updated' |translate}}</span>   -->
+                            <span *ngIf="certification == 1" class="red">{{'table.new'
+                                |translate}}</span>
+                            <span *ngIf="certification == 3" class="red">{{'table.expi'
+                                |translate}}</span>
+                            <!-- <span class="green">Active</span>
+                                <span  class="red">decline</span> -->
+                        </p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'Site Audit Scheduled on' | translate}}:
+                            <span class="text-default">{{asd_date?(asd_date | date: 'dd-MM-yyyy'):'-'}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="address  p-l-15" fxLayout="row wrap" fxFlex.gt-sm="60" fxFlex="100">
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                        <p class="text-gray fs-14">{{'desktop.siteloca' | translate}} <br>
+                            <a href="{{siteloca}}" target="_blank">
+                                <i class="fa fa-map-marker fs-25" aria-hidden="true"></i> </a>
+                        </p>
+                    </div>
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                        <p class="text-gray fs-14">{{'desktop.dateexoi' | translate}} <br>
+                            <span *ngIf="dateofexpiry == null || dateofexpiry == ''" class="text-default">-</span>
+                            <span *ngIf="dateofexpiry != null || dateofexpiry != ''" class="text-default">{{dateofexpiry | date: 'dd-MM-yyyy' }}</span>
+                        </p>
+                    </div>
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                        <p class="text-gray fs-14">{{'desktop.addon' | translate}} <br>
+                            <span *ngIf="appdecon == null || appdecon == ''" class="text-default">-</span>
+                            <span *ngIf="appdecon != null || appdecon != ''" class="text-default">{{appdecon | date: 'dd-MM-yyyy'}}</span>
+                        </p>
+                    </div>
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                        <p class="text-gray fs-14">{{'desktop.lastupdat' | translate}}<br>
+                            <span *ngIf="lastupdat == null || lastupdat == ''" class="text-default">-</span>
+                            <span *ngIf="lastupdat != null || lastupdat != ''" class="text-default">{{lastupdat | date: 'dd-MM-yyyy'}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <mat-tab-group class="tabsdetials" [(selectedIndex)]="mattab" #mytab>
+                <!--tab 1-->
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <span class="contentcircle m-r-10">
+                                1
+                            </span>
+                            <div class="tabtitle">
+                                <P class="fs-15">{{'course.cour' | translate}}</P>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <app-coursedetails (coursebutton)="next()" (courseprevious)="cancle()" #course (courseapprovetrue)="overallapprov(e)"></app-coursedetails>
+                </mat-tab>
+
+                <!--tab 2-->
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <span class="contentcircle m-r-10">2</span>
+                            <div class="tabtitle">
+                                <P class="fs-15">{{'desktop.interreco' | translate}}</P>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <app-internationalrecognition (interprev)="interprevious()" (internationalnext)="internext()" #international (interapprovaltrue)="overallapprov(e)"></app-internationalrecognition>
+                </mat-tab>
+                <!--tab 3-->
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <span class="contentcircle m-r-10"> 3</span>
+                            <div class="tabtitle">
+                                <P class="fs-15">{{'desktop.docurequ' | translate}}</P>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <app-documentrequired (documentbutton)="documentnext()" (documentprevious)="documentpre()" #document (docuaprovaltrue)="overallapprov(e)"></app-documentrequired>
+                </mat-tab>
+
+                <!--tab 4-->
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <span class="contentcircle m-r-10"> 4
+                            </span>
+                            <div class="tabtitle">
+                                <P class="fs-15">{{'desktop.staff' | translate}}</P>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <app-staffapproval #staff (staffapprovtrue)="overallapprov(e)"></app-staffapproval>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

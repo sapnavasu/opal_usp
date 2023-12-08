@@ -1,0 +1,148 @@
+@mixin flexcenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin flexspace {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .aligncenter {
+    align-items: center !important;
+  }
+  .topheadermain {
+    @include flexspace();
+    color: #fff !important;
+    .imagewithtext {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
+.topheadermain{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flexsame{
+  display: flex;
+  align-items: baseline;
+}
+.spancolor{
+  color:white;
+}
+::ng-deep.block .mat-paginator-range-label {
+  display: contents;
+}
+.responsiveblock{
+  display: block !important;
+} 
+.flexstartspacing{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+.responsive{
+  display: flex !important;
+  justify-content: space-between;
+}
+@media (max-width: 767px){
+  .imagewithtext {
+    display: flex !important;
+}
+  ::ng-deep.masterbottom .mat-paginator-range-label {
+    margin: 0 20px 0 10px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterbottom .mat-paginator-page-size {
+    display: flex;
+    align-items: baseline;
+    margin-right: 74px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterbottom .mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    padding: 0px;
+    flex-wrap: wrap-reverse;
+    width: 302px;
+} 
+::ng-deep.topheadermain .imagewithtext {
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+}
+::ng-deep.masterPageTop .mat-paginator-outer-container {
+  width: 183px;
+  display: flex;
+}
+::ng-deep.masterbottom .mat-paginator-outer-container {
+display: flex;
+justify-content: center;
+}
+  ::ng-deep.masterbottom .mat-paginator-range-actions {
+    display: contents !important;
+   
+}
+::ng-deep.masterPage .mat-paginator-range-label {
+  margin: 0 32px 0 6px;
+  font-size: 0.75rem;
+}
+::ng-deep.masterPage .mat-paginator-page-size {
+  
+  font-size: 0.75rem;
+}
+
+label.m-r-20 {
+margin-right: 6px !important;
+}
+.topheadermain{
+  display: block !important;
+}
+.topbreadcrumb{
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+}
+@media (min-width: 550px){
+  .responsiveblock{
+    display: flex!important;
+  } 
+  .topheadermain{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+::ng-deep.masterPage .mat-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 56px;
+  padding: 0px;
+  flex-wrap: wrap-reverse;
+  width:100%;
+}    
+}
+
+@media (min-width: 350px){
+  .topheadermain{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

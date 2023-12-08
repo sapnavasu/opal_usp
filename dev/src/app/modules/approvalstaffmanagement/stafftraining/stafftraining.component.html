@@ -1,0 +1,665 @@
+<div id="trainingcentreapp" fxLayoutAlign="center start">
+    <!-- pageloader -->
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+    <div class="vehicleinspection" fxFlex="100" fxFlex.gt-sm="100">
+        <div class="paginationwithfilter masterPageTop ">
+            <!-- paginator -->
+            <mat-paginator #paginator class="masterPage masterPageTop" [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100] " (page)="syncPrimaryPaginator($event);"></mat-paginator>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="available date_exp">
+                <form autocomplete="off" [formGroup]="availabledate"> 
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'Check Availability Date' | translate }}</mat-label>
+                        <input matInput  formControlName="available_Date" (dateChange)="checkAvail($event,'available_Date')"
+                        (mousedown)="picker4.open(); $event.preventDefault" [matDatepicker]="picker4" readonly>
+                        <mat-icon class="clearDateicon" (click)="clearDate()" *ngIf="clearClose == true" matSuffix>close</mat-icon>
+                    <mat-datepicker-toggle matSuffix
+                        [for]="picker4"></mat-datepicker-toggle>
+                    <mat-datepicker #picker4></mat-datepicker>
+                    </mat-form-field>
+                </form>
+                    <button mat-raised-button type="button" *ngIf="downloadaccess" class="transformbtn m-l-10" (click)="exportExcel()">{{'Export' | translate}}</button>
+                    <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                        class="filter m-l-10">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7 m-r-5"
+                            aria-hidden="true"></i></button>
+            </div>
+        </div>
+      <!-- table -->
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div #TABLE class="awaredtable">
+                    <!-- show and hide button -->
+                    <button mat-button [matMenuTriggerFor]="editcolumn" class="editcolumn">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #editcolumn="matMenu" class="master-menu edit-column-menu">
+                            <div class="table-config-menu-options" fxLayout="column">
+                                <mat-checkbox #editchkbox [(ngModel)]="selectAllVisible"
+                                    (change)="selectAllFun($event)"> {{ 'All' | translate}}
+                                </mat-checkbox>
+                                <ng-container *ngFor="let cd of displayedColumns; let i = index">
+                                    <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="cd.visible"
+                                        #columnchkbox (change)="updateSelectAllVisible(cd)">
+                                        {{cd.label | translate}}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </mat-menu>
+                    </button>
+                    <mat-table id="ExampleMaterialTable" #table class="scrolldata" [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+                        matSortDisableClear>
+                          <!--Opal number -->
+                          <ng-container matColumnDef="member_number">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'OPAL Membership No. ' | translate}}</mat-header-cell>
+                            <mat-cell data-label="member_number" fxFlex="280px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{element.opalmember ? element.opalmember :'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                          <!--Company Name -->
+                          <ng-container matColumnDef="company_name">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Company Name ' | translate}}</mat-header-cell>
+                            <mat-cell data-label="company_name" fxFlex="280px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{ifarbic ? element.companyname_ar ?element.companyname_ar : '-' :element.companyname_en ? element.companyname_en :'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+
+                        <!--Training Centre -->
+                        <ng-container *ngIf="stktype == 1" matColumnDef="training_centre">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Training Centre Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="training_centre" fxFlex="280px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{ifarbic ? element.trainigCentre_ar ?element.trainigCentre_ar : '-' :element.trainigCentre_en ? element.trainigCentre_en :'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+
+                        <!-- Office type -->
+                        <ng-container matColumnDef="office_type">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Office Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="office_type" fxFlex="280px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.officetype ? element.officetype : '-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Branch name -->
+                        <ng-container matColumnDef="branch_name">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Branch name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="branch_name" fxFlex="280px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{ifarbic ? element.branchName_ar ?element.branchName_ar : '-' :element.branchName_en ? element.branchName_en :'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Site Location -->
+                        <ng-container matColumnDef="site_locaton">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Site Location' | translate}}</mat-header-cell>
+                            <mat-cell data-label="site_locaton" fxFlex="230px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{(ifarabic) ? (element.state_ar && element.city_ar) ? element.city_ar + ', ' +
+                                    element.state_ar : '-' : (element.city_en && element.state_en) ?
+                                    element.city_en + ', ' + element.state_en : '-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Course -->
+                        <ng-container matColumnDef="course">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Course' | translate}}</mat-header-cell>
+                            <mat-cell data-label="course" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{ifarbic ? element.categories_ar ?element.categories_ar : '-' :element.categories_en ? element.categories_en :'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Civil Number -->
+                        <ng-container matColumnDef="civil_number">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Civil Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="civil_number" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                  {{element.civil_number?element.civil_number:"-"}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Staff Name -->
+                        <ng-container matColumnDef="staff_name">
+                            <mat-header-cell fxFlex="240px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Staff Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="staff_name" fxFlex="240px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{ifarbic ? element.staffName_ar ?element.staffName_ar : '-' :element.staffName_en ? element.staffName_en :'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Email ID -->
+                        <ng-container matColumnDef="email_id">
+                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Email ID' | translate}}</mat-header-cell>
+                            <mat-cell data-label="email_id" fxFlex="260px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.email_id?element.email_id:"-"}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Roles -->
+                        <ng-container matColumnDef="roles">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Roles' | translate}}</mat-header-cell>
+                            <mat-cell data-label="roles" fxFlex="230px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{ifarbic ? element.role_ar ?splitSum(element.role_ar) : '-' :element.role_en ? splitSum(element.role_en) :'-'}}
+                                    <span *ngIf="staffmanagement.length > 1">
+                                        <span  style="cursor: pointer;" matTooltip="{{staffremove}}">
+                                         (+{{staffmanagement.length-1}})
+                                         </span>
+                                    </span> 
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Languages -->
+                        <ng-container matColumnDef="language">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'Languages' | translate}}</mat-header-cell>
+                            <mat-cell data-label="language" fxFlex="230px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                    <div *ngIf="!tblplaceholder">{{ ifarbic? element.language_ar:element.language_en ? ifarbic? splitSum(element.language_ar):splitSum(element.language_en):"-"}}
+                                        <span *ngIf="staffmanagement.length > 1">
+                                            <span  style="cursor: pointer;" matTooltip="{{staffremove}}">
+                                             (+{{staffmanagement.length-1}})
+                                             </span>
+                                        </span> 
+                                    </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Approved Wilayat -->
+                        <ng-container matColumnDef="approvewilayat">
+                            <mat-header-cell fxFlex="240px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'Approved Wilayat' | translate}}</mat-header-cell>
+                            <mat-cell data-label="approvewilayat" fxFlex="240px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{ifarbic ? (splitSum(element.approvewilayat_ar) ?splitSum(element.approvewilayat_ar) :'-'):(splitSum(element.approvewilayat_en) ? splitSum(element.approvewilayat_en) :'-')}}
+                                    <span *ngIf="staffmanagement.length > 1">
+                                        <span  style="cursor: pointer;" matTooltip="{{staffremove}}">
+                                         (+{{staffmanagement.length-1}})
+                                         </span>
+                                    </span> 
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Course Sub-categories -->
+                        <ng-container matColumnDef="course_sub">
+                            <mat-header-cell fxFlex="240px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Course Sub-categories' | translate}}</mat-header-cell>
+                            <mat-cell data-label="course_sub" fxFlex="240px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{ifarbic ? splitSum(element.sub_categories_ar)? splitSum(element.sub_categories_ar) : '-' : splitSum(element.sub_categories_en) ? splitSum(element.sub_categories_en) :'-'}}
+                                    <span *ngIf="staffmanagement.length > 1">
+                                        <span  style="cursor: pointer;" matTooltip="{{staffremove}}">
+                                         (+{{staffmanagement.length-1}})
+                                         </span>
+                                    </span> 
+                               </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Competency Card Status -->
+                        <ng-container matColumnDef="competency_card">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Competency Card Status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="competency_card" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span class="Active" *ngIf="element.competency_card == '1'">{{'Active' | translate}}</span>
+                                    <span class="red" *ngIf="element.competency_card == '2'">{{'Expired' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Date of Expiry -->
+                        <ng-container matColumnDef="dateofexp">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Date of Expiry' | translate}}</mat-header-cell>
+                            <mat-cell data-label="dateofexp" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.dateofexp?element.dateofexp:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                          <!-- Last Approved On -->
+                          <ng-container matColumnDef="last_approved">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Last Approved On' | translate}}</mat-header-cell>
+                            <mat-cell data-label="last_approved" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    {{element.last_approved?element.last_approved:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                          <!-- Account Status -->
+                          <ng-container matColumnDef="account_status">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Account Status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="account_status" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                   <span class="Active" *ngIf="element.account_status == 'A'">{{'Active' |
+                                    translate}}</span>
+                                <span class="red" *ngIf="element.account_status == 'I'">{{'In-Active' | translate}}</span>
+                                <span class="blue" *ngIf="element.account_status == 'E'">{{'Email Confirmation Pending' |
+                                    translate}}</span>
+                                <span class="teaching" *ngIf="element.account_status == null">{{'Yet to Create Account' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Action -->
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="120px" mat-header-cell *matHeaderCellDef>{{'Action'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="120px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <div class="manageoptions">
+                                        <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                            aria-label="Example icon-button with a menu" *ngIf="readaccess || downloadaccess || createaccess ">
+                                            <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                        </button>
+                                        <mat-menu #actionmenu="matMenu"
+                                            class="master-menu whentootltipadded table_menu">
+                                            <button type="button" *ngIf="deleteaccess && stktype == 1" mat-menu-item (click)="removeCenter(element.staffinforepo_pk)"><span>{{'Remove from this Centre' |translate}}</span></button>
+                                            <!-- <button type="button" mat-menu-item (click)="staffTransfer(element.civil_number)"><span>{{'Transfer Staff within Centre' |translate}}</span></button> -->
+                                            <button type="button" *ngIf="readaccess" mat-menu-item (click)="viewButton('viewstaff', element.civil_number,element.coursePk)"><span>{{'View Staff Details' |translate}}</span></button>
+                                            <button type="button" *ngIf="readaccess && element.isAssessor == 'yes'" mat-menu-item (click)="viewButton('viewAvailabilty', element.civil_number,element.coursePk)"><span>{{'View Availability' |translate}}</span></button>
+                                            <button type="button" *ngIf="createaccess && element.isAssessor == 'yes'" mat-menu-item (click)="viewButton('addStaff', element.StaffInfotmp,  element.civil_number,element.coursePk)"><span>{{'Add Staff Availability' |translate}}</span></button>
+                                            <button type="button" mat-menu-item (click)="genrateCompetency(element.staffinforepo_pk)" *ngIf="element.scch_verificationcode == null && createaccess && stktype == 1"><span>{{'Generate Competency Card' |translate}}</span></button>
+                                            <button type="button" mat-menu-item (click)="reGenrateCompetency(element.staffinforepo_pk)" *ngIf="element.scch_verificationcode != null && createaccess && stktype == 1"><span>{{'Regenerate Competency Card' |translate}}</span></button>
+                                            <button type="button" *ngIf="element.scch_verificationcode != null && downloadaccess" mat-menu-item (click)="printCompetency(element.staffinforepo_pk)"><span>{{'Print Competency Card' |translate}}</span></button>
+                                            <button type="button" *ngIf="element.scch_verificationcode != null && readaccess" mat-menu-item (click)="viewCompetency(element.staffinforepo_pk)"><span>{{'View Competency Card' |translate}}</span></button>
+                                            <button type="button" *ngIf="downloadaccess && element.isAssessor == 'yes'" mat-menu-item (click)="openDatepickerDialog(element.civil_number,element.StaffInfotmp,(ifarbic ? element.staffName_ar ?element.staffName_ar : '-' :element.staffName_en ? element.staffName_en :'-'),(ifarbic ? element.categories_ar ?element.categories_ar : '-' :element.categories_en ? element.categories_en :'-'),element.coursePk)" ><span>{{'Export Staff Availability' |translate}}</span></button>
+                                      
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Opal member no -->
+                        <ng-container matColumnDef="row-membernumber">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="member_number" (keyup)="searchbatchgrid($event.target.value,'member_number')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Company name -->
+                        <ng-container matColumnDef="row-companyname">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="company_name" (keyup)="searchbatchgrid($event.target.value,'company_name')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+
+                        <!--training centre -->
+                        <ng-container *ngIf="stktype == 1" matColumnDef="row-training">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="training_centre" (keyup)="searchbatchgrid($event.target.value,'training_centre')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Office type -->
+                        <ng-container matColumnDef="row-office">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |translate}}</mat-label>
+                                    <mat-select [formControl]="officetype"
+                                        (selectionChange)="mltiSelectBranch($event,'officetype')" multiple>
+                                        <mat-option value="1">{{'Main Office' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Branch Office' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+
+                        <!-- branch Name -->
+                        <ng-container matColumnDef="row-branch">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="branch_name" (keyup)="searchbatchgrid($event.target.value,'branch_name')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- site location -->
+                        <ng-container matColumnDef="row-location">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="site_locaton" (keyup)="searchbatchgrid($event.target.value,'site_locaton')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- course -->
+                        <ng-container matColumnDef="row-course">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="course"
+                                        (selectionChange)="mltiSelectBranch($event,'course')" multiple
+                                        panelClass="select_with_search" [errorStateMatcher]="matcher"
+                                        (closed)="searchCategory = '';"
+                                        *ngIf="(categorylist | filter : searchCategory) as searchCategoryRes">
+                                        <div class="searchinmultiselect">
+                                            <mat-icon class="">search</mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                                class="searchselect" type="Select"
+                                                placeholder="{{'table.search' | translate}} "
+                                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchCategory"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchCategory = ''" class="reseticon" matSuffix
+                                                *ngIf="searchCategory !='' && searchCategory !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                            <mat-option *ngFor="let list of categorylist | filter: searchCategory "
+                                                [value]="list.standardcoursemst_pk">
+                                                {{ ifarbic?list.scm_coursename_ar:list.scm_coursename_en}}
+                                            </mat-option>
+                                            <div *ngIf="searchCategoryRes.length == 0" class="searchDrop">{{'No Result found' | translate}}</div>
+                                        </div>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- civil -->
+                        <ng-container matColumnDef="row-civil">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="civil_number" (keyup)="searchbatchgrid($event.target.value,'civil_number')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- staff_name -->
+                        <ng-container matColumnDef="row-staffname">
+                            <mat-header-cell fxFlex="240px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="staff_name" (keyup)="searchbatchgrid($event.target.value,'staff_name')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- email -->
+                        <ng-container matColumnDef="row-email">
+                            <mat-header-cell fxFlex="260px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="email_id" (keyup)="searchbatchgrid($event.target.value,'email_id')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- roles -->
+                        <ng-container matColumnDef="row-roles">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="roLes"
+                                    (selectionChange)="mltiSelectBranch($event,'roLes')" multiple>
+                                    <mat-option value="12">{{'Tutor/Instructor' |translate}}</mat-option>
+                                    <mat-option value="13">{{'Assessor' |translate}}</mat-option>
+                                    <mat-option value="14">{{'Program Manager' |translate}}</mat-option>
+                                    <mat-option value="15">{{'Student Registration Staff' |translate}}</mat-option>
+                                    </mat-select>
+                                    <!-- <input matInput [formControl]="roLes" (keyup)="searchbatchgrid($event.target.value,'roLes')"> -->
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                         
+                        <!-- languages -->
+                        <ng-container matColumnDef="row-languages">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="language"
+                                    (selectionChange)="mltiSelectBranch($event,'language')" multiple>
+                                    <mat-option value="26">{{'English' |translate}}</mat-option>
+                                    <mat-option value="27">{{'Arabic' |translate}}</mat-option>
+                                    <mat-option value="28">{{'Hindi' |translate}}</mat-option>
+                                    </mat-select>
+                                    <!-- <input matInput [formControl]="language" (keyup)="searchbatchgrid($event.target.value,'language')"> -->
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                         <!-- Wilayat -->
+                         <ng-container matColumnDef="row-wilayat">
+                            <mat-header-cell fxFlex="240px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="approvewilayat" (keyup)="searchbatchgrid($event.target.value,'approvewilayat')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- subcategories -->
+                        <ng-container matColumnDef="row-subcategories">
+                            <mat-header-cell fxFlex="240px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="course_sub"
+                                        (selectionChange)="mltiSelectBranch($event,'course_sub')" multiple
+                                        panelClass="select_with_search" [errorStateMatcher]="matcher"
+                                        (closed)="searchCategory = '';"
+                                        *ngIf="(subcategorylist | filter : searchCategory) as searchCategoryRes">
+                                        <div class="searchinmultiselect">
+                                            <mat-icon class="">search</mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                                class="searchselect" type="Select"
+                                                placeholder="{{'table.search' | translate}} "
+                                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchCategory"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchCategory = ''" class="reseticon" matSuffix
+                                                *ngIf="searchCategory !='' && searchCategory !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                            <mat-option *ngFor="let list of subcategorylist | filter: searchCategory "
+                                                [value]="list.pk">
+                                                {{list.name_en}}
+                                            </mat-option>
+                                            <div *ngIf="searchCategoryRes.length == 0" class="searchDrop">{{'No Result found' | translate}}</div>
+                                        </div>
+                                    </mat-select>
+
+                                </mat-form-field>
+                                
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- compcard -->
+                        <ng-container matColumnDef="row-compcard">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="competency_card" multiple
+                                        (selectionChange)="mltiSelectBranch($event,'competency_card')">
+                                        <mat-option value="1">{{'Active' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Expired' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- expiry -->
+                        <ng-container matColumnDef="row-expiry">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |translate}}</mat-label>
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="dateofexp"
+                                            (datesUpdated)="changeDateInsp($event,'dateofexp')" #pickers
+                                            matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [maxDate]='selected2' readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix>
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- approvedon -->
+                        <ng-container matColumnDef="row-approvedon">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |translate}}</mat-label>
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="last_approved"
+                                            (datesUpdated)="lastApproved($event,'last_approved')" #pickers
+                                            matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [maxDate]='selected2' readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix>
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- account_status -->
+                    
+                        <ng-container matColumnDef="row-accountstatus">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="account_status" (selectionChange)="mltiSelectBranch($event,'account_status')" multiple>
+                                        <mat-option value="'A'">{{'Active' |translate}}</mat-option>
+                                        <mat-option value="'I'">{{'In-Active' |translate}}</mat-option>
+                                        <mat-option value="'E'">{{'Email Confirmation Pending' |translate}}</mat-option>
+                                        <mat-option value="null">{{'Yet to Create Account'|translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- action -->
+                        <ng-container matColumnDef="row-action" stickyEnd>
+                            <mat-header-cell fxFlex="120px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                    aria-hidden="true" matTooltip="{{'Refresh'|translate}}"></i>
+                            </mat-header-cell>
+                        </ng-container>
+
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="getdisplayedColumns()">
+                        </mat-header-row>
+
+                        <mat-header-row id="searchrow" *matHeaderRowDef="getdisplayedsearch()">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: getdisplayedColumns();"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="tblplaceholder"
+                                            class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord"
+                                            *ngIf="!tblplaceholder">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'No Records' |
+                                            translate}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <!-- footer paginator -->
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="headerstyle" dir="{{dir}}">
+    <div class="leftisideinfodetail">
+      <div class="imgposition loginbg">
+      </div>
+    </div>
+  <div class="rightsideinfodetail">
+      <div class="langbtn d-flex">
+        <button class="fs-15" (click)="setLanguageFlag(lang);">{{'commonlogin.engl' | translate}}</button>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div id="registerlistview">
+            <div class="successtick">
+              <span>
+                <i class="bgi bgi-tick"></i>
+              </span>
+            </div>
+            <div class="jsrscontactcolor">
+              <h2>{{'registrationconfirmed.regconfim' | translate}}</h2>
+            </div>
+            <div class="transfertextcolor">
+              <p>{{'registrationconfirmed.thankyufrconfirm' | translate}}
+              </p>
+            </div>
+            <div class="loginbtn d-flex">
+              <button mat-raised-button (click)="navigate()"class="downloadbtncolor fs-16 button-45 m-r-10">{{'registrationconfirmed.gotolog' | translate}}</button>
+              <a href="https://qa.OPAL.om/"> <button mat-raised-button
+                class="downloadbtncolor fs-16 button-45">{{'registrationconfirmed.backtohom' | translate}}</button></a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

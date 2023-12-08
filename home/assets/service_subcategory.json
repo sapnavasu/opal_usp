@@ -1,0 +1,22 @@
+[
+    {
+      "category": "Corporate Services",
+      "subcategory": [ "Corporate Services1", "Corporate Services2"]
+    },  
+    {
+      "category": "Geoscience Services Services",
+      "subcategory": [ "Geoscience Services Services1", "Geoscience Services Services2"]
+    },
+    {
+      "category": "EPC Services",
+      "subcategory": [ "EPC Services1", "EPC Services2"]
+    },
+    {
+      "category": "Geoscience Services",
+      "subcategory": [ "Geoscience Services1", "Geoscience Services2"]
+    },
+    {
+      "category": "Wells Services",
+      "subcategory": [ "Wells Services1", "Wells Services2"]
+    } 
+  ]

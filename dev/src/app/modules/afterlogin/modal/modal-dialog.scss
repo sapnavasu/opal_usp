@@ -1,0 +1,84 @@
+.offercolor{
+    h2{
+        color: #333333;
+    }
+}
+.formcolor{
+    color:#ececec;
+}
+
+.loginbtn{
+    width: 100px;
+    height: 40px;
+    border-radius: 2px;
+    background-color:#006cb7;
+    color: #ffffff;
+    border: none;
+}
+.widthdialog{
+    width:500px;
+    min-height:188px;
+}
+.nextcolor{
+    color:black;
+}
+.flexend{
+    display:flex;
+    align-items:center;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+.gridalign{
+    display:grid;
+    
+}
+::ng-deep.gridalign .mat-radio-label-content{
+    padding-left: 15px;
+}
+.background{
+    height: 66px;
+    background-color:#f3f5f6;
+    width: 100%;
+}
+::ng-deep.after{
+    height: 50px;
+    width: 50px;
+    background-color: #e3f2d0;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  ::ng-deep.after:after{
+    display: inline-block;
+    content: '';
+    display: block;
+    width: 12px;
+    height: 20px;
+    border: solid #70c015;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg) !important;
+    transform: rotate(45deg) !important;
+    position: relative;
+    left: 19px;
+    top: 12px;
+}
+
+  
+@media (max-width: 768px){
+   .widthresponsive{
+       max-width: 90% !important;
+   } 
+   .widthsucces{
+       max-width: 10% !important;
+   }
+}
+.someonecolor{
+    color: #888;  
+}
+
+@media (max-width: 767px){
+    .widthdialog{
+        width: auto !important;
+    }
+
+
+ }

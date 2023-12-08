@@ -1,0 +1,164 @@
+@mixin flexcenter {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+@mixin flexstart {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+@mixin flexend {
+  display: flex;
+  justify-content: flex-end !important;
+  align-items: center !important;
+}
+@mixin spacebetween {
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+@mixin commancssforptag {
+  color: #333;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+
+.txt-active{
+  color: #5fa857;
+}
+.mat-header-cell {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: #333;
+}
+.box-shadow{
+    box-shadow: none !important;
+}
+.searchinmultiselect {
+    display: flex;
+    align-items: center;
+    padding: 15px 15px;
+    background: #e9edf0;
+  }
+  .searchinmultiselect i {
+    color: #7f8fa3 !important;
+    padding-right: 6px;
+  }
+  .topheadermain{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .flexsame{
+    display: flex;
+    align-items: baseline;
+  }
+  .spancolor{
+    color:white;
+  }
+
+  .statusingcheck
+  {
+@include flexstart();
+  }   
+
+  
+  .responsiveblock{
+    display: block !important;
+  } 
+  .flexstartspacing{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+  .responsive{
+    display: flex !important;
+    justify-content: space-between;
+  }
+ 
+@media (max-width: 767px){
+  .imagewithtext {
+    display: flex !important;
+}
+  ::ng-deep.masterbottom .mat-paginator-range-label {
+    margin: 0 20px 0 10px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterbottom .mat-paginator-page-size {
+    display: flex;
+    align-items: baseline;
+    margin-right: 50px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterTable .mat-row .mat-cell .mat-success {
+    background: #71c015 !important;
+    width: 50px;
+  }
+  ::ng-deep.masterTable .mat-row .mat-cell .mat-error {
+    background: #e53935 !important;
+    width: 58px;
+  }
+  ::ng-deep.masterPageTop .mat-paginator-outer-container {
+    width: 183px;
+    display: flex;
+}
+::ng-deep.masterbottom .mat-paginator-outer-container {
+  display: flex;
+  justify-content: center;
+}
+::ng-deep.masterbottom .mat-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 56px;
+  padding: 0px;
+  flex-wrap: wrap-reverse;
+  width: 302px;
+} 
+  ::ng-deep.masterbottom .mat-paginator-range-actions {
+    display: contents !important;
+   
+}
+::ng-deep.masterPage .mat-paginator-range-label {
+  margin: 0 0px 0 6px;
+  font-size: 0.875rem;
+}
+::ng-deep.masterPage .mat-paginator-page-size {
+  
+  font-size: 0.75rem;
+}
+::ng-deep.size .mat-paginator-range-label {
+  font-size: 0.625rem;
+}
+label.m-r-20 {
+margin-right: 6px !important;
+}
+.topheadermain{
+  display: block !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+}
+@media (min-width: 550px){
+  .responsiveblock{
+    display: flex!important;
+  } 
+  .topheadermain{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+::ng-deep.masterbottom .mat-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 56px;
+  padding: 0px;
+  flex-wrap: wrap-reverse;
+  width: 100%;
+}      
+}

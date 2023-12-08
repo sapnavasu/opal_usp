@@ -1,0 +1,29 @@
+{
+    "configuration": {
+        "projectName": "JSRS",
+        "fgtMailAttemptLimit": 3,
+        "fgtMailResendDurationSeconds": 60,
+        "afterLoginStkholderTypePks":  [6, 9],
+        "enterpriseAdminPaginatonSet": [15, 30, 45, 90],
+        "enterpriseAdminPerpage": 15,
+        "accordionPaginationSet": [3,6],
+        "otherPerpage": 10,
+        "otherPaginationSet": [5,10,25,100],
+        "extPerpage": 10,
+        "extPaginationSet": [10,20,30],
+        "accordionPerpage": 3,
+        "offlineRegDataTrackDuration": 15000,
+        "ccmailcount":10
+    },
+    "investment": {
+        "from":"Investment",
+        "externallink":"externalprofile/companylink"
+    },
+    "procurement": {
+        "from":"Procuremeny"
+    },
+    "tenderdetails":{
+        "demoonly": false
+    }
+    
+}

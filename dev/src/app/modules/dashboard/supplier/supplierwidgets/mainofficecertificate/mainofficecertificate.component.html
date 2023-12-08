@@ -1,0 +1,50 @@
+<div fxFlex.gt-sm="100" fxFlex="100" id="mainofficecerti" class="flex-column mainofficecerti m-t-10">
+    <h5 class="m-b-10 m-t-10 fs-16 title">{{'centredashboard.mainoffice' | translate}} <span class="m-l-5 infoicon" matTooltip="{{'info.mainoffice' | translate}}"><mat-icon>info_outline</mat-icon></span></h5>
+    <div class="maincertibox">
+        <div class="certi-imgname">
+            <div class="certi-img m-r-15">
+                <img src="assets/images/opalimages/avatar.svg"/>
+            </div>
+            <div class="certi-name ">
+                <span (click)="showprofile()">
+                    {{ifarabic == true ? centredtls?.omrm_tpname_ar : centredtls?.omrm_tpname_en}}  <i class="fa fa-eye fs-16 m-l-10" matTooltip="{{'info.view'  | translate}}"></i>
+                </span>
+            </div>
+        </div>
+        <div class="reddivider"></div>
+        <div class="certi-statusdetails">
+            <div fxLayout="row" >
+                <div fxFlex.gt-sm="65" fxFlex="100">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="flex-column">
+                        <p class="m-b-3 fs-15 p-b-6">
+                            <span class="clabel">{{'centredashboard.status' | translate}}:</span>
+                            <span class="m-l-3 certistatus {{centredtls?.Status}}">{{centredtls?.Status}} 
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(centredtls)" *ngIf="centredtls?.Nearing_Expiry == '1' && (centredtls?.appstatus == '1' || centredtls?.appstatus == '3' || centredtls?.appstatus == '17')">{{'Renew' | translate }}</span>
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(centredtls)" *ngIf="centredtls?.Nearing_Expiry == '1' && (centredtls?.appstatus == '2' || centredtls?.appstatus == '4' )">View</span>
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(centredtls)" *ngIf="centredtls?.Nearing_Expiry == '1' && (centredtls?.appstatus == '5' || centredtls?.appstatus == '18')">Make Payment</span>
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(centredtls)" *ngIf="centredtls?.Nearing_Expiry == '1' && (centredtls?.appstatus == '8')">Confirm Site Audit Date</span>
+                            <span class="renewalbtn_new m-l-4 fs-12 p-l-6 p-r-6" (click)="renew(centredtls)" *ngIf="centredtls?.Nearing_Expiry == '1' && (centredtls?.appstatus == '6' || centredtls?.appstatus == '7' || centredtls?.appstatus == '9' || centredtls?.appstatus == '10'  || centredtls?.appstatus == '11' || centredtls?.appstatus == '12'|| centredtls?.appstatus == '13')">View Status</span></span>
+                        </p>
+                        <p class="m-t-0 m-b-5 fs-15">
+                            <span class="clabel">{{'centredashboard.dateofexp' | translate}}:</span> 
+                            <span class="cvalue"> {{centredtls?.renew_date}}{{centredtls?.Date_of_Expiry}} </span>
+                        </p>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="35" fxFlex="100">
+                    <p class="m-b-0 m-t-0 gold text-center">
+                        <span *ngIf="centredtls?.appdm_grademst_fk == '1'"><img src="assets/images/opalimages/BRONZE.svg" alt="Bronze" title="Bronze"/></span>
+                        <span *ngIf="centredtls?.appdm_grademst_fk == '2'"><img src="assets/images/opalimages/SILVER.svg" alt="Silver" title="Silver"/></span>
+                        <span *ngIf="centredtls?.appdm_grademst_fk == '3'"><img src="assets/images/opalimages/GOLD.svg" alt="Gold" title="Gold"/></span>
+                    </p>
+                    <p class="m-t-0 m-b-0 fs-14 m-t-10 text-center">
+                        <span class="clabel">{{'centredashboard.grade' | translate}}:</span>
+                        <span class="cvalue m-l-3" *ngIf="centredtls?.appdm_grademst_fk == '1'">Bronze</span>
+                        <span class="cvalue m-l-3" *ngIf="centredtls?.appdm_grademst_fk == '2'">Silver</span>
+                        <span class="cvalue m-l-3" *ngIf="centredtls?.appdm_grademst_fk == '3'">Gold</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

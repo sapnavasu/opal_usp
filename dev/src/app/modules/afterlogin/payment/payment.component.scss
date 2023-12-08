@@ -1,0 +1,599 @@
+.spancolor{
+    color:white;
+  }
+  .topheadermain{
+   display: flex !important;
+   justify-content: space-between;
+ }
+ .flexsame{
+     display: flex !important;
+     align-items: baseline;
+ }
+ .gradientbackgrounds {
+    background: linear-gradient(to bottom, #022f67  250px, #fff 10% 40%);
+    min-height: calc(100vh - 64px);
+}
+.groupcolor{
+    h2{
+        color: #fff;
+    }
+
+}
+.backgroundcolor{
+    background-color: #fff;
+}
+
+.bordermainpayment{
+    width: 100%;
+    border-bottom: 1px solid #dadada;
+    border-left: 1px solid #dadada;
+    border-right: 1px solid #dadada;
+}
+
+
+.headerpayment{
+    background-color: #fff;
+
+    h2{
+        color: #333333;
+    }
+}
+.flexend{
+    display: flex !important;
+    align-items: flex-end !important;
+}
+    .year{
+    font-weight: bold;
+
+        }
+.vertical{
+vertical-align: sub;
+}
+.align{
+    text-align: center;
+}
+
+
+.investoridcolor{
+    font-size:14px;
+    color:#96b2e7;
+}
+
+.idnumber{
+    font-size:14px;
+    font-family:calibri;
+    color:white;
+    padding-left:65px;
+}
+.crmunber{
+    p{
+        color:#96b2e7;
+        margin: 0px;
+    }
+}
+.indcolor{
+    p{
+        color: #fff;
+        margin: 0px;
+    }
+}
+.webalign{
+    display: flex;
+}
+.flex{
+    display: flex;
+    img{
+        width: 24px;
+        height:24px;
+    }
+    span{
+        color:#96b2e7;
+    }
+}
+
+.alignrow{
+    display: flex;
+    background-color: #fff;
+    justify-content: space-between;
+    border-bottom: 1px dotted #dadada;
+
+}
+.rightcardborder{
+    border-bottom: 1px dotted #dadada;
+
+}
+.cancelbtndragdrop{
+    background-color:#ececec;
+    color:#666666;
+    font-size:15px;
+    font-family:calibri;
+    border-radius:2px !important;
+    width:150px;
+    height:35px;
+    margin-bottom:20px;
+}
+.submitbtn{
+    background-color: #006cb7;
+    color: #fff;
+    font-size:15px;
+    font-family:calibri;
+    border-radius:2px !important;
+    width:150px;
+    height:35px;
+    margin-bottom:20px;
+}
+.cursor{
+    cursor: pointer;
+}
+.title{
+    color: red;
+  }
+.flexbank{
+    display: flex;
+}
+.depositwidth{
+    width: 100%;
+}
+.bordernone{
+    border:none !important;
+}
+.borderpromocode{
+    border-bottom: none !important;
+}
+.bordernonebottom{
+    border-top:none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+}
+::ng-deep.yearcolor{
+    border:1px solid #dadada;
+    border-radius: 18px;
+    background-color: #fff;
+    width: 100px;
+    height: 22px;
+    color:#666666;
+    font-size: 12px !important;
+
+}
+.fontfamily{
+    span{
+        font-family: calibri;
+    }
+}
+.colorlogo{
+   color:#9b9b9b;
+}
+.mainheader {
+    color: #eb2f95;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.borderleftside{
+    border-left: 1px solid #dadada;
+}
+.tender{
+    border-right: 1px solid #dadada;
+    h2{
+        color: #006cb7;
+    }
+    .startcolor{
+        color: #333333;
+    }
+    p{
+        color:#9b9b9b;
+    }
+}
+.flexalign{
+    display: flex;
+}
+.flexcenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #dadada;
+    p{
+        text-align: center;
+    }
+}
+.alignflex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.mainrowflex{
+border-top: none;
+border-left: 1px solid #dadada;
+border-right: 1px solid #dadada;
+border-bottom: 1px solid #dadada;
+}
+.flexend{
+    display: flex !important;
+    align-items: flex-end !important;
+}
+    .year{
+    font-weight: bold;
+
+        }
+.vertical{
+vertical-align: sub;
+}
+.align{
+    text-align: center;
+}
+.termscheckall {
+    display: flex;
+    .mat-checkbox-layout {
+        margin-bottom: 2px;
+        color:#333333;
+    }
+    .termsandcondtions {
+        text-decoration: underline;
+        color: #006cb7;
+        padding-left: 5px;
+    }
+}
+.textcolor{
+    p{
+        color: #666666;
+    }
+}
+.paybtn{
+    background-color: #006cb7;
+    color: #fff;
+    font-size: 0.875rem;
+    width: 220px;
+    height: 35px;
+    border-radius: 4px !important;
+}
+
+.cancelbtn{
+    background-color:#ececec;
+    color:#666666;
+    font-size:14px;
+    font-family:calibri;
+    border-radius:4px !important;
+    width:150px;
+    height:35px;
+    margin-bottom:20px;
+}
+.cancelsubsription{
+    display: flex;
+    justify-content: flex-end;
+}
+.investoridcolor{
+    font-size:14px;
+    color:#96b2e7;
+}
+
+.idnumber{
+    font-size:14px;
+    font-family:calibri;
+    color:white;
+    padding-left:65px;
+}
+.crmunber{
+    p{
+        color:#96b2e7;
+        margin: 0px;
+    }
+}
+.indcolor{
+    p{
+        color: #fff;
+        margin: 0px;
+    }
+}
+.webalign{
+    display: flex;
+}
+.flex{
+    display: flex;
+    img{
+        width: 24px;
+        height:24px;
+    }
+    span{
+        color:#96b2e7;
+    }
+}
+.companyrow{
+    h2{
+        color:#333333;
+    }
+    h3{
+        color: #010101;
+    }
+    .spancolor{
+       padding-left: 6px;
+       padding-right: 6px;
+        color:#fff;
+        background-color:#71c015;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    p{
+        color: #666666;
+    }
+}
+.alignrow{
+    display: flex;
+    background-color: #fff;
+    justify-content: space-between;
+    border-bottom: 1px dotted #dadada;
+
+}
+
+.formationcolor{
+    color: #b0b0bb;
+}
+
+.validity{
+    h2{
+        color:#006cb7;
+    }
+    p{
+        color: #666666;
+    }
+}
+.Additionalcolor {
+    color: #eb2f95 !important;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.linetext{
+    width: 224px;
+    h2{
+        line-height: 24px;
+    }
+}
+.removerow{
+    i{
+        color: #666666;
+    }
+    span{
+        color:#666666
+    }
+}
+.business{
+    width: 212px;
+}
+.viewcolor{
+    text-decoration: underline;
+    color:#333333;
+}
+.discountcolor{
+    color: #333333 !important;
+}
+.promoalign{
+    display: flex;
+    align-items: center;
+}
+.spaceend{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    background-color: #e4efff;
+    margin: 26px;
+}
+.totalcolor{
+    h2{
+        color: #006cb7;
+        margin: 0px;
+    }
+}
+.valuelinetext{
+    h2{
+        line-height: 24px;
+    }
+
+
+}
+.omrcolor{
+    h2{
+        color:#006cb7;
+        margin: 0px;
+    }
+}
+::ng-deep.numberandcode {
+    .mat-form-field-infix {
+        display: flex !important;
+    }
+}
+.groupcolor{
+    h2{
+        color: #fff;
+    }
+
+}
+.radiotextcolor{
+    span{
+        color: #333333;
+    }
+}
+.borderbottommake{
+    border-bottom: 1px solid #dadada;
+}
+.rightsidecards {
+    border: 1px solid #dadada;
+    background-clip: padding-box; 
+    background-color: #fff;
+    padding-top: 30px;
+    position: relative;
+}
+.cardtwo {
+    margin-top: 70px;
+    background-size: 200px 130px;
+    background-image: url("/src/assets/images/investorregbg.png");
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-position-x: 116%;
+    background-position-y: -5px;
+}
+.personemail {
+    color: #ec3393;
+    font-size: 0.9375rem;
+    font-weight: bold;
+    word-break: break-word;
+}
+.greeting {
+    color: #333;
+    font-size: 0.9375rem;
+    margin-bottom: 5px;
+}
+.personname {
+    color: #006cb7;
+    font-size: 1rem;
+    font-weight: bold;
+}
+::ng-deep.downloadcolor{
+    border:1px solid #006cb7;
+    background-color: #e7efff;
+    width: 152px;
+    height: 25px;
+    color:#006cb7;
+    font-weight: bold;
+    border-radius: 2px;
+
+}
+.enddownload{
+    display: flex;
+    justify-content: flex-end;
+}
+.colorlogo{
+    color: #006cb7;
+}
+::ng-deep.myPanelClass{
+    margin-top: 42px !important;
+}
+
+@media (max-width: 1366px){
+
+    .depositwidth{
+        width:94% !important;
+    }
+}
+
+@media (max-width: 768px){
+    .flexbank{
+        padding-left: 18px !important;
+    }
+   .numberresponsive{
+       padding-left: 0px !important;
+   }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    
+    .mainresponsivewidth{
+        max-width: 90.33% !important;
+    }
+    .flexbank{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .depositwidth{
+        width: 100% !important;
+    }
+    .companyrow{
+        padding-left: 0px !important;
+    }
+    .validity{
+        padding-right: 0px !important;
+    }
+    }
+
+    @media (max-width: 767px){
+        .bordermainpayment{
+           margin-left: 15px;
+           margin-right: 15px;
+            width: auto !important;
+        }
+        .flexbank{
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+        .companyrow{
+            padding-left: 0px !important;
+        }
+        .validity{
+            padding-right: 0px !important;
+        }
+        .rightcardborder{
+           margin-right: 0px !important;
+           margin-left: 26px !important;
+        }
+        .alignrow{
+            display: block !important;
+            margin-left: 26px !important;
+        }
+        .omrresponsive{
+            padding-left: 0px !important;
+        }
+        .cancelbtndragdrop{
+            margin-right: 10px !important;
+        }
+        .totalcolor{
+            h2{
+                font-size: 15px !important;
+            }
+            
+        }
+        .omrcolor{
+            h2{
+                font-size: 15px !important;
+            }
+            
+        }
+    }
+
+    .alignend{
+        display: flex;
+        justify-content: space-between;
+
+        span{
+            font-family: calibri;
+        }
+    }
+
+
+    .flexvalidityspace{
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dotted #dadada;
+    }
+
+    .mainrow {
+        background: white;
+    }
+
+    .declindbackground{
+     
+        background-color: #ffd9da;
+        span{
+            color:#cc3333;
+        }
+        p{
+            color: #333333;
+        }
+    }
+
+    .aligndeclined{
+        img{
+            margin-top:-10px;
+        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .backgrounddeposit{
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    .declinedpaymentwidth{
+        width: 60%;
+    }

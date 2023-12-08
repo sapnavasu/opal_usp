@@ -1,0 +1,293 @@
+<div id="approvesiteauidtscore"  fxLayoutAlign="center">
+        <div fxFlex="100">
+            <form autocomplete="off" [formGroup]="approveAuditscoreForm">
+                    <div class="organisation_questions m-t-40">
+                        <ol class="nested-counter-list">
+                            <li>
+                                <div class="sabquestn m-b-30">
+                                    {{'staffpractical.q1' | translate}}
+                                </div>
+                                <ol>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                            {{'staffpractical.q2' | translate}}
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio1"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                            {{'staffpractical.q3' | translate}}
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio2"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                                                               
+                                        <div class="w-100 readonly m-b-20">
+                                            <mat-label class="filelabel">{{'staffpractical.sccomments' | translate}}</mat-label>
+                                            <div class="fs-15 m-t-5 m-b-5">Lorem Ipsum is the dumm ttext for typesetting and typewriting industry. Lorem Ipsum is the dumm ttext for typesetting and typewriting industry. Lorem Ipsum is the dumm ttext for typesetting and typewriting industry.</div>
+                                        </div>
+                                        <div class="w-100" >
+                                                <div fxFlex="50" class="documents m-b-20">
+                                                    <mat-label class="filelabel">{{'staffpractical.uploadeddoc' | translate}}</mat-label>
+                                                    <div class="uploadeddoc m-t-10">
+                                                        <img src="assets/images/opalimages/pdf.png"/>
+                                                        <a href="javacsript:void(0);" class="m-l-10">{{'staffpractical.view' | translate}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q4' | translate}}
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio3"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+    
+                            <li>
+                                    <div class="sabquestn m-b-30">
+                                            {{'staffpractical.q5' | translate}}
+                                    </div>
+                                    <ol>
+                                        <li>
+                                            <div class="saquestn m-b-20">
+                                                    {{'staffpractical.q6' | translate}}
+                                            </div>
+                                            <div class="saans m-b-30">
+                                                <mat-radio-group class="example-radio-group">
+                                                    <mat-radio-button class="example-radio-button" formControlname="saradio4"
+                                                        *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                        {{asradio.name}}
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="saquestn m-b-20">
+                                                    {{'staffpractical.q7' | translate}}
+                                                
+                                            </div>
+                                            <div class="saans m-b-30">
+                                                <mat-radio-group class="example-radio-group">
+                                                    <mat-radio-button class="example-radio-button" formControlname="saradio5"
+                                                        *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                        {{asradio.name}}
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="saquestn m-b-20">
+                                                    {{'staffpractical.q8' | translate}}
+                                                
+                                            </div>
+                                            <div class="saans m-b-30">
+                                                <mat-radio-group class="example-radio-group">
+                                                    <mat-radio-button class="example-radio-button" formControlname="saradio6"
+                                                        *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                        {{asradio.name}}
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </li>
+                                    </ol>
+                            </li>
+    
+                            <li>
+                                <div class="sabquestn m-b-30">
+                                        {{'staffpractical.q9' | translate}}
+                                </div>
+                                <ol>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q10' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio7"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q11' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio8"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q12' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio9"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q13' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio10"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q14' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio11"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+    
+                            <li>
+                                <div class="sabquestn m-b-30">
+                                        {{'staffpractical.q15' | translate}}
+                                </div>
+                                <ol>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q16' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio12"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q17' | translate}}
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio13"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q18' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio14"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+    
+                            <li>
+                                <div class="sabquestn m-b-30">
+                                        {{'staffpractical.q20' | translate}}
+                                </div>
+                                <ol>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q21' | translate}}
+                                            
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio15"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+    
+                            <li>
+                                <div class="sabquestn m-b-30">
+                                        {{'staffpractical.q21' | translate}}
+                                   
+                                </div>
+                                <ol>
+                                    <li>
+                                        <div class="saquestn m-b-20">
+                                                {{'staffpractical.q22' | translate}}
+                                           
+                                        </div>
+                                        <div class="saans m-b-30">
+                                            <mat-radio-group class="example-radio-group">
+                                                <mat-radio-button class="example-radio-button" formControlname="saradio16"
+                                                    *ngFor="let asradio of auditscore" [value]="asradio.name" [checked]="asradio.checked">
+                                                    {{asradio.name}}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
+            </form>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+        </div>
+    </div>

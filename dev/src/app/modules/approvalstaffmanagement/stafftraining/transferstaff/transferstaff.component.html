@@ -1,0 +1,64 @@
+<div id="stafftransfer" fxLayoutAlign="center start">
+    <!-- pageloader -->
+      <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+    <div class="staffCentre" fxFlex="100" fxFlex.gt-sm="100" fxLayout="column">
+       <app-staffinfocard [traningCentre]="true" [data]="viewStaffResponse"></app-staffinfocard>
+       <div class="m-t-20 transferForm">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <h4 class="fs-18 txt-gry3 m-r-7">{{'Transfer Staff to' | translate}} </h4><mat-divider fxFlex="4" class="matDivider"></mat-divider>
+            </div> 
+            <form autocomplete="off" [formGroup]="tranferForms" (ngSubmit)="saveFormDetails()" #rgform="ngForm">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-t-10">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'Office Type' | translate}} </mat-label>
+                            <mat-select formControlName="offtype" 
+                                panelClass="select_with_option">
+                                <mat-option value="1">{{'Main Office' | translate}}</mat-option>
+                                <mat-option value="2">{{'Branch Office' | translate}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                        ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'Branch Name' | translate}} </mat-label>
+                            <mat-select  formControlName="branch_name" panelClass="select_with_search"
+                                *ngIf="(branchList | filter : searchBranch) as branchresult">
+                                    <div class="searchinmultiselect">
+                                        <mat-icon class="">search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb
+                                            matInput class="searchselect" type="Search"
+                                            placeholder="{{'Search' | translate}}" (keydown)="$event.stopPropagation();" [(ngModel)]="searchBranch"
+                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchBranch = ''" class="reseticon" matSuffix
+                                            *ngIf="searchBranch !='' && searchBranch !=null">clear</mat-icon>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <mat-option
+                                            *ngFor="let list of branchList | filter : searchBranch">
+                                           {{list}}
+                                        </mat-option>
+                                        <div *ngIf="branchresult.length == 0">{{'maincenter.nofoun' | translate}}</div>
+                                    </div>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-t-10">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline" class="readonlyField">
+                            <mat-label>{{'Site Location' | translate}} </mat-label>
+                            <input matInput formControlName="locate" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="btnGroup" fxLayoutAlign="end center">
+                   <button mat-raised-button class="cancelBtn fs-16 txt-gry3" (click)="cancel()" type="button">{{'Cancel' | translate}}</button>
+                   <button mat-raised-button class="submitButton fs-16 m-l-15" type="submit">{{'Submit' | translate}}</button>
+                </div>
+           </form>
+       </div>
+    </div>
+</div>
+       

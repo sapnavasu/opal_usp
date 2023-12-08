@@ -1,0 +1,117 @@
+<div id="landingpage" fxLayout="row wrap">
+    <div fxLayout="row wrap" fxFlexAlign="center" fxFlex="100">
+        <div fxFlex="100">
+            <img *ngIf="this.origin=='N'" src="assets/images/Minister Banner.jpg" alt="Minister Banner" class="landingbanner">
+            <img *ngIf="this.origin=='I'" src="assets/images/Landing-Banner.jpg" alt="Landing-Banner" class="landingbanner">
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxFlex="100" class="m-t-50" ngClass.xs="p-l-10 p-r-10" ngClass.sm="p-l-10 p-r-10" ngClass.md="p-l-10 p-r-10"
+    ngClass.lg="p-l-0 p-r-0" *ngIf="this.origin=='N'">        
+        <div fxFlex.gt-sm="83.33" fxFlex="100">
+            <h4 class="mat-pagetitle-2 m-b-0 m-t-0">{{'common.title' | translate}}</h4>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center"  ngClass.xs="p-l-10 p-r-10" ngClass.sm="p-l-10 p-r-10"
+        ngClass.md="p-l-10 p-r-10" ngClass.lg="p-l-0 p-r-0" class="p-b-15">
+        <div fxFlex.gt-sm="83.33" fxFlex="100" class="p-t-20">
+            <div fxLayout="row wrap" class="reverse-row">
+                <div fxFlex.gt-sm="50" fxFlex="100" style="flex-flow: column">
+                    <div fxLayout="row wrap">
+                        <div fxFlex.gt-sm="85" fxFlex="100">
+                            <p>{{'common.title1' | translate}}</p>
+                            <p class="m-t-30">{{'common.title2' | translate}}</p>
+                            <p class="m-t-30">{{'common.title3' | translate}}</p>
+                            <h4 class="mat-pagetitle-2 m-t-30"><i>{{'common.title4' | translate}}</i></h4>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="center" fxFlex="100" class="m-t-25">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button type="submit" color="preview" (click)="paymentaction()"
+                                class="btn-lg p-l-25 p-r-25" ngClass.xs="m-t-10 m-b-10" ngClass.sm="m-t-10 m-b-10"
+                                ngClass.md="m-t-0 m-b-0" ngClass.lg="m-t-0 m-b-0">{{'common.procpaym' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="50" fxFlex="100"  *ngFor="let imglistview of imglistviews">
+                    <div fxLayout="row wrap">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <div fxLayout="row wrap"  class="sizewidthimg aligncenter">
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image1">
+                                    <img src="{{imglistview.image1}}"  alt="ARA-Petroleum" >
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image2">
+                                    <img src="{{imglistview.image2}}"
+                                        alt="BP-EXPLORATION-(EPSILON)">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image3">
+                                    <img src="{{imglistview.image3}}" alt="Masirah-oil">
+                                </div>
+                           
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image4">
+                                    <img src="{{imglistview.image4}}" alt="Eni-logo">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image5">
+                                    <img src="{{imglistview.image5}}" alt="Hydrocarbon">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image6">
+                                    <img src="{{imglistview.image6}}" alt="Medco-LLC.png">
+                                </div>
+                            
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image6">
+                                    <img src="assets/images/mineral_logonew.png" alt="mineral_logonew">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image8">
+                                    <img src="{{imglistview.image8}}" alt="Occidental-Petroleum-Corporation-(NYSE-OXY)">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image9">
+                                    <img src="{{imglistview.image9}}" alt="Oman-Gas-Company-SAOC-(OGC)">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image10">
+                                    <img src="{{imglistview.image10}}" alt="Oman-Lasso-Exploration-&-Production-“OLEP”">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image11">
+                                    <img src="{{imglistview.image11}}" alt="Oman-Liquefied-Natural-Gas-LLC-(Oman-LNG)">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image12">
+                                    <img src="{{imglistview.image12}}" alt="Oman-Oil-Company-Exploration-&-Production-LLC-(OOCEP)">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image13">
+                                    <img src="{{imglistview.image13}}" alt="Orpic,-Oman-Oil-Refineries-and-Petroleum-Industries-Company">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image14">
+                                    <img src="{{imglistview.image14}}" alt="Petrogas-E&P-LLC">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image15">
+                                    <img src="{{imglistview.image15}}" alt="petroleb">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image16">
+                                    <img src="{{imglistview.image16}}" alt="Petroleum-Development-Oman-(PDO).png">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image17">
+                                    <img src="{{imglistview.image17}}" alt="Petrotel-Oman-LLC">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image18">
+                                    <img src="{{imglistview.image18}}" alt="Petroleum-ARA">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image19">
+                                    <img src="{{imglistview.image19}}" alt="Shell-Oman">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image20">
+                                    <img src="{{imglistview.image20}}" alt="Tethys-Oil-Montasar-Limited">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image21">
+                                    <img src="{{imglistview.image21}}" alt="Total">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image22">
+                                    <img src="{{imglistview.image22}}" alt="Consolidated-Contractors-Energy-Development-(CCED)">
+                                </div>
+                                <div fxFlex.gt-sm="25" fxFlex="100" *ngIf="imglistview.image23">
+                                    <img src="{{imglistview.image23}}" alt="DALEEL-PETROLEUM-L">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

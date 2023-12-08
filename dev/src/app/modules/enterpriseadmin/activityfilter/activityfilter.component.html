@@ -1,0 +1,258 @@
+<form [formGroup]='filterform' class="pos-relative activityfilter">
+  <div fxLayout="row wrap">
+
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div class="searchandfilter">
+        <div class="searchhere" (click)="toggleShowDiv('searchhistorydropdown')">
+       
+          <mat-form-field [floatLabel]="'never'">
+            <input appAlphanumsymb (input)="showkeywordicon=(search == ''?false:true);searchdataactfilter();showSearchIcon=(search == ''?true:false);" #inputClickuser autocomplete="off" class="input-text-color"
+              [placeholder]="filterFor == 'monitorlog' ? this.i18n('enterpriseadmin.searbyname'): !showInvitedUser ? this.i18n('enterpriseadmin.searbyname') : this.i18n('enterpriseadmin.searbyemail') "
+              matInput [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
+              (keyup.enter)="showkeywordicon=(search == ''?false:true);searchdataactfilter();showSearchIcon=(search == ''?true:false);">
+
+            <button class="searchbutton" type="button" *ngIf="showSearchIcon" [disabled]="!search" mat-button matSuffix
+              mat-icon-button aria-label="Search"
+              (click)="showkeywordicon=true;searchdataactfilter();toggleShowDiv('searchhistorydropdown');showSearchIcon=false;">
+              <mat-icon matTooltip="{{'enterpriseadmin.sear' | translate}}" matTooltipPosition="above" matSuffix>search</mat-icon>
+            </button>
+            <button class="searchbutton" type="button" *ngIf="!showSearchIcon" mat-button matSuffix mat-icon-button
+              aria-label="Clear"
+              (click)="search = '';showkeywordicon=false;advanceFilter('', userSortBy, perpage, pageNo,'in',true);showSearchIcon=true;">
+              <mat-icon matTooltip="{{'enterpriseadmin.reset' | translate}}" matTooltipPosition="above">close</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class=" searchhistorydropdown filtercontent" [@slideInOut]="animationState1">
+            <div class="recentsearchinfo">
+              <h6>{{'enterpriseadmin.recesear' | translate}}</h6>
+              <div *ngIf="recentSearch" class="searcheddata">
+                <p *ngFor="let recentVal of recentSearch; let i = index"
+                  (click)="recentDataSet(recentVal.rsd_searchtext)" class="cursor-pointer"><i class="bgi bgi-search"></i>
+                  <span>{{recentVal.rsd_searchtext}}</span>
+                </p>
+              </div>
+              <div *ngIf="recentSearch.length == 0" class="searcheddata">
+                <p><i class="bgi bgi-search"></i> <span>{{'enterpriseadmin.noseardatafoun' | translate}}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filterhere">
+          <button type="button" matTooltip="{{'enterpriseadmin.usefiltertocheck' | translate}}"
+            (click)="toggleShowDiv('descriptioncontentfilter')" class="filterbutton"
+            >
+            <i class="bgi bgi-configuration m-r-10 txt-white"></i>
+            <span *ngIf="filtercount == 0">{{'enterpriseadmin.filt' | translate}}</span>
+            <span *ngIf="filtercount != 0">{{'enterpriseadmin.filt' | translate}}<span *ngIf="viewcount">({{filtercount}})</span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class=" descriptioncontentfilter filtercontent" [@slideInOut]="animationState">
+    <div class="filterheader">
+      <p *ngIf="filterFor != 'monitorlog' && !showInvitedUser" class="header">{{'enterpriseadmin.filt' | translate}}</p>
+      <p *ngIf="filterFor != 'monitorlog' && showInvitedUser" class="header">{{'enterpriseadmin.stat' | translate}}</p>
+      <p *ngIf="filterFor == 'monitorlog'" class="header">{{'enterpriseadmin.filt' | translate}}</p>
+      <span (click)='formreset()' class="clearingfilter">{{'enterpriseadmin.cleaall' | translate}}</span>
+    </div>
+    <hr class="m-0">
+    <div class="filtersearchcontent p-t-20 p-b-0" ngClass.xs="p-l-10 p-r-10" ngClass.sm="p-r-10 p-l-10"
+      ngClass.md="p-l-30 p-r-30" ngClass.lg="p-r-30 p-l-30" ngClass.xl="p-r-30 p-l-30" *ngIf="!showInvitedUser">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-r-15"
+          ngClass.lg="p-r-15"  ngClass.xl="p-r-15">
+          <mat-form-field>
+            <mat-select multiple panelClass="myPanelClass" [disableOptionCentering]="true"
+              panelClass="select_with_filter" id="actsector" [errorStateMatcher]="matcher"
+              (closed)="searchDivision = '';" placeholder="{{'enterpriseadmin.divirefename' | translate}}" formControlName="businessUnit">
+              <mat-select-trigger>
+                {{filterform.controls['businessUnit'].value ? businessUnitDataTemp : ''}}
+                <span *ngIf="filterform.controls['businessUnit'].value?.length > 1"
+                  class="example-additional-selection">
+                  (+{{filterform.controls['businessUnit'].value.length - 1}}
+                  {{filterform.controls['businessUnit'].value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-select-search panelClass="mat-select-search-inner" [formControl]="sectorFilter"
+                [placeholderLabel]="'enterpriseadmin.sear' | translate" [noEntriesFoundLabel]="'No Division match your search criteria!'">
+              </mat-select-search>
+              <div class="option-listing">
+                <mat-option *ngFor="let sector of filteredSector | async" [value]="sector.SectorMst_Pk">
+                  {{sector.SecM_SectorName}}</mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-15"
+          ngClass.lg="p-l-15"  ngClass.xl="p-l-15">
+          <mat-form-field>
+            <mat-select multiple panelClass="myPanelClass" [disableOptionCentering]="true"
+              panelClass="select_with_filter" id="actsector" [errorStateMatcher]="matcher"
+              (closed)="searchDepartment = '';" placeholder="{{'enterpriseadmin.depa' | translate}}" formControlName="Department"
+              (selectionChange)="fetchdivsions($event);subModChange($event,1)">
+              <mat-select-trigger>
+                {{filterform.controls['Department'].value ? departmentDataTemp : ''}}
+                <span *ngIf="filterform.controls['Department'].value?.length > 1" class="example-additional-selection">
+                  (+{{filterform.controls['Department'].value.length - 1}}
+                  {{filterform.controls['Department'].value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-select-search panelClass="mat-select-search-inner" [formControl]="departmentFilter"
+                [placeholderLabel]="'enterpriseadmin.sear' | translate" [noEntriesFoundLabel]="'No Department match your search criteria!'">
+              </mat-select-search>
+              <div class="option-listing">
+                <mat-option *ngFor="let deptData of filtereddepartmentdata | async" [value]="deptData.deptPk">
+                  {{deptData.deptName}}
+                </mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-r-15"
+          ngClass.lg="p-r-15"  ngClass.xl="p-r-15">
+          <mat-form-field>
+            <mat-select panelClass="select_with_filter" multiple [disableOptionCentering]="true" id="actsector"
+              [errorStateMatcher]="matcher" (closed)="searchModule = '';" placeholder="{{'enterpriseadmin.modu' | translate}}" formControlName="Module"
+              (selectionChange)="fetchSubModule($event);subModChange($event,2)">
+              <mat-select-trigger>
+                {{filterform.controls['Module'].value ? moduleDataTemp : ''}}
+                <span *ngIf="filterform.controls['Module'].value?.length > 1" class="example-additional-selection">
+                  (+{{filterform.controls['Module'].value.length - 1}}
+                  {{filterform.controls['Module'].value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-select-search class="example-additional-selection" panelClass="mat-select-search-inner"
+                [formControl]="moduleFilter" [placeholderLabel]="'enterpriseadmin.sear' | translate"
+                [noEntriesFoundLabel]="'No Module match your search criteria!'">
+              </mat-select-search>
+              <div class="option-listing">
+                <mat-option (onSelectionChange)="filterModuleCountSelected($event)"
+                  *ngFor="let modData of filteredmoduleData  | async" [value]="modData.modulePk">{{modData.moduleName}}
+                </mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-15"
+          ngClass.lg="p-l-15"  ngClass.xl="p-l-15">
+          <mat-form-field>
+            <mat-select multiple panelClass="myPanelClass" panelClass="select_with_filter"
+              [disableOptionCentering]="true" id="actsector" [errorStateMatcher]="matcher"
+              (closed)="searchSubmodule = '';" placeholder="{{'enterpriseadmin.submodu' | translate}}" formControlName="Submodule"
+              (selectionChange)="subModChange($event,3)"
+              *ngIf="(moduleData | multisearchinput : searchSubmodule : ['subModuleName']) as submoduleresult">
+
+              <div class="searchinmultiselect">
+                <i class="bgi bgi-search"></i>
+                <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="{{'enterpriseadmin.sear' | translate}}"
+                  (keydown)="$event.stopPropagation();" [(ngModel)]="searchSubmodule"
+                  [ngModelOptions]="{standalone: true}" autocomplete="off">
+                <mat-icon (click)="searchSubmodule = ''" class="reseticon" matSuffix
+                  *ngIf="searchSubmodule !='' && searchSubmodule !=null">clear</mat-icon>
+              </div>
+              <mat-select-trigger>
+                {{filterform.controls['Submodule'].value ? submoduleDataTemp : ''}}
+                <span *ngIf="filterform.controls['Submodule'].value?.length > 1" class="example-additional-selection">
+                  (+{{filterform.controls['Submodule'].value.length - 1}}
+                  {{filterform.controls['Submodule'].value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <div class="option-listing">
+                <mat-optgroup *ngFor="let subModData of submoduleData;let i=index; " [label]="subModData.moduleName">
+                  <mat-option
+                    (onSelectionChange)="onSelectSubMod($event,subModDataVal.subModuleName,subModDataVal.bmm_basemodulemst_fk)"
+                    *ngFor="let subModDataVal of subModData.subModule | searchFilter : searchSubmodule:'subModuleName'"
+                    [value]="subModDataVal.subModulePk" [attr.subModName]="subModDataVal.subModuleName">
+                    {{subModDataVal.subModuleName}}
+                  </mat-option>
+                </mat-optgroup>
+              </div>
+              <!-- <mat-option (onSelectionChange)="filterCountSelected($event)" *ngFor="let subModData of submoduleData;let i=index;" [value]="subModData.subModulePk" [attr.subModName]="subModData.subModuleName">
+                {{subModData.subModuleName}}
+              </mat-option> -->
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- Division & Branch Name Starts -->
+      <!-- Division & Branch Name Ends -->
+      <div fxLayout="row wrap" *ngIf="filterFor != 'monitorlog'">
+        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-r-15"
+          ngClass.lg="p-r-15"  ngClass.xl="p-r-15" class=" statusing">
+          <!-- <p>Status</p> -->
+
+          <div class="activeandinactive m-t-10">
+            <mat-form-field>
+              <mat-select  formControlName="status" placeholder="{{'enterpriseadmin.stat' | translate}}"  (selectionChange)="subModChange($event,4)" multiple>
+                <!-- <mat-option
+                  *ngFor="let statuslist of statusdata | searchFilter: toppingListsec : 'label'"
+                  [value]="statuslist['label']"> {{statuslist['label']}}
+                </mat-option> -->
+                <mat-option *ngFor="let statuslist of statusdata " [value]="statuslist['id']">{{statuslist['label']}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <mat-checkbox class="example-margin p-r-30" [checked]="statusType.includes('A')"
+              (change)="filterStatusChange($event)" [value]="'A'">Active</mat-checkbox>
+            <mat-checkbox class="example-margin p-r-30" [checked]="statusType.includes('I')"
+              (change)="filterStatusChange($event)" [value]="'I'">Inactive</mat-checkbox>
+            <mat-checkbox class="example-margin p-r-30" [checked]="statusType.includes('Y')"
+              (change)="filterStatusChange($event)" [value]="'Y'">Yet to Approve</mat-checkbox>
+            <mat-checkbox class="example-margin p-r-30" [checked]="statusType.includes('E')"
+              (change)="filterStatusChange($event)" [value]="'E'">Email Confirmation Pending</mat-checkbox>
+            <mat-checkbox class="example-margin p-r-30" [checked]="statusType.includes('YR')"
+              (change)="filterStatusChange($event)" [value]="'YR'">Yet to Register</mat-checkbox> -->
+            <!-- <mat-radio-group formControlName="Status">
+              <mat-radio-button value="A" class="p-r-30" (change)="filterRadioSelected($event);">Active
+              </mat-radio-button>
+              <mat-radio-button value="I" class="p-r-30" (change)="filterRadioSelected($event);">In-active</mat-radio-button>
+              <mat-radio-button value="Y" (change)="filterRadioSelected($event);">Yet to approve</mat-radio-button>
+            </mat-radio-group> -->
+          </div>
+        </div>
+
+        <!-- <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-15"
+        ngClass.lg="p-l-15"  ngClass.xl="p-l-15" class=" statusing">
+
+          <div class="activeandinactive m-t-10">
+            <mat-form-field>
+              <mat-select  formControlName="skycard" placeholder="Skycard"  multiple>
+                <mat-option [value]="skycardcreated">Skycard Created</mat-option>
+                <mat-option [value]="skycardyettocreate">Skycard Yet to Create</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="filtersearchcontent p-t-20 p-b-0  p-l-40 p-r-40" *ngIf="showInvitedUser">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="activeandinactive m-t-15">
+            <mat-checkbox class="m-r-15" [checked]="checkedFilterArr.includes(status.value)"
+              *ngFor="let status of invitedFilterCheckBoxArr; let i = index"
+              (change)="checkInvitedFilter(status.value)">{{status.viewValue}}</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filterfooter">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="filtercloseapply">
+            <button (click)="toggleShowDiv('descriptioncontentfilter');" type="button" mat-raised-button color="primary"
+              class="clearbutton height-35 m-r-10 p-l-30 p-r-30">{{'enterpriseadmin.clos' | translate}}</button>
+            <button color="primary" [disabled]="!filterform.valid && this.checkedFilterArr.length == 0"
+              mat-raised-button class="applybutton height-35 p-l-30 p-r-30"
+              (click)="advanceFilter('', userSortBy, perpage, pageNo,'in',true)">{{'enterpriseadmin.appl' | translate}}</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

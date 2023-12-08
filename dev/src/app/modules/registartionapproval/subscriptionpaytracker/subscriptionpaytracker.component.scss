@@ -1,0 +1,160 @@
+
+
+  @mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+#subpaytrackerlist{
+    .masterTable .mat-header-row{
+          padding: 0px 18px !important;
+          .master-menu{
+            .viewtextcolorupdate:hover{
+                color: #f4811f !important;
+            } 
+        }
+    }    
+    .micro {
+        padding-left: 6px;
+        padding-right: 6px;
+        color: #fff !important;
+        background-color: #3e78d8;
+        font-size: 0.75rem;
+    }
+    .small {
+        @extend .micro;
+        color: #fff !important;
+        background-color: #f2ac1d !important;
+    }
+    .medium {
+        @extend .micro;
+        color: #fff !important;
+        background-color: #2fd0d4 !important;
+    }
+    #OPALcode{
+        color: #fff !important;
+      }
+    .large {
+        @extend .micro;
+        color: #fff !important;
+        background-color: #62a125 !important;
+    }
+    .pymt_pending {
+        @extend .micro;
+        color: #fff !important;
+        background-color: #f23f3a !important;
+    }
+    .pymt_received {
+        @extend .micro;
+        color: #fff !important;
+        background-color: #50af49 !important;
+    }
+    .borderbottomrenewallist{
+        width: 100%;
+        border-bottom: 1px solid #dadada;        
+        .clabel{
+              color: #666 !important;
+        }
+        .borderbottomrenwalalign{
+            width: 100%;
+            .interbold{
+                line-height: 20px;
+                word-break: break-word;
+            }
+          } 
+          .renewalalign{
+              @include flexstart();
+          }
+        
+      }
+}
+
+.flexstatuspay{
+    @include flexstart();
+}
+.statuscolorpayment {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #fff !important;
+    background-color: #3e78d8;
+    @include flexcenter();
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.pending{
+    @extend .statuscolorpayment;  
+    color: #fff !important;
+    background-color: #f23f3a !important;
+}
+.received{
+    @extend .statuscolorpayment;  
+    background-color: #50af49 !important;
+    color: #fff !important;
+}
+.warning{
+    @extend .statuscolorpayment;  
+    background-color: #fc9202 !important;
+    color: #fff !important;
+}  
+  .subscriptionpaydrawer .subscriptionwidth{
+    width: 80%;
+  }
+
+
+  @media (max-width:767px)  {
+    .subscriptionpaydrawer .subscriptionwidth{
+      width: 100% !important;
+    }
+  }
+
+
+@media (max-width: 1280px) and (min-width: 1276px) {
+    .subscriptionpaydrawer .subscriptionwidth{
+        width: 80% !important;
+    }
+}
+
+@media (min-width:769px) and (max-width:1024px){
+    .subscriptionpaydrawer .subscriptionwidth{
+        width: 98% !important;
+    }
+}
+
+
+.matmenu_container{
+    .downloadlinksts{
+        a{
+            color: #fff !important;
+            &:hover{
+                    color: #f4811f !important;
+            }
+        }
+    }
+}
+
+
+#spacepartdrawer{
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}

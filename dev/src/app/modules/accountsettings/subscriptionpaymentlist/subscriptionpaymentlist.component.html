@@ -1,0 +1,260 @@
+<div fxLayout="row wrap" class="spcesme p-t-15 activescroll paymentview rtl"  *ngIf="settingsData">
+  <div fxFlex.gt-sm="100" fxFlex="100" id="contactpopover">
+    <div class="jsrscolor">
+      <h2>{{'subscriptionpayment.jsrscertsubscrip' | translate}}</h2>
+    </div>
+    <div class="m-l-20 m-b-20">
+      <mat-accordion *ngIf="settingsData?.renewalstatus=='D'">
+        <mat-expansion-panel (opened)="setOpen(1)" [expanded]="panel === 1">
+          <mat-expansion-panel-header (click)="scrollTo('page-content')">
+            <mat-panel-title>
+              <div class="alignpayment">
+                <img src="assets/images/exclamatorycircle.png" alt="exclamatorycircle.png">
+                <div class="declinedtext p-l-15 titletext">
+                  <h2>{{'subscriptionpayment.paymentdeclined' | translate}}</h2>
+                  <!-- <p> {{settingsData.payComments}}
+                  </p> -->
+                </div>
+              </div>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="accordionshowtext p-t-10" *ngIf="settingsData?.renewalstatus=='D'">
+            <div class="fs-14 m-0 d-flex" >
+              <p class="m-r-5 mw75">{{'subscriptionpayment.comments' | translate}} </p>
+              <p [innerHTML]="settingsData.payComments" class="posreltop0"></p>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="borderspeccompanycolor">
+      <div>
+        <div class="spencercoorpayment">
+          <p class="fs-15 p-r-20">{{'subscriptionpayment.compclassify' | translate}}</p>
+        </div>
+        <div class="p-b-20">
+          <span class="fs-12 m-0" [class.micro]="settingsData?.classificationType?.toLowerCase().includes('micro')"
+            [class.small]="settingsData?.classificationType?.toLowerCase().includes('small')"
+            [class.medium]="settingsData?.classificationType?.toLowerCase().includes('medium')"
+            [class.large]="settingsData?.classificationType?.toLowerCase().includes('large') || settingsData?.classificationType?.toLowerCase().includes('international')">
+            {{settingsData?.classificationType}}</span>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="btnalign">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="widthuserbtn">
+          <div class="alignpassword position">
+            <!-- <button mat-raised-button class="collaberatebtncolor m-r-10 fs-14">Collaborations</button> -->
+            <!-- <button mat-raised-button
+              *ngIf="settingsData?.payStatus==1 || settingsData?.payStatus==2 || settingsData?.payStatus==4 || settingsData?.payStatus==5 || settingsData?.payStatus==6 || settingsData?.invoiceStatus=='G'"
+              (click)="downloadInvoice()" [matMenuTriggerFor]="invrecdownload" class="renewcolor fs-14 downspace"><i
+                class="bgi bgi-download fs-14 colorlogo p-r-8"></i><span>{{'subscriptionpayment.invoice' | translate}}</span>
+            </button> -->
+            <!-- <button mat-raised-button *ngIf="settingsData?.invoiceStatus!='G' && settingsData?.payStatus==3 && (settingsData?.renewalstatus=='A' || settingsData?.renewalstatus=='R')" (click)="downloadReceipt()"
+              [matMenuTriggerFor]="invrecdownload" class="renewcolor fs-14 downspace"><i
+                class="bgi bgi-download fs-14 colorlogo p-r-8"></i><span>{{'subscriptionpayment.receipt' | translate}}</span>
+            </button> -->
+            <!-- <button mat-raised-button class="usercolor fs-14"  (click)="changesubscriptiondrawer.toggle()">Change Subscription</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=" p-l-20 p-l-20 p-t-18 p-b-18 borderemail">
+      <div class="widthcompmain" *ngIf="settingsData">
+        <!-- <div class="cmpnyinfo aligndomian">
+          <p class="labelcmp m-0 clable">Domain</p>
+          <p class="cvalue m-0">Procurement</p>
+        </div> -->
+        <!-- <div class="cmpnyinfo aligndomian">
+          <p class="labelcmp m-0 clable">{{'subscriptionpayment.supplierid' | translate}}</p>
+          <p class="infocmp m-0 cvalue">{{settingsData?.supplierid}}</p>
+        </div> -->
+        <div class="cmpnyinfo aligndomian" *ngIf="orginstatus == 'N'">
+          <p class="labelcmp m-0 clable">{{'subscriptionpayment.headcount' | translate}}</p>
+          <p class="m-0 cvalue" *ngIf="!settingsData?.headCount?.toLowerCase().includes('employees')">
+            {{settingsData?.headCount + ' Employees' }}</p>
+          <p class="m-0 cvalue" *ngIf="settingsData?.headCount?.toLowerCase().includes('employees')">
+            {{settingsData?.headCount}}</p>
+        </div>
+        <div class="cmpnyinfo aligndomian">
+          <p class="labelcmp m-0 clable">{{'subscriptionpayment.OPALcertfee' | translate}}</p>
+          <p class="cvalue m-0">
+            {{ settingsData?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+            {{ settingsData?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ?
+            settingsData?.packageDtl?.subscription?.packageBasePrice :
+            settingsData?.packageDtl?.subscription?.packageBasePrice}}
+          </p>
+          <!-- <p class="infocmp m-0">
+              OMR 100.000
+            </p> -->
+          <!-- <p class="infocmp m-0">
+               USD 1000.00
+            </p> -->
+        </div>
+      </div>
+      <div class="widthcompsale">
+        <div class="cmpnyinfo aligndomian" *ngIf="settingsData?.origin != 'INTERNATIONAL' && !hideChangeSubscription">
+          <p class="labelcmp m-0 clable">{{'subscriptionpayment.annualsale' | translate}}</p>
+          <p class="cvalue m-0">
+            {{settingsData?.annualSales}}</p>
+        </div>
+        <div class="cmpnyinfo aligndomian">
+          <p class="labelcmp m-0 clable">{{'subscriptionpayment.subscripperiod' | translate}}</p>
+          <p class="cvalue m-0">{{ settingsData?.packageDtl?.subscription?.duration?.Years}}
+            {{settingsData?.packageDtl?.subscription?.duration?.Years > 1 ? 'Years' : 'Year' }}</p>
+        </div>        
+      </div>
+      <div class="nextrenewal p-l-25">
+        <div class="cmpnyinfo aligndomian p-b-0">
+          <div class="flexstartalign p-b-8" *ngIf="(settingsData?.renewTempData || settingsData?.renewalstatus=='A' || settingsData?.renewalstatus=='R') && (settingsData?.invoiceStatus!='G' || settingsData?.renewalstatus=='D')">
+            <div class="paymentstatuscolor m-r-20" *ngIf="settingsData?.payStatus!=4">
+              <p>{{'subscriptionpayment.paymentstatus' | translate}}</p>
+              <a mat-raised-button [routerLink]="['/afterlogin/certificationpaymentdetail']"
+                routerLinkActive="router-link-active" *ngIf="settingsData?.payStatus=='1'"
+                class="postedverification  fs-14">{{'subscriptionpayment.postedforverfy' | translate}}</a>
+              <a mat-raised-button [routerLink]="['/afterlogin/certificationpaymentdetail']"
+                *ngIf="settingsData?.payStatus=='2'" class="paymentinprogress  fs-14">{{'subscriptionpayment.payinprogress' | translate}}</a>
+              <a mat-raised-button *ngIf="settingsData?.payStatus=='3'" class="approve  fs-14">{{'accountdetails.approved' | translate}}</a>
+              <a mat-raised-button [routerLink]="['/afterlogin/certificationpaymentdetail']"
+                *ngIf="settingsData?.payStatus=='6'" class="failed  fs-14">{{'subscriptionpayment.failed' | translate}}</a>
+              <a mat-raised-button [routerLink]="['/afterlogin/certificationpaymentdetail']"
+                *ngIf="settingsData?.payStatus=='8'" class="resubmit  fs-14">{{'subscriptionpayment.resubmitpay' | translate}}</a>
+              <!-- <button mat-raised-button class="resubmit  fs-14">Resubmit Payment</button> -->
+            </div>
+            <div class="paymentstatuscolor m-r-20" *ngIf="settingsData?.payStatus==4">
+              <p *ngIf="settingsData?.payStatus==4" class="statuswidth m-0">{{'subscriptionpayment.paymentstatus' | translate}} <i
+                  class="inputinfoicon bgi bgi-infonew" [popover]="paymentstatus" popoverPlacement="top"
+                  [popoverOnHover]="false" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="true"
+                  [popoverDisabled]="false" [popoverAnimation]="true"></i>
+                <popover-content #paymentstatus placement="top" [animation]="true" [closeOnClickOutside]="true">
+                  <div class="popovermaincontent">
+                    <div class="fs-12 m-0">{{'subscriptionpayment.paymentdeclined' | translate}}</div>
+                    <div class="fs-12 m-0 paymentscroll" >
+                      <div class="m-r-5">{{'subscriptionpayment.comments' | translate}}</div>
+                      <div [innerHTML]="settingsData.payComments"></div>
+                    </div>
+                  </div>
+                </popover-content>
+              </p>
+              <a mat-raised-button [routerLink]="['/afterlogin/certificationpaymentdetail']"
+                *ngIf="settingsData?.payStatus=='4' || settingsData?.renewalstatus=='D'" class="resubmit fs-14">{{'subscriptionpayment.resubmitpay' | translate}}</a>
+            </div>
+            <div class="paymentstatuscolor">
+              <p>{{'accountdetails.OPALcertstatus' | translate}}</p>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus==null"
+                class="postedverification fs-14">{{'subscriptionpayment.yettosubmit' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='I'"
+                class="postedverification fs-14">{{'subscriptionpayment.inproress' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='S'"
+                class="postedverification fs-14">{{'subscriptionpayment.postedforvald' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='D'"
+                class="postedverification fs-14">{{'subscriptionpayment.declined' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']"
+                *ngIf="settingsData?.scfformststaus=='OSD' || settingsData?.scfformststaus=='OVD'"
+                class="postedverification fs-14">{{'subscriptionpayment.overalldeclined' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='DI'"
+                class="postedverification fs-14">{{'subscriptionpayment.declinedinprogress' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='RS'"
+                class="postedverification fs-14">{{'subscriptionpayment.resubmitted' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='A'"
+                class="postedverification fs-14">{{'subscriptionpayment.approved' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='U'"
+                class="postedverification fs-14">{{'subscriptionpayment.updated' | translate}}</button>
+              <button mat-raised-button [routerLink]="['/scf/scf/dashboard']" *ngIf="settingsData?.scfformststaus=='R'"
+                class="postedverification fs-14">{{'subscriptionpayment.reopened' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <p class="infocmp m-0"
+          *ngIf="settingsData?.memberstatus=='A' && settingsData?.payStatus!=1 && !settingsData?.isExpired && (settingsData?.renewalstatus==null || settingsData?.renewalstatus=='R' || settingsData?.renewalstatus=='NE' || settingsData?.renewalstatus=='A')">
+          {{renewalDays}}</p>
+        <p class="infocmp m-0"
+          *ngIf="settingsData?.memberstatus=='A' && settingsData?.payStatus!=1 && !settingsData?.isExpired && (settingsData?.renewalstatus==null || settingsData?.renewalstatus=='R' || settingsData?.renewalstatus=='NE' || settingsData?.renewalstatus=='A')">
+          {{settingsData?.actExpiry}}</p>
+        <div class="spacerenew">
+          <span class="aftercoloruserlist" [popover]="users" popoverPlacement="top" [popoverOnHover]="true"
+            [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false" [popoverAnimation]="true">
+            <popover-content #users placement="top" [animation]="true" [closeOnClickOutside]="true">
+              <div class="popovermaincontent  afternext">
+                <div class="popovertexts positionname">
+                  <div class="headerevent">
+                    <div class="headerpopview p-l-18">
+                      <h2 class="fs-15">{{settingsData?.paymentContact?.firstname}}
+                        {{settingsData?.paymentContact?.lastname}}
+                      </h2>
+                      <p class="fs-15 seniorcolor">{{settingsData?.paymentContact?.designation}}</p>
+                    </div>
+                    <div class="p-t-10 p-b-10 p-l-18">
+                      <div class="cmpnyinfo" *ngIf="settingsData?.paymentContact?.department">
+                        <span class="firsttextcolor m-0 clable">{{'subscriptionpayment.department' | translate}}</span>
+                        <span class="secondcontenttext m-0 cvalue">{{settingsData?.paymentContact?.department}}</span>
+                      </div>
+                      <div class="cmpnyinfo" *ngIf="settingsData?.paymentContact?.mobileno">
+                        <span class="firsttextcolor m-0 clable">{{'subscriptionpayment.mobile' | translate}}</span>
+                        <span class="secondcontenttext m-0 cvalue">{{settingsData?.paymentContact?.mobileDialCode}}
+                          {{settingsData?.paymentContact?.mobileno}}</span>
+                      </div>
+                      <div class="cmpnyinfo" *ngIf="settingsData?.paymentContact?.landlineno">
+                        <span class="firsttextcolor m-0 clable">{{'subscriptionpayment.landline' | translate}}</span>
+                        <span class="secondcontenttext m-0 cvalue">{{settingsData?.paymentContact?.landlineDialCode}}
+                          {{settingsData?.paymentContact?.landlineno}}
+                          {{settingsData?.paymentContact?.landlineext}}</span>
+                      </div>
+                      <div class="cmpnyinfo">
+                        <span class="firsttextcolor m-0 clable">{{'subscriptionpayment.emailid' | translate}}</span>
+                        <span class="secondcontenttext m-0 cvalue">{{settingsData?.paymentContact?.emailid}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </popover-content>{{'subscriptionpayment.showpaycont' | translate}}<i class="fa fa-angle-right p-l-8" aria-hidden="true"></i>
+          </span>
+          <div fxLayout="row wrap"
+            *ngIf="settingsData?.memberstatus=='A' && settingsData?.payStatus!=1 && (settingsData?.renewalstatus=='NE' || settingsData?.renewalstatus=='E' || settingsData?.renewalstatus=='I' || settingsData?.renewalstatus=='GE')">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="flexrenew justifyend m-r-6" *ngIf="!settingsData?.renewTempData">
+              <button mat-raised-button class="collaberatecolor m-r-14 fs-14"
+                (click)="certificaterenewaldrawer.toggle();certificaterenw.setHeadCount()">{{'subscriptionpayment.renew' | translate}}</button>
+            </div>
+            <div fxFlex.gt-sm="100" fxFlex="100" class="flexrenew justifyend m-r-6" *ngIf="settingsData?.invoiceStatus=='G' && settingsData?.renewTempData">
+              <button mat-raised-button class="collaberatecolor m-r-14 fs-14"
+              [routerLink]="['/afterlogin/certificationpaymentdetail']">{{'subscriptionpayment.renew' | translate}}</button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    <div class="kindlytext" *ngIf="settingsData?.renewalstatus=='RW'">
+      <p>{{'subscriptionpayment.kindly' | translate}} <a href="javascript:void(0)" (click)="drawercontactus.toggle()">{{'subscriptionpayment.contactus' | translate}}</a>{{'subscriptionpayment.changeyourcompclassify' | translate}} </p>
+    </div>
+ 
+  </div>
+</div>
+
+<mat-drawer-container class="example-container classifywidth">
+  <mat-drawer #certificaterenewaldrawer disableClose class="example-sidenav sidenavsamewidthall classifysidenavwidth"
+    mode="over" position="end">
+   
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container certificatelistview">
+  <mat-drawer #changesubscriptiondrawer disableClose class="example-sidenav sidenavsamewidthall certifcatesidenavwidth"
+    mode="over" position="end">
+    <app-changesubscriptionlistview [changesubscriptiondrawer]="changesubscriptiondrawer">
+    </app-changesubscriptionlistview>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawercontactus class="example-sidenav sidenavsamewidthall filtersidenav" mode="over"
+    position="end">
+    <app-contactusnav [drawercontactus]="drawercontactus" [contactusData]="contactusData"></app-contactusnav>
+  </mat-drawer>
+</mat-drawer-container>

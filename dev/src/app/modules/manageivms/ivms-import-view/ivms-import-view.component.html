@@ -1,0 +1,100 @@
+<div id="ivmsview" class="company_dtlview" fxLayout="column" [ngClass]="enablemaxsize ? 'maxscreen' : '' ">
+    <app-responseloader *ngIf="PageLoaders"></app-responseloader>
+    <div fxLayout="row" fxLayoutAlign="start center" class="dividerCustom">
+        <h4 class="fs-18 m-0 txt-gry3 m-r-7">{{'Create IVMS Device Installed Vechicles via MS-Excel Template' |
+            translate}}
+        </h4>
+        <!-- <mat-divider fxFlex="4" class="matDivider"></mat-divider> -->
+    </div>
+    <form [formGroup]="acknowledgeform" [style.display]="!displaycounts?'block':'none'">
+        <div class="company_dtlview m-t-20" fxLayout="column">
+            <div class="moheriCards cardUpload company_dtlview m-t-25">
+                <h5 class="m-0 stepFollow">{{'Steps to Follow' | translate}}</h5>
+                <div class="followStep">
+                    <ul>
+                        <li>{{'Click here to' | translate}} <a download href="{{sampleurl}}"><u class="font-fam text-ble">{{"Download Sample Template" | translate}}</u></a> {{'Format' | translate}}</li>
+                        <li class="m-t-15">{{'Fill in the' | translate}} <b>{{"Vehicle Details" | translate}}</b> {{'into the XLS and save the file' | translate}}</li>
+                        <li class="m-t-15">{{'Click on' | translate}} <b>{{"Upload IVMS Device Installed Vechicles" | translate}}</b> {{'and select the saved / updated file' | translate}} </li>
+                        <li class="m-t-15">{{"After the File Upload, the correctly uploaded records will be saved into the system, while the in-correct ones will not be saved. The next screen will show the uploaded record status, providing the details on the" | translate}} <b>{{'Total Records Uploaded, Records Uploaded Successfully' | translate}}</b>, {{'and' | translate}} <b>{{'Records Uploaded with Failure.' | translate}}</b> {{'This screen will also include options for' | translate}} <b>{{'Close' | translate}}</b> {{'and' | translate}} <b>{{'Re-Upload' | translate }}.</b></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="m-t-25 p-t-15" fxFlex="20">{{'Upload IVMS Device Installed Vehicles Details' | translate}}</p>
+            <app-filee #temporary [notePosition]="'bottom'" [fileMstRef]="drvInput" [deleteicon]="deleteicon" [showContent]="true"
+                (filesSelected)="fileeSelected($event,drvInput)" [notecontentrequired]="false"   [uploadexcel]="false" [fileuploadcommon]="false"
+                [uploaddocumentname]="'Upload Document' | translate"  formControlName="reportdocument" >
+            </app-filee>
+        </div>
+    </form>
+    <div class="moheriCards cardUpload company_dtlview m-t-25"  *ngIf="hideall" [style.display]="displaycounts?'block':'none'">
+        <h3 class="m-0 stepFollow">{{'Highlighted Concerns Regarding File Import:' | translate}}</h3>
+        <div class="followStep">
+            <ul>
+                <li>{{'The number of records Uploaded Successfully indicates that all information specified are saved in OPAL USP' | translate}}.
+                </li>
+                <li class="m-t-10">{{'The number of records Uploaded with Failure indicates a need for revisiting or updating the records. Erroneous information highlighted in' | translate}} <span class="text-rd">{{'RED' | translate}}</span>, {{'with appropriate comments for reference.' | translate}}</li>
+            </ul>
+            <hr>
+            <h3 class="mt-3 stepFollow">{{'Uploaded Record Status' | translate}}</h3>
+            <!-- Tabs -->
+            <div class="uploadRecordFlex">
+                <div class="tabOne">
+                    <div class="tabIcon">
+                        <mat-icon class="fs-25 blue">file_upload</mat-icon>
+                    </div>
+                    <div class="tabText">
+                        <span id="totalrecords">{{totalrecord}}</span>
+                        <p>{{'Total Record Uploaded' | translate}}</p>
+                    </div>
+                </div>
+
+                <div class="tabOne">
+                    <div class="tabIcon">
+                        <mat-icon class="fs-25 Active">done</mat-icon>
+                    </div>
+                    <div class="tabText">
+                        <span class="Active" id="uploadsuccess">{{uploadsuccesss}}</span>
+                        <p>{{"Record Uploaded Successfully" | translate}}</p>
+                    </div>
+                </div>
+
+                <div class="tabOne">
+                    <div class="tabIcon">
+                        <mat-icon class="fs-25 red">close</mat-icon>
+                    </div>
+                    <div class="tabText">
+                        <span class="red" id="uploadfailure">{{uploadfailures}}</span>
+                        <p>{{'Record Uploaded with Failure' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footButton">
+            <button mat-raised-button class="backButton fs-15 txt-gry3"  (click)="close()" >{{'Close' | translate
+            }}</button>
+            <button mat-raised-button class="backButton skipButton fs-15 txt-gry3"  (click)="uploadanother()">{{'Re-upload' | translate
+            }}</button>
+            <!-- <button mat-raised-button class="backButton skipButton fs-15 txt-gry3">{{'Skip & Submit' | translate
+                }}</button> -->
+        </div>
+
+        
+    </div>
+    
+    <div class="cardUpload company_dtlview m-t-25"  id="resultview" [style.display]="showresult?'block':'none'" >
+        <div class="vehicleinspection" fxFlex="100" fxFlex.gt-sm="100">
+            <div class="paginationwithfilter masterPageTop m-t-10 errorreportdiv" *ngIf="showresultheader">
+                <p>{{'Failed Records Information' | translate}}</p>
+                <div fxLayout="row wrap" fxLayoutAlign="end" class="available date_exp">
+                    <button mat-raised-button type="button" *ngIf="!maxscreen" class="importbtn m-r-6 m-l-10" (click)="enablemaxscreen()">{{'Full Screen' |translate}}<i class="material-icons fs-20 m-l-7" aria-hidden="true">zoom_out_map</i></button>
+                    <button mat-raised-button type="button" *ngIf="maxscreen" class="importbtn m-r-6 m-l-10" (click)="disablemaxscreen()" >{{'Exit Full Screen' |translate}}<i class="material-icons fs-20 m-l-7" aria-hidden="true">zoom_in_map</i></button>
+                    <button mat-raised-button type="button" (click)="exportToCSV()" class="transformbtn skipButton m-r-15 m-l-15">{{'Export as CSV' |
+                        translate}}<i class="material-icons fs-20 m-l-7" aria-hidden="true">launch</i></button> 
+                </div>
+            </div>
+            <div  class="m-t-25">
+                <div id="result-id" class="resulttablecontainer"></div>
+            </div>
+        </div>
+    </div>
+</div>

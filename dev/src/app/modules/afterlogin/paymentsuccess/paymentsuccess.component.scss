@@ -1,0 +1,180 @@
+@mixin flexcenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+        
+
+.spancolor{
+    color: #006cb7;
+}
+.colortext{
+    color: #006cb7;
+}
+.gradientbackgrounds {
+    background: linear-gradient(to bottom, #c5dcff  250px, #fff 10% 40%);
+}
+.topheadermain{
+    display: flex !important;
+    justify-content: space-between;
+  }
+  .flexsame{
+      display: flex !important;
+      align-items: baseline;
+  }
+.bottominfo {
+    display: flex;
+    .thankyoupage {
+        margin-left: auto;
+        border:1px solid #dadada;
+        background-clip: padding-box;
+        background-color: #fff;
+        margin-top:10px;
+        width: 82%;
+        margin-right:auto;
+        .successtick {
+            padding-top: 30px;
+            padding-bottom: 30px;
+            @include flexcenter();
+            span {
+                height: 64px;
+                width: 64px;
+                @include flexcenter();
+                border-radius: 100%;
+                background: #27a91d;
+                color: #fff;
+                i {
+                    font-size: 1.875rem;
+                }
+            }
+        }
+        .successtexts {
+           
+            .thankstext {
+                color: #27a91d;
+                font-size: 1.125rem;
+                font-weight: bold;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            p {
+                color: #333;
+                font-size: 1rem;
+            }
+            .supportmail {
+                color: #333333;
+                padding-bottom: 15px;
+                padding-top: 5px;
+            }
+           
+        }
+        .socialmedia {
+            padding-bottom: 15px;
+            text-align: center;
+            p {
+                margin-bottom: 0;
+                color: #333;
+                font-size: 1rem;
+                font-weight: bold;
+                padding-bottom: 15px;
+            }
+            ul {
+                list-style-type: none;
+                @include flexcenter();
+                padding-left: 0;
+                li {
+                    a {
+                        width: 34px;
+                        height: 34px;
+                        @include flexcenter();
+                        border-radius: 100%;
+                        margin-right: 15px;
+                        color:#006cb7;
+                        i {
+                            color:#fff;
+                        }
+                    }
+                }
+                .facebook {
+                    a {
+                        background: #507cbe;
+                    }
+                }
+                .twitter {
+                    a {
+                        background: #63cdf1;
+                    }
+                }
+                .linkedin {
+                    a {
+                        background: #1e88c9;
+                    }
+                }
+                .instagram {
+                    a {
+                        background: #5f6465;
+                    }
+                }
+                .youtube {
+                    margin-right: 0;
+                    a {
+                        background: #ef6c53;
+                    }
+                }
+            }
+        }
+        .continuehomepage {
+            margin-top: 10px;
+            height: 45px;
+            min-width: 200px;
+        }
+    }
+}
+.supportcolor{
+    color: #333333;
+    font-weight: bold;
+}
+.cmpnyinfo {
+    margin-bottom: 0;
+   display: flex;
+   line-height: 25px;
+   justify-content: flex-start;
+    align-items: flex-start !important;
+}
+.labelcmp {
+    color: #999 !important;
+    font-size: 1rem;
+}
+.infocmp {
+    color: #333;
+    font-size: 1rem;
+}
+
+.paymentcolor{
+    color: #006cb7;
+    font-weight: bold;
+}
+.textalignword{
+    text-align: center;
+}
+
+.alignmode{
+    display: flex;
+    justify-content: center;
+}
+
+.textalignwordflex{
+    display: flex;
+    justify-content: center;
+}
+

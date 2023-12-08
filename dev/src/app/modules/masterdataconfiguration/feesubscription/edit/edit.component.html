@@ -1,0 +1,87 @@
+<div fxLayoutAlign="center" id="editfee" class="changeassessor" *ngIf="!disableSubmitButton">
+    <form [formGroup]="feesubscribedit" (ngSubmit)="feesubscribedit.valid ? submit(feesubscribedit.value) : focusInvalidInput(feesubscribedit)">
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn readonlyfield" ngClass.sm="m-0">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Project' | translate}}</mat-label>
+                    <mat-select formControlName="project" disabled >
+                        <mat-option *ngFor="let list of projectlist" [value]="list.projectmst_pk">
+                            {{ifarbic == true ? (list.pm_projectname_ar): (list.pm_projectname_en)}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="readonlyfield paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Office Type' | translate}}</mat-label>
+                    <mat-select readonly formControlName="officetype" disabled>
+                            <mat-option  [value]="1">{{'Main Office' | translate}}</mat-option>
+                            <mat-option  [value]="2">{{'Branch Office' | translate}}</mat-option>
+                            <mat-option  [value]="3">{{'Both' | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp readonlyfield">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Fee Type' | translate}}</mat-label>
+                    <mat-select readonly formControlName="feetype" disabled>
+                        <mat-option  [value]="1">{{'Certification Fee' | translate}}</mat-option>
+                        <mat-option  [value]="2">{{'Staff Evaluation Fee' | translate}}</mat-option>
+                        <mat-option  [value]="3">{{'Royalty Fee' | translate}}</mat-option>
+                        <mat-option  [value]="4">{{'Learner Training Fee' | translate}}</mat-option>
+                        <mat-option  [value]="5">{{'Learner Assessment Fee' | translate}}</mat-option>
+                        <mat-option  [value]="6">{{'Staff Re-Evaluation Fee' | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn readonlyfield" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field appearance="outline" class="filter" >
+                    <mat-label>{{'Applicant Type' | translate}} </mat-label>
+                    <mat-select formControlName="applicanttype" readonly disabled>
+                        <mat-option  [value]="1">{{'Initial' | translate}}</mat-option>
+                        <mat-option  [value]="2">{{'Renewal' | translate}}</mat-option>
+                        <mat-option  [value]="3">{{'Update' | translate}}</mat-option>
+                        <mat-option  [value]="4">{{'Refresher' | translate}}</mat-option>
+                        <mat-option  [value]="5">{{'Surveillance 1' | translate}}</mat-option>
+                        <mat-option  [value]="6">{{'Surveillance 2' | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp readonlyfield">
+                 <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Head Count and Type' | translate}}</mat-label>
+                    <input matInput readonly formControlName="headcount" disabled>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Fee (OMR)' | translate}}</mat-label>
+                    <input matInput appNumberonly  required formControlName="fee">
+                    <mat-error *ngIf="form.fee.errors?.required || form.submitted"> {{'Enter the Fee (OMR)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn"ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+             fxFlex="100" class="date_exp ">
+             <mat-form-field class="filter" appearance="outline">
+                <mat-label>{{'Validity (Years)' | translate}}</mat-label>
+                <input matInput appNumberonly  required formControlName="validity">
+                <mat-error *ngIf="form.validity.errors?.required || form.submitted"> {{'Enter the Validity(Years)' | translate}} </mat-error>
+            </mat-form-field>
+            </div>
+            
+            
+            <div class="buttonalign" >
+                <button mat-raised-button type="button"  class="btnwhite" (click)="cancel()">{{'Cancel' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15"  >{{'Update' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

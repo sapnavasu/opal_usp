@@ -1,0 +1,111 @@
+<div id="trainingcentreapp" fxLayoutAlign="center start">
+    <!-- pageloader -->
+    <app-responseloader *ngIf="PageLoaders"></app-responseloader>
+    <div class="vehicleinspection" fxFlex="100" fxFlex.gt-sm="100">
+        <div class="paginationwithfilter masterPageTop m-t-10">
+            <p>{{'Failed Records Information' | translate}}</p>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="available date_exp">
+                <button mat-raised-button type="button" class="importbtn m-r-6 m-l-10">{{'Full Screen' |
+                    translate}}<i class="material-icons fs-20 m-l-7" aria-hidden="true">zoom_out_map</i></button>
+                <button mat-raised-button type="button" class="transformbtn m-r-15 m-l-15">{{'Export as CSV' |
+                    translate}}<i class="material-icons fs-20 m-l-7" aria-hidden="true">launch</i></button> 
+            </div>
+        </div> 
+        <!-- table -->
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div #TABLE class="awaredtable">
+                    <!-- ------------------------------Grid Start -------------------------------------------------->
+
+                    <mat-table id="ExampleMaterialTable" #table class="scrolldata" [dataSource]="dataSource" matSort
+                        matSortDisableClear>
+                        <!--Failure Comment -->
+                        <ng-container matColumnDef="failure_comment">
+                            <mat-header-cell fxFlex="340px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Failure Comment' | translate}}</mat-header-cell>
+                            <mat-cell data-label="failure_comment" fxFlex="340px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder" class="red">{{element.failure_comment}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Vehicle Reg. Number -->
+                        <ng-container matColumnDef="vichle_reg">
+                            <mat-header-cell fxFlex="240px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Vehicle Reg. Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="vichle_reg" fxFlex="240px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">
+                                    {{element.vichle_reg}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Chasis Number -->
+                        <ng-container matColumnDef="chasis_number">
+                            <mat-header-cell fxFlex="240px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Chassis Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="chasis_number" fxFlex="240px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">
+                                    {{element.chasis_number}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- IVMS Device -->
+                        <ng-container matColumnDef="ivms_device">
+                            <mat-header-cell fxFlex="240px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'IVMS Device Model Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="ivms_device" fxFlex="240px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.ivms_device}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Date of Expiry -->
+                        <ng-container matColumnDef="dateofexp">
+                            <mat-header-cell fxFlex="235px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Date of Expiry' | translate}}</mat-header-cell>
+                            <mat-cell data-label="dateofexp" fxFlex="235px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.dateofexp?element.dateofexp:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <!-- ------------------------------Grid End -------------------------------------------------->
+
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="getdisplayedColumn()">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: getdisplayedColumn();"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="tableplaceholder"
+                                            class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord"
+                                            *ngIf="!tableplaceholder">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tableplaceholder">{{'No Records' |
+                                            translate}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div fxLayoutAlign="center" id="editgrade" class="changeassessor" >
+    <form [formGroup]="gradeconfiguration" (ngSubmit)="gradeconfiguration.valid ? submit(gradeconfiguration.value) : ''">
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter readonlyfield"  appearance="outline">
+                    <mat-label>{{'Grade' |translate}}</mat-label>
+                    <input matInput formControlName="grade" readonly >
+                    <mat-error *ngIf="form.grade.errors?.required || form.submitted">
+                        {{'Grade required' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field  class="filter" appearance="outline">
+                    <mat-label>{{'Percentage From Total Value' |translate}}</mat-label>
+                    <input matInput required appNumberonly formControlName="percentageFromTotalValue">
+                    <mat-error *ngIf="form.percentageFromTotalValue.errors?.required || form.submitted">
+                        {{'Percentage From Total Value required' | translate}} </mat-error>
+                        <mat-error *ngIf="form.percentageFromTotalValue.invalid && (form.percentageFromTotalValue.errors.max || form.percentageFromTotalValue.errors.min)">Please enter the valid percentage </mat-error>
+                    </mat-form-field>
+            </div>
+        </div>
+      
+            <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+                <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                    <mat-form-field class="filter"  appearance="outline">
+                        <mat-label>{{'From Percentage' |translate}}</mat-label>
+                        <input required matInput appNumberonly  formControlName="fromPercentage" (input)="percentagevalidation('from')" >
+                        <mat-error *ngIf="form.fromPercentage.errors?.required || form.submitted">
+                            {{' From Percentage required' | translate}} </mat-error>
+                            <mat-error *ngIf="form.fromPercentage.invalid && (form.fromPercentage.errors.max || form.fromPercentage.errors.min)">Please enter the valid percentage </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                    <mat-form-field  class="filter" appearance="outline">
+                        <mat-label>{{'To Percentage' |translate}}</mat-label>
+                        <input required matInput appNumberonly  formControlName="toPercentage" (input)="percentagevalidation('to')" >
+                        <mat-error *ngIf="form.toPercentage.errors?.required || form.submitted">
+                            {{' To Percentage required' | translate}} </mat-error>
+                            <mat-error *ngIf="form.toPercentage.invalid && (form.toPercentage.errors.max || form.toPercentage.errors.min)">Please enter the valid percentage </mat-error>
+                    </mat-form-field>
+                </div>
+            <div class="buttonalign" >
+                <button mat-raised-button type="button" (click)="cancel()"  class="btnwhite">{{'Cancel' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15" >{{'Update' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

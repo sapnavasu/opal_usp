@@ -1,0 +1,136 @@
+<div fxLayout="row wrap" id="temporaryaudittriallist">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="audittrailgradient">
+    <div fXLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="headerviewcontract">
+          <div class="imagewithtext mat-headline">
+            <h4 class="mat-pagetitle-1">
+              Temporary Login - Audit Trail
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="audittrailbackground pd-30">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="tracklistheader">
+          <div class="headerlistview">
+            <h2>Business Gateways International - India Pvt. Ltd.</h2>
+          </div>
+          <div class="gatewaysalign">
+            <div class="tracklistviewalign">
+              <p>Registration No.</p>
+              <span>OMN123456</span>
+            </div>
+            <div class="tracklistviewalign">
+              <p>Supplier Code</p>
+              <span>OMN887356</span>
+            </div>
+            <div class="tracklistviewalign">
+              <p>Member Status</p>
+              <span>Certified</span>
+            </div>
+            <div class="tracklistviewalign">
+              <p>Subscription Status</p>
+              <span class="activecolor">Active</span>
+            </div>
+          </div>
+        </div>
+        <div class="masterTable">
+          <mat-table #table matSort [dataSource]="dataSource">
+            <ng-container matColumnDef="module">
+              <mat-header-cell fxFlex="22" mat-sort-header *matHeaderCellDef>Module
+              </mat-header-cell>
+              <mat-cell fxFlex="22"  data-label="Module" *matCellDef="let element">
+                {{element.modulename}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="requested_by">
+              <mat-header-cell fxFlex="25"  mat-sort-header *matHeaderCellDef> Requested by
+              </mat-header-cell>
+              <mat-cell matTooltipPosition="below"  fxFlex="25" data-label="Requested by"
+                *matCellDef="let element">
+                {{element.requestedby}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="requested_to">
+              <mat-header-cell fxFlex="30"  mat-sort-header *matHeaderCellDef> Requested to
+              </mat-header-cell>
+              <mat-cell fxFlex="30"  matTooltipPosition="below"
+                matTooltip="{{element.requested_to }}" data-label="Requested to" *matCellDef="let element">
+                {{element.requested_to | truncate:[22]}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="requestor_mobileno">
+              <mat-header-cell fxFlex="25" mat-sort-header  *matHeaderCellDef> OTP Sent to
+              </mat-header-cell>
+              <mat-cell fxFlex="25" matTooltipPosition="below"
+                matTooltip="{{element.requestor_mobileno }}" data-label="OTP Sent to" *matCellDef="let element">
+                {{element.requestor_mobileno | truncate:[20]}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="otp_requested">
+              <mat-header-cell fxFlex="25" mat-sort-header  *matHeaderCellDef>Session Started at
+              </mat-header-cell>
+              <mat-cell fxFlex="25" data-label="Session Started at"  *matCellDef="let element">
+                {{element.otprequested}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="otp_entered">
+              <mat-header-cell fxFlex="25"  mat-sort-header *matHeaderCellDef> Session Ended at
+              </mat-header-cell>
+              <mat-cell fxFlex="25" data-label="Session  Ended at" *matCellDef="let element">
+                {{element.otpenteredon}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="login_status">
+              <mat-header-cell fxFlex="20" mat-sort-header *matHeaderCellDef> Login Status
+              </mat-header-cell>
+              <mat-cell fxFlex="20" data-label="Login Status" *matCellDef="let element">
+                <span *ngIf="element.loginstatus == 'statuslogin'" class="successcolor">Success</span>
+                <span *ngIf="element.loginstatus == 'expired'" class="expiredcolor">Expired</span>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="updatedfiledcolor">
+              <h2>Updated Fields</h2>
+            </div>
+            <div class="masterTable">
+              <mat-table #table matSort [dataSource]="updatevalue">
+                <ng-container matColumnDef="Field_Name">
+                  <mat-header-cell fxFlex="33.33" mat-sort-header *matHeaderCellDef>Field Name
+                  </mat-header-cell>
+                  <mat-cell fxFlex="33.33" data-label="Field Name" *matCellDef="let element">
+                    {{element.fieldname}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Previous_Value">
+                  <mat-header-cell fxFlex="33.33" mat-sort-header *matHeaderCellDef> Previous Value
+                  </mat-header-cell>
+                  <mat-cell matTooltipPosition="below" fxFlex="33.33" data-label="Previous Value"
+                    *matCellDef="let element">
+                    {{element.previousvalue}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Updated_Value">
+                  <mat-header-cell fxFlex="33.33" mat-sort-header *matHeaderCellDef> Updated Value
+                  </mat-header-cell>
+                  <mat-cell fxFlex="33.33" data-label=" Updated Value" *matCellDef="let element">
+                    {{element.updatedvalue}}
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayaudittrail"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayaudittrail;"></mat-row>
+              </mat-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

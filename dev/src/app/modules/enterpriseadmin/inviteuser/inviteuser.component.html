@@ -1,0 +1,109 @@
+<!-- <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-t-30">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card class="addproductsmainselect" (click)="inviteuser.toggle()">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image m-r-0">
+          <i class="bgi bgi-product_activitynew"></i>
+        </div>
+        <div class="titletext">
+          <mat-card-title class="selecttitle fs-18 p-b-12 m-b-0 text-blue"><b>Invite User</b>
+          </mat-card-title>
+          <mat-card-subtitle class="selectsubtitle fs-14">
+            Send invites to your company employees who are not enrolled as a user in JSRS3.
+          </mat-card-subtitle>
+        </div>
+        <div class="selectforward m-r-0">
+          <i class="bgi bgi-dropdown"></i>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div> -->
+
+
+<div fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+        <!-- column -->
+        <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+          <div class="titletext">
+            <div class="closeandadd">
+              <mat-icon (click)="showSweetAlert()" matTooltip="{{'enterpriseadmin.clos' | translate}}" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+              <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.inviusers' | translate}} <span class="headerspantext"> {{'enterpriseadmin.jsrscham' | translate}}</span> <mat-icon
+                  (click)="toggleShowDiv('descriptioncontentuserrole')" class="bgi bgi-info">info_outline</mat-icon></h5>
+            </div>
+            <div class="clearandaddbutton">
+              <button type="button" mat-raised-button color="primary" class="clearbutton height-35 m-r-10 p-l-20 p-r-20"
+                (click)="resetForm('clear')">{{'enterpriseadmin.clea' | translate}}</button>
+              <button type="submit" [disabled]="!emailFormControl.valid" (click)="sendInvite()" color="preview" mat-raised-button
+                class="addbutton height-35 p-l-20 p-r-20">{{'enterpriseadmin.sendinvi' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentuserrole"
+        [@slideInOut]="animationState">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+          <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+            <mat-card-header>
+              <div class="titletext">
+                <mat-card-subtitle class="informationtext fs-14">
+                  {{'enterpriseadmin.sendinvitoyouecomp' | translate}} 
+                </mat-card-subtitle>
+              </div>
+              <div class="selectforward m-r-0">
+                  <div class="p-l-15 gotit">
+                    <span mat-raised-button color="primary" (click)="toggleShowDiv('descriptioncontentuserrole')">{{'enterpriseadmin.okgotit' | translate}} </span>
+                  </div>
+                </div>
+            </mat-card-header>
+          </mat-card>
+        </div>
+      </div>
+      
+      <div class="innnerpartofdrwer">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-0">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <p class="notetitle">{{'enterpriseadmin.note' | translate}}</p>
+            <ul class="notelist">
+              <li>{{'enterpriseadmin.youcansendinvi' | translate}}</li>
+              <!-- //<li>You can resend the user invites after 24 hrs.</li> -->
+              <li>{{'enterpriseadmin.formtheinviuser' | translate}}.</li>
+              <li>{{'enterpriseadmin.youcanview' | translate}}</li>
+            </ul>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-0 emailtoinvite">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip *ngFor="let email of emails" [selectable]="selectable" [removable]="removable"
+                  (removed)="remove(email)">
+                  {{email}}
+                  <mat-icon matChipRemove *ngIf="removable"></mat-icon>
+                </mat-chip>
+                <input (keydown.space)="$event.preventDefault();" autocomplete="off" matInput [errorStateMatcher]="matcher" required placeholder="{{'enterpriseadmin.emailidadde' | translate}}" app-restrict-input="firstspace" appAlphanumsymb
+                  [formControl]="emailFormControl" [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                  (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+              <div class="" *ngIf="emailFormControl.touched && emailFormControl.errors?.required" class="errormessage text-danger">
+                {{'enterpriseadmin.enteemaiid' | translate}}   
+              </div>
+ 
+              <mat-hint class="employeeadded">{{'enterpriseadmin.emailidadde' | translate}} {{ emails.length ? emails.length:0}}</mat-hint>
+            </mat-form-field>
+          </div>
+          <!-- <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-20 w-100">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <h4 class="mat-pagetitle-3 m-b-0 p-b-15">Invitation to join JSRS</h4>
+              <ckeditor [editor]="Editor" [config]="config" [formControl]="invitContent" appAlphanumsymb required>
+              </ckeditor>
+            </div>
+          </div> -->
+        </div>
+      </div>
+  </div>
+
+</div>
+<app-responseloader *ngIf="showResponsiveLoader"></app-responseloader>

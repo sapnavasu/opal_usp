@@ -1,0 +1,213 @@
+<div id="siteaudit_container" #pageScroll>
+    <app-responseloader *ngIf="disableSubmit"></app-responseloader>
+
+    <div class="desktop" fxLayout="row wrap" fxLayoutAlign="center">
+        <div fxFlex="100">
+            <div class="infobtns" fxLayoutAlign="end">
+                <button mat-raised-button class="m-l-15 auditbtn"
+                    [routerLink]="['/centrecertification/auditlog', appid, security.encrypt(1)]">{{'siteaudit.audilog' | translate}}</button>
+            </div>
+            <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+                <div class="details pd-15">
+                    <div class="d-flex head">
+                        <h2 class="headcolor fs-18 m-0 lh-15">{{omrm_companyname_en}}</h2>
+                    </div>
+                    <div class="m-t-10">
+                        <p class="text-gray m-0 fs-15">{{'siteaudit.traiprovname' | translate}}:<span
+                                class="text-default"> {{omrm_tpname_en}}</span></p>
+                    </div>
+                    <div class=" fs-13 m-t-20 m-b-20 " fxLayout="row wrap">
+                        <p class="application-detais m-r-10 text-gray m-0">{{'siteaudit.applirefno' | translate}}:<span
+                                class="text-default"> {{appdt_appreferno}}</span>
+                        </p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'siteaudit.offitype' | translate}}:<span
+                                class="text-default"> {{appiit_officetype}}</span></p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'siteaudit.applytype' | translate}}:<span
+                                class="text-default"> {{appdt_apptype}}</span></p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'siteaudit.applstat' | translate}}:
+                                <span *ngIf="appdt_status == '1'" class="text-default">{{'table.yettosubmit'
+                                        |translate}}</span>
+                                    <span *ngIf="appdt_status == '2'" class="text-default">{{'Desktop Review Pending' | translate }}</span>
+                                    <span *ngIf="appdt_status == '3'" class="text-default">{{'Missing Files' | translate }}</span>
+                                    <span *ngIf="appdt_status == '4'" class="text-default">{{'Desktop Review Pending' | translate }}</span>
+                                    <span *ngIf="appdt_status == '5'" class="text-default">{{'Payment Pending' | translate }}</span>
+                                    <span *ngIf="appdt_status == '6'" class="text-default">{{'Confirm Payment' | translate }}</span>
+                                    <span *ngIf="appdt_status == '7'" class="text-default">{{'Yet to schedule for Site Audit' | translate }}</span> 
+                                    <span *ngIf="appdt_status == '8' && appdt_projectmst_fk == '1'" class="text-default">{{'Audit Date Selection (Training Provider)' | translate }}</span>
+                                    <span *ngIf="appdt_status == '8' && appdt_projectmst_fk  == '4'" class="text-default">{{'Audit Date Selection (Inspection Centre)' | translate }}</span>
+                                    <span *ngIf="appdt_status == '9'" class="text-default">{{'Ready for Audit' | translate }}</span>
+                                    <span *ngIf="appdt_status == '10'" class="text-default">{{'Quality Manager Approval Pending' | translate }}</span>
+                                    <span *ngIf="appdt_status == '11'" class="text-default">{{'Authority  Approval Pending' | translate }}</span>
+                                    <span *ngIf="appdt_status == '12'" class="text-default">{{'CEO Approval Pending' | translate }}</span>
+                                    <span *ngIf="appdt_status == '13'" class="text-default">{{'Site Audit Report Declined' | translate }}</span> 
+                                    <span *ngIf="appdt_status == '14'" class="text-default">{{'Quality Manager Approval Pending' | translate }}</span> 
+                                    <span *ngIf="appdt_status == '15'" class="text-default">{{'table.resubmforauth'
+                                    |translate}}</span>
+                                    <span *ngIf="appdt_status == '16'" class="text-default">{{'table.resubmforceoapp'
+                                    |translate}}</span> 
+                                    <span *ngIf="appdt_status == '17'" class="text-default">{{'table.approved'
+                                    |translate}}</span>
+                                    <span *ngIf="appdt_status == '18'" class="text-default">{{'table.fineteam'
+                                            |translate}}</span>
+                                    <span *ngIf="appdt_status == '19'" class="text-default">{{'table.susb'
+                                    |translate}}</span>
+                                    <span *ngIf="appdt_status == '20'" class="text-default">Certification Form Declined</span>
+                        </p>
+                        <p class="application-detais m-r-10 text-gray m-0">{{'siteaudit.certstat' | translate}}:
+                            <span *ngIf="!appdt_certificategenon" class="red bold">{{'table.new'
+                                        |translate}}</span>
+                            <span *ngIf="appdt_certificategenon && isexpired == '0'" class="green bold"> {{'table.acti'
+                                            |translate}}</span>
+                            <span *ngIf="appdt_certificategenon && isexpired == '1'" class="red bold">{{'table.expi'
+                                        |translate}}</span>
+                        </p>
+                        <p class="application-detais m-r-10 text-gray m-0" *ngIf="schdate">{{'Site Audit Scheduled on' | translate}}:
+                            <span class="text-default">{{schdate}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="address  p-l-15" fxLayout="row wrap" fxFlex.gt-sm="60" fxFlex="100">
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50" *ngIf="appiit_locmapurl">
+                        <p class="text-gray fs-14">{{'desktop.siteloca' | translate}} <br> <a matTooltip="View Location"
+                                href="https://{{appiit_locmapurl}}"
+                                target="_blank">
+                                <mat-icon class="fa fa-map-marker mapicon"></mat-icon>
+                            </a></p>
+                    </div>
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                        <p class="text-gray fs-14">{{'desktop.dateexoi' | translate}} <br>
+                            <span class="text-default">{{appdt_certificateexpiry}}</span> 
+                            <span class="text-default" *ngIf="!appdt_certificateexpiry">-</span></p>
+                    </div>
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                        <p class="text-gray fs-14">{{'desktop.addon' | translate}} <br>
+                            <span class="text-default">{{appdt_submittedon}}</span></p>
+                    </div>
+                    <div class="add-details" fxFlex.gt-sm="20" fxFlex="50">
+                        <p class="text-gray fs-14">{{'desktop.lastupdat' | translate}}<br>
+                            <span class="text-default">{{appdt_updatedon}}</span>
+                            <span class="text-default" *ngIf="!appdt_updatedon">-</span></p>
+                    </div>
+                </div>
+            </div>
+            <div fxLayoutAlign="end" class="m-t-20 m-b-20" *ngIf="vievalidation">
+                <app-viewvalidation [hidebtn]="true" [newbtn]="true" [callbackFn]="onValidation"
+                    *ngIf="appdt_status == 10 || appdt_status == '11' || appdt_status == 12 || appdt_status == 14"></app-viewvalidation>
+            </div>
+            <div *ngIf="appdt_status ==13" class="m-l-0 m-r-0 m-b-10 m-t-20"
+                [ngClass]="companytmpdtls?.appdt_status == 3 ? 'successcmd' : 'declinecmd'">
+                <h4 class="18 m-5 m-l-0">{{'institue.declcomm' | translate}}</h4>
+                <p class="16  m-b-30" [innerHtml]='appdt_appdeccomment'></p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span
+                            class="fs-16 txt-gry3">{{appdt_appdecon}}</span></p>
+                    <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span
+                            class="fs-16 txt-gry3">{{firstname}}</span></p>
+                </div>
+                <p class="16 m-0"></p>
+            </div>
+            <mat-tab-group class="tabsdetials" #infotab [(selectedIndex)]="mattab"
+            (selectedTabChange)="onTabSelect($event)">
+                <mat-tab *ngFor="let category of sitecategory;let indexOfelement=index;">
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent" (click)="onCategoryTabClick(indexOfelement)">
+                            <span class="contentcircle m-r-10">
+                                {{indexOfelement +1}}
+                            </span>
+                            <div class="tabtitle">
+                                <P class="fs-15">{{category.name}}</P>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <app-organisation [hideforedites]="hideforedites" (previoussixtab)="previoussixtab()"
+                        (maindata)="getchilddata($event)"  (viewdata)="getviewdata($event)" (choiceData)="setChoiceData($event)" (updateSiteData)="updateAnswers($event)" [multichoisecount]="multichoisecount"  [categorygrade] = "categorygrade"  [selectedgold]="selectedgold" [selectedsilver]="selectedsilver" [selectedbronze]="selectedbronze"  [currentIteration]="category.id"></app-organisation>
+                        <button type="button" *ngIf="!commentsview" mat-raised-button class="fs-16 m-t-20 calculatebtn"
+                        (click)="calculatescore()">{{'organisation.calcscor' | translate}}</button>
+                    <div class="table m-t-25" fxLayout="column">
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="background">
+                            <div class="">
+                                <p class="txt-gry3 fs-16">{{'organisation.total' | translate}}: <span
+                                        class="txt-gry fs-16">{{multichoisecount}}</span></p>
+                            </div>
+                          
+                            <div class="">
+                                <p class="txt-gry3 fs-16">{{'organisation.Finalstar' | translate}}: <span class="txt-gry fs-16">
+                                        {{ categoryname }} ({{totalper}}%)</span> </p>
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="gradeimage">
+                            <div class="" fxFlex="40">
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="grade bronze d-flex fs-16"><img src="assets\images\opalimages\BRONZE.svg"
+                                        alt="Grade">{{'siteaudit.gradbron' | translate}} </p>
+            
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="grade silver d-flex fs-16"><img src="assets\images\opalimages\SILVER.svg"
+                                        alt="Grade">{{'siteaudit.gradsilv' | translate}} </p>
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="grade gold d-flex fs-16"><img src="assets\images\opalimages\GOLD.svg"
+                                        alt="Grade">{{'siteaudit.gradgold' | translate}}
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="p-l-15 p-b-15 p-r-15 p-t-20 gradeimage">
+                            <div class="" fxFlex="40">
+                                <p class="txt-gry3 fs-16">{{'siteaudit.value' | translate}} </p>
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="txt-gry3 fs-16">{{selectedbronze }}</p>
+            
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="txt-gry3 d-flex fs-16">{{selectedsilver}} </p>
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="txt-gry3 d-flex fs-16">{{selectedgold }}
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="gradeimage">
+                            <div class="" fxFlex="40">
+                                <p class="txt-gry3 fs-16">{{'siteaudit.perc' | translate}} </p>
+            
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="txt-gry3 fs-16">{{bronzeper}}% </p>
+            
+                            </div>
+                            <div class="" fxFlex="20">
+                                <p class="txt-gry3 d-flex fs-16">{{silverper}}% </p>
+                            </div>
+            
+                            <div class="" fxFlex="20">
+                                <p class="txt-gry3 d-flex fs-16">{{goldper}}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btngroup m-t-30 m-b-10" fxLayout="row" fxLayoutAlign="flex-end" *ngIf="!commentsview">
+                        <button mat-raised-button class="cancelbtn" type="button" *ngIf="indexOfelement == 0"
+                            (click)="previoussixtab();this.goBack()">{{'organisation.canc' | translate}}</button>
+                        <button mat-raised-button class="cancelbtn" type="button" *ngIf="indexOfelement > 0"
+                            (click)="previoussixtab()">{{'organisation.canc' | translate}}</button>
+                        <button mat-raised-button class="submit_btn m-l-20" (click)="submitForm(indexOfelement)">{{'organisation.saveandnext' |
+                            translate}}</button>
+                    </div>                </mat-tab>
+                <mat-tab *ngIf="lastNumber">
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent" (click)="finalgradetab()">
+                            <span class="contentcircle m-r-10">{{lastNumber+1}} </span>
+                            <div class="tabtitle">
+                                <P class="fs-15">{{'siteaudit.finalgrad' | translate}}</P>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <app-finalgrade (appdata)="getappdata($event)" [appdt_gradingreason]="appdt_gradingreason"
+                         [viewcomments]="viewcomments" (canclebtn)="previousfive()">
+                    </app-finalgrade>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

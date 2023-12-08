@@ -1,0 +1,132 @@
+<div fxLayoutAlign="center" id="changeassessor" class="changeassessor" *ngIf="batchdata_data != null">
+    <div class="assessorheader clflex flex-column rwidth">
+        <div class="assessordetails flex-column">
+            <div fxLayout="row" class="clflex rwidth">
+                <div fxLayout="row" class="clflex rwidth ">
+                    <p class="m-r-25">{{'changeassesor.batchno' | translate}}: <span
+                            class="colblack">{{batchdata_data.batchNo}}</span></p>
+                    <p>{{'changeassesor.batchtyp' | translate}}: <span
+                            class="colblack">{{batchdata_data.batchType}}</span></p>
+                </div>
+                <p class="p-t-0">
+                    <button mat-icon-button class="batchIcon" [matMenuTriggerFor]="menu"
+                        aria-label="Example icon-button with a menu">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu class="topmenu menu-items_changeasser" #menu="matMenu">
+                        <button mat-menu-item>
+                            <span>{{'changeassesor.edit' | translate}}</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>{{'changeassesor.dele' | translate}}</span>
+                        </button>
+                    </mat-menu>
+                </p>
+            </div>
+            <div fxLayout="row" class="clflex rwidth p-l-">
+                <p class="bor m-l-0 m-r-10">{{'changeassesor.stat' | translate}}: <span
+                        class="colgreen">{{getassessmentstatus(batchdata_data.status)}}</span></p>
+                <p class="bor">{{'changeassesor.trainpro' | translate}} : <span>{{batchdata_data.branchName}}</span></p>
+            </div>
+        </div>
+
+        <div class="assessordetail1" fxLayout="row">
+            <div class=" flex-column">
+                <p class="m-b-5">{{'changeassesor.totlear' | translate}}</p>
+                <p class="fontblack colblack m-t-0">{{batchdata_data.totalLearners}}/{{batchdata_data.total}}</p>
+            </div>
+            <div class="flex-column ">
+                <p class="m-b-5">{{'changeassesor.assedatim' | translate}} </p>
+                <p class="fontblack colblack m-t-0">{{batchdata_data.aDate | date: 'dd-MM-yyyy'}}
+                    ({{batchdata_data.aStartTime
+                    | date: 'h:mm a'}} - {{batchdata_data.aendTime | date: 'h:mm a'}})</p>
+            </div>
+            <div class="flex-column">
+                <p class="m-b-5">{{'changeassesor.asseswil' | translate}}</p>
+                <p class="fontblack colblack m-t-0">{{batchdata_data.city_en}}</p>
+            </div>
+            <div class=" flex-column">
+                <p class="m-b-5">{{'changeassesor.cate' | translate}}</p>
+                <p class="fontblack colblack m-t-0">{{batchdata_data.cat_en}}</p>
+            </div>
+            <div class="flex-column">
+                <p class="m-b-5">{{'changeassesor.lang' | translate}}</p>
+                <p class="fontblack colblack m-t-0">{{batchdata_data.elang}}</p>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="assessorForm" (ngSubmit)="submit()">
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'changeassesor.cent' | translate}}</mat-label>
+                    <mat-select matNativeControl required formControlName="centre">
+                        <mat-option *ngFor="let option of centreOption" [value]="option">{{option.assessmentcentrename}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'changeassesor.selassesor' | translate}}</mat-label>
+                    <mat-select matNativeControl required formControlName="assessor"
+                        (selectionChange)="changeassessor($event.value)">
+                        <mat-option *ngFor="let option of assignassessorOption" [value]="option">{{option.assessorname}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'changeassesor.ivstaf' | translate}}</mat-label>
+                    <mat-select matNativeControl required disabled formControlName="ivstaff">
+                        <mat-option *ngFor="let option of ivstaffOption" [value]="option">{{option.ivstaffname}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'changeassesor.selenewassesor' | translate}}</mat-label>
+                    <mat-select matNativeControl required formControlName="newassessor" (selectionChange)="getIvQastaff($event.value)"
+                        [disabled]="stktype != 1 && reqassessor">
+                        <mat-option *ngFor="let option of newassessordata"  [value]="option">{{option.assessorname}} from
+                            {{option.assessmentcentrename}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn"ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" ngClass.lg="p-l-30"
+            ngClass.xl="p-l-30" fxFlex="100" class="date_exp " *ngIf="stktype == 1 || !reqassessor">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'New IV/QA Staff' | translate}}</mat-label>
+                    <mat-select matNativeControl  formControlName="newivqa"  [disabled]="!assignediv">
+                        <mat-option *ngFor="let option of ivqastafflist" [value]="option" >{{option.staffname_en}} from
+                            {{option.companyname_en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100" class="date_exp m-b-20">
+                <div *ngIf="stktype != 1 && reqassessor">
+                    <button mat-flat-button type="button" (click)="getcomments()" color="primary"
+                        class="btnbac">{{'changeassesor.reqopaltoallo' | translate}}</button>
+
+                </div>
+            </div>
+
+            <div class="buttonalign" >
+                <button mat-raised-button type="button" (click)="backtolist()" class="btnwhite">{{'changeassesor.canc' |
+                    translate}}</button>
+                <button mat-raised-button class="btnred m-l-15" *ngIf="stktype == 1 || !reqassessor" >{{'changeassesor.sub' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

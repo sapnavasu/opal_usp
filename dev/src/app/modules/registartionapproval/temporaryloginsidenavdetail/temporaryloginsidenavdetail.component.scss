@@ -1,0 +1,309 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#temporylistview{
+  .entercommentcolor{
+    padding-top: 30px;
+    p{
+      font-size: 1rem;  
+      color: #666666;
+      margin: 0px;
+      line-height: 2.5;
+    }
+    span{
+      color: #333333;
+      font-size: 1rem; 
+    }
+   }
+    .otplist{
+        .otpbackground{
+            background-clip: padding-box; 
+            background-color: #fff; 
+            border-radius: 2px;
+            border: 1px solid #dadada;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            .otpaligntext{
+                @include flexstart();
+                p{
+                  color: #57626E;
+                  font-size: 0.75rem;
+                  margin: 0px;
+                  padding-right: 20px;
+                  line-height: 2.2;
+                }
+                span{
+                  color: #333333;
+                  font-size: 0.9375rem;
+                }
+            }
+        }
+        .otptextcolor{
+            padding-top: 30px;
+            padding-bottom: 30px;
+            h2{
+                color: #57626E;
+                font-size: 1rem;
+                margin: 0px;
+            }
+        }
+        .otpmainbackground{
+            .otpvalidityalign{
+                @include flexstart();
+                padding-top: 45px;
+                padding-bottom: 45px;
+                p{
+                    font-size: 0.875rem;
+                    padding-left: 15px;
+                    margin: 0px;
+                    .expiredcolor{
+                        color: #f80000;
+                    }
+                    .reguestcolor{
+                        color: #666666;
+                    }
+                }
+            }
+        }
+        .otprequestmainbackground{
+            .otppaddingspace{
+                padding-top: 45px;
+                padding-bottom: 45px;
+            }
+            .otprequestalign{
+                @include flexstart();
+                padding-bottom: 15px;
+            }
+            p{
+                font-size: 0.875rem;
+                margin: 0px;
+            }
+            .requestcolor{
+                color: #f80000;
+                padding-left: 15px;
+            }
+            .requestnowcolor{
+                color: #666666;
+                span{
+                    font-family: 'opal_semibold';
+                }
+            }
+        }
+    }
+    .imgalignflex{
+        img{
+          object-fit: cover;
+          border-radius: 4px;
+        }
+    }
+    .addedcertificate {
+        padding: 20px;
+        @include spacebetween();
+        border-bottom: 1px solid #ddd;
+        background: #f2f3f7;
+        &:hover {
+          .lablename {
+            color: #57626E;
+            font-size: 0.8125rem;
+          }
+        }
+        }
+      .certificates {
+        display: flex;
+      }
+      .phonewidth{
+        min-width: 165px;
+         }
+         .countrywidth{
+           min-width: 170px;
+         }
+         .mailwidth{
+           min-width: 210px;
+         }
+         .flexoman{
+             span{
+                 color: #333333;
+                 font-size: 0.9375rem;
+             }
+         }
+      .companyandofficeinfo {
+        p {
+          margin: 0;
+        }
+        padding-left: 20px;
+        .lablename {
+          color: #999;
+          font-size: 0.8125rem;
+        }
+        .name {
+          color: #57626E;
+          font-size: 1rem;
+          line-height: 14px;
+        }
+      }
+    .viewcrdentailheader{
+        background-clip: padding-box; 
+        background-color: #fff; 
+        border-radius: 2px;
+        border: 1px solid #dadada;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+       .viewcrdetentailtitle{
+           border-bottom: 1px solid #dadada;
+           padding: 20px;
+           h2{
+               color: #333333;
+               font-size: 1rem;
+               margin: 0px;
+           }
+       }
+       .regtextcolor{
+           @include flexstart();
+           p{
+             color: #57626E;
+             font-size: 0.75rem;
+             margin: 0px;
+             padding-right: 20px;
+             line-height: 2.2;
+           }
+           span{
+             color: #333333;
+             font-size: 0.9375rem;
+           }
+           .activecolor{
+               color: #50af49;
+           }
+       }
+       .widthreg{
+           min-width: 185px;
+       }
+       .regalign{
+           @include flexstart();
+           padding-left: 20px;
+           padding-top: 10px;
+           padding-bottom: 20px;
+       }
+    }
+    .supplierreqcolor{
+        P{
+            color: #333333;
+            font-size: 0.75rem;
+            margin: 0px;
+        }
+    }
+    .alignbtnview{
+        display: flex;
+    }
+}
+
+.updatecommentscroll::-webkit-scrollbar {
+  width: 0.4em;
+  position: absolute;
+  right: 0;
+ }
+.updatecommentscroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+ }
+.updatecommentscroll::-webkit-scrollbar-thumb {
+  background-color: #b8c3cb;
+  outline: 1px solid slategrey;
+ }
+.updatecommentscroll{
+  max-height: 100% !important;
+  overflow-x: auto !important;
+  }
+  
+ .trackhistoryview .tracksidenavwidth{
+    width: 76%;
+  }
+
+@media (max-width:760px){
+  #temporylistview{
+    .regwidth{
+      max-width: 100% !important;
+     }
+     .suppliercode{
+      max-width: 100% !important;
+      }
+      .otpgeneratedwidth{
+        max-width: 100% !important;
+     }
+  }
+    #temporylistview .companyandofficeinfo{
+        padding-left: 0px !important;
+        padding-top: 15px;
+    }
+    .regtextcolor{
+        display: block !important;
+    }
+    .selectproductheaderwithclose {
+        height: auto !important;
+      }
+      .selectproductheaderwithclose .titletext {
+        display: block !important;
+      }
+      .selectproductheaderwithclose .closeandadd {
+        margin-bottom: 10px;
+      }
+      .spacing{
+        padding-right: 10px !important;
+      }
+      .trackhistoryview .tracksidenavwidth{
+        width: 100% !important;
+      }
+}
+
+@media (max-width:768px) and (min-width:766px) {
+    .trackhistoryview .tracksidenavwidth{
+        width: 90% !important;
+    }  
+    #temporylistview{
+      .certificates{
+         width: 100% !important;
+      }
+      .regwidth{
+         max-width: 30% !important;
+      }
+      .otpgeneratedwidth{
+         max-width: 50% !important;
+      }
+      .suppliercode{
+         max-width: 70% !important;
+      }
+    }
+  }
+
+  @media (max-width:1024px) and (min-width:769px) {
+    .trackhistoryview .tracksidenavwidth{
+        width: 92% !important;
+    }
+  }
+@media (max-width:1366px) and (min-width:1280px)  {
+    .trackhistoryview .tracksidenavwidth{
+      width: 90% !important;
+  }
+}

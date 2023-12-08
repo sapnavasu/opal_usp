@@ -1,0 +1,52 @@
+<div id="verified_fields"  dir="{{dir}}" class="{{dir}}">
+    <mat-icon mat-button  [disabled]="!Submitted" [ngClass]="Submitted == true ? 'disable_icon' : ' '" mat-dialog-close matTooltip="close">close</mat-icon>
+    <form [formGroup]="OTPForm" autocomplete="off">
+        <div class="cont_otp">
+            <h4 class="fs-20 txt-gry">{{'successmodel.otpveri' | translate}}</h4>
+            <!-- <p class="fs-16 txt-gry3 m-t-15">{{'successmodel.inpibliandgrap' | translate}}
+                <span>{{OTPForm.controls.email.value}}</span>.
+            </p> -->
+        </div>
+        <div class="otp_fld  txt-gry3">
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+            <!-- <mat-spinner></mat-spinner> -->
+            <p class="text-center">{{'successmodel.entethe' | translate}}</p>
+            <div class="fields">
+                <div class=" divouter">
+                    <mat-form-field appearance="none" class="flexalign divinner">
+                        <input maxlength="4" type="text" formControlName="otp" required
+                            (keydown.space)="$event.preventDefault();" class="inputcolor" [ngClass]="this.partitioned == true? 'partitioned' : 'partitionedrtl'" matInput app-restrict-input="firstspace" appNumberonly>
+                        <span class="otpfield"></span>
+                    </mat-form-field>
+                </div>
+                <div class="error" fxLayoutAlign="center">
+                    <div [fxFlex]="this.partitioned ==true? '52' : '59'" fxLayoutAlign="space-between center" class="m-l-22">
+                       
+                        <mat-error *ngIf="OTPForm.controls.otp?.errors?.invalidOTP" fxFlex="80" class="fs-13">
+                            {{'successmodel.invaliotp' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="OTPForm.controls.otp?.errors?.expiredOTP" fxFlex="80" class="fs-13">
+                            {{'successmodel.expiredotp' | translate}}
+                        </mat-error>
+                        <div fxLayoutAlign="end" fxFlex="100">
+                            <button type="button" class="fs-14 resentbtn" *ngIf="disableResend == false"
+                                [disabled]="disableResend == true" (click)="resendOtp()">{{'successmodel.reseotp' |
+                                translate}}</button>
+                            <mat-hint *ngIf="disableResend == true" class="txt-gry fs-13">{{'successmodel.reseotpin' |
+                                translate}} <span class="txt-red fs-12">{{countDown}}</span></mat-hint>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t-20 btns">
+                <!-- <button mat-raised-button class="procbtn fs-16">{{'successmodel.proc' | translate}}</button> -->
+                <mat-spinner-button (click)="submitOtp()" mat-raised-button class="procbtn m-l-15"
+                    [options]="spinnerButtonOptionsproced"></mat-spinner-button>
+                    <!-- <button mat-raised-button class="procbtn fs-16">{{'successmodel.proc' | translate}}</button> -->
+            </div>
+        </div>
+
+    </form>
+
+</div>

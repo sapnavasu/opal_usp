@@ -1,0 +1,114 @@
+<div id="landingpageid" *ngIf="landEnableDisable">
+  <div class="leftsidecontent">
+    <h3 class="headerinfo">{{'enterpriseadmin.title' | translate}}</h3>
+    <p class="subtitleifo m-0 p-b-10">{{'enterpriseadmin.subtititle' | translate}} 12345 ->  {{ 'Personal' | translate }}</p>
+    <p class="m-0 p-b-10">{{'enterpriseadmin.discription' | translate}}</p>
+    <p class="m-0 p-b-10">{{'enterpriseadmin.subdiscription' | translate}}</p>
+    <p class="m-0">{{'enterpriseadmin.teammember' | translate}}</p>
+    <!-- Hided for don't show again condition restricted -->
+    <div class="dontshowagain">
+      <div class="dontshowcheck">
+        <mat-checkbox [checked]="datachecked == 1" (change)="dontShowAgain($event);">{{'enterpriseadmin.dontshow' | translate}}</mat-checkbox>
+      </div><!-- [routerLink]="['/enterpriseadmin/usermanagement']" -->
+      <button type="button" mat-raised-button color="primary"  (click)="chkUserPermission()"
+        class="height-40">
+        {{'enterpriseadmin.letsbegn' | translate}}  
+      </button>
+    </div>
+    <div class="p-t-50 d-flex eachcountitems">
+        <div  class="eachcountitem"  (click)="divisionRedirect()">
+            <div class="inactiveusers view">
+              <div fxLayout="row wrap" class="plussymbol">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <div class="centeruser">
+                    <span class="addplus">
+                      <i *ngIf="!enterpriseCnt?.division" class="bgi bgi-add"></i>
+                      <span *ngIf="enterpriseCnt?.division">{{enterpriseCnt?.division}}</span>
+                    </span>
+                  </div>
+                  <div class="addingcenter">
+                    <span>{{'enterpriseadmin.divi' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <div class="eachcountitem"  (click)="departmentRedirect()">
+        <div class="invitedusers view">
+          <div fxLayout="row wrap" class="plussymbol">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="centeruser">
+                <span class="addplus">
+                  <i *ngIf="!enterpriseCnt?.department" class="bgi bgi-add"></i>
+                  <span *ngIf="enterpriseCnt?.department">{{enterpriseCnt?.department}}</span>
+                </span>
+              </div>
+              <div class="addingcenter">
+                <span>{{'enterpriseadmin.depa' | translate}}</span>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      
+      <div class="eachcountitem" (click)="userRedirect('A')">
+        <div class="activeusers view">
+          <div fxLayout="row wrap" class="plussymbol">
+          
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="centeruser">
+                <span class="addplus">
+                  <i *ngIf="!enterpriseCnt?.activeUser" class="bgi bgi-add"></i>
+                  <span *ngIf="enterpriseCnt?.activeUser">{{enterpriseCnt?.activeUser}}</span>
+                </span>
+              </div>
+              <div class="addingcenter">
+                <span>{{'enterpriseadmin.actiuser' | translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div  class="eachcountitem" (click)="invitedRedirect()">
+        <div class="businessunits">
+          <div fxLayout="row wrap" class="plussymbol">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="centeruser">
+                <span class="addplus">
+                  <i *ngIf="!enterpriseCnt?.invitedUser" class="bgi bgi-add"></i>
+                  <span *ngIf="enterpriseCnt?.invitedUser">{{enterpriseCnt?.invitedUser}}</span>
+                </span>
+              </div>
+              <div class="addingcenter">
+                <span>{{'enterpriseadmin.inviuser' | translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="enterpriseCnt?.inactiveUser" class="eachcountitem" (click)="userRedirect('I')">
+        <div class="departments view">
+          <div fxLayout="row wrap" class="plussymbol">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="centeruser">
+                <span class="addplus">
+                  <span>{{enterpriseCnt?.inactiveUser}}</span>
+                </span>
+              </div>
+              <div class="addingcenter">
+                <span>{{'enterpriseadmin.inacuser' | translate}}</span>
+              </div>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rightsidecounts">
+    
+  </div>
+</div>
+<app-responseloader class="processloader" *ngIf="!landEnableDisable"></app-responseloader>

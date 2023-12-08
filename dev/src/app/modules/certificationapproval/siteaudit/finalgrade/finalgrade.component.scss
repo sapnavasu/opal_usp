@@ -1,0 +1,155 @@
+#finalgrade {
+    .txt-gry {
+        color: #848484 !important;
+    }
+    .mat-raised-button[disabled] {    
+        opacity: 0.5;
+        cursor: no-drop;
+        } 
+    .ck-content {
+        min-height: 165px !important;
+    }
+    .gradepoints {
+        border-top: 2px solid #d7dce3;
+        padding: 15px;
+
+        p {
+            color: #262626;
+            font-size: 16px;
+            min-width: 50%;
+        }
+
+        .grade {
+            display: flex;
+            align-items: center;
+        }
+
+        .bronze {
+            color: #895b37 !important;
+        }
+
+        .silver {
+            color: #b9babc !important;
+        }
+
+        .gold {
+            color: #ba9666 !important;
+        }
+
+        span {
+            p {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &.overall {
+            p {
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            span {
+                p {
+                    font-size: 20px;
+
+                    img {
+                        width: 36px;
+                        height: 36px;
+                    }
+                }
+            }
+        }
+    }
+.reason {
+    p {
+        font-size: 18px;
+    }
+    .card {
+        width: 100%;
+        border:  1px solid #e3e2e4 !important;
+        padding: 15px;
+        border: 2px; 
+
+        p {
+            color: #262626;
+            font-weight: 400;
+        }
+    }
+}
+.ckeditorborder {
+    min-height: 90px;
+    max-height: 216px;
+    overflow: auto;
+    scroll-behavior: smooth;
+    height: auto;
+    border: 1px solid #d9d9d9;
+    cursor: text;
+    padding: 13px 10px;
+
+    &:hover {
+        border: 1px solid #6ba5ec;
+    }
+
+    .editortitle {
+        color: #666;
+        cursor: text;
+
+
+    }
+
+    p {
+        margin: 0;
+        padding-bottom: 5px;
+        cursor: text;
+    }
+
+    figure {
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .contenthere {
+        p {
+            margin: 0 !important;
+            padding-bottom: 5px;
+            cursor: text;
+            word-break: break-word;
+        }
+    }
+    .ck-content {
+        min-height: 165px;
+       
+    }
+    .ck-editor__editable_inline {
+        min-height: 160px !important;
+    }
+}
+.clearbutton {
+    background-color: #ffff;
+    border: 1px solid #e8e8e8;
+    color: #262626;
+}
+.cancel_btn {
+    min-width: 120px;
+    background-color: #ffff;
+    border: 1px solid #e8e8e8;
+    color: #262626;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 40px;
+    font-size: 15px;
+    box-shadow: none;
+
+}
+.error {
+    color: #dc4c64;
+}
+.mat-raised-button {
+    box-shadow: none;
+    border-radius: 2px;
+    min-width: 90px;
+    font-size: 16px;
+}
+}

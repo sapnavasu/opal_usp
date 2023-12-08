@@ -1,0 +1,186 @@
+<div fxLayout="row wrap" id="qualitymangerlist" fxLayoutAlign="center">
+    <div fxFlex.gt-sm="90" fxFlex="100" class="desktop">
+        <div class="infobtns" fxLayoutAlign="end">
+            <!-- <button mat-raised-button [matMenuTriggerFor]="menu" color="primary"
+                class="ShowHidefs-15 menubtn m-r-10">{{'desktop.valicentre' | translate}}<i
+                    class="fa fa-chevron-down m-l-5" aria-hidden="true"></i></button>
+            <mat-menu #menu="matMenu" class="menu-panel">
+                <button mat-menu-item class="fs-16">{{'desktop.stand' | translate}}</button>
+                <button mat-menu-item class="fs-16">{{'desktop.cust' | translate}}</button>
+            </mat-menu> -->
+            <!-- <button mat-raised-button class="valid menu" color="primary">Valid centre Form</button> -->
+            <button mat-raised-button class="m-l-15 auditbtn">{{'desktop.audilog' | translate}}</button>
+        </div>
+        <div class="knowledgegrid m-t-10 m-b-20">
+            <div class="details pd-15">
+                <div class="d-flex head">
+                    <h2 class="headcolor fs-18 m-0">{{'desktop.knowgridaca' | translate}}</h2>
+                    <!-- <p class="grade d-flex fs-16" *ngIf="bronze"><img src="assets\images\opalimages\BRONZE.svg"
+                            alt="Grade">{{'desktop.gradbron' | translate}} </p>
+                    <p class="gold d-flex fs-16" *ngIf="gold"><img src="assets\images\opalimages\GOLD.svg"
+                            alt="Grade">{{'desktop.gradgold' | translate}}
+                    </p> -->
+                    <!-- <p class="silver d-flex fs-16"><img src="assets\images\opalimages\SILVER.svg"
+                            alt="Grade">{{'desktop.gradsilv' | translate}} </p> -->
+                </div>
+                <p class="text-gray m-0 fs-15">{{'desktop.traiprovname' | translate}}:<span class="text-default">
+                    {{'desktop.knowgridaca' | translate}}</span></p>
+                <div class="d-flex fs-13 m-t-20 m-b-20">
+
+                    <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applirefno' | translate}}:<span
+                            class="text-default"> OPAL-TP-MO-001</span>
+                    </p>
+
+                    <p class="application-detais m-r-10 text-gray m-0">{{'desktop.offitype' | translate}}:<span
+                            class="text-default"> {{'desktop.mainof' | translate}}</span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'desktop.canc' | translate}}:<span
+                            class="text-default">{{'desktop.fres' | translate}} </span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applstat' | translate}}:<span
+                            class="text-default"> {{'desktop.paypend' | translate}}</span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'desktop.certstat' | translate}}:
+                        <!-- <span
+                                class="text-default">Pending</span> -->
+                        <span class=" yetcert">{{'desktop.yettocert' | translate}}</span>
+                        <!-- <span
+                                class="text-default">Active</span>
+                                <span
+                                class="text-default">decline</span> -->
+                    </p>
+                </div>
+            </div>
+            <div class="address d-flex p-l-15">
+                <div class="add-details">
+                    <p class="text-gray fs-14">{{'desktop.sitloca' | translate}}</p>
+                    <i class="fa fa-map-marker fs-25" aria-hidden="true"></i>
+                </div>
+                <div class="add-details">
+                    <p class="text-gray fs-14">{{'desktop.datofexp' | translate}}</p>
+                    <p class="text-default">-</p>
+                </div>
+                <div class="add-details">
+                    <p class="text-gray fs-14">{{'desktop.addeon' | translate}}</p>
+                    <p class="text-default">12/12/12</p>
+                </div>
+                <div class="add-details">
+                    <p class="text-gray fs-14">{{'desktop.lastupdon' | translate}}</p>
+                    <p class="text-default">-</p>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-20 p-b-40">
+            <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-end">
+                <app-viewvalidation [hidebtn]="true"></app-viewvalidation>
+               
+            </div>
+        </div>
+        <!-- <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-25 p-b-45">
+                <div class="coments pd-15">
+                    <span class="fs-18">{{'commentslist.coments' | translate}}</span>
+                    <p class="text-default p-b-15 p-t-15 m-0 lh-26">In publishing and graphic design, Lorem
+                        ipsum is a placeholder text commonly
+                        used to demonstrate the visual form of a document or a typeface without relying on
+                        meaningful content.
+                        Lorem ipsum may be used as a placeholder before final copy is available.</p>
+                    <div class="validmsg d-flex p-t-15">
+                        <p class="text-label fs-16 m-r-20 m-0">{{'commentslist.veryon' | translate}}: <span
+                                class="bold text-value fs-16">01-02-2023</span>
+                        </p>
+                        <p class="text-label fs-16 m-l-20 m-0">{{'commentslist.veryby' | translate}}: <span
+                                class="bold text-value fs-16">01-02-2023</span>
+                        </p>
+                    </div>
+                </div> -->
+                <!-- <div class="decline pd-15">
+                    <span class="fs-18">{{'commentslist.coments' | translate}}</span>
+                    <p class="text-default p-b-15 p-t-15 m-0 lh-26">In publishing and graphic design, Lorem ipsum is a placeholder text commonly
+                        used to demonstrate the visual form of a document or a typeface without relying on meaningful content.
+                        Lorem ipsum may be used as a placeholder before final copy is available.</p>
+                    <div class="validmsg d-flex p-t-15">
+                        <p class="text-label fs-16 m-r-20 m-0">{{'commentslist.veryon' | translate}}: <span class="bold text-value fs-16">01-02-2023</span>
+                        </p>
+                        <p class="text-label fs-16 m-l-20 m-0">{{'commentslist.veryby' | translate}}: <span class="bold text-value fs-16">01-02-2023</span>
+                        </p>
+                    </div>
+                </div> -->
+            <!-- </div>
+        </div> -->
+        <mat-tab-group class="tabsdetials" [(selectedIndex)]="mattab">
+            <!--tab 1-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            1
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{'siteaudit.organis' | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-organisation [hideforeditdata]="true"></app-organisation>
+            </mat-tab>
+            <!--tab 2-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">
+                            2
+                        </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{'siteaudit.infomanag' | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-organisation [hideforeditdata]="true"></app-organisation>
+            </mat-tab>
+            <!--tab 3-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">3</span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{'siteaudit.site' | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+
+            </mat-tab>
+            <!--tab 4-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10"> 4</span>
+                        <div class="tabtitle">
+                            <P class="fs-15"> {{'siteaudit.qual' | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+
+            </mat-tab>
+            <!--tab 5-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10"> 5</span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{'siteaudit.outcomes' | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+            </mat-tab>
+            <!--tab 6-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <span class="contentcircle m-r-10">6 </span>
+                        <div class="tabtitle">
+                            <P class="fs-15">{{'siteaudit.finalgrad' | translate}}</P>
+                        </div>
+                    </div>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

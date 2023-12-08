@@ -1,0 +1,34 @@
+<div class="taskitemtabdetails">
+  <div class="leftsidecontent">
+
+    <div class="calenderview">
+      <mat-card class="calenderforevents">
+        <mat-calendar [dateClass]="dateClass()" [selected]="selectedDate" (selectedChange)="onSelect($event)">
+        </mat-calendar>
+      </mat-card>
+    </div>
+  </div>
+  <div class="rightsidecontent">
+    <div class="headerrowright">
+      <p class="datenum">02</p>
+      <p>Wednesday</p>
+    </div>
+    <mat-accordion class="eventsindetailed">
+      <mat-expansion-panel *ngFor="let event of eventlists" >
+        <mat-expansion-panel-header (click)="scrollTo('page-content')">
+          <mat-panel-title>
+            <div class="aligncenter">
+              <div class="square"></div>
+              <p> {{event.eventname}} </p>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="innerdetails">
+          <i class="bgi bgi-Time"></i>
+          <p>{{event.eventtime}}</p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </div>
+</div>

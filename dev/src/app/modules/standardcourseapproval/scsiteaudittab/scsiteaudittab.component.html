@@ -1,0 +1,206 @@
+<div  class="projlstngph w-100 listsector" *ngIf="!siteAuditRes">
+    <div class="leftmainspace">
+        <div class="subcontent">
+            <div class="descriptitlesector">
+                <p class="pagetitle"></p>
+                </div>
+            <div fxLayout="row wrap" >
+                <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth m-r-25"></span>
+              </div>
+          <div fxLayout="row wrap" >
+            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-25" ngClass.md="m-l-25"
+            ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100" class="pagetitle secondwidth"></span>
+          </div>
+          <div fxLayout="row wrap" >
+            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-0" ngClass.md="m-l-25"
+            ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100" class="pagetitle secondwidth"></span>
+          </div>
+          <div fxLayout="row wrap" >
+            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-25" ngClass.md="m-l-25"
+            ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100" class="pagetitle secondwidth"></span>
+          </div>
+          <div fxLayout="row wrap" >
+            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-25" ngClass.md="m-l-25"
+            ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100" class="pagetitle secondwidth"></span>
+          </div>
+        </div>
+    </div>
+    </div>
+<div id="siteauidtscore"  fxLayoutAlign="center">
+    <div fxFlex="100">
+        <form autocomplete="off" #siteaudit="ngForm">
+          <div *ngIf="projectid == 4">
+            <mat-checkbox #editchkbox [(ngModel)]="selectAll" [ngModelOptions]="{standalone: true}" (change)="checkAllFun($event)" class="m-l-28 allcheckBox" *ngIf="!viewapproveaudit"> {{ 'All Approved' | translate}}
+            </mat-checkbox>
+          </div>
+                <div class="organisation_questions m-t-30">
+                    <ol class="nested-counter-list" *ngIf="siteAuditRes">
+                        <li *ngFor="let list of siteAuditRes;let lindex=index;">
+                            <div *ngIf="!list.title"  class="sabquestn m-b-30">
+                                {{ifarabic ? list.categorytitle_ar : list.categorytitle}}
+                                <div class="btns m-l-20" fxLayout="row" fxLayoutAlign="flex-start center" *ngIf="!viewapproveaudit">
+                                    <button class="m-r-15" (click)="edittitle(list);list.title=true;"><i
+                                        class="opalicon opal-edit fs-16" fxLayoutAlign="start center"></i></button>
+                                    <button class="m-r-15" (click)="deleteTopic(list,lindex)"><mat-icon fxLayoutAlign="start center" class="fa fa-trash-o "></mat-icon></button>
+                                </div>
+                            </div>
+                            <div *ngIf="list.title" class="sabquestneditmode m-b-30">
+                                <mat-form-field appearance="outline">
+                                    <input matInput [(ngModel)]="list.categorytitle" [ngModelOptions]="{standalone: true}" *ngIf="!ifarabic">
+                                    <input matInput [(ngModel)]="list.categorytitle_ar" [ngModelOptions]="{standalone: true}" *ngIf="ifarabic">
+                                </mat-form-field>
+                                <div class="btnssavcancel m-l-20" fxLayout="row" fxLayoutAlign="flex-start center" *ngIf="!viewapproveaudit">
+                                        <button mat-raised-button type="button" color="primary" class="height-28 m-r-15" (click)="saveTitle(list)">{{'staffpractical.save' | translate}}</button>
+                                        <button mat-raised-button type="button" color="secondary" class="height-28" (click)="canceltitle(list,lindex);">{{'staffpractical.cancel' | translate}}</button>
+                                </div>
+                            </div>
+                            <ol>
+                                <li *ngFor="let sublist of list.ques;let subindex=index;">
+                                    <div *ngIf="!sublist.title" class="saquestn m-b-20">
+                                            {{ifarabic ? sublist.question_ar : sublist.question}}
+                                        <div class="btns m-l-20" fxLayout="row" fxLayoutAlign="flex-start center" *ngIf="!viewapproveaudit">
+                                            <button class="m-r-15" (click)="editSubtitle(sublist);"><i
+                                                class="opalicon opal-edit fs-16" fxLayoutAlign="start center"></i></button>
+                                            <button class="m-r-15" (click)="deleteQuestion(sublist,subindex,lindex)">
+                                                <mat-icon fxLayoutAlign="start center" class="fa fa-trash-o "></mat-icon>
+                                            </button>
+                                            <button class="m-r-15" *ngIf="!sublist.commentbox" (click)="editComment(sublist);">
+                                                <mat-icon fxLayoutAlign="start center" type="button">chat_bubble_outline</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!sublist.title && sublist.questiontype==1" class="saans m-b-30">
+                                        <mat-radio-group class="example-radio-group" (change)="radioChange()" [(ngModel)]="sublist.isselected" [ngModelOptions]="{standalone: true}">
+                                            <mat-radio-button class="example-radio-button" 
+                                                *ngFor="let asradio of sublist.answer;let aind = index" [value]="ifarabic ?asradio.answer:asradio.answer" [checked]="asradio.isselected == 'true'" [disabled]="viewapproveaudit">
+                                                  {{ifarabic ? asradio.answer_ar : asradio.answer}}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>     
+                                    <div *ngIf="!sublist.title && sublist.questiontype==2" class="saans m-b-30">
+                                        <section *ngFor="let ing of sublist.answer; let aind = index" class="example-section">
+                                            <mat-checkbox [checked]="ing.isselected" [disabled]="viewapproveaudit"
+                                               [(ngModel)]="ing.isselected" [ngModelOptions]="{standalone: true}">
+                                              {{ing.answer}}
+                                            </mat-checkbox>
+                                          </section>
+                                    </div>                                  
+                                    <div *ngIf="sublist.title" class="sabquestneditmode m-b-30">
+                                            <mat-form-field appearance="outline">
+                                                <input matInput [(ngModel)]="sublist.question" [ngModelOptions]="{standalone: true}" *ngIf="!ifarabic">
+                                                <input matInput [(ngModel)]="sublist.question_ar" [ngModelOptions]="{standalone: true}" *ngIf="ifarabic">
+                                            </mat-form-field>
+                                            <div class="btnssavcancel m-l-20" fxLayout="row" fxLayoutAlign="flex-start center">
+                                                    <button mat-raised-button type="button" color="primary" class="height-28 m-r-15" (click)="saveQuestion(sublist);">{{'staffpractical.save' | translate}}</button>
+                                                    <button mat-raised-button type="button" color="secondary" class="height-28" (click)="cancelSubtitle(sublist)">{{'staffpractical.cancel' | translate}}</button>
+                                            </div>
+                                    </div>
+                                    <div class="fields m-t-20 m-b-40" *ngIf="sublist.commentbox">
+                                        <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                                            <div fxFlex="100" fxFlex="90" class="remark">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label> {{'uploadassess.comments' | translate}}</mat-label>
+                                                    <textarea maxlength="2500" matInput [(ngModel)]="sublist.comments" [ngModelOptions]="{standalone: true}" [disabled]="viewapproveaudit"></textarea>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="w-100" fxLayout="row wrap" fxLayoutAlign="flex-start center" *ngIf="!viewapproveaudit">
+                                                <div fxFlex="100" class="documents documentsrow">
+                                                    <app-filee #fileupload1 [fileMstRef]="getDriveInput(sublist.fileupload)" [requiredfield]="false"
+                                                        (filesSelected)="fileeSelected($event,getDriveInput(sublist.fileupload))" [(ngModel)]="sublist.fileupload" [ngModelOptions]="{standalone: true}"
+                                                        [notePosition]="'bottom'">
+                                                    </app-filee>
+                                                    <span class="text-gray">
+                                                        {{'uploadassess.upassesserror' | translate}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="w-100" *ngIf="viewapproveaudit && sublist.fileupload != null">
+                                                <div fxFlex="50" class="documents documentsrow m-b-20">
+                                                    <mat-label class="filelabel">{{'staffpractical.uploadeddoc' | translate}}</mat-label>
+                                                    <div class="uploadeddoc m-t-10" fxLayoutAlign="start center">
+                                                        <img src="assets/images/opalimages/pdf.png"/>
+                                                        <a href="{{sublist.link}}" target="_blank" class="m-l-10 txt-gry">{{'staffpractical.view' | translate}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="flex-end" *ngIf="!viewapproveaudit">
+                                            <button mat-raised-button class="cancelbtn fs-15" (click)="cancelComment(lindex,subindex,list,sublist);">{{'staffpractical.cancel' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </li>
+                               
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+         
+            <div class="reason m-l-10" *ngIf="projectid == 4">
+                <div *ngIf="viewcomments">
+                 <p class="fs-18 ">{{'company.reasforgrad' | translate}}</p>
+                 <div class="card" *ngIf="viewcomments || appdt_gradingreason">
+                         <p class="fs-16" [innerHTML]="techinfo"></p>
+                 </div>
+                 </div >
+                         <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10 m-l-25 m-r-25" *ngIf="!viewcomments">
+                           <div fxFlex.gt-sm="100" fxFlex="100">
+                             <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                               <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                                 <p class="editortitle importantfield txt-gry3">{{'company.reasforgrad' | translate}} <span class="error" *ngIf="manditory">*</span> </p>
+         
+                                 <div class="ckeditorborder">
+                                   <div class="contenthere">
+                                     <p class="fs-16 txt-gry3" [innerHtml]='techinfo | striphtml'></p>
+                                   </div>
+                                 </div>
+                                 <div class="messagecount" fxLayoutAlign="flex-end">
+                                   <p class="m-0 txt-gry"> {{length_Of_ck}} / 5000</p>
+                                 </div>
+                               </div>
+                             </div>
+                             <div fxLayout="row wrap" *ngIf="edittechinfo">
+                               <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-10">
+                                 <div class="d-flex">
+                                   <span class="d-block ckeditortitle p-b-5 importantfield txt-gry">{{'company.reasforgrad' | translate}}<span class="error" *ngIf="manditory"> *</span></span>
+                                 </div>
+                                 <div class="ckeditror finalgrade">
+                                   <ckeditor  (change)="onChangeeditor($event)" [(ngModel)]="contact" [ngModelOptions]="{standalone: true}" [editor]="Editor" [config]="config" appAlphanumsymb rows="5"></ckeditor>
+                                 <mat-hint *ngIf="length_Of_ck>5000" class="error font-14"
+                                   align="start">{{'validation.cannexcechar5' | translate}}</mat-hint>
+                                 
+                                 <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                                   <p class="txt-gry m-0 m-t-5"> {{length_Of_ck}}/5000</p>
+                                 </div> 
+                                 <div class="clearbut p-t-10 b-5" fxLayoutAlign="flex-end">
+                                   <button type="button" [disabled]="length_Of_ck==0"
+                                     (click)="resinfo()" mat-raised-button
+                                     class="m-r-10 clearbutton button-40">{{'validation.clear' | translate}}</button>
+                                   <button mat-raised-button color="primary" [disabled]="length_Of_ck>5000 || length_Of_ck == 0"
+                                     (click)="messagedone()" class="button-40">{{'validation.done' |
+                                     translate}}</button>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                         </div>
+                 </div> 
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30" *ngIf="!viewapproveaudit">
+                    <button mat-raised-button type="button" color="secondary" class="prevbtn height-45 m-r-15 fs-16" (click)="cancelSiteAudit(siteAuditRes)" [disabled]="clickDisable">{{'staffpractical.cancel' | translate}}</button>
+                        <!-- <button mat-raised-button class="prevbtn height-45 m-r-15 fs-16" (click)="downLoadPdf()" type="button" [disabled]="clickDisable || disableSelection || applicationtype == 3">{{'Preview Site Audit Report' | translate}}</button> -->
+                        <button mat-raised-button type="button" color="primary" class="savnxtbtn height-45 fs-16" (click)="save(siteAuditRes)" [disabled]="clickDisable || disableSelection || applicationtype == 3">{{'staffpractical.savnxt' | translate}}
+                            <mat-icon *ngIf="clickDisable">
+                                    <mat-spinner diameter="20">
+                                    </mat-spinner>
+                            </mat-icon>
+                    </button>
+                </div>
+            </form>
+    </div>
+</div>
+
+                                                        <!--mat-hint class="txt-gry fs-12"> {{'staffpractical.fileerror' | translate}} </mat-hint-->

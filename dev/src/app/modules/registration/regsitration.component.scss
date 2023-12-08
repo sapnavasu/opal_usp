@@ -1,0 +1,839 @@
+.for {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #006cb7;
+    margin: 0px;
+}
+
+.frequentlyaskedtext {
+    h3 {
+        font-size: 1.25rem;
+        font-weight: normal;
+        color: #d03a2e;
+        padding-left: 30px;
+        margin: 0px;
+    }
+    p {
+        padding-left: 32px;
+    }
+}
+.shadowbackgroundimage {
+    h5 {
+        color: #ffffff;
+        margin: 0px;
+    }
+    p {
+        color: #ffffff;
+        font-weight: normal;
+        margin: 0px;
+    }
+}
+.textcenter {
+    text-align: center;
+    padding-top: 48px;
+}
+
+.backgroundgradient {
+    background-color: rgba(250, 252, 250, 0.7);
+}
+
+.submitbtn {
+    color: #f6ffff;
+    line-height: 40px;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: #294c82;
+    width: 128px;
+    height: 44px;
+    border-radius: 5px;
+}
+
+.cancelbtn {
+    color: #63686e;
+    line-height: 40px;
+    width: 86px;
+    height: 44px;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: #e8ebf0;
+    margin-right: 12px;
+    border-radius: 5px;
+    margin-bottom: 45px;
+}
+
+.group img {
+    text-align: center;
+    padding-right: 12px;
+}
+.lypistextalign {
+    h2 {
+        font-size: 2.25rem;
+        font-family: calibri;
+        font-weight: normal;
+        color: white;
+        text-align: center;
+        margin: 20px 0px 0px 0px;
+    }
+}
+
+.userregistrationbackgroungimage {
+    background-image: url("~/assets/images/backgroundimage.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.shadowbackgroundimage {
+    background-image: url("~/assets/images/shadowbackgroundimage.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-width: 400px;
+    min-height: 200px;
+}
+.lypistext {
+    span {
+        font-weight: bold;
+        color: white;
+    }
+    p {
+        font-size: 1rem;
+        font-family: calibri;
+        font-weight: normal;
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+}
+
+.userwidth {
+    padding-right: 54px;
+    padding-left: 54px;
+    background-color: white;
+    height: 680px;
+}
+.frequentlyaskedheight {
+    height: 680px;
+}
+.mat-expansion-panel {
+    background: transparent;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-expansion-panel {
+    box-shadow: none;
+}
+.userregistrationheight {
+    height: 680px;
+}
+
+.boxshadowuuser {
+    color: #63686e;
+    line-height: 40px;
+    width: 206px;
+    height: 78px;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: #e8ebf0;
+    margin-right: 12px;
+}
+
+::ng-deep.mat-tab-label-active::after {
+    content: "";
+    position: absolute;
+    left: 80px;
+    top: 71px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #006cb7;
+    clear: both;
+}
+
+::ng-deep.userregistrationbackgroungimage .mat-tab-label-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: visible;
+    z-index: 1;
+}
+::ng-deep.mat-tab-label {
+    min-height: 48px;
+    padding: 0 24px;
+    margin-left: 2px;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: initial;
+    min-width: 160px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+}
+::ng-deep.userregistrationbackgroungimage .mat-tab-header {
+    background-color: transparent;
+    color: white;
+    padding-bottom: 60px;
+}
+::ng-deep.userregistrationbackgroungimage .mat-tab-label {
+    height: 78px;
+    padding: 0 24px;
+    background-color: #ffffff;
+    color: #006cb7;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: initial;
+    min-width: 204px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+}
+::ng-deep.userregistrationbackgroungimage .mat-ink-bar {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    display: none;
+    transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+}
+::ng-deep.newregistration .mat-tab-label .mat-tab-label-content-active {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    color: white;
+    i {
+        color: #ffffff;
+    }
+}
+::ng-deep.userregistrationbackgroungimage .mat-tab-label .mat-tab-label-content {
+    font-size: 1rem;
+}
+::ng-deep.userregistrationbackgroungimage .mat-tab-label-active {
+    background-color: #006cb7 !important;
+    color: white;
+    overflow: visible;
+}
+::ng-deep.userregistrationbackgroungimage .mat-tab-list {
+    min-height: 70px !important;
+    padding: 20px 15px !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: initial;
+    min-width: 160px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    text-align: left !important;
+    position: relative;
+}
+.scrollbarFrequently {
+    overflow-x: hidden;
+    max-height: 400px;
+}
+.scrollbarFrequently::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbarFrequently::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.scrollbarFrequently::-webkit-scrollbar-thumb {
+    background: #dadada;
+}
+.scrollbarFrequently::-webkit-scrollbar-thumb {
+    background: #dadada;
+}
+
+.flexitems {
+    display: flex;
+    span {
+        color: #006cb7;
+        text-decoration: underline;
+    }
+    p {
+        color: #333333;
+    }
+}
+@media (max-width: 768px) {
+    .spacing {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+@media (max-width: 767px) {
+    ::ng-deep.mat-tab-label-active::after {
+        content: "";
+        position: absolute;
+        left: 17px;
+        top: 54px;
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-top: 20px solid #006cb7;
+        clear: both;
+    }
+}
+
+.headerstylings {
+    background: #f2f3f7 !important;
+    position: relative;
+}
+
+.bottominfo {
+    margin-left: auto;
+    display: flex;
+    max-width: 80%;
+    margin-right: auto;
+    margin-top: -60px;
+    padding-bottom: 30px;
+
+    .rightsideinfo {
+        width: 315px;
+        min-width: 315px;
+        max-width: 315px;
+        margin-left: 10px;
+        border-radius: 10px;
+    
+
+    }
+    .leftisideinfo {
+        border-radius: 10px; /* border radius */
+        background-clip: padding-box; /* prevents bg color from leaking outside the border */
+        background-color: #fff; /* layer fill content */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* drop shadow */
+        padding: 20px;
+        width: calc(100% - 315px);
+        margin-right: 10px;
+        .headers {
+            .mainheader {
+                color: #ef8436;
+                font-size: 1.125rem;
+                font-weight: bold;
+                margin-bottom: 5px;
+                padding-bottom: 15px;
+            }
+        }
+
+        ::ng-deep {
+            .mat-tab-group {
+                flex-direction: row;
+            }
+            .mat-tab-header {
+                border-bottom: none;
+            }
+            .mat-tab-header-pagination {
+                display: none !important;
+            }
+            .mat-tab-labels {
+                flex-direction: column;
+            }
+            .mat-ink-bar {
+                height: 100%;
+                left: 98% !important;
+                display: none;
+            }
+            .mat-tab-body-wrapper {
+                flex: 1 1 auto;
+            }
+        }
+    }
+}
+.completebanner {
+    display: flex;
+    justify-content: center;
+    min-height: 260px;
+    .backtohome {
+        display: block;
+    }
+    .regcontentbanner {
+        display: flex;
+        max-width: 90%;
+        justify-content: space-between;
+        padding-top: 10px;
+        .rightregcontent {
+            text-align: center;
+        }
+    }
+    .leftsiddebanner {
+        width: 30%;
+        background: #fff;
+        .welcomelybia {
+            color: #333;
+            font-size: 0.875rem;
+            text-align: center;
+            padding-top: 5px;
+        }
+        .logoandgoback {
+            width: 100%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .backtohome {
+                color: #333;
+                font-size: 0.875rem;
+                position: relative;
+                top: 32px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                i {
+                    padding-right: 6px;
+                    font-size: 0.625rem;
+                }
+            }
+        }
+    }
+    .rightsidebanner {
+        width: 70%;
+        background-size: cover;
+        background: #c5dcfe;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 180px;
+        .innerrightbanner {
+            position: relative;
+            height: 100%;
+            max-width: 95%;
+            p {
+                color: #333;
+            }
+            .helplinect {
+                color: #333;
+                font-size: 0.875rem;
+                padding-top: 5px;
+                text-align: right;
+            }
+            .leftregcontrent {
+                width: 70%;
+                padding-left: 60px;
+                .header {
+                    color: #006cb7;
+                    font-size: 1.375rem;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+                .submitprofile {
+                    color: #333;
+                    font-size: 0.875rem;
+                }
+            }
+            .rightregcontent {
+                .loginbutton {
+                    color: #fff;
+                    font-size: 1rem;
+                    background: #ef8436;
+                    width: 100px;
+                    height: 40px;
+                    border-radius: 50px !important;
+                }
+            }
+        }
+        .flaglypis {
+            left: 21px;
+            max-width: 60px;
+            position: absolute;
+            top: 119px;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+.topheaderimage {
+    min-height: 225px;
+}
+.topheaderimage {
+    img {
+        max-width: 100%;
+    }
+}
+.landingpagereg {
+    .landinginvestorcontent {
+        border-radius: 10px; /* border radius */
+        background-clip: padding-box; /* prevents bg color from leaking outside the border */
+        background-color: #fff; /* layer fill content */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* drop shadow */
+        padding: 20px;
+        padding-top: 30px;
+        position: relative;
+        height: auto;
+        .mainheader {
+            color: #006cb7;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .bigheader {
+            color: #ef8436;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .featurelist {
+            padding-left: 22px;
+            li {
+                padding-bottom: 12px;
+                color: #656565;
+                font-size: 0.9375rem;
+            }
+        }
+        .morefeature {
+            position: absolute;
+            height: 45px;
+            bottom: 0;
+            color: #333;
+            font-size: 0.875rem;
+            font-weight: bold;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 20px;
+        }
+    }
+}
+.completebanner {
+    display: flex;
+    justify-content: center;
+    min-height: 260px;
+    .backtohome {
+        display: block;
+    }
+    .regcontentbanner {
+        display: flex;
+        max-width: 90%;
+        justify-content: space-between;
+        padding-top: 10px;
+        .rightregcontent {
+            text-align: center;
+        }
+    }
+    .leftsiddebanner {
+        width: 30%;
+        background: #fff;
+        .welcomelybia {
+            color: #333;
+            font-size: 0.875rem;
+            text-align: center;
+            padding-top: 5px;
+        }
+        .logoandgoback {
+            width: 100%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .backtohome {
+                color: #333;
+                font-size: 0.875rem;
+                position: relative;
+                top: 32px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                i {
+                    padding-right: 6px;
+                    font-size: 0.625rem;
+                }
+            }
+        }
+    }
+    .rightsidebanner {
+        width: 70%;
+        background-size: cover;
+        background: #c5dcfe;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 180px;
+        .innerrightbanner {
+            position: relative;
+            height: 100%;
+            max-width: 95%;
+            p {
+                color: #333;
+            }
+            .helplinect {
+                color: #333;
+                font-size: 0.875rem;
+                padding-top: 5px;
+                text-align: right;
+            }
+            .leftregcontrent {
+                width: 70%;
+                padding-left: 60px;
+                .header {
+                    color: #006cb7;
+                    font-size: 1.375rem;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+                .submitprofile {
+                    color: #333;
+                    font-size: 0.875rem;
+                }
+            }
+            .rightregcontent {
+                .loginbutton {
+                    color: #fff;
+                    font-size: 1rem;
+                    background: #e8842f;
+                    width: 100px;
+                    height: 40px;
+                    border-radius: 50px !important;
+                }
+            }
+        }
+        .flaglypis {
+            left: 21px;
+            max-width: 60px;
+            position: absolute;
+            top: 119px;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+.topheaderimage {
+    min-height: 225px;
+}
+
+.individualcard {
+    min-height: 207px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    .cardtwo {
+        background: #fff !important;
+        
+        position: relative;
+        border-radius: 10px;
+        img {
+            position: relative;
+            right: 0;
+            max-width: 70%;
+        }
+        .personemail {
+            color: #e8842f;
+            font-size: 0.9375rem;
+            font-weight: bold;
+            word-break: break-word;
+        }
+        .disclosetext {
+            font-size: 0.75rem;
+        }
+        .personname {
+            color: #006cb7;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .hitext
+        {
+            color: #656565;
+            margin-bottom: 5px;
+        }
+    }
+   
+}
+.regfooter {
+    .login_footer {
+        display: flex;
+        justify-content: space-between;
+        background: transparent;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 80.33% !important;
+        padding-bottom: 20px;
+    }
+    .login_footer .login_footer_left ul li a {
+        color: #333 !important;
+        display: flex;
+        align-items: center;
+        font-size: 15px !important;
+    }
+    .login_footer_right {
+        color: #333 !important;
+        font-size: 15px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .submitprofile {
+        color: #8ebae6;
+        font-size: 0.9375rem;
+        margin-bottom: 38px;
+    }
+    .completebanner {
+        min-height: 320px !important;
+    }
+    .completebanner .regcontentbanner {
+        max-width: 100% !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .leftregcontrent {
+        width: 66% !important;
+        padding-left: 60px;
+    }
+    .completebanner .rightsidebanner .innerrightbanner {
+        position: relative;
+        height: 100%;
+        max-width: 95% !important;
+    }
+    .completebanner .rightsidebanner {
+        width: 100%;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .helplinect {
+        padding-right: 15px;
+    }
+    ::ng-deep.procinvestorinfo .mat-tab-header {
+        width: 100% !important;
+    }
+    .bottominfo {
+        margin-left: auto;
+        display: flex;
+        max-width: 95%;
+        margin-top: -30px;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+
+    ::ng-deep.bottominfo .mat-tab-group {
+        flex-direction: column !important;
+    }
+    .tabcontents {
+        margin-left: 0px !important;
+        margin-top: 10px;
+    }
+    ::ng-deep.matboxes {
+        max-height: 254px !important;
+        min-height: 254px !important;
+    }
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .bottominfo {
+        margin-left: auto;
+        display: flex;
+        max-width: 95%;
+        margin-top: -30px;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+    .completebanner .rightsidebanner {
+        width: 91%;
+    }
+    .completebanner {
+        min-height: 290px !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner {
+        position: relative;
+        height: 100%;
+        max-width: 96% !important;
+    }
+    .completebanner .regcontentbanner {
+        max-width: 96% !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .leftregcontrent {
+        width: 70% !important;
+        padding-left: 60px;
+    }
+    ::ng-deep.procinvestorinfo .mat-tab-label {
+        height: auto;
+        max-height: 250px !important;
+        min-height: 250px !important;
+        background: #f0f1f5;
+        margin-bottom: 20px;
+        padding: 15px;
+        opacity: 1;
+        text-align: center;
+        padding-top: 25px;
+        border-radius: 2px;
+        position: static;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .header {
+        font-size: 26px !important;
+    }
+    .bottominfo {
+        margin-left: auto;
+        display: block !important;
+        max-width: 95%;
+        margin-top: -30px;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+    .leftisideinfo {
+        width: auto !important;
+        margin-right: 0px !important;
+    }
+    .rightsideinfo {
+        width: 304px !important;
+        margin-left: 0px !important;
+        margin-top: 10px;
+    }
+    .matboxes {
+        max-height: 310px !important;
+        min-height: 310px !important;
+    }
+    .completebanner {
+        justify-content: center;
+        min-height: 225px;
+        display: block !important;
+    }
+    .completebanner .leftsiddebanner {
+        width: 100%;
+        background: #fff;
+        min-height: 170px !important;
+    }
+    .completebanner .leftsiddebanner .logoandgoback {
+        width: 100%;
+        height: 60%;
+        display: block !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .rightsidebanner {
+        width: 100% !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner {
+        position: relative;
+        height: 100%;
+        max-width: 100% !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .leftregcontrent {
+        width: 100% !important;
+        padding-left: 60px;
+    }
+    .completebanner .regcontentbanner {
+        display: block !important;
+        max-width: 100% !important;
+        justify-content: space-between;
+        padding-top: 0px !important;
+    }
+    .makeitright {
+        text-align: center;
+    }
+    .completebanner .leftsiddebanner .logoandgoback .backtohome {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .completebanner .regcontentbanner .rightregcontent {
+        text-align: center;
+        margin-bottom: 42px;
+    }
+    .submitprofile {
+        margin-bottom: 0px !important;
+    }
+    .completebanner .rightsidebanner .innerrightbanner .helplinect {
+        padding-right: 15px;
+    }
+}

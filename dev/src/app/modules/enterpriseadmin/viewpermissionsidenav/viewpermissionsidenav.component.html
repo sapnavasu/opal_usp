@@ -1,0 +1,126 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+            <div class="closeandadd">
+                <mat-icon mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+                    (click)="showSweetjsrscertificatealert()" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+                <h5 class="m-0 p-l-20 tt">View Module Access<mat-icon class="bgi bgi-info"
+                        (click)="toggleShowDivviewpermission('permission')">info_outline</mat-icon></h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 permission" [@slideInOut]="animationState1">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+            <mat-card-header>
+                <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                    <mat-card-subtitle class="informationtext fs-14">
+                        View your module access and permissions set by the Company Admin.
+                    </mat-card-subtitle>
+                </div>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>
+<div fxLayout="row wrap" fxFlexAlign="center" class="p-t-0">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottom">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="companyinfomcp p-l-75">
+            <img src="{{basicdata?.userdp}}" onError="this.src = 'assets/images/avatar.svg'" alt="user image">
+          <!-- <img src="{{userProfileImage}}" onError="this.src = 'assets/images/avatar.svg'" alt="user image"> -->
+          <!-- <img src="./assets/images/avatar.svg" alt="user image"> -->
+          <div class="p-l-10">
+            <p class="username">{{basicdata?.fname}} {{basicdata?.mName}}
+              {{basicdata?.lname}}</p>
+            <p class="designation">{{basicdata?.designation}}</p>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+<div class="innnerpartofdrwer">
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" id="jsrscertificatelist">
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" id="viewlistpermission">
+                    <table mat-table [dataSource]="dataSource" class="widthspace ">
+                        <!-- Module Column -->
+                        <ng-container matColumnDef="module">
+                            <th mat-header-cell *matHeaderCellDef class="modulefont">Modules</th>
+                            <td mat-cell *matCellDef="let element" class="p-l-40" data-label="Modules"
+                                [class.bordernone]="element.type==2" [class.titlecolor]="element.type==1">
+                                {{element.name}}
+                            </td>
+                        </ng-container>
+
+                        <!-- create Column -->
+                        <ng-container matColumnDef="create">
+                            <th mat-header-cell *matHeaderCellDef class="createfont">Create</th>
+                            <td mat-cell [class.bordernone]="element.type==2" data-label="Create"
+                                [class.bordertop]="element.type==1" *matCellDef="let element">
+                                <!-- <mat-checkbox class="tick bgi-ticksign" ></mat-checkbox> -->
+                                <input type="checkbox" *ngIf="element.type==2">
+                                <label for="checkboxOne"></label>
+                            </td>
+                        </ng-container>
+                        <!-- update Column -->
+                        <ng-container matColumnDef="update">
+                            <th mat-header-cell *matHeaderCellDef class="createfont">Update</th>
+                            <td mat-cell [class.bordertop]="element.type==1" data-label="Update"
+                                [class.bordernone]="element.type==2" *matCellDef="let element">
+                                <!-- <mat-checkbox class="untick bgi-uncheck" *ngIf="element.type==2"></mat-checkbox> -->
+                                <input type="checkbox" class="cross-checkbox" *ngIf="element.type==2">
+                                <label for="checkboxOne"></label>
+                            </td>
+                        </ng-container>
+
+                        <!-- read Column -->
+                        <ng-container matColumnDef="read">
+                            <th mat-header-cell *matHeaderCellDef class="createfont">Read</th>
+                            <td mat-cell [class.bordertop]="element.type==1" data-label="Read"
+                                [class.bordernone]="element.type==2" *matCellDef="let element">
+                                <!-- <mat-checkbox class="disabletick" *ngIf="element.type==2"></mat-checkbox> -->
+                                <input type="checkbox" disabled="disabled" *ngIf="element.type==2">
+                                <label for="checkboxOne"></label>
+                            </td>
+                        </ng-container>
+
+                        <!-- delete Column -->
+                        <ng-container matColumnDef="delete">
+                            <th mat-header-cell *matHeaderCellDef class="createfont">Delete</th>
+                            <td mat-cell [class.bordertop]="element.type==1" data-label="Delete"
+                                [class.bordernone]="element.type==2" *matCellDef="let element">
+                                <input type="checkbox" class="cross-checkbox" *ngIf="element.type==2">
+                                <label for="checkboxOne"></label>
+                            </td>
+                        </ng-container>
+
+                        <!-- approval Column -->
+                        <ng-container matColumnDef="approval">
+                            <th mat-header-cell *matHeaderCellDef class="createfont">Approval</th>
+                            <td mat-cell [class.bordertop]="element.type==1" data-label="Approval"
+                                [class.bordernone]="element.type==2" *matCellDef="let element">
+                                <input type="checkbox" class="cross-checkbox" *ngIf="element.type==2">
+                                <label for="checkboxOne"></label>
+                            </td>
+                        </ng-container>
+
+                        <!-- download Column -->
+                        <ng-container matColumnDef="download">
+                            <th mat-header-cell *matHeaderCellDef class="createfont">Download</th>
+                            <td [class.bordertop]="element.type==1" mat-cell data-label="Download"
+                                [class.bordernone]="element.type==2" *matCellDef="let element">
+                                <input type="checkbox" class="cross-checkbox" *ngIf="element.type==2">
+                                <label for="checkboxOne"></label>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,282 @@
+<div fxLayout="row wrap" class="m-b-35 m-t-30">
+  <div fxFlex.gt-sm="100" fxFlex="100" id="payonlinetablist">
+    <mat-accordion class="offlineaccordion" *ngIf="paymentDetails?.renewalstatus =='D' || paymentDetails?.afvpstatus=='D'">
+      <mat-expansion-panel class="p-l-20 p-b-20 p-r-20">
+        <mat-expansion-panel-header (click)="scrollTo('page-content')">
+          <mat-panel-title>
+            <div class="alignpayment">
+              <img src="assets/images/exclamatorycircle.png" alt="exclamatorycircle.png">
+              <div class="declinedtext p-l-15">
+                <h2>Payment Declined</h2>
+                <!-- <p>{{paymentDetails?.payComments}}</p> -->
+              </div>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="accordionshowtext">
+          <div class="fs-14 m-0 d-flex" >
+            <p class="m-r-5 mw75">Comments: </p>
+            <p [innerHTML]="paymentDetails?.payComments" class="posreltop0"></p>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="alignend p-l-20 p-r-20">
+      <div class="widthload m-r-15">
+        <div class="offlinecolorconfirm pd-20 m-b-30">
+          <h2 class="fs-14 ">Note:</h2>
+          <ul class="p-l-0">
+            <li class="payonlinefield"> If you do not possess a Credit/Debit Card, please follow this
+              offline payment process.</li>
+            <li class="payonlinefield"> On successful Bank Transfer, please immediately upload the proof
+              of payment.
+            </li>
+          </ul>
+        </div>
+        <div class="widthform">
+          <form [formGroup]='checkform' autocomplete="off">
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field class="numberresponsive"
+                  [class.hidedropdown]="paymentDetails?.origin === 'INTERNATIONAL'">
+                  <mat-select placeholder="Select Payment Mode" [disableOptionCentering]="true"
+                    formControlName="paymentmode" [errorStateMatcher]="matcher" required
+                    (selectionChange)="selectedPaymentType = $event.value == 2 ? 'Cheque / Cash' : 'Bank Transfer';selectiondata()">
+                    <mat-option value="2">Cheque or Cash Deposit</mat-option>
+                    <mat-option value="1">Bank Transfer</mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="checkform.controls['paymentmode'].hasError('required') && checkform.controls['paymentmode'].touched"
+                    class="text-danger font-14">Select payment mode
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="p-t-12 p-b-12">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Bank Name" formControlName='bankName' required maxlength="50"
+                  app-restrict-input="firstspace" appAlphanumsymb [errorStateMatcher]="matcher">
+                <mat-error
+                  *ngIf="checkform.controls['bankName'].hasError('required') && checkform.controls['bankName'].touched"
+                  class="text-danger font-14">Enter bank name
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <mat-form-field>
+                  <mat-label>Date of transfer</mat-label>
+                  <input [errorStateMatcher]="matcher" readonly formControlName='transcdate' matInput
+                    [matDatepicker]="picker" readonly required [max]="maxDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error
+                    *ngIf="checkform.controls['transcdate'].hasError('required') && checkform.controls['transcdate'].touched"
+                    class="text-danger font-14">Select date of transfer
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <!-- <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field class="p-l-18 numberresponsive">
+                      <input matInput placeholder="Transaction ID" formControlName='trasactionid'
+                        app-restrict-input="firstspace" required appAlphabetonly [errorStateMatcher]="matcher">
+                      <mat-error
+                        *ngIf="checkform.controls['trasactionid'].hasError('required') && checkform.controls['trasactionid'].touched"
+                        class="text-danger font-14">Enter transaction ID
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <mat-form-field class="p-l-18 numberresponsive">
+                  <input matInput formControlName='checkno' maxlength="50" appAlphanumsymb
+                    app-restrict-input="firstspace" required [errorStateMatcher]="matcher"
+                    [placeholder]="paymentType == 2 ? 'Cheque / Challan No': 'Transaction ID'"
+                    [attr.appAlphanum]="paymentType == 2" [attr.appAlphanumsymb]="paymentType != 2">
+                  <mat-error
+                    *ngIf="checkform.controls['checkno'].hasError('required') && checkform.controls['checkno'].touched"
+                    class="text-danger font-14">Enter
+                    {{ paymentType == 2 ? 'cheque / challan no': 'transaction ID' }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <p class="fs-14 p-t-20">Payment Proof<span class="title">*</span></p>
+            <app-filee #photoRef [notePosition]="'bottom'" [fileMstRef]="drv_proofdoc"
+              (filesSelected)="fileeSelected($event,drv_proofdoc)" formControlName="proofdoc" isMandatory="true">
+            </app-filee>
+            <div fxLayout="row wrap" class="m-t-25">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-25 btnalign">
+                <button type="button" (click)="cancelPayment()" mat-raised-button color="primary"
+                  class="cancelbtndragdrop m-r-20">Cancel
+                </button>
+                <button type="button" (click)="saveOfflinePaymentDetails()" mat-raised-button color="primary"
+                  [disabled]="checkform.invalid || disableBtn" class="submitbtn">
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class="Notecolorpay">
+              <p><span>Note:</span> Processing of payment will take a minimum of one week.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="jsrswidth ">
+        <div class="backgrounjsrs m-b-30 p-t-20">
+          <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5 p-l-30">Certification Fee Details</p>
+          <div class="subscriptiontitle p-l-30 p-r-30  p-b-20">
+            <p class="spacingwidth widthfirttag">OPAL Certification Fee
+            </p>
+            <div class="flexwidth">
+              <span>:</span>
+              <p class="spacingalignwidth m-l-40">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                <span class="p-l-25 floatalign">
+                  {{paymentDetails?.packageDtl?.subscription?.packageBasePrice}}
+                </span>
+              </p>
+              <!-- <p class="spacingalignwidth m-l-40">USD
+                    <span class="p-l-25 floatalign">
+                      1000.00
+                    </span>
+                  </p> -->
+            </div>
+          </div>
+          <div class="p-b-20 p-l-30 p-r-30">
+            <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5">Discount Details</p>
+            <div class="subscriptiontitle">
+              <p class="spacingwidth widthfirttag ">Special Discount (5%)</p>
+              <div class="flexwidth">
+                <span>:</span>
+                <p class="spacingalignwidth m-l-40">
+                    OMR
+                  <span class="p-l-25 floatalign">
+                    - 5.000
+                  </span>
+                </p>
+                <!-- <p class="spacingalignwidth m-l-40">
+                    USD
+                    <span class="p-l-25">
+                      1000.00
+                    </span>
+                  </p> -->
+              </div>
+            </div>
+           </div>
+            <div class="p-b-40 p-l-30 p-r-30">
+              <p class="fs-13 m-0 txt-gray6 lypisfont-regular p-b-6">Applied Promo Code (Discount)</p>
+              <div class="subscriptiontitle">
+                <div class="specialdis">
+                  <p class="fs-13 txt-gray3 OPALcolorinner">OPALOFF891</p>
+                </div>
+                <div class="flexwidth">
+                  <span>:</span>
+                  <p class="spacingalignwidth m-l-40">
+                      OMR
+                    <span class="p-l-25 floatalign">
+                      - 10.000
+                    </span>
+                  </p>
+                  <!-- <p class="spacingalignwidth m-l-40">
+                      USD
+                      <span class="p-l-25">
+                        1000.00
+                      </span>
+                    </p> -->
+                </div>
+              </div>
+            </div>
+            <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5 p-l-30">Other Charges</p>
+          <div class="subscriptiontitle p-l-30 p-r-30 p-b-6">
+            <p class="spacingwidth widthfirttag ">
+              VAT Charges ({{paymentDetails?.packageDtl?.subscription?.vatrate}}%)</p>
+            <!-- <p class="spacingwidth widthfirttag">
+                    VAT Charges (0%)</p> -->
+            <div class="flexwidth">
+              <span>:</span>
+              <p class="spacingalignwidth m-l-40">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                <span class="p-l-25 floatalign">
+                  {{paymentDetails?.packageDtl?.subscription?.vatprice}}
+                </span>
+              </p>
+              <!-- <p class="spacingalignwidth m-l-40">USD
+                    <span class="p-l-25 floatalign">
+                      0.00
+                    </span>
+                  </p> -->
+            </div>
+          </div>
+          <div class="subscriptiontitle p-l-30 p-r-30 p-b-6" *ngIf="paymentDetails?.origin == 'INTERNATIONAL'">
+            <p class="spacingwidth widthfirttag">
+                Processing Fee </p>
+            <div class="flexwidth">
+              <span>:</span>
+              <p class="spacingalignwidth m-l-40">
+                {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                <span class="p-l-25 floatalign">
+                   25.00
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="subscriptiontitle p-l-30 p-r-30 p-b-6" *ngIf="paymentDetails?.origin != 'INTERNATIONAL'" >
+            <p class="spacingwidth widthfirttag">
+              Processing Fee </p>
+            <div class="flexwidth">
+              <span>:</span>
+              <p class="spacingalignwidth m-l-40">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                <span class="p-l-25 floatalign">
+                  {{ paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol === 'OMR' ? '0.000' : '0.00'}}
+                </span>
+              </p>
+              <!-- <p class="spacingalignwidth m-l-40">USD
+                    <span class="p-l-25 floatalign">
+                      25.00
+                    </span>
+                  </p> -->
+            </div>
+          </div>
+          <div class="subscriptiontitle backgroundomr md-20" *ngIf="paymentDetails?.origin == 'INTERNATIONAL'">
+            <p class="spacingwidth widthfirttag boldfont m-0 fs-18">
+              Total Payable Amount</p>
+            <div class="flexwidth">
+              <span class="m-r-25">:</span>
+              <p class="spacingalignwidth spaceleft boldfont m-l-40 fs-18">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                <span class="p-l-25 floatalign">
+                  {{paymentDetails?.packageDtl?.subscription?.offlinetotalPrice}}
+                </span>
+              </p>
+              <!-- <p class="spacingalignwidth m-l-40">USD
+                    <span class="p-l-25 floatalign">
+                      1025.00
+                    </span>
+                  </p> -->
+            </div>
+          </div>
+          <div class="subscriptiontitle backgroundomr md-20" *ngIf="paymentDetails?.origin != 'INTERNATIONAL'">
+            <p class="spacingwidth widthfirttag boldfont m-0 fs-18">
+              Total Payable Amount</p>
+            <div class="flexwidth">
+              <span class="m-r-25">:</span>
+              <p class="spacingalignwidth spaceleft boldfont m-0 fs-18">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                <span class="p-l-25 floatalign">
+                  {{paymentDetails?.packageDtl?.subscription?.offlinetotalPrice}}
+                </span>
+              </p>
+              <!-- <p class="spacingalignwidth m-l-40">USD
+                    <span class="p-l-25 floatalign">
+                      1025.00
+                    </span>
+                  </p> -->
+            </div>
+          </div>
+        </div>
+
+        <app-jsrsregisterdetaillist [paymentMode]="'offline'" (updatePayment)="updatePayment($event)"
+          [paymentDetails]="paymentDetails" [contactusData]="contactusData"></app-jsrsregisterdetaillist>
+      </div>
+    </div>
+  </div>
+</div>

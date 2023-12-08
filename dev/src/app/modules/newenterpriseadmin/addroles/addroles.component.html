@@ -1,0 +1,1808 @@
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+<div  *ngIf="!disableSubmitButton && (this.rolereadaccess || this.userreadaccess)" fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="addroles">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="addrolesnew">
+            <div *ngIf="refname == 1 && rolereadaccess" class="example-form" id="manageroles">
+                <div *ngIf="hidegrid" class="paginationwithfilter masterPageTop ">
+                    <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                    <div fxLayout="row wrap" fxLayoutAlign="end">
+                        <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-start center">
+                            <button mat-raised-button type="button" color="secondary" *ngIf="rolecreateaccess" (click)="evenadddata();"
+                                [queryParams]="{type: 1}" class="addbtn m-r-10 height-45">{{'manageroles.add' |
+                                translate}}</button>
+                            <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                class="filter height-45">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="hidegrid" fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                        <div class="awaredtable">
+                            <mat-table #table class="scrolldata" [dataSource]="Usersrecord" matSortActive="rolemst_pk"
+                                matSortDirection="desc" multiTemplateDataRows matSort matSortDisableClear>
+                                <ng-container matColumnDef="rm_opalstkholdertypmst_fk">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageroles.stactyp' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <span *ngIf="coursedata.stakeholdertype == 1">{{'addroles.opaladmi' | translate}}</span>
+                                           
+                                            <span *ngIf="coursedata.stakeholdertype == 2 &&  (coursedata.rm_projectmst_fk != 4 && coursedata.rm_projectmst_fk != 5)">{{'addroles.trainevcen' | translate}}</span>
+                                            <span *ngIf="coursedata.stakeholdertype == 2 && (coursedata.rm_projectmst_fk == 4 || coursedata.rm_projectmst_fk == 5)">{{'addroles.technicalevcen' | translate}}</span>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="pm_projectname_en">
+                                    <mat-header-cell fxFlex="330px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageroles.proj' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="330px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span
+                                            *ngIf="!tblplaceholder">{{((coursedata.projectname_en)?(coursedata.projectname_en):'-')}}
+                                        </span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="rm_rolename_en">
+                                    <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>Role</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="160px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{ifarabic == true ? coursedata.rolename_ar ?
+                                            coursedata.rolename_ar : "-" : coursedata.rolename_en ?
+                                            coursedata.rolename_en : "-" || "-"}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="higherRole">
+                                    <mat-header-cell fxFlex="160px" mat-header-cell
+                                        *matHeaderCellDef>{{'manageroles.highrol' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="160px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{ifarabic == true ? coursedata.higherrole_ar ?
+                                            coursedata.higherrole_ar : "-" : coursedata.higherrole_en ?
+                                            coursedata.higherrole_en : "-" || "-"}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="rm_status">
+                                    <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageroles.stat' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="{{'batch.branchname' |
+                                    translate}}" fxFlex="160px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <p *ngIf="coursedata.status == 1" class="print flexaligntag">
+                                                {{'manageroles.activ' | translate}}</p>
+                                            <p *ngIf="coursedata.status == 2" class="declined flexaligntag">
+                                                {{'manageroles.inact' | translate}}</p>
+                                        </div>
+
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="rm_createdon">
+                                    <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageroles.addon' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="180px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.addedOn}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="rm_updatedon">
+                                    <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageroles.lastadon' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="180px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.updatedOn || "-"}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="action" stickyEnd>
+                                    <mat-header-cell fxFlex="100px" mat-header-cell
+                                        *matHeaderCellDef>{{'manageroles.actio' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="100px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">
+                                            <button mat-icon-button
+                                                [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+                                            <mat-menu #menu="matMenu" class="actionmatmenu">
+                                                <button mat-menu-item *ngIf="rolereadaccess"
+                                                    (click)="viewRoleuser(coursedata,coursedata.rolemst_pk)">{{'manageroles.view'
+                                                    |
+                                                    translate}}</button>
+                                                <button mat-menu-item *ngIf="roleupdateaccess"
+                                                    (click)="editData(coursedata,coursedata.rolemst_pk)">Edit</button>
+                                                <button mat-menu-item 
+                                                    (click)="update(coursedata.rolemst_pk, coursedata.status)"
+                                                    *ngIf="coursedata.status == 2 && roledeleteaccess">{{'manageroles.acti' |
+                                                    translate}}</button>
+                                                <button mat-menu-item 
+                                                    (click)="update(coursedata.rolemst_pk, coursedata.status)"
+                                                    *ngIf="coursedata.status == 1 && roledeleteaccess">{{'manageroles.deact' |
+                                                    translate}}</button>
+                                            </mat-menu></span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-first">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageroles.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="stktypesearch">
+                                                <mat-option value="1">{{'addroles.opaladmi' | translate}}</mat-option>
+                                                <mat-option value="2">{{'addroles.trainevcen' | translate}}</mat-option>
+                                                <mat-option value="3">{{'addroles.technicalevcen' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-second">
+                                    <mat-header-cell fxFlex="330px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageroles.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="projectsearch">
+                                                <mat-option
+                                                    value="4">{{'manageroles.roadworthassu'
+                                                    | translate}}</mat-option>
+                                                <mat-option
+                                                    value="5">{{'manageroles.invehmon'
+                                                    | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-three">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageroles.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="rolesearch">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-four">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageroles.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="highrolesearch">
+                                                <mat-option [value]="hiddata.rolemst_pk"
+                                                    *ngFor="let hiddata of higherrolefilter">
+                                                    {{ifarabic == true ? hiddata.hgerar : hiddata.hgeren}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-five">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageroles.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="statussearch">
+                                                <mat-option value="1">{{'manageroles.activ' | translate}}</mat-option>
+                                                <mat-option value="2">{{'manageroles.inact' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-six">
+                                    <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <!-- <mat-label>{{'manageroles.sear' | translate}}</mat-label> -->
+                                            <input [max]="today" matInput [formControl]="addedonsearch"
+                                                (click)="addedon.open()" [matDatepicker]="addedon" readonly>
+                                            <mat-datepicker-toggle matSuffix [for]="addedon"></mat-datepicker-toggle>
+                                            <mat-datepicker #addedon></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-seven">
+                                    <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <!-- <mat-label>{{'manageroles.sear' | translate}}</mat-label> -->
+                                            <input matInput [formControl]="updatedonsearch" (click)="updatedon.open()"
+                                                [matDatepicker]="updatedon" readonly [max]="today">
+                                            <mat-datepicker-toggle matSuffix [for]="updatedon"></mat-datepicker-toggle>
+                                            <mat-datepicker #updatedon></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-eight" stickyEnd>
+                                    <mat-header-cell fxFlex="100px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <i class="fa fa-refresh m-l-15 cursorview"
+                                            (click)="roleclearFilter();rolefiltersts=false;" aria-hidden="true"
+                                            matTooltip="{{'table.refresh' |translate}}"></i>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <tr mat-header-row id="headerrowcells" *matHeaderRowDef="userrecordcolumn"></tr>
+                                <mat-header-row id="searchrow"
+                                    *matHeaderRowDef="['row-first','row-second','row-three' ,'row-four','row-five','row-six','row-seven','row-eight']">
+                                </mat-header-row>
+                                <tr mat-row *matRowDef="let element; columns: userrecordcolumn;"
+                                    class="example-element-row">
+                                </tr>
+                                <ng-container matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="11">
+                                        <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container>
+                                    <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                        [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                        *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                    </mat-footer-row>
+                                </ng-container>
+                            </mat-table>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom " showFirstLastButtons
+                                    [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                    [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form *ngIf="showrolegrid" [formGroup]="addroleform">
+                    <div>
+                        <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                            <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.stactyp' | translate}}</mat-label>
+                                    <mat-select [errorStateMatcher]="matcher" required formControlName="stkholdertype"
+                                        [disabled]="viewRoleUserdis || nonEditPart"
+                                        (selectionChange)="selectedStktype(addrolform.stkholdertype.value)">
+                                        <mat-option [value]="1">{{'addroles.opaladmi' | translate}}</mat-option>
+                                        <mat-option [value]="2">{{'addroles.trainevcen' | translate}}</mat-option>
+                                        <mat-option [value]="3">{{'addroles.techevcen' | translate}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="addrolform.stkholdertype.errors?.required">Select the Stakeholder
+                                        Type from the drop-down</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <input type="hidden" value="" formControlName="rolerelpk">
+                            <div *ngIf="showevaltech" fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0"
+                                ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                                ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.technicalevcen' | translate}}</mat-label>
+                                    <mat-select [errorStateMatcher]="matcher" required formControlName="techeval"
+                                        [disabled]="viewRoleUserdis">
+                                        <mat-option *ngFor="let rol of role_project" [value]="rol.projectmst_pk">
+                                            {{ifarabic == true ? rol.pm_projectname_ar : rol.pm_projectname_en}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="addrolform.techeval.errors?.required">{{'addroles.seltechevalcen'
+                                        |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="showrole" fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                            <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.role' | translate}} </mat-label>
+                                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                                        [disabled]="viewRoleUserdis" maxlength="100" matInput
+                                        app-restrict-input="english" required
+                                        (keyup)="checkByRole(addrolform.arrole.value,'arrole')"
+                                        formControlName="arrole">
+                                    <mat-error *ngIf="addrolform.arrole.errors?.required">Enter the Role </mat-error>
+                                    <mat-error *ngIf="addrolform.arrole.errors?.alreadyavailable">
+                                        The Role already available</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                                ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                                <mat-form-field appearance="outline" class=" arabiclanguage">
+                                    <mat-label>{{'addroles.rolearbic' | translate}}</mat-label>
+                                    <input (keydown.enter)="$event.preventDefault()" app-restrict-input="arabic"
+                                        [disabled]="viewRoleUserdis" maxlength="100" [errorStateMatcher]="matcher"
+                                        matInput required (keyup)="checkByRole(addrolform.rolearbic.value,'rolearbic')"
+                                        formControlName="rolearbic">
+                                    <mat-error *ngIf="addrolform.rolearbic.errors?.required">Enter the Role
+                                    </mat-error>
+                                    <mat-error *ngIf="addrolform.rolearbic.errors?.alreadyavailable">
+                                        The Role already available
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                            <div *ngIf="!add_btn" fxFlex.gt-sm="50" fxFlex="100">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.highrols' | translate}}</mat-label>
+                                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                                        matInput required formControlName="arrolehighupdate">
+                                    <mat-icon matSuffix matTooltip="Lorem Ipsum is dummy text">info_outline</mat-icon>
+                                    <mat-error *ngIf="addrolform.arrolehigh.errors?.required">{{'addroles.selhighrol' |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div> -->
+                        <div *ngIf="showhighrole" fxLayout="row wrap" class="p-t-15"
+                            fxLayoutAlign="space-between center">
+                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.highrols' | translate}}</mat-label>
+                                    <mat-select panelClass="select_with_option" multiple [disableOptionCentering]="true" id="actsector"
+                                    [errorStateMatcher]="matcher" (closed)="searchModule = '';"  formControlName="arrolehigh"
+                                   >
+                                   <mat-select-trigger>
+                                    {{addroleform.controls['arrolehigh'].value ? highrollist :
+                                    ''}}
+                                    <span *ngIf="addroleform.controls['arrolehigh'].value?.length > 1"
+                                        class="example-additional-selection">
+                                        (+{{addroleform.controls['arrolehigh'].value.length - 1}}
+                                        {{addroleform.controls['arrolehigh'].value?.length === 2 ?
+                                        'other' : 'others'}})
+                                    </span>
+                                </mat-select-trigger>
+                                    <mat-select-search class="example-additional-selection" panelClass="mat-select-search-inner"
+                                      [formControl]="highFilter" [placeholderLabel]="'Search'"
+                                      [noEntriesFoundLabel]="'No Result Found'">
+                                    </mat-select-search>
+                                    <div class="option-listing">
+                                      <mat-option *ngFor="let highrole of filterhighrole | async"
+                                      [value]="highrole.rolemst_pk">
+                                      {{ifarabic == true ? highrole.rm_rolename_ar : highrole.rm_rolename_en}}
+                                  </mat-option>
+                                      
+                                    </div>
+                                  </mat-select>
+                                    <!-- <mat-select multiple panelClass="select_with_search"
+                                        *ngIf="(highrolelist | multisearchinput : searchhighrole : ['rm_rolename_en']) as inst_stateresult"
+                                        [disabled]="viewRoleUserdis" [errorStateMatcher]="matcher"
+                                        [disableOptionCentering]="true" required formControlName="arrolehigh">
+                                        <mat-select-trigger>
+                                            {{addroleform.controls['arrolehigh'].value ? highrollist :
+                                            ''}}
+                                            <span *ngIf="addroleform.controls['arrolehigh'].value?.length > 1"
+                                                class="example-additional-selection">
+                                                (+{{addroleform.controls['arrolehigh'].value.length - 1}}
+                                                {{addroleform.controls['arrolehigh'].value?.length === 2 ?
+                                                'other' : 'others'}})
+                                            </span>
+                                        </mat-select-trigger>
+                                        <div class="searchinmultiselect">
+                                            <mat-icon class="">search</mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" name="searchhighrole"
+                                                appAlphanumsymb matInput class="searchselect" type="Search"
+                                                placeholder="{{'supplierreg.sear' | translate}} "
+                                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchhighrole"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchhighrole = ''" class="reseticon cursor-pointer"
+                                                matSuffix
+                                                *ngIf="searchhighrole !='' && searchhighrole !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                            <mat-option
+                                                *ngFor="let highrole of highrolelist | multisearchinput : searchhighrole : ['rm_rolename_en']"
+                                                [value]="highrole.rolemst_pk">
+                                                {{ifarabic == true ? highrole.rm_rolename_ar : highrole.rm_rolename_en}}
+                                            </mat-option>
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                            <div *ngIf="inst_stateresult.length == 0">
+                                                {{'addroles.nofoun' | translate}}</div>
+                                        </div>
+                                    </mat-select> -->
+                                    <mat-icon *ngIf="moduleicon" matSuffix
+                                        matTooltip="{{'addroles.highrolisseleformana' | translate}}">info_outline</mat-icon>
+                                    <mat-error *ngIf="addrolform.arrolehigh.errors?.required">{{'addroles.selecthehigh'
+                                        | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="userroleallocation">
+                            <div fxLayout="row wrap" class="p-t-15">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="aligncenter" *ngIf="!moduleaccess">
+                                    <h5 class="m-t-5 m-b-5">{{'addroles.assignmod' | translate}}</h5> <mat-icon
+                                        matSuffix class="m-0 m-l-5"
+                                        matTooltip="{{'addroles.seletherols' | translate}}">info_outline</mat-icon>
+                                </div>
+
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="aligncenter" *ngIf="moduleaccess">
+                                    <h5 class="m-t-5 m-b-5">{{'addroles.assignmoded' | translate}}</h5> <mat-icon
+                                        matSuffix *ngIf="moduleicon" class="m-0 m-l-5"
+                                        matTooltip="{{'addroles.seletherols' | translate}}">info_outline</mat-icon>
+                                </div>
+                            </div>
+                            <app-userallocation [onlyview]="2" #addUpdateAccess (userPermData)="userPermData($event)"
+                                [currentUserPk]="currentUserPk" *ngIf="!viewRoleUserdis"
+                                [stkpk]="stkpk"></app-userallocation>
+
+                            <app-userallocation [onlyview]="1" #addUpdateAccess (userPermData)="userPermData($event)"
+                                [currentUserPk]="currentUserPk" *ngIf="viewRoleUserdis"
+                                [stkpk]="stkpk"></app-userallocation>
+                            <div fxLayout="row wrap" class="m-t-30" fxLayoutAlign="end">
+                                <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-end center">
+                                    <button mat-raised-button *ngIf="!viewBackBackbutton" type="button"
+                                        color="secondary" class="filterbtn m-r-10 height-45"
+                                        (click)="gotobackgrid();scrollTo('pagescroll')">{{'addroles.canc' |
+                                        translate}}</button>
+                                    <button *ngIf="viewBackBackbutton" mat-raised-button type="button" color="secondary"
+                                        class="filterbtn m-r-10 height-45" (click)="gotobackgrid();">{{'addroles.clos' |
+                                        translate}}</button>
+                                    <button mat-raised-button *ngIf="add_btn && !viewBackBackbutton"
+                                        [class.disabledsubmit]="isFormroleValid" type="button"
+                                        (click)="addrolesave();scrollTo('addrolesnew')" color="primary"
+                                        class="addbtn height-45">{{'addroles.subm' | translate}}</button>
+                                    <button mat-raised-button [class.disabledsubmit]="isFormroleValid"
+                                        *ngIf="!add_btn &&!viewBackBackbutton" type="button"
+                                        (click)="addrolesave();scrollTo('addrolesnew')" color="primary"
+                                        class="addbtn height-45">{{'addroles.updat' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- users -->
+            <div id="manageusers" *ngIf="refname == 2 && userreadaccess" class="example-form">
+                <div *ngIf="hideusergrid" class="paginationwithfilter masterPageTop ">
+                    <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                    <div fxLayout="row wrap" fxLayoutAlign="end">
+                        <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-start center">
+                            <button mat-raised-button type="button" color="secondary" *ngIf="usercreateaccess" (click)="evenuseradddata();"
+                                class="addbtn m-r-10 height-45">{{'manageusers.add' | translate}}</button>
+                            <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                class="filter height-45">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="hideusergrid" fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                        <div class="awaredtable">
+                            <mat-table #table class="scrolldata" [dataSource]="Usersrecord"
+                                matSortActive="opalusermst_pk" matSortDirection="desc" multiTemplateDataRows matSort
+                                matSortDisableClear>
+                                <ng-container matColumnDef="omrm_stkholdertypmst_fk">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.staholtyp' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">
+                                            <span *ngIf="coursedata.stakeholdertype == 1">{{'addroles.opaladmi' |
+                                                translate}}</span>
+                                            <span *ngIf="coursedata.stakeholdertype == 2 && (coursedata.omrm_intendforregistration == 1 )">{{'addroles.trainevcen' |
+                                                translate}}</span>
+                                            <span *ngIf="coursedata.stakeholdertype == 2  && (coursedata.omrm_intendforregistration == 2)">{{'addroles.technicalevcen' |
+                                                translate}}</span>
+                                            <span *ngIf="coursedata.stakeholdertype == 2  && (coursedata.omrm_intendforregistration == 3)">{{'Training And Technical Evaluaiton Centre' |
+                                                translate}}</span>
+                                            </span>
+                                        <!-- <span *ngIf="coursedata.stakeholdertype == 2 && coursedata.rm_projectmst_fk != null">{{'addroles.technicalevcen' | translate}}</span> -->
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="omrm_companyname_en">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>Company Name</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.omrm_companyname_en}} </span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_idnumber">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.civino' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+
+                                        <span *ngIf="!tblplaceholder">{{coursedata.civilNo}} </span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_firstname">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>Staff Name</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.stafName}} </span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_emailid">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.emaiid' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder"> {{coursedata.emailid}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_mobno">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.mobnum' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span
+                                            *ngIf="!tblplaceholder">{{coursedata.mobilno?coursedata.mobilno:'-'}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_isfocalpoint">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>Focal Point</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.isfocalpoint}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="rm_rolename_en">
+                                    <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.roles' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="160px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder"> {{(ifarabic == true ) ?
+                                            (coursedata.oum_isfocalpoint ==1?"-":coursedata.roleName_ar)?
+                                            (coursedata.oum_isfocalpoint ==1?"-":coursedata.roleName_ar) : "-" :
+                                            (coursedata.oum_isfocalpoint ==1?"-":coursedata.roleName_en) ?
+                                            (coursedata.oum_isfocalpoint ==1?"-":coursedata.roleName_en) : "-" ||
+                                            "-"}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_isthirdpartyagent">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.thirdparagen' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.isthirdPartyAgent}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_status">
+                                    <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.stat' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="{{'batch.branchname' |translate}}" fxFlex="160px"
+                                        *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <p *ngIf="coursedata.status == 'A'" class="print flexaligntag">
+                                                {{'manageusers.activ' | translate}}</p>
+                                            <p *ngIf="coursedata.status == 'I'" class="declined flexaligntag">
+                                                {{'manageusers.inactiv' | translate}}</p>
+                                            <p *ngIf="coursedata.status == 'E'" class="pending flexaligntag">
+                                                {{'manageusers.emaiconfpen' | translate}}</p>
+                                            <p *ngIf="coursedata.status == 'D'" class="red flexaligntag">
+                                                {{'manageusers.deact' | translate}}</p>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_createdon">
+                                    <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.addon' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="180px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.addedOn}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_updatedon">
+                                    <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.lasupdaon' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="180px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder"> {{coursedata.lastUpdateOn || "-"}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="action" stickyEnd>
+                                    <mat-header-cell fxFlex="100px" mat-header-cell
+                                        *matHeaderCellDef>{{'manageusers.actio' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="100px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <button mat-icon-button
+                                                [matMenuTriggerFor]="menu"><mat-icon class="txt-gry">more_horiz</mat-icon></button>
+                                            <mat-menu #menu="matMenu" class="actionmatmenu">
+                                                <button mat-menu-item *ngIf="userreadaccess"
+                                                    (click)="viewRoleuser(coursedata,coursedata.opalusermst_pk)">{{'manageusers.view'
+                                                    |
+                                                    translate}}</button>
+                                                <button mat-menu-item
+                                                    *ngIf="(coursedata.stakeholdertype == 1)&&(coursedata.oum_isfocalpoint!=1) && userupdateaccess"
+                                                    (click)="edituserData(coursedata)">{{'manageusers.edit' |
+                                                    translate}}</button>
+                                                <button
+                                                    *ngIf="((coursedata.status == 'I')&&(coursedata.oum_isfocalpoint!=1)) && userdeleteaccess"
+                                                    (click)="update(coursedata.opalusermst_pk,coursedata.status)"
+                                                    mat-menu-item>{{'manageroles.acti' | translate}}</button>
+                                                <button
+                                                    *ngIf="(coursedata.status == 'A')&&(coursedata.oum_isfocalpoint!=1) && userdeleteaccess"
+                                                    (click)="update(coursedata.opalusermst_pk,coursedata.status)"
+                                                    mat-menu-item>{{'manageroles.deact' | translate}} </button>
+                                            </mat-menu>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-first">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="stakeholdertype">
+                                                <mat-option [value]="1">{{'addroles.opaladmi' | translate}}</mat-option>
+                                                <mat-option [value]="2">{{'addroles.trainevcen' |
+                                                    translate}}</mat-option>
+                                                <mat-option [value]="3">{{'addroles.techevcen' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-second-one">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="companynm" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-second">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="civilNo" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-three">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="stafName" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-four">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="emailid" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-five">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="mobilno" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-six">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="focal_point">
+                                                <mat-option value="1">{{'addroles.yes' | translate}}</mat-option>
+                                                <mat-option value="2">{{'addroles.no' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-seven">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.sear' | translate}}</mat-label>
+                                            <input matInput [formControl]="roleName_en">
+                                        </mat-form-field>
+                                    </mat-header-cell> </ng-container>
+                                <ng-container matColumnDef="row-eight">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="isthirdPartyAgent">
+                                                <mat-option value="1">{{'addroles.yes' | translate}}</mat-option>
+                                                <mat-option value="2">{{'addroles.no' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-nine">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="status">
+                                                <mat-option value="A">{{'manageusers.activ' | translate}}</mat-option>
+                                                <mat-option value="I">{{'manageusers.inactiv' | translate}}</mat-option>
+                                                <mat-option value="E">{{'manageusers.emaiconfpen' |
+                                                    translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-ten">
+                                    <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <!-- <mat-label>{{'manageroles.sear' | translate}}</mat-label> -->
+                                            <input matInput [max]="today" [formControl]="addedOn"
+                                                (click)="addedon.open()" [matDatepicker]="addedon" readonly>
+                                            <mat-datepicker-toggle matSuffix [for]="addedon"></mat-datepicker-toggle>
+                                            <mat-datepicker #addedon></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-eleven">
+                                    <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <!-- <mat-label>{{'manageroles.sear' | translate}}</mat-label> -->
+                                            <input matInput [max]="today" [formControl]="lastUpdateOn"
+                                                (click)="updatedon.open()" [matDatepicker]="updatedon" readonly>
+                                            <mat-datepicker-toggle matSuffix [for]="updatedon"></mat-datepicker-toggle>
+                                            <mat-datepicker #updatedon></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-twelve" stickyEnd>
+                                    <mat-header-cell fxFlex="100px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <i class="fa fa-refresh m-l-15 cursorview"
+                                            (click)="userclearFilter();userfiltersts=false;" aria-hidden="true"
+                                            matTooltip="{{'table.refresh' |translate}}"></i>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <tr mat-header-row id="headerrowcells" *matHeaderRowDef="rolesrecordcolumn"></tr>
+                                <mat-header-row id="searchrow"
+                                *matHeaderRowDef="['row-first','row-second-one','row-second','row-three','row-four','row-five','row-six','row-seven','row-eight','row-nine','row-ten','row-eleven' ,'row-twelve']">
+                                </mat-header-row>
+                                <tr mat-row *matRowDef="let element; columns: rolesrecordcolumn;"
+                                    class="example-element-row">
+                                </tr>
+                                <ng-container matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="11">
+                                        <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container>
+                                    <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                        [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                        *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                    </mat-footer-row>
+                                </ng-container>
+                            </mat-table>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom " showFirstLastButtons
+                                    [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                    [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form *ngIf="usergrid" class="example-form" [formGroup]="adduserroleform">
+                    <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <input type="hidden" value="" formControlName="opalusermstpk">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>{{'addroles.stactyp' | translate}}</mat-label>
+                                <mat-select (selectionChange)="selectedStktypeuser(adduserform.stkholdertypeuser.value)"
+                                    [disabled]="viewUserdis || nonEditPart" [errorStateMatcher]="matcher" required
+                                    formControlName="stkholdertypeuser">
+                                    <mat-option [value]="1">{{'addroles.opaladmi' | translate}}</mat-option>
+                                    <mat-option [value]="2">{{'addroles.trainevcen' | translate}}</mat-option>
+                                    <mat-option [value]="3">{{'addroles.techevcen' | translate}}</mat-option>
+                                </mat-select>
+                                <mat-error
+                                    *ngIf="adduserform.stkholdertypeuser.errors?.required">{{'addroles.selethestak' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="showevaltechuser" fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0"
+                                ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                                ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.technicalevcen' | translate}}</mat-label>
+                                    <mat-select [errorStateMatcher]="matcher" required formControlName="techevaluser"
+                                    (selectionChange)="selectCentrelist($event.value)"  [disabled]="viewRoleUserdis">
+                                        <mat-option *ngFor="let rol of role_project" [value]="rol.projectmst_pk">
+                                            {{ifarabic == true ? rol.pm_projectname_ar : rol.pm_projectname_en}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="addrolform.techeval.errors?.required">{{'addroles.seltechevalcen'
+                                        |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                    </div>
+                    <div *ngIf="centredatashow && !focalPoint" fxLayout="row wrap" class="p-t-15"
+                        fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>{{'addroles.centrenam' | translate}}</mat-label>
+                                <mat-select (selectionChange)="selectciviliddata(adduserform.centrename.value)"
+                                    [disabled]="viewUserdis"
+                                    *ngIf="(centre_array | filter : searchcentrename) as goverresult"
+                                    panelClass="select_with_search" [disableOptionCentering]="true"
+                                    [errorStateMatcher]="matcher" required formControlName="centrename">
+                                    <div class="searchinmultiselect">
+                                        <mat-icon class="">search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                            class="searchselect" type="Search"
+                                            placeholder="{{'supplierreg.sear' | translate}}"
+                                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchcentrename"
+                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchcentrename = ''" class="reseticon" matSuffix
+                                            *ngIf="searchcentrename !='' && searchcentrename !=null">clear</mat-icon>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <mat-option *ngFor="let centre of centre_array | filter : searchcentrename"
+                                            [value]="centre.opalmemberregmst_pk">
+                                            {{ifarabic == true ? centre.omrm_tpname_ar : centre.omrm_tpname_en}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                                <mat-error *ngIf="adduserform.centrename.errors?.required">{{'addroles.selecentnam' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div *ngIf="centredatashowtech && !focalPoint" fxLayout="row wrap" class="p-t-15"
+                        fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>{{'addroles.centrenam' | translate}}</mat-label>
+                                <mat-select (selectionChange)="selectciviliddata(adduserform.centrename.value)"
+                                    [disabled]="viewUserdis"
+                                    *ngIf="(centre_array_tech | filter : searchcentrename) as goverresult"
+                                    panelClass="select_with_search" [disableOptionCentering]="true"
+                                    [errorStateMatcher]="matcher" required formControlName="centrename">
+                                    <div class="searchinmultiselect">
+                                        <mat-icon class="">search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                            class="searchselect" type="Search" 
+                                            placeholder="{{'supplierreg.sear' | translate}}"
+                                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchcentrename"
+                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchcentrename = ''" class="reseticon" matSuffix
+                                            *ngIf="searchcentrename !='' && searchcentrename !=null">clear</mat-icon>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <mat-option *ngFor="let centre of centre_array_tech | filter : searchcentrename"
+                                            [value]="centre.opalmemberregmst_pk">
+                                            {{ifarabic == true ? centre.omrm_branch_ar : centre.omrm_branch_en}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                                <mat-error *ngIf="adduserform.centrename.errors?.required">{{'addroles.selecentnam' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div *ngIf="(centredatashow ||centredatashowtech)  && focalPoint" fxLayout="row wrap" class="p-t-15"
+                        fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>{{'addroles.centrenam' | translate}}</mat-label>
+                                <input matInput [required]="requiredtag" formControlName="centrename"
+                                    [disabled]="viewUserdis">
+                                <mat-error *ngIf="adduserform.centrename.errors?.required">{{'addroles.selecentnam' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <!-- <div *ngIf="centredatashow && !add_btn" fxLayout="row wrap" class="p-t-15"
+                        fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Centre Name</mat-label> -->
+                    <!-- <mat-select    (selectionChange)="selectciviliddata(adduserform.centrename.value)"  *ngIf="(centre_array | filter : searchcentrename) as goverresult" panelClass="select_with_search" [disableOptionCentering]="true"
+                            [errorStateMatcher]="matcher" required formControlName="centrename">
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="Search"
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchcentrename"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchcentrename = ''" class="reseticon" matSuffix
+                                    *ngIf="searchcentrename !='' && searchcentrename !=null">clear</mat-icon>
+                            </div>
+                             <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let centre of centre_array | filter : searchcentrename"
+                                [value]="centre.opalmemberregmst_pk">{{centre.omrm_branch_en}}</mat-option>
+                            </div>
+                            </mat-select> -->
+                    <!-- <input matInput required formControlName="centreupdate"> -->
+                    <!-- <mat-error *ngIf="adduserform.centrename.errors?.required">Select centre name</mat-error> -->
+                    <!-- </mat-form-field>
+                        </div>
+                    </div> -->
+                    <div *ngIf="opaladmindatashow">
+                        <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                            <!-- <div fxFlex.gt-sm="50" *ngIf="centredatashow" fxFlex="100" ngClass.xs="p-l-0"
+                                ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                                ngClass.sm="m-0"> -->
+                            <div fxFlex.gt-sm="50" fxFlex="100" *ngIf="(centredatashow || centredatashowtech) && !focalPoint"
+                                class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addusers.stafnam' | translate}} </mat-label>
+                                    <mat-select panelClass="select_with_search" [errorStateMatcher]="matcher"
+                                        [disabled]="viewUserdis" [disableOptionCentering]="true"
+                                        *ngIf="(staffslist | filter : searchsfaffname) as goverresult"
+                                        (selectionChange)="selectcivilid(adduserform.stafnamecentre.value)" required
+                                        formControlName="stafnamecentre">
+                                        <div class="searchinmultiselect">
+                                            <mat-icon class="">search</mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                                class="searchselect" type="Search"
+                                                placeholder="{{'supplierreg.sear' | translate}}"
+                                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchsfaffname"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchsfaffname = ''" class="reseticon" matSuffix
+                                                *ngIf="searchsfaffname !='' && searchsfaffname !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                            <mat-option *ngFor="let staff of staffslist | filter : searchsfaffname"
+                                                value={{staff.staffinforepo_pk}}>{{staff.sir_name_en}}
+                                            </mat-option>
+                                            <div *ngIf="goverresult.length == 0">{{'addroles.nofoun' | translate}}</div>
+                                        </div>
+
+                                    </mat-select>
+                                    <mat-error
+                                        *ngIf="adduserform.stafnamecentre.errors?.required">{{'addroles.entstafnam' |
+                                        translate}}</mat-error>
+                                    <!-- <mat-error *ngIf="adduserform.stafnamecentre.errors?.alreadyavailable">
+                                            Email already available</mat-error> -->
+                                </mat-form-field>
+                            </div>
+                            <!-- staff name fatching only -->
+                            <div fxFlex.gt-sm="50" fxFlex="100" *ngIf="(centredatashow || centredatashowtech) && focalPoint"
+                                class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addusers.stafnam' | translate}} </mat-label>
+                                    <input matInput formControlName="stafnamecentre" [disabled]="viewUserdis">
+                                    <mat-error
+                                        *ngIf="adduserform.stafnamecentre.errors?.required">{{'addusers.entsatsnam' |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- staff name  for input  -->
+                            <div fxFlex.gt-sm="50" fxFlex="100" *ngIf="opaladmincentreshow" class="paddingspacing"
+                                ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addusers.stafnam' | translate}} </mat-label>
+                                    <input matInput [required]="requiredtag" maxlength="100" formControlName="stafName"
+                                        [disabled]="viewUserdis || nonEditPart">
+                                    <mat-error *ngIf="adduserform.stafName.errors?.required">
+                                        {{'addroles.entstafnam' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="!focalPoint" fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0"
+                                ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                                ngClass.sm="m-0">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                    class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addusers.civino' | translate}}</mat-label>
+                                    <input matInput [required]="requiredtag" [readonly]="updated"
+                                        [disabled]="viewUserdis || nonEditPart" [maxLength]="20"
+                                        formControlName="civilno"
+                                        (change)="checkBycivilIdOrEmail(adduserform.civilno.value,'civilno')">
+                                    <mat-error *ngIf="adduserform.civilno.errors?.required">{{'addroles.entcivinum' |
+                                        translate}}</mat-error>
+                                    <mat-error
+                                        *ngIf="adduserform.civilno.errors?.alreadyavailable">{{'addroles.civinumalree' |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- <div fxFlex.gt-sm="50" *ngIf="centredatashow && !add_btn" fxFlex="100" ngClass.xs="p-l-0"
+                                ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                                ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addusers.stafnam' | translate}} </mat-label>
+                                    <input matInput required formControlName="stafnameupdate">
+
+                                </mat-form-field>
+                            </div> -->
+                        </div>
+                        <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                            <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '" appearance="outline">
+                                    <mat-label>{{'addusers.emaiid' | translate}}</mat-label>
+                                    <input [readonly]="updated" matInput [required]="requiredtag"
+                                        [disabled]="viewUserdis"
+                                        pattern="[a-z-A-Z0-9.-_]{1,}@[a-z-A-Z]{2,}[.]{1}[a-z-A-Z-_]{2,}"
+                                        formControlName="emailid"
+                                        (change)="checkBycivilIdOrEmail(adduserform.emailid.value,'emailid')"
+                                        app-restrict-input="firstspace">
+                                    <mat-error *ngIf="adduserform.emailid.errors?.required">{{'addusers.entemaiid' |
+                                        translate}}</mat-error>
+                                    <mat-error
+                                        *ngIf="adduserroleform.get('emailid').hasError('pattern')">{{'addusers.entevaliemai'
+                                        | translate}}</mat-error>
+                                    <mat-error *ngIf="adduserform.emailid.errors?.alreadyavailable">
+                                        {{'addroles.emailidalred' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                                ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                                <mat-form-field class="numberandcode" [ngClass]="(updated == true) ?  (adduserform.mobilenumber.value != 'NULL') ? 'autofectlist' :'mobautofectlist' : ' '"
+                                    appearance="outline">
+                                    <mat-label>{{'addusers.mobnum' | translate}}</mat-label>
+                                    <!-- <span ngClass.xs="p-r-0" ngClass.sm="p-r-0" class="p-r-5">{{countrycode}}</span> -->
+                                    <input matInput [required]="requiredtag" [disabled]="viewUserdis"
+                                        formControlName="mobilenumber" [maxLength]="12" numbersOnly>
+                                    <mat-error *ngIf="adduserform.mobilenumber.errors?.required">{{'addroles.entmobnum'
+                                        | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                            <div fxFlex.gt-sm="50" *ngIf="opaladmincentreshow" fxFlex="100" class="paddingspacing"
+                                ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addusers.roles' | translate}}</mat-label>
+                                        <mat-select panelClass="select_with_option" [disabled]="viewUserdis" multiple [disableOptionCentering]="true" id="actsector"
+                                          [errorStateMatcher]="matcher" (closed)="searchModule = '';"  formControlName="arroles"
+                                          (selectionChange)="fetchByRole($event,adduserform.stkholdertypeuser.value)">
+                                          <mat-select-trigger>
+                                            {{adduserroleform.controls['arroles'].value ? rollist :
+                                            ''}}
+                                            <span *ngIf="adduserroleform.controls['arroles'].value?.length > 1"
+                                                class="example-additional-selection">
+                                                (+{{adduserroleform.controls['arroles'].value.length - 1}}
+                                                {{adduserroleform.controls['arroles'].value?.length === 2 ?
+                                                'other' : 'others'}})
+                                            </span>
+                                        </mat-select-trigger>
+                                          <mat-select-search class="example-additional-selection" panelClass="mat-select-search-inner"
+                                            [formControl]="moduleFilter" [placeholderLabel]="'Search'"
+                                            [noEntriesFoundLabel]="'No Result Found'">
+                                          </mat-select-search>
+                                          <div class="option-listing">
+                                            <mat-option *ngFor="let role of filteredmoduleData | async"
+                                            [value]="role.rolemst_pk">
+                                            {{ifarabic == true ? role.rm_rolename_ar : role.rm_rolename_en}}
+                                        </mat-option>
+                                            <!-- <mat-option 
+                                              *ngFor="let modData of filteredmoduleData  | async" [value]="modData.modulePk">{{modData.moduleName}}
+                                            </mat-option> -->
+                                          </div>
+                                        </mat-select>
+                                    <!-- <mat-select panelClass="select_with_search" multiple [errorStateMatcher]="matcher"
+                                         [disableOptionCentering]="true"
+                                        formControlName="arroles"
+                                        (selectionChange)=""
+                                        *ngIf="(role_mstlist | filter : searchrole) as goverresult" required>
+                                        
+                                        <div class="searchinmultiselect">
+                                            <mat-icon class="">search</mat-icon>
+                                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                                class="searchselect" type="Search"
+                                                placeholder="{{'supplierreg.sear' | translate}}"
+                                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchrole"
+                                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchrole = ''" class="reseticon cursor-pointer"
+                                                matSuffix *ngIf="searchrole !='' && searchrole !=null">clear</mat-icon>
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                           
+                                        </div>
+                                        <div class="option-listing countryselectwithimage">
+                                            <div *ngIf="goverresult.length == 0">
+                                                {{'addroles.nofoun' | translate}}</div>
+                                        </div>
+                                    </mat-select> -->
+                                    <mat-error *ngIf="adduserform.arroles.errors?.required">{{'addroles.selerolfromth' |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+
+                            </div>
+                            <!-- <div fxFlex.gt-sm="50" *ngIf="opaladmincentreshow && !add_btn" fxFlex="100"
+                                class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.role' | translate}}</mat-label>
+                                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                                        matInput app-restrict-input="english" required="{{requiredtag}}"
+                                        formControlName="arrolescentre">
+                                    <mat-error *ngIf="adduserform.arrolescentre.errors?.required">{{'addusers.selrol' |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+
+                            </div> -->
+                            <div fxFlex.gt-sm="50" *ngIf="(centredatashow || centredatashowtech)" fxFlex="100" class="paddingspacing">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '" appearance="outline">
+                                    <mat-label>{{'addusers.roles' | translate}}</mat-label>
+                                    <input [readonly]="updated" (keydown.enter)="$event.preventDefault()"
+                                        [disabled]="viewUserdis" [errorStateMatcher]="matcher" matInput
+                                        app-restrict-input="english" [required]="requiredtag"
+                                        formControlName="rolecentre">
+                                    <mat-error *ngIf="adduserform.rolecentre.errors?.required">{{'addusers.selrol' |
+                                        translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="thirdaprtyshowopal" fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0"
+                                ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                                ngClass.sm="m-0">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'addusers.isthidpart' | translate}} </mat-label>
+                                    <input [errorStateMatcher]="matcher" matInput [disabled]="viewUserdis"
+                                        appAlphabetonly readonly required>
+                                    <span matSuffix>{{'addroles.no' | translate}}
+                                        <mat-slide-toggle [(ngModel)]="toggledata"
+                                            formControlName="slider">{{'addroles.yes' | translate}}</mat-slide-toggle>
+                                    </span>
+                                    <mat-error *ngIf="adduserform.slider.errors?.required">
+                                        {{'addroles.selewheyou' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- class="onlyviewallocate" -->
+                    <div *ngIf="userroleallocation">
+                        <div fxLayout="row wrap" class="p-t-15">
+                            <!-- <div fxFlex.gt-sm="100" fxFlex="100" class="aligncenter" *ngIf="!moduleaccess">
+                                {{'addroles.assignmod' | translate}} 
+                            </div> -->
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="aligncenter">
+                                <h5 class="m-t-5 m-b-5">{{'addroles.assignmoded' | translate}} </h5>
+                            </div>
+                        </div>
+                        <app-userallocation [onlyview]="1" #addUpdateAccess (userPermData)="userPermData($event)"
+                            [currentUserPk]="currentUserPk" *ngIf="!viewUserdis" [stkpk]="stkpk"></app-userallocation>
+                        <app-userallocation [onlyview]="1" #addUpdateAccess (userPermData)="userPermData($event)"
+                            [currentUserPk]="currentUserPk" *ngIf="viewUserdis" [stkpk]="stkpk"></app-userallocation>
+                        <!--permission access table-->
+                        <!--permission access table-->
+                    </div>
+                    <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="aligncenter"  *ngIf="opaladminshowapproval">
+                                <h5 class="m-t-5 m-b-5">{{'Allocated Access to Certification Approval' | translate}}</h5>
+                          </div>
+                        <div fxFlex.gt-sm="50" *ngIf="opaladminshowapproval" fxFlex="100" class="paddingspacing"
+                            ngClass.sm="m-0">
+                         
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label *ngIf="!viewUserdis">{{'Select Certification Type' | translate}}</mat-label>
+                                <mat-select panelClass="select_with_option" multiple [errorStateMatcher]="matcher"
+                                     [disableOptionCentering]="true"
+                                    formControlName="arproject"  (selectionChange)="showcourse(adduserform.arproject.value)"
+                                    *ngIf="(cert_typelist | filter : searchrole) as goverresult" [required]="this.certificationmanditory">
+                                    <mat-select-trigger>
+                                        {{adduserroleform.controls['arproject'].value ? projist :
+                                        ''}}
+                                        <span *ngIf="adduserroleform.controls['arproject'].value?.length > 1"
+                                            class="example-additional-selection">
+                                            (+{{adduserroleform.controls['arproject'].value.length - 1}}
+                                            {{adduserroleform.controls['arproject'].value?.length === 2 ?
+                                            'other' : 'others'}})
+                                        </span>
+                                    </mat-select-trigger>
+                                    <div class="searchinmultiselect">
+                                        <mat-icon class="">search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                            class="searchselect" type="Search"
+                                            placeholder="{{'supplierreg.sear' | translate}}"
+                                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchrole"
+                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchrole = ''" class="reseticon cursor-pointer"
+                                            matSuffix *ngIf="searchrole !='' && searchrole !=null">clear</mat-icon>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <mat-option *ngFor="let project of cert_typelist | filter : searchrole" [disabled]="viewUserdis"
+                                            [value]="project.projectmst_pk">
+                                            {{ifarabic == true ? project.pm_certificationname_ar : project.pm_certificationname_en}}
+                                        </mat-option>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <div *ngIf="goverresult.length == 0">
+                                            {{'addroles.nofoun' | translate}}</div>
+                                    </div>
+                                </mat-select>
+                                <mat-error *ngIf="adduserform.arproject.errors?.required">Select the Certification Type from the drop-down</mat-error>
+                            </mat-form-field>
+
+                        </div>
+                    
+                        <div *ngIf="showstandardcourse" fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0"
+                            ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                            ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label *ngIf="!viewUserdis">{{'Select Standard Course' | translate }}</mat-label>
+                                <mat-select panelClass="select_with_option" multiple [errorStateMatcher]="matcher"
+                                    [disableOptionCentering]="true" #selectbox
+                                    formControlName="arcourse"
+                                    *ngIf="(standard_list | filter : searchrole) as goverresult"  [required]="this.coursemanditory">
+                                    <mat-select-trigger>
+                                        {{adduserroleform.controls['arcourse'].value ? courseist :
+                                        ''}}
+                                        <span *ngIf="adduserroleform.controls['arcourse'].value?.length > 1"
+                                            class="example-additional-selection">
+                                            (+{{adduserroleform.controls['arcourse'].value.length - 1}}
+                                            {{adduserroleform.controls['arcourse'].value?.length === 2 ?
+                                            'other' : 'others'}})
+                                        </span>
+                                    </mat-select-trigger>
+                                    <div class="searchinmultiselect">
+                                        <mat-icon class="">search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                            class="searchselect" type="Search"
+                                            placeholder="{{'supplierreg.sear' | translate}}"
+                                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchrole"
+                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchrole = ''" class="reseticon cursor-pointer"
+                                            matSuffix *ngIf="searchrole !='' && searchrole !=null">clear</mat-icon>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <mat-checkbox *ngIf="goverresult.length != 0" [(ngModel)]="allSelected" class="mat_box m-l-16"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="viewUserdis"
+                                        (change)="toggleAllSelection()">{{'Select All' | translate }}</mat-checkbox>
+                                        <mat-option *ngFor="let course of standard_list | filter : searchrole" [disabled]="viewUserdis"
+                                            [value]="course.standardcoursemst_pk" (click)="optionClick()">
+                                            {{ifarabic == true ? course.scm_coursename_ar : course.scm_coursename_en}}
+                                        </mat-option>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <div *ngIf="goverresult.length == 0">
+                                            {{'addroles.nofoun' | translate}}</div>
+                                    </div>
+                                </mat-select>
+                                <mat-error *ngIf="adduserform.arcourse.errors?.required">Select the Standard Course from the drop-down</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div>
+                        <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center"
+                            *ngIf="viewUserdis">
+                            <div *ngIf="focalPoint" fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing"
+                                ngClass.sm="m-0">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                    class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.userna' | translate}}</mat-label>
+                                    <input [readonly]="updated" matInput [disabled]="viewUserdis"
+                                        formControlName="username">
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="!focalPoint" fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing"
+                                ngClass.sm="m-0">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                    class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.pass' | translate}}</mat-label>
+                                    <input [readonly]="updated" matInput [disabled]="viewUserdis"
+                                        formControlName="password">
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="focalPoint"  fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0"
+                            ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30"
+                            ngClass.sm="m-0">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                    class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.pass' | translate}}</mat-label>
+                                    <input [readonly]="updated" matInput [disabled]="viewUserdis"
+                                        formControlName="password">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" class="m-t-30" fxLayoutAlign="end">
+                            <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-end center">
+                                <button mat-raised-button *ngIf="!viewBackBackbutton" type="button" color="secondary"
+                                    class="filterbtn m-r-10 height-45" (click)="gotouserbackgrid();">{{'addroles.canc' |
+                                    translate}}</button>
+                                <button mat-raised-button *ngIf="viewBackBackbutton" type="button" color="secondary"
+                                    class="filterbtn m-r-10 height-45" (click)="gotouserbackgrid();">Close</button>
+                                <button *ngIf="add_btn && !viewBackBackbutton" mat-raised-button
+                                    [disabled]="isFormValid" [class.disabledsubmit]="isFormValid" type="button"
+                                    (click)="adduserdatasave();scrollTo('addrolesnew')" color="primary"
+                                    class="addbtn height-45">{{'addroles.subm' |
+                                    translate}}</button>
+                                <button *ngIf="!add_btn && !viewBackBackbutton" mat-raised-button
+                                    [class.disabledsubmit]="isFormValid" [disabled]="isFormValidss" type="button"
+                                    (click)="adduserdatasave()" color="primary" class="addbtn height-45">{{'addroles.updat' | translate}}</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </div>
+            <!-- ===== -->
+            <div id="manageusers" *ngIf="refname == 3 && userreadaccess" class="example-form">
+                <div *ngIf="hidecentregrid" class="paginationwithfilter masterPageTop ">
+                    <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                    <div fxLayout="row wrap" fxLayoutAlign="end">
+                        <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-start center">
+                            <button mat-raised-button type="button" color="secondary" *ngIf="usercreateaccess" (click)="evenusercentredata();"
+                                class="addbtn m-r-10 height-45">{{'manageusers.add' | translate}}</button>
+                            <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                class="filter height-45">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="hidecentregrid" fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                        <div class="awaredtable">
+                            <mat-table #table class="scrolldata" [dataSource]="Usersrecord"
+                                matSortActive="opalusermst_pk" matSortDirection="desc" multiTemplateDataRows matSort
+                                matSortDisableClear>
+                                <ng-container matColumnDef="oum_idnumber">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.civino' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        {{coursedata.civilNo}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_firstname">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'addroles.stafnam' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.stafName}} </span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_emailid">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.emaiid' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.emailid}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_mobno">
+                                    <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.mobnum' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch No" fxFlex="230px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span
+                                            *ngIf="!tblplaceholder">{{coursedata.mobilno?coursedata.mobilno:'-'}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="role">
+                                    <mat-header-cell fxFlex="160px" mat-header-cell
+                                        *matHeaderCellDef>{{'manageusers.role' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="160px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{ifarabic == true ? coursedata.roleName_ar ?
+                                            coursedata.roleName_ar : "-" : coursedata.roleName_en ?
+                                            coursedata.roleName_en : "-" || "-"}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_status">
+                                    <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.stat' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="{{'batch.branchname' |translate}}" fxFlex="160px"
+                                        *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <p *ngIf="coursedata.status == 'A'" class="print flexaligntag">
+                                                {{'manageusers.activ' | translate}}</p>
+                                            <p *ngIf="coursedata.status == 'I'" class="declined flexaligntag">
+                                                {{'manageusers.inactiv' | translate}}</p>
+                                            <p *ngIf="coursedata.status == 'E'" class="pending flexaligntag">
+                                                {{'manageusers.emaiconfpen' | translate}}</p>
+                                            <p *ngIf="coursedata.status == 'D'" class="red flexaligntag">
+                                                {{'manageusers.deact' | translate}}</p>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_createdon">
+                                    <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.addon' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="180px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.addedOn}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="oum_updatedon">
+                                    <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.lasupdaon' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="180px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <span *ngIf="!tblplaceholder">{{coursedata.lastUpdateOn}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="action" stickyEnd>
+                                    <mat-header-cell fxFlex="100px" mat-header-cell *matHeaderCellDef
+                                        mat-sort-header>{{'manageusers.actio' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Batch Type" fxFlex="100px" *matCellDef="let coursedata">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <button mat-icon-button
+                                                [matMenuTriggerFor]="menu"><mat-icon class="txt-gry">more_horiz</mat-icon></button>
+                                            <mat-menu #menu="matMenu" class="actionmatmenu">
+                                                <button mat-menu-item
+                                                    (click)="viewRoleuser(coursedata,coursedata.opalusermst_pk)">{{'manageusers.view'
+                                                    |
+                                                    translate}}</button>
+                                                <!-- <button mat-menu-item
+                                                (click)="editcentreData(coursedata)">{{'manageusers.edit' |
+                                                translate}}</button> -->
+                                                <!-- <button *ngIf="coursedata.status == 'I'"
+                                                    (click)="update(coursedata.opalusermst_pk,coursedata.status)"
+                                                    mat-menu-item>{{'manageroles.acti' | translate}}</button>
+                                                <button *ngIf="coursedata.status == 'A'"
+                                                    (click)="update(coursedata.opalusermst_pk,coursedata.status)"
+                                                    mat-menu-item>{{'manageroles.deact' | translate}} </button> -->
+                                            </mat-menu>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-one">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="civilNo" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-two">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="stafName" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-three">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="emailid" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-four">
+                                    <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [formControl]="mobilno" matInput>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-five">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input matInput [formControl]="roleName_en">
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-six">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="status">
+                                                <mat-option value="A">{{'manageusers.activ' | translate}}</mat-option>
+                                                <mat-option value="I">{{'manageusers.inactiv' | translate}}</mat-option>
+                                                <mat-option value="E">{{'manageusers.emaiconfpen' |
+                                                    translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <!-- <ng-container matColumnDef="row-seven">
+                                    <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.sele' | translate}}</mat-label>
+                                            <mat-select [formControl]="addedOn">
+                                                <mat-option value="1">{{'manageusers.activ' | translate}}</mat-option>
+                                                <mat-option value="2">{{'manageusers.inactiv' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container> -->
+                                <ng-container matColumnDef="row-seven">
+                                    <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [max]="today" matInput [formControl]="addedOn"
+                                                (click)="addedon.open()" [matDatepicker]="addedon" readonly>
+                                            <mat-datepicker-toggle matSuffix [for]="addedon"></mat-datepicker-toggle>
+                                            <mat-datepicker #addedon></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-eight">
+                                    <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'manageusers.searc' | translate}}</mat-label>
+                                            <input [max]="today" matInput [formControl]="lastUpdateOn"
+                                                (click)="addedon.open()" [matDatepicker]="addedon" readonly>
+                                            <mat-datepicker-toggle matSuffix [for]="addedon"></mat-datepicker-toggle>
+                                            <mat-datepicker #addedon></mat-datepicker>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-nine" stickyEnd>
+                                    <mat-header-cell fxFlex="100px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <i class="fa fa-refresh m-l-15 cursorview"
+                                            (click)="centreclearFilter();centrefiltersts=false;" aria-hidden="true"
+                                            matTooltip="{{'table.refresh' |translate}}"></i>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <tr mat-header-row id="headerrowcells" *matHeaderRowDef="centerrecordcolumn"></tr>
+                                <mat-header-row id="searchrow"
+                                    *matHeaderRowDef="['row-one','row-two','row-three','row-four','row-five','row-six','row-seven','row-eight','row-nine']">
+                                </mat-header-row>
+                                <tr mat-row *matRowDef="let element; columns: centerrecordcolumn;"
+                                    class="example-element-row">
+                                </tr>
+                                <ng-container matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="11">
+                                        <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container>
+                                    <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                        [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                        *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                    </mat-footer-row>
+                                </ng-container>
+                            </mat-table>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom " showFirstLastButtons
+                                    [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                    [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form id="manageusers" *ngIf="centregrid" class="example-form" [formGroup]="centreform">
+
+                    <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.sm="m-0">
+                            <input type="hidden" value="" formControlName="opalusermstpk">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>{{'addusers.stafnam' | translate}} </mat-label>
+                                <mat-select panelClass="select_with_search" [errorStateMatcher]="matcher"
+                                    [disabled]="viewCenterUserdis" [disableOptionCentering]="true"
+                                    *ngIf="(staffslistcentre | filter : searchsfaffnamecentre) as goverresult"
+                                    (selectionChange)="selectcivilidcentre(cntreform.staffsnamecentre.value);" required
+                                    formControlName="staffsnamecentre">
+                                    <div class="searchinmultiselect">
+                                        <mat-icon class="">search</mat-icon>
+                                        <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                            class="searchselect" type="Search"
+                                            placeholder="{{'supplierreg.sear' | translate}}"
+                                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchsfaffnamecentre"
+                                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                        <mat-icon (click)="searchsfaffnamecentre = ''" class="reseticon" matSuffix
+                                            *ngIf="searchsfaffnamecentre !='' && searchsfaffnamecentre !=null">clear</mat-icon>
+                                    </div>
+                                    <div class="option-listing countryselectwithimage">
+                                        <mat-option
+                                            *ngFor="let staflist of staffslistcentre | filter : searchsfaffnamecentre"
+                                            value={{staflist.staffinforepo_pk}}> {{staflist.sir_name_en}}</mat-option>
+                                        <div *ngIf="goverresult.length == 0">{{'addroles.nofoun' | translate}}</div>
+                                    </div>
+
+                                </mat-select>
+                                <mat-error *ngIf="cntreform.staffsnamecentre.errors?.required">{{'addroles.entstafnam' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                            ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                            <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                class="example-full-width" appearance="outline">
+                                <mat-label>{{'addusers.civino' | translate}}</mat-label>
+                                <input [readonly]="updated" matInput formControlName="civilnocentre"
+                                    [disabled]="viewCenterUserdis">
+                                <mat-error *ngIf="cntreform.civilnocentre.errors?.required">{{'addroles.entcivinum' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                class="example-full-width" appearance="outline">
+                                <mat-label>{{'addusers.emaiid' | translate}}</mat-label>
+                                <input [readonly]="updated" matInput [disabled]="viewCenterUserdis"
+                                    pattern="[a-zA-Z0-9]{1,}@[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
+                                    formControlName="emailidcentre">
+                                <mat-error *ngIf="cntreform.emailidcentre.errors?.required">{{'addroles.entemaiid' |
+                                    translate}}</mat-error>
+                                <mat-error
+                                    *ngIf="centreform.get('emailidcentre').hasError('pattern')">{{'addusers.entevaliemai'
+                                    | translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                            <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '" class="numberandcode"
+                                appearance="outline">
+                                <mat-label>{{'addusers.mobnum' | translate}}</mat-label>
+                                <span ngClass.xs="p-r-0" ngClass.sm="p-r-0" class="p-r-5">{{countrycode}}</span>
+                                <input  matInput formControlName="mobilenumbercentre"
+                                    [disabled]="viewCenterUserdis" [maxLength]="12" numbersOnly>
+                                <mat-error
+                                    *ngIf="cntreform.mobilenumbercentre.errors?.required">{{'addroles.entthemobnum' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                class="example-full-width" appearance="outline">
+                                <mat-label>{{'addusers.roles' | translate}}</mat-label>
+                                <input [readonly]="updated" (keydown.enter)="$event.preventDefault()"
+                                    [disabled]="viewCenterUserdis" [errorStateMatcher]="matcher" matInput
+                                    app-restrict-input="english" formControlName="rolescentre">
+                                <mat-error *ngIf="cntreform.rolescentre.errors?.required">{{'addusers.selrol' |
+                                    translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- class="onlyviewallocate" -->
+                    <div>
+                        <div fxLayout="row wrap" class="p-t-15">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="aligncenter">
+                                <h5 class="m-t-5 m-b-5">{{'addroles.assignmod' | translate}} </h5>
+                            </div> 
+                        </div>
+                        <!--permission access table-->
+                        <app-userallocation [onlyview]="1" #addUpdateAccess
+                            (userviewBackBackbuttonPermData)="userPermData($event)" [currentUserPk]="currentUserPk"
+                            *ngIf="!viewCenterUserdis" [stkpk]="stkpk"></app-userallocation>
+                        <app-userallocation [onlyview]="1" #addUpdateAccess
+                            (userviewBackBackbuttonPermData)="userPermData($event)" [currentUserPk]="currentUserPk"
+                            *ngIf="viewCenterUserdis" [stkpk]="stkpk"></app-userallocation>
+                        <!-- <app-userallocation  #addUpdateAccess (userPermData)="userPermData($event)"
+                            [currentUserPk]="currentUserPk" *ngIf="viewUserdis" [stkpk]="stkpk"></app-userallocation> -->
+                        <!--permission access table-->
+                        <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center"
+                            *ngIf="viewCenterUserdis">
+                            <!-- <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                    class="example-full-width" appearance="outline">
+                                    <mat-label>User Name</mat-label>
+                                    <input [readonly]="updated" matInput [disabled]="viewCenterUserdis"
+                                        formControlName="Username">
+                                </mat-form-field>
+                            </div> -->
+                            <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                                ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                                <mat-form-field [ngClass]="updated == true ? 'autofectlist' : ' '"
+                                    class="example-full-width" appearance="outline">
+                                    <mat-label>{{'addroles.pass' | translate}}</mat-label>
+                                    <input [readonly]="updated" matInput [disabled]="viewCenterUserdis"
+                                        formControlName="password">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" class="m-t-30" fxLayoutAlign="end">
+                            <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-end center">
+                                <button *ngIf="!viewBackBackbutton" mat-raised-button type="button" color="secondary"
+                                    class="filterbtn m-r-10 height-45" (click)="gotocentrebackgrid();">{{'addroles.canc'
+                                    | translate}}</button>
+                                <button *ngIf="viewBackBackbutton" mat-raised-button type="button" color="secondary"
+                                    class="filterbtn m-r-10 height-45" (click)="gotocentrebackgrid();">{{'addroles.clos'
+                                    | translate}}</button>
+                                <button *ngIf="add_btn && !viewBackBackbutton"
+                                    (click)="addcentredatasave();scrollTo('addrolesnew')" mat-raised-button
+                                    [disabled]="!centreform.valid" [class.disabledsubmit]="!centreform.valid"
+                                    type="button" color="primary" class="addbtn height-45">{{'addroles.subm' |
+                                    translate}}</button>
+                                <button *ngIf="!add_btn && !viewBackBackbutton" (click)="addcentredatasave();"
+                                    mat-raised-button [disabled]="!centreform.valid"
+                                    [class.disabledsubmit]="!centreform.valid" type="button" color="primary"
+                                    class="addbtn height-45">{{'addroles.updat' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <!-- ===== -->
+        </div>
+    </div>
+</div>

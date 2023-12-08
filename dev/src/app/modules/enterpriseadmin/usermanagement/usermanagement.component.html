@@ -1,0 +1,501 @@
+
+<div class="usersmaincontainer">
+  <form class="basic-form organizationformbs">
+    <div fxLayout="row wrap" class=" ">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxLayout="row wrap" class="mastercompnaycontent">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="topheadermain">
+              <div class="imagewithtext">
+                <h4 class="mat-pagetitle-1">{{'enterpriseadmin.user' | translate}}</h4>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="center" class=" organizationdetail" id="mastercompanydetail" class="m-t-40">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-5">
+            <div fxLayout="row wrap" class="" fxLayoutAlign="center" class="p-b-15">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-10 p-r-10">
+                <app-usereachcounts #refUserCount (usermanstatusfilter)="filterstatusviacnt($event);"></app-usereachcounts>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="" fxLayoutAlign="center" class="p-b-15">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <div class="filterouterdiv p-t-10">
+                  <app-activityfilter  (showLoaderview)="Contentplaceloader = $event"  class="makeitfullwidth" #enterpriseFilter [filterType]="2" [recentSearchType]="1"
+                    (userFilterData)="userFilterData($event)">
+                  </app-activityfilter>
+                  <button type="button" [disabled]="totalusercount >= validcount" (click)="addUserFromType=1;addusertog();adddivision()" mat-raised-button
+                    color="preview" class="height-35  adduserbutton">
+                    <span>
+                      {{'enterpriseadmin.adduser' | translate}}
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="paginationwithfilter masterPageTop">
+              <mat-paginator  [style.visibility]="(resultsLength >= 4) ? 'visible' : 'hidden' "
+                class="masterPage masterPageTop" #paginator [length]="resultsLength"
+                (page)="pageEvent = $event; onPaginateChange($event)" [pageSize]="15" [pageSizeOptions]="[1,5,10, 15,20, 25,50, 100]">
+              </mat-paginator>
+              <div fxLayout="row wrap" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-20" ngClass.lg="p-l-20"
+                class="p-r-0">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="searchinfo">
+                  <div fxLayoutAlign="end" fxFlex="100" class="showfilterandadditem m-b-0">
+                    <span (click)="toggleUserandInviteUser()" class="inviteduser m-r-20">
+                      <i class="bgi bgi-Followtwo p-r-5"></i>
+                      <span *ngIf="enterpriseFilter.showInvitedUser">{{'enterpriseadmin.user' | translate}}</span>
+                      <span *ngIf="!enterpriseFilter.showInvitedUser">{{'enterpriseadmin.inacuser' | translate}}</span>
+                    </span>
+                    <div class="gotoeachmenus">
+                      <div class="manageoptions">
+                        <p class="managespanafter mangebackgrounduser"><span class="mangecolor">{{'enterpriseadmin.manag' | translate}} :</span> <span
+                            class="dropitem" [matMenuTriggerFor]="menutopmanage">{{'enterpriseadmin.user' | translate}} </span></p>
+                        <mat-menu #menutopmanage="matMenu" class="master-menu">
+                          <button   (click)="chkUserPermission('/enterpriseadmin/usermanagement',1)" mat-menu-item>
+                            <span>{{'enterpriseadmin.user' | translate}}</span>
+                          </button>
+                          <button   (click)="chkUserPermission('/enterpriseadmin/department',2)" mat-menu-item>
+                            <span>{{'enterpriseadmin.depa' | translate}}</span>
+                          </button>
+                          <button   (click)="chkUserPermission('/enterpriseadmin/divisions',3)" mat-menu-item>
+                            <span>{{'enterpriseadmin.divisi' | translate}}</span>
+                          </button>
+                          <button  (click)="chkUserPermission('/enterpriseadmin/inviteduser',4)" mat-menu-item>
+                            <span>{{'enterpriseadmin.inviuser' | translate}}</span>
+                          </button>
+                        </mat-menu>
+                      </div>
+                      <div class="sortbymenu">
+                        <span [matMenuTriggerFor]="menu1" class="sortby"><span>{{'enterpriseadmin.sortby' | translate}}</span><i
+                            class="bgi bgi-dropdown p-l-10 p-r-10 fs-10"></i></span>
+                        <mat-menu #menu1="matMenu" class=" master-menu">
+                          <button (click)="sortEventChange(1)" mat-menu-item>{{'enterpriseadmin.newe' | translate}}</button>
+                          <button (click)="sortEventChange(2)" mat-menu-item>{{'enterpriseadmin.olde' | translate}}</button>
+                        </mat-menu>
+                      </div>
+                      <span matTooltip="{{'enterpriseadmin.listview' | translate}}" matTooltipPosition="above" class="m-r-20"
+                        [class.active]="gridtype=='list'" (click)="gridtype='list'"><i
+                          class="bgi bgi-list_menu"></i></span>
+                      <span matTooltip="{{'enterpriseadmin.gridview' | translate}}" matTooltipPosition="above" [class.active]="gridtype=='grid'"
+                        (click)="gridtype='grid'"><i class="bgi bgi-product_activitynew"></i></span>
+                    </div>
+                
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="Contentplaceloader" fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <div fxLayout="row wrap" class="page m-t-20">
+                  <div fxFlex.gt-sm="100" fxFlex="100">
+                    <div class="marginbetween">
+                      <div class="justify m-b-40">
+                        <h1 class="pagetitle widthofspace"></h1>
+                        <h1 class="pagetitle widthofspace"></h1>
+                      </div>
+                      <div class="aligncard m-t-30">
+                        <div class="cardleftwidth">
+                          <div class="skycardloaderitem m-b-20"></div>
+                          <div class="skycardloaderitem m-b-20"></div>
+                          <div class="skycardloaderitem m-b-20"></div>
+                          <div class="skycardloaderitem m-b-20"></div>
+                          <div class="skycardloaderitem"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!Contentplaceloader">
+              <div fxLayout="row wrap" class=" tabforclientelenew " [class.listviewadded]="gridtype=='list'">
+                <div fxFlex.gt-sm="100" fxFlex="100" class=" masterTable">
+                  <div class="eachprofilelistflexcontatiner">
+                    <div class="profileflexitem" *ngFor="let userInfoDetails of userinfo; let i = index">
+                      <div class="sttusofprson hidethisforlist">
+                       
+                        <div class="flexstartightalogn">
+                          <div class="widthofpopover">
+                            <div *ngIf="userInfoDetails.userType == 'U'"
+                              popover="{{userInfoDetails.isModuleAllocated>0? 'Module Access Rights allocated.':'Yet to allocate Module Access Rights.'}}"
+                              popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                              [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+                              class="headerimage m-r-0 mat-card-avatarnew">
+                              <i (click)="viewmoduleaccess(userInfoDetails, accSettingsData.baseModulesAccess);" class="bgi bgi-Module_Permission cursor-pointer"
+                                [class.permissionview]="userInfoDetails.isModuleAllocated<=0"></i>
+                            </div>
+                          </div>
+                          <button class="menubutton" mat-icon-button [matMenuTriggerFor]="menutop"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon class="moremenucolor">more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menutop="matMenu" class="master-menu enterprisedeleteedit">
+                            <button *ngIf="(userInfoDetails.status != 'Y' && userInfoDetails.userType == 'U') || (userInfoDetails.status != 'Y' && userInfoDetails.userType == 'A' && user_pk == userInfoDetails.userPk)" mat-menu-item
+                              (click)="editUser(userInfoDetails.userPk)">
+                              <span>{{'enterpriseadmin.edit' | translate}}</span>
+                            </button>
+                            <button
+                              *ngIf="(userInfoDetails.status == 'I' || userInfoDetails.emailStatus != 1) && userInfoDetails.userType == 'U'"
+                              mat-menu-item (click)="deleteuser(userInfoDetails.userPk, 'D')">
+                              <span>{{'enterpriseadmin.dele' | translate}}</span>
+                            </button>
+                            <button *ngIf="userInfoDetails.status == 'Y' && userInfoDetails.userType == 'U'" mat-menu-item
+                              (click)="delteUserPopupWithComments(userInfoDetails.userPk, 'D')">
+                              <span>{{'enterpriseadmin.dele' | translate}}</span>
+                            </button>
+                            <button
+                              *ngIf="(userInfoDetails.emailStatus == 1 && (userInfoDetails.status == 'A' || userInfoDetails.status == 'I')) && userInfoDetails.userType == 'U'"
+                              mat-menu-item (click)="deactoractiuser(userInfoDetails.userPk,userInfoDetails.status)">
+                              <span>{{(userInfoDetails.status == 'A')? this.i18n('enterpriseadmin.deact'):this.i18n('enterpriseadmin.activ')}}</span>
+                            </button>
+                            <button mat-menu-item (click)="monitorLog(userInfoDetails.userPk);"
+                              *ngIf="(userInfoDetails.emailStatus == 1 && (userInfoDetails.status == 'A' || userInfoDetails.status == 'I')) && userInfoDetails.userType == 'U'">
+                              <span>{{'enterpriseadmin.moniuserlog' | translate}}</span>
+                            </button>
+                            <button mat-menu-item *ngIf="userInfoDetails.status == 'Y' && userInfoDetails.userType == 'U'"
+                              (click)="approveUser(userInfoDetails.userPk);">
+                              <span>{{'enterpriseadmin.appr' | translate}}</span>
+                            </button>
+                            <button mat-menu-item (click)="viewUser(userInfoDetails.userPk)">
+                              <span>{{'enterpriseadmin.view' | translate}}</span>
+                            </button>
+                          </mat-menu>
+                        </div>
+                      </div>
+                      <div class="makeitforlistview">
+                        <div class="personimage forlistviewname">
+                          <img src="{{userInfoDetails.userdp}}" onError="this.src = 'assets/images/avatar.svg'"
+                            alt="user image">
+                        </div>
+                        <div class="personimage hidethisinlist">
+                          <img src="{{userInfoDetails.userdp}}" onError="this.src = 'assets/images/avatar.svg'"
+                            alt="user image">
+                        </div>
+                        <div class="personinformation">
+                          <div class="nameandhisid" id="textwraptitle">
+                            <h4 class="mat-subheading-1 popoverjerk p-t-20 hidethisinlist text-center cursorview">
+                              <span popover="{{userInfoDetails.membername}}" popoverTitle="" popoverPlacement="bottom"
+                              [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                              [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+                              (click)="viewUser(userInfoDetails.userPk)">{{userInfoDetails.membername |
+                              truncate:[75]}}</span>
+                              <span class="sccreated" *ngIf="userInfoDetails.basemodPK != null" popover="{{'enterpriseadmin.skyccrea' | translate}}" popoverTitle="" popoverPlacement="bottom"
+                              [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                              [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"><i class="bgi bgi-Contact txt-orange fs-14 p-l-10"></i></span>
+                            </h4>                           
+                            <div fxLayout="row wrap" class="forlistviewname">
+                              <div fxFlex.gt-sm="50" fxFlex="100" class="d-flex">
+                                <h4 class="mat-subheading-1 popoverjerk p-t-20 m-r-10 txt-ellipsis widthautowrap">
+                                  <span popover="{{userInfoDetails.membername}}" popoverTitle="" popoverPlacement="bottom"
+                                  [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+                                  (click)="viewUser(userInfoDetails.userPk)" class="widthauto">
+                                  {{userInfoDetails.membername |
+                                  truncate:[75]}}</span>
+                                  <span class="sccreated" *ngIf="userInfoDetails.basemodPK != null" popover="{{'enterpriseadmin.skyccrea' | translate}}" popoverTitle="" popoverPlacement="bottom"
+                                  [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"><i class="bgi bgi-Contact txt-orange fs-14 p-l-10"></i></span>                              
+                                </h4>
+                                                                 
+                              </div>
+  
+                              <div fxFlex.gt-sm="50" fxFlex="100"
+                                class="flexmodule activechipview activenew flexstartview"> 
+                                  <span *ngIf="userInfoDetails?.userType == 'A'" class="fs-12 coloractive" >{{'enterpriseadmin.adminprimcont' | translate}}</span>
+                                 
+                                <span
+                                  [ngClass]="{'emailpending': (userInfoDetails.userType == 'U' && userInfoDetails.emailStatus != 1),'active': (userInfoDetails.userType == 'A' || (userInfoDetails.emailStatus == 1 && userInfoDetails.status == 'A')), 'inactive': (userInfoDetails.emailStatus == 1 && userInfoDetails.status == 'I'), 'yettoapprove': (userInfoDetails.emailStatus == 1 && userInfoDetails.status == 'Y'), 'yettoregister': (userInfoDetails.status == 'YR')}">
+                                  {{(userInfoDetails.userType == 'U')?((userInfoDetails.emailStatus != 1 && userInfoDetails.status != 'YR')?this.i18n('enterpriseadmin.emaiconfipend'):this.i18n(userInfoDetails.userStatus)):this.i18n('enterpriseadmin.active')}}</span>
+                                <span
+                                  class="pnotecolor m-r-10">{{(userInfoDetails?.empId)?userInfoDetails.empId:'Nil'}}</span>
+                             
+                                <div class="widthofpopover">
+                                  <div *ngIf="userInfoDetails.userType == 'U'"
+                                    popover="{{userInfoDetails.isModuleAllocated>0? this.i18n('enterpriseadmin.moduaccerigh'): this.i18n('enterpriseadmin.yettoallomodu') }}"
+                                    popoverPlacement="bottom-right" [popoverOnHover]="true"
+                                    [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false"
+                                    [popoverDisabled]="false" [popoverAnimation]="true"
+                                    class="headerimage m-r-0 mat-card-avatarnew">
+                                    <i (click)="viewmoduleaccess(userInfoDetails, accSettingsData.baseModulesAccess);" class="bgi bgi-Module_Permission cursor-pointer"
+                                      [class.permissionview]="userInfoDetails.isModuleAllocated<=0"></i>
+                                  </div>
+                                </div>
+  
+  
+                                <button class="menubutton" mat-icon-button [matMenuTriggerFor]="menutop"
+                                  aria-label="Example icon-button with a menu">
+                                  <mat-icon class="moremenucolor">more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menutop="matMenu" class="master-menu enterprisedeleteedit">
+                                  <button *ngIf="userInfoDetails.status != 'Y' || userInfoDetails.userType == 'A'"
+                                    mat-menu-item (click)="editUser(userInfoDetails.userPk)">
+                                    <span>{{'enterpriseadmin.edit' | translate}}</span>
+                                  </button>
+                                  <button
+                                    *ngIf="(userInfoDetails.status == 'I' || userInfoDetails.emailStatus != 1) && userInfoDetails.userType == 'U'"
+                                    mat-menu-item (click)="deleteuser(userInfoDetails.userPk, 'D')">
+                                    <span>{{'enterpriseadmin.dele' | translate}}</span>
+                                  </button>
+                                  <button *ngIf="userInfoDetails.status == 'Y' && userInfoDetails.userType == 'U'"
+                                    mat-menu-item (click)="delteUserPopupWithComments(userInfoDetails.userPk, 'D')">
+                                    <span>{{'enterpriseadmin.dele' | translate}}</span>
+                                  </button>
+                                  <button
+                                    *ngIf="(userInfoDetails.emailStatus == 1 && (userInfoDetails.status == 'A' || userInfoDetails.status == 'I')) && userInfoDetails.userType == 'U'"
+                                    mat-menu-item
+                                    (click)="deactoractiuser(userInfoDetails.userPk,userInfoDetails.status)">
+                                    <span>{{(userInfoDetails.status == 'A')?this.i18n('enterpriseadmin.deact'):this.i18n('enterpriseadmin.activ')}}</span>
+                                  </button>
+                                  <button mat-menu-item (click)="monitorLog(userInfoDetails.userPk)"
+                                    *ngIf="(userInfoDetails.emailStatus == 1 && (userInfoDetails.status == 'A' || userInfoDetails.status == 'I')) && userInfoDetails.userType == 'U'">
+                                    <span>{{'enterpriseadmin.moniuserlog' | translate}}</span>
+                                  </button>
+                                  <button mat-menu-item
+                                    *ngIf="userInfoDetails.status == 'Y' && userInfoDetails.userType == 'U'"
+                                    (click)="approveUser(userInfoDetails.userPk);">
+                                    <span>{{'enterpriseadmin.appr' | translate}}</span>
+                                  </button>
+                                  <button mat-menu-item (click)="viewUser(userInfoDetails.userPk)">
+                                    <span>{{'enterpriseadmin.view' | translate}}</span>
+                                  </button>
+                                </mat-menu>
+                              </div>
+                            </div>
+                            <div class="sttusofprson forlistviewonly">
+                              <div class="hideforlist">
+  
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="contactdetils p-t-5">
+                            <div class="flexmodule hidethisinlist alignoftext activechipview activenew">
+                              
+                                <span *ngIf="userInfoDetails?.userType == 'A'" class="coloractive fs-12" >{{'enterpriseadmin.adminprimcont' | translate}}</span>
+                              
+                              <span
+                                class="pnotecolor m-r-10">{{(userInfoDetails?.empId)?userInfoDetails.empId:'Nil'}}</span>
+                              <span class="activenew m-r-10"
+                                [ngClass]="{'emailpending': (userInfoDetails.userType == 'U' && userInfoDetails.emailStatus != 1),
+                                'active': (userInfoDetails.userType == 'A' || (userInfoDetails.emailStatus == 1 && userInfoDetails.status == 'A')), 
+                                'inactive': (userInfoDetails.emailStatus == 1 && userInfoDetails.status == 'I'), 
+                                'yettoapprove': (userInfoDetails.emailStatus == 1 && userInfoDetails.status == 'Y'), 
+                                'yettoregister': (userInfoDetails.status == 'YR')}">
+                                {{(userInfoDetails.userType == 'U')?((userInfoDetails.emailStatus != 1 && userInfoDetails.status != 'YR')? this.i18n('enterpriseadmin.emaiconfipend') :userInfoDetails.userStatus): this.i18n('enterpriseadmin.active')}}</span>
+                             
+                            </div>
+  
+                            <div fxLayout="row wrap" class="forlistviewonly" id="popoverwidth_reduce">
+                              <div fxFlex.gt-sm="50" fxFlex="100">
+                                <p>
+                                  <i  popover="{{'enterpriseadmin.desi' | translate}}" popoverPlacement="bottom"
+                                  [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                  [popoverAnimation]="true" class="bgi bgi-investor cursor-pointer"></i>
+                                  <span >{{(userInfoDetails?.designation)?(userInfoDetails.designation):'Nil'}}</span>
+                                </p>
+                                <p>
+                                  <i  popover="{{'enterpriseadmin.divisi' | translate}}" popoverPlacement="bottom"
+                                  [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                  [popoverAnimation]="true" class="bgi bgi-Divisions cursor-pointer"></i>
+                                  <span >{{(userInfoDetails?.bUnitSector)?(userInfoDetails.bUnitSector):'Nil'}}</span>
+                                </p>
+                              </div>
+                              <div fxFlex.gt-sm="50" fxFlex="100">
+                                <p>
+                                  <i  popover="{{'enterpriseadmin.depa' | translate}}" popoverPlacement="bottom"
+                                  [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                  [popoverAnimation]="true" class="bgi bgi-add-department-new cursor-pointer"></i>
+                                  <span >{{(userInfoDetails?.departmentName)?(userInfoDetails.departmentName):'Nil'}}</span>
+                                </p>
+                                <p>
+                                  <i  popover="{{'enterpriseadmin.email' | translate}}" popoverPlacement="bottom"
+                                  [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                  [popoverAnimation]="true" class="bgi bgi-mail1 cursor-pointer"></i>
+                                  <span class="scemailellipsis" matTooltip="{{userInfoDetails.emailId}}">{{(userInfoDetails?.emailId)?(userInfoDetails.emailId):'Nil'}}</span>
+                                </p>
+                                
+                                <!-- <p *ngIf="userInfoDetails?.isInvite == '0'"> -->
+                              </div>
+                            </div>
+                            <div class="hidethisinlist" id="popoverwidth_reduce">
+                              <!-- <div class="contactdetils" [class.invitedusercontact]="userInfoDetails?.isInvite == '1'"> -->
+                              <p>
+                                <i  popover="{{'enterpriseadmin.desi' | translate}}" popoverPlacement="bottom"
+                                [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                [popoverAnimation]="true" class="bgi bgi-investor cursor-pointer"></i>
+                                <span>{{(userInfoDetails?.designation)?(userInfoDetails.designation):'Nil'}}</span>
+                              </p>
+                              <!-- <p  *ngIf="userInfoDetails.departmentName"> -->
+                              <p>
+                                <i  popover="{{'enterpriseadmin.depa' | translate}}" popoverPlacement="bottom"
+                                [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                [popoverAnimation]="true" class="bgi bgi-add-department-new cursor-pointer"></i>
+                                <span >{{(userInfoDetails?.departmentName)?(userInfoDetails.departmentName):'Nil'}}</span>
+                              </p>
+                              <p>
+                                <i  popover="{{'enterpriseadmin.divisi' | translate}}" popoverPlacement="bottom"
+                                [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                [popoverAnimation]="true" class="bgi bgi-Divisions cursor-pointer"></i>
+                                <span >{{(userInfoDetails?.bUnitSector)?(userInfoDetails.bUnitSector):'Nil'}}</span>
+                              </p>
+                              <!-- <p *ngIf="userInfoDetails?.isInvite == '0'"> -->
+                              <p>
+                                <i  popover="{{'enterpriseadmin.email' | translate}}" popoverPlacement="bottom"
+                                [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                [popoverAnimation]="true" class="bgi bgi-mail1 cursor-pointer"></i>
+                                <span class="scemailellipsis">{{(userInfoDetails?.emailId)?(userInfoDetails.emailId):'Nil'}}</span>
+                              </p>
+                              <!-- </div> -->
+                            </div>
+                            <!-- <div class="listview hidethisinlist">
+                              <span class="modulesbtnlist">Modules Assigned</span>
+                            </div> -->
+                            <div class="listinginviteuser" *ngIf="userInfoDetails?.isInvite == '1'">
+                              <p><i  class="bgi bgi-mail1 cursor-pointer"></i>
+                                <span popover="{{'enterpriseadmin.email' | translate}}: {{userInfoDetails.emailId}}" popoverPlacement="top"
+                                  [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                                  [popoverAnimation]="true">{{userInfoDetails.emailId | truncate:[29,'...']}}</span>
+                              </p>
+                              <div class="text-center m-b-20 viewingactivity showthisinlistonly">
+                                <!-- <button *ngIf="userInfoDetails?.isInvite == '0'" mat-raised-button color="primary"
+                                class="viewprofile">View Profile</button> -->
+                                <button *ngIf="userInfoDetails?.isInvite == '1'" [disabled]="disableResendBtn"
+                                  (click)="resendMail(userInfoDetails.userPk,userInfoDetails?.statustext)"
+                                  mat-raised-button color="primary" class="viewprofile inlistviewmb">{{'enterpriseadmin.resemail' | translate}}</button>
+                              </div>
+                            </div>
+  
+                          </div>
+                          <span class="sccreatedon forlistviewname" *ngIf="userInfoDetails.skycardcreatedon != null && userInfoDetails.skycardcreatedon !=''">{{'enterpriseadmin.skycardcreat' | translate}}: {{userInfoDetails?.skycardcreatedon? userInfoDetails?.skycardcreatedon: 'Nil'}}</span>
+                        </div>
+                      </div>
+                      <div class="text-center m-b-20 viewingactivity hidethisinlistitem">
+                        <!-- <button *ngIf="userInfoDetails?.isInvite == '0'" mat-raised-button color="primary"
+                          class="viewprofile">View Profile</button> -->
+                        <button *ngIf="userInfoDetails?.isInvite == '1'" [disabled]="disableResendBtn"
+                          (click)="resendMail(userInfoDetails.userPk,userInfoDetails?.statustext)" mat-raised-button
+                          color="primary" class="viewprofile inlistviewmb">{{'enterpriseadmin.resemail' | translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                      <mat-paginator [style.visibility]="(resultsLength >= 4) ? 'visible' : 'hidden' "
+                        class="masterPage masterbottom normalpage" showFirstLastButtons
+                        (page)="pageEvent = $event; syncPrimaryPaginator($event);" [pageSize]="paginator?.pageSize"
+                        [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                        [pageSizeOptions]="paginator?.pageSizeOptions">
+                      </mat-paginator>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" [class.disabled]="(resultsLength > 0)?true:false" class="noducumentaddedyet"
+                id="foruserresult">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <div class="noresultsfound">
+                    <img src="assets/images/Norecords.svg" alt="No Record found" />
+                    <h2 class="fs-16 lypisfont-bold m-0 lh-25 p-t-20"
+                      [class.disabled]="(resultsLength > 0)?true:false">{{noDataAvailable}}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-responseloader class="fixedaloders" *ngIf="showResponsiveLoader"></app-responseloader>
+  
+  <!-- <mat-drawer-container class="example-container">
+    <mat-drawer disableClose #draweruseranddepartment class="example-sidenav sidenavsamewidthall sidenavforusernddep"
+      mode="over" position="end">
+      <app-addingdetailssidenav [logoUrl]="logoUrl" [draweruseranddepartment]="draweruseranddepartment"
+        #updateStakeholderUser (reloadGrid)="reloadGrid()" *ngIf="!menuUserEnable"></app-addingdetailssidenav>
+    </mat-drawer>
+  </mat-drawer-container> -->
+  
+  <mat-drawer-container class="example-container">
+    <mat-drawer #configurebymodule class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+      <app-configurebymodule [configurebymodule]="configurebymodule" [menuModuleId]="menuModuleId"
+        [moduleUserDetails]="moduleUserDetails" (deptUserSearch)="deptUserSearch($event)"
+        (closeConfigureModule)="closeConfigureModule($event)" *ngIf="menuUserEnable" (reloadGrid)="reloadGrid()">
+      </app-configurebymodule>
+    </mat-drawer>
+  </mat-drawer-container>
+  
+  <mat-drawer-container class="example-container">
+    <mat-drawer disableClose #draweraddinguser class="example-sidenav sidenavsamewidthall" id="adduserdraweropen" mode="over" position="end">
+      <app-addusersidenav [lusrtpye]="lusrtpye" [triggercountrymst]="triggercountryser" #addupdateemaileauser #addUpdateUserRef [draweraddinguser]="draweraddinguser"
+        (reloadGrid)="reloadGrid()" [addUserFromType]="addUserFromType" [routeRedirectFrom]="routeRedirectFrom"></app-addusersidenav>
+    </mat-drawer>
+  </mat-drawer-container>
+  
+  
+  
+  <mat-drawer-container class="example-container">
+    <mat-drawer #userview class="example-sidenav sidenavsamewidthall sidenavwidth" mode="over" position="end">
+      <div fxLayout="row wrap" class="sidenavmainrow">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+              <div class="titletext">
+                <div class="closeandadd">
+                  <mat-icon class="bgi bgi-close p-l-5 fs-14" matTooltip="{{'enterpriseadmin.clos' | translate}}" (click)="closeView()">close</mat-icon>
+                  <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.viewuser' | translate}} <mat-icon (click)="userdropdown('userviewlist')"
+                      class="bgi bgi-info">info_outline</mat-icon></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 p-r-0 userviewlist"
+            [@slideInOut]="animationState3">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0 p-l-0">
+              <mat-card class="headerinformationtext m-r-0">
+                <mat-card-header>
+                  <div class="titletext">
+                    <mat-card-subtitle class="informationtext fs-14">
+                      {{'enterpriseadmin.viewinfo' | translate}} 
+                    </mat-card-subtitle>
+                  </div>
+                  <div class="selectforward m-r-0">
+                    <div class="p-l-15 gotit">
+                      <span mat-raised-button color="primary" (click)="userdropdown('userviewlist')">{{'enterpriseadmin.okgotit' | translate}} </span>
+                    </div>
+                  </div>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
+          <div class="innnerpartofdrwer sideHead p-l-25 p-r-25 profilebottomwidth">
+           <app-profilelistview #profileviewRef [formpage]="1"></app-profilelistview>
+          </div>
+        </div>
+      </div>
+    </mat-drawer>
+  </mat-drawer-container>
+  <app-responseloader *ngIf="showLoaderviewpermission"></app-responseloader>
+  
+  <mat-drawer-container class="example-container">
+    <mat-drawer disableClose #draweruserallocation class="example-sidenav sidenavsamewidthall filtersidenav" mode="over"
+      position="end">  
+      <app-userallocation [enableform]="true" (showLoaderpermission)="showloader($event)"  [requestbtnhide]="true"   [draweruserallocation]="draweruserallocation" #addUpdateAccess 
+      (userPermData)="userPermData($event)" [onlyview]="1"></app-userallocation>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>

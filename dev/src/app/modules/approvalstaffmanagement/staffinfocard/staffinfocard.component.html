@@ -1,0 +1,147 @@
+<div id="profileCardapproval" fxLayout="center start">
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+    <div class="profilecard" fxFlex="100" fxFlex.ft-sm="100" fxLayout="column">
+        <div class="topInfo" fxLayout="row">
+            <div  fxLayout="row wrap" fxFlex="95">
+                <div class="profileImage" fxFlex="18" fxFlex.md="24">
+                    <img src="{{data?.profile ? data?.profile : dummyURL}}" alt="profile" class="m-l-5 m-b-2">
+                </div>
+                <div fxLayout="column" fxFlex="100" fxFlex.gt-md="80" fxFlex.md="70">
+                    <h4 class="fs-18 blue fw m-0">{{ifarbic ? data?.staffName_ar ? data?.staffName_ar : '-' : data?.staffName_en ? data?.staffName_en :'-'}}</h4>
+                    <div fxLayout="row wrap" class="fs-15" fxLayoutGap="10px">
+                        <p class= "txt-gry boxItems">{{'Civil Number' | translate }}: <span class="txt-gry3">{{data?.civil_number}}</span></p>
+                        <p class= "txt-gry boxItems">{{'Email ID' | translate }}: <span class="txt-gry3">{{data?.email_id}}</span></p>
+                        <p class= "txt-gry boxItems">{{'Account Status' | translate }}: 
+                            <span class="approved" *ngIf="data?.account_status == 'A'">{{'Active' | translate}}</span>
+                            <span class="red" *ngIf="data?.account_status == 'I'">{{'In-Active' | translate}}</span>
+                            <span class="blue" *ngIf="data?.account_status == 'E'">{{'Email Confirmation Pending' | translate}}</span>
+                            <span class="text-warning" *ngIf="data?.account_status == null">{{'Yet to Create Account' | translate}}</span>
+                        </p>
+                        <p class= "txt-gry boxItems" *ngIf="traningCentre">{{'Course' | translate }}: <span class="txt-gry3">{{ifarbic ? data?.categories_ar ?data?.categories_ar : '-' :data?.categories_en ? data?.categories_en :'-'}}</span></p>
+                        <p class= "txt-gry boxItems">{{'Last Approved On' | translate }}: <span class="txt-gry3">{{data?.last_approved ? data?.last_approved : '-'}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="traningCentre" class="cardMenu" fxFlex="5">
+                <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu" aria-label="Example icon-button with a menu">
+                    <mat-icon class="moremenucolor txt-gry">more_horiz</mat-icon>
+                </button>
+                <mat-menu #actionmenu="matMenu"class="master-menu whentootltipadded table_menu">
+                    <button type="button" mat-menu-item (click)="removeCenter(data.staffinforepo_pk)" *ngIf="deleteaccess && stktype == 1"><span>{{'Remove from this Centre' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="viewtechButton('viewStaff', data?.civil_number,data.coursePk)" *ngIf="currentTab != 'viewStaff'"><span>{{'View Staff Details' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="viewtechButton('viewAvailabilty', data?.civil_number,data.coursePk)"  *ngIf="currentTab == 'viewStaff' && data?.isAssessor == 'yes'"><span>{{traningCentre?'View Availability':'View Schedule' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="viewtechButton('addStaff', data.StaffInfotmp,  data.civil_number,data.coursePk)" *ngIf="createaccess && data?.isAssessor == 'yes'"><span>{{'Add Staff Availability' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="genrateCompetency(data.staffinforepo_pk)" *ngIf="data?.scch_verificationcode == null && createaccess && stktype == 1"><span>{{'Generate Competency Card' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="reGenrateCompetency(data.staffinforepo_pk)" *ngIf="data?.scch_verificationcode != null && createaccess && stktype == 1"><span>{{'Regenerate Competency Card' |translate}}</span></button>
+                    <button *ngIf="data?.scch_verificationcode != null && downloadaccess" type="button" mat-menu-item (click)="printCompetency(data?.staffinforepo_pk)"><span>{{'Print Competency Card'
+                        |translate}}</span></button>
+                    <button *ngIf="data?.scch_verificationcode != null" type="button" mat-menu-item (click)="viewCompetency(data?.staffinforepo_pk)"><span>{{'View Competency Card'
+                        |translate}}</span></button>
+                    <button type="button" *ngIf="downloadaccess && data?.isAssessor == 'yes'"  mat-menu-item (click)="openDatepickerDialog(data.civil_number,data.StaffInfotmp,(ifarbic ? data.staffName_ar ?data.staffName_ar : '-' :data.staffName_en ? data.staffName_en :'-'),(ifarbic ? data.categories_ar ?data.categories_ar : '-' :data.categories_en ? data.categories_en :'-'),data.coursePk)" ><span>{{'Export Staff Availability' |translate}}</span></button>
+                                      
+                </mat-menu>
+            </div>
+
+            <div *ngIf="!traningCentre" class="cardMenu" fxFlex="5">
+                <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu" aria-label="Example icon-button with a menu">
+                    <mat-icon class="moremenucolor txt-gry">more_horiz</mat-icon>
+                </button>
+                <mat-menu #actionmenu="matMenu"class="master-menu whentootltipadded table_menu">
+                    <button type="button" mat-menu-item (click)="removeCenterTech(data?.staffinforepo_pk)" *ngIf="deleteaccessTech && stktype == 1"><span>{{'Remove from this Centre' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="viewtechButton('viewStaff', data?.civil_number)" *ngIf="currentTab != 'viewStaff'"><span>{{'View Staff Details' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="viewtechButton('viewAvailabilty', data?.civil_number)"  *ngIf="currentTab == 'viewStaff' && data?.isInspector == 'yes'"><span>{{traningCentre?'View Availability':'View Schedule' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="genrateCompetencyTech(data.staffinforepo_pk)" *ngIf="data?.scch_verificationcode == null && createaccessTech && stktype == 1"><span>{{'Generate Competency Card' |translate}}</span></button>
+                    <button type="button" mat-menu-item (click)="reGenrateCompetencyTech(data.staffinforepo_pk)" *ngIf="data?.scch_verificationcode != null && createaccessTech && stktype == 1"><span>{{'Regenerate Competency Card' |translate}}</span></button>
+                    <button *ngIf="data?.scch_verificationcode != null && createaccessTech" type="button" mat-menu-item (click)="printCompetency(data?.staffinforepo_pk)"><span>{{'Print Competency Card'
+                        |translate}}</span></button>
+                    <button *ngIf="data?.scch_verificationcode != null" type="button" mat-menu-item (click)="viewCompetency(data?.staffinforepo_pk)"><span>{{'View Competency Card'
+                        |translate}}</span></button>
+                                      
+                </mat-menu>
+            </div>
+        </div>
+        <div class="bottomInfo" fxLayout="row wrap">
+            <div fxFlex="0" fxFlex.gt-md="16">
+
+            </div>
+            <!-- training -->
+            <div *ngIf="traningCentre" class="company_dtlview m-l-20 p-b-20 p-t-10 lh-30" fxFlex="100" fxFlex.gt-sm="80" fxLayout="column">
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 mr-1 text-gry fs-16">{{'Training Centre' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{ifarbic ? data?.trainigCentre_ar ?data?.trainigCentre_ar : '-' :data?.trainigCentre_en ? data?.trainigCentre_en :'-'}}</span>
+                    </div>
+                    <div *ngIf="data?.officetype == 'Branch Office'" class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 mr-1 text-gry fs-16">{{'Branch Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{ifarbic ? data?.branchName_ar ?data?.branchName_ar : '-' :data?.branchName_en ? data?.branchName_en :'-'}}</span>
+                    </div>
+               </div>
+               <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 mr-1 text-gry fs-16">{{'Office Type' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{data?.officetype}}</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 mr-1 text-gry fs-16">{{'Site Location' | translate}}</p>
+                            <span class="fs-16 txt-gry3" *ngIf="(data?.state_en == '' && data?.city_en == '') || (data?.state_en == null && data?.city_en == null)">-</span>
+                            <span class="fs-16 txt-gry3" *ngIf="(data?.state_en != null && data?.city_en != null)">{{ifarbic ? data?.city_ar+", "+data?.state_ar: data?.city_en+", "+data?.state_en}}</span>
+                            <span class="fs-16 txt-gry3" *ngIf="(data?.state_en == null && data?.city_en != null)">{{ifarbic ? data?.city_ar: data?.city_en}}</span>
+                            <span class="fs-16 txt-gry3" *ngIf="(data?.state_en != null && data?.city_en == null)">{{ifarbic ? data?.state_ar: data?.state_en}}</span>
+                    </div>
+                </div>
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Competency Card Status' | translate}}</p>
+                            <span class="approved" *ngIf="data?.competency_card == '1'">{{'Active' | translate}}</span>
+                            <span class="red" *ngIf="data?.competency_card == '2'">{{'Expired' | translate}}</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Date of Expiry' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{data?.dateofexp?data?.dateofexp:'-'}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- technical -->
+            <div *ngIf="!traningCentre" class="company_dtlview m-l-20 p-b-20 p-t-10 lh-30" fxFlex="100" fxFlex.gt-sm="80" fxLayout="column">
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Project Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{ifarbic ? data?.projectName_ar ? data?.projectName_ar : '-' : data?.projectName_en ? data?.projectName_en :'-'}}</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Centre Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{ifarbic ? data.trainigCentre_ar ? data?.trainigCentre_ar : '-' :data?.trainigCentre_en ? data?.trainigCentre_en :'-'}}</span>
+                    </div>
+               </div>
+               <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Office Type' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{data?.officetype ? data?.officetype : '-'}}</span>
+                    </div>
+                    <div *ngIf="data?.officetype == 'Branch Office'" class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 mr-1 text-gry fs-16">{{'Branch Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{ifarbic ? data?.branchName_ar ?data?.branchName_ar : '-' :data?.branchName_en ? data?.branchName_en :'-'}}</span>
+                    </div>
+                </div>
+               <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Site Location' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{ifarbic ? data?.city_ar+", "+data?.state_ar: data?.city_en+", "+data?.state_en}}</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Date of Expiry' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{data?.expiryDate? data?.expiryDate : '-'}}</span>
+                    </div>
+                </div>
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Competency Card Status' | translate}}</p>
+                            <span class="approved" *ngIf="data?.cpmstatus == '1'">{{'Active' | translate}}</span>
+                            <span class="red" *ngIf="data?.cpmstatus == '2'">{{'Expired' | translate}}</span>
+                            <span *ngIf="data?.cpmstatus == null">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

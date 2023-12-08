@@ -1,0 +1,135 @@
+<div fxLayoutAlign="center" id="viewandapprove" class="viewandapprove" *ngIf="learnerData!=null && !formloading">
+    <div class="clflex batchheader">
+        <div class="clflex  m-r-20">
+            <div class=" clflex flex-column" *ngIf="learnerData?.profileurl">
+                <div class="cflex m-t-5" fxLayout="row"  >
+                    <img class="profimage" [src]="learnerData?.profileurl">
+                </div>
+            </div>
+            <div class=" clflex flex-column" *ngIf="!learnerData?.profileurl">
+                <div class="cflex m-t-5" fxLayout="row"  >
+                    <img class="profimage" src="assets/images/opalimages/Avatar1.png" *ngIf="learnerData?.gender == 1">
+                    <img class="profimage" src="assets/images/opalimages/Avatar2.png" *ngIf="learnerData?.gender == 2">
+                </div>
+            </div>
+        </div>
+        <div class=" clflex flex-column rwidth">
+            <div fxLayout="row" class="clflex rwidth">
+                <p class="m-r-30">{{'viewandaprov.batchno' | translate}}: <span class="colblack">{{learnerData?.batchNo}}</span></p>
+                <p>{{'viewandaprov.civino' | translate}}: <span class="colblack">{{learnerData?.civilNumber}}</span></p>
+            </div>
+            <div>
+                <p class="colblack learnername fs-17">{{learnerData?.name}}</p>
+            </div>
+            <div fxLayout="row " class="clflex rwidth batchinnerdiv">
+                <p class="boxpadd">Status: <span class="colgreen">{{getassessmentstatus(learnerData?.status)}}</span></p>
+                <p class="boxpadd" *ngIf="learnerData.isknw == 1">{{'viewandaprov.knowass' | translate}}: 
+                    <span [ngSwitch]="learnerData.kStatus">
+                        <span *ngSwitchCase="'Pass'" class="colgreen">{{learnerData?.kStatus}}</span>
+                        <span *ngSwitchCase="'Fail'" class="colred">{{learnerData?.kStatus}}</span>
+                        <span *ngSwitchDefault class="colorange">{{'viewandaprov.pend' | translate}}</span>
+                    </span>
+                </p>
+                <p class="boxpadd" *ngIf="learnerData.ispra == 1">{{'viewandaprov.practassesment' | translate}}: 
+                    <span [ngSwitch]="learnerData.pStatus">
+                        <span *ngSwitchCase="'Pass'" class="colgreen">{{learnerData?.pStatus}}</span>
+                        <span *ngSwitchCase="'Fail'" class="colred">{{learnerData?.pStatus}}</span>
+                        <span *ngSwitchCase="'Competent'" class="colgreen">{{learnerData?.pStatus}}</span>
+                        <span *ngSwitchCase="'Non-Competent'" class="colred">{{learnerData?.pStatus}}</span>
+                        <span *ngSwitchDefault  class="colorange">{{'viewandaprov.pend' | translate}}</span>
+                    </span>
+                </p>
+                <p class="boxpadd" >{{'viewandaprov.emaiid' | translate}} : <span class="colblack">{{learnerData?.emailId}}</span></p>
+                <p class="boxpadd" >{{'viewandaprov.age' | translate}} : <span class="colblack">{{learnerData?.age}}</span></p>
+                <p class="boxpadd" >{{'viewandaprov.gend' | translate}}: <span class="colblack">{{learnerData?.gender == 1 ? 'Male' : 'Female'}}</span></p>
+            </div>
+        </div>
+    </div>
+
+  <div class="just validatebtn " *ngIf="validatebtn" >
+        <!-- <button mat-raised-button class="btnbac" (click)="openDialog()" >Validate</button> -->
+        <app-viewvalidation [callbackFn]="onValidation" [hidebtn]="true" [isDisabled] = 'isValidated' [assessment_approval] = "true"  *ngIf="(learnerData?.isIVQAstaff || isfocalpoint==1 || stktype == 1) && type == 'V'" ></app-viewvalidation>
+    </div>
+    <div class="qualitycheckstatus" *ngIf="learnerData.comment !=null">
+        <div class="qcinnerf">
+            <p class="fpara">{{'viewandaprov.comment' | translate}}</p>
+            <p [innerHTML]="learnerData.comment"></p>
+        </div>
+        <div class="qcinners clflex">
+            <p>{{'viewandaprov.lastvalidon' | translate}}: <span class="colblack">{{learnerData?.commentOn | date : 'dd-MM-yyyy'}}</span></p>
+            <p class="p-l-40">{{'viewandaprov.lastworkby' | translate}}: <span class="colblack">{{learnerData?.commentByname}}</span></p>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="10px" class=" clflex  mat-tab-label" fxFlex="60">
+
+        <button mat-flat-button class="btnbac m-l-0" *ngIf="learnerData.isknw == 1"  (click)="changeassessment('knowleadge')"
+            [ngClass]="btnactive ? '' : 'active'" fxFlex="40">{{'viewandaprov.knowass' | translate}}</button>
+        <button mat-flat-button class="btnbac" *ngIf="learnerData.ispra == 1" (click)="changeassessment('practical')"
+            [ngClass]="!btnactive ? '' : 'active'" fxFlex="40">{{'viewandaprov.practassesment' | translate}}</button>
+    </div>
+
+    <div class="approve clflex flex-column   mat-tab-label" fxFlex="60" *ngIf="kreport != null && !btnactive">
+        
+        <div class="clflex flex-column">
+            <p class="col">{{'viewandaprov.uploadassesreport' | translate}}</p>
+            <div class="cflex m-t-5" fxLayout="row" style="align-items: center; cursor: pointer;" (click)="viewfile(kreport.url)">
+                <img class="pdfimage" src="assets/images/opalimages/{{kreport.filetype}}_new.svg">
+                <p class="colblack">{{'viewandaprov.view' | translate}}</p>
+            </div>
+        </div>
+        <div class="approve clflex flex-column">
+            <p class="col" fxFlex="60">{{'viewandaprov.totalmark' | translate}}</p>
+            <p class="colblack fs-16">{{kreport?.lasmth_TotalMarks}}</p>
+        </div>
+        <div class="approve clflex flex-column">
+            <p class="col" fxFlex="60">{{'viewandaprov.mark' | translate}}</p>
+            <p class="colblack fs-16">{{kreport?.lasmth_MarkSecured}}</p>
+        </div>
+        <div class="approve clflex flex-column">
+            <p class="col" fxFlex="60">{{'viewandaprov.percent' | translate}}</p>
+            <p class="colblack fs-16">{{kreport?.lasmth_percentage}}</p>
+        </div>
+        <div class="approve clflex flex-column">
+            <p class="col" fxFlex="60">{{'viewandaprov.statu' | translate}}</p>
+            <p class="colblack fs-16">{{getstatus(kreport?.lasmth_Status)}}</p>
+        </div>
+        <div class="approve clflex flex-column">
+            <p class="col" fxFlex="60">{{'viewandaprov.comment' | translate}}</p>
+            <p class="colblack  fs-16">{{kreport?.lasmth_AppdecComments ? kreport?.lasmth_AppdecComments : 'Nil'}}</p>
+        </div>
+    </div>
+    <div class="approve clflex flex-column   mat-tab-label" fxFlex="60" *ngIf="preport != null && btnactive">
+        <div class=" clflex flex-column">
+            <p class="col">{{'viewandaprov.uploadassesreport' | translate}}</p>
+            <div class="cflex m-t-5" fxLayout="row" style="align-items: center; cursor: pointer;" (click)="viewfile(preport.url)">
+                <img class="pdfimage" src="assets/images/opalimages/{{preport.filetype}}_new.svg">
+                <p class="colblack">{{'viewandaprov.view' | translate}}</p>
+            </div>
+        </div>
+        <div class="approve clflex flex-column"  *ngIf="learnerData.ispramark == 1">
+            <p class="col" fxFlex="60">{{'viewandaprov.totalmark' | translate}}</p>
+            <p class="colblack fs-16">{{preport?.lasmth_TotalMarks}}</p>
+        </div>
+        <div class="approve clflex flex-column"  *ngIf="learnerData.ispramark == 1">
+            <p class="col" fxFlex="60">{{'viewandaprov.mark' | translate}}</p>
+            <p class="colblack fs-16">{{preport?.lasmth_MarkSecured}}</p>
+        </div>
+        <div class="approve clflex flex-column" *ngIf="learnerData.ispramark == 1">
+            <p class="col" fxFlex="60">{{'viewandaprov.percent' | translate}}</p>
+            <p class="colblack fs-16">{{preport?.lasmth_percentage}}</p>
+        </div>
+        <div class="approve clflex flex-column" >
+            <p class="col" fxFlex="60">{{'viewandaprov.statu' | translate}}</p>
+            <p class="colblack fs-16">{{getstatus(preport?.lasmth_Status)}}</p>
+        </div>
+        <div class="approve clflex flex-column">
+            <p class="col" fxFlex="60">{{'viewandaprov.comment' | translate}}</p>
+            <p class="colblack fs-16">{{preport?.lasmth_AppdecComments ? preport?.lasmth_AppdecComments : 'Nil'}}</p>
+        </div>
+    </div>
+    <div class="buttonalign m-t-20">
+        <button mat-stroked-button class="btnwhite" (click)="gotolist()">{{'viewandaprov.canc' | translate}}</button>
+    </div>
+</div>
+<app-responseloader *ngIf="formloading"></app-responseloader>

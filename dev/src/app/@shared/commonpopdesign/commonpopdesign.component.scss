@@ -1,0 +1,97 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center ;
+    align-items: center ;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start ;
+    align-items: center ;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end ;
+    align-items: center ;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between ;
+    align-items: center ;
+}
+.jsrsimage{
+    width: 23%;
+   img{
+    height: 90px;
+    width: 90px;
+    position: relative;
+    border-right: 1px solid #ebebeb;
+    top: 35px;
+    left: 25px;
+    padding-right: 25px;
+    float: left;
+   }
+}
+
+.modalwidth{
+    min-width: 625px;
+    .flexalignsubscrip{
+        display: flex;
+        width: 77%;
+    }
+    .subscriptioncontent{
+        padding-left: 15px;
+        .subscriptionnotecolor{
+             color: #333333;
+             font-size: 0.9375rem;
+             margin: 0px;
+             span{
+                 color: #666;
+             }
+        }
+       h3{
+           color: #333;
+           font-size: 1.125rem;
+           margin: 0px;
+           padding-bottom: 15px;
+       } 
+       .expiredcontent{
+           @include flexstart();
+           padding-bottom: 10px;
+           p{
+               color: #333;
+               margin: 0px;
+               font-size: 0.9375rem;
+               min-width: 116px;
+           }
+           .datecolor{
+               font-weight: 600;
+           }
+       }
+    }
+    .textnotecolor{
+        display: flex;
+        padding: 20px;
+        p{
+            color: #333333;
+            margin: 0px;
+            font-size: 0.9375rem;
+        }
+    }
+    .btnalign{
+        @include flexend();
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background: #f3f5f6;
+        margin-top: 5px;
+        padding-right: 15px;
+        .laterbtn{
+           line-height: 1;
+        }
+    }
+    .remindmelater
+    {
+        background: #fff !important;
+        color: #666 !important;
+        border: 1px solid #dadada !important;
+    }
+}

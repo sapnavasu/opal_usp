@@ -1,0 +1,61 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <!-- <mat-card-title>State Master</mat-card-title> -->
+        <form [formGroup]="stateform" (ngSubmit)='addState()'>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+                <!-- column -->
+                <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                    <div class="titletext">
+                            <div class="closeandadd">
+                        <i (click)="toggle()" class="bgi bgi-close p-l-25 fs-14"></i>
+                        <h5 class="m-0 p-l-20 tt" *ngIf="createbutton">Add State</h5>
+                        <h5 class="m-0 p-l-20 tt" *ngIf="updatebutton">Update State</h5>
+                    </div>
+                    <div class="clearandaddbutton">
+                            <button class="clearbutton height-35 m-r-10 p-l-20 p-r-20" mat-raised-button color="primary"
+                                (click)="stateform.reset()" type="reset">Reset</button>
+                            <button ngClass.xs="m-r-15"  ngClass.sm="m-r-15" class="addbutton height-35 p-l-20 p-r-20" mat-raised-button color="apply" *ngIf="true"
+                                type="submit" [disabled]="!stateform.valid">{{buttonname}} </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="innnerpartofdrwer p-b-20">
+                <div fxLayout="row wrap" class="flexsame">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 spacing">
+                        <mat-form-field>
+                            <mat-select [formControl]="stateform.controls['CountryMst_Fk']" placeholder="Select Country"
+                                required>
+                                <mat-option *ngFor="let list of countrylists" [value]="list.CountryMst_Pk">
+                                    {{ list.CyM_CountryName_en }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-hint
+                            *ngIf="stateform.controls['CountryMst_Fk'].hasError('required') && stateform.controls['CountryMst_Fk'].touched"
+                            class="text-danger font-14">Select Country</mat-hint>
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" class=" p-l-9 spacing">
+                        <mat-form-field>
+                            <input matInput placeholder="State Name" [formControl]="stateform.controls['StateName']"
+                                required>
+                                <mat-error
+                            *ngIf="stateform.controls['StateName'].hasError('required') && stateform.controls['StateName'].touched"
+                            class="text-danger font-14">Enter State Name</mat-error>
+                        </mat-form-field>
+                        
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 spacing">
+                        <div class="aligncenteritem">
+                            <label class="m-r-20">Status :</label>
+                            <mat-checkbox class="example-margin" [formControl]="stateform.controls['Status']"
+                                [(ngModel)]="checked">Active </mat-checkbox>
+                        </div>
+                    </div>
+                    <input type="hidden" [formControl]="stateform.controls['stateid']" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

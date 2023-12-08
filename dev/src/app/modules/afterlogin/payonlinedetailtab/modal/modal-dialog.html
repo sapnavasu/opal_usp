@@ -1,0 +1,52 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div fxLayout="row wrap" *ngIf="searchData == false" class="confirmationbox_container">
+        <div >
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="center">
+              <span class="warniningsymbol">
+                <i class="bgi bgi-warningmsg"></i>
+              </span>
+            </div>
+          </div>
+          <div class="p-t-20 p-b-20 text-center">
+            <h4 class="txt-gray3 fs-18 m-0 lypisfont-semibold">{{confrmTitle}}</h4>
+            <p class="txt-gray6 fs-15 m-0 p-t-8">{{confrmText}}</p>
+          </div>
+          <div fxLayoutAlign="center" class="p-t-10">
+            <button type="button" class="loginbtn fs-14" (click)="generatecarddata();">Confirm</button>
+            <button type="button" (click)="onNoClick();" class="homebtn fs-14 m-l-10" mat-buttons>Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" *ngIf="searchData == true" class="confirmationbox_container generatedcard">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="border-bottom">
+            <h4 class="txt-gray3 fs-18 m-0 lypisfont-semibold">{{generateText}}</h4>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="center">
+              <div class="p-t-25">
+                <div class="creditlinkcardfloat">
+                  <mat-form-field floatLabel="never">
+                    <input matInput app-restrict-input="firstspace" value="{{ottu_url}}"  placeholder="">
+                  </mat-form-field>
+                  <div class="copylinkcolor">
+                    <p><a class="linkcolor" (click)="copyText(ottu_url);openSnackBar();" href="javascript:void(0);">Copy Link</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center p-l-20 p-r-20">
+            <p class="cvalue">The payment link has also been sent to your registered email id:</p>
+            <p class="clabel">{{email}}</p>
+          </div>
+          <div  class="p-t-10 flex_center p-b-25">
+            <button type="button" class="loginbtn fs-14 okbtn" (click)="onOkClick();">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<app-responseloader class="processloader" *ngIf="showLoaderModal"></app-responseloader>

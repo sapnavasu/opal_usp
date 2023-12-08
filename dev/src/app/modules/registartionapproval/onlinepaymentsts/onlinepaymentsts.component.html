@@ -1,0 +1,159 @@
+<div class="scroll feesapproval">
+    <div fxLayout="row wrap" fxLayoutAlign="start" class="selectcontactheaderwithclose" >
+        <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxLayoutAlign="start center">
+            <i fxFlex="<grow> <shrink> 100" (click)="closeslider();" class="productclose bgi bgi-close txt-white  p-l-25 fs-14" mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"></i>
+            <h5 fxFlex="<grow> <shrink> 100" class="selectwithdescription m-0 p-l-20 txt-white lypisfont-semibold">Update Payment Status (Online)<i (click)="despchange()" class="bgi bgi-info"></i></h5>
+        </div>
+        <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxLayoutAlign="end">
+            <div class="resetbutton">
+                <button type="button" mat-raised-button color="secondary" (click)="closeslider();">Close</button>
+                <button mat-raised-button color="preview" [disabled]="(ck.ckeditor_count(sample)<50 || ck.ckeditor_count(sample)>500)" (click)="closeslider();" type="button">Update</button>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" [ngClass]="{'show': toggle, 'hide': !toggle}" class="p-t-0 p-r-0 descriptioncontent">
+        <div fxFlex.gt-sm="100" fxFlex="100" >
+            <mat-card class="headerinformationtext m-r-0">
+                <!-- <ng-template> -->
+                    <mat-card-header fxLayoutAlign="space-between">
+                        <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="80" fxFlex.lg="80" fxFlex.xl="80">
+                            <mat-card-subtitle class="informationtext fs-14"  >
+                                Select the categories that is applicable to your Requisition.
+                            </mat-card-subtitle>
+                        </div>
+                        <div class="gotit" fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxLayoutAlign="end">
+                            <button class="buttonsmall" type="button" mat-raised-button color="primary"(click)="despchange()">Ok, Got It </button>
+                        </div>
+                    </mat-card-header>
+                <!-- </ng-template> -->
+            </mat-card>
+        </div>
+    </div>
+    <div fxLayout="row wrap" class="innnerpartofdrwer tabforclientelenew p-0" fxLayoutAlign="center" >
+        <div fxFlex="100" fxLayoutAlign="start" class="projectdtls m-b-30" >
+            <mat-card fxFlex="100"  *ngFor="let contract of contractdtls" >
+                <mat-card-header>
+                    <mat-card-title class="txt-gray3 lypisfont-semibold fs-15">{{contract.contractname }}</mat-card-title>
+                    <mat-card-subtitle>
+                        <div fxLayout="row wrap" fxLayoutAlign="start">
+                            <div fxFlex="100" fxFLex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="25" fxFlex.xl="25">
+                                <span fxFlex="<grow> <shrink> 100" class="fs-13 lypisfont-regular txt-gray9">Supplier Code:&nbsp; </span>
+                                <span fxFlex="<grow> <shrink> 100" class="fs-13 lypisfont-regular txt-gray3 uppercase">{{contract.contractsuppcode}}</span>
+                            </div>
+                        </div>
+                    </mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+        </div>
+
+        <div fxFlex.xs="91.66666"  fxFlex.sm="91.66666" fxFlex.md="91.66666" fxFlex.lg="83.33333" fxFlex.xl="83.33333">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-t-10 " *ngFor="let pay of paymentdtls;">
+                <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"  class="fs-16 txt-gray3 lypisfont-regular">
+                    <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="30px grid">
+                        <div fxFlex="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="33.33333" fxFlex.xl="33.33333">
+                            <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                <div fxFlex="100"  class="txt-gray6 fs-13 lypisfont-regular m-b-5">Contract Success Fee <span class="txt-gray3">(OMR)</span></div>
+                                <span fxFlex="100"  class="txt-gray3 fs-16 lypisfont-regular">{{pay.sucamountomr}}</span>
+                            </div>
+                        </div>
+
+                        <div fxFlex="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="33.33333" fxFlex.xl="33.33333">
+                            <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                <span fxFlex="100"  class="txt-gray6 fs-13 lypisfont-regular m-b-5">Date Of Payment</span>
+                                <span fxFlex="100"  class="txt-gray3 fs-16 lypisfont-regular">{{pay.paymentdate}}</span>
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="33.33333" fxFlex.xl="33.33333">
+                            <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+                                <span fxFlex="100"  class="txt-gray6 fs-13 lypisfont-regular m-b-5">Transaction Unique ID</span>
+                                <span fxFlex="100"  class="txt-gray3 fs-16 lypisfont-regular">{{pay.transactid}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> 
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-t-10 m-b-30">
+                <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"  class=" fs-16 txt-gray3 lypisfont-regular m-b-20">
+                    <form [formGroup]="paymentonlineForm"  autocomplete="off"  fxFlex="100" >
+                        <div fxLayout="row wrap"  fxLayoutAlign="start"  fxLayoutGap="30px grid">
+                            <div fxFlex="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="33.33333" fxFlex.xl="33.33333">
+                                <mat-form-field>
+                                    <mat-label>Select Payment Status</mat-label> 
+                                    <mat-select [formControl]="paymentonlineForm.controls['paystatuslst']" required panelClass="myPanelClass">
+                                        <mat-option value="1">Received</mat-option>
+                                        <mat-option value="2">Not Received</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="paymentonlineForm.controls['paystatuslst'].value==1 "  fxLayout="row wrap"  fxLayoutAlign="start"  fxLayoutGap="30px grid">
+                            <div fxFlex="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="33.33333" fxFlex.xl="33.33333">
+                                <mat-form-field>
+                                    <mat-label>Payment Transaction Number</mat-label>
+                                    <input [errorStateMatcher]="matcher" matInput appAlphanumsymb autocomplete="off" required placeholder="" [formControl]="paymentonlineForm.controls['rfq_reqdate']">
+                                    <mat-error *ngIf="paymentonlineForm.controls['rfq_reqdate'].hasError('required') && paymentonlineForm.controls['rfq_reqdate'].touched" class="text-danger font-14">Enter Payment Transaction Number</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf=" paymentonlineForm.controls['paystatuslst'].value==2"  fxLayout="row wrap"  fxLayoutAlign="start"  fxLayoutGap="30px grid">
+                            <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                                <div fxFlex="100" *ngIf="!productdesc">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start"fxLayoutGap.sm="0px grid" fxLayoutGap.md="30px grid" fxLayoutGap.lg="30px grid" fxLayoutGap.xl="30px grid" fxLayoutGap="0px grid">
+                                        <div fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex="100" (click)="editproductdesp()">
+                                            <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                                                <label class="txt-gray9 fs-15 lypisfont-regular"> Comments
+                                                    <span aria-hidden="true" class="mat-placeholder-required mat-form-field-required-marker ng-tns-c11-70 ng-star-inserted">*</span>
+                                                </label>
+                                                <div fxFlex="<grow> <shrink> 100" class="edit" *ngIf="paymentonlineForm.controls['pay_comment'].value" (click)="editproductdesp()"> 
+                                                    <span><i class="bgi bgi-edit1 m-r-5"></i> Edit</span> 
+                                                </div>
+                                            </div>
+                                            <div [innerHTML]="productdesc_val" [ngClass]="productdesc_val == '' ? 'ckeditorborder':'ckeditorborder'"> </div>
+                                            <mat-hint class="txt-gray6 fs-14" align="end">Max 256</mat-hint>
+                                        </div>
+                                    </div>
+                                </div> 
+                                
+                                <div fxFlex="100" *ngIf="productdesc" class="techapp">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap.sm="0px grid" fxLayoutGap.md="30px grid" fxLayoutGap.lg="30px grid" fxLayoutGap.xl="30px grid" fxLayoutGap="0px grid">
+                                        <div fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex="100">
+                                            <label fxLayout="row" class="txt-tropaz fs-15 lypisfont-regular m-b-10"> 
+                                                Comments <span aria-hidden="true" class="p-l-5 mat-placeholder-required mat-form-field-required-marker ng-tns-c11-70 ng-star-inserted">*</span>
+                                            </label>
+                                            <ckeditor [(ngModel)]="sample" [editor]="Editor"
+                                                (keyup)="validcheck();sample=ck.ckeditor_dir($event,snackBar,sample);recChange();"
+                                                (paste)="recChange();sample=ck.ckeditor_dir($event,snackBar,sample)"
+                                                (drop)="recChange();sample=ck.ckeditor_dir($event,snackBar,sample)"
+                                                [config]="config" [formControl]="paymentonlineForm.controls['pay_comment']">
+                                            </ckeditor>
+                                            <div fxLayout="row wrap" fxLayoutAlign="space-between" fxLayout.xs="row-reverse" fxLayout.sm="row-reverse">
+                                                <div fxFlex.xs="100" fxFlex.sm="100" fxFlex="60" >
+                                                    <mat-hint fxFlex="nogrow" align="start" *ngIf="ck.ckeditor_count(sample)>256" class="text-danger font-14">Cannot exceed 256 characters.</mat-hint>
+                                                    <mat-hint fxFlex="nogrow" align="start" *ngIf="ck.ckeditor_count(sample)>0 && ck.ckeditor_count(sample)<50 && paymentonlineForm.controls['pay_comment'].touched"
+                                                    class="text-danger font-14">Description content must have minimum 50 characters.
+                                                    </mat-hint>
+                                                    <mat-error fxFlex="nogrow" align="start" *ngIf="paymentonlineForm.controls['pay_comment'].hasError('required')&& ck.ckeditor_count(sample)==0 && paymentonlineForm.controls['pay_comment'].touched"
+                                                    class="text-danger font-14">Enter description</mat-error>
+                                                </div>
+                                                <div fxFlex.xs="100" fxFlex.sm="100" fxFlex="40" fxLayoutAlign="end" >
+                                                    <mat-hint fxFlex="nogrow" align="end" >{{ck.ckeditor_count(sample)}}/256</mat-hint>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row wrap">
+                                        <div fxFlex="100" fxLayoutAlign="end" class="m-t-0 clearbut">
+                                            <button [disabled]="sample == ''" (click)="sample=''" mat-raised-button class="m-r-20 clearbutton"type="button">Clear</button>
+                                            <button mat-raised-button color="primary" [disabled]="(ck.ckeditor_count(sample)<50 || ck.ckeditor_count(sample)>500)" (click)="[editproductdesp(),addproductdesp()]" type="button">Done</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

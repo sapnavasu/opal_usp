@@ -1,0 +1,138 @@
+:host::ng-deep.commondialogbox {
+    padding: 30px;
+    .headeritem {
+        h4 {
+            color: #000;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    }
+    .boxflexcontainer {
+        display: flex;
+        .eachboxitem {
+            opacity: 1;
+            padding: 20px 15px;
+            width: calc(50% - 15px);
+            margin: 15px;
+            margin-bottom: 0;
+            border-radius: 7px; /* border radius */
+            background-clip: padding-box; /* prevents bg color from leaking outside the border */
+            background-color: #f1f5fb; /* layer fill content */
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.24), 0 0 5px rgba(204, 204, 204, 0.4); /* drop shadow and outer glow */
+
+            &:hover {
+                box-shadow: 0 5px 5px rgba(0, 0, 0, 0.35), 0 0 5px rgba(204, 204, 204, 0.4);
+                background: #006bb6;
+                .cdk-focused,.cdk-mouse-focused
+                {
+                    background-color:#fff !important;
+                }
+                h4 {
+                    color: #fff;
+                    &::after {
+                        content: "";
+                        color: #fff !important;
+                        border-bottom: 2px solid #fff;
+                    }
+                }
+                p {
+                    color: #fff !important;
+                }
+                button {
+                    background: #fff !important;
+                    color: #006bb6 !important;
+                    opacity: 1;
+                }
+                li {
+                    color: #fff;
+                    &::before {
+                        font-family: "bgi-icon" !important;
+                        content: "\e91f";
+                        color: #fff !important;
+                    }
+                }
+            }
+            &:first-child
+            {
+                margin-left: 0 !important;
+            }
+            &:last-child
+            {
+                margin-right: 0 !important;
+            }
+        }
+        h4 {
+            margin: 0;
+            color: #000;
+            font-size: 1.25rem;
+            font-weight: bold;
+            position: relative;
+            margin-bottom: 15px;
+            padding-bottom: 7px;
+            &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 1px;
+                width: 15px;
+                border-bottom: 2px solid #006bb6;
+            }
+        }
+    }
+    .featuredetail {
+        p {
+            margin: 0;
+            color: #333;
+            font-size: 0.9375rem;
+            font-weight: bold;
+            padding-bottom: 15px;
+        }
+    }
+    .featurelist {
+        li {
+            list-style-type: none;
+            color: #333;
+            font-size: 0.6875rem;
+            padding-bottom: 12px;
+            &::before {
+                font-family: "bgi-icon" !important;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                content: "\e91f";
+                color: #006bb6;
+                font-size: 9px;
+                display: inline-block;
+                margin-right: 15px;
+                left: 6px;
+                position: relative;
+                top: 0px;
+            }
+        }
+    }
+    .dialogfooter {
+        text-align: center;
+        .cdk-focused,.cdk-mouse-focused
+        {
+            background-color:#006bb6 !important;
+        }
+        button {
+            border-radius: 5px !important;
+            background: #006bb6 !important;
+            color: #fff !important;
+            height: 30px;
+            padding-left: 25px;
+            padding-right: 25px;
+            .mat-button-wrapper {
+                display: flex;
+                align-items: center;
+                height: 100%;
+            }
+        }
+    }
+}

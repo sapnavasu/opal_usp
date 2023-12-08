@@ -1,0 +1,231 @@
+
+<form class="basic-form organizationformbs">
+  <div  fxLayout="row wrap" class=" ">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div fxLayout="row wrap" class="mastercompnaycontent">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="topheadermain">
+            <div class="imagewithtext">
+              <h4 class="mat-pagetitle-1">{{'enterpriseadmin.divi' | translate}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center" class=" organizationdetail" id="mastercompanydetail" class="m-t-40">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-5">
+          <div fxLayout="row wrap" class="" fxLayoutAlign="center" class="p-b-15">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-10 p-r-10">
+              <app-usereachcounts #enterpriseCountRef></app-usereachcounts>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="" fxLayoutAlign="center" class="p-b-15">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="filterouterdiv p-t-10">
+                <app-businessunitfilter  (showLoaderviewdivision)="divisionloadergrid = $event" #businessFilter class="makeitfullwidth" #enterpriseFilter [filterType]="2" [paginatorData]="paginatorDataArray" [recentSearchType]="3"
+                  (bunitFilter)="bunitFilter($event)" (hideResponseLoader)="outputloader($event)">
+                </app-businessunitfilter>
+                <div [matTooltipDisabled]="overAllCount < 10" matTooltip="{{'enterpriseadmin.youcancreaadd' | translate}}">
+                <button type="button" [disabled]="overAllCount > 9" (click)="addBunitsto();getbusinessInput();adddivision()" mat-raised-button
+                  color="preview" class="height-35  adduserbutton"   >
+                  <span>
+                    {{'enterpriseadmin.adddivi' | translate}}
+                  </span>
+                </button>
+                </div>
+                <!-- <div *ngIf="overAllCount > 9" class="disablepopup">
+                  You can create/add a total of 10 Divisions towards your company
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="paginationwithfilter masterPageTop">
+            <!-- <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" (page)="pageEvent = $event; onPaginateBunitChange($event)" [pageSize]="9" [pageSizeOptions]="paginationSet">
+            </mat-paginator> -->
+            <div [style.visibility]="(resultsLength != 0) ? 'visible' : 'hidden' ">
+              <p class="m-b-0" >{{'enterpriseadmin.recor' | translate}}:{{ resultsLength }}/10 </p>
+            </div>            
+            <div fxLayout="row wrap" class="p-r-0 p-l-20">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="searchinfo">
+                <div class="gotoeachmenus">
+                  <div class="manageoptions"> 
+                   <p class="managespanafter mangebackgrounddivsion"><span class="mangecolor">{{'enterpriseadmin.manag' | translate}}:</span> <span class="dropitem" [matMenuTriggerFor]="menutopmanage">  {{'enterpriseadmin.divisi' | translate}} </span></p>
+                    <mat-menu #menutopmanage="matMenu" class="master-menu">
+                      <button   (click)="chkUserPermission('/enterpriseadmin/usermanagement',1)"  mat-menu-item>
+                        <span>{{'enterpriseadmin.user' | translate}}</span>
+                      </button>
+                      <button   (click)="chkUserPermission('/enterpriseadmin/department',2)"  mat-menu-item>
+                        <span>{{'enterpriseadmin.depa' | translate}}</span>
+                      </button>
+                      <button   (click)="chkUserPermission('/enterpriseadmin/divisions',3)" mat-menu-item>
+                        <span>{{'enterpriseadmin.divisi' | translate}}</span>
+                      </button>
+                      <button  (click)="chkUserPermission('/enterpriseadmin/inviteduser',4)" mat-menu-item>
+                        <span>{{'enterpriseadmin.inviuser' | translate}}</span>
+                      </button>
+                    </mat-menu>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div *ngIf="divisionloadergrid" class="leftmainspace">
+              <div class="subcontent">
+                  <p class="pagetitle secondwidth"></p>
+                  <p class="pagetitle secondwidth"></p>
+                  <p class="pagetitle secondwidth"></p>
+                  <div class="descriptitlesector">
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                      <p class="pagetitle sectorheight"></p>
+                  </div>
+              </div>
+           </div>
+            <div [style.display]="!divisionloadergrid ? 'block' :'none'">
+              <div [style.display]="(resultsLength > 0) ? 'block' : 'none' " fxLayout="row wrap" class=" tabforclientelenew ">
+                <div fxFlex.gt-sm="100" fxFlex="100" class=" masterTable">
+                  <div class="departmenttable">
+                  <mat-table class="corporatemetrics" #table matSort [dataSource]="dataSource" (matSortChange)="sortEvent($event)">
+                    <ng-container matColumnDef="bUnitRefNo">
+                      <mat-header-cell fxFlex="25" mat-sort-header *matHeaderCellDef>{{'enterpriseadmin.diviid' | translate}}</mat-header-cell>
+                      <mat-cell data-label="Division ID" fxFlex="25" *matCellDef="let bUnitData"> {{bUnitData.bUnitRefNo}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="bUnitName">
+                      <mat-header-cell fxFlex="32" mat-sort-header *matHeaderCellDef>{{'enterpriseadmin.divirefename' | translate}}</mat-header-cell>
+                      <mat-cell data-label="Division Name" fxFlex="32" *matCellDef="let bUnitData"> {{bUnitData.bUnitName}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="bUnitSector">
+                      <mat-header-cell fxFlex="33" *matHeaderCellDef>{{'enterpriseadmin.divisect' | translate}}</mat-header-cell>
+                      <mat-cell data-label="Division" fxFlex="33" *matCellDef="let bUnitData"> {{bUnitData.unitsector}} 
+                          <span *ngIf="bUnitData.bUnitSectorCount>1" class="tabelpopcount" [popover]="myPopover15" popoverSize="medium" popoverPlacement="right"><b>(+{{bUnitData.bUnitSectorCount-1}})</b></span> 
+                          <popover-content #myPopover15 [closeOnClickOutside]="true">
+                              <span class="w-100 d-block">{{bUnitData.bUnitSector}}</span>
+                            </popover-content>
+                      </mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell fxFlex="10" *matHeaderCellDef>{{'enterpriseadmin.action' | translate}}</mat-header-cell>
+                      <mat-cell data-label="Action" fxFlex="10" *matCellDef="let bUnitData">
+                        <div class="manageoptions">
+                          <button mat-icon-button [matMenuTriggerFor]="actionmenu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #actionmenu="matMenu" class="master-menu">
+                            <button mat-menu-item  (click)="getbusinessInput();editBunit(bUnitData.bUnitPk)"><span>{{'enterpriseadmin.edit' | translate}}</span></button>
+                            <button mat-menu-item (click)="deleteBunit(bUnitData.bUnitPk, bUnitData.checked, bUnitData.mappedUser,bUnitData.mappeddepartment)">
+                              <span>{{'enterpriseadmin.dele' | translate}}</span>
+                            </button>
+                            <button mat-menu-item  (click)="viewBunit(bUnitData.bUnitPk)"><span>{{'enterpriseadmin.view' | translate}}</span></button>
+                          </mat-menu>
+                        </div>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                </div>
+                </div>
+              </div>   
+              <div fxLayout="row wrap" [style.visibility]="(resultsLength == 0) ? 'visible' : 'hidden' " class="noducumentaddedyet" id="forbusinessubit">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <div class="noresultsfound">
+                    <img src="assets/images/Norecords.svg" alt="No Record found" />
+                    <h2 class="fs-16 lypisfont-bold  m-0 lh-25 p-t-20"
+                      [class.disabled]="(resultsLength > 0)?true:false">{{noDataAvailable}}</h2>
+                  </div>
+                </div>
+              </div>  
+            </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<app-responseloader class="fixedaloders" *ngIf="divisionloader"></app-responseloader>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #addbusinessunitmcp class="example-sidenav sidenavsamewidthall"
+    mode="over" position="end">
+    <app-addsectoractivities #refBusinessunit [dataSource]="dataSource2" [drawer]="addbusinessunitmcp" (bunitReload)="bunitReload($event)"></app-addsectoractivities>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #divisionView class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <div fxLayout="row wrap" class="sidenavmainrow">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+          <!-- column -->
+          <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+            <div class="titletext">
+              <div class="closeandadd">
+                <mat-icon class="bgi bgi-close p-l-5 fs-14"  matTooltip="{{'enterpriseadmin.clos' | translate}}"(click)="closeView()">close</mat-icon>
+                <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.viewdivi' | translate}}
+                  <!-- <i (click)="despchange()" class="bgi bgi-info"></i> -->
+                </h5>
+              </div>
+              <div class="clearandaddbutton">
+                <button type="button" mat-raised-button color="primary" class="clearbutton height-35 m-r-10 p-l-20 p-r-20" (click)="divisionView.toggle();getbusinessInput();editBunit(viewBunitdt?.bunitPk)">{{'enterpriseadmin.edit' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start" [ngClass]="{'show': toggle1, 'hide': !toggle1}" class="p-t-0 p-r-0 descriptioncontent">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0 p-l-0">
+            <mat-card class="headerinformationtext m-r-0">
+              <mat-card-header>
+                <div class="titletext">
+                  <mat-card-subtitle class="informationtext fs-14">
+                    {{'enterpriseadmin.seletheactiplace' | translate}}
+                  </mat-card-subtitle>
+                </div>
+                <div class="selectforward m-r-0">
+                  <div class="p-l-15 gotit">
+                    <span (click)="despchange()" mat-raised-button color="primary">{{'enterpriseadmin.okgotit' | translate}}</span>
+                  </div>
+                </div>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </div>
+        <div class="innnerpartofdrwer1 tabforclientelenew">
+          <div class="sideHead">
+            <ul>
+              <li class="fs-15 lypisfont-semibold">
+                {{viewBunitdt?.bunitName}}
+              </li>
+              <li class="d-flex">
+                  <label>{{'enterpriseadmin.diviid' | translate}}</label>
+                  <div class="fs-13 m-l-3">
+                    {{viewBunitdt?.bunitRefNo}}
+                </div>
+              </li>
+              
+            </ul>                
+          </div>
+            <div class="innnerpartofdrwer organisationinfo p-l-30 p-r-30">    
+                    <label>{{'enterpriseadmin.divisect' | translate}}</label> 
+                     {{viewBunitdt?.bUnitSector}}
+                    <label class="m-t-25">{{'enterpriseadmin.desc' | translate}}</label>
+                    <div class="ckeditorborder" [innerHTML]='viewBunitdt?.bunitDesc'></div>                 
+                <div class="m-t-25 d-flex flex-direction-column" *ngIf="viewBunitdt?.deptCount > 0">                  
+                  <label class="bgi-blue m-b-15">{{'enterpriseadmin.noofdepa' | translate}}{{viewBunitdt?.deptCount}}</label> 
+                  <span *ngFor="let dept of viewBunitdt?.deptDetails">
+                    {{dept}} 
+                  </span>                 
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>

@@ -1,0 +1,505 @@
+<ng-container *ngIf="!showThankYouForRegPage">
+  <div class="bottominfo">
+    <div class="leftisideinfo">
+      <form class="example-form" [formGroup]="prjoectOwnerForm" #regForm="ngForm" (ngSubmit)="submitRegistration()"
+        autocomplete="off">
+        <div class="abovefooter">
+          <div class="investorinfo">
+            <div class="headers">
+              <p class="mainheader p-t-10 m-0">Domain:<span class="fs-18 investmentcolor p-l-4">Investment</span></p>
+            </div>
+            <div class="suppliercolor p-t-15">
+                <h2 class="fs-15">Project Owner Registration</h2>
+              </div>
+            <!-- <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-30 p-b-30">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="investormandatory">
+                <p class="p-r-30 typecolor"></p>
+                <div class="typeofinvestors">
+                  <mat-radio-group class="investorslist" required>
+                    <div class="typeflexitem">
+                      <mat-radio-button class="p-r-30" selected>
+                        <span>Project Owner</span>
+                        <p>Select project owner if you are registering<br>
+                          on behalf of an organisation. </p>
+                      </mat-radio-button>
+                    </div>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div> -->
+
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t5">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field class="example-full-width">
+                  <input [errorStateMatcher]="matcher" matInput app-restrict-input="firstspace" required
+                    appAlphanumspecificsymb placeholder="Organisation Name" formControlName="company_name"
+                    maxlength="104" (blur)="checkOrgNameHasValue()">
+                  <mat-error
+                    *ngIf="form.company_name.errors?.required && (form.company_name.touched || regForm.submitted)">
+                    Enter organisation name
+                  </mat-error>
+                  <mat-error *ngIf="form.company_name.errors?.alreadyavailable">Organisation name already exist
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-5 flexsame">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field>
+                  <mat-select [errorStateMatcher]="matcher" panelClass="myPanelClass"  placeholder="Country"
+                    (closed)="searchCountry = '';selectedCountry(form.est_country.value)" formControlName="est_country"
+                    required panelClass="select_with_search" [disableOptionCentering]="true"
+                    *ngIf="(countrylist | searchFilter : searchCountry:'CyM_CountryName_en') as cntryresult"
+                    (selectionChange)="changeCountryCode($event)">
+                    <div class="searchinmultiselect">
+                      <i class="bgi bgi-search"></i>
+                      <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="Search"
+                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchCountry"
+                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                      <mat-icon (click)="searchCountry = ''" class="reseticon" matSuffix
+                        *ngIf="searchCountry !='' && searchCountry !=null">clear</mat-icon>
+                    </div>
+                    <mat-select-trigger class="flagwithcode countryestab">
+                      <img *ngIf="form.est_country.value" style="max-width: 25px;"
+                        src="assets/images/flags/{{form.est_country.value}}.png" alt="Country Flag"> &nbsp;&nbsp;&nbsp;
+                      {{selectedEstCountry}}
+                    </mat-select-trigger>
+                    <div class="option-listing countryselectwithimage">
+                      <mat-option *ngFor="let country of countrylist | searchFilter: searchCountry : 'CyM_CountryName_en'"
+                        [value]="country.CountryMst_Pk">
+                        <img style="max-width: 25px;" src="assets/images/flags/{{country.CountryMst_Pk}}.png"
+                          alt="Country Flag"> &nbsp;&nbsp;&nbsp; {{country.CyM_CountryName_en}}
+                      </mat-option>
+                      <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                        No country match your search criteria!
+                      </div>
+                    </div>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="form.est_country.errors?.required && (form.est_country.touched || regForm.submitted)">
+                    Select country
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <input app-restrict-input="firstspace" matInput appAlphanumsymb
+                    placeholder="Commercial Registration (CR) Number" formControlName="crregno" maxlength="250"
+                    required [errorStateMatcher]="matcher" minlength="1" maxlength="250">
+                  <mat-error *ngIf="form.crregno.errors?.required && (form.crregno.touched || regForm.submitted)">
+                    Enter Commercial registration number
+                  </mat-error>
+                  <mat-error *ngIf="form.crregno.errors?.alreadyavailable">Commercial registration number already exist
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-5">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <mat-select formControlName="incorpstyle" required [errorStateMatcher]="matcher" panelClass="myPanelClass" (closed)="searchIncorp = ''"
+                    [disableOptionCentering]="true" panelClass="select_with_search" placeholder="Incorporation Style"
+                    *ngIf="(incorpstylelist | searchFilter: searchIncorp : 'ISM_IncorpStyleEntity') as incorpresult">
+                    <div class="searchinmultiselect">
+                      <i class="bgi bgi-search"></i>
+                      <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="Search"
+                        (keydown)="$event.stopPropagation();" [(ngModel)]="searchIncorp"
+                        [ngModelOptions]="{standalone: true}" autocomplete="off">
+                      <mat-icon (click)="searchIncorp = ''" class="reseticon" matSuffix
+                        *ngIf="searchIncorp !='' && searchIncorp !=null">clear</mat-icon>
+                    </div>
+                    <div class="option-listing">
+                      <mat-option
+                        *ngFor="let list of incorpstylelist | searchFilter: searchIncorp : 'ISM_IncorpStyleEntity'"
+                        [value]="list.IncorpStyleMst_Pk">
+                        {{ list.ISM_IncorpStyleEntity }}
+                      </mat-option>
+                      <div class="p-t-10" *ngIf="incorpresult.length == 0">
+                        No incorporation style match your search criteria!
+                      </div>
+                    </div>
+                  </mat-select>
+                  <mat-error *ngIf="form.incorpstyle.errors?.required && (form.incorpstyle.touched || regForm.submitted)">
+                    Select incorporation style
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing">
+                <mat-form-field>
+
+                  <mat-select formControlName="oprsector" placeholder="Sector" required panelClass="sectorFilter" [disableOptionCentering]="true"
+                  [errorStateMatcher]="matcher" multiple  (closed)="searchSector = ''" (selectionChange)="selectedSector($event)">
+                    <mat-select-search  panelClass="mat-select-search-inner"   [formControl]="sectorFilter" [placeholderLabel]="'Search'" [noEntriesFoundLabel]="'No sector match your search criteria'">
+                    </mat-select-search>
+                    <mat-select-trigger >
+                      {{form.oprsector.value ? sectorNameDataTemp : ''}}
+                      <span *ngIf="form.oprsector.value?.length > 1" class="example-additional-selection">
+                        (+{{form.oprsector.value.length - 1}}
+                        {{form.oprsector.value?.length === 2 ? 'other' : 'others'}})
+                      </span>
+                    </mat-select-trigger>
+                    <div class="option-listing">
+                      <mat-option *ngFor="let sect of filteredSector | async"
+                        [value]="sect.SectorMst_Pk" (onSelectionChange)="sectorname = sect.SecM_SectorName"
+                                  [disabled]="form.oprsector.value?.length == 10 && !form.oprsector.value?.includes(sect.SectorMst_Pk)">
+                        {{sect.SecM_SectorName}}
+                      </mat-option>
+                    </div>
+                  </mat-select>
+
+                  <mat-error *ngIf="form.oprsector.errors?.required && (form.oprsector.touched || regForm.submitted)">
+                    Select sector
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-5">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <input app-restrict-input="firstspace" matInput appAlphanumsymb placeholder="Website"
+                    formControlName="website" maxlength="250">
+                  <mat-error *ngIf="form.website.errors?.pattern && form.website.touched">
+                    Enter valid website
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <hr class="borderbottomline">
+
+          <div class="contactpersoninfo">
+            <div class="headers">
+              <p class="mainheaderfont">Primary Contact</p>
+            </div>
+            <div fxLayout="row wrap" class="p-t-10">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <input [errorStateMatcher]="matcher" maxlength="50" matInput placeholder="First Name" required
+                    app-restrict-input="firstspace" appAlphaname formControlName="firstname"
+                    (blur)="checkFirstAndLastNameHasValue()">
+                  <mat-error *ngIf="form.firstname.errors?.required && (form.firstname.touched || regForm.submitted)">
+                    Enter first name
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <input [errorStateMatcher]="matcher" maxlength="50" matInput placeholder="Last Name" required
+                    app-restrict-input="firstspace" appAlphaname formControlName="lastname">
+                  <mat-error *ngIf="form.lastname.errors?.required && (form.lastname.touched || regForm.submitted)">
+                    Enter last name
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-5">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <mat-select  placeholder="Department" panelClass="selectspacing" [errorStateMatcher]="matcher"
+                    formControlName="department" required (selectionChange)="selectedDepartmentStr = $event.source.triggerValue;deptChanges($event)">
+                    <mat-option *ngFor="let department of deptlist" [value]="department?.deptPk">{{department?.deptName}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.department.errors?.required && (form.department.touched || regForm.submitted)">
+                    Select department
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing" *ngIf="form.department.value == '' || form.department.value != 0">
+                <mat-form-field>
+                  <input [errorStateMatcher]="matcher" placeholder="Designation" matInput type="text"
+                         formControlName="designation" required
+                         [ngClass]="{'is-invalid': form.designation.touched && form.designation.errors}"
+                         app-restrict-input="firstspace" appAlphanumsymb maxlength="50"/>
+                  <mat-error *ngIf="(form.designation.touched || regForm.submitted) && form.designation.errors?.required">Enter designation</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing" *ngIf="form.department.value != '' && form.department.value == 0">
+                <mat-form-field class="example-full-width">
+                  <input [errorStateMatcher]="matcher" formControlName="otherdept" placeholder="Specify Department"
+                   matInput type="text" required maxlength="50" appAlphabetonly app-restrict-input="firstspace">
+                  <mat-error *ngIf="form.otherdept.touched &&  form.otherdept.errors?.required"> Enter department</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-5" *ngIf="form.department.value != '' && form.department.value == 0">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field>
+                  <input [errorStateMatcher]="matcher" placeholder="Designation" matInput type="text"
+                         formControlName="designation" required
+                         [ngClass]="{'is-invalid': form.designation.touched && form.designation.errors}"
+                         app-restrict-input="firstspace" appAlphanumsymb maxlength="50"/>
+                  <mat-error *ngIf="form.designation.touched &&  form.designation.errors?.required"> Enter designation
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-0 countryfalgandcode">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-0 countryfalgandcode">
+                  <div fxFlex.gt-sm="20" fxFlex="100" class="p-r-10 paddingspacing widthresponsiveside">
+                    <mat-form-field class="country-flag">
+                      <mat-select [(value)]="mobile_country_code_flag" (closed)="searchMobileCC = ''"
+                        (selectionChange)="setcountryFlag($event.value,'mobile');" [disableOptionCentering]="true" panelClass="myPanelClass"
+                        panelClass="select_with_search" [disabled]="true"
+                        *ngIf="(countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en') as cntryresult">
+                        <div class="searchinmultiselect">
+                          <i class="bgi bgi-search"></i>
+                          <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="Search"
+                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchMobileCC"
+                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                          <mat-icon (click)="searchMobileCC = ''" class="reseticon" matSuffix
+                            *ngIf="searchMobileCC !='' && searchMobileCC !=null">clear</mat-icon>
+                        </div>
+
+                        <mat-select-trigger class="flagwithcode">
+                          <img src="assets/images/flags/{{mobile_country_code_flag}}.png" alt="Country Flag">
+                        </mat-select-trigger>
+                        <div class="option-listing">
+                          <mat-option class="countrynameselect"
+                            *ngFor="let country of countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en'"
+                            [value]="country.CountryMst_Pk">
+                            <img src="assets/images/flags/{{country.CountryMst_Pk}}.png" alt="Country Flag">
+                            {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                          </mat-option>
+                          <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                            No country match your search criteria!
+                          </div>
+                        </div>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="80" fxFlex="100" class="p-l-10 paddingspacing mobilenumwidth">
+                    <mat-form-field class="numberandcode" floatLabel="always">
+                        <span ngClass.xs="p-r-0" ngClass.sm="p-r-0" class="p-r-5 countrycodecolor">{{mobilecode}}</span>
+                      <input matInput appNumberonly minlength="5" class="preCountry" maxlength="20" formControlName="mobileno"
+                        [errorStateMatcher]="matcher" placeholder="Mobile" required>
+                      <input matInput hidden='true' formControlName="mobilecc" placeholder="Phone Code">
+                      <mat-error *ngIf="form.mobileno.errors?.required  && (form.mobileno.touched || regForm.submitted)"
+                        class="text-danger nowrap ">Enter mobile number</mat-error>
+                      <mat-error *ngIf="form.mobileno.errors?.minlength && (form.mobileno.touched || regForm.submitted)"
+                        class="text-danger nowrap ">Enter minimum 5 digits</mat-error>
+                      <mat-error *ngIf="form.mobileno.errors?.alreadyavailable">Mobile number
+                        already exist</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing">
+                <div fxLayout="row wrap" fxLayoutAlign="end" class=" countryfalgandcode">
+                  <div fxFlex.gt-sm="20" fxFlex="100" class="p-r-10 paddingspacing searchwidth">
+                    <mat-form-field class="country-flag">
+                      <mat-select [(value)]="landline_country_code_flag" [disabled]="true"  (closed)="searchLandLineCC = ''" panelClass="myPanelClass"
+                        (selectionChange)="setcountryFlag($event.value);" [disableOptionCentering]="true" panelClass="select_with_search"
+
+                        *ngIf="(countrylist | searchFilter : searchLandLineCC:'CyM_CountryName_en') as cntryresult">
+                        <div class="searchinmultiselect">
+                          <i class="bgi bgi-search"></i>
+                          <input appAlphanumsymb matInput class="searchselect" type="Search" placeholder="Search"
+                            (keydown)="$event.stopPropagation();" [(ngModel)]="searchLandLineCC"
+                            [ngModelOptions]="{standalone: true}" autocomplete="off">
+                          <mat-icon (click)="searchLandLineCC = ''" class="reseticon" matSuffix
+                            *ngIf="searchLandLineCC !='' && searchLandLineCC !=null">clear</mat-icon>
+                        </div>
+                        <mat-select-trigger class="flagwithcode">
+                          <img src="assets/images/flags/{{landline_country_code_flag}}.png" alt="Country Flag">
+                        </mat-select-trigger>
+                        <div class="option-listing">
+                          <mat-option class="countrynameselect"
+                            *ngFor="let country of countrylist | searchFilter : searchLandLineCC:'CyM_CountryName_en'"
+                            [value]="country.CountryMst_Pk">
+                            <img src="assets/images/flags/{{country.CountryMst_Pk}}.png" alt="Country Flag">
+                            {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                          </mat-option>
+                          <div class="p-t-10" *ngIf="cntryresult.length == 0">
+                            No country match your search criteria!
+                          </div>
+                        </div>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="65" fxFlex="100" class="p-l-10 paddingspacing landlinewidth">
+                    <mat-form-field  class="numberandcode" floatLabel="always">
+                        <span class="p-r-5 countrycodecolor">{{landlinecode}}</span>
+                      <input id="landlineno" class="preCountry" #landlinenumber matInput [errorStateMatcher]="matcher" appNumberonly
+                        minlength="5" maxlength="20" formControlName="landlineno" placeholder="Landline">
+                      <input matInput hidden='true' formControlName="landlinecc" placeholder="Phone Code">
+                      <mat-error
+                        *ngIf="form.landlineno.errors?.minlength && (form.landlineno.touched || regForm.submitted)"
+                        class="text-danger nowrap ">Enter minimum 5 digits</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="15" fxFlex="100" class="p-l-10 paddingspacing">
+                    <mat-form-field>
+                      <input matInput appNumberonly formControlName="landlineext" maxlength="5" placeholder="Ext.">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-5">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <input autocomplete="nope" [errorStateMatcher]="matcher" matInput placeholder="Email ID" maxlength="250"
+                    app-restrict-input="firstspace" appAlphanumsymb formControlName="emailid" required>
+                  <mat-error *ngIf="form.emailid.errors?.required && (form.emailid.touched || regForm.submitted)">
+                    Enter email ID
+                  </mat-error>
+                  <mat-error *ngIf="form.emailid.errors?.pattern && (form.emailid.touched || regForm.submitted)">
+                    Enter valid email
+                  </mat-error>
+                  <mat-error *ngIf="form.emailid.errors?.alreadyavailable">Email ID
+                    already exist</mat-error>
+                  <mat-error *ngIf="form.emailid.errors?.alreadyInvited">OPAL invite has already been sent to your
+                    email ID, Kindly proceed with the link provided in the email.</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-0 p-l-15 paddingspacing">
+                <mat-form-field class="example-full-width">
+                  <input autocomplete="nope" [errorStateMatcher]="matcher" matInput placeholder="Re-enter Email ID" maxlength="250"
+                    app-restrict-input="firstspace"  blockCopyPaste formControlName="renteremailid" required
+                    (blur)="checkFirstAndLastNameHasValue()">
+                  <mat-error *ngIf="form.renteremailid.errors?.required && (form.renteremailid.touched || regForm.submitted)">
+                    Enter email ID
+                  </mat-error>
+                  <mat-error *ngIf="form.renteremailid.errors?.pattern && (form.renteremailid.touched || regForm.submitted)">
+                    Enter valid email
+                  </mat-error>
+                  <mat-error *ngIf="form.renteremailid.errors?.mustMatch">Email IDs do not match</mat-error>
+                  <mat-error *ngIf="form.renteremailid.errors?.alreadyavailable">Email
+                    already exist</mat-error>
+                  <mat-error *ngIf="form.renteremailid.errors?.alreadyInvited">OPAL invite has already been sent to your
+                    email ID, Kindly proceed with the link provided in the email.</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <hr class="borderbottomline">
+
+          <div class="contactpersoninfo">
+            <div class="headers">
+              <p class="mainheaderfont">Additional Information</p>
+            </div>
+
+            <div class="howyouheared">
+              <p>How did you hear about the {{portalName}} Investment Domain? <i class="fa fa-asterisk importantfield"></i></p>
+            </div>
+            <div fxLayout="row wrap" class="p-t-0">
+              <div fxFlex.gt-sm="50" fxFlex="100" class="hearaboutus p-r-15">
+                <mat-form-field>
+                  <mat-select formControlName="howdoyouknowaboutus" placeholder="Select" required
+                              (selectionChange)="selectedHowDoyouKnow = $event.source.triggerValue;otherPlaceholderChange($event);checkHowDoYouKnowHasValue();"
+                              [errorStateMatcher]="matcher" panelClass="myPanelClass" [disableOptionCentering]="true">
+                    <mat-option *ngFor="let howdoyouknow of howdoyouArr" [value]="howdoyouknow.value">
+                      {{howdoyouknow.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="form.howdoyouknowaboutus.errors?.required && (form.howdoyouknowaboutus.touched || regForm.submitted)">
+                    Select how did you hear about the {{portalName}} Investment domain
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15" *ngIf="form.howdoyouknowaboutus.value == 7 || form.howdoyouknowaboutus.value == 2 || form.howdoyouknowaboutus.value == 9">
+                <mat-form-field class="example-full-width">
+                  <mat-select [errorStateMatcher]="matcher" formControlName="others" placeholder="{{masterSelectValidation | titlecase }}" required
+                              panelClass="myPanelClass" [disableOptionCentering]="true" (selectionChange)="selectedSubMasterStr = $event.source.triggerValue;">
+                    <mat-option *ngFor="let val of masterSelectList" [value]="val.pk">
+                      {{val.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.others.errors?.required && (form.others.touched || regForm.submitted)">
+                    Select {{ masterSelectValidation | lowercase }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-0"
+                 *ngIf="form.howdoyouknowaboutus.value && form.howdoyouknowaboutus.value != 7 && form.howdoyouknowaboutus.value != 2 && form.howdoyouknowaboutus.value != 9">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="">
+                <mat-form-field class="example-full-width">
+                  <textarea rows="4" [errorStateMatcher]="matcher" matInput maxlength="100" formControlName="others"
+                            appAlphanumsymb [placeholder]="'Specify Others'" app-restrict-input="firstspace" [required]="howdoyouknow == '11'"></textarea>
+                  <mat-hint align="end">{{form.others.value?.length || 0}}/100</mat-hint>
+                  <mat-error *ngIf="form.others.errors?.required && (form.others.touched || regForm.submitted)">
+                    Please specify how did you hear about us
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-0">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="">
+                <mat-form-field class="example-full-width">
+                  <mat-select formControlName="comments" placeholder="Let us know your expectations from OPAL"
+                  (selectionChange)="selectedExpectationsStr = $event.source.triggerValue;selectedExpectations(form.comments.value)"
+                         multiple panelClass="myPanelClass" [disableOptionCentering]="true">
+                         <mat-select-trigger>
+                          {{form.comments.value ? expectationsNameDataTemp : ''}}
+                          <span *ngIf="form.comments.value?.length > 1" class="example-additional-selection">
+                            (+{{form.comments.value.length - 1}}
+                            {{form.comments.value?.length === 2 ? 'other' : 'others'}})
+                          </span>
+                        </mat-select-trigger>
+                    <mat-option *ngFor="let expectations of expectationsArr" [value]="expectations.value">{{ expectations.viewValue }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-10">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="">
+                <div class="termscheckall">
+                  <mat-checkbox formControlName="termsandconditions" [(ngModel)]="isChecked" (change)="checkValue(isChecked?'accept':'notaccept')">I have read, understood & agree to the
+                  </mat-checkbox>
+                  <a class="termsandcondtions" href="javascript:void(0)">Terms & Conditions</a>
+                </div>
+                <mat-error class="p-l-24"
+                  *ngIf="form.termsandconditions.errors?.required && (form.termsandconditions.touched || regForm.submitted)">
+                  Please confirm the above
+                </mat-error>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="p-t-16 p-b-16">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="text-right aligncapsha">
+                <div class="forcaptch p-l-25">
+                   <span> OPAL is protected by reCAPTCHA and the <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a>&nbsp;and&nbsp;<a href="https://policies.google.com/terms" target="_blank">Terms of Service</a>&nbsp;apply.</span>
+                  <!-- <app-recaptcha #recaptcha (captchaToken)="setCaptcha($event)" (expired)="captcha = $event">
+                  </app-recaptcha> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="captchandsubmit">
+          <div class="forcaptch">
+            <span class="backtofirstpage" (click)="backToFirstPage()"><i
+                class="bgi bgi-back1"></i><span>Back</span></span>
+          </div>
+          <div fxLayout="row wrap" class="p-t-0">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="text-right btnspacing">
+              <button type="button" mat-raised-button class="cancelbutton" (click)="cancelAction()">Cancel</button>
+              <button type="submit" mat-raised-button color="primary" [disabled]="disableSubmitButton"
+                class="submitbutton">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="rightsideinfo">
+      <div class="firstcardheight" *ngIf="showWelcomeCard">
+        <app-welcomecard [counts]="rightSideCardCounts" [stakeHolder]="'PO'" [orgname]="orgname"></app-welcomecard>
+      </div>
+      <div class="secondcardminheight">
+        <div class="rightsidecards cardtwo" *ngIf="showNameCard">
+          <app-namecard [firstname]="firstname" [email]="email" ></app-namecard>
+        </div>
+      </div>
+      <app-thankyoucard [firstname]="firstname" *ngIf="showThankYouCard"></app-thankyoucard>
+    </div>
+
+  </div>
+</ng-container>
+<ng-container *ngIf="showThankYouForRegPage">
+  <app-thankyou [refno]="refno" [name]="orgname"></app-thankyou>
+</ng-container>
+
+
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

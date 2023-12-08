@@ -1,0 +1,223 @@
+#portaltechinvoiceaccordion{
+    .mat-accordion{
+        &.placcordpanel{
+            .mat-expansion-panel{
+                box-shadow:none;
+                margin-bottom:15px;
+                border-radius:0px !important;  
+                .mat-expansion-panel-header{
+                    background:rgba(0, 0, 0, 0.04);
+                    height:48px;
+                    border-radius:0px !important;                      
+                    padding-left:15px !important;
+                    padding-right:15px !important;
+                    &.right-aligned-header > .mat-content {
+                        justify-content: space-between;
+                    }
+                    .mat-content > mat-panel-title, 
+                    .mat-content > mat-panel-description {
+                        flex: 0 0 auto;
+                        align-items: center;
+                        span{
+                            font-size:13px;
+                            font-family: "opal_semibold", sans-serif; 
+                        }
+                    } 
+                    .mat-expansion-panel-header-title{
+                        font-family: "opal_semibold", sans-serif; 
+                        font-size:15px;
+                    }                                    
+                }
+                &.mat-expanded{
+                    .mat-expansion-panel-header{
+                        height:48px !important;
+                        background:#0c4b9a;
+                        padding-left:15px !important;
+                        padding-right:15px !important;
+                        .mat-expansion-panel-header-title{
+                            color:#fff; 
+                        }
+                        .mat-expansion-indicator::after{
+                            color:#fff;
+                        }
+                        .mat-content > mat-panel-title, 
+                        .mat-content > mat-panel-description {
+                            span{
+                                color:#fff; 
+                            }
+                        } 
+                    }
+                }
+                .mat-expansion-panel-body{
+                    padding:0px !important;
+                    .mat-iptable{
+                        width:100%;
+                        border-collapse: collapse;
+                        .mat-header-row{
+                            border:0px !important;
+                            height:30px;
+                            background:#f3f5f7;
+                            th.mat-header-cell{
+                                &:first-of-type{
+                                    padding-left:0px;
+                                }
+                                padding:5px 10px !important;
+                                text-align:left;
+                                white-space: nowrap;
+                                color:#333;
+                                background:#f3f5f7;
+                                font-family: "opal_semibold", sans-serif;
+                                font-size:0.875rem; 
+                                @media (max-width:800px){
+                                    white-space: unset;
+                                } 
+                                &:last-child{
+                                    text-align:center;
+                                }
+                            }
+                        }
+                        .mat-row{
+                            border:0px !important;
+                            height:32px;
+                            td.mat-cell{
+                                &:first-of-type{
+                                    padding-left:0px;
+                                }
+                                padding:5px 10px !important; 
+                                text-align:left;
+                                color:#000;
+                                font-size:0.875rem;
+                                white-space: nowrap;
+                                vertical-align: middle; 
+                                font-family: "opal_regular", sans-serif; 
+                                @media (max-width:800px){
+                                    white-space: unset;
+                                }
+                                &:last-child{
+                                    text-align:center;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    .titlebluebg{
+        height:36px !important;
+        line-height:36px !important;
+        background:#0c4b9a;
+        padding-left:15px !important;
+        padding-right:15px !important;
+        color:#fff;
+        font-family: "opal_semibold", sans-serif; 
+        font-size:15px; 
+        width:106%;
+    }
+    .tablecontainer{
+        .invoiceassesstbale, .invoiceroyaltbale{         
+            .mat-invoiceassessmanage, .mat-invoiceroyal{
+                width:100%;
+                border-collapse: collapse;
+                border:0px;
+                .mat-header-row{
+                    border:0px !important;
+                    height:30px !important;
+                    background:#f3f5f7;
+                    th.mat-header-cell{
+                        &:first-of-type{
+                            padding-left:0px;
+                        }
+                        padding:10px 10px !important;
+                        text-align:left;
+                        white-space: nowrap;
+                        color:#333;
+                        background:#f3f5f7;
+                        font-family: "opal_semibold", sans-serif;
+                        font-size:0.875rem; 
+                        min-width:100px; 
+                    }
+                }
+                .mat-row{
+                    border:0px !important;
+                    border-bottom:1px solid #ddd !important;
+                    height:36px !important;
+                    background:#fff;
+                    td.mat-cell{
+                        &:first-of-type{
+                            padding-left:0px;
+                            text-align:left;
+                            min-width:200px;
+                        }
+                        padding:5px 10px !important; 
+                        text-align:right;
+                        color:#000;
+                        font-size:0.875rem;
+                        white-space: nowrap;
+                        vertical-align: middle; 
+                        font-family: "opal_regular", sans-serif; 
+                        min-width:100px;
+                        &:nth-child(4){
+                            color:#ff3636;
+                        }
+                    }
+                    &:nth-child(1), &:nth-child(4){
+                        td.mat-cell{
+                            font-family: "opal_semibold", sans-serif;  
+                        } 
+                    }
+                }
+            }
+        }
+    }
+}
+#portaltechinvoiceaccordion .tablecontainer .invoiceroyaltbale .mat-invoiceroyal .mat-row:nth-child(1) td.mat-cell{
+    font-family: "opal_regular", sans-serif;  
+}
+.scrolldata {
+    position: relative;
+    z-index: 1;/* 
+    display: block; */
+    overflow-x: auto;
+    background-color: #fff;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #ccc;
+    }
+}
+
+[dir="rtl"], .rtl {
+    #portaltechinvoiceaccordion{
+        .tablecontainer{
+            .invoiceassesstbale, .invoiceroyaltbale{         
+                .mat-invoiceassessmanage, .mat-invoiceroyal{
+                    .mat-row{
+                        td.mat-cell{
+                            &:first-of-type{
+                                padding-left:0px;
+                                text-align:right;
+                                min-width:200px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

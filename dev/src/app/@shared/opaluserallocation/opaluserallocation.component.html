@@ -1,0 +1,353 @@
+<div   fxLayout="row wrap" fxLayoutAlign="center">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div  class="p-t-0">
+        <!--permission access table-->
+          <div fxLayout="row wrap" class="moduelacess_maincontain depModulesTable p-t-15">
+            <form id="modulecheckform" style="width:100%;">
+              <!---perminssion ui starts from here-->
+              <mat-table #table [dataSource]="dataSourceforpermission">
+                <ng-container matColumnDef="modules">
+                  <mat-header-cell *matHeaderCellDef fxFlex="35">
+                    <label class="allselected" for="alldataselected">
+                      {{'commonuser.modu' | translate}} 
+                    </label>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="35" let mi="element.modules">
+                    <input  [checked]="element.aAll" type="checkbox" id="module_{{element.module_id}}"
+                      (change)="checkAllModule($event,element.module_id)"
+                      [ngClass]="{'myclass parentofclass': element.child ,'submyclass ':!element.child}"
+                      class="maincheckbox example-margin fs-15 text-gray p-l-30 m-r-15 depinput">
+                
+                    <label id="{{element.module_id}}_0" class="deplabel" for="module_{{element.module_id}}">
+                        {{element.modules}} 
+                        <span *ngIf="element.parentEnable && element.modulesinfocontent != null">  
+                          <i [popover]="myPopoverc" class="bgi bgi bgi-infonew txt-gray9 m-t-2 fs-13 m-l-5"></i>
+                          <popover-content #myPopoverc placement="bottom-right" [animation]="true" [closeOnClickOutside]="true">
+                            <div innerHTML="{{element.modulesinfocontent}}"></div>
+                          </popover-content>
+                        </span>
+                    </label>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="module_id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header hidden="true">{{'commonuser.moduid' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let row" hidden="true"> {{row.module_id}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="create">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'commonuser.crea' | translate}}  </mat-header-cell>
+
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Create">
+                      <!-- <mat-checkbox *ngIf="element.parentEnable" [disabled]="element.create == 'NIL'" class="selectalltoggle"
+                      id="mm-{{element.module_id}}-1" (change)="moduleToggle($event, element.module_id, 1)"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aC"></mat-checkbox> -->
+                    <!-- <mat-slide-toggle [disabled]="element.create == 'NIL'" class="selectalltoggle"
+                      id="mm-{{element.module_id}}-1" (change)="moduleToggle($event, element.module_id, 1)"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aC"></mat-slide-toggle> -->
+                    <!-- 
+                      <input  [disabled]="element.create == 'NIL'" type="checkbox"  class="selectalltoggle"
+                      id="mm-{{element.module_id}}-1" (change)="moduleToggle($event, element.module_id, 1)"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aC"> -->
+                      <span id="{{element.module_id}}_1" *ngIf="element.parentEnable && element.create != 'NIL'"
+                      [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                      <input  [checked]="element.aC" type="checkbox" class="selval_{{element.module_id}}" id="mm-{{element.module_id}}-1" 
+                        (change)="moduleToggle($event, element.module_id, 1)">
+                      <label for="checkboxOne"></label>
+                      </span>
+                      <i id="{{element.module_id}}_1" class="fa fa-square fs-14 text-red"
+                      *ngIf="element.parentEnable && element.create == 'NIL'"></i>
+                      <!-- <i id="{{onlyview}}_sh_{{element.module_id}}_1" class="fa fa-square fs-14 text-red" *ngIf="element.parentEnable && element.create == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i> -->
+                      <!-- view permission -->
+                      <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_1" *ngIf="element.parentEnable && onlyview == 1"
+                        [class.disabledtoggle]="!element.parentEnable"  class="selectalltoggle">
+                        <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.aC"  [class.cross-checkbox]="!element.aC" type="checkbox" id="mm-{{element.module_id}}-1">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+
+                    <span id="{{element.module_id}}_1" class="{{element.module_id}}_1" *ngIf="(element.create == 'Y' || element.create == 'N')"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input  [checked]="element.create =='Y'" type="checkbox" id="module_{{element.module_id}}_1"
+                        name="module_{{element.module_id}}_1" (change)="checkBoxCheck($event,element.module_id,1)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_1" class="fa fa-square fs-14 text-red" *ngIf="element.create == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i>
+                      <!-- view permission -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_1" *ngIf="(element.create == 'Y' || element.create == 'N') && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.create =='Y'"  [class.cross-checkbox]="element.create =='N'" type="checkbox" id="module_{{element.module_id}}_1"
+                        name="module_{{element.module_id}}_1">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_1" *ngIf="element.create == 'NIL' && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input disabled="disabled" type="checkbox" id="module_{{element.module_id}}_1"
+                        name="module_{{element.module_id}}_1">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="update">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'commonuser.upda' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Update">
+                    <!-- <mat-slide-toggle [disabled]="element.update == 'NIL'" class="selectalltoggle"
+                      id="mm-{{element.module_id}}-3" (change)="moduleToggle($event, element.module_id, 3)"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aU"></mat-slide-toggle> -->
+                      <span id="{{element.module_id}}_3" *ngIf="element.parentEnable && element.update != 'NIL'"
+                      [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                      <input  [checked]="element.aU" type="checkbox" class="selval_{{element.module_id}}" id="mm-{{element.module_id}}-3" 
+                        (change)="moduleToggle($event, element.module_id, 3)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_3" class="fa fa-square fs-14 text-red" 
+                    *ngIf="element.parentEnable && element.update == 'NIL'"></i>
+                      <!-- view permission -->
+                    <!--  <span id="{{onlyview}}_sh_{{element.module_id}}_3" *ngIf="element.parentEnable && onlyview == 1"
+                        [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                        <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.aU"  [class.cross-checkbox]="!element.aU" type="checkbox" id="mm-{{element.module_id}}-3">
+                        <label for="checkboxOne"></label>
+                      </span> -->
+
+                    <span id="{{element.module_id}}_3" *ngIf="(element.update == 'Y' || element.update == 'N')"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input  [checked]="element.update =='Y'" type="checkbox" id="module_{{element.module_id}}_3"
+                        name="module_{{element.module_id}}_3" (change)="checkBoxCheck($event,element.module_id,3)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_3" class="fa fa-square fs-14 text-red" *ngIf="element.update == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i>
+                      <!-- view permission -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_3" *ngIf="(element.update == 'Y' || element.update == 'N') && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable" >
+                      <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.update =='Y'"  [class.cross-checkbox]="element.update =='N'" type="checkbox" id="module_{{element.module_id}}_3"
+                        name="module_{{element.module_id}}_3">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_3" *ngIf="element.update == 'NIL' && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable" >
+                      <input disabled="disabled" type="checkbox" id="module_{{element.module_id}}_3"
+                        name="module_{{element.module_id}}_3">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                  </mat-cell>
+                </ng-container>
+
+                <!-- createed ON Column -->
+                <ng-container matColumnDef="read">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'commonuser.read' | translate}}  </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Read">
+                  <!--  <mat-slide-toggle [disabled]="element.read == 'NIL'" id="mm-{{element.module_id}}-2"
+                      (change)="moduleToggle($event, element.module_id, 2)" class="selectalltoggle"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aR">Slide me!</mat-slide-toggle> -->
+                      <span id="{{element.module_id}}_2" *ngIf="element.parentEnable && element.read != 'NIL'"
+                      [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                      <input  [checked]="element.aR" type="checkbox" class="selval_{{element.module_id}}" id="mm-{{element.module_id}}-2" 
+                        (change)="moduleToggle($event, element.module_id, 2)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_2" class="fa fa-square fs-14 text-red" 
+                    *ngIf="element.parentEnable && element.read == 'NIL'"></i>
+                      <!-- view permission -->
+                      <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_2" *ngIf="element.parentEnable && onlyview == 1"
+                        [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                        <input disabled="disabled"[checked]="true" [class.tick-checkbox]="element.aR"  [class.cross-checkbox]="!element.aR" type="checkbox" id="mm-{{element.module_id}}-2">
+                        <label for="checkboxOne"></label>
+                      </span> -->
+
+                    <span id="{{element.module_id}}_2" *ngIf="(element.read == 'Y' || element.read == 'N')"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input  [checked]="element.read =='Y'" type="checkbox" id="module_{{element.module_id}}_2"
+                        name="module_{{element.module_id}}_2" (change)="checkBoxCheck($event,element.module_id,2)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_2" class="fa fa-square fs-14 text-red" *ngIf="element.read == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i>
+                      <!-- view permission -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_2" *ngIf="(element.read == 'Y' || element.read == 'N')  && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.read =='Y'"  [class.cross-checkbox]="element.read =='N'" type="checkbox" id="module_{{element.module_id}}_2"
+                        name="module_{{element.module_id}}_2">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_2" *ngIf="element.read == 'NIL'  && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input disabled="disabled" type="checkbox" id="module_{{element.module_id}}_2"
+                        name="module_{{element.module_id}}_2">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Updated ON Column -->
+                <ng-container matColumnDef="delete">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'commonuser.dele' | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Delete">
+                    <!-- <mat-slide-toggle [disabled]="element.delete == 'NIL'" id="mm-{{element.module_id}}-4"
+                      (change)="moduleToggle($event, element.module_id, 4)" class="selectalltoggle"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aD">Slide me!</mat-slide-toggle> -->
+                      <span id="{{element.module_id}}_4" *ngIf="element.parentEnable && element.delete != 'NIL'"
+                      [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                      <input  [checked]="element.aD" type="checkbox" class="selval_{{element.module_id}}" id="mm-{{element.module_id}}-4" 
+                        (change)="moduleToggle($event, element.module_id, 4)">
+                        
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_4" class="fa fa-square fs-14 text-red" 
+                    *ngIf="element.parentEnable && element.delete == 'NIL'"></i>
+                      <!-- view permission -->
+                      <!-- view permission -->
+                      <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_4" *ngIf="element.parentEnable && onlyview == 1"
+                        [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                        <input disabled="disabled" [checked]="true" [class.tick-checkbox]="element.aD"  [class.cross-checkbox]="!element.aD" type="checkbox" id="mm-{{element.module_id}}-4">
+                        <label for="checkboxOne"></label>
+                      </span> -->
+
+                    <span id="{{element.module_id}}_4" *ngIf="(element.delete == 'Y' || element.delete == 'N')"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input  [checked]="element.delete =='Y'" type="checkbox" id="module_{{element.module_id}}_4"
+                        name="module_{{element.module_id}}_4" (change)="checkBoxCheck($event,element.module_id,4)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i  id="{{element.module_id}}_4" class="fa fa-square fs-14 text-red" *ngIf="element.delete == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i>
+                      <!-- view permission -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_4" *ngIf="(element.delete == 'Y' || element.delete == 'N') && onlyview == 1"
+                    [class.disabledtoggle]="!element.childEnable">
+                      <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.delete =='Y'"  [class.cross-checkbox]="element.delete =='N'" type="checkbox" id="module_{{element.module_id}}_4"
+                        name="module_{{element.module_id}}_4">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_4" *ngIf="element.delete == 'NIL' && onlyview == 1"
+                    [class.disabledtoggle]="!element.childEnable">
+                      <input disabled="disabled" type="checkbox" id="module_{{element.module_id}}_4"
+                        name="module_{{element.module_id}}_4">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="approval">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'commonuser.appr' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Approve">
+                    <!-- <mat-slide-toggle [disabled]="element.approval == 'NIL'" id="mm-{{element.module_id}}-5"
+                      (change)="moduleToggle($event, element.module_id, 5)" class="selectalltoggle"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aA">Slide me!</mat-slide-toggle> -->
+                      <span id="{{element.module_id}}_5" *ngIf="element.parentEnable && element.approval != 'NIL'"
+                      [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                      <input   [checked]="element.aA" type="checkbox" class="selval_{{element.module_id}}" id="mm-{{element.module_id}}-5" 
+                        (change)="moduleToggle($event, element.module_id, 5)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_5" class="fa fa-square fs-14 text-red" 
+                    *ngIf="element.parentEnable && element.approval == 'NIL'"></i>
+                      <!-- view permission -->
+                      <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_5" *ngIf="element.parentEnable && onlyview == 1"
+                        [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                        <input disabled="disabled" [checked]="true" [class.tick-checkbox]="element.aA"  [class.cross-checkbox]="!element.aA" type="checkbox" id="mm-{{element.module_id}}-5">
+                        <label for="checkboxOne"></label>
+                      </span> -->
+
+                    <span id="{{element.module_id}}_5" *ngIf="(element.approval == 'Y' || element.approval == 'N')"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input  [checked]="element.approval =='Y'" type="checkbox" id="module_{{element.module_id}}_5"
+                        name="module_{{element.module_id}}_5" (change)="checkBoxCheck($event,element.module_id,5)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_5" class="fa fa-square fs-14 text-red" *ngIf="element.approval == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i>
+                      <!-- view permission -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_5" *ngIf="(element.approval == 'Y' || element.approval == 'N') && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable" >
+                      <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.approval =='Y'"  [class.cross-checkbox]="element.approval =='N'" type="checkbox" id="module_{{element.module_id}}_5"
+                        name="module_{{element.module_id}}_5">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_5" *ngIf="element.approval == 'NIL' && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable" >
+                      <input disabled="disabled"  type="checkbox" id="module_{{element.module_id}}_5"
+                        name="module_{{element.module_id}}_5">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="download">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'commonuser.down' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element;let first = first" fxFlex="10" class="text-center iconChk" data-label="Download">
+                    <!-- <mat-slide-toggle [disabled]="element.download == 'NIL'" id="mm-{{element.module_id}}-6"
+                      (change)="moduleToggle($event, element.module_id, 6)" class="selectalltoggle"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aDwn">Slide me!
+                    </mat-slide-toggle> -->
+                    <span id="{{element.module_id}}_6" *ngIf="element.parentEnable && element.download != 'NIL'"
+                      [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                      <input   [checked]="element.aDwn" type="checkbox" class="selval_{{element.module_id}}" id="mm-{{element.module_id}}-6" 
+                        (change)="moduleToggle($event, element.module_id, 6)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_6" class="fa fa-square fs-14 headeracc" 
+                    *ngIf="element.parentEnable && element.download == 'NIL'"></i> 
+                    <!-- view permission -->
+                  <!--  <span id="{{onlyview}}_sh_{{element.module_id}}_6" *ngIf="element.parentEnable && onlyview == 1"
+                    [class.disabledtoggle]="!element.parentEnable" class="selectalltoggle">
+                      <input  disabled="disabled" [checked]="true" [class.tick-checkbox]="element.aDwn"  [class.cross-checkbox]="!element.aDwn" type="checkbox" id="mm-{{element.module_id}}-6">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                  
+                    <span id="{{element.module_id}}_6" *ngIf="(element.download == 'Y' || element.download == 'N')"
+                      [class.disabledtoggle]="!element.childEnable">
+                      <input  [checked]="element.download =='Y'" type="checkbox" id="module_{{element.module_id}}_6"
+                        name="module_{{element.module_id}}_6" (change)="checkBoxCheck($event,element.module_id,6)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i id="{{element.module_id}}_6" class="fa fa-square fs-14 text-red" *ngIf="element.download == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i>                  
+                      <!-- view permission -->           
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_6" *ngIf="(element.download == 'Y' || element.download == 'N') && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable" >
+                      <input disabled="disabled"  [checked]="true" [class.tick-checkbox]="element.download =='Y'"  [class.cross-checkbox]="element.download =='N'" type="checkbox" id="module_{{element.module_id}}_6"
+                        name="module_{{element.module_id}}_6">
+                      <label for="checkboxOne"></label>
+                    </span> -->
+                    <!-- <span id="{{onlyview}}_sh_{{element.module_id}}_6" *ngIf="element.download == 'NIL' && onlyview == 1"
+                      [class.disabledtoggle]="!element.childEnable" >
+                      <input disabled="disabled"  type="checkbox" id="module_{{element.module_id}}_6"
+                        name="module_{{element.module_id}}_6">
+                      <label for="checkboxOne"></label>
+                    </span> -->              
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="accord">
+                  <mat-header-cell *matHeaderCellDef fxFlex="5" class="text-center">
+                    <i id="allexcl" (click)="toggleRowall('allexcl')" data-label="fa-plus" class="fa fa-plus cursor-pointer"></i>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="5" class="text-center iconChk" data-label="Download">
+                    <mat-slide-toggle [disabled]="element.download == 'NIL'" id="mm-{{element.module_id}}-7"
+                      (change)="moduleToggle($event, element.module_id, 7)" class="selectalltoggle hide"
+                      [class.disabledtoggle]="!element.parentEnable" [checked]="element.aDwn">{{'commonuser.slidme' | translate}}
+                    </mat-slide-toggle>
+                    <i id="{{element.module_id}}" data-label="fa-plus" (click)="toggleRow($event,element.module_id)" class="cursor-pointer fa fa-plus colorplus" [disabled]="element.download == 'NIL'" [class.disabledtoggle]="!element.parentEnable" ></i>
+                    <span class="hide" *ngIf="element.download == 'Y' || element.download == 'N'"  [class.disabledtoggle]="!element.childEnable">
+                      <input disabled [checked]="element.download =='Y'" type="checkbox" id="module_{{element.module_id}}_7"
+                        name="module_{{element.module_id}}_7" (change)="checkBoxCheck($event,element.module_id,7)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i class="fa fa-square fs-14 text-red hide" *ngIf="element.download == 'NIL'"
+                      [class.disabledtoggle]="!element.childEnable"></i>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="['modules', 'create','update','read','delete','approval','download','accord'];sticky: true">
+                </mat-header-row>
+                <mat-row  class="detailedselection rowCollapse"   *matRowDef="let row; columns: ['modules', 'create','update','read','delete','approval','download','accord'];">
+                </mat-row>
+                <mat-row *matRowDef="let row; columns: ['modules','create','update','read','delete','approval','download','accord']; when: isExtendedRow"
+                  class="darken">
+                </mat-row>
+              </mat-table>
+              <!---Permission end here-->  
+            </form>
+          </div>
+        <!--permission access table-->
+      </div>
+    </div>
+</div>

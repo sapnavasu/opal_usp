@@ -1,0 +1,28 @@
+<div dir="{{dir}}" id="contactus_sliderpopup">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="termscontent">
+      <span class="closethedialogterms" (click)="closedialog()">
+        <mat-icon class="" matTooltip="{{'registrationheader.close' | translate}}">close</mat-icon>
+      </span>
+      <h4 class="fs-20 m-0 ">{{'commonmodal.termandcond' | translate}}</h4>
+      <div class="termsinner_content" appCustomScroll #appScrollElement="appCustomScroll"  #scroll>
+        <p class="m-0 fs-15  p-b-20" innerHtml="{{'commonmodal.theOPALcerficaname' | translate}} "></p>
+        <p class="m-0 fs-15  p-b-20" innerHtml="{{'commonmodal.acces' | translate}} "></p>
+        <p class="m-0 fs-15  p-b-20" innerHtml="{{'commonmodal.theteramopal' | translate}} "></p>
+        <h5 class="fs-16  m-0">{{'commonmodal.defi' | translate}}</h5>
+        <ul class="m-l-20">
+          <li class="m-0 fs-14 "> {{'commonmodal.OPALmeans' | translate}}</li>
+          <li class="m-0 fs-14 "> {{'commonmodal.serviorservsrefer' | translate}}</li>
+          <li class="m-0 fs-14 "> {{'commonmodal.OPALmaststack' | translate}}</li>
+          <li class="m-0 fs-14 "> {{'commonmodal.iiaaretheown' | translate}}</li>
+          <li class="m-0 fs-14 "> {{'commonmodal.bgiarethedevlimple' | translate}}</li>
+          <li class="m-0 fs-14 " innerHtml="{{'commonmodal.websorportrefto' | translate}} "> </li>
+          <li class="m-0 fs-14 "> {{'commonmodal.portadminreftobgi' | translate}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="btnalign" fxLayoutAlign="center center" >
+    <button  color="primary"  (click)="acceptdata()" type="button"  class="button-35 fs-15 acceptbtn">{{'commonmodal.acce' | translate}} </button>
+  </div>
+</div>

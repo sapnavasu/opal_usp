@@ -1,0 +1,186 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center ;
+    align-items: center ;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start ;
+    align-items: center ;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end ;
+    align-items: center ;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between ;
+    align-items: center ;
+}
+
+
+
+#contactus_sliderpopup{
+    min-width: 600px;
+    width:650px;
+    margin:0px auto;
+    .blue-bg{
+        background: #006db8;
+        margin-top: 0px;
+        padding: 10px 0px;
+        color: #fff;
+        margin-bottom:0px;
+        font-size: 18px;
+    }
+    .flexalignsubscrip{
+        display: flex;
+        width: 100%;
+    }
+    .subscriptioncontent{
+        p{
+            margin-top:10px !important;
+            padding-top:5px;
+            text-align: center;
+        }
+        .subscriptionnotecolor{
+             color: #000;
+             font-size: 0.9375rem;
+             margin: 0px;
+             span{
+                 color: #666;
+             }
+             
+        }
+        .flags{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            p{
+                margin-bottom: 15px;
+            }
+         }
+       h3{
+           color: #333;
+           font-size: 1.125rem;
+           margin: 0px;
+           padding-bottom: 15px;
+           font-style: italic;
+           font-weight: 500;
+       } 
+       .expiredcontent{
+           @include flexstart();
+           padding-bottom: 10px;
+           p{
+               color: #333;
+               margin: 0px;
+               font-size: 0.9375rem;
+               min-width: 116px;
+           }
+           .datecolor{
+                font-family: 'opal_semibold';
+           }
+       }
+    }
+    .textnotecolor{
+        display: flex;
+        padding: 0px 20px;
+        p{
+            color: #333333;
+            margin: 0px;
+            font-size: 0.9375rem;
+        }
+    }
+    .btnalign{
+        @include flexend();
+        padding-top: 15px;
+        padding-bottom: 15px;
+        justify-content: space-evenly !important;
+        margin-top: 5px;
+        padding-right: 15px;
+        .laterbtn{
+           line-height: 1;
+        }
+        .cancel{
+            background-color: #006db8 !important;
+            color: #fff !important;
+            border: 0px;
+            width: auto !important;
+            padding:10px;
+            cursor:pointer;
+        }
+        .gcc_sub{
+            background-color: #f4811f !important;
+            color: #fff;
+            border: 0px;
+            width: auto;
+            padding: 10px;
+        }
+       
+       
+    }
+    .remindmelater
+    {
+        background: #fff !important;
+        color: #666 !important;
+        border: 1px solid #dadada !important;
+    }
+           
+.jsrsimage{
+    width: 23%;
+   img{
+    height: 90px;
+    width: 90px;
+    position: relative;
+    border-right: 1px solid #ebebeb;
+    left: 25px;
+    padding-right: 25px;
+    float: left;
+   }
+}
+.widthcommentside{
+    width:100%;
+}
+.warningview{
+     i{
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+        font-size: 1.25rem;
+        text-align: center;
+        line-height: 45px;
+        background-color: #ffd7d7;
+        color: #ff3535;
+     }
+}
+.nobtn{
+    background-color: #7cd1f9;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 5px !important;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 24px;
+    margin: 0;
+    cursor: pointer;
+	height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+
+}
+.flag-area{
+    display: flex;
+    justify-content: space-around;;
+    align-items: center;
+ img{width:50px;}
+ .col-sm-3{display: flex;justify-content: center;}
+}

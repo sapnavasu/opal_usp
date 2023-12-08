@@ -1,0 +1,218 @@
+--
+<div dir="{{dir}}" class="changepasswordalign">
+
+  <form [formGroup]="changePasswordForm" autocomplete="off">
+    <div fxLayout="row wrap" class="widthdialog">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <p class="m-b-10 fs-14">{{'changepassword.afterchangepsw' | translate}}</p>
+          <div>
+            <div class="chngpwdhed">
+              <div *ngIf="lusrtpye == 'A' && stakeHolderType == 1 && modydate ">
+              </div>
+            </div>
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-18 p-b-12 pos-relative keyboardpassword">
+                <mat-form-field>
+                  <input [type]="isInputTextTypefirst ? 'text' : 'password'" type="password" restrictKeyboard
+                    [restrictInputFromKeyboard]="vk.showKeyboard" autocomplete="off" formControlName="currentpassword"
+                    maxlength="20" appAlphanumsymb app-restrict-input="firstspace" matInput
+                    placeholder="{{'changepassword.curtpassword' | translate}}" (focus)="vk1.showKeyboard = false;vk2.showKeyboard = false">
+                  <span matSuffix class="spaceinfo">
+                    <i class="fa fa-eye-slash" matTooltip="Show Password" aria-hidden="true" *ngIf="!isInputTextTypefirst"
+                      (click)="isInputTextTypefirst = !isInputTextTypefirst"></i>
+                    <i class="fa fa-eye" matTooltip="Hide Password" aria-hidden="true" *ngIf="isInputTextTypefirst"
+                      (click)="isInputTextTypefirst = !isInputTextTypefirst"></i>
+                  </span>
+                  <button class="keyboardubtton" type="button" mat-icon-button matSuffix
+                    (click)="currentpasswordKeyboard()" matTooltip="Virtual keyboard">
+                    <mat-icon>keyboard</mat-icon>
+                  </button>
+                  <mat-error
+                    *ngIf="changePasswordForm.controls['currentpassword'].hasError('required') && changePasswordForm.controls['currentpassword'].touched"
+                    class="text-danger font-14">{{'changepassword.entercurrentpwd' | translate}}</mat-error>
+                  <mat-error
+                    *ngIf="changePasswordForm.controls['currentpassword'].hasError('minlength') && changePasswordForm.controls['currentpassword'].touched"
+                    class="text-danger font-14">{{'changepassword.youpwdmusconcharac' | translate}}</mat-error>
+                  <mat-error *ngIf="changePasswordForm.controls['currentpassword'].errors?.invalidPassword"
+                    class="text-danger font-14">{{'changepassword.entercurentpwdwrong' | translate}}</mat-error>
+                </mat-form-field>
+
+                <app-virtual-keyboard class="cpkeyboard" #vk [inputControl]="currentpasswordControl">
+                </app-virtual-keyboard>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="m-b-20">
+              <div fxFlex.gt-sm="50" ngClass.xs="p-r-0" ngClass.sm="p-r-0 " ngClass.md="p-r-25" ngClass.lg="p-r-25" ngClass.xl="p-r-25"
+                fxFlex="100" class="pos-relative keyboardpassword">
+                <mat-form-field>
+                  <input [type]="isInputTextsecondType ? 'text' : 'password'" [popover]="usersviewlits"
+                    popoverPlacement="left" [popoverOnHover]="false" [popoverCloseOnClickOutside]="true"
+                    [popoverCloseOnMouseOutside]="false" [popoverAnimation]="false" type="password" restrictKeyboard
+                    [restrictInputFromKeyboard]="vk1.showKeyboard" autocomplete="off" formControlName="newpassword"
+                    appAlphanumsymb app-restrict-input="firstspace" maxlength="20" matInput placeholder="{{'changepassword.newpwd' | translate}}"
+                    (focus)="passwordFieldCtrl.markAsTouched()">
+                  <span matSuffix class="spaceinfo">
+                    <i class="fa fa-eye-slash" matTooltip="Show Password" aria-hidden="true" *ngIf="!isInputTextsecondType"
+                      (click)="isInputTextsecondType = !isInputTextsecondType"></i>
+                    <i class="fa fa-eye" matTooltip="Hide Password" aria-hidden="true" *ngIf="isInputTextsecondType"
+                      (click)="isInputTextsecondType = !isInputTextsecondType"></i>
+                  </span>
+                  <button class="keyboardubtton" type="button" mat-icon-button matSuffix
+                    (click)="newpasswordKeyboard()" matTooltip="Virtual keyboard">
+                    <mat-icon>keyboard</mat-icon>
+                  </button>
+                  <mat-error
+                    *ngIf="changePasswordForm.controls['newpassword'].hasError('required') && changePasswordForm.controls['newpassword'].touched"
+                    class="text-danger font-14">{{'changepassword.enternewpwd' | translate}}</mat-error>
+                  <mat-error
+                    *ngIf="changePasswordForm.controls['newpassword'].hasError('minlength') && changePasswordForm.controls['newpassword'].touched"
+                    class="text-danger font-14">{{'changepassword.youpwdmusconcharac' | translate}}</mat-error>
+                  <mat-error class="text-danger font-14"
+                    *ngIf="!changePasswordForm.controls['newpassword'].hasError('minlength') && changePasswordForm.controls['newpassword'].hasError('passwordStrength') && changePasswordForm.controls['newpassword'].touched">
+                    {{changePasswordForm.controls['newpassword'].errors['passwordStrength']}}
+                  </mat-error>
+                  <span class="pwred" *ngIf="[1,2].includes(validationCount) && !passwordFieldCtrl.errors?.minlength"
+                    matSuffix>{{'changepassword.weak' | translate}}</span>
+                  <span class="pwyellow" *ngIf="validationCount == 3 && !passwordFieldCtrl.errors?.minlength"
+                    matSuffix>{{'changepassword.medium' | translate}}</span>
+                  <span class="pwgreen" *ngIf="validationCount >= 4 && !passwordFieldCtrl.errors?.minlength"
+                    matSuffix>{{'changepassword.strong' | translate}}</span>
+
+                </mat-form-field>
+                <app-virtual-keyboard class="npkeyboard" #vk1 [inputControl]="newpasswordControl">
+                </app-virtual-keyboard>
+                <popover-content #usersviewlits placement="bottom" [animation]="true" [closeOnClickOutside]="true">
+                  <div class="popovermaincontent">
+                    <div class="passwordheadcolor">
+                      <ul class="containcolor">
+                        <li
+                          [class.unmatched]="passwordFieldCtrl.errors?.minlength || !changePasswordForm.controls['newpassword'].value"
+                          [class.matched]="!passwordFieldCtrl.errors?.minlength && changePasswordForm.controls['newpassword'].value">
+                          {{'changepassword.minimumcharac' | translate}}</li>
+                        <li [class.unmatched]="!isuppercase" [class.matched]="isuppercase">{{'changepassword.oneuppercase' | translate}}</li>
+                        <li [class.unmatched]="!isnumber" [class.matched]="isnumber">{{'changepassword.onenum' | translate}}</li>
+                        <li [class.unmatched]="!issymbol" [class.matched]="issymbol">{{'changepassword.onespecharac' | translate}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </popover-content>
+              </div>
+              <div ngClass.xs="p-l-0" ngClass.sm="p-l-0 " ngClass.md="p-l-25" ngClass.lg="p-l-25" ngClass.xl="p-l-25" fxFlex.gt-sm="50"
+                fxFlex="100" class="passwordspace keyboardpassword pos-relative">
+                <mat-form-field>
+                  <input [type]="isInputTextthirdType ? 'text' : 'password'" type="password" restrictKeyboard
+                    [restrictInputFromKeyboard]="vk2.showKeyboard" autocomplete="off"
+                    formControlName="confirmnewpassword" appAlphanumsymb app-restrict-input="firstspace" maxlength="20"
+                    matInput placeholder="{{'changepassword.confirmnewpwd' | translate}}"
+                    (focus)="changePasswordForm.controls['confirmnewpassword'].markAsTouched()">
+                  <span matSuffix class="spaceinfo">
+                    <i class="fa fa-eye-slash" matTooltip="Show Password" aria-hidden="true" *ngIf="!isInputTextthirdType"
+                      (click)="isInputTextthirdType = !isInputTextthirdType"></i>
+                    <i class="fa fa-eye" matTooltip="Hide Password" aria-hidden="true" *ngIf="isInputTextthirdType"
+                      (click)="isInputTextthirdType = !isInputTextthirdType"></i>
+                  </span>
+                  <button class="keyboardubtton" type="button" mat-icon-button matSuffix
+                    (click)="confirmpasswordKeyboard()" matTooltip="Virtual keyboard">
+                    <mat-icon>keyboard</mat-icon>
+                  </button>
+                  <mat-error
+                    *ngIf="changePasswordForm.controls['confirmnewpassword'].hasError('required') && changePasswordForm.controls['confirmnewpassword'].touched"
+                    class="text-danger font-14">{{'changepassword.enterconfirmpwd' | translate}}</mat-error>
+                  <mat-error
+                    *ngIf="changePasswordForm.controls['confirmnewpassword'].hasError('minlength') && changePasswordForm.controls['confirmnewpassword'].touched"
+                    class="text-danger font-14">{{'changepassword.youpwdmusconcharac' | translate}}</mat-error>
+                  <mat-error
+                    *ngIf="changePasswordForm.controls['confirmnewpassword'].hasError('mustMatch') && changePasswordForm.controls['confirmnewpassword'].touched"
+                    class="text-danger font-14">{{'changepassword.pwddonotmatch' | translate}}</mat-error>
+                  <mat-error *ngIf="changePasswordForm.controls['confirmnewpassword'].errors?.usernameSame"
+                    class="text-danger font-14">{{'changepassword.usercannotpwd' | translate}}
+                  </mat-error>
+                  <mat-error *ngIf="changePasswordForm.controls['confirmnewpassword'].errors?.oldPassword"
+                    class="text-danger font-14">{{'changepassword.younewpwdcannotlastpwd' | translate}}</mat-error>
+                </mat-form-field>
+                <app-virtual-keyboard class="rekeyboard" #vk2 [inputControl]="confirmpasswordControl">
+                </app-virtual-keyboard>
+              </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <div fxLayoutAlign="flex-start center" *ngIf="user_origin=='I'">
+                    <h4 class="m-0 txt-gray3 fs-15 lypisfont-semibold p-r-20">{{'changepassword.getconfirmcode' | translate}}</h4>
+                    <mat-radio-group  required formControlName="otpType" aria-label="Select an option">
+                      <mat-radio-button value="1" class="txt-gray3 fs-15 p-r-20">{{'changepassword.email' | translate}}</mat-radio-button>
+                      
+                    </mat-radio-group>
+                  </div>
+
+                  <div fxLayoutAlign="flex-start center" *ngIf="user_origin=='N'">
+                    <h4 class="m-0 txt-gray3 fs-15 lypisfont-semibold p-r-20">{{'changepassword.getconfirmcode' | translate}}</h4>
+                    <mat-radio-group required formControlName="otpType" aria-label="Select an option">
+                      <mat-radio-button  value="1" class="txt-gray3 fs-15 p-r-20">{{'changepassword.email' | translate}}</mat-radio-button>
+                      <mat-radio-button value="2" class="txt-gray3 fs-15">{{'changepassword.mobile' | translate}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                 
+                 
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="flexend">
+      <button type="button" mat-raised-button (click)="closeDialog()" class="homebtn fs-14 m-r-10" mat-buttons>{{'changepassword.cancel' | translate}}</button>
+      <button color="primary"  mat-raised-button type="button" class="loginbtn fs-14"
+        [disabled]="changePasswordForm.invalid || disableUpdateButton || validationCount != 4"
+        (click)="confirmation();">{{'changepassword.update' | translate}}</button>
+    </div>
+    <div fxLayout="row wrap" class="widthdialoganother m-t-10" *ngIf="confirmationhide">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="m-l-20 m-r-20">
+
+        <div class="thanktextcolorcode  p-t-16">
+          <span class="fs-16 m-0 txt-gray3">{{'changepassword.confirmcode' | translate}}</span>
+         
+        </div>
+        <div class="textcolorresend">
+          <div class="m-t-10">
+            <div id="divOuter">
+              <div id="divInner">
+                <input autocomplete="off" matinput formControlName="otpcode" appNumberonly
+                  id="partitioned" type="text" minlength="6" maxlength="6">
+               
+                <mat-error *ngIf="changePasswordForm.controls['otpcode'].errors?.invalidotp"
+                  class="text-danger font-14">
+                  {{'changepassword.otpisinvalid' | translate}}</mat-error>
+                <mat-error *ngIf="changePasswordForm.controls['otpcode'].errors?.expiredotp"
+                  class="text-danger font-14">
+                  {{'changepassword.otphasexpired' | translate}}</mat-error>
+              </div>
+            </div>
+          </div>
+          <div class="fs-13 p-t-10 m-0 resendtxtlink d-flex">
+            <button type="button" class="fs-14" *ngIf="disableResend == false " [disabled]="disableResend == true" (click)="resendOtp()"> {{'changepassword.resendotp' | translate}}</button>
+         
+            <div class="d-flex">
+              <p class="fs-14 m-0" *ngIf="disableResend == true"> {{'changepassword.resendotp' | translate}}</p>
+              <span class="m-l-5" *ngIf="disableResend == true"> {{countDown}}</span>
+            </div>
+          </div>
+          <span class="color-red" *ngIf="otpResendAttemptCount == 3">{{'changepassword.otpreceived' | translate}}</span>
+        </div>
+        <div fxLayout="row wrap" class="m-b-15 m-t-8 ">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="confirmspace">
+            <button color="primary" mat-raised-button type="button" class="confirm fs-14 m-r-10"
+              [disabled]="!changePasswordForm.controls['otpcode'].valid || disableButton" (click)="changePassword();"
+              mat-buttons>{{'changepassword.confirm' | translate}}</button>
+            <button mat-raised-button type="button" class="anotherbtn fs-14" (click)="closeDialog()" mat-buttons>{{'changepassword.cancel' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottomtext alignsupport">
+      <p>For support, please contact support@OPAL.om or call +968 2416 6177</p>
+    </div>
+  </form>
+  <app-responseloader *ngIf="disableSendOTPButton"></app-responseloader>
+</div>

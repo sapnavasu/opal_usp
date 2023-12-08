@@ -1,0 +1,126 @@
+:host::ng-deep.addteammbers {
+    position: relative;
+    .mainbanner {
+        position: relative;
+        background-image: url("~/assets/images/Addteam.svg");
+        background-position: right 0px top 0px;
+        background-size: 178px;
+        background-repeat: no-repeat;
+        background-color: #f58020;
+        height: 115px;
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        .topheader {
+            color: #fff;
+            font-size: 1.125rem;
+            -webkit-text-stroke: 0.04px;
+            margin: 0;
+        }
+        .desccontent {
+            color: #fff;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        .widthhalf
+        {
+            width: 70%;
+        }
+    }
+    .closethepopup {
+        width: 75px;
+        height: 30px;
+        position: absolute;
+        top: -40px;
+        right: 0;
+        z-index: 9999;
+        background: transparent;
+        border: 1px solid #fff;
+        border-radius: 23px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        i {
+            color: #fff;
+            position: relative;
+            top: 1px;
+            font-size: 9px;
+        }
+        span {
+            color: #fff;
+            font-size: 0.8125rem;
+            line-height: 0;
+            margin-left: 5px;
+        }
+    }
+    .bottominfo {
+        padding: 15px 15px;
+        margin: 4px;
+        max-height: 325px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .bottomheader {
+            color: #006bb7;
+            font-size: 0.875rem;
+            font-weight: normal;
+            padding-bottom: 10px;
+        }
+        p {
+            color: #333;
+            font-size: 0.9375rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        .flexenditem
+        {
+            display: flex;
+            align-items: center;
+            padding-top: 5px;
+        }
+    }
+
+    .popupfooter {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 15px 20px;
+        button {
+            height: 40px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        .cancelbtn {
+            background-color: #ececec;
+            color: #656565;
+        }
+
+        .addlaterbtn {
+            border: 1px solid #cbcbcb;
+            color: #999;
+        }
+    }
+}
+
+::ng-deep.addmembersinfo {
+    width: 485px !important;
+    .timepickerrow {
+        .mat-form-field-wrapper {
+            position: relative;
+            .timepickericon {
+                width: 15px !important;
+                display: flex;
+                align-items: flex-end;
+                position: absolute;
+                bottom: -3px;
+                right: 0;
+                cursor: pointer;
+                font-size: 15px !important;
+                line-height: 1 !important;
+                color: #555;
+                height: auto;
+            }
+        }
+    }
+}

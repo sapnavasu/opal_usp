@@ -1,0 +1,376 @@
+
+<div fxLayout="row wrap" class="m-l-40 m-r-40 mainheaderpop widthradius">
+  <div fxFlex.gt-sm="68" fxFlex="100" class=" m-t-50 m-b-50 sourcewidth marginspace">
+
+    <div fxLayout="row wrap" class="mainrowborder">
+      <div fxFlex.gt-sm="54" fxFlex="100" class="tender">
+        <div fxLayout="row wrap" class="m-l-30 m-r-30 m-t-30 m-b-30 bottomresponsive">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="ordertext">
+            <h2 class="fs-18 m-0">Corporate Investor</h2>
+            <p class="fs-14 startcolor">Start small, working through your professional and personal.</p>
+
+            <ul>
+              <li><span>Nullam vel libero non odio semper sollicitudin facilisis a sem.</span></li>
+              <li><span>Quisque convallis nibh vel lobortis bibendum.</span> </li>
+              <li><span>Donec id justo sed elit lacinia aliquam in id nibh</span>.</li>
+              <li><span>Nullam vel libero non odio semper sollicitudin facilisis a sem.</span></li>
+              <li><span>Quisque convallis nibh vel lobortis bibendum.</span> </li>
+              <li><span>Donec id justo sed elit lacinia aliquam in id nibh</span>.</li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <div fxFlex.gt-sm="18" fxFlex="100" class="alignflex">
+        <div>
+          <p class="align p-b-8"><sub class="fs-32 vertical year">1</sub><span class="fs-12 "> Yr</span></p>
+
+          <div>
+          <button (click)="selectdecription('all')" class="fs-15 yearcolor">Select Validity<i
+            class="bgi bgi-dropdown fs-6 p-l-6 colorlogo"></i>
+          <div fxLayout="row wrap" class="p-t-0 all" [@slideInOut]="animationState">
+            <div class="widthyear">
+              <div class="primary">
+
+                <span class="colortextyear fs-15">1 Year Validity</span>
+              </div>
+              <div class="primary">
+                <span class="colortextyear fs-15">2 Year Validity</span>
+              </div>
+              <div class="primary">
+
+                <span class="colortextyear fs-15">3 Year Validity</span>
+              </div>
+            </div>
+          </div>
+        </button>
+          </div>
+        </div>
+      </div>
+      <div fxFlex.gt-sm="28" fxFlex="100" class="flexcenter">
+        <div class="alignfreecolor responsivetopspacing">
+          <span class="fs-12 freecolor">FREE</span>
+          <p class="fs-14 m-0 p-t-15">USD</p>
+          <h2 class="fs-32">966.00</h2>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h2 class="mainheader p-t-20">Additional Value Package(s)</h2>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="mainrowborder m-t-6">
+
+      <div fxFlex.gt-sm="54" fxFlex="100" class="tender">
+        <div fxLayout="row wrap" class="m-l-30 m-r-30 m-t-30 m-b-30 bottomresponsive">
+          <div fxFlex.gt-sm="7" fxFlex="100" class="p-t-8 tenderwidth">
+            <mat-checkbox></mat-checkbox>
+
+          </div>
+          <div fxFlex.gt-sm="93" fxFlex="100" class="ordertext">
+            <h2 class="fs-15 m-0 linespace">Business-to-Business Service (B2B)</h2>
+            <p class="fs-14 startcolor">Start small, working through your professional and personal.</p>
+            <ul>
+              <li><span>Nullam vel libero non odio semper sollicitudin facilisis a sem.</span></li>
+              <li><span>Quisque convallis nibh vel lobortis bibendum.</span> </li>
+              <li><span>Donec id justo sed elit lacinia aliquam in id nibh</span>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div fxFlex.gt-sm="18" fxFlex="100" class="alignflex">
+        <div>
+          <p class="align p-b-8"><sub class="fs-32 vertical year">1</sub><span class="fs-12 "> Yr</span></p>
+
+          <div>
+            <button (click)="toggleShowDiv('select')" class="fs-15 yearcolor">Select Validity<i
+                class="bgi bgi-dropdown fs-6 p-l-6 colorlogo"></i>
+              <div fxLayout="row wrap" class="p-t-0 select " [@slideInOut]="animationState1">
+                <div class="widthyear">
+                  <div class="primary">
+
+                    <span class="colortextyear fs-15">1 Year Validity</span>
+                  </div>
+                  <div class="primary">
+                    <span class="colortextyear fs-15">2 Year Validity</span>
+                  </div>
+                  <div class="primary">
+
+                    <span class="colortextyear fs-15">3 Year Validity</span>
+                  </div>
+                </div>
+              </div>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div fxFlex.gt-sm="28" fxFlex="100" class="flexcenter">
+        <div class="responsivetopspacing">
+
+          <p class="fs-14 m-0">USD</p>
+          <h2 class="fs-32">49.00</h2>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h2 class="mainheader p-t-35">Payment Contact Information</h2>
+      </div>
+    </div>
+    <div class="contactpersoninfo" class="mainrow">
+      <div class="radiotextcolor borderbottommake pd-15">
+        <mat-slide-toggle>
+          <span class="fs-15 p-l-10">Make the primary contact same payment contact</span>
+        </mat-slide-toggle>
+      </div>
+      <form [formGroup]="afterform" class="pd-45 formspace">
+        <div fxLayout="row wrap" class="p-t-10">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing radiussalesspacing">
+            <mat-form-field class="example-full-width">
+              <input maxlength="50" matInput placeholder="First Name" required app-restrict-input="firstspace"
+                appAlphaname formControlName="firstname">
+              <mat-error
+                *ngIf="afterform.controls['firstname'].hasError('required') && afterform.controls['firstname'].touched"
+                class="text-danger font-14">Enter First Name</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing numberresponsive">
+            <mat-form-field class="example-full-width">
+              <input maxlength="50" matInput placeholder="Last Name" required app-restrict-input="firstspace"
+                appAlphaname formControlName="lastname">
+              <mat-error
+                *ngIf="afterform.controls['lastname'].hasError('required') && afterform.controls['lastname'].touched"
+                class="text-danger font-14">Enter Last Name</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-5">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing radiussalesspacing">
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="department" placeholder="Department" [(value)]="selected">
+                <mat-option value="1">oil Product
+
+                </mat-option>
+
+                <mat-option value="2">Agriculture
+
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="afterform.controls['department'].hasError('required') && afterform.controls['department'].touched"
+                class="text-danger font-14">Select Department</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-0 p-l-15 paddingspacing numberresponsive">
+            <mat-form-field>
+
+
+              <mat-select placeholder="Designation" formControlName="designation" required
+                app-restrict-input="firstspace" appAlphanumsymb maxlength="50" [(value)]="selected">
+                <mat-option value="1"> Junior UI Developer
+
+                </mat-option>
+
+                <mat-option value="2">Assiociate Frontend Developer
+
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="afterform.controls['designation'].hasError('required') && afterform.controls['designation'].touched"
+                class="text-danger font-14">Select Designation</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-0 countryfalgandcode ">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing radiussalesspacing">
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="p-t-0 countryfalgandcode flexend">
+              <div fxFlex.gt-sm="18" fxFlex="100" class="p-r-10 paddingspacing widthresponsiveside radiussalesspacing flagwidth">
+                <mat-form-field class="country-flag">
+                  <mat-select [(value)]="selected">
+                    <mat-option value="1">Libya
+
+                    </mat-option>
+
+                    <mat-option value="2">India
+
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="82" fxFlex="100" class="p-l-10 paddingspacing mobilenumwidth numberresponsive mobilenumwidth">
+                <mat-form-field class="numberandcode" floatLabel="always">
+                  <span ngClass.xs="p-r-0" ngClass.sm="p-r-0" class="p-r-5 countrycodecolor">+123</span>
+                  <input matInput appNumberonly minlength="5" maxlength="20" formControlName="mobileno"
+                    placeholder="Mobile" required>
+                  <input matInput hidden='true' formControlName="mobilecc" placeholder="Phone Code">
+                  <mat-error
+                    *ngIf="afterform.controls['mobilecc'].hasError('required') && afterform.controls['mobilecc'].touched"
+                    class="text-danger font-14">Enter Mobile Number</mat-error>
+
+
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-15 paddingspacing numberresponsive">
+            <div fxLayout="row wrap" fxLayoutAlign="end" class=" countryfalgandcode flexend">
+              <div fxFlex.gt-sm="18" fxFlex="100" class="p-r-10 paddingspacing searchwidth radiussalesspacing flagwidth">
+                <mat-form-field class="country-flag">
+                  <mat-select [(value)]="selected">
+
+
+                    <mat-option value="1">Libya
+
+                    </mat-option>
+
+                    <mat-option value="2">India
+
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="67" fxFlex="100" class="p-l-10 paddingspacing landlinewidth numberresponsive landcodewidth">
+                <mat-form-field floatLabel="always" class="numberandcode">
+                  <span class="p-r-5 countrycodecolor">+123</span>
+                  <input id="landlineno" #landlinenumber matInput appNumberonly minlength="5" maxlength="20"
+                    formControlName="landlineno" placeholder="Landline">
+                  <input matInput hidden='true' formControlName="landlinecc" placeholder="Phone Code">
+                  <mat-error
+                    *ngIf="afterform.controls['landlineno'].hasError('required') && afterform.controls['landlineno'].touched"
+                    class="text-danger font-14">Enter Landline Number</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="15" fxFlex="100" class="p-l-10 paddingspacing numberresponsive">
+                <mat-form-field>
+                  <input matInput appNumberonly formControlName="landlineext" maxlength="5" placeholder="Ext.">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-5">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-15 paddingspacing radiussalesspacing">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email ID" maxlength="250" app-restrict-input="firstspace" appAlphanumsymb
+                formControlName="emailid" required>
+              <mat-error
+                *ngIf="afterform.controls['emailid'].hasError('required') && afterform.controls['emailid'].touched"
+                class="text-danger font-14">Enter Email ID</mat-error>
+
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-0 p-l-15 paddingspacing numberresponsive">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Re enter Email ID" maxlength="250" blockCopyPaste
+                formControlName="renteremailid" required>
+              <mat-error
+                *ngIf="afterform.controls['renteremailid'].hasError('required') && afterform.controls['renteremailid'].touched"
+                class="text-danger font-14">Enter Re enter Email ID</mat-error>
+
+
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="termscheckall p-t-15">
+          <mat-checkbox class="coloragree">I have read, understood & agree to the
+          </mat-checkbox>
+          <a class="termsandcondtions" href="javascript:void(0)">Terms & Conditions</a>
+        </div>
+        <div class="textcolor p-l-24">
+          <p class="fs-14">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's
+            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+            to make
+            a type specimen book. It has survived not only five centuries, but also the leap into electronic
+            typesetting.
+          </p>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="cancelsubsription m-t-30">
+            <button mat-raised-button class="cancelbtn m-r-15">Cancel Subscription
+            </button>
+            <button mat-raised-button class="paybtn" [disabled]="afterform.invalid">Generate Invoice & Proceed
+            </button>
+
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <div fxFlex.gt-sm="32" fxFlex="100" class="p-l-40 m-t-50 companyalignment ">
+
+    <div class="mainrow flexspacebetween p-l-22 p-r-22 p-t-22 p-b-22">
+
+      <div class="companyrow ">
+
+        <h2 class="fs-18 m-0">Corporate Investor<span class="p-l-52">-</span>
+        </h2>
+        <P class="fs-12 stylecolor m-0 p-t-15">Incorporation style:</P>
+        <p class="m-0 fs-15">Joint Stock Company</p>
+      </div>
+      <div class="validity">
+        <h2 class="fs-18 m-0">100.000 OMR</h2>
+        <p class="fs-14">1 Year(s) Validity</p>
+      </div>
+    </div>
+    <div class="mainrow alignrow p-l-22 p-r-22 p-t-22 p-b-22">
+      <div class="companyrow valuelinetext">
+        <p class="fs-14 Additionalcolor">Additional Value Package(s)</p>
+        <h2 class="fs-15 m-0 p-t-15">Business-to-Business <span class="p-l-52">-</span>
+
+        </h2>
+        <h2 class="fs-15 m-0 p-t-15">Service (B2B)</h2>
+        <div class="removerow cursor p-t-20">
+          <i class="bgi bgi-delete p-r-10"><span class="fs-12 p-l-10">Remove</span></i>
+        </div>
+      </div>
+      <div class="validity">
+        <h2 class="fs-18 m-0">49.000 OMR</h2>
+        <p class="fs-14">1 Year(s) Validity</p>
+      </div>
+    </div>
+    <div class="mainrow">
+      <div class="flexspacebetween borderpromocode p-l-22 p-r-22 p-t-22 p-b-22">
+        <div class="companyrow businessoffer">
+          <span class="fs-15 viewcolor cursor">View offer disclaimers</span>
+          <p class="fs-14 Additionalcolor p-t-30">Do you have promo code?</p>
+          <div class="promoalign">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Promo Code">
+            </mat-form-field>
+            <i class="bgi bgi-info formationcolor"></i>
+          </div>
+        </div>
+        <div class="validity">
+          <div class="removerow cursor">
+            <i class="bgi bgi-delete p-r-10"><span class="fs-12 p-l-10">Remove Pack</span></i>
+          </div>
+        </div>
+      </div>
+      <div class="spaceend pd-15">
+        <div class="totalcolor">
+          <h2 class="fs-18">Sub Total</h2>
+        </div>
+        <div class="omrcolor">
+          <h2 class="fs-18">149.000 OMR</h2>
+        </div>
+      </div>
+    </div>
+    <div class="rightsidecards cardtwo p-l-20 p-r-20 p-t-60 p-b-10">
+      <p class="greeting">Hi</p>
+      <p class="personname">{{firstname | titlecase}}</p>
+      <p class="personemail">{{email}}</p>
+      <p class="mailcontent">You will receive invoice & receipt to this given email id, </p>
+      <p class="disclosetext m-0">For any queries, kindly click for support.</p>
+    </div>
+  </div>
+
+</div>

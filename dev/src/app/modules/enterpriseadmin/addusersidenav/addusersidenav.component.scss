@@ -1,0 +1,407 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  @mixin commancssforptag {
+    color: #333;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  .companyinfomcp {
+    @include flexstart();
+    align-items: flex-start !important;
+  
+    img {
+      width: 44px;
+      height: 44px;
+      border-radius: 2px;
+    }
+    .lypisid {
+      color: #666666;
+      font-size: 0.75rem;
+    }
+    p {
+      margin: 0;
+      line-height: 1;
+      color: #000;
+    }
+  }
+  .borderbottom {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+  }
+  ::ng-deep.tabsectionadmin .mat-tab-label {
+    justify-content: flex-start !important;
+  }
+  ::ng-deep.tabsectionadmin .mat-tab-label:nth-child(2) {
+    margin-right: 0px !important;
+  }
+  .tabselectheadercontent {
+    padding-left: 10px;
+  }
+
+  .tabsectionadmin .selectionlogo i {
+    margin-right: 5px;
+  }
+  
+  @media (max-width: 767px) {
+    .innnerpartofdrwer {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+    .selectproductheaderwithclose {
+      height: auto !important;
+    }
+    .selectproductheaderwithclose .titletext {
+      display: block !important;
+    }
+    .selectproductheaderwithclose .closeandadd {
+      margin-bottom: 10px;
+    }
+    .tabforclientelenew .mat-tab-group {
+      padding-top: 0 !important;
+    }
+    .tabsectionadmin .selectionlogo i {
+      font-size: 21px !important;
+    }
+    .addproductsmainselect .selectforward
+    {
+      justify-content: flex-end !important;
+    }
+    .addproductsmainselect .mat-card-header
+    {
+      display: block !important;
+    }
+  }
+  
+  @media (max-width: 580px) {
+    .tabselectheadercontent {
+      padding-left: 0px !important;
+      p {
+        display: none;
+      }
+    }
+    .tabsectionadmin .mat-tab-label {
+      padding-right: 5px !important;
+      padding-left: 8px !important;
+    }
+    .tabsectionadmin .selectionlogo
+    {
+      margin-right:5px !important;
+    }
+    
+  }
+  
+  .companyinfomcp,.borderbottom
+  {
+    display:none !important;
+  }
+  
+  .unorderview{
+    margin-top: 6px !important;
+  }
+  .stepbold{
+       font-family: 'opal_semibold';
+      padding-bottom: 6px;
+      padding-top: 15px;
+  }
+
+
+  .listsector{
+    .countrywidth{
+       height: 55px;
+    }
+    .viewclear{
+       min-width: 165px;
+       height: 40px;
+    }
+    .leftmainspace{
+      .flexmidcontentview{
+        margin-bottom: 25px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .widthofsecondsub{
+              width: 50%;
+              height: 55px;
+          }
+      }
+      
+        .subcontent{
+          margin-top: 25px;
+           .widthoffirst{
+              width: 50%;
+              height: 55px;
+              margin-bottom: 25px;
+           }
+           .secondwidth{
+              @extend .widthoffirst;
+              width:100% !important;
+           }
+           .sectorheight{
+              @extend .widthoffirst;
+              width:100% !important;
+              height: 45px !important;
+              margin-bottom: 6px !important;
+           }
+           .firstviewcontent{
+            p{
+              width: 35%;
+              height: 20px;
+              margin-bottom: 20px;
+            }
+           }
+           .viewmidcontent{
+            p{
+              width: 20%;
+              height: 15px;
+              margin-bottom: 20px;
+            }
+            .descriptioncontent{
+              @extend .widthoffirst;
+              width:100% !important;
+              height: 90px !important;
+           }
+         }
+        }
+    }
+    .clearpro{
+       min-width: 80px;
+       height: 40px;
+    }
+    .addviewload{
+       @extend .clearpro;
+       min-width: 95px !important;
+    }
+    .alignload{
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+    }
+    .addviewload
+    .heightofbtn{
+       height: 40px;
+    }
+    
+  }
+  
+  .placeholder-content {
+    height: 320px;
+    background: #000;
+    position: relative;
+    // Animation
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: #f6f7f8; // Fallback
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px; // Animation Area
+    }
+    .placeholder-content_item {
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    z-index: 2;
+    }
+    .placeholder-content_item:after,
+    .placeholder-content_item:before {
+    width: inherit;
+    height: inherit;
+    content: "";
+    position: absolute;
+    }
+    @keyframes placeholderAnimate {
+    0% {
+        background-position: -650px 0;
+    }
+    100% {
+        background-position: 650px 0;
+    }
+    }
+    .pagetitle {
+    background: #000;
+    position: relative;
+    // Animation
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: pagetitleAnimate;
+    background: #f6f7f8; // Fallback
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px; // Animation Area
+    }
+    .pagetitle:before {
+        width: inherit;
+        height: inherit;
+        content: "";
+        position: absolute;
+        }
+    @keyframes pagetitleAnimate {
+     0% {
+       background-position: -650px 0;
+     }
+     100% {
+       background-position: 650px 0;
+     }
+    }
+    
+    .projlstngph{        
+        span{
+            display:block;
+            &.tphid{width:30%;height:12px;margin-top:12px;}
+            &.tphtitle{width:60%;height:12px;margin-top:12px;}
+            &.tphtype{width:20%;height:12px;margin-top:12px;}
+            &.tphstatus{width:100px;height:12px;margin-top:12px;}
+            &.tphcount{width:40px;height:12px;margin-top:12px;}
+            &.tphdesp{width:100%;height:12px;margin-top:12px;}
+        }
+        .tphmore{
+          position:absolute;
+          top:10px;
+          right:10px;
+          color:#999;
+        }
+        .docrow{
+            display:flex;
+            width:100%;
+            
+            .docimg{
+                width:80px;
+                height:80px;
+                margin-right:20px;
+            }
+            .doccontent{
+                display:flex;
+                flex-direction:column;
+                .doctitle{
+                    width:50%;height:12px;
+                }
+                .doccol{
+                    display:flex;
+                    flex-direction: row;
+                    .doccoldata{
+                        width:25%;
+                        margin-right:30px;
+                        display:flex;
+                        flex-direction:column;
+                        .docdate{
+                            width:150px;height:12px;
+                        }
+                    }
+                }
+                
+            }
+        }
+        hr{
+            width:100%;
+            border-top:1px solid #ddd;
+            margin:20px 0;
+        }
+        .targetjustify{
+          display:flex;
+          justify-content: space-between;
+          flex-direction: row;
+          .pager{
+            width:25%;
+            height:32px;
+          }
+          .search{
+            width:25%;
+            height:32px;
+          }
+        }
+        .tablerow{
+          display:flex;
+          justify-content: space-around;
+          flex-direction: row;
+          width:100%;
+          .tabletitle{
+            width:18%;
+            margin-right:2%;
+            height:32px;
+          }
+        }
+  
+        .project-lst{
+          border: 1px solid rgba(204, 204, 204, 0.5);
+          border-radius: 4px;
+          background-clip: padding-box;
+          background-color: #fff;
+          min-height: 242px;
+          width: 100%;
+          padding: 0px;
+          margin-top:20px;
+          .project-lst-header{
+            min-height:180px;
+            width:100%;
+            display:flex;
+            flex-direction:row;
+            padding:15px;
+            position:relative;
+            .projimg{
+              width:160px;
+              height:160px;
+              margin-right:20px;
+            }
+            .projdet{
+              display:flex;
+              flex-direction:column;
+              width:calc(100% - 160px);
+            }
+          }
+          .project-lst-footer{
+            min-height: 60px;
+            border-radius: 2px;
+            background-clip: padding-box;
+            background-color: #ebeff5;
+            padding: 8px 0px !important;
+            align-items: center;
+            justify-content: space-between;
+          }
+        }
+    }
+  
+  #headerremoveindex{
+     .selectproductheaderwithclose{
+        z-index: 1;
+     }
+    
+  }
+
+  .addingusernote{
+    font-family: "opal_regular";
+    background:#e0f0ff;
+    border-radius:2px;
+    padding:10px 15px;
+    color:#006cb7;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:start;
+    width:100%;
+    & > .mat-icon{
+        display:flex;
+        align-items:center;
+        justify-content: center;
+    }
+}

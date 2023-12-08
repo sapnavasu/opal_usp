@@ -1,0 +1,1084 @@
+@mixin flexcenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin spacebetween {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  @mixin commancssforptag {
+    color: #333;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  .selectproductheaderwithclose {
+    height: auto !important;
+  }
+  .selectproductheaderwithclose .titletext {
+    display: block !important;
+  }
+  .selectproductheaderwithclose .closeandadd {
+    margin-bottom: 10px;
+  }
+  .widthfax{
+     width: 80%;
+  }
+  .widthflagview{
+     width: 20%;
+  }
+  img[src="null"] {
+    display: none;
+  }
+  img[src="[object Storage]"] {
+    display: none;
+  }
+  .flagicon{
+    position:relative;
+    top:3px;
+  }
+  .flexsame {
+    display: flex;
+  }
+  .information {
+    padding: 0px !important;
+    display: block;
+    margin: 0;
+    .info {
+      padding: 15px !important;
+      display: flex;
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .mat-button-toggle-checked {
+    background: #2dbe55;
+    color: #fff;
+  }
+  
+  .documentsrow {
+    align-items: center !important;
+  }
+  
+  mat-option[aria-label] {
+    position: relative;
+    font-size: 0.875rem;
+    color: #333 !important;
+    height: 50px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+    &::after {
+      content: attr(aria-label);
+      position: absolute;
+      bottom: -5px;
+      font-size: 0.75rem;
+      color: #666666;
+    }
+  }
+  
+  .mat-tab-body-content::-webkit-scrollbar {
+    width: 0.5em;
+    position: absolute;
+    right: 0;
+  }
+  
+  .mat-tab-body-content::-webkit-scrollbar-thumb {
+    background-color: #b8c3cb;
+  }
+  
+  .organisationinfo {
+    background: #fff;
+  }
+  
+  #mastercompanydetail {
+    .borderclass {
+      border: 5px solid #006cb7;
+    }
+  }
+  .topheadermain {
+    @include spacebetween();
+    color: #fff !important;
+    .imagewithtext {
+      @include flexcenter();
+    }
+  }
+  
+  .cancelandpublish {
+    .cancel {
+      height: 45px;
+      color: #777;
+      border: 1px solid #cbcbcb;
+      border-radius: 2px !important;
+    }
+    .publish {
+      height: 45px;
+      border-radius: 2px !important;
+    }
+  }
+  
+  .mat-form-field {
+    font-size: 0.9375rem;
+  }
+  
+  ::ng-deep.mat-form-field-infix {
+    border-top: 0.54375em solid transparent;
+  }
+  
+  ::slotted .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: rgba(0, 0, 0, 0.22);
+  }
+  .profilecompleteness {
+    p {
+      color: #fff;
+      font-size: 0.75rem;
+    }
+    .mat-progress-bar {
+      width: 190px;
+      margin-bottom: 15px;
+    }
+  }
+  ::ng-deep.mat-progress-bar-fill::after {
+    background-color: #71c015 !important;
+  }
+  
+  .progressandhistory {
+    @include spacebetween();
+    margin-bottom: 10px;
+  }
+  .pagenumberinprofile {
+    border: 1px solid #fff;
+    height: 20px;
+    min-width: 20px;
+    color: #fff;
+    border-radius: 10px / 11px;
+    background: #2b7db5;
+    font-size: 0.75rem;
+    width: auto;
+    padding: 0 6px;
+    @include flexcenter();
+    margin-right: 10px;
+  }
+  .completed {
+    background: #71c114;
+  }
+  
+  .mat-select-panel {
+    border-radius: 0;
+  }
+  
+  .mat-option[aria-disabled="true"] {
+    background: #006cb7;
+    color: #fff;
+    height: 35px;
+  }
+  
+  .accrodianheader {
+    .header {
+      @include flexstart();
+    }
+  }
+  .uploadandcompnayinfo {
+    display: flex;
+  }
+  
+  .dropfilesheretoadd {
+    padding: 5px;
+    border: 1px dashed #999;
+    border-radius: 2px;
+    div {
+      background: #f3f4f6;
+      height: 45px;
+      @include flexcenter();
+      p {
+        @include commancssforptag();
+        font-family: 'opal_semibold';
+        span {
+          color: #006cb7;
+        }
+      }
+    }
+  }
+  .saveandnext {
+    background: #ececec;
+    border-radius: 2px;
+    border: 1px solid #ececec !important;
+    color: #999 !important;
+    font-size: 0.9375rem;
+  }
+  .previous {
+    @extend .saveandnext;
+    background: transparent;
+    font-size: 15px !important;
+    margin-right: 15px;
+    width: auto;
+  }
+  .viewingcontrols {
+    .mat-form-field {
+      width: 90px;
+    }
+  }
+  
+  ::ng-deep.mat-paginator-container {
+    padding: 0 !important;
+    font-size: 0.875rem;
+    justify-content: flex-start !important;
+  }
+  .showfilterandadditem button {
+    font-size: 14px !important;
+  }
+  .selectproductheaderwithclose {
+    .closeandadd {
+      @include flexstart();
+    }
+    height: 56px;
+    .titletext {
+      @include spacebetween();
+      padding: 10px;
+    }
+    .clearandaddbutton {
+      @include flexstart();
+      .clearbutton {
+        background: #006cb7;
+      }
+      .addbutton {
+        background: #28b8e7;
+      }
+    }
+  }
+  ::ng-deep.mat-drawer-backdrop {
+    position: fixed;
+  }
+  .companyinfomcp {
+    display: flex;
+    align-items: flex-start !important;
+  
+    img {
+      width: 44px;
+      height: 44px;
+    }
+    .lypisid {
+      color: #666666;
+      font-size: 0.75rem;
+    }
+    p {
+      margin: 0;
+      line-height: 1;
+      color: #000;
+    }
+  }
+  
+  .borderbottom {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+  }
+  
+  ::ng-deep.mat-select-panel {
+    max-height: 400px;
+  }
+  ::ng-deep.mat-option:hover:not(.mat-option-disabled),
+  ::ng-deep .mat-option:focus:not(.mat-option-disabled),
+  ::ng-deep.mat-option.mat-selected:not(.mat-option-disabled) {
+    background: #cbdcf9 !important;
+  }
+  ::ng-deep.mat-option.mat-active {
+    background: transparent;
+  }
+  .editanddelete {
+    display: inline-flex;
+    margin-bottom: 10px;
+  
+    .edit {
+      color: #999;
+      @include flexcenter();
+    }
+    i {
+      font-size: 1rem;
+    }
+    span {
+      opacity: 0;
+      width: 35px;
+      height: 35px;
+      @include flexcenter();
+      cursor: pointer;
+    }
+  }
+  
+  ::ng-deep.numberandcode {
+    .mat-form-field-infix {
+      display: flex !important;
+    }
+  }
+  
+  .addedcertificate {
+    padding: 20px;
+    @include spacebetween();
+    &:hover {
+      background: #e1efff;
+      .certificateimage {
+        background: #006cb7;
+        i {
+          color: #fff;
+        }
+      }
+      .editanddelete span {
+        opacity: 1;
+        background: #cbdcf9;
+        color: #006cb7;
+        border-radius: 50%;
+      }
+      .companyandofficeinfo {
+        .name {
+          color: #006cb7;
+        }
+        .eachitem .lablename {
+          color: #006cb7;
+        }
+      }
+    }
+  }
+  .certificates {
+    display: flex;
+  }
+  :host ::ng-deep.mastercompnaycontent .commonexpandandcollapse .mat-expansion-panel-body {
+    padding: 10px !important;
+  }
+  .certiticatecounts {
+    @include spacebetween();
+    p {
+      color: #006cb7;
+      font-size: 0.875rem;
+    }
+  
+    .addbutton {
+      background: #006cb7;
+      font-size: 14px !important;
+      @include flexcenter();
+    }
+  }
+  
+  .certificateinfo {
+    padding-left: 20px;
+    p {
+      font-size: 0.875rem;
+      margin: 0;
+      color: #000;
+      padding-bottom: 10px;
+    }
+    .cerlabel {
+      color: #999;
+    }
+    .header {
+      color: #333;
+      font-size: 1.125rem;
+      font-weight: bold;
+      padding-bottom: 15px;
+    }
+  }
+  
+  .primaryofficeinfo {
+    @include spacebetween();
+    .officebuilding {
+      @include flexstart();
+      padding: 20px;
+      align-items: flex-start !important;
+      width: 100%;
+    }
+    .addresslabel {
+      color: #999;
+      font-size: 11px !important;
+    }
+    .companyandofficeinfo {
+      width: calc(100% - 65px);
+      .name {
+        color: #006cb7;
+      }
+    }
+  }
+  .companyandofficeinfo {
+    p {
+      margin: 0;
+    }
+    .crandbranchids {
+      @include flexstart();
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .count {
+        font-family: 'opal_semibold';
+      }
+    }
+    padding-left: 20px;
+    .title {
+      color: #999;
+      font-size: 0.75rem;
+      margin: 0;
+      line-height: 0.9;
+      padding-bottom: 6px;
+    }
+    .lablename {
+      color: #999;
+      font-size: 0.9375rem;
+    }
+    .name {
+      color: #333;
+      font-size: 1rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+  .officeaddressdetail {
+    padding-top: 20px;
+  
+    .addressinfo {
+      font-size: 0.9375rem;
+    }
+  }
+  .contactandwebsite {
+    @include flexstart();
+    align-items: flex-start !important;
+    padding-top: 20px;
+    p {
+      font-size: 0.9375rem;
+      padding-bottom: 5px;
+    }
+    .contact {
+      padding-right: 20px;
+    }
+    .webiste {
+      padding-left: 20px;
+    }
+  }
+  .contactdetails {
+    @include flexstart();
+    padding-top: 15px;
+    div {
+      padding-right: 30px;
+      @include flexstart();
+      i {
+        color: #9a9a9a;
+        padding-right: 10px;
+      }
+      span {
+        color: #333;
+        font-size: 0.875rem;
+      }
+    }
+  }
+  
+  .companydetailwithflag {
+    @include spacebetween();
+  }
+  .certificateimage {
+    position: relative;
+    width: 65px;
+    height: 65px;
+    background: #e5eefe;
+    @include flexcenter();
+    i {
+      color: #006cb7;
+      font-size: 1.5625rem;
+    }
+  }
+  .countryandcrinfo {
+    @include flexstart();
+    padding-top: 10px;
+    .eachitem {
+      padding-right: 60px;
+      .lablename {
+        font-size: 12px !important;
+      }
+      img {
+        width: 22px;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+  
+  .searchitembelow {
+    @include spacebetween();
+    border: 1px solid #ddd;
+    height: 50px;
+    input {
+      height: 100%;
+      width: 100%;
+      border: none;
+    }
+  }
+  .Paymentcontacthead {
+    p {
+      color: red;
+      margin: 0px;
+    }
+  }
+  .setcountryflag {
+    align-items: center;
+    .code {
+      width: 60px;
+    }
+    .number {
+      width: calc(100% - 120px);
+    }
+    .ext {
+      width: 60px;
+    }
+    .faxnumber {
+      width: calc(100% - 60px);
+    }
+  }
+  .flagimage img {
+    max-width: 24px;
+    margin-top: -5px;
+  }
+  
+  ::ng-deep.countrynameselect {
+    height: 40px !important;
+    line-height: 40px !important;
+    .mat-option-text {
+      display: flex;
+      align-items: center;
+      img {
+        padding-right: 10px;
+        max-width: 34px;
+        height: auto;
+      }
+    }
+  }
+  .mapwidth {
+    img {
+      width: 100%;
+    }
+  }
+  .profilelinkboxshadow {
+    box-shadow: 0 0 5px #ddd;
+    width: 100%;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+  .borderflex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 45px;
+    padding-top: 5px;
+  }
+  .pdfview {
+    display: flex;
+  }
+  .Search {
+    p {
+      color: #a9a9a9;
+    }
+  }
+  .Searchcolor {
+    color: #a9a9a9;
+  }
+  .certificateborder {
+    border: 1px dashed #b3b3b3 !important;
+    width: 100%;
+    height: 60px;
+    border-radius: 2px;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    .fileherecolor {
+      color: #333333;
+    }
+    .addfilecolor {
+      color: #006cb7;
+    }
+    .uploadpdf {
+      color: #989898;
+      p {
+        color: #989898;
+      }
+    }
+  }
+  .pdfbackground {
+    background-color: #edf3ff;
+  }
+  .uploadphoto {
+    padding: 5px;
+    border: 1px dashed #999;
+    border-radius: 2px;
+    height: 150px;
+    width: 150px;
+    .outerlayer {
+      background: #e8ebf0;
+      height: 100%;
+      @include flexcenter();
+  
+      p {
+        margin: 0;
+        color: #333;
+        font-size: 0.875rem;
+        padding-top: 10px;
+      }
+    }
+  }
+  .marketingheight {
+    display: flex;
+    align-items: center;
+    height: 195px;
+    p {
+      margin: 0px;
+      margin-top: 38px;
+    }
+  }
+  .textcolor {
+    color: #006cb7 !important;
+  }
+  .deleteflexend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .border {
+    border: none !important;
+    width: 96% !important;
+  }
+  .flexoman {
+    display: flex;
+    align-items: center;
+  }
+  
+  .flexserach {
+    display: flex;
+    align-items: center;
+  }
+  .iconstyle {
+    font-size: 1.125rem;
+    color: #006cb7;
+  }
+  
+  .searchinmultiselect {
+    display: flex;
+    align-items: center;
+    padding: 15px 15px;
+    background: #e9edf0;
+  }
+  
+  .searchselect {
+    width: calc(100% - 25px) !important;
+    padding-left: 10px;
+  }
+  
+  @media (max-width: 767px) {
+    .selectproductheaderwithclose {
+      height: auto !important;
+    }
+    .selectproductheaderwithclose .titletext {
+      display: block !important;
+    }
+    .selectproductheaderwithclose .closeandadd {
+      margin-bottom: 10px;
+    }
+    .innnerpartofdrwer {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+    html body .p-r-20 {
+      padding-right: 0px !important;
+    }
+  }
+  ::ng-deep.sidenavmainrow .innnerpartofdrwer {
+    padding-top: 25px;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-bottom: 70px !important;
+    max-height: calc(100vh - 140px) !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .descriptioncontentmarketpresence {
+    &.show {
+      display: flex;
+    }
+    &.hide {
+      display: none !important;
+    }
+  }
+  sup {
+    color: red;
+  }
+  .preFlag {
+    width: calc(100% - 60px) !important;
+  }
+  .borderbottom {
+    display: none !important;
+  }
+  
+  .searchinmultiselect {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    background: #e9edf0;
+  
+    input::-webkit-input-placeholder {
+      color: #7f8fa3 !important;
+    }
+  
+    i {
+      color: #7f8fa3 !important;
+      padding-right: 6px;
+    }
+  
+    .searchselect {
+      width: calc(100% - 25px) !important;
+    }
+  
+    .reseticon {
+      cursor: pointer;
+    }
+  }
+  .option-listing {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 290px;
+  }
+  
+  .countrynameselect {
+    line-height: 40px !important;
+    height: 40px !important;
+    img {
+      width: 24px;
+      height: auto;
+      margin-right: 5px;
+      // margin-top: -8px;
+    }
+  }
+  ::ng-deep.select_with_search {
+    overflow: hidden !important;
+    max-height: 100% !important;
+    margin-top: 40px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  :host::ng-deep.mat-tooltip {
+    font-size: 0.875rem;
+  }
+  :host::ng-deep.sameasaddress {
+    .mat-checkbox-label {
+      color: #f47f1f;
+      font-size: 0.9375rem;
+    }
+  }
+  ::ng-deep#data_design {
+    .sidenavmainrow {
+      .innnerpartofdrwer {
+        padding: 0 !important;
+        overflow: initial ;
+        max-height: 100% !important;
+        .organisationinfo{
+          padding-top: 0 !important;
+          .data_width{
+            max-width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+  
+  .mat-card.selectedbsfull{
+    background-color:#fff !important;
+    border: solid 1px #fff;
+    margin:0 !important;
+    border-radius:2px;
+    box-shadow:none !important;
+    border-bottom:1px solid #ddd !important;
+    .mat-card-header{
+      display:flex;
+      padding: 15px !important;
+      width:100%;
+      justify-content: flex-start;
+      .sbsimg{
+        width:7%;
+        .imgbg{
+          width:48px;
+          height:64px;
+          background:#006cb7;
+          color:#fff;
+          font-size:28px;
+          text-align:center;
+          line-height:64px;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+        }
+      }
+      .sbsdetails{
+        width:90%;
+        .selecttitle {
+          font-family:"cairobold";
+          color:#333;
+        }
+        .selectsubtitle{
+          display:flex;
+          width:100%;
+          flex-direction:row;
+          justify-content: flex-start;
+          line-height:17px;
+          flex-wrap:wrap;
+          @media (max-width:768px){
+              flex-direction:column;
+            }
+          p{
+              display:flex;
+              width:100%;
+              flex-direction:column;
+              color:#222;
+              font-size:14px;
+              margin:0;
+              &.country{
+                  width:33.33%;
+                  @media (max-width:768px){
+                      width:100%;
+                  }
+                  img{
+                    width: 22px;
+                    margin:0;
+                    height: auto;
+                    position: relative;
+                    top: 2px;
+                }
+              }
+              &.address{
+                width:100%;
+                display:flex;
+                margin:10px 0 0 0;
+                @media (max-width:768px){
+                    width:100%;
+                }
+              }
+              span.cbox-label{
+                  font-size:12px;
+                  color:#999;
+              }
+          }
+        }
+      }
+      .deletediv {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        .bgi{
+          color:#fff;
+          cursor:pointer;
+          width: 31px;
+          height: 31px;
+          line-height: 31px;
+          border-radius: 31px;
+          text-align: center;
+          font-size: 0.75rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+    &:hover{
+      background-color:#f3f5f9 !important;
+      border: solid 1px #f3f5f9 !important;
+      .mat-card-header{
+        .sbsdetails{
+          .selecttitle {
+            color:#1877bb;
+          }
+          .selectsubtitle{
+            p{
+              span.cbox-label{
+                color:#1877bb;
+              }
+            }
+          }
+        }
+      }
+      .deletediv {
+        .bgi{
+          color:#1877bb;
+          cursor:pointer;
+          border: 1px solid #c5dbfd;
+          &:hover {
+            background-color: #c5dbfd;
+          }
+        }
+      }
+    }
+  }
+  .profilelinkboxshadow {
+    box-shadow: none;
+    width: 100%;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-bottom:10px;
+    border:1px solid #ddd;
+    .borderflex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 45px;
+      padding-top: 5px;
+    }
+    .border {
+      border: none !important;
+      width: 96% !important;
+    }
+  }
+  .tabsection.mptab{
+    .mat-tab-group{
+      &.hidetabstyle{
+        width:100%;
+        .mat-tab-header{
+          display:none;
+        }
+      }
+    }
+  }
+  .tabsection{
+    .mat-tab-label{
+      &.mat-tab-label-active{
+        background:#1877bb;
+        color:#fff;
+        .tabselectheadercontent{
+          p,h4{
+            color:#fff;
+          }
+        }
+      }
+    }
+  }
+  .innnerpartofdrwer {
+    &.noscroll{
+      /*max-height:unset !important;*/
+      min-height:unset !important;
+      height:auto !important;
+      .mat-tab-body{
+        overflow:unset;
+        &.mat-tab-body-active{
+          overflow:unset;
+        }
+        .mat-tab-body-content{
+          overflow:unset;
+          height:auto !important;
+          padding-top:10px
+        }
+      }
+    }
+  }
+  .innnerpartofdrwer {
+      min-height:unset !important;
+      height:auto !important;
+      .mat-tab-body{
+        overflow:unset;
+        &.mat-tab-body-active{
+          overflow:unset;
+        }
+        .mat-tab-body-content{
+          overflow:unset;
+          height:auto !important;
+          padding-top:10px
+        }
+      }  
+  }
+  .busisearchdiv{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    @media (max-width:660px){
+      flex-direction:column;
+    }
+    .searchfielddiv{
+      width:calc(100% - 80px);
+      max-width:100%;
+      &.show{
+        visibility:visible;
+      }
+      &.hide{
+        visibility:hidden !important;
+      }
+      .mat-input-element{
+        height:28px !important;
+      }
+      .mat-form-field-infix{
+        padding:0 !important;
+        height:32px !important;
+        border-top-width:5px;
+      }
+      button{
+        height:30px !important;
+      }
+    }
+    button{
+      height:38px;
+      .bgi-add{
+        font-size:10px;
+        margin-right:5px;
+        position:relative;
+        top:-3px;
+      }
+      &.searchbtn{
+        background:transparent;
+        color: #333 !important;
+        font-size: 1.1875rem;
+        line-height: 12px;
+        width:42px !important;
+        min-width:42px !important;
+        max-width:42px !important;
+        padding:0 !important;
+      }
+    }
+    .bssearchbox{
+      width:100%;
+      margin-right:0px;
+      border:1px solid #ddd;
+      display: flex;
+      @media (max-width:660px){
+        width:100%;
+        margin-right:0px;
+        margin-bottom:5px;
+      }
+      .mat-form-field-underline{
+        display:none;
+      }
+      .mat-form-field-wrapper{
+        padding-bottom:0px;
+      }
+    }
+    .mat-focused, .mat-form-field-should-float{
+      .mat-form-field-label{
+        display:none;
+      }
+    }
+    .mat-form-field-label-wrapper{
+      line-height:14px;
+    }
+  }
+  .tabforclientelenew{
+      .tabselectheadercontent{
+        .selectiontext{
+          min-height:50px;
+          height:auto;
+          align-content: flex-start;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+  } 
+  

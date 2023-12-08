@@ -1,0 +1,165 @@
+<!-- Title -->
+<div *ngIf="text" fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div fxLayout="row wrap" class="page" fxLayoutAlign="center">
+      <div fxFlex.gt-sm="82.33" fxFlex="100">
+        <div class="justify">
+          <h1 class="pagetitle m-t-30"></h1>
+          <h1 class="pagetitle m-t-30"></h1>
+        </div>
+        <!-- Content -->
+        <div class="page-content m-t-30">
+          <!-- Placeholder Content -->
+          <div class="placeholder-content">
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+            <div class="placeholder-content_item"></div>
+          </div>
+          <div class="justifyspace m-t-20">
+            <h1 class="pagetitlefooter m-r-10"></h1>
+            <h1 class="pagetitle"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form *ngIf="!text" class="basic-form organizationform">
+  <div fxLayout="row wrap" class="mastercompnaycontent">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="topheadermain">
+            <div class="imagewithtext">
+              <img src="./assets/images/companyprofile.png">
+              <span class="p-l-20  lypisfont-bold">Master Company Profile</span>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center" class=" organizationdetail" id="mastercompanydetail" class="m-t-40">
+        <div fxFlex.gt-sm="83.33" fxFlex="100">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="certificateflex">
+              <div class="progressandhistory">
+                <div class="pagetitlenew">
+                  <h4>Contact Information</h4>
+                </div>
+                <div>
+                  <div class="profilecompleteness">
+                    <div class="dropdownselect">
+                      <select>
+                        <option>Profle Completeness: Intermediate</option>
+                        <option>profile1</option>
+                        <option>profile2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="stakeholder-menu-drop m-b-10">
+                    <select>
+                      <option>Manage profile</option>
+                      <option>profile1</option>
+                      <option>profile2</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="triggeredto">
+
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-accordion class="commonexpandandcollapse selectorpanel">
+                <mat-expansion-panel expanded>
+                  <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" #extPanel (click)="extPanel._toggle()">
+                    <mat-panel-title>
+                      <div class="accrodianheader">
+                        <p class="header m-0 fs-15">
+                          Contact Details
+                        </p>
+                      </div>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div *ngIf="businessUnitList?.length > 0" fxLayout="row wrap" class="m-25 bordercontact">
+                    <div fxFlex.gt-sm="49" fxFlex="100" class="contacttextcolor">
+                      <p class="fs-16">Add the contact details of your company's employees who would be the point of
+                        contact for your company.</p>
+                    </div>
+                    <div fxFlex.gt-sm="51" fxFlex="100" class="contactflexalign">
+                      <button type="button"
+                        (click)="addcontact.loadAddUserComponent=true;addcontact.drawer.toggle();addcontact.getBusinessUnitList()"
+                        mat-raised-button color="primary" class="publish fs-14 addbtncolor"><i
+                          class="bgi bgi-add m-r-10 fs-8"></i><span>Add Contact</span></button>
+                    </div>
+                  </div>
+                  <div class="m-25" *ngFor="let business of businessUnitList; let i = index">
+                    <app-panel [panelTitle]="business.businessunit_name" [businessUnitPk]="business.businessunit_pk"
+                      [userList]="deptUserList" [userListBackup]="deptUserList" [panel]="i + 1" [currentPanel]="panel"
+                      [panelDataList]="business.userslist['data']"
+                      [helpContent]="'Add your company\'s Primary Contact related personal details'"
+                      [noRecordContent]="'You have not added any Primary contacts yet.'"
+                      [hidePreviousButton]="i + 1 == 1" [hideNextButton]="businessUnitList.length == i + 1"
+                      [resultsLength]="business.userslist['count']" [logoUrl]="logoUrl"
+                      (userMapped)="updateDeptUserList($event)" (selectedPanel)="panel=$event">
+                    </app-panel>
+                  </div>
+                  <div *ngIf="businessUnitList?.length == 0" >
+                      <div fxLayout="row wrap" class="">
+                        <div fxLayoutAlign="end" fxFlex.gt-sm="100" fxFlex="100">
+                          <button type="button" mat-raised-button color="primary" class="publish fs-14 addbtncolor"
+                            (click)="addcontact.loadAddUserComponent=true;addcontact.drawer.toggle();addcontact.getBusinessUnitList()">
+                            <i class="bgi bgi-add m-r-10 fs-8 m-t-10"></i><span>Add Contact</span></button>
+                        </div>
+                      </div>
+                      <div fxLayout="row wrap" class="nodata noducumentaddedyet">
+                        <div fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                          <div fxFlex.gt-sm="100" fxFlex="100" class="norecordimage">
+                            <img src="./assets/images/no_records.svg" alt="norecordimagecontact">
+                            <h2 class="fs-16 lypisfont-bold txt-tropaz header m-0 lh-25 p-t-20">You have not added any
+                              Contact Details yet.</h2>
+
+                            <p class="fs-14 lypisfont-regular m-0 txt-gray9 p-t-7">Add the contact details of the
+                              business sources
+                              in your company.</p>
+
+                            <p class="fs-14 lypisfont-regular m-0 txt-gray9  p-b-20">You can also create new business
+                              sources
+                              by clicking the Add button.</p>
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+          <div ngClass.xs="p-r-10" ngClass.sm="p-r-10" fxLayout="row" fxLayoutAlign="end"
+            class="m-b-15 m-t-30 cancelandpublish">
+            <button type="button" mat-raised-button color="secondary" routerLink="/home/dashboard"
+              class="m-r-12 cancel">Cancel</button>
+            <button type="button" (click)="openNextPage()" mat-raised-button color="primary" class="publish">Go to
+              Enterprise Admin</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<app-addcontact #addcontact [panelTitle]="'Contact'" [userList]="deptUserList" [userListBackup]="deptUserList"
+  [panelDataList]="[]" [forContact]="true" [helpContent]="'Add your company\'s Contact related personal details'"
+  [noRecordContent]="'You have not added any Primary contacts yet.'" [resultsLength]="paymentcontactlist?.length"
+  [logoUrl]="logoUrl" (userMapped)="updateDeptUserList($event)" (selectedPanel)="panel=$event"
+  (userAdded)="contactInfoList(encryptedRegPk)"></app-addcontact>

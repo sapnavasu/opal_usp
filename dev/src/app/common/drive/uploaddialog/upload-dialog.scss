@@ -1,0 +1,143 @@
+
+@mixin flexcenter {
+    display: flex ;
+    justify-content: center ;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex ;
+    justify-content: flex-start ;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex ;
+    justify-content: flex-end ;
+    align-items: center !important;
+  }
+
+  @mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+  }
+  
+.upload_dialoglist{
+    min-width: 780px;
+    .homebtn {
+        width: 100px;
+        height: 35px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        color: #888;
+        border: 1px solid #ccc !important;
+        border: none;
+    }
+    .loginbtn {
+        @extend .homebtn;
+        background-color: #006cb7 !important;
+        color: #ffffff !important;
+    }
+    .onlycolor{
+        @include flexend();
+         P{
+             color: #333333;
+             margin: 0px;
+             font-size: 0.875rem;
+         }
+    }
+    .flexend {
+        background: #f4f5f7;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 18px;
+        padding-top: 18px;
+        padding-right: 18px;
+    }
+     .uploadfilecolor{
+         padding-bottom: 20px;
+         padding-left: 30px;
+         padding-right: 30px;
+         border-bottom: 1px solid #dadada;
+         h2{
+             color: #006cb7;
+             margin: 0px;
+             font-size: 1.125rem;
+         }
+     }
+     .supportdoccolor{
+        @include flexstart();
+        border-bottom: 1px solid #dadada;
+        padding: 28px 10px 28px 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+           p{
+               color: #333333;
+               margin: 0px;
+               font-size: 0.9375rem;
+           }
+     }
+     .onlyviewcolor{
+         .onlywidth{
+             width: 80%;
+             @include flexstart();
+                i{
+                 color: #666666;
+               }
+         }
+         .onlycolor{
+              width: 30%;
+         }
+        @include spacebetween();
+        width: 100%;
+        padding: 28px 30px 28px 30px;
+        p{
+            color: #333333;
+            margin: 0px;
+            font-size: 0.9375rem;
+        }
+     }
+}
+
+.master-menu{
+    .viewtextcolorupdate:hover{
+        color: #f4811f !important;
+    } 
+ }
+
+
+ ::ng-deep.searchbydropdowncard {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 4px 8px 4px 8px;
+    position: relative;
+
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+        display: none;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-ripple {
+        display: none;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
+    .mat-form-field.mat-focused .mat-form-field-label {
+        color: #006cb7;
+        opacity: 0;
+    }
+    input.mat-input-element
+    {
+      line-height: 15px;
+    }
+    .mat-form-field-infix {
+        border-top: 0;
+    }
+    .searchitem {
+        display: flex;
+        align-items: center;
+    }
+    
+    
+}

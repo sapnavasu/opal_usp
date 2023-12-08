@@ -1,0 +1,333 @@
+#siteaudit_container {
+    margin-bottom: 4%;
+
+    .yetcert {
+        color: #f4811f;
+    }
+
+    .knowledgegrid {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 8px #0000001a;
+        border: 1px solid #D7DCE3;
+        border-radius: 4px;
+        opacity: 1;
+
+        .headcolor {
+            color: #0C4B9A;
+        }
+
+        .headcolor {
+            color: #0C4B9A;
+        }
+
+        .text-gray {
+            color: #848484;
+        }
+
+        .text-default {
+            color: #262626 !important;
+            font-weight: 500;
+        }
+
+        .bold {
+            font-weight: 500;
+        }
+
+        .details {
+            border-bottom: 1px solid #D7DCE3;
+
+            .head {
+                justify-content: space-between;
+                align-items: center;
+                height: 40px;
+
+                .grade {
+                    align-items: center;
+                    color: #895B37;
+                }
+
+                .gold {
+                    align-items: center;
+                    color: #BA9666;
+                }
+
+                .silver {
+                    align-items: center;
+                    color: #B9BABC;
+                }
+            }
+
+            .application-detais {
+                border: 1px solid #D7DCE3;
+                padding: 5px;
+                font-size: 16px;
+                margin-top: 10px !important;
+
+            }
+
+        }
+
+        .address {
+            // justify-content: space-between;
+            // width: 60%;
+
+            .add-details {
+                i {
+
+                    color: transparent;
+                    -webkit-text-stroke-width: 1px;
+                    -webkit-text-stroke-color: #707070;
+
+                }
+            }
+        }
+
+.mapicon {
+    font-size: 20px;
+    color: #848484 !important;
+}
+    }
+
+    .desktop {
+        .mat-tab-header {
+            border-bottom: 0px !important;
+        }
+
+        .mat-ink-bar {
+            width: 0px !important;
+        }
+
+        .mat-tab-label {
+           opacity: 1;
+            border-radius: 2px;
+            background-clip: padding-box;
+            background-color: #eaedf2;
+            margin-right: 5px;
+            height: 80px;
+            justify-content: flex-start;
+            padding: 0 10px;
+            min-width: 125px;
+
+            &:nth-child(2) {
+                width: 250px;
+            }
+        }
+
+        .mat-tab-list {
+            opacity: 1;
+            min-width: auto !important;
+        }
+
+        .tabscontent {
+            // padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .contentcircle {
+                width: 30px;
+                height: 30px;
+                min-width: 28px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center !important;
+                align-items: center !important;
+                background-clip: padding-box;
+                background-color: transparent;
+                color: #666666;
+                box-shadow: 0 0 8px rgb(51 51 51 / 15%);
+                border: 1px solid #fff;
+                background: #fff;
+            }
+
+            .tabtitle {
+
+                // width: 90px;
+                // white-space: break-spaces;
+                // word-break: break-word;
+                // text-align: start;
+                // line-height: 22px;
+                // &:nth-child(3) {
+                //     width: 188px;
+                // }
+                p {
+                    color: #262626;
+                    text-align: left;
+                    white-space: normal;
+                }
+            }
+        }
+        #validmsg .validet {
+            background-color: #0c4b9a !important;
+            color: #fff !important;
+        }
+        .mat-tab-label-active {
+            background-color: #0c4b9a !important;
+            color: #fff !important;
+
+            .contentcircle {
+                color: #666666 !important;
+                border: 1px solid #fff !important;
+                background-color: #fff;
+            }
+
+            p {
+                color: #fff !important;
+            }
+        }
+
+
+    }
+
+    .btngroup {
+        .submit_btn {
+            background-color: #ED1C27 !important;
+            color: #fff !important;
+            min-width: 160px;
+            height: 45px;
+            font-size: 15px;
+        }
+
+        .cancelbtn {
+            min-width: 120px;
+            background-color: #ffff;
+            border: 1px solid #e8e8e8;
+            color: #262626;
+            padding-left: 0px;
+            padding-right: 0px;
+            height: 45px;
+            font-size: 15px;
+            box-shadow: none;
+
+        }
+
+        .mat-raised-button {
+            border-radius: 2px;
+        }
+    }
+
+    .tabforclientelenew {
+        .mat-form-field-appearance-outline {
+            .mat-form-field-infix {
+                padding: 8px 0 !important;
+            }
+        }
+
+        .manageoptions {
+            .mat-icon {
+                color: #acacac;
+            }
+        }
+    }
+
+    .mat-raised-button {
+        border-radius: 2px;
+        box-shadow: none;
+    }
+
+    .menubtn {
+        min-width: 170px;
+    }
+    .calculatebtn {
+        color: #262626;
+        background-color: #fff;
+        border: 2px solid #666666;
+        border-radius: 2px;
+    }
+
+    .auditbtn {
+        background-color: #fff;
+        color: #262626;
+        height: 45px;
+        min-width: 120px;
+        border: 1px solid #d7dce3;
+    }
+
+    .mat-form-field-appearance-outline {
+        .mat-form-field-outline {
+            color: #d9d9d9;
+        }
+
+        .mat-form-field-outline-start {
+            border-radius: 3px 0 0 3px;
+        }
+
+        .mat-form-field-outline-end {
+            border-radius: 0 3px 3px 0;
+        }
+
+        .mat-form-field-required-marker {
+            color: #ED1C27;
+        }
+
+        .mat-form-field-outline-thick {
+            color: #6ba5ec;
+            background-color: #f8f8f8;
+        }
+
+        &.mat-focused {
+            .mat-form-field-outline-thick {
+                color: #0c4b9a;
+                background-color: #f8f8f8;
+            }
+
+            &.mat-form-field-can-float {
+                &.mat-form-field-should-float {
+                    .mat-form-field-label {
+                        color: #0c4b9a;
+                    }
+                }
+            }
+        }
+
+        &.mat-form-field-disabled {
+            .mat-form-field-outline {
+                background-color: #f8f8f8;
+            }
+
+            .mat-input-element {
+                color: #262626;
+            }
+
+        }
+
+
+        &.mat-form-field-invalid.mat-form-field-invalid {
+            .mat-form-field-outline-thick {
+                color: #dc4c64;
+                background-color: #f8f8f8;
+            }
+        }
+
+        &.mat-form-field-can-float {
+            &.mat-form-field-should-float {
+                .mat-form-field-label {
+                    transform: translateY(-.9rem) scale(0.75);
+                    color: #848484;
+
+                    .mat-form-field-required-marker {
+                        color: #ED1C27;
+                    }
+                }
+
+                .mat-form-field-outline-gap {
+                    width: 0px !important;
+                }
+            }
+        }
+        
+    }
+.grade_color {
+        color: #666666;
+        font-size: 20px;
+    }
+ 
+    .background {
+        background-color: #f8f5f0;
+        padding: 20px;
+    }
+ 
+    .gradeimage {
+        border-bottom: 1px solid #d9d9d9;
+        padding: 20px 15px 15px 15px;
+    }}

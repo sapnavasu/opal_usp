@@ -1,0 +1,238 @@
+<div fxLayoutAlign="center" id="assessmentreport" class="assessmentreport"  *ngIf="learnerData!=null && !formloading">
+    <div class="clflex batchheader">
+        <div class="clflex  m-r-20">
+            <div class=" clflex flex-column" *ngIf="learnerData?.profileurl">
+                <div class="cflex m-t-5" fxLayout="row"  >
+                    <img class="profimage" [src]="learnerData?.profileurl">
+                </div>
+            </div>
+            <div class=" clflex flex-column" *ngIf="!learnerData?.profileurl">
+                <div class="cflex m-t-5" fxLayout="row"  >
+                    <img class="profimage" src="assets/images/opalimages/Avatar1.png" *ngIf="learnerData?.gender == 1">
+                    <img class="profimage" src="assets/images/opalimages/Avatar2.png" *ngIf="learnerData?.gender == 2">
+                </div>
+            </div>
+        </div>
+        <div class=" clflex flex-column rwidth">
+            <div fxLayout="row wrap" class="clflex rwidth">
+                <p>{{'assesmentport.batchno' | translate}}: <span class="colblack">{{learnerData.batchNo}}</span></p>
+                <p class="m-l-15">{{'assesmentport.civino' | translate}}: <span class="colblack">{{learnerData.civilNumber}}</span></p>
+            </div>
+            <div>
+                <p class="colblack learnername fs-17">{{learnerData.name}}</p>
+            </div>
+            <div fxLayout="row wrap" class="clflex rwidth batchinnerdiv">
+                <p class="boxpadd">{{'assesmentport.stat' | translate}}: <span class="colpurple">{{getassessmentstatus(learnerData.status)}}</span></p>
+                <p class="boxpadd" *ngIf="learnerData.isknw == 1">{{'assesmentport.knowledass' | translate}}: 
+                    <span [ngSwitch]="learnerData.kStatus">
+                        <span *ngSwitchCase="'Pass'" class="colgreen">{{learnerData.kStatus}}</span>
+                        <span *ngSwitchCase="'Fail'" class="colred">{{learnerData.kStatus}}</span>
+                        <span *ngSwitchDefault class="colorange">{{'assesmentport.pend' | translate}}</span>
+                    </span>
+                </p>
+                <p class="boxpadd" *ngIf="learnerData.ispra == 1">{{'assesmentport.pracass' | translate}}: 
+                    <span [ngSwitch]="learnerData.pStatus">
+                        <span *ngSwitchCase="'Pass'" class="colgreen">{{learnerData.pStatus}}</span>
+                        <span *ngSwitchCase="'Fail'" class="colred">{{learnerData.pStatus}}</span>
+                        <span *ngSwitchCase="'Competent'" class="colgreen">{{learnerData.pStatus}}</span>
+                        <span *ngSwitchCase="'Non-Competent'" class="colred">{{learnerData.pStatus}}</span>
+                        <span *ngSwitchDefault  class="colorange">{{'assesmentport.pend' | translate}}</span>
+                    </span>
+                </p>
+                <p class="boxpadd">{{'assesmentport.emaiid' | translate}} : <span class="colblack">{{learnerData.emailId}}</span></p>
+                <p class="boxpadd">{{'assesmentport.age' | translate}} : <span class="colblack">{{learnerData.age}}</span></p>
+                <p class="boxpadd">{{'assesmentport.gen' | translate}}: <span class="colblack">{{learnerData.gender == 1 ? this.i18n('assesmentport.male') : this.i18n('assesmentport.female')}}</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="qualitycheckstatus" *ngIf="learnerData.comment !=null">
+        <div class="qcinnerf">
+            <p class="fpara">{{'assesmentport.comm' | translate}}</p>
+            <p [innerHTML]="learnerData.comment"></p>
+        </div>
+        <div class="qcinners clflex">
+            <p>{{'assesmentport.lastvalid' | translate}}: <span class="colblack">{{learnerData.commentOn | date : 'dd-MM-yyyy'}}</span></p>
+            <p class="p-l-40">{{'assesmentport.lastvaliby' | translate}}: <span class="colblack">{{learnerData.commentByname}}</span></p>
+        </div>
+    </div>
+    <div class="assessment clflex flex-column   mat-tab-label" fxFlex="100" fxFlex.gt-md="70" fxFlex.md="80" *ngIf="learnerData != null && learnerData.isknw == 1 && learnerData.ispra == 1">
+        <div fxLayout="row wrap" fxLayoutGap="20px" class="clflex">
+            <button mat-flat-button class="btnbac"    [ngClass]="btnactive ? '' : 'active'" >{{'assesmentport.knowledass' | translate}}</button>
+            <button mat-flat-button class="btnbac"   [ngClass]="!btnactive ? '' : 'active' " >{{'assesmentport.pracass' | translate}}</button>
+        </div>
+    </div>
+    <form [formGroup]="assessmentReportForm" class="clflex flex-column " (ngSubmit)="onSubmit('knowleadge')" *ngIf="!btnactive && assessmentType == 'Knowleadge'">
+        <div class="uploadknowledgeassessment rwidth Report clflex flex-column m-t-15"  fxFlex="100"  *ngIf="examType == 1 && !btnactive">
+            <div >
+                <div class="clflex flex-column p-t-20"  >
+                    <mat-label>{{'assesmentport.uploassrepo' | translate}}</mat-label>
+                    <app-filee  [notePosition]="'bottom'" [deleteicon]="deleteicon" #kdoc [fileMstRef]="knw_file"
+                                   (filesSelected)="fileeSelected($event,knw_file)" formControlName="file"
+                                   [documentname]="true" [datedetials]="true">
+                                 </app-filee>
+                    <mat-hint>{{'assesmentport.docuhint' | translate}}</mat-hint>
+                    <mat-error *ngIf="assessmentReportForm.get('file').invalid && fileeselecterror">Please Upload assessment report </mat-error>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="clflex m-t-30" fxFlex="60">
+                <mat-form-field class="example-full-width reonly" appearance="outline">
+                    <mat-label>{{'assesmentport.totalmark' | translate}}</mat-label>
+                    <input matInput  formControlName="totalmark"  readonly>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="clflex m-t-30">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>{{'assesmentport.markscor' | translate}}</mat-label>
+                    <input matInput  formControlName="mark" (keypress)="isNumberKey($event);" (keyup)="calculatedpercentage('knowleadge')" maxlength="3" required>
+                    <mat-error *ngIf="assessmentReportForm.get('mark').invalid && (assessmentReportForm.get('mark').errors.max || assessmentReportForm.get('mark').errors.min)">Please enter the valid mark </mat-error>
+                    <mat-error *ngIf="assessmentReportForm.get('mark').invalid && assessmentReportForm.get('mark').errors.required">Please enter the mark </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width reonly" appearance="outline">
+                    <mat-label>{{'assesmentport.percen' | translate}}</mat-label>
+                    <input matInput  formControlName="percentage"  readonly>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="onlineknowledgeassessment Report clflex flex-column m-t-15"  *ngIf="examType == 2 && !btnactive">
+            <div fxFlex="60">
+                <div class="clflex flex-column m-b-20"  fxFlex="60">
+                    <p class="colblack" fxFlex="60">{{'assesmentport.filltheassrepo' | translate}}</p>
+                    <div  *ngFor="let item of questions; let i = index" [value]="index">
+                        <label id="example-radio-group-label" >{{i+1}}. {{item.question}}</label>
+                            <mat-radio-group
+                            aria-labelledby="example-radio-group-label"
+                            class="example-radio-group"
+                            [(ngModel)]="favoriteSeason">
+                            <mat-radio-button class="example-radio-button" *ngFor="let answer of item.answers" [value]="answer">
+                                {{answer}}
+                            </mat-radio-button>
+                            </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="clflex m-t-30" fxFlex="60">
+                <mat-form-field class="example-full-width reonly" appearance="outline">
+                    <mat-label>{{'assesmentport.totalmark' | translate}}</mat-label>
+                    <input matInput  formControlName="totalmark"  readonly>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutGap="20px" class="clflex  ">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>{{'assesmentport.markscor' | translate}} </mat-label>
+                    <input matInput value="20" (keypress)="isNumberKey($event);" (keyup)="calculatedpercentage('knowleadge')" required maxlength="3">
+                </mat-form-field>
+                <mat-form-field class="example-full-width reonly" appearance="outline">
+                    <mat-label>{{'assesmentport.percen' | translate}} </mat-label>
+                    <input matInput value="50%" (keypress)="isNumberKey($event)" maxlength="3" readonly>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="clflex flex-column m-t-15">
+            <mat-form-field class="comments colblack" appearance="outline">
+                <mat-label>{{'assesmentport.comm' | translate}} </mat-label>
+                <textarea matInput  formControlName="comments" placeholder="Comments" [(ngModel)]="knwcomments" maxlength="1000"></textarea>
+            </mat-form-field>
+            <div fxLayoutAlign="end start">
+                <mat-hint class=" clflex text-right">{{knwcomments?.length}}/1000</mat-hint>
+
+            </div>
+        </div>
+        <div class="buttonalign m-t-20">
+            <button mat-stroked-button class="btnwhite m-r-20" type="button" (click)="cancle()">{{'assesmentport.cance' | translate}}</button>
+            <button mat-raised-button class="btnred" type="submit"  *ngIf="learnerData != null && learnerData.isknw == 1 && learnerData.ispra == 1 " >{{'assesmentport.savnxt' | translate}}</button>
+            <button mat-raised-button class="btnred" type="submit"  *ngIf="(learnerData != null && learnerData.isknw == 1 && learnerData.ispra != 1)" >{{'assesmentport.subm' | translate}}</button>
+        </div>
+    </form>
+    <form [formGroup]="assessmentReportPraticalForm" class="clflex flex-column " (ngSubmit)="onSubmit('pratical')"  *ngIf="btnactive&& assessmentType == 'pratical'">
+        <div class="uploadpraticalassessment Report clflex flex-column"  *ngIf="examType == 1 && btnactive">
+            <div >
+                <div class="clflex flex-column p-t-20"  >
+                    <mat-label>{{'assesmentport.uploassrepo' | translate}}</mat-label>
+                    <app-filee #pdoc [fileMstRef]="pra_file"
+                    (filesSelected)="pfileeSelected($event,pra_file)" formControlName="file"
+                    [notePosition]="'bottom'">
+                  </app-filee>
+                  <mat-hint>{{'assesmentport.docuhint' | translate}}</mat-hint>
+                  <mat-error *ngIf="assessmentReportPraticalForm.get('file').invalid && fileeselecterror">Please Upload assessment report </mat-error>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="clflex m-t-30" fxFlex="60" *ngIf="learnerData.ispramark == 1">
+                <mat-form-field class="example-full-width reonly" appearance="outline">
+                    <mat-label>{{'assesmentport.totalmark' | translate}}</mat-label>
+                    <input matInput  formControlName="totalmark"  readonly>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="clflex m-t-20" *ngIf="learnerData.ispramark == 1">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>{{'assesmentport.markscor' | translate}}</mat-label>
+                    <input matInput  formControlName="mark" (keypress)="isNumberKey($event);" (keyup)="calculatedpercentage('practical')" maxlength="3" required>
+                    <mat-error *ngIf="assessmentReportPraticalForm.get('mark').invalid && (assessmentReportPraticalForm.get('mark').errors.max || assessmentReportPraticalForm.get('mark').errors.min)">Please enter the valid mark </mat-error>
+                    <mat-error *ngIf="assessmentReportPraticalForm.get('mark').invalid && assessmentReportPraticalForm.get('mark').errors.required">Please enter the mark </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width reonly" appearance="outline">
+                    <mat-label>{{'assesmentport.percen' | translate}}</mat-label>
+                    <input matInput  formControlName="percentage"  (keypress)="isNumberKey($event)" readonly  >
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="clflex  "  *ngIf="learnerData.ispramark != 1">
+                <div class="selectupload clflex flex-column   mat-tab-label" fxFlex="50">
+                    <mat-form-field class="filter" appearance="outline" >
+                        <mat-label>{{'assesmentport.stat' | translate}}<span class="colred">*</span></mat-label> 
+                        <mat-select  formControlName="status">
+                            <mat-option value="Competent">{{'assesmentport.compt' | translate}}</mat-option>
+                            <mat-option value="Non-Competent">{{'assesmentport.noncomp' | translate}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+    
+        </div>
+        <div class="onlineknowledgeassessment Report clflex flex-column"  *ngIf="examType == 2 && btnactive">
+            <div fxFlex="60">
+                <div class="clflex flex-column m-b-20"  fxFlex="60">
+                    <p class="colblack" fxFlex="60">{{'assesmentport.filltheassrepo' | translate}}</p>
+                    <div  *ngFor="let item of questions; let i = index" [value]="index">
+                        <label id="example-radio-group-label" >{{i+1}}. {{item.question}}</label>
+                            <mat-radio-group
+                            aria-labelledby="example-radio-group-label"
+                            class="example-radio-group"
+                            [(ngModel)]="favoriteSeason">
+                            <mat-radio-button class="example-radio-button" *ngFor="let answer of item.answers" [value]="answer">
+                                {{answer}}
+                            </mat-radio-button>
+                            </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="clflex  ">
+                <div class="selectupload clflex flex-column   mat-tab-label" fxFlex="60">
+                    <mat-form-field class="filter" appearance="outline">
+                        <mat-label>{{'assesmentport.stat' | translate}}<span class="colred">*</span></mat-label> 
+                        <mat-select  >
+                            <mat-option value="1">{{'assesmentport.compt' | translate}}</mat-option>
+                            <mat-option value="2">{{'assesmentport.noncomp' | translate}}</mat-option>
+                        </mat-select>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+    
+        </div>
+        <div class="clflex flex-column">
+            <mat-form-field class="comments colblack" appearance="outline">
+                <mat-label>{{'assesmentport.comm' | translate}}</mat-label>
+                <textarea matInput  formControlName="comments" placeholder="Comments" [(ngModel)]="pracomments" maxlength="1000"  ></textarea>
+                </mat-form-field>
+                <div fxLayoutAlign="end start">
+                    <mat-hint class=" clflex text-right">{{pracomments?.length}}/1000</mat-hint>
+                </div>
+            </div>
+            <div class="buttonalign m-t-20">
+            <button mat-stroked-button class="btnwhite m-r-20" type="button" (click)="cancle()">{{'assesmentport.cance' | translate}}</button>
+            <button mat-raised-button class="btnred" type="submit"  *ngIf="learnerData != null && learnerData.isknw == 1 && learnerData.ispra == 1"  >{{'assesmentport.subtonexlevap' | translate}}</button>
+            <button mat-raised-button class="btnred" type="submit"  *ngIf="learnerData != null && learnerData.isknw != 1 && learnerData.ispra == 1"   >{{'assesmentport.subm' | translate}}</button>
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="formloading"></app-responseloader>

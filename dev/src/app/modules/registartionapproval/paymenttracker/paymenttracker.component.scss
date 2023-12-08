@@ -1,0 +1,132 @@
+.tracklist{
+    .tablebox{
+        background:#fff;
+        padding:20px 30px;
+        border-radius:3px;
+        box-shadow:0px 2px 11px 0px rgba(0,0,0,0.15);
+        @media screen and (max-width:599px){
+            padding:20px 15px;
+        }
+    }
+    .datpick{
+        display: flex;
+        justify-content: center;
+    }
+    .savebutton{
+        background-color: #006cb7;
+        color: #fff;
+        min-width: 120px;
+        padding: 5px;
+    }
+    .resetbutton{
+        @extend .savebutton;
+        background-color: #fff;
+        color: #999;       
+        border:1px solid #999;
+    }
+    .datefrom{
+        display: flex;
+        justify-content: space-between;
+    }
+    .txtdate{
+        color:#999;
+        padding-right:10px;
+    }
+    .datnume{
+        color:#333;
+        padding-right:10px;
+        font-family: 'opal_semibold';
+    }
+    .online{
+        background: #006cb7;
+        padding: 10px;
+        text-align: center;
+        color: #fff;
+        font-size:18px;
+        margin: 0;
+    }
+    .offline{
+        background: #ff811f;
+        padding: 10px;
+        text-align: center;
+        color: #fff;
+        font-size:18px;
+        margin: 0;    
+    }        
+    .offtext{
+        display: flex;
+        justify-content: space-around;        
+    }
+    .disflex{
+        display: flex !important;
+    }
+    .offtext {
+        p{
+            font-size: 1rem;
+            font-family: 'opal_semibold';
+        }
+    }
+    .num{       
+        margin-top: 20px ;       
+            font-size: 1.75rem;
+            color:#333;    
+            margin-bottom: 15px;    
+    }   
+    .onimage{
+        display: flex;
+        
+        div{            
+            text-align: center;        
+        }
+        .noimage{           
+            height: auto;
+            width: 100%;
+            max-height: 65px;
+        }
+        .backimage{
+            background-color: #f2f3f7;
+            min-height: 110px;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+    } 
+    .datpick{
+        flex-direction: row !important;
+        display: flex;
+    }
+    hr{
+        margin-top: 2px;
+    }
+    @media (min-width:320px) and (max-width:768px){
+        .datpick{
+            flex-direction: column !important;
+            display: flex;
+        }
+        .todat{
+            padding-left:0px !important;
+        }
+        .savebutton {
+            margin-left:0px !important;
+            margin-top:20px !important;
+        }
+        .disflex{
+            display: flex !important;
+            flex-direction: column !important;
+        }
+        .onimage{
+            flex-direction: column !important; 
+            align-items: center;       
+            display: flex;            
+        }
+        .banktran{
+            padding-left: 15px;
+        }
+    
+    }
+    @media (min-width:320px) and (max-width:370px){
+        .datefrom{
+            flex-direction: column;
+        }
+    }
+}

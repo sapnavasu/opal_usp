@@ -1,0 +1,230 @@
+<div fXLayout="row wrap" id="viewlistcard">
+  <div fxFlex.gt-sm="83.33" fxFlex="100" class="centeralign">
+    <div fXLayout="row wrap" class="m-t-10 m-b-30 blockalign alignmargin">
+      <div fxFlex.gt-sm="35" fxFlex="100" class="m-r-30 backgroundinfo">
+        <div class="pd-20 backgroundinfospace">
+          <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'profileviewdetails.emplid' | translate}}:</p>
+            <!--p class="yearsinfo cvalue" *ngIf="masterdata?.employeid.length < 20">{{masterdata?.employeid |
+                  truncate:[20,'...']}}</p-->
+            <p class="m-0 cvalue">{{masterdata?.employeid}}</p>
+          </div>
+          <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'profileviewdetails.dateofjoin' | translate}}:</p>
+            <!--p class="yearsinfo cvalue" *ngIf="masterdata?.employeid.length < 20">{{masterdata?.employeid |
+                  truncate:[20,'...']}}</p-->
+            <p class="m-0 cvalue">{{masterdata?.doj}}</p>
+          </div>
+           <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'profileviewdetails.divi' | translate}}:</p>
+            <p class="m-0 cvalue lineheightbusunit">{{masterdata?.bussunit}}</p>
+          </div>
+          <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'viewprofiledet.depa' | translate}}:</p>
+            <p class="m-0 cvalue lineheightbusunit">{{masterdata?.deptName}}</p>
+
+          </div>
+          <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'viewprofiledet.desi' | translate}}:</p>
+            <p class="m-0 cvalue lineheightbusunit">{{masterdata?.designat}}</p>
+        
+          </div>
+          <!-- <div class="headtitle">
+            <h2>{{'profileviewdetails.corpinfo' | translate}}</h2>
+          </div> -->
+          <!-- <div class="p-l-8">
+            <div class="alignspaceyears blockalign p-t-20">
+              <div class="textcoloryear widthyear">
+                <p class="yearcolorexp clabel">{{'profileviewdetails.divi' | translate}}</p>
+                <p class="yearsinfo cvalue" *ngIf="masterdata?.bussunit?.length < 20">{{masterdata?.bussunit | truncate:[20]}}
+                </p>
+                <p class="yearsinfo cvalue" *ngIf="masterdata?.bussunit?.length >= 20" popover="{{masterdata?.bussunit}}"
+                  popoverTitle="" popoverPlacement="bottom-right" [popoverOnHover]="true"
+                  [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+                  [popoverAnimation]="true">{{masterdata?.bussunit | truncate:[20]}}</p>
+              </div>
+              <div class="textcoloryear">
+                <p class="yearcolorexp clabel">{{'profileviewdetails.repoto' | translate}}</p>
+                <p class="yearsinfo cvalue" *ngIf="masterdata?.reportto?.length < 20">{{masterdata?.reportto | truncate:[20]}}
+                </p> 
+                <p class="yearsinfo cvalue" *ngIf="masterdata?.reportto?.length >= 20"
+                  popover="{{masterdata?.reportto}} {{masterdata?.reportto.length}}" popoverTitle=""
+                  popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                  [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true">
+                  {{masterdata?.reportto | truncate:[20]}}</p>
+              </div>
+              <div>
+              </div>
+            </div>
+            <div class="textcoloryear p-t-20">
+              <p class=" p-b-6 clabel">{{'profileviewdetails.supe' | translate}}</p>
+              <p *ngFor="let supervis of masterdata?.superv; let i=index; " class="yearsinfo cvalue">
+               {{supervis == 'NIL'? '':i+1 + '.'}} {{supervis}}
+              </p>
+            </div>
+          
+          </div> -->
+          <!-- <div class="headtitle m-t-20">
+            <h2>{{'profileviewdetails.comminfo' | translate}}</h2>
+          </div>
+          <div *ngIf="addressists != '' " class="p-l-8">
+            <div class="webtextcolor p-t-10">
+              <h2>{{addressists?.officeloc}}</h2>
+            </div>
+            <div class="papernotecolor">
+              <h2>{{addressists?.officename}}</h2>
+              <p><span class="clabel">{{'profileviewdetails.branid' | translate}}</span> <span class="cvalue">&nbsp;{{addressists?.branchid? addressists?.branchid: 'Nil'}}</span></p>
+            </div>
+            <div class="addresscolor p-t-15">
+              <p class="clabel p-b-6">{{'profileviewdetails.offiaddre' | translate}}</p>
+              <span class="cvalue">{{addressists?.officeaddress}}</span>
+            </div>
+          </div>
+          <div *ngIf="addressists == '' " class="p-l-8">
+            <div class="noducumentaddedyet p-t-20" style="text-align:center">
+              <img src="./assets/images/Addi.png" alt="nocollateral.png">
+              <p class="fs-16 lypisfont-bold txt-tropaz header m-0 lh-25 p-t-20">{{'profileviewdetails.thernothinhere' | translate}}</p>
+            </div>
+          </div> -->
+        </div>
+        <div>
+          <p class="mat-pagetitle-2 textorgange">{{'profileviewdetails.comminfo' | translate}}</p>
+          <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'profileviewdetails.emai' | translate}}:</p>
+            <!--p class="yearsinfo cvalue" *ngIf="masterdata?.employeid.length < 20">{{masterdata?.employeid |
+                  truncate:[20,'...']}}</p-->
+            <p class="m-0 cvalue lineheightbusunit">{{masterdata?.priemailid}}</p>
+          </div>
+          <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'profileviewdetails.mobi' | translate}}:</p>
+            <!--p class="yearsinfo cvalue" *ngIf="masterdata?.employeid.length < 20">{{masterdata?.employeid |
+                  truncate:[20,'...']}}</p-->
+            <p class="m-0 cvalue">{{masterdata?.primaryno}}</p>
+          </div>
+          <div class="displayflexemp">
+            <p class="m-0 clabel minemnpid">{{'profileviewdetails.landline' | translate}}:</p>
+            <!--p class="yearsinfo cvalue" *ngIf="masterdata?.employeid.length < 20">{{masterdata?.employeid |
+                  truncate:[20,'...']}}</p-->
+            <p class="m-0 cvalue">{{masterdata?.landlineno}}</p>
+          </div>
+        </div>
+        
+      </div>
+      <div fxFlex.gt-sm="65" fxFlex="100">
+       
+        <div class="textcoloryear p-t-20" *ngIf="masterdata?.rolesresp != 'NIL'">
+          <p class="mat-pagetitle-2 textorgange">{{'profileviewdetails.role' | translate}}</p>
+          <div >
+            <p class="cvalue lhroleresp">
+              {{masterdata?.rolesresp}}
+            </p>
+          </div>
+        </div>
+        <div class="textcoloryear p-t-20" *ngIf="masterdata?.breifprof != 'NIL'">
+          <p class="mat-pagetitle-2 textorgange">{{'profileviewdetails.brieprof' | translate}}</p>
+          <div >
+            <p class="cvalue lhroleresp">
+              {{masterdata?.breifprof}}
+            </p>
+          </div>
+        </div>
+        <div *ngIf="masterdata?.rolesresp == 'NIL' || masterdata?.breifprof == 'NIL' || masterdata?.rolesresp == '' || masterdata?.breifprof == ''" class="p-l-8">
+          <div class="noducumentaddedyet p-t-20" style="text-align:center">
+            <img src="./assets/images/norecordfouynd.svg" alt="norecordfouynd.svg">
+            <p class="fs-16 lypisfont-bold txt-tropaz header m-0 lh-25 p-t-20">{{'profileviewdetails.nobrifprof' | translate}}</p>
+          </div>
+        </div> 
+        <div *ngIf="false" class="backgroundinfo backgroundinfospace pd-20">
+          <div class="alignspaceyears borderbottom p-b-20 blockalign">
+            <div class="textcoloryear alignspaceyears empwidth borderright">
+              <div class="coloricon">
+                <img src="assets/images/employeimage.png" alt="employeimage.png">
+              </div>
+              <div class="p-l-15">
+                <p class="pincodetext clabel">{{'profileviewdetails.emplid' | translate}}</p>
+                <!--p class="yearsinfo cvalue" *ngIf="masterdata?.employeid.length < 20">{{masterdata?.employeid |
+                      truncate:[20,'...']}}</p-->
+                <p class="yearsinfo cvalue">{{masterdata?.employeid}}</p>
+              </div>
+            </div>
+            <div class="textcoloryear alignspaceyears empwidth paddingtopalign p-l-15">
+              <div class="coloricon">
+                <i class="bgi bgi-calendar fs-32"></i>
+              </div>
+              <div class="p-l-15">
+                <p class="pincodetext clabel">{{'profileviewdetails.dateofjoin' | translate}}</p>
+                <p class="yearsinfo cvalue">{{masterdata?.doj}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="webtextcolorinfo p-t-20 p-b-20">
+            <h2>{{'profileviewdetails.continfo' | translate}}</h2>
+          </div>
+          <div class="textcoloryear alignspaceyears blockalign">
+            <div class="coloricon">
+              <img src="assets/images/messageicon.png" alt="messageicon">
+            </div>
+            <div class="p-l-15 paddingspace">
+              <p class="pincodetext clabel">{{'profileviewdetails.emai' | translate}}</p>
+              <p class="yearsinfo cvalue">{{masterdata?.priemailid}}</p>
+            </div>
+          </div>
+          <div class="textcoloryear alignspaceyears p-t-30 blockalign">
+            <div class="coloricon">
+              <i class="bgi bgi-mobile"></i>
+            </div>
+            <div class="p-l-15 paddingspace">
+              <p class="pincodetext clabel">{{'profileviewdetails.mobi' | translate}}</p>
+              <p class="yearsinfo cvalue">{{masterdata?.primaryno}}</p>
+            </div>
+          </div>
+          <div class="textcoloryear alignspaceyears p-t-30 blockalign">
+            <div class="coloricon">
+              <i class="bgi bgi-phone-call"></i>
+            </div>
+            <div class="p-l-15 paddingspace">
+              <p class="pincodetext clabel">{{'profileviewdetails.landline' | translate}}</p>
+              <p class="yearsinfo cvalue">{{masterdata?.landlineno}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div *ngIf="masterdata?.webpresence" class="backgroundinfo backgroundinfospace pd-20 m-t-30">
+          <div class="webtextcolorinfo">
+            <h2>{{'profileviewdetails.webpres' | translate}}</h2>
+          </div>
+          <div *ngFor="let webpre of masterdata?.webpresence" class="webpresalignspaceyears">
+            <img src="./assets/images/{{webpre.imageicon}}.png" alt="skypeimage"> -->
+            <!-- <img src="./assets/images/Instagramweb.svg" alt="Instagram"> -->
+            <!-- <div class="p-l-15">
+              <p class="yearsinfo m-0">{{webpre.webprsedata}}</p>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div *ngIf="certificate?.length > 0" class="backgroundinfo backgroundinfospace p-t-20 p-l-20 p-r-20 m-t-30">
+          <div class="webtextcolorinfo">
+            <h2>{{'profileviewdetails.cert' | translate}} {{(certificate?.length > 0)? '(' + certificate?.length + ')' :''}}</h2>
+          </div>
+          <perfect-scrollbar style="max-width: 600px; max-height: 400px;">
+            <div *ngFor="let certificatelist of certificate" class="alignspaceyears borderbottom p-b-20">
+              <div class="imgview">
+                <img src="{{certificatelist?.certuploadurl}}" onError="this.src = 'assets/images/NoimageJPG.jpg'" alt="NoimageJPG">
+              </div> -->
+              <!-- <div class="p-l-15">
+                <p class="yearsinfo m-0 lh-20">{{certificatelist?.title}}</p>
+                <p class="m-0 clabel">{{'profileviewdetails.dateofissu' | translate}} <span class="cvalue">{{certificatelist?.dateofissue}}</span></p>
+                <span *ngIf="certificatelist?.relateddocurl != '' " class="relatedcolor">{{'profileviewdetails.reladocu' | translate}}</span>
+                <div *ngIf="certificatelist?.relateddocurl" class="pdfspacing">
+                  <div class="certfiletype" *ngFor="let reldoc of certificatelist?.relateddocurl">
+                    <a href="{{reldoc?.fileurl}}" target="_blank">
+                      <img src="assets/images/{{reldoc.fileType}}_new.svg" alt="pdfsmallimage.png">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </perfect-scrollbar>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

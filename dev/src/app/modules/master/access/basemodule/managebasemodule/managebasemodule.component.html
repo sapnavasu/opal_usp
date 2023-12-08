@@ -1,0 +1,231 @@
+<div *ngIf="text" fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <div fxLayout="row wrap" class="page" fxLayoutAlign="center">
+        <div fxFlex.gt-sm="82.33" fxFlex="100">
+          <div class="justify m-b-20">
+            <h1 class="pagetitle m-r-20"></h1>
+            <h1 class="pagetitlefooter"></h1>
+          </div>
+          <!-- Content -->
+          <div class="page-content m-t-30">
+            <!-- Placeholder Content -->
+            <div class="placeholder-content">
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+              <div class="placeholder-content_item"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+        <app-createbasemodule *ngIf="enabled" [rootModuleList]="rootModuleList" [accessList]="accessList"
+            [accessListTemp]="accessListTemp" [tog]="drawer" [edit]="editid"></app-createbasemodule>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+        <div *ngIf="!text" fxLayout="row wrap" fxLayoutAlign="">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="gradientbackgrounds">
+                <div fxLayout="row wrap" fxLayoutAlign="">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div class="topheadermain">
+                            <div class="imagewithtext">
+                                <img src="./assets/images/creations.png">
+                                <span class="p-l-20  lypisfont-bold">Base Module</span>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="center">
+                    <div fxFlex.gt-sm="85" fxFlex="100" class="bg-white">
+                        <div class="masterTable">
+                            <div ngClass.xs="responsiveblock" ngClass.sm="responsiveblock"
+                                class="paginationwithfilter masterPageTop pd-20">
+
+                                <mat-paginator [style.visibility]="(resultsLength > 5) ? 'visible' : 'hidden' "
+                                    class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                                    [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+                                <div fxLayout="row wrap" class="p-r-20 p-l-20">
+                                    <div ngClass.xs="flexstartspacing" ngClass.sm="flexstartspacing" fxLayoutAlign="end"
+                                        fxFlex="100" class="showfilterandadditem">
+                                        <button mat-stroked-button color="primary" (click)="searchiconclick()"
+                                            class="m-r-15">
+                                            <mat-icon>filter_list</mat-icon><span>{{showFilter}}</span>
+                                        </button>
+
+                                        <button mat-flat-button color="primary"
+                                            (click)="drawer.toggle();resetEditid();reloadTree()"> 
+                                            <!-- <i class="bgi bgi-add"></i> -->
+                                            <span>Add</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-card class="tableFilter" *ngIf="searchfilter">
+                                <mat-card-content>
+                                    <mat-card-title class="font-bold txt-blue">Filter</mat-card-title>
+                                    <form [formGroup]='filterform' class="basic-form" (ngSubmit)='onFilterSubmit()'>
+                                        <div fxLayout="row wrap" fxFlexAlign="center" fxLayoutGap="20px grid">
+                                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                                <mat-form-field>
+                                                    <input matInput formControlName='moduleName'
+                                                        placeholder="Module / Submodule Name">
+                                                </mat-form-field>
+                                            </div>
+                                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                                <mat-form-field>
+                                                    <input matInput formControlName='subModuleName'
+                                                        placeholder="Root Module Name">
+                                                </mat-form-field>
+                                            </div>
+                                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="Status" formControlName='status'
+                                                        id='status'>
+                                                        <mat-option>Select</mat-option>
+                                                        <mat-option value='2'>Inactive</mat-option>
+                                                        <mat-option value='1'>Active</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                                <mat-form-field>
+                                                    <mat-select placeholder="Type" formControlName='type' id='status'>
+                                                        <mat-option>Select Type</mat-option>
+                                                        <mat-option value='0'>Module</mat-option>
+                                                        <mat-option value='1'>Submodule</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <mat-card-actions>
+                                            <div fxLayout="row wrap" fxLayoutAlign="end">
+                                                <button (click)='formreset()' type='reset'
+                                                    mat-stroked-button>Reset</button>
+                                                <button mat-flat-button class="m-l-15" color="primary" type='submit'
+                                                    [disabled]=!filterform.valid>Submit</button>
+                                            </div>
+                                        </mat-card-actions>
+                                    </form>
+                                </mat-card-content>
+                            </mat-card>
+                            <!-- Multiple checkbox selected text part start here -->
+                            <div fxLayout="row wrap" *ngIf="!selection.isEmpty()">
+                                <div fxFlex.sm="100" fxLayoutAlign="flex-start" class="p-b-20 p-l-20 p-r-20">
+                                    <div class="example-header example-selection-header selecteditemtodelete">
+
+                                        <span class="m-l-10 deleteicon" (click)='multiplerowdel()'><i
+                                                class="bgi bgi-delete fs-16"></i></span>
+                                        <span class="selectedcount fs-14"> {{selection.selected.length}}
+                                            selected
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Multiple checkbox selected text part end here -->
+                            <div fxLayout="row wrap" fxLayoutAlign="center">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-20 p-r-20">
+                                    <mat-table [dataSource]="dataSource" matSort matSortActive="basemodulemst_pk"
+                                        matSortDirection="desc" matSortDisableClear>
+                                        <!-- checkbox part start -->
+                                        <ng-container cdkColumnDef="checkall">
+                                            <mat-header-cell fxFlex="8" *cdkHeaderCellDef>
+                                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                                    [checked]="isAllSelected()"
+                                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                                </mat-checkbox>
+                                            </mat-header-cell>
+                                            <mat-cell fxFlex="8" *cdkCellDef="let row">
+                                                <mat-checkbox [ngStyle]="{ 'display': !row.checked ? 'block' : 'none'}"
+                                                    (click)="$event.stopPropagation()"
+                                                    (change)="$event ? selection.toggle(row.modulePk) : null"
+                                                    [checked]="selection.isSelected(row.modulePk)"></mat-checkbox>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <!-- checkbox part end -->
+                                        <ng-container matColumnDef="bmm_name">
+                                            <mat-header-cell fxFlex="30" *matHeaderCellDef mat-sort-header
+                                            > Module /
+                                                Submodule Name </mat-header-cell>
+                                            <mat-cell fxFlex="30" *matCellDef="let fleetData" data-label="Module /
+                                            Submodule Name">
+                                                {{fleetData.subModuleName}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="bmm_basemodulemst_fk">
+                                            <mat-header-cell fxFlex="25" *matHeaderCellDef mat-sort-header> Root Module
+                                            </mat-header-cell>
+                                            <mat-cell fxFlex="25" *matCellDef="let fleetData" data-label="Root Module">
+                                                {{ fleetData.moduleName ? fleetData.moduleName : 'Root' }} </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="bmm_status">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                                            <mat-cell *matCellDef="let fleetData" focusable="true" data-label="Status">
+                                                <mat-chip-list aria-label="Status">
+                                                    <mat-chip *ngIf="fleetData.bmm_status == 2" color="error">Inactive
+                                                    </mat-chip>
+                                                    <mat-chip *ngIf="fleetData.bmm_status == 1" color="success">Active
+                                                    </mat-chip>
+                                                </mat-chip-list>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="actionsColumn">
+                                            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                                            <mat-cell *matCellDef="let fleetData" data-label="Action">
+                                                <button mat-icon-button [matMenuTriggerFor]="menu4">
+                                                    <mat-icon>more_vert</mat-icon>
+                                                </button>
+                                                <mat-menu #menu4="matMenu" class="master-menu">
+                                                    <button mat-menu-item
+                                                        (click)="changestatus(fleetData.modulePk,fleetData.bmm_status)"
+                                                        class="border-b-1">
+                                                        <span *ngIf="fleetData.bmm_status == 1"
+                                                            class="txt-inactive">Deactivate</span>
+                                                        <span *ngIf="fleetData.bmm_status == 2"
+                                                            class="txt-active">Activate</span>
+                                                    </button>
+                                                    <button mat-menu-item focusable="false"
+                                                        (click)="startEdit(fleetData.modulePk)"><span>Edit</span></button>
+                                                    <button mat-menu-item focusable="false" *ngIf="!fleetData.checked"
+                                                        (click)="cancelOrDelete(fleetData.modulePk)"><span>Delete</span></button>
+                                                </mat-menu>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                            <input type="text" name="value">
+                                        </mat-row>
+                                    </mat-table>
+                                </div>
+                            </div>
+                            <mat-card *ngIf="resultsLength == 0" class="nodata">
+                                <h6 style="text-align:center">
+                                    There's nothing in here, yet
+                                </h6>
+                            </mat-card>
+                            <div class="footerpaginator">
+                                <mat-paginator [style.visibility]="(resultsLength > 5) ? 'visible' : 'hidden' "
+                                    ngClass.xs="block" ngClass.sm="block" class="masterPage masterbottom"
+                                    showFirstLastButtons
+                                    (page)="pageEvent = $event; onPaginateChange($event);syncPrimaryPaginator($event);"
+                                    [pageSize]="paginator?.pageSize" [pageIndex]="paginator?.pageIndex"
+                                    [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-drawer-container>

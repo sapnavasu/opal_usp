@@ -1,0 +1,57 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="projectdetail">
+    <h2 class="fs-15">Project Details</h2>
+    <div class="borderproject" *ngFor="let projectdata of projectData?.projects">
+      
+      <div class="projectflex p-t-20 p-l-15 p-r-15">
+        <div>
+          <p class="fs-13">Project ID: {{projectdata.projectId}}</p>
+        </div>
+        <div class="p-l-50">
+          <p class="fs-13">Project Reference Number: {{projectdata.projectId}} </p>
+        </div>
+      </div>
+      <div class="civilcolor p-l-15 p-r-15">
+        <h2 class="fs-16">{{projectdata.projectName}}</h2>
+      </div>
+      <div class="projectflex  p-l-15 p-r-15 p-b-25">
+        <div class="projectflex">
+          <img src="assets/images/completeimage.png" alt="completeimage">
+          <div class="submitcolor">
+            <p class="fs-15 p-l-12">{{projectdata.projectStatus}}</p>
+          </div>
+        </div>
+        <div class="projectflex p-l-70">
+          <img src="assets/images/exclamatoryimage.png" alt="exclamatoryimage">
+          <div class="completecolor">
+            <p class="fs-15 p-l-12">{{projectdata.projectComStatus}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="projectflex p-l-15 heightsector">
+        <div class="projectflex">
+          <div class="mediumbackground">
+            <span>
+              <i class="bgi bgi-medium"></i>
+            </span>
+          </div>
+          <div class="sectortextcolor p-l-12">
+            <p class="fs-12 m-0 sectorheight">Sector</p>
+            <p class="fs-15 citycolor">{{projectdata.sector}}</p>
+          </div>
+        </div>
+        <div class="projectflex p-l-60">
+          <div class="mapitcolor">
+            <span>
+              <i class="bgi bgi-Map-it"></i>
+            </span>
+          </div>
+          <div class="sectortextcolor p-l-12">
+            <p class="fs-12 m-0 sectorheight">Location</p>
+            <p class="fs-15 citycolor">{{projectdata?.sector}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

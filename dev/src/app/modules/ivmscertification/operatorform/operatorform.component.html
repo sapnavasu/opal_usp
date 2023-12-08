@@ -1,0 +1,78 @@
+<div id="operatorForms" class="commonForm">
+    <form autocomplete="off" [formGroup]="OperatorContractForm" (ngSubmit)="saveOperContr()" #operators="ngForm">
+        <div class="successcmd m-l-0 m-r-0 m-b-20" *ngIf="appdt_status == 3 || appdt_status == 4" [ngClass]="appdt_status == 4 ? 'declinecmd' : 'successcmd'">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <p class="18 comment" *ngIf="appdt_status == 3">{{'institute.approvalcmd' | translate}}</p>
+                <p class="18 comment" *ngIf="appdt_status == 4">{{'institute.declcomm' | translate}}</p>
+                <mat-icon fxLayoutAlign="center center" class="close fs-18" style="cursor: pointer;" (click)="toggle(i)" matTooltip="{{'common.close' | translate}}">close</mat-icon>
+            </div>
+            <p class="16 m-b-30 m-0" *ngIf="appdst_appdeccomment" [innerHTML]="appdst_appdeccomment | striphtml"></p>
+            <p class="16 m-b-30" *ngIf="!appdst_appdeccomment">Nil</p>
+            <mat-divider class="m-t-15"></mat-divider>
+            <div class="validinfo" fxLayout="row wrap">
+                <p class="fs-16 txt-gry m-r-40">{{'institute.lastvalion' | translate}} : <span
+                        class="fs-16 txt-gry3">{{createdon}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'institute.lastvaliby' | translate}} : <span
+                        class="fs-16 txt-gry3">{{updatedon}}</span></p>
+            </div>
+        </div>
+        
+        <div class="formcontainer m-t-25">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                        <mat-label>{{'operatorcontact.opername' | translate}} </mat-label>
+                        <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                            appAlphabetonly app-restrict-input="english" [required]="!viewForm" app-restrict-input="firstspace"  *ngIf="(SearchResultOpr | filter: searchName)"
+                            maxlength="255" formControlName="operator_name" [matAutocomplete]="auto" [ngModel]="searchName">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let item of SearchResultOpr | filter: searchName" [value]="ifarabic == true ? item.rm_name_ar : item.rm_name_en">
+                                {{ifarabic == true ? item.rm_name_ar: item.rm_name_en}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="operator.operator_name.errors?.required || operators.submitted">{{'operatorcontact.entethename' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                    <mat-form-field class="example-full-width" appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                        <mat-select [required]="!viewForm" formControlName="contract_typ">
+                            <mat-option value="1">{{'Direct Contract' | translate }}</mat-option>
+                            <mat-option value="2">{{'Sub Contract' | translate}}</mat-option>
+                        </mat-select>
+                        <mat-label>{{'operatorcontact.conttype' | translate}}</mat-label>
+                        <mat-error *ngIf="operator.contract_typ.errors?.required || operators.submitted">{{'operatorcontact.selethecont' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-15">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                        <mat-label>{{'operatorcontact.contstartdate' | translate}} </mat-label>
+                        <input matInput [required]="!viewForm" formControlName="cont_strt"
+                            (mousedown)="picker6.open(); $event.preventDefault" [disabled]="picker6.opened" [matDatepicker]="picker6" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                        <mat-datepicker #picker6></mat-datepicker>
+                        <mat-error *ngIf="operator.cont_strt.errors?.required || operators.submitted">{{'operatorcontact.selestartdate' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                    <mat-form-field appearance="outline" [ngClass]="viewForm == false ? 'null' : 'readonlyfieldinfo'">
+                        <mat-label>{{'operatorcontact.contenddate' | translate}} </mat-label>
+                        <input matInput [required]="!viewForm" formControlName="cont_end"
+                            (mousedown)="picker7.open(); $event.preventDefault" [disabled]="picker7.opened" [matDatepicker]="picker7" readonly
+                            [min]="OperatorContractForm.controls['cont_strt'].value == null ? today : OperatorContractForm.controls['cont_strt'].value">
+                        <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                        <mat-datepicker #picker7></mat-datepicker>
+                        <mat-error *ngIf="operator.cont_end.errors?.required || operators.submitted">{{'operatorcontact.seleenddate' | translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="end" class="cancelandpublish groupBtns m-t-30">
+            <button mat-raised-button type="button" (click)="cancelform()" class="standardbutton mat-white-bg"><span *ngIf="!viewForm">{{'maincenter.canc' | translate}}</span><span *ngIf="viewForm">{{'maincenter.back' | translate}}</span></button>
+            <button mat-raised-button type="submit" *ngIf="!viewForm" class="standardbutton mat-red-bg"><span *ngIf="!updatedForms">{{'maincenter.saveandnext' | translate}}</span> <span *ngIf="updatedForms">{{'maincenter.updateandnext' | translate }}</span></button>
+        </div>
+    </form>
+</div>

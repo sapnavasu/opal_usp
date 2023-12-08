@@ -1,0 +1,40 @@
+<app-responseloader *ngIf="pageloader"></app-responseloader>
+<div fxLayout="row wrap" fxLayoutAlign="center" id="centrecertificate">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-tab-group class="tabsdetials dashtabs">
+            <!--Training Tab-->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <div class="tabtitle">
+                            <p class="fs-14">{{'invoice.traineval' | translate}}</p>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-trainingcentre></app-trainingcentre>
+            </mat-tab>
+            <!--Technical Tab-->
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <div class="tabtitle">
+                                <p class="fs-14">{{'invoice.techeval' | translate}}</p>
+                            </div>
+                        </div>
+                </ng-template>
+                <app-technicalcentre></app-technicalcentre>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="tabscontent">
+                        <div class="tabtitle">
+                            <p class="fs-14">{{'invoice.techinsta' | translate}}</p>
+                        </div>
+                    </div>
+                </ng-template>
+                <app-ivmscentre></app-ivmscentre>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

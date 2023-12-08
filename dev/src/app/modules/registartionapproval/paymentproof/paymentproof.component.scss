@@ -1,0 +1,273 @@
+
+
+  @mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#subpaydetaillist{
+    .bluegreen{
+        color: #4aa2ac !important;
+        margin: 0px;
+    }
+    .specialdis{
+        padding: 10px 12px;
+        background-color: #f6f6f6;
+        min-width: 230px;
+    }
+    .OPALcolorinner{
+          background-color: #fff;
+          padding: 6px 10px;
+    }
+    .floatalign{
+        float: right;
+   }
+    .backgrounjsrs{
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        border: 1px solid #dadada;
+        border-radius: 2px;
+    }
+
+    .flexwidth{
+        @include flexend();
+        width: 40%;
+        span{
+            color: #333333; 
+        }
+        p{
+             color: #333333;
+             min-width: 115px;
+        }
+   }
+   .widthfirttag{
+        width: 60%;
+        color: #666;
+   }
+   .subscriptiontitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    P{
+         margin: 0px;
+    }
+    .spacingwidth{
+        position: relative;
+    }
+}
+   .paymenttitlecolor{
+    padding: 10px;
+    background-color: #f6f6f6;
+    @include spacebetween();
+    margin-bottom: 20px;
+    p{
+        color: #333333;
+        margin: 0px;
+    }
+    .spacingwidthtotal{
+        min-width: 242px;
+        margin: 0px;
+        position: relative;
+        span{
+            position: absolute;
+            right: 30px;
+        }
+        
+    }
+    .spacingalignwidthomr{
+        min-width: 70px;
+        margin: 0px;
+    }
+
+}
+
+    .Notecolorpay{
+        p{
+            font-size: 0.875rem;
+            color: #333333;
+    
+        }
+        span{
+            font-size: 0.875rem;
+            color: #f4811f; 
+        }
+    }
+    .widthlabel{
+        width: 60%;
+   }
+   .widthinnerlabel{
+        width: 40%;
+   }
+    .statuscardcertifcate{
+        background-color: #fff; 
+        border-radius: 2px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        &.box_removepaydet{
+             border: 1px solid #ddd;
+             box-shadow: none;
+        }
+        .updateclassifyview{
+             padding: 15px 20px;
+             border-bottom: 1px solid #ddd;
+        }
+        .background_totalpay{
+            background-color: #f6f6f6;
+            padding: 8px 20px 8px 20px !important;
+        }
+        .updateflex{
+            @include flexstart();
+            &:last-child{
+                 padding-bottom: 0px !important;
+            }
+            .clabel{
+                 line-height: inherit !important;
+            }
+            .cvalue{
+                line-height: inherit !important;
+            }
+            padding-bottom: 4px;
+            .floatalign{
+                 float: right;
+            }
+          
+            .widthomr{
+                 min-width: 75px;
+            }
+            .minwidthdate{
+                  min-width: 186px;
+            }
+            .micro {
+                padding-left: 6px;
+                padding-right: 6px;
+                color: #fff !important;
+                background-color: #3e78d8;
+                font-size: 0.75rem;
+            }
+            .small {
+                @extend .micro;
+                color: #fff !important;
+                background-color: #f2ac1d !important;
+            }
+            .medium {
+                color: #fff !important;
+                background-color: #2fd0d4 !important;
+                @extend .micro;
+            }
+            .large {
+                color: #fff !important;
+                background-color: #62a125 !important;
+                @extend .micro;
+            }
+            .pending{
+                @extend .micro;
+                color: #fff !important;
+                background-color: #f23f3a !important;
+            }
+            .approved{
+                @extend .micro;  
+                background-color: #50af49 !important;
+                color: #fff !important;
+            }
+        }   
+    }
+  
+}
+  
+.bordersubscrippay{
+    width: 100%;
+    border-bottom: 1px solid #dadada;
+    .statuscolorpayment {
+        padding-left: 5px;
+        padding-right: 5px;
+        color: #fff !important;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: #3e78d8;
+        @include flexcenter();
+    }
+    .flexstatuspay{
+        @include flexstart();
+    }
+    .pending{
+        @extend .statuscolorpayment;  
+        color: #fff !important;
+        background-color: #f23f3a !important;
+    }
+    .approved{
+        @extend .statuscolorpayment;  
+        background-color: #50af49 !important;
+        color: #fff !important;
+    }
+    .warning{
+        @extend .statuscolorpayment;  
+        background-color: #fc9202 !important;
+        color: #fff !important;
+    }
+    .clabel{
+          color: #666 !important;
+    }
+    .borderbottomrenwalalign{
+        width: 100%;
+        .interbold{
+            line-height: 20px;
+            word-break: break-word;
+        }
+      } 
+      .renewalalign{
+          @include flexstart();
+      }  
+  }
+
+
+  
+[dir=rtl]{
+    #subpaydetaillist{
+        .floatalign{
+             float: left !important;
+        }
+    }
+}
+
+.menuitemcolor{
+    .downtextcolor{
+        color: #fff !important;
+    }
+}
+
+
+#spacepartdrawer{
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+
+}
+
+.master-menu{
+    .viewtextcolorupdate{
+        color: #fff;
+    }
+
+    .viewtextcolorupdate:hover{
+        color: #f4811f !important;
+    } 
+}

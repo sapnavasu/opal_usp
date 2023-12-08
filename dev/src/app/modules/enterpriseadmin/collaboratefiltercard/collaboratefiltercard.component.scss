@@ -1,0 +1,251 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  @mixin commancssforptag {
+    color: #333;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+
+.collaborativedetails {   
+ .searchandfilter {
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+      display: none;
+    }
+  }
+  .searchandfilter {
+    .mat-form-field-appearance-legacy .mat-form-field-ripple {
+      display: none;
+    }
+    .mat-form-field-flex {
+      align-items: center;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    .mat-form-field.mat-focused .mat-form-field-label {
+      color: #006cb7;
+      opacity: 0;
+    }
+    .mat-form-field-infix {
+      border-top: 0;
+    }
+  }
+    margin: 0 auto;
+    .searchandfilter {
+        @include flexcenter();
+        width: 100%;
+        margin: 0 auto;
+      }
+      .searchhere {
+        position: relative;
+        @include spacebetween();
+        width: 100%;
+        background: #fff;
+        border-radius: 2px;
+        padding-left: 10px !important;
+        padding: 5px;
+        border: 1px solid #d0d1dc;
+        .mat-icon {
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: #999;
+          font-size: 20px !important;
+        }
+        input[type="text"] {
+          border: 0;
+          height: 50px;
+          width: 85%;
+          padding-left: 5px;
+        }
+        .searchhistorydropdown {
+          top: 45px;
+          left: 0;
+          width: 100%;
+          z-index: 10;
+          .recentsearchinfo {
+            padding: 20px;
+            h6 {
+              color: #656565;
+              font-size: 0.8125rem;
+              text-transform: uppercase;
+              margin: 0;
+              padding-bottom: 10px;
+            }
+            .searcheddata {
+              p {
+                display: flex;
+                align-items: center;
+                margin: 0;
+                padding-bottom: 10px;
+                cursor: pointer;
+                &:hover
+                {
+                  span
+                  {
+                    color: #006cb7;
+                  }
+                }
+                &:last-child
+                {
+                  padding-bottom: 0;
+                }
+                span {
+                  padding-left: 15px;
+                  color: #333;
+                  font-size: 0.9375rem;
+                }
+                i
+                {
+                  color: #9b9b9b;
+                }
+              }
+            }
+          }
+          
+        }
+      }
+      .filterbutton {
+        min-width: 100px;
+        height: 45px !important;
+        color: #fff !important;
+        border: 0;
+        border-radius: 2px;
+        background-clip: padding-box;
+        margin-left: 12px;
+        font-size: 0.9375rem;
+        background: #f58020;
+      }
+      .filtercontent {
+        width: 80%;
+        margin: 0 auto;
+        position: absolute;
+        left: auto;
+        right: 0;
+        // -webkit-transform: translateX(-50%);
+        // transform: translateX(-50%);
+        z-index: 9999;
+        margin-top: 5px;
+        background: #fff;
+        box-shadow: 0 15px 30px rgba(22, 37, 55, 0.25);
+        .filterheader {
+          @include spacebetween();
+          padding: 15px;
+          .header {
+            color: #e8842f;
+            font-size: 0.9375rem;
+            margin: 0;
+             font-family: 'opal_semibold';
+          }
+          .clearingfilter {
+            border: 0;
+            background-color: transparent;
+            color: #656565;
+            font-size: 0.875rem;
+            cursor: pointer;
+          }
+        }
+      }
+      
+      .filtercloseapply {
+        @include flexend();
+        margin: 10px;
+        .clearbutton {
+          background-color: #ebebeb !important;
+          color: #999 !important;
+          font-size: 0.875rem;
+        }
+        .applybutton {
+          font-size: 0.875rem;
+        }
+      }
+      hr {
+        border: 0px;
+        height: 1px;
+        background: rgba(96, 127, 158, 0.4);
+      }
+      .filterouterdiv {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+  @media (max-width: 580px) {
+    .filtercontent {
+      width: 90%;
+      .filterheader {
+        padding: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+    .searchandfilter {
+      display: block !important;
+      .searchhere {
+        width: 100%;
+        max-width: 100% !important;
+        margin-bottom: 10px;
+      }
+    }
+    .filterhere {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      button {
+        height: 45px !important;
+      }
+    }
+  }
+  
+  @media (max-width:600px) and (min-width:320px) {
+  
+    .filterbutton {
+      min-width: 100px;
+      height: 45px !important;
+      color: #fff !important;
+      border: 0;
+      border-radius: 2px;
+      background-clip: padding-box;
+     margin-left: 0px !important; 
+      font-size: 0.9375rem;
+    }
+    
+    .filterhere {
+      display: flex;
+      justify-content: flex-start!important;
+      align-items: center !important;
+    }
+    }
+    
+    @media (max-width: 768px) {
+        .searchandfilter{
+          margin-left: 15px !important;
+          margin-right: 15px !important;
+        }
+        .collaborativedetails{
+          margin-right: 25px !important;
+        }
+  }

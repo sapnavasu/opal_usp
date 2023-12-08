@@ -1,0 +1,77 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <!-- <mat-card-title>City Master</mat-card-title> -->
+        <form [formGroup]="cityform" (ngSubmit)='addcity()'>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+                <!-- column -->
+                <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                    <div class="titletext">
+                        <div class="closeandadd">
+                            <i (click)="toggle()" class="bgi bgi-close p-l-25 fs-14"></i>
+                            <h5 class="m-0 p-l-20 tt" *ngIf="createbutton">Add City</h5>
+                            <h5 class="m-0 p-l-20 tt" *ngIf="updatebutton">Update City</h5>
+                        </div>
+                        <div class="clearandaddbutton">
+                            <button class="clearbutton height-35 m-r-10 p-l-20 p-r-20" mat-raised-button color="primary"
+                                (click)="cityform.reset()" type="reset">Reset</button>
+                            <button ngClass.xs="m-r-15"  ngClass.sm="m-r-15" class="addbutton height-35 p-l-20 p-r-20" mat-raised-button color="apply"
+                                *ngIf="true" type="submit" [disabled]="!cityform.valid">{{buttonname}} </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="innnerpartofdrwer p-b-20">
+                <div fxLayout="row wrap" fxFlexAlign="center">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 spacing">
+                        <mat-form-field>
+                            <mat-select [formControl]="cityform.controls['CountryMst_Pk']"
+                                (selectionChange)="onSelect($event.value)" placeholder="Select Country" required>
+                                <mat-option *ngFor="let list of countrylists" [value]="list.CountryMst_Pk">
+                                    {{ list.CyM_CountryName_en }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-hint
+                            *ngIf="cityform.controls['CountryMst_Pk'].hasError('required') && cityform.controls['CountryMst_Pk'].touched"
+                            class="text-danger font-14">Select Country</mat-hint>
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" class=" p-l-9 spacing">
+                        <mat-form-field>
+                            <mat-select [formControl]="cityform.controls['StateMst_Fk']" placeholder="Select State"
+                                required>
+                                <mat-option *ngFor="let list of statelists" [value]="list.StateMst_Pk">
+                                    {{ list.SM_StateName_en }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-hint
+                            *ngIf="cityform.controls['StateMst_Fk'].hasError('required') && cityform.controls['StateMst_Fk'].touched"
+                            class="text-danger font-14">Select State</mat-hint>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-10">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 spacing">
+                        <mat-form-field>
+                            <input matInput placeholder="City Name" [formControl]="cityform.controls['CityName']"
+                                required>
+                                <mat-error
+                                *ngIf="cityform.controls['CityName'].hasError('required') && cityform.controls['CityName'].touched"
+                                class="text-danger font-14">Enter City Name</mat-error>
+                        </mat-form-field>
+                       
+                    </div>
+                    
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-t-22">
+                        <div class="aligncenteritem">
+                            <label class="m-r-20">Status :</label>
+                            <mat-checkbox class="example-margin" [formControl]="cityform.controls['Status']"
+                                [(ngModel)]="checked">Active </mat-checkbox>
+                        </div>
+                    </div>
+                    <input type="hidden" [formControl]="cityform.controls['cityid']" />
+                </div>
+                
+                </div>
+            
+        </form>
+    </div>
+</div>

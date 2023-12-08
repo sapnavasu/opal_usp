@@ -1,0 +1,144 @@
+<div id="schedulesite" fxLayout="row wrap" fxLayoutAlign="center">
+    <div class="viewschedulesite m-b-50" fxFlex="90">
+        <div class="staf-section p-t-10 p-b-10">
+            <div class="staf-dtl  d-flex">
+                <mat-form-field appearance="outline" class="field-width">
+                    <mat-select placeholder="{{'schedulesite.stafnam' | translate}}" required>
+                        <mat-option *ngFor="let staf of stafs" [value]="staf.value">
+                            {{staf.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline" class="field-width">
+                    <input matInput [formControl]="date_expiry" (click)="dateexpiry.open()" [matDatepicker]="dateexpiry"
+                        placeholder="{{'schedulesite.avaidat' | translate}}">
+                    <mat-datepicker-toggle matSuffix [for]="dateexpiry"></mat-datepicker-toggle>
+                    <mat-datepicker #dateexpiry></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="action-btn d-flex m-t-30">
+                <button mat-spinner-button class="canc m-r-20">{{'schedulesite.canc' | translate}}</button>
+                <button mat-spinner-button class="add m-l-20">{{'schedulesite.add' | translate}}</button>
+            </div>
+        </div>
+       
+        <div class="table-section m-t-20">
+            <div class="paginationwithfilter masterPageTop ">
+                <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                <div fxLayout="row wrap" fxLayoutAlign="end">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                            class="filter">{{filtername}}<i class="fa fa-filter m-l-6" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+              <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable">
+                    <mat-table #table class="scrolldata" [dataSource]="TrainingBranchData" matSort matSortDisableClear>
+                        <ng-container matColumnDef="applictionno">
+                            <mat-header-cell fxFlex="335px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'schedulesite.stafnam' | translate}}</mat-header-cell>
+                            <mat-cell data-label="applictionno" fxFlex="335px" *matCellDef="let BranchData">
+                                {{BranchData.applictionno}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="dateofexpiry">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'schedulesite.date' | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="dateofexpiry" fxFlex="250px" *matCellDef="let BranchData">
+                                {{BranchData.dateofexpiry}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="applicationstatus">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>Status</mat-header-cell>
+                            <mat-cell data-label="applicationstatus" fxFlex="250px" *matCellDef="let BranchData">
+                                <span *ngIf="BranchData.applicationstatus == 'A'" class="green">{{'schedulesite.avilb' | translate}}</span>
+                                <span *ngIf="BranchData.applicationstatus == 'D'" class="red">{{'schedulesite.notavi' | translate}}</span>
+                                <span *ngIf="BranchData.applicationstatus == 'P'" class="blue">{{'schedulesite.booked' | translate}}</span>
+                                <span *ngIf="BranchData.applicationstatus == 'PV'" class="green">{{'schedulesite.avilb' | translate}}</span>
+                                <span *ngIf="BranchData.applicationstatus == 'Y'" class="red">{{'schedulesite.notavi' | translate}}</span>
+                                <span *ngIf="BranchData.applicationstatus == 'S'" class="blue">{{'schedulesite.booked' | translate}}</span> </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef>{{'branch.action'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="250px" *matCellDef="let BranchData">
+                                <div class="manageoptions">
+                                    <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                    </button>
+                                    <mat-menu #actionmenu="matMenu" class="master-menu whentootltipadded table_menu">
+                                        <button type="button" mat-menu-item><span>{{'table.edit' | translate}} </span></button>
+                                        <button type="button" mat-menu-item><span>{{'table.view' |
+                                                translate}}</span></button>
+                                    </mat-menu>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="335px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appl_form">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <input matInput [formControl]="date_expiry" (click)="dateexpiry.open()"
+                                        [matDatepicker]="dateexpiry">
+                                    <mat-datepicker-toggle matSuffix [for]="dateexpiry"></mat-datepicker-toggle>
+                                    <mat-datepicker #dateexpiry></mat-datepicker>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-select [formControl]="appl_status">
+                                        <mat-option value="1">{{'schedulesite.avilb' | translate}}</mat-option>
+                                        <mat-option value="2">{{'schedulesite.notavi' | translate}}</mat-option>
+                                        <mat-option value="3">{{'schedulesite.booked' | translate}}</mat-option>
+                                        <mat-option value="4">{{'schedulesite.avilb' | translate}}</mat-option>
+                                        <mat-option value="5">{{'schedulesite.notavi' | translate}}</mat-option>
+                                        <mat-option value="6"> {{'schedulesite.booked' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                              
+                            </mat-header-cell>
+                        </ng-container>
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="BranchListData">
+                        </mat-header-row>
+                        <mat-header-row id="searchrow"
+                            *matHeaderRowDef="['row-first' , 'row-second' , 'row-three' , 'row-four']">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: BranchListData;"></mat-row>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

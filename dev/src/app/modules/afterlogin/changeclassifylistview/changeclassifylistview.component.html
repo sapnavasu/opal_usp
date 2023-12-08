@@ -1,0 +1,339 @@
+<form [formGroup]="formGroup">
+  <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+      <div class="titletext">
+        <div class="closeandadd">
+          <i mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+            (click)="changeclassifyAlert()" class="bgi bgi-close p-l-5 fs-14"></i>
+          <h5 class="m-0 p-l-20 tt">Change Subscription<i class="bgi bgi-info"
+              (click)="changeclassifylistview('changeclassifyview')"></i></h5>
+        </div>
+        <div class="clearandaddbutton">
+          <button type="button" mat-raised-button color="primary" (click)="clear()"
+            class="clearbutton height-35 m-r-10 p-l-20 p-r-20">Clear</button>
+          <button [disabled]="currentSubscription?.origin === 'NATIONAL' ? disableByCondition : disableBtn"
+            (click)="changeClassification()" color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15"
+            ngClass.sm=" m-r-15" class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 changeclassifyview" [@slideInOut]="animationState3">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+      <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+        <mat-card-header>
+          <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+            <mat-card-subtitle class="informationtext fs-14">
+              Your Subscription Pack will be updated based on your Company Classification.
+            </mat-card-subtitle>
+          </div>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+  <div class="innnerpartofdrwer viewcontentlist">
+    <app-changesubscriptionlist #changesubscription (isValid)="disableBtn = $event"
+      (showloader)="subscriptionloader = $event" (subscriptionChanged)="updatePaymentDetails($event)"
+      [termscond]="termscond" [currentSubscription]="currentSubscription"
+      *ngIf="currentSubscription?.origin !== 'NATIONAL'"></app-changesubscriptionlist>
+    <div fxLayout="row wrap" *ngIf="currentSubscription?.origin === 'NATIONAL'" id="changeclassifyview">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="sourcewidth">
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="classifynotecolor">
+              <p><span>Note:</span> Classification validation is subject to the documents collected during JSRS
+                Certification Process.</p>
+            </div>
+            <div class="packtextcolor">
+              <h2>Current Certification Pack</h2>
+            </div>
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottom p-t-15 p-b-15">
+                <div class="certificatetextalign">
+                  <p class="headcountcolor m-t-0 clable">Head Count</p>
+                  <p class="annaulsalecolor cvalue"
+                    *ngIf="!currentSubscription?.headCount">
+                    {{currentSubscription?.headCount + ' Employees' }}</p>
+                  <p class="annaulsalecolor cvalue" *ngIf="currentSubscription?.headCount">
+                    {{currentSubscription?.headCount }} </p>
+                </div>
+                <div class="certificatetextalign">
+                  <p class="headcountcolor m-t-0 clable">Annual Sales (OMR)</p>
+                  <p class="smeheadcolor cvalue">{{currentSubscription?.annualSales}}</p>
+                </div>
+
+                <div class="certificatetextalign">
+                  <p class="headcountcolor m-t-0">Enterprise Classification</p>
+                  <p class="fs-12 m-0 widthuser"><span
+                      [class.micro]="currentSubscription?.classificationType.toLowerCase().includes('micro')"
+                      [class.small]="currentSubscription?.classificationType.toLowerCase().includes('small')"
+                      [class.medium]="currentSubscription?.classificationType.toLowerCase().includes('medium')"
+                      [class.large]="currentSubscription?.classificationType.toLowerCase().includes('large')">{{currentSubscription?.classificationType}}</span>
+                  </p>
+                </div>
+                <div class="certificatetextalign">
+                  <p class="headcountcolor m-t-0 clable">Validity</p>
+                  <p class="yeartextcolor cvalue">{{currentSubscription?.packageDtl?.subscription?.duration?.Years}} Years
+                  </p>
+                </div>
+                <div class="certificatetextalign">
+                  <p class="headcountcolor m-t-0 clable">OPAL Certification Fee</p>
+                  <p class="annaulsalecolor cvalue">
+                    {{currentSubscription?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                    {{currentSubscription?.packageDtl?.subscription?.packageBasePrice}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="packtextcolor p-t-40">
+          <h2>Update Classification</h2>
+        </div>
+        <div class="alignheadcount nonehaeder">
+          <div class="headerwidth  headerfirstrow">
+            <div class="headerpart p-t-5 p-b-5">
+              <h2 class="fs-15">Head Count</h2>
+            </div>
+          </div>
+          <div class="headerwidth headerwidthempl">
+            <div class="headerpart  p-t-5 p-b-5 radiussalesspacing">
+              <h2 class="fs-15">Annual Sales (OMR)</h2>
+            </div>
+          </div>
+          <div class="headerwidth hederyearlastwidth">
+            <div class="headerpart  p-t-5 p-b-5 ">
+              <h2 class="fs-15">Package</h2>
+            </div>
+          </div>
+          <div class="headerwidth hederyearwidth">
+            <div class="headerpart p-t-5 p-b-5">
+              <h2 class="fs-15">Classification & Fee</h2>
+            </div>
+          </div>
+        </div>
+        <div class="alignheadcount classification">
+          <div class="headerfirstrow emplborder">
+            <mat-radio-group aria-label="Select an option" (change)="getPackageDtls()" formControlName="headcount">
+              <div class="p-l-20 borderbottomcount heightgroup" *ngFor="let hcount of classificationDtl">
+                <mat-radio-button [value]="hcount?.headcount">
+                  <p [innerHTML]="hcount?.headcount" class="fs-15  m-0"> </p>
+                </mat-radio-button>
+              </div>
+              <!-- <div class="p-l-20 borderbottomcount heightgroup">
+                  <mat-radio-button [value]="'11 - 50'">
+                    <p class="fs-15  m-0">11 - 50 <span class="fs-12">Employees</span></p>
+                  </mat-radio-button>
+                </div>
+                <div class="p-l-20 borderbottomcount heightgroup">
+                  <mat-radio-button [value]="'51 - 150'">
+                    <p class="fs-15  m-0">51 - 150 <span class="fs-12">Employees</span></p>
+                  </mat-radio-button>
+                </div>
+                <div class="p-l-20 heightgroup millionborder">
+                  <mat-radio-button [value]="'Above 150 Employees'">
+                    <p class="fs-15  m-0"> Above 150 <span class="fs-12">Employees</span></p>
+                  </mat-radio-button>
+                </div> -->
+            </mat-radio-group>
+          </div>
+          <div class="headerwidthempl emplborder">
+            <mat-radio-group aria-label="Select an option" (change)="getPackageDtls()" formControlName="annualsales">
+              <div class="borderbottomcount p-l-20 heightgroup" *ngFor="let anlsales of classificationDtl">
+                <mat-radio-button [value]="anlsales?.annualsales">
+                  <p class="fs-15  m-0">
+                    {{anlsales?.annualsales}}</p>
+                </mat-radio-button>
+              </div>
+              <!-- <div class="borderbottomcount p-l-20 heightgroup">
+                  <mat-radio-button [value]="'150,000 to less than 1,250,000'">
+                    <p class="fs-15  m-0"> 150,000 to less than 1,250,000</p>
+                  </mat-radio-button>
+                </div>
+                <div class="borderbottomcount p-l-20 heightgroup">
+                  <mat-radio-button [value]="'1,250,000 to less than 5,000,000'">
+                    <p class="fs-15  m-0">1,250,000 to less than 5,000,000</p>
+                  </mat-radio-button>
+                </div>
+                <div class="p-l-20 heightgroup millionborder">
+                  <mat-radio-button [value]="'5 Million and Above'">
+                    <p class="fs-15  m-0">Above 5,000,000</p>
+                  </mat-radio-button>
+                </div> -->
+            </mat-radio-group>
+          </div>
+          <div class="headerwidthselected emplborder align alignflex">
+            <div class="aligncentertext" *ngIf="headCount && annualSales">
+              <!-- <span class="fs-35">-</span>  -->
+              <p class="m-0 p-b-20"><sub
+                  class="fs-32 vertical year">{{packageDtl?.subscription?.duration?.Years}}</sub><span class="fs-12">
+                  Yrs</span></p>
+              <span (click)="selectcontentdescvalidity('selectdropdownvalidity')"
+                class="fs-15 yearcolor paddingspace">{{packageDtl?.subscription?.duration?.Years}} Years
+                Validity
+              </span>
+            </div>
+          </div>
+          <div class="headerwidthsmecolor">
+            <!-- <span class="fs-35">-</span>  -->
+            <div class="centeralign" *ngIf="headCount && annualSales">
+              <span class="fs-12 m-b-10" 
+                [class.micro]="packageDtl?.classificationName.toLowerCase().includes('micro')"
+                [class.small]="packageDtl?.classificationName.toLowerCase().includes('small')"
+                [class.medium]="packageDtl?.classificationName.toLowerCase().includes('medium')"
+                [class.large]="packageDtl?.classificationName.toLowerCase().includes('large')">{{packageDtl?.classificationName}}</span>
+              <h2 class="fs-32 p-t-10 m-0">
+                {{packageDtl?.subscription?.packageBasePrice}}
+              </h2>
+              <p class="fs-14 m-0">{{packageDtl?.subscription?.packageBaseCurrencySymbol}} </p>
+            </div>
+          </div>
+
+        </div>
+        <div class="p-t-20">
+          <span class="aftercoloruserlist" (click)="drawer.toggle();animationState3='out'">Click here to know your
+            Company Classification<i class="fa fa-angle-right p-l-8" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="agreecolor p-t-20">
+          <mat-checkbox formControlName="termsandcondition">
+            <p class="m-0 m-t-0">I have fully read and understood the <a href="{{termscond}}" target="blank"><span
+                  class="termscolor"> Terms & Conditions</span></a>. I
+              am authorized by my Company
+              to agree and abide by the Terms and Conditions.
+            </p>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<mat-drawer-container class="example-container cerifyclassification">
+  <mat-drawer #drawer disableClose class="example-sidenav sidenavsamewidthall certifiyclassifywidth" mode="over"
+    position="end">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+      <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <i mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+              (click)="drawer.toggle()" class="bgi bgi-close p-l-5 fs-14"></i>
+            <h5 class="m-0 p-l-20 tt">Company Classification
+            </h5>
+          </div>
+          <div class="clearandaddbutton">
+            <!-- <button type="button" mat-raised-button color="primary"
+              class="clearbutton height-35 p-l-20 p-r-20">Close</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="innnerpartofdrwer">
+      <div fxLayout="row wrap" id="changeclassifyview">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="headertextcolor">
+                <h2>As per Ministry of Commerce, Industry and Investment Promotion (MOCIIP) Classification</h2>
+              </div>
+              <mat-table class="masterTable" [dataSource]="dataSource">
+                <ng-container matColumnDef="classification">
+                  <mat-header-cell class="suppliercodewidth" fxFlex="33.33" *matHeaderCellDef>
+                    Classification
+                  </mat-header-cell>
+                  <mat-cell fxFlex="33.33" class="suppliercodewidth" *matCellDef="let fleetData"
+                    data-label="Classification">
+                    {{fleetData.classify}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="head_count">
+                  <mat-header-cell class="organiserclmn" fxFlex="33.33" *matHeaderCellDef>
+                    Head Count
+                  </mat-header-cell>
+                  <mat-cell fxFlex="33.33" class="organiserclmn" *matCellDef="let fleetData" data-label="Head Count">
+                    {{fleetData.headcount}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="annual_sale">
+                  <mat-header-cell fxFlex="33.33" class="companynameclmn" *matHeaderCellDef>
+                    Annual sales (OMR)
+                  </mat-header-cell>
+                  <mat-cell fxFlex="33.33" class="widthalign companynameclmn" *matCellDef="let fleetData"
+                    data-label="Annual sales (OMR)">
+                    {{fleetData.annualsales}}
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                  <input type="text" name="value">
+                </mat-row>
+              </mat-table>
+              <div class="noteclassfiycolor p-t-20">
+                <p><span>Note</span>: Your OPAL Certification Fee is based on your company classification (as per
+                  Ministry of Commerce, Industry and Investment Promotion - MOCIIP). The Certification Fee may vary
+                  during OPAL validation process.</p>
+              </div>
+              <div class="headertextcolor m-t-30">
+                <h2>OPAL Certification Fee</h2>
+              </div>
+              <mat-table class="masterTable" [dataSource]="amountDtls">
+                <ng-container matColumnDef="classificationjsrs">
+                  <mat-header-cell class="suppliercodewidth" fxFlex="20" *matHeaderCellDef>
+                    Classification
+                  </mat-header-cell>
+                  <mat-cell fxFlex="20" class="suppliercodewidth" *matCellDef="let fleetData"
+                    data-label="Classification">
+                    {{fleetData.classify}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Validity">
+                  <mat-header-cell class="organiserclmn" fxFlex="20" *matHeaderCellDef>
+                    Validity
+                  </mat-header-cell>
+                  <mat-cell fxFlex="20" class="organiserclmn" *matCellDef="let fleetData" data-label="Validity">
+                    {{fleetData.validity}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="certification_fee">
+                  <mat-header-cell fxFlex="20" class="companynameclmn" *matHeaderCellDef>
+                    Certification Fee
+                  </mat-header-cell>
+                  <mat-cell fxFlex="20" class="widthalign companynameclmn" *matCellDef="let fleetData"
+                    data-label=" Certification Fee">
+                    {{fleetData.amount}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="vatcharges">
+                  <mat-header-cell fxFlex="20" class="companynameclmn" *matHeaderCellDef>
+                    VAT Charges(%)
+                  </mat-header-cell>
+                  <mat-cell fxFlex="20" class="widthalign companynameclmn" *matCellDef="let fleetData"
+                    data-label="VAT Charges(%)">
+                    5%
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="totalpayable">
+                  <mat-header-cell fxFlex="20" class="companynameclmn" *matHeaderCellDef>
+                    Total Payable Amount
+                  </mat-header-cell>
+                  <mat-cell fxFlex="20" class="widthalign companynameclmn" *matCellDef="let fleetData"
+                    data-label="Total Payable Amount">
+                    {{fleetData.total_payable}}
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row id="headerrowcells" *matHeaderRowDef="jsrscertifyColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: jsrscertifyColumns;">
+                  <input type="text" name="value">
+                </mat-row>
+              </mat-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>
+
+
+
+<app-responseloader class="processloader" *ngIf="subscriptionloader"></app-responseloader>

@@ -1,0 +1,849 @@
+<div id="staffview" fxLayoutAlign="center center">
+    <div fxFlex="100" fxFlex.gt-sm="100">
+        <div class="staffdetials">
+            <h4 class="fs-18 txt-ble ">{{'staff.stafdeta' | translate}}</h4>
+            <div class="company_dtlview">
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.civinumb' | translate}}</p>
+                    <span *ngIf="civilnum">{{civilnum}}</span>
+                    <span *ngIf="!civilnum">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.stafnameeng' | translate}}</p>
+                    <span *ngIf="staffname">{{staffname}}</span>
+                    <span *ngIf="!staffname">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.stafnamear' | translate}}</p>
+                    <span *ngIf="staffname_ar">{{staffname_ar}}</span>
+                    <span *ngIf="!staffname_ar">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.emaiid' | translate}}</p>
+                    <span *ngIf="email_id">{{email_id}}</span>
+                    <span *ngIf="!email_id">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.dateofbirth' | translate}}</p>
+                    <span *ngIf="dob">{{dob | date: 'dd-MM-yyyy'}}</span>
+                    <span *ngIf="!dob">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.age' | translate}}</p>
+                    <span *ngIf="age">{{age}}</span>
+                    <span *ngIf="!age">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.gend' | translate}}</p>
+                    <span *ngIf="gender == 1">Male</span>
+                    <span *ngIf="gender == 2">Female</span>
+                    <span *ngIf="gender == null">-</span>
+                </div>
+
+
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.nation' | translate}}</p>
+                    <span *ngIf="nationality">{{nationality}}</span>
+                    <span *ngIf="!nationality">-</span>
+                </div>
+
+
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.jobtitl' | translate}}</p>
+                    <span *ngIf="appsit_jobtitle">{{appsit_jobtitle}}</span>
+                    <span *ngIf="!appsit_jobtitle">-</span>
+                </div>
+
+
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.mainrole' | translate}}</p>
+                    <span *ngIf="roleofcourse">
+                        <ul>
+                            <li class="m-t-10" *ngFor="let res of roleofcourse">{{ifarabic?res.roleforcourse_ar:res.roleforcourse}}</li>
+                        </ul>
+                    </span>
+                    <span *ngIf="!roleofcourse">-</span>
+
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.conttype' | translate}}</p>
+                    <span *ngIf="contract_type">{{contract_type}}</span>
+                    <span *ngIf="!contract_type">-</span>
+                </div>
+                <h4 class="fs-15 txt-gry3 subtitleform ">{{'staff.selectednew' | translate}}</h4>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'staff.roleofcour' | translate}}</p>
+                    <span *ngIf="roleforcourse">
+                        <ul>
+                            <li class="m-t-10" *ngFor="let res of roleforcourse">{{ifarabic?res.roleforcourse_ar:res.roleforcourse}}</li>
+                        </ul>
+                    </span>
+                    <span *ngIf="!roleforcourse">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'course.coursubcate' | translate}}</p>
+                    <span *ngIf="coursesubcate">
+                        <ul>
+                            <li class="m-t-10" *ngFor="let res of  coursesubcate">{{ifarabic?res.ccm_catname_ar:res.ccm_catname_en}}</li>
+                        </ul>
+                    </span>
+                    <span *ngIf="!coursesubcate">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0 txt-gry3">{{'staff.lang' | translate}}</p>
+                    <span>
+                        <ul>
+
+                            <li class="m-t-10" *ngFor="let lang of language">{{ifarabic?lang.rm_name_ar:lang.rm_name_en}}</li>
+                            <!-- <li class="m-t-10">{{'staff.arab' | translate}}</li> -->
+                        </ul>
+                    </span>
+                </div>
+                <!-- <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0"></p>
+                    <span *ngIf="contract_type">{{contract_type}}</span>
+                    <span *ngIf="!contract_type">-</span>
+                </div> -->
+            </div>
+        </div>
+        <div class="tab m-b-10 m-t-20">
+            <mat-tab-group>
+                <mat-tab label="{{'staff.eduquali' | translate}}">
+                    <div class="detials">
+                        <div class="paginationwithfilter masterPageTop ">
+                            <mat-paginator class="masterPage masterPageTop" [style.display]="resultsLength>5? 'block' : 'none'" (page)="onPageChange($event)" #paginator
+                                [length]="resultsLength" [pageSize]="10"
+                                [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        </div>
+                    </div>
+                    <div class="units m-b-20 m-t-20" *ngFor="let detials of  currentItemsToShow;  let i=index;">
+                        <div class="company">
+                            <h4 *ngIf="detials.sacd_institutename == null || detials.sacd_institutename == ''"
+                                class="fs-18 txt-gry3 m-0 txt-cap">-</h4>
+                            <h4 *ngIf="detials.sacd_institutename != null || detials.sacd_institutename != ''"
+                                class="fs-18 txt-gry3 m-0 txt-cap">{{detials.sacd_institutename}}</h4>
+
+                            <!-- <p class="fs-16 txt-gry">{{'staff.locate' | translate}}: <span
+                                    class="fs-16 txt-gry3">{{ ifarabic?detials.ocim_cityname_ar:detials.ocim_cityname_en}}
+                                    ,{{ifarabic?detials.osm_statename_ar:detials.osm_statename_en}}</span></p> -->
+                        </div>
+                        <div fxLayout="row wrap" class="p-r-15 p-l-15 p-b-10">
+                            <div class="managedetials company_dtlview m-r-25">
+                                <div class="view_details m-t-25" fxLayout="row">
+                                    <p class="m-0 text-default fs-18">{{'staff.degecert' | translate}}:</p>
+                                    <span *ngIf="detials.sacd_degorcert == null || detials.sacd_degorcert == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="detials.sacd_degorcert != null || detials.sacd_degorcert != ''"
+                                        class="fs-16 txt-gry3 txt-cap">{{detials.sacd_degorcert}}</span>
+                                </div>
+                                <!-- <p class="fs-16 txt-gry">{{'staff.degecert' | translate}}:
+                                    <span *ngIf="detials.sacd_degorcert == null || detials.sacd_degorcert == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="detials.sacd_degorcert != null || detials.sacd_degorcert != ''"
+                                        class="fs-16 txt-gry3">{{detials.sacd_degorcert}}</span>
+                                </p> -->
+                                <!-- <p class="fs-16 txt-gry">{{'staff.startdate' | translate}}:
+                                    <span *ngIf="detials.sacd_startdate == null || detials.sacd_startdate == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="detials.sacd_startdate != null || detials.sacd_startdate != ''"
+                                        class="fs-16 txt-gry3">{{detials.sacd_startdate | date: 'dd-MM-yyyy'}}</span>
+                                </p> -->
+                                <!-- <p class="fs-16 txt-gry">{{'staff.enddate' | translate}}: <span
+                                        *ngIf="detials.sacd_enddate == null || detials.sacd_enddate == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="detials.sacd_enddate != null || detials.sacd_enddate != ''"
+                                        class="fs-16 txt-gry3">{{detials.sacd_enddate | date: 'dd-MM-yyyy'}}</span>
+                                </p> -->
+                                <div class="view_details m-t-25" fxLayout="row">
+                                    <p class="m-0 text-default fs-18">{{'staff.graddate' | translate}}:</p>
+                                    <span *ngIf="detials.sacd_enddate == null || detials.sacd_enddate == ''"
+                                    class="fs-16 txt-gry3">-
+                                </span>
+                                <span *ngIf="detials.sacd_enddate != null || detials.sacd_enddate != ''"
+                                    class="fs-16 txt-gry3">{{detials.sacd_enddate | date: 'dd-MM-yyyy'}}
+                                </span>
+                                </div>
+                                <div *ngIf="detials.mcfd_filetype" class="view_details m-t-25" fxLayout="row">
+                                    <p class="fs-16 txt-gry" fxLayout="row">{{'Uploaded Certificate' | translate}}:</p>
+                                        <span> <a href="{{detials.url}}" target="_blank" fxLayoutAlign="start center" class="txt-gry3"> <img
+                                    src="assets/images/opalimages/{{detials.mcfd_filetype}}_new.svg"  class="document txt-gry3 m-r-3" alt="document">View</a></span>
+                                    <!-- </p> -->
+                                </div>
+                                
+                                <!-- <p class="fs-16 txt-gry">
+                                    <span *ngIf="detials.sacd_enddate == null || detials.sacd_enddate == ''"
+                                        class="fs-16 txt-gry3">-
+                                    </span>
+                                    <span *ngIf="detials.sacd_enddate != null || detials.sacd_enddate != ''"
+                                        class="fs-16 txt-gry3">{{detials.sacd_enddate | date: 'dd-MM-yyyy'}}
+                                    </span>
+                                </p> -->
+                                <!-- <p class="fs-16 txt-gry" fxLayout="row">{{'Uploaded Certificate' | translate}}:
+                                    <span matTooltip="View" > <a href="{{detials.url}}" target="_blank" fxLayoutAlign="start center" class="txt-gry"> <img
+                                src="assets/images/opalimages/{{detials.mcfd_filetype}}_new.svg" class="document txt-gry3" alt="document">View</a></span>
+                                </p> -->
+                            </div>
+                            <div class="company_dtlview">
+                                <div class="view_details m-t-25" fxLayout="row">
+                                    <p class="fs-16 txt-gry m-0" fxLayout="row">{{'staff.educlevel' | translate}}:</p>
+                                    <span *ngIf="!ifarabic && (detials.rm_name_en == null || detials.rm_name_en == '')"
+                                        class="fs-16 txt-gry3">-</span>
+                                        <span *ngIf="ifarabic && (detials.rm_name_ar == null || detials.rm_name_ar == '')"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="detials.rm_name_en != null || detials.rm_name_en != ''"
+                                        class="fs-16 txt-gry3 txt-cap">{{ifarabic?detials.rm_name_ar:detials.rm_name_en}}</span>
+                                </div>
+                                <div class="view_details m-t-25" fxLayout="row">
+                                    <p class="fs-16 txt-gry m-0" fxLayout="row">{{'staff.gpagrad' | translate}}:</p>
+                                    <span *ngIf="detials.sacd_grade == null || detials.sacd_grade == ''"
+                                    class="fs-16 txt-gry3">-</span>
+                                <span *ngIf="detials.sacd_grade != null || detials.sacd_grade != ''"
+                                    class="fs-16 txt-gry3">{{detials.sacd_grade}}</span>
+                                </div>
+                                <!-- <p class="fs-16 txt-gry">{{'staff.educlevel' | translate}}:
+                                    <span *ngIf="!ifarabic && (detials.rm_name_en == null || detials.rm_name_en == '')"
+                                        class="fs-16 txt-gry3">-</span>
+                                        <span *ngIf="ifarabic && (detials.rm_name_ar == null || detials.rm_name_ar == '')"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="detials.rm_name_en != null || detials.rm_name_en != ''"
+                                        class="fs-16 txt-gry3">{{ifarabic?detials.rm_name_ar:detials.rm_name_en}}</span>
+                                </p> -->
+                                <!-- <p class="fs-16 txt-gry">{{'staff.gpagrad' | translate}}:
+                                    <span *ngIf="detials.sacd_grade == null || detials.sacd_grade == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span *ngIf="detials.sacd_grade != null || detials.sacd_grade != ''"
+                                        class="fs-16 txt-gry3">{{detials.sacd_grade}}</span>
+                                </p> -->
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100" *ngIf="resultsLength==0">
+                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                            <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                            <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                </div>
+                    </div>
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator" *ngIf="resultsLength>5">
+                        <mat-paginator (page)="onPageoneChange($event)"  [style.display]="resultsLength>5? 'block' : 'none'" class="p-r-10" ngClass.xs="block"
+                            ngClass.sm="block" class="masterPage masterbottom " showFirstLastButtons
+                            [pageSize]="paginator?.pageSize" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{'staff.workexp' | translate}}">
+                    <div class="detials">
+                        <div class="paginationwithfilter masterPageTop ">
+                            <mat-paginator class="masterPage masterPageTop" #paginator2 [length]="secondaryLength"  [style.display]="secondaryLength>5? 'block' : 'none'"
+                                [pageSize]="10" [pageSizeOptions]="[2, 10, 25, 100]"
+                                (page)="secondaryPaginator($event);"></mat-paginator>
+                        </div>
+                    </div>
+                    <div class="units m-b-20 m-t-20" *ngFor="let detialsecond of  workexperience">
+                        <div class="company p-t-20">
+                            <h4 *ngIf="detialsecond.sexp_employername == null || detialsecond.sexp_employername == ''"
+                                class="fs-18 txt-gry3 m-0">-</h4>
+                            <h4 *ngIf="detialsecond.sexp_employername != null || detialsecond.sexp_employername != ''"
+                                class="fs-18 txt-gry3 m-0 txt-cap">{{detialsecond.sexp_employername}}</h4>
+                            <p class="fs-16 txt-gry m-b-0 m-t-9">{{'staff.locate' | translate}}:
+                                <span class="fs-16 txt-gry3 txt-cap">
+                                    {{ifarabic?detialsecond.ocym_countryname_ar:detialsecond.ocym_countryname_en}}{{detialsecond.osm_statename_en?',':''}}
+                                    {{ifarabic?detialsecond.osm_statename_ar:detialsecond.osm_statename_en}}{{detialsecond.ocim_cityname_en?',':''}}
+                                    {{ifarabic?detialsecond.ocim_cityname_ar:detialsecond.ocim_cityname_en}}
+                                </span>
+                            </p>
+                        </div>
+                        <div fxLayout="row wrap" class="p-r-15 p-l-15 p-b-10">
+                            <div class="managedetials company_dtlview m-r-25">
+                                <div class="view_details m-t-25" fxLayout="row">
+                                    <p class="fs-16 txt-gry m-0" fxLayout="row">{{'staff.jobtitl' | translate}}:</p>
+                                    <span
+                                        *ngIf="detialsecond.sexp_designation == null || detialsecond.sexp_designation == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span
+                                        *ngIf="detialsecond.sexp_designation != null || detialsecond.sexp_designation != ''"
+                                        class="fs-16 txt-gry3 txt-cap">{{detialsecond.sexp_designation}}</span>
+                                </div>
+                                <div class="view_details m-t-25" fxLayout="row">
+                                    <p class="fs-16 txt-gry m-0" fxLayout="row">{{'staff.date' | translate}}:</p>
+                                    <span *ngIf="detialsecond.sexp_doj != null || detialsecond.sexp_doj != ''"
+                                    class="fs-16 txt-gry3">{{detialsecond.sexp_doj | date:'dd-MM-yyyy'}}</span>
+                                <span *ngIf="detialsecond.sexp_doj == null || detialsecond.sexp_doj == ''"
+                                    class="fs-16 txt-gry3">-</span>
+                                </div>
+                                <div class="view_details m-t-25" fxLayout="row">
+                                    <p class="fs-16 txt-gry m-0" fxLayout="row">{{'staff.work' | translate}}:</p>
+                                    <span
+                                        *ngIf="detialsecond.sexp_currentlyworking == null || detialsecond.sexp_currentlyworking == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span
+                                        *ngIf="detialsecond.sexp_currentlyworking != null || detialsecond.sexp_currentlyworking != ''"
+                                        class="fs-16 txt-gry3">
+                                        <span *ngIf="detialsecond.sexp_currentlyworking == 1">{{'staff.yes' |
+                                            translate}}</span>
+                                        <span *ngIf="detialsecond.sexp_currentlyworking == 2"><span *ngIf="detialsecond.sexp_eod != null || detialsecond.sexp_eod != ''"
+                                            class="fs-16 txt-gry3">{{detialsecond.sexp_eod | date:'dd-MM-yyyy'}}</span></span>
+                                    </span>
+                                </div>
+                                <!-- upload work experience files -->
+                                <div *ngIf="detialsecond.mcfd_filetype" class="view_details m-t-25" fxLayout="row">
+                                    <p class="fs-16 txt-gry" fxLayout="row">{{'Uploaded Document' | translate}}:</p>
+                                        <span> <a  href="{{detialsecond.url}}" target="_blank" fxLayoutAlign="start center" class="txt-gry3"> <img
+                                    src="assets/images/opalimages/{{detialsecond.mcfd_filetype}}_new.svg" class="document txt-gry3 m-r-3" alt="document">View</a></span>
+                                </div>
+                                <!-- <p class="fs-16 txt-gry">{{'staff.jobtitl' | translate}}: <span
+                                        *ngIf="detialsecond.sexp_designation == null || detialsecond.sexp_designation == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span
+                                        *ngIf="detialsecond.sexp_designation != null || detialsecond.sexp_designation != ''"
+                                        class="fs-16 txt-gry3">{{detialsecond.sexp_designation}}</span>
+                                </p> -->
+                                <!-- <p class="fs-16 txt-gry">{{'staff.date' | translate}}:
+                                    <span *ngIf="detialsecond.sexp_doj != null || detialsecond.sexp_doj != ''"
+                                        class="fs-16 txt-gry3">{{detialsecond.sexp_doj | date:'dd-MM-yyyy'}}</span>
+                                    <span *ngIf="detialsecond.sexp_doj == null || detialsecond.sexp_doj == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                </p> -->
+                                <!-- <p class="fs-16 txt-gry">{{'staff.work' | translate}}:
+
+                                    <span
+                                        *ngIf="detialsecond.sexp_currentlyworking == null || detialsecond.sexp_currentlyworking == ''"
+                                        class="fs-16 txt-gry3">-</span>
+                                    <span
+                                        *ngIf="detialsecond.sexp_currentlyworking != null || detialsecond.sexp_currentlyworking != ''"
+                                        class="fs-16 txt-gry3">
+                                        <span *ngIf="detialsecond.sexp_currentlyworking == 1">{{'staff.yes' |
+                                            translate}}</span>
+                                        <span *ngIf="detialsecond.sexp_currentlyworking == 2"><span *ngIf="detialsecond.sexp_eod != null || detialsecond.sexp_eod != ''"
+                                            class="fs-16 txt-gry3">{{detialsecond.sexp_eod | date:'dd-MM-yyyy'}}</span></span>
+                                    </span>
+
+                                </p> -->
+                            </div>
+                            <!-- <div class="">
+                                <p class="fs-16 txt-gry">{{'staff.educlevel' | translate}}: <span
+                                        class="fs-16 txt-gry3">UNC45689</span></p>
+                                <p class="fs-16 txt-gry">{{'staff.gpagrad' | translate}}: <span
+                                        class="fs-16 txt-gry3">UNC45689</span></p>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block" [style.display]="secondaryLength>5? 'block' : 'none'"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator2?.pageSize"
+                            (page)="secondarysubPaginator($event);" [pageIndex]="paginator2?.pageIndex"
+                            [length]="paginator2?.length" [pageSizeOptions]="paginator2?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                    <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100" *ngIf="secondaryLength==0">
+                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                            <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                            <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <div class="mohericard m-b-20">
+            <div class="company_dtlview">
+                <div class="view_dltss  m-t-25" fxLayout="row" fxLayoutAlign="start center">
+                    <p class="m-0 txt-gry3 m-r-30">{{'staff.mohecard' | translate}}</p>
+                    <span> <a href="{{mohericard}}" target="_blank" fxLayoutAlign="start center" class="txt-gry3"> <img
+                     src="assets/images/opalimages/{{mohericard_type}}_new.svg" class="document m-r-3" alt="document">View</a></span>
+                </div>
+              
+            </div>
+        </div>
+        <div *ngIf="showaccessorloc == 'yes'" class="tab m-b-10 ">
+            <mat-tab-group>
+<!--  -->
+                <mat-tab label="{{'staff.asseavaicalen' | translate}}" *ngIf='hide'>
+                    <!-- <div class="totaldate m-t-20" fxLayout="row wrap">
+                        <div class="date lh-24" fxLayout="column">
+                            <p class="fs-16 txt-gry m-0 m-b-10 ">{{'staff.asseavaicalen' | translate}}</p>
+                            <span *ngIf="accesor_avilable_date_min == ''" class="fs-16 txt-gry3">- {{'staff.to' |
+                                translate}} -</span>
+                            <span *ngIf="accesor_avilable_date_min != ''"
+                                class="fs-16 txt-gry3">{{accesor_avilable_date_min | date: 'dd-MM-yyyy'}} {{'staff.to' |
+                                translate}} {{accesor_avilable_date_man | date: 'dd-MM-yyyy'}}</span>
+                        </div>
+                        <div class="date m-l-30 lh-24" fxLayout="column">
+                            <p class="fs-16 txt-gry m-0 m-b-10">{{'staff.totaday' | translate}}</p>
+                            <span class="fs-16 txt-gry3">{{total_days}} {{'staff.days' | translate}}</span>
+                        </div>
+                    </div> -->
+                    <div class="paginationwithfilter masterPageTop m-t-20">
+                        <mat-paginator class="masterPage masterPageTop" #paginator3 [length]="thirdlength" *ngIf="thirdlength>5"
+                            [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        <div fxLayout="row wrap" fxLayoutAlign="end">
+                            <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-start center">
+                                <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                    class="filter height-45">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                        aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                            <div class="awaredtable">
+                                <mat-table #table class="scrolldata" [dataSource]="DateDATA" multiTemplateDataRows
+                                    matSort matSortDisableClear>
+                                    <!-- 1 -->
+                                    <ng-container matColumnDef="selecteddate">
+                                        <mat-header-cell fxFlex="34" mat-header-cell *matHeaderCellDef
+                                            mat-sort-header>{{'Date' | translate}}
+                                        </mat-header-cell>
+                                        <mat-cell data-label="selecteddate" fxFlex="34"
+                                            *matCellDef="let daterecorddata">
+                                            <div *ngIf="tblplaceholder" class="w-100">
+                                                <div class="tabledataloader"></div>
+                                            </div><!-- | date:
+                                                'dd-MM-yyyy' -->
+                                            <div *ngIf="!tblplaceholder"> {{daterecorddata.selecteddate }}
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <!-- 2 -->
+                                    <ng-container matColumnDef="starttime">
+                                        <mat-header-cell fxFlex="34" mat-header-cell *matHeaderCellDef
+                                            mat-sort-header>{{'Time' | translate}}
+                                        </mat-header-cell>
+                                        <mat-cell data-label="starttime" fxFlex="34"
+                                            *matCellDef="let daterecorddata">
+                                            <div *ngIf="tblplaceholder" class="w-100">
+                                                <div class="tabledataloader"></div>
+                                            </div><!-- | date:'HH:mm:ss-->
+                                            <div *ngIf="!tblplaceholder"> {{daterecorddata.times   }}
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                   
+                                    <!-- 3 -->
+                                    <ng-container matColumnDef="status">
+                                        <mat-header-cell fxFlex="32" mat-header-cell *matHeaderCellDef
+                                            mat-sort-header>{{'Status' | translate}}
+                                        </mat-header-cell>
+                                        <mat-cell data-label="status" fxFlex="32" *matCellDef="let daterecorddata">
+                                            <div *ngIf="tblplaceholder" class="w-100">
+                                                <div class="tabledataloader"></div>
+                                            </div>
+                                            <div *ngIf="!tblplaceholder"> <span class="box available green" *ngIf="daterecorddata.rm_name_en
+                                                == 'Available'">{{'staff.avail' |
+                                                    translate}}</span>
+                                                <span class="box holiday liteorange" *ngIf="daterecorddata.status
+                                                == 'Holiday'">{{'staff.holi' | translate}}</span>
+                                                <span class="box weekend liteorange" *ngIf="daterecorddata.status
+                                                == 'Booked'">{{'staff.week' | translate}}</span>
+                                            </div>
+
+                                        </mat-cell>
+                                    </ng-container>
+                                    <!-- 4 -->
+                                    <!-- <ng-container matColumnDef="endtime">
+                                        <mat-header-cell fxFlex="195px" mat-header-cell *matHeaderCellDef
+                                            mat-sort-header>{{'staff.endtime' | translate}}
+                                        </mat-header-cell>
+                                        <mat-cell data-label="endtime" fxFlex="195px" *matCellDef="let daterecorddata">
+                                            <div *ngIf="tblplaceholder" class="w-100">
+                                                <div class="tabledataloader"></div>
+                                            </div>
+                                            <div *ngIf="!tblplaceholder"> {{daterecorddata.endtime | date:'HH:mm:ss' }}
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container> -->
+                                    <!-- 5 -->
+                                    <!-- <ng-container matColumnDef="totaltime">
+                                        <mat-header-cell fxFlex="175px" mat-header-cell *matHeaderCellDef
+                                            mat-sort-header>{{'staff.totatime' | translate}}
+                                        </mat-header-cell>
+                                        <mat-cell data-label="totaltime" fxFlex="175px"
+                                            *matCellDef="let daterecorddata">
+                                            <div *ngIf="tblplaceholder" class="w-100">
+                                                <div class="tabledataloader"></div>
+                                            </div>
+                                            <div *ngIf="!tblplaceholder">{{totaltime}} {{'staff.hr' |translate}}
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container> -->
+                                    <ng-container matColumnDef="action">
+                                        <mat-header-cell fxFlex="264px" mat-header-cell *matHeaderCellDef>
+                                        </mat-header-cell>
+                                        <mat-cell data-label="action" fxFlex="264px" *matCellDef="let element">
+                                        </mat-cell>
+                                    </ng-container>
+                                    <!-- 1 -->
+                                    <ng-container matColumnDef="row-first">
+                                        <mat-header-cell fxFlex="34" class="serachrow" *matHeaderCellDef
+                                            style="text-align:center">
+                                            <!-- <mat-form-field class="filter" appearance="outline"> -->
+                                                <!-- <matss-label>{{'table.sele' |translate}}</mat-label> -->
+                                                <!-- <input (dateChange)=" applyaddondateFilter($event)" matInput [formControl]="selectdate_filter" (click)="selected.open()"
+                                                    [matDatepicker]="selected">
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="selected"></mat-datepicker-toggle>
+                                                <mat-datepicker #selected></mat-datepicker> -->
+                                                <!-- <div class="drpicker" id="regapp">
+                                                    <input id="login_session"
+                                                        (dateChange)=" applyaddondateFilter($event)"
+                                                        [formControl]="selectdate_filter" #pickers matInput type="text"
+                                                        autocomplete="off" ngxDaterangepickerMd
+                                                        [showCustomRangeLabel]="true" [alwaysShowCalendars]="true"
+                                                        [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                                        [showClearButton]="true" [maxDate]='selected2' readonly
+                                                        class="form-control" />
+                                                    <div class="closeanddateicon">
+                                                        <mat-datepicker-toggle matSuffix>
+                                                        </mat-datepicker-toggle>
+                                                    </div>
+                                                </div> -->
+                                            <!-- </mat-form-field> -->
+                                        </mat-header-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="row-second">
+                                        <mat-header-cell fxFlex="34" class="serachrow" *matHeaderCellDef
+                                            style="text-align:center">
+                                            <!-- <mat-form-field class="filter" appearance="outline">
+                                                <mat-label>{{'table.sele' |translate}}</mat-label>
+                                                <mat-select [formControl]="state_filter" multiple>
+                                                    <mat-option value="1">{{'staff.avail' | translate}}</mat-option>
+                                                    <mat-option value="2">{{'staff.holi' | translate}}</mat-option>
+                                                    <mat-option value="3">{{'staff.week' | translate}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field> -->
+                                        </mat-header-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="row-three">
+                                        <mat-header-cell fxFlex="32" class="serachrow" *matHeaderCellDef
+                                            style="text-align:center;display: flex;align-items: center;">
+                                             <!-- <mat-form-field class="filter" appearance="outline">
+                                                <mat-label>{{'table.sele' |translate}}</mat-label>
+                                                <mat-select [formControl]="state_filter" multiple>
+                                                    <mat-option value="1">{{'staff.avail' | translate}}</mat-option>
+                                                    <mat-option value="2">{{'staff.holi' | translate}}</mat-option>
+                                                    <mat-option value="3">{{'staff.week' | translate}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field> -->
+                                        </mat-header-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="row-four">
+                                        <mat-header-cell fxFlex="195px" class="serachrow" *matHeaderCellDef
+                                            style="text-align:center;display: flex;align-items: center;">
+
+                                        </mat-header-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="row-five">
+                                        <mat-header-cell fxFlex="175px" class="serachrow" *matHeaderCellDef
+                                            style="text-align:center;display: flex;align-items: center;">
+
+                                        </mat-header-cell>
+                                    </ng-container>
+                                    <!-- 2 -->
+                                    <ng-container matColumnDef="row-six">
+                                        <mat-header-cell fxFlex="264px" class="serachrow" *matHeaderCellDef
+                                            style="text-align:center;justify-content: end; display: flex;align-items: center;">
+
+                                            <i class="fa fa-refresh m-l-15 cursorview m-b-13"
+                                                (click)="clearFilter();filtersts=false;" aria-hidden="true"
+                                                matTooltip="{{'table.refresh'|translate}}"></i>
+                                        </mat-header-cell>
+                                    </ng-container>
+                                    <mat-header-row id="headerrowcells" *matHeaderRowDef="Daterecordcolumn;">
+                                    </mat-header-row>
+                                    <!-- <mat-header-row id="searchrow"
+                                        *matHeaderRowDef="['row-first' , 'row-second' ,'row-three' ]">
+                                    </mat-header-row>    -->
+                                    <mat-row mat-row *matRowDef="let row; columns: Daterecordcolumn;"></mat-row>
+                                    <ng-container matColumnDef="disclaimer">
+                                        <td mat-footer-cell *matFooterCellDef colspan="11">
+                                            <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                                <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                    <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                    <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container>
+                                        <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                            [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                            *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                        </mat-footer-row>
+                                    </ng-container>
+                                </mat-table>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                    <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                        class="masterPage masterbottom " showFirstLastButtons
+                                        [pageSize]="paginator3?.pageSize" (page)="AvailablePaginator($event);"
+                                        [pageIndex]="paginator3?.pageIndex" [length]="paginator3?.length"
+                                        [pageSizeOptions]="paginator3?.pageSizeOptions">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100" *ngIf="thirdlength==0">
+                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                            <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                            <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{'staff.asseloca' | translate}}">
+                    <div class="paginationwithfilter masterPageTop " *ngIf="locationLength>5">
+                        <mat-paginator class="masterPage masterPageTop" #paginator4  [length]="locationLength"
+                            [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                            (page)="locationPaginator($event);"></mat-paginator>
+                    </div>
+                    <div class="units m-b-20 m-t-15" *ngFor="let location of  assecorlocares">
+                     <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-l-10 p-r-20">
+                        <div class="location p-r-15 p-l-15 p-b-10">
+                            <div class="view_dtl m-t-20 m-b-20" fxLayout="row">
+                                <p class="fs-16 txt-gry m-0">{{'staff.gover' | translate}}</p>
+                                <!-- <span *ngIf="location.state_en == null || location.state_en == ''" class="fs-16 txt-gry3">: -</span> -->
+
+                                <span *ngIf="location.state_en != null || location.state_en != ''"
+                                    class="fs-16 txt-gry3">: {{location.state_en}}</span>
+                            </div>
+                            <div class="view_dtl m-t-20 m-b-20" fxLayout="row">
+                                <p class="fs-16 txt-gry m-0">{{'staff.wila' | translate}}</p>
+                                <span *ngIf="location.city_en != null || location.city_en != ''"
+                                    class="fs-16 txt-gry3">: {{location.city_en}}</span>
+                                <!-- <span *ngIf="location.city_en == null ||  location.city_en == ''" class="fs-16 txt-gry3">: -</span> -->
+                            </div>
+                        </div>
+                        <div>  
+                           <span class="badge new" *ngIf="location.aslt_staffstatus == 1">{{'institue.new' | translate}}</span>
+                           <span class="badge new" *ngIf="location.aslt_staffstatus ==  2">{{'institue.updated' | translate}}</span>
+                            <span class="badge appr" *ngIf="location.aslt_staffstatus == 3">{{'institue.appr' | translate}}</span>
+                            <span class="badge decl" *ngIf="location.aslt_staffstatus == 4">{{'institue.decl' | translate}}</span>
+                            <!-- <span class="badge decl" *ngIf="location.aslt_staffstatus == '5'">{{'institue.fail' | translate}}</span>  -->
+                        </div>
+                     </div>
+                    </div>
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator" *ngIf="locationLength>5">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator4?.pageSize"
+                            (page)="locationsubPaginator($event);" [pageIndex]="paginator4?.pageIndex"
+                            [length]="paginator4?.length" [pageSizeOptions]="paginator4?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                    <div class="nofound m-t-15" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100" *ngIf="locationLength==0">
+                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                            <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                            <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <div class="curriculum" [ngSwitch]="commentsandforms">
+            <div class="view" fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                <h4 class="fs-18 txt-gry30 m-r-30 m-0">{{'staff.curri' | translate}}</h4>
+                <button mat-raised-button class="viewbtn fs-16" (click)="staffCv()" color="primary">{{'staff.viewcurri'
+                    |
+                    translate}}</button>
+            </div>
+            <div class="documentheader p-t-45" fxLayoutAlign="flex-start center">
+                <h4 *ngIf="this.appsit_iscarddetails == 1 && (this.status == 1 || this.status == 2)" class="fs-18 m-0 m-r-10 txt-ble">{{'staff.knowassess' | translate}}</h4>
+                <h4  *ngIf="this.appsit_iscarddetails == 2 && (this.status == 1 || this.status == 2)" class="fs-18 m-0 m-r-10 txt-ble">{{'Evaluation Details'}}</h4>
+                <!-- <span class="badge new" *ngIf="newone">{{'institue.new' | translate}}</span> -->
+                <span class="badge decl" *ngIf="fail_btn">{{'institue.fail' | translate}}</span>
+                <span class="badge appr" *ngIf="approval_btn">{{'institue.appr' | translate}}</span>
+                <span class="badge decl" *ngIf="decline_btn">{{'institue.decl' | translate}}</span>
+            </div>
+            <ng-template [ngSwitchCase]="'formsComments'">
+                <form autocomplete="off" [formGroup]="assessForm">
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-20">
+                        <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field appearance="outline">
+                                <mat-select [errorStateMatcher]="matcher" required formControlName="status"
+                                    panelClass="select_with_search" (selectionChange)="statustype(form.status.value)">
+                                    <mat-option [value]="1">{{'staff.app' | translate}}</mat-option>
+                                    <mat-option [value]="2">{{'staff.decli' | translate}}</mat-option>
+                                    <mat-option [value]="3">{{'staff.fail' | translate}}</mat-option>
+                                </mat-select>
+                                <mat-label>{{'staff.selestatus' | translate}}</mat-label>
+                                <mat-error *ngIf="form.status.errors?.required || assessForm.submitted">
+                                    {{'staff.selectstatus' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" *ngIf="approvalstatus" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                            ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                            <mat-form-field appearance="outline">
+                                <mat-label> {{'staff.seleassessstatu' | translate}}</mat-label>
+                                <mat-select [errorStateMatcher]="matcher" required formControlName="status_info"
+                                    panelClass="select_with_search"
+                                    (selectionChange)="applicabled(form.status_info.value)">
+                                    <mat-option [value]="1">{{'staff.appli' | translate}}</mat-option>
+                                    <mat-option [value]="2">{{'Not Applicable (Knowledge Assessment Alone)' |
+                                        translate}}</mat-option>
+                                    <mat-option [value]="3">{{'Not Applicable (Both Assessment)' |
+                                        translate}}</mat-option>
+                                    <!-- <mat-option [value]="3">{{'staff.decl' | translate}}</mat-option>
+                                <mat-option [value]="4">{{'staff.fail' | translate}}</mat-option> -->
+                                </mat-select>
+                                <mat-error *ngIf="form.status_info.errors?.required || assessForm.submitted">
+                                    {{'staff.selectedassessstatu' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div *ngIf="applicable">
+                        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-20">
+                            <div fxFlex.gt-sm="100" fxFlex="100">
+                                <mat-label>{{'uploadassess.uploadassessmt' | translate}} <span
+                                        class="error">*</span></mat-label>
+                                <app-filee #assesmentrepot [notePosition]="'bottom'" [fileMstRef]="report"
+                                    [deleteicon]="deleteicon" (filesSelected)="fileeSelected($event,report)"
+                                    formControlName="reportdocument">
+                                </app-filee>
+                                <mat-hint>{{'uploadassess.upassesserror' | translate}} </mat-hint>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-20">
+                            <div fxFlex.gt-sm="50" fxFlex="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'staff.markscor' | translate}}</mat-label>
+                                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                                        matInput required formControlName="mark" appNumberonly>
+                                    <mat-error *ngIf="form.mark.errors?.required || assessForm.submitted">
+                                        {{'staff.entemark' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                                ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                                <mat-form-field appearance="outline">
+                                    <mat-label> {{'staff.perc' | translate}}</mat-label>
+                                    <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                                        matInput required formControlName="percentage"
+                                        [app-restrict-input]="percentage">
+                                    <mat-error *ngIf="form.percentage.errors?.required || assessForm.submitted">
+                                        {{'staff.enterperc' | translate}} </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10" *ngIf="comment">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                                <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div class="ckeditorborder">
+                                        <p class="editortitle importantfield txt-gry3">{{'validation.comm' | translate}}
+                                            <span class="error" *ngIf="approvedcmt">*</span>
+                                        </p>
+                                        <div class="contenthere" [innerHTML]='techinfo'>
+                                        </div>
+                                    </div>
+                                    <div class="messagecount" fxLayoutAlign="flex-end">
+                                        <p class="m-0 txt-gry"> {{ck.ckeditor_count(contact)}} / 1000</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap" *ngIf="edittechinfo">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-20">
+                                    <div class="d-flex">
+                                        <span
+                                            class="d-block ckeditortitle p-b-5 importantfield txt-gry">{{'validation.comm'
+                                            | translate}}<span class="error" *ngIf="approvedcmt"> *</span></span>
+                                    </div>
+                                    <div class="ckeditror finalgrade">
+                                        <ckeditor
+                                            [ngClass]="{'is-invalid': form.comments.touched && form.comments.errors }"
+                                            (change)="onChangeeditor($event)" [(ngModel)]="contact"
+                                            (ready)="onReady($event)" [editor]="Editor" [config]="config"
+                                            [formControl]="assessForm.controls['comments']" appAlphanumsymb [required]="approvedcmt">
+                                        </ckeditor>
+                                        <div *ngIf="(form.comments.touched && form.comments.errors?.required == true) ">
+                                            <div class="error fs-13"
+                                                *ngIf="form.comments.touched &&  form.comments.errors">
+                                                {{'validation.entemess' | translate}}</div>
+                                        </div>
+                                    </div>
+                                    <mat-hint *ngIf=" (ck.ckeditor_count(contact)>1000)" class="error font-14"
+                                        align="start">{{'validation.cannexcechar' | translate}}</mat-hint>
+                                    <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                                        <p class="txt-gry"> {{ck.ckeditor_count(contact)}}/1000</p>
+                                    </div>
+                                    <div class="clearbut p-t-20 b-5" fxLayoutAlign="flex-end">
+                                        <button type="button"
+                                            [disabled]="assessForm.controls['comments'].value?.length==0"
+                                            (click)="resinfo()" mat-raised-button
+                                            class="m-r-10 clearbutton button-40">{{'validation.clear' |
+                                            translate}}</button>
+                                        <button mat-raised-button color="primary"
+                                            [disabled]="ck.ckeditor_count(contact) == 0 || ck.ckeditor_count(contact)>1000 || f.comments.errors?.required == true"
+                                            (click)="messagedone()" class="button-40">{{'validation.done' |
+                                            translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btngroup m-t-30 m-b-10" fxLayout="row" fxLayoutAlign="flex-end">
+                                <button mat-raised-button class="cancelbtn m-r-15 fs-15" type="button" (click)="cancelbtn()">{{'Back' | translate}}</button>
+                                <button mat-raised-button class="cancelbtn fs-15" type="button"
+                                    (click)="cancel()">{{'course.canc' | translate}}</button>
+                                <button mat-raised-button class="submit_btn m-l-20 fs-16" [disabled]="done"
+                                    color="primary" type="submit" (click)="submit()">{{'validation.sumb' |
+                                    translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+            <!-- <ng-template [ngSwitchCase]="'commenttype'"> -->
+                <div *ngIf="appro" [ngClass]="declinedmessage == true ? 'declinecmd' : 'successcmd '"
+                    class=" m-l-0 m-r-0 m-b-20 m-t-25">
+                    <h4 *ngIf="staff_docs != null && staff_docs !=''" class="18 comment m-t-10">
+                        {{'commentslist.uploadassess' | translate}}</h4>
+                    <a *ngIf="staff_docs != null && staff_docs !=''" class="txt-gry3"  fxLayoutAlign="start center" href="{{staff_docs}}" target="_blank">
+                    <img src="assets/images/opalimages/pdf_new.svg"  class="document m-r-3"
+                                alt="document">View
+                    </a>
+                    <div class="company_dtlview" fxLayout="row wrap">
+                        <div *ngIf="card_mark != '' && card_mark != null" class="view_dtl m-t-25">
+                            <p class="m-0 comment fw">{{'staff.markscor' | translate}}</p>
+                            <span>{{card_mark}}</span>
+                        </div>
+                        <div *ngIf="card_percentage != '' && card_percentage != null" class="view_dtl m-t-25">
+                            <p class="m-0 comment fw">{{'staff.perc' | translate}}</p>
+                            <span>{{card_percentage}}</span>
+                        </div>
+                    </div>
+                    <h4 class="18 comment  m-b-10">{{'commentslist.coments' | translate}}</h4>
+                    <p [innerHTML]="card_comments" class="16 m-b-30">
+                    </p>
+                    <mat-divider></mat-divider>
+                    <div class="validinfo" fxLayout="row wrap">
+                        <p class="fs-16 txt-gry m-r-40">{{'commentslist.veryon' | translate}} : 
+                            <span class="fs-16 txt-gry3">{{appsit_appdecon | date:'dd-MM-yyyy'}}</span>
+                        </p>
+                        <p class="fs-16 txt-gry m-l-30">{{'commentslist.veryby' | translate}} : <span
+                                class="fs-16 txt-gry3">{{validated_by}}</span></p>
+                    </div>
+                </div>
+                <div *ngIf="decline" class="declinecmd m-l-0 m-r-0 m-b-20 m-t-25">
+                    <h4 class="18 comment  m-b-10">{{'commentslist.coments' | translate}}</h4>
+                    <p [innerHTML]="card_comments" class="16 m-b-30">
+                    </p>
+                    <mat-divider></mat-divider>
+                    <div class="validinfo" fxLayout="row wrap">
+                        <p class="fs-16 txt-gry m-r-40">{{'commentslist.veryon' | translate}} : 
+                            <span class="fs-16 txt-gry3">{{appsit_appdecon | date:'dd-MM-yyyy'}}</span>
+                        </p>
+                        <p class="fs-16 txt-gry m-l-30">{{'commentslist.veryby' | translate}} : <span
+                                class="fs-16 txt-gry3">{{validated_by}}</span></p>
+                    </div>
+                </div>
+            <!-- </ng-template> -->
+        </div>
+        <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center" *ngIf="!comment">
+            <!-- <button mat-raised-button class="cancelbtn" (click)="cancle()"></button> -->
+           <button mat-raised-button class="cancelbtn m-r-15 fs-16" type="button" (click)="cancelbtn()">{{'Back' | translate}}</button>
+           <!-- <button mat-raised-button class="submitbtn" type="button" (click)="subdate.emit()">{{'payment.subm' | translate}}</button> -->
+           </div>
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

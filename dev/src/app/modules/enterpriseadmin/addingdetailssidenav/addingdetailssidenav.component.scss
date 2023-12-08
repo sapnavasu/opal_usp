@@ -1,0 +1,114 @@
+@mixin flexcenter {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+@mixin flexstart {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+@mixin flexend {
+  display: flex;
+  justify-content: flex-end !important;
+  align-items: center !important;
+}
+@mixin spacebetween {
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+@mixin commancssforptag {
+  color: #333;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.companyinfomcp {
+  @include flexstart();
+  align-items: flex-start !important;
+
+  img {
+    width: 44px;
+    height: 44px;
+    border-radius: 2px;
+  }
+  .lypisid {
+    color: #666666;
+    font-size: 0.75rem;
+  }
+  p {
+    margin: 0;
+    line-height: 1;
+    color: #000;
+  }
+}
+.borderbottom {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+::ng-deep.tabsectionadmin .mat-tab-label:nth-child(2) {
+  margin-right: 0px !important;
+}
+.tabselectheadercontent {
+  padding-left: 10px;
+}
+
+.tabsectionadmin .selectionlogo i {
+  margin-right: 5px;
+}
+
+@media (max-width: 767px) {
+  .innnerpartofdrwer {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .selectproductheaderwithclose {
+    height: auto !important;
+  }
+  .selectproductheaderwithclose .titletext {
+    display: block !important;
+  }
+  .selectproductheaderwithclose .closeandadd {
+    margin-bottom: 10px;
+  }
+  .tabforclientelenew .mat-tab-group {
+    padding-top: 0 !important;
+  }
+  .tabsectionadmin .selectionlogo i {
+    font-size: 21px !important;
+  }
+  .addproductsmainselect .selectforward
+  {
+    justify-content: flex-end !important;
+  }
+  .addproductsmainselect .mat-card-header
+  {
+    display: block !important;
+  }
+}
+
+@media (max-width: 580px) {
+  .tabselectheadercontent {
+    padding-left: 0px !important;
+    p {
+      display: none;
+    }
+  }
+  .tabsectionadmin .mat-tab-label {
+    padding-right: 5px !important;
+    padding-left: 8px !important;
+  }
+  .tabsectionadmin .selectionlogo
+  {
+    margin-right:5px !important;
+  }
+  
+}
+
+.companyinfomcp,.borderbottom
+{
+  display:none !important;
+}
+

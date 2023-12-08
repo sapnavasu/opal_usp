@@ -1,0 +1,75 @@
+<!-- <div class="row" >
+  <a routerLink="" class="breadcrumb">Home / mastermaintance  </a>
+  <a  *ngFor="let breadcrumb of breadcrums" [routerLink]="[breadcrumb.url]">/ {{breadcrumb.label}}</a>
+</div>
+<div fxLayout="row wrap">
+    <div fxLayoutAlign="end" fxFlex="100" class="p-t-20 p-b-20 p-l-20 p-r-20">
+        <button mat-raised-button color="primary" [routerLink]="['/mastermaintance/managecurrency']">Manage Currency</button>
+    </div>
+</div> -->
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <!-- <mat-card-title>Segment Form</mat-card-title>         -->
+        <form [formGroup]="currencyForm" #currencyFormReset="ngForm" (ngSubmit)='addCurrency()'>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+                <!-- column -->
+                <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                    <div class="titletext">
+                        <div class="closeandadd">
+                            <i (click)="closeToggle()" class="bgi bgi-close p-l-25 fs-14"></i>
+                            <h5 class="m-0 p-l-20 tt" *ngIf="createbutton">Add currrency</h5>
+                            <h5 class="m-0 p-l-20 tt" *ngIf="updatebutton">Update currrency</h5>
+                        </div>
+                        <div class="clearandaddbutton">
+                            <button class="clearbutton height-35 m-r-10 p-l-20 p-r-20" mat-raised-button color="primary"
+                                (click)="clearForm();" type="reset">Reset</button>
+                            <button ngClass.xs="m-r-15" ngClass.sm="m-r-15" class="addbutton height-35 p-l-20 p-r-20"
+                                mat-raised-button color="apply" *ngIf="true" type="submit"
+                                [disabled]="!currencyForm.valid">{{buttonname}} </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" innnerpartofdrwer p-b-20">
+                <div fxLayout="row wrap" fxFlexAlign="center">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 spacing">
+                        <mat-form-field>
+                            <input matInput placeholder="Currency Symbol"
+                                [formControl]="currencyForm.controls['CurrSymbol']" required appAlphabetonly app-restrict-input="firstspace">
+                            <mat-error
+                                *ngIf="currencyForm.controls['CurrSymbol'].hasError('required') && currencyForm.controls['CurrSymbol'].touched"
+                                class="text-danger font-14">Enter Currency Symbol</mat-error>
+                            <mat-hint
+                                *ngIf="currencyForm.controls['CurrSymbol'].hasError('maxlength') &&  currencyForm.controls['CurrSymbol'].touched"
+                                class="text-danger font-14">Currency Code cannot exceed 3 characters.</mat-hint>
+                        </mat-form-field>
+
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-l-9 spacing">
+                        <mat-form-field>
+                            <input matInput placeholder="Currency Name"
+                                [formControl]="currencyForm.controls['CurrencyName']" required app-restrict-input="firstspace" appAlphabetonly>
+                            <mat-error
+                                *ngIf="currencyForm.controls['CurrencyName'].hasError('required') && currencyForm.controls['CurrencyName'].touched"
+                                class="text-danger font-14">Enter Currency Name</mat-error>
+                            <mat-hint
+                                *ngIf="currencyForm.controls['CurrencyName'].hasError('maxlength') && currencyForm.controls['CurrencyName'].touched"
+                                class="text-danger font-14">Currency Name cannot exceed 40 characters.</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <div class="aligncenteritem">
+                            <label class="m-r-20">Status :</label>
+                            <mat-checkbox class="example-margin" [formControl]="currencyForm.controls['Status']"
+                                [(ngModel)]="checked">Active </mat-checkbox>
+                        </div>
+                    </div>
+
+                    <input type="hidden" formControlName="currencyid" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

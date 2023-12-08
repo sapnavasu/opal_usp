@@ -1,0 +1,188 @@
+<!-- Add User Starts -->
+<mat-drawer-container class="example-container widthsetted">
+  <mat-drawer disableClose #drawer class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <div fxLayout="row wrap" class="sidenavmainrow">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <form class="sidenavform">
+          <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0">
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+              <div class="titletext">
+                <div class="closeandadd">
+                  <i (click)="showSweetAlert()" class="bgi bgi-close p-l-5 fs-14"></i>
+                  <h5 class="m-0 p-l-20 tt">  Contact<i (click)="toggleShowDiv('descriptioncontentcontactinfo')"
+                      class="bgi bgi-info"></i></h5>
+                </div>
+
+                <div class="clearandaddbutton">
+                  <button type="button" mat-raised-button color="primary"
+                    class="clearbutton height-35 m-r-10 p-l-20 p-r-20" (click)="clear()">Clear</button>
+                  <button type="button" [disabled]="disableUserAddButton" ngClass.xs="m-r-15" ngClass.sm="m-r-15"
+                    mat-raised-button (click)="onSubmit(1)"
+                    class="addbutton height-35 p-l-20 p-r-20">{{userbuttonname}}</button>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentcontactinfo"
+            [@slideInOut]="animationState">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0 p-l-15 p-r-15">
+              <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                <mat-card-header>
+                  <div class="titletext">
+                    <mat-card-subtitle class="informationtext fs-14">
+                      <!-- {{ helpContent }} -->
+                      Add the contact details of your company's employees who would be the point of contact for your company.
+                    </mat-card-subtitle>
+                  </div>
+
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxFlexAlign="center">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <!-- <div fxLayout="row wrap" class="borderbottom aligncenter">
+                <div fxFlex.gt-sm="70" fxFlex="100" class="companyinfomcp p-l-75">
+                  <img src="{{logoUrl}}" alt="upload logo">
+                  <div class="p-l-10">
+                    <p class="p-b-8 fs-15">{{ companyname }}</p>
+                    <p class="lypisid"><span>JSRS ID: </span> <span>{{lypisID}}</span></p>
+                  </div>
+                </div>
+
+              </div> -->
+              <div fxLayout="row wrap" class="innnerpartofdrwer tabforclientelenew" #scrollDiv>
+                <div *ngIf="forContact" fxLayout="row wrap" class="w-100">
+                  <div fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field>
+                      <mat-select [disableOptionCentering]="true" placeholder="Division"
+                        panelClass="select_with_search" [formControl]="businessUnitFormControl" (closed)="searchBusunit = ''"
+                        *ngIf="(businessunitlist | searchFilter: searchBusunit : 'SecM_SectorName') as result">
+                        <div class="searchinmultiselect">
+                          <i class="bgi bgi-search"></i>
+                          <input matInput class="searchselect" [(ngModel)]="searchBusunit" placeholder="Search"
+                            (keydown)="$event.stopPropagation();" [ngModelOptions]="{standalone: true}" autocomplete="off">
+                          <i (click)="searchBusunit = ''" class="reseticon" matSuffix
+                            *ngIf="searchBusunit !='' && searchBusunit !=null" class="bgi bgi-close"></i>
+                        </div>
+                        <div class="option-listing">
+                          <mat-option *ngFor="let businessunit of businessunitlist | searchFilter: searchBusunit : 'SecM_SectorName'" [value]="businessunit.SectorMst_Pk">
+                            {{businessunit.SecM_SectorName}}
+                          </mat-option>
+                          <div class="p-t-10" *ngIf="result.length == 0">
+                            No Division match your search criteria!
+                          </div>
+                        </div>
+
+                      </mat-select>
+                    </mat-form-field>
+                    <!-- <p><span class="notetext">Note:</span> If you not added Divisions yet. Kindly go to company
+                      information and create one.</p> -->
+                  </div>
+                </div>
+                <div fxFlex.gt-sm="100" fxFlex="100" class="tabsection" *ngIf="businessUnitFormControl.value">
+                  <mat-tab-group #tab [selectedIndex]="selectedTab" (selectedTabChange)="tabChange($event)">
+                    <mat-tab label="First">
+                      <ng-template mat-tab-label>
+                        <div class="tabselectheadercontent">
+                          <div class="selectionlogo">
+                            <i class="bgi bgi-Existing"></i>
+                          </div>
+                          <div class="selectiontext">
+                            <h4 class="resolutionwidth">Map Users</h4>
+                            <p class="savedresolution">Map the point of contacts for your company from your existing active users.
+                              </p>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <app-mapuser #mapuser (getSelectedUserName)="selectedUserName = $event" (selectedUsers)="selectedPk = $event;disableUserAddButton=false">
+                      </app-mapuser>
+                    </mat-tab>
+
+                    <mat-tab label="First">
+                      <ng-template mat-tab-label>
+                        <div class="tabselectheadercontent">
+                          <div class="selectionlogo">
+                            <i class="bgi bgi-New_icon align"></i>
+                          </div>
+                          <div ngClass.xs="p-t-10" ngClass.sm="p-t-10" class="selectiontext">
+                            <h4 class="createresolution p-t-20">{{usertabname}} Users</h4>
+                            <p class="savedresolution">
+                              {{usertabname}}OPAL user accounts for your company employees and map them to their respective departments once they are active.</p>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <app-addinguser *ngIf="loadAddUserComponent" #addUpdateUser [showAddDept]="true"
+                        [forContact]="true" [hideBusinessUnit]="true" [showAddDept]="true" [popupContentPrefix]="'Contact'"
+                        [businessUnitContact]="businessUnitFormControl.value" (addUserData)="addUserData($event)"
+                        (closeSideNav)="closeSideNav($event,'user')" (openDeptSideNav)="openDeptSideNav($event)"
+                        (editDeptData)="editDeptData($event)" (updateUserData)="reloadContactList($event)">
+                      </app-addinguser>
+                    </mat-tab>
+                  </mat-tab-group>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>
+<!-- Add User Ends -->
+
+<!-- Add Department Starts -->
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawerdept class="example-sidenav sidenavsamewidthall widthover" mode="over" position="end">
+    <div fxLayout="row wrap" class="sidenavmainrow">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <form class="sidenavform">
+          <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+              <div class="titletext">
+                <div class="closeandadd">
+                  <i (click)="showSweetAlertForDept()" class="bgi bgi-close p-l-5 fs-14"></i>
+                  <h5 class="m-0 p-l-20 tt">  Department</h5>
+                </div>
+                <div class="clearandaddbutton">
+                  <!-- <button mat-raised-button color="primary"
+                    class="clearbutton height-35 m-r-10 p-l-20 p-r-20">Clear</button> -->
+                  <button type="button" [disabled]="disableDeptAddButton" ngClass.xs="m-r-15" ngClass.sm="m-r-15"
+                    mat-raised-button (click)="addDepartmentData.saveModulePermission();onSubmit(2)"
+                    class="addbutton height-35 p-l-20 p-r-20">{{ deptbuttonname }}</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxFlexAlign="center">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div fxLayout="row wrap" class="borderbottom aligncenter">
+                <div fxFlex.gt-sm="70" fxFlex="100" class="companyinfomcp p-l-75">
+                  <img src="./assets/images/uploadthelogo.png" alt="upload logo">
+                  <div class="p-l-10">
+                    <p class="p-b-8 fs-15">{{ companyname }}</p>
+                    <p class="lypisid"><span>OPAL ID: </span> <span>554545</span></p>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" class="innnerpartofdrwer tabforclientelenew">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="tabsection">
+                  <app-dept class="w-100" *ngIf="loadAddDeptComponent" #addDepartmentData
+                    (addDeptData)="addDeptData($event)" (closeSideNav)="closeSideNav($event)"></app-dept>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>
+<!-- Add Department Ends -->

@@ -1,0 +1,302 @@
+#main-container {
+    background-image: linear-gradient(34deg, #ffffff 55%, #FBFBFB 30%);
+
+    .red {
+        color: #ED1C27 !important;
+    }
+
+    .verifybutton {
+        border-radius: 20px;
+    }
+
+    .txt-gry {
+        color: #626366
+    }
+
+    .topbar {
+        height: auto !important;
+        // background-image: linear-gradient(34deg, #ffffff 55%, #FBFBFB 30%);
+        background-image: linear-gradient(47deg, #ffffff 53%, #FBFBFB 30%);
+        padding: 0px !important;
+        @media (max-width: 1025px) {
+            background-image: linear-gradient(47deg, #ffffff 53%, #ffffff 30%) !important;
+        }
+    }
+
+    .main-header {
+        background-image: linear-gradient(180deg, transparent 50%, #ffffff 50%) !important;
+        @media (max-width: 1025px) {
+            background-image:linear-gradient(47deg, #ffffff 53%, #ffffff 30%) !important;
+        }
+        .maxwidthinnerpart {
+            width: 95%;
+            max-width: 1366px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    }
+
+    .Standardised {
+        .head-logo {
+            .header_logo {
+                width: 70px;
+                
+            }
+        }
+
+        .nav-head {
+            .mailandnumber {
+                @media (max-width: 1025px) {
+                    display: none !important;
+                }
+            }
+        
+            .omanlogo{
+                img{
+                    height:115px !important;
+                }
+                
+            }
+        }
+
+        .icon-cont {
+            gap: 12px;
+
+            a {
+                &:first-child {
+                    img {
+                        width: 10px !important;
+                    }
+                }
+
+                .opalicon{
+                    background-color: #fff;
+                    padding: 5px;
+                    border-radius: 4px;
+                    &:hover{
+                        background-color: #ED1C27;
+                        color: #fff;
+                    }
+                }
+            }
+
+            .bgi {
+                color: #626366;
+            }
+        }
+
+        .mat-divider {
+            height: 17px;
+
+            .mat-divider-vertical {
+                border-right-color: #c4c4c4;
+            }
+        }
+        .menu_btn {
+           .mat-icon {
+            background-color: #ED1C27;
+            color: #ffffff;
+            height: 30px;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           }
+        }
+        .menubar-items {
+            background-color: #ffffff;
+
+            .menu_btn {
+                display: none;
+
+                @media (max-width: 1025px) {
+                    display: block;
+                }
+            }
+
+            .mainmenu {
+                gap: 5px;
+
+                @media(max-width: 1025px) {
+                    display: none !important;
+                }
+
+                li {
+                    list-style: none;
+                    text-decoration: none;
+
+                    a {
+                        // font-weight: 400;
+                        font-family:'opal_semibold';
+                        color: #7a7a7a;
+
+                        &:hover {
+                            color: #ED1C27;
+                            // text-decoration: underline;
+                        }
+
+                        &:focus {
+                            color: #ED1C27;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .mat-drawer {
+        width: 200px !important;
+        box-shadow: 0 5px 5px -3px #0003, 0 8px 10px 1px #00000024, 0 3px 14px 2px #0000001f;
+    }
+
+    a {
+        color: #626366;
+
+        &:hover {
+            color: #ED1C27;
+        }
+    }
+
+    .logbtn {
+        background-color: #ED1C27;
+        color: #ffff;
+        box-shadow: none;
+        border-radius: 2px;
+        font-family: "IBM Plex Sans",Sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+       
+    }
+
+    .regbtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            color: #ED1C27 !important;
+        }
+    }
+
+    .lanbtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            color: #ED1C27 !important;
+        }
+    }
+
+    .mat-drawer-backdrop {
+        position: fixed !important;
+    }
+
+    #sidenav {
+        .mat-drawer {
+            width: 100%;
+            background-color: #58626e;
+        }
+
+    }
+
+    .nav_row {
+        gap: 7px;
+    }
+
+    .mat-drawer {
+        width: 100%;
+
+        .close {
+            color: #ffff;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            opacity: 1;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ED1C27;
+        }
+
+        .mat-list-base {
+            display: block !important;
+            margin: 0 auto;
+            position: relative;
+
+            a {
+                margin: 0 auto;
+                width: 100%;
+                text-align: left;
+                color: #626366;
+
+                &:focus {
+                    color: #ED1C27;
+                }
+            }
+        }
+
+    }
+
+        .menu_btn {
+            display: none;
+
+            @media (max-width: 1025px) {
+                display: block !important;
+            }
+        } 
+        .language {
+            display: none !important;
+
+            @media (max-width: 768px) {
+                display: block !important;
+            }
+        } 
+        .loginarrowone {
+            display: none !important;
+           @media (min-width: 768px) and (max-width: 1025px) {
+            display: block !important;
+           }
+        }
+        .headerlogin {
+            display: none !important; 
+            @media (max-width: 768px) {
+                display: block !important;
+            }
+        }
+        .loginarrow {
+            display: block;
+
+            @media (max-width: 1025px) {
+                display: none !important;
+            }
+        }
+
+}
+
+// body.loginpage{
+//     #main-container{
+//         .logbtn{
+
+//             background: #ececec !important;
+//             pointer-events: none;
+//             color: #999 !important;
+//         }
+//     }
+// }
+
+.disabled {
+    cursor: no-drop !important;
+    pointer-events: none;
+    opacity: 0.2;
+    background-color: #626366 !important;
+}
+
+[dir=rtl] {
+    .topbar  {
+        background-image: linear-gradient(122deg, #fbfbfb 55%, #ffffff 30%) !important;
+    }
+}

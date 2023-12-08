@@ -1,0 +1,183 @@
+<div fxLayout="row wrap" ngClass.sm="p-r-15 p-l-15 mastercompnaycontent" ngClass.xs="p-r-15 p-l-15 mastercompnaycontent"
+    class="mastercompnaycontent">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+                <div class="topheadermain">
+                    <div class="imagewithtext">
+                        <h4 class="p-l-20 mat-pagetitle-1">Master Company Profile</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="center" class=" organizationdetail" id="mastercompanydetail" class="m-t-40">
+            <div fxFlex.gt-sm="83.33" fxFlex="100">
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div class="progressandhistory">
+                            <div class="pagetitlenew">
+                                <h4 class="mat-pagetitle-2">4. Contact Information</h4>
+                            </div>
+
+                        </div>
+                        <mat-accordion class="commonexpandandcollapse m-t-15">
+                            <div fxLayout="row wrap" fxLayoutAlign="" class="triggeredto" id="cust1">
+                                <div fxFlex.gt-sm="100" fxFlex="100">
+                                    <mat-expansion-panel [expanded]="panel === panelNo" (opened)="panel = panelNo">
+                                        <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                                            [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                                            <mat-panel-title>
+                                                <div class="accrodianheader">
+                                                    <p class="header m-0 fs-15">
+                                                        <span class="pagenumberinprofile"
+                                                            [class.completed]="resultsLength">4.{{panelNo}}</span>
+                                                        <span>Contact Information</span>
+                                                    </p>
+                                                </div>
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <div fxLayout="row wrap" class="organisationinfo">
+                                            <div fxFlex.gt-sm="100" fxFlex="100">
+                                                <div fxLayout="row wrap">
+                                                    <div fxFlex.gt-sm="100" fxFlex="100">
+                                                        <div fxLayout="row wrap" class="certiticatecounts m-b-20">
+                                                            <div ngClass.xs="m-l-0" ngclass.sm="m-l-15"
+                                                                fxFlex.gt-sm="66" fxFlex="100" class="width">
+                                                                <mat-paginator
+                                                                    [style.visibility]="(resultsLength > 3) ? 'visible' : 'hidden' "
+                                                                    class="masterPage masterPageTop" #paginator
+                                                                    [length]="resultsLength" [pageSize]="perpage"
+                                                                    (page)="onPaginateChange($event)"
+                                                                    [pageSizeOptions]="paginationSet">
+                                                                </mat-paginator>
+                                                            </div>
+
+                                                            <div ngClass.lg="searchinfo" ngC lass.md="searchinfo"
+                                                                ngClass.xs="searchinfo start"
+                                                                ngclass.sm="searchinfo start" fxFlex.gt-sm="34"
+                                                                fxFlex="100" class="searchinfo widthsecond">
+                                                                <mat-form-field class="m-r-15" *ngIf="overallcnt > 0">
+                                                                    <input (keydown.enter)="$event.preventDefault()"
+                                                                        autocomplete="off" placeholder="Search" matInput
+                                                                        [(ngModel)]="searchmarketpresence">
+                                                                    <button mat-button matSuffix mat-icon-button
+                                                                        aria-label="Search" (click)="onFilterSubmit()">
+                                                                        <mat-icon matSuffix>search</mat-icon>
+                                                                    </button>
+                                                                    <button mat-button *ngIf="searchmarketpresence"
+                                                                        matSuffix mat-icon-button aria-label="Clear"
+                                                                        (click)="searchmarketpresence = '';onFilterSubmit()">
+                                                                        <mat-icon>close</mat-icon>
+                                                                    </button>
+                                                                </mat-form-field>
+
+                                                                <div class="showfilterandadditem m-b-0">
+                                                                    <button
+                                                                        (click)="loadAddComponent = true;addbranchoff()"
+                                                                        type="button" mat-raised-button color="preview"
+                                                                        class="height-35 ">
+                                                                        Add
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div fxLayout="row wrap" class="" *ngIf="achivementData?.length > 0" >
+                                                    <div fxFlex.gt-sm="100" fxFlex="100">
+                                                        <div class="addedcertificate">
+                                                            <div class="certificates">
+                                                                <div class="certificateicon">
+                                                                    <i class="bgi bgi-Business_Source cursorupoint"
+                                                                        matTooltip=""></i>
+                                                                    <!-- <img src="./assets/images/nocertificateimage.png" alt="certiticate"> -->
+                                                                </div>
+                                                                <div class="certificateinfo">
+                                                                    <h4 class="header">Ministry of Energy and Minaral Development (MEMD)</h4>                                                                    
+                                                                    <h5 class="m-t-5 fs-14 txt-6">Address</h5>
+                                                                    <p class="m-t-0">
+                                                                        2nd Floor,Building 4 (KOM4),Knowledge Oasis Muscut, Al Rusail,Muscut Government,Sultane of Oman,<br>
+                                                                        Muscat Expy,Seeb,Oman
+                                                                    </p>
+                                                                        <div class="d-flex">
+                                                                            <div class="w-50">
+                                                                                <p ><span class="txt-6">Land:</span><span>+986 2416 6100</span></p>
+                                                                                <p ><span class="txt-6">Fax:</span><span>+986 2416 6104</span></p>
+                                                                            </div>
+                                                                            <div class="w-50">
+                                                                                <p ><span class="txt-6">Email:</span><span>info@energyminral.com</span></p>
+                                                                                <p ><span class="txt-6">Website:</span><span>www.energyiminaral.og.ug</span></p>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="editanddelete">
+                                                                <span class="edit m-r-20"><i
+                                                                        class="bgi bgi-edit1 cursorupoint"
+                                                                        matTooltip="Edit"></i></span>
+                                                                <span matTooltip="Delete" class="delete"><i
+                                                                        class="bgi bgi-delete"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row wrap" *ngIf="!achivementData"
+                                                    class="m-t-0 noducumentaddedyet">
+                                                    <div fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                                        <div fxFlex.gt-sm="100" fxFlex="100">
+                                                            <img src="./assets/images/no_records.svg" alt="nocollateral">
+                                                            <p class="fs-16 lypisfont-bold  header m-0 lh-25 p-t-20">
+                                                                There's nothing in here, yet
+                                                            </p>
+                                                            <p class="fs-14 lypisfont-regular m-0 txt-gray9 p-b-20">
+                                                                Adding your achievements would give
+                                                                more
+                                                                credibility to your profile.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30"
+                                                    *ngIf="resultsLength > 3">
+                                                    <div fxFlex.gt-sm="100" fxFlex="100">
+                                                        <mat-paginator class="masterPage masterbottom"
+                                                            showFirstLastButtons
+                                                            (page)="onPaginateChange($event);syncPrimaryPaginator($event);"
+                                                            [pageSize]="paginator?.pageSize"
+                                                            [pageIndex]="paginator?.pageIndex"
+                                                            [length]="paginator?.length"
+                                                            [pageSizeOptions]="paginator?.pageSizeOptions">
+                                                        </mat-paginator>
+                                                    </div>
+                                                </div>
+                                                <div fxLayout="row" fxLayoutAlign="end" class="m-t-30 cancelandpublish">
+                                                    <button type="button" mat-raised-button color="secondary"
+                                                        (click)="openPrev()"
+                                                        class="m-r-12 button-40 previousbutton">Previous</button>
+                                                    <button type="button" mat-raised-button color="primary"
+                                                        (click)="openNext()" class=" button-40 nextbutton">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </div>
+                            </div>
+                        </mat-accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<mat-drawer-container class="example-container">
+    <mat-drawer disableClose #drawer class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+        <app-addcontact *ngIf="loadAddComponent" #addmarketpresence [drawer]="drawer" [companyname]="companyname"
+            [locationType]="locationType" [countrylist]="countrylist" [sideNavHeaderName]="'Branch Office'"
+            [namePlaceholder]="'Branch Office Name'" [addressPlaceholder]="'Office Address'"
+            [popupContentPrefix]="'Branch Office'" (marketpresencelist)="updatedList($event)" [perpage]="perpage"
+            [logoUrl]="logoUrl" [hidePropertyType]="true" [dyHelpContent]="dyHelpContent"
+            [helpContent]="'Fill in the details of your registered branches. Branches are outlets at different locations that don’t constitute a separate legal entity.'">
+        </app-addcontact>
+    </mat-drawer>
+</mat-drawer-container>

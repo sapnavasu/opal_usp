@@ -1,0 +1,255 @@
+@mixin flexcenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin flexspace {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .aligncenter {
+    align-items: center !important;
+  }
+  .topheadermain {
+    @include flexspace();
+    color: #fff !important;
+    .imagewithtext {
+      display: flex ;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
+.topheadermain{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flexsame{
+  display: flex;
+  align-items: baseline;
+}
+.spancolor{
+  color:white;
+}
+::ng-deep.block .mat-paginator-range-label {
+  display: contents;
+}
+.responsiveblock{
+  display: block !important;
+} 
+.flexstartspacing{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+.responsive{
+  display: flex !important;
+  justify-content: space-between;
+}
+@media (max-width: 767px){
+  .imagewithtext {
+    display: flex !important;
+  }
+  ::ng-deep.masterbottom .mat-paginator-range-label {
+    margin: 0 20px 0 10px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterbottom .mat-paginator-page-size {
+    display: flex;
+    align-items: baseline;
+    margin-right: 55px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterbottom .mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    padding: 0px;
+    flex-wrap: wrap-reverse;
+    width: 294px;
+} 
+::ng-deep.masterTable .mat-row .mat-cell .mat-success {
+  background: #71c015 !important;
+  width: 50px;
+}
+::ng-deep.masterTable .mat-row .mat-cell .mat-error {
+  background: #e53935 !important;
+  width: 58px;
+}
+::ng-deep.topheadermain .imagewithtext {
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+}
+::ng-deep.masterPageTop .mat-paginator-outer-container {
+  width: 183px;
+  display: flex;
+}
+::ng-deep.masterbottom .mat-paginator-outer-container {
+display: flex;
+justify-content: center;
+}
+  ::ng-deep.masterbottom .mat-paginator-range-actions {
+    display: contents !important;
+   
+}
+::ng-deep.masterPage .mat-paginator-range-label {
+  margin: 0 32px 0 6px;
+  font-size: 0.75rem;
+}
+::ng-deep.masterPage .mat-paginator-page-size {
+  
+  font-size: 0.75rem;
+}
+
+label.m-r-20 {
+margin-right: 6px !important;
+}
+.topheadermain{
+  display: block !important;
+}
+.topbreadcrumb{
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+}
+@media (min-width: 550px){
+  .responsiveblock{
+    display: flex!important;
+  } 
+  .topheadermain{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+::ng-deep.masterPage .mat-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 56px;
+  padding: 0px;
+  flex-wrap: wrap-reverse;
+  width:100%;
+}    
+}
+
+@media (min-width: 350px){
+  .topheadermain{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+
+.placeholder-content {
+  height: 216px;
+  background: #000;
+  position: relative; 
+  animation-duration: 1.7s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: placeholderAnimate;
+  background: #f6f7f8; 
+  background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+  background-size: 1300px; 
+}
+  .placeholder-content_item {
+      width: 100%;
+      height: 20px;
+      position: absolute;
+      z-index: 2;
+}
+
+     .placeholder-content_item:after,
+     .placeholder-content_item:before {
+          width: inherit;
+          height: inherit;
+          content: '';
+          position: absolute;
+      }
+      .pagetitle:before {
+        width: inherit;
+        height: inherit;
+        content: '';
+        position: absolute;
+    }
+
+
+@keyframes placeholderAnimate {
+  0%{ background-position: -650px 0; }
+  100%{ background-position: 650px 0; }
+}
+.pagetitle{
+height: 44px;
+width:136px;
+background: #000;
+position: relative;
+animation-duration: 1.7s;
+animation-fill-mode: forwards;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+animation-name: pagetitleAnimate;
+background: #f6f7f8; 
+background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+background-size: 1300px; 
+}
+@keyframes pagetitleAnimate {
+0%{ background-position: -650px 0; }
+100%{ background-position: 650px 0; }
+}
+.justify{
+display: flex;
+align-items: center;
+justify-content:flex-end;
+}
+.justifyspace{
+display: flex;
+align-items: center;
+justify-content:flex-end;
+}
+
+@keyframes placeholderAnimate {
+0%{ background-position: -650px 0; }
+100%{ background-position: 650px 0; }
+}
+.pagetitlefooter{
+height: 44px;
+width: 86px;
+background: #000;
+position: relative;
+animation-duration: 1.7s;
+animation-fill-mode: forwards;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+animation-name: pagetitleAnimate;
+background: #f6f7f8; 
+background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+background-size: 1300px; 
+}
+@keyframes pagetitleAnimate {
+0%{ background-position: -650px 0; }
+100%{ background-position: 650px 0; }
+}
+.pagetitlefooter:before {
+width: inherit;
+height: inherit;
+content: '';
+position: absolute;
+}

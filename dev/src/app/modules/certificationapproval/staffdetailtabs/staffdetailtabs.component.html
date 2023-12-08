@@ -1,0 +1,502 @@
+<div fxLayout="row wrap">
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+    <div fxFlex.gt-sm="100" fxFlex="100" id="staffdetaillist">
+        <div class="documentheader p-t-45" fxLayoutAlign="flex-start center">
+            <h4 class="fs-18 m-0 m-r-20">{{'staff.staff' | translate}}</h4>
+            <span class="badge new" *ngIf="this.overallstatus == 1">{{'institue.new' | translate}}</span>
+            <span class="badge update" *ngIf="this.overallstatus == 2">{{'institue.updated' | translate}}</span>
+            <span class="badge appr" *ngIf="this.overallstatus == 3">{{'institue.appr' | translate}}</span>
+            <span class="badge decl" *ngIf="this.overallstatus == 4">{{'company.decl' | translate}}</span>
+        </div>
+        <div class="paginationwithfilter masterPageTop ">
+            <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                
+            <div fxLayout="row wrap" fxLayoutAlign="end">
+                <div fxFlex.gt-sm="100" fxLayout="row wrap" fxFlex="100">
+                    <div class="m-r-10" *ngIf="projectpk == 1">
+                     <app-viewvalidation [hidebtn]="true" [newbtn]="true"   [callbackFn]="onValidation"  [isDisabled] = 'isValidated' *ngIf="type == 'desktopreview'"></app-viewvalidation>
+                    </div>
+                    <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                        class="filter height-45">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable">
+                      <!-- show and hide -->
+                      <button mat-button [matMenuTriggerFor]="staffColumn" class="editcolumn">
+                        <mat-icon aria-hidden="false"
+                            aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #staffColumn="matMenu" class="master-menu edit-column-menu">
+                            <div class="table-config-menu-options" fxLayout="column">
+                                <mat-checkbox #staffChkbox [(ngModel)]="selectAllStaff"
+                                    (change)="selectAllstaffListDataFun($event)"> {{ 'All' | translate}}
+                                </mat-checkbox>
+                                <ng-container *ngFor="let staff_list of staffrecordcolumn; let i = index">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                        [(ngModel)]="staff_list.DataVisible" #columnchkbox
+                                        (change)="updateSelectAllstaffListData(staff_list)">
+                                        {{staff_list.label | translate}}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </mat-menu>
+                    </button>
+                    <mat-table #table class="scrolldata" [dataSource]="staffListData" matSortActive="appostaffinfotmp_pk"  matSortDirection="desc"  matSort multiTemplateDataRows matSort matSortDisableClear>
+                        <ng-container matColumnDef="checkbox">
+                            <mat-header-cell fxFlex="65px" mat-header-cell *matHeaderCellDef><mat-checkbox #ChkBox  (change)="selectAllFun($event.checked)" 
+                                class="example-margin" ></mat-checkbox>
+                            </mat-header-cell>
+                            <mat-cell data-label="checkbox" fxFlex="65px" *matCellDef="let coursedata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> <mat-checkbox   #dataChkBox class="example-margin" value={{coursedata.appostaffinfotmp_pk}}   (change)="validationcheck($event,coursedata.appostaffinfotmp_pk)" [checked]="arr != undefined &&  arr.length != 0 &&  arr.includes(coursedata.appostaffinfotmp_pk)"></mat-checkbox></div> 
+                                
+                            </mat-cell>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="sir_idnumber">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.civinumb' | translate}}</mat-header-cell>
+                            <mat-cell data-label="{{'batch.batchno' | translate}}" fxFlex="250px" *matCellDef="let coursedata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">    {{coursedata.sir_idnumber}} </div></mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_name_en">
+                            <mat-header-cell fxFlex="300px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.stafname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="300px" *matCellDef="let coursedata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">   {{coursedata.sir_name_en}}</div> </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_emailid">
+                            <mat-header-cell fxFlex="300px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.emaiid' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="300px" *matCellDef="let coursedata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder"> {{coursedata.sir_emailid}}</div>       </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_dob">
+                            <mat-header-cell fxFlex="90px" mat-header-cell *matHeaderCellDef
+                                >{{'staff.age' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="90px" *matCellDef="let coursedata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">{{coursedata.age}}</div>       </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_gender">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.gend' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="160px" *matCellDef="let coursedata">
+                                    
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">{{coursedata.sir_gender == 1?'Male':'Female'}}</div>  </mat-cell>
+                        </ng-container>
+                        <!-- national -->
+                        <ng-container matColumnDef="ocym_countryname_en">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Nationality' | translate}}</mat-header-cell>
+                                <mat-cell data-label="national" fxFlex="200px" *matCellDef="let coursedata">
+                                    
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">{{coursedata.ocym_countryname_en}}</div>  </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appsit_contracttype">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.conttype' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="160px" *matCellDef="let coursedata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder"> {{coursedata.appsit_contracttype  == 1?'Temporary':'Permanent'}}</div>   </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appsit_mainrole">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.mainrole' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="160px" *matCellDef="let coursedata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">
+                                        <!-- {{coursedata.appsit_mainrole}} -->
+                                        <div *ngIf="ifarabic == true" fxFlex="100">
+                                      
+                                        {{coursedata.appsit_mainrole?.split(',')[0]}}
+                                        <span
+                                            *ngIf="coursedata.appsit_mainrole?.split(',').length>1"  style="cursor: pointer;" matTooltip="{{coursedata.appsit_mainrole}}">(+{{coursedata.appsit_mainrole?.split(',').length-1}})</span>
+                                    </div>
+                                    <div *ngIf="ifarabic == false" fxFlex="100">
+                                       
+                                        {{coursedata.appsit_mainrole?.split(',')[0]}}
+                                        <!-- <span
+                                            *ngIf="coursedata.appsit_mainrole?.split(',').length>1">(+{{coursedata.appsit_mainrole?.split(',').length-1}})</span> -->
+                                            <span *ngIf="coursedata.appsit_mainrole?.split(',').length>1" style="cursor: pointer;" matTooltip="{{coursedata.appsit_mainrole?.split(',').slice(1).join(',')}}"> (+ {{coursedata.appsit_mainrole?.split(',').length-1}}) </span>
+
+                                    </div>
+                                    </div>  
+                                    <!-- <div *ngIf="!tblplaceholder && coursedata.appsit_mainrole  == 12"> {{'Trainer'}}</div>  -->
+                                
+                                
+                                </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appsit_roleforcourse">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Roles' | translate}}</mat-header-cell>
+                                <mat-cell data-label="appsit_role" fxFlex="160px" *matCellDef="let coursedata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">
+                                        <!-- {{coursedata.appsit_mainrole}} -->
+                                        <div *ngIf="ifarabic == true" fxFlex="100">
+                                      
+                                        {{coursedata.appsit_roleforcourse?.split(',')[0]}}
+                                        <span
+                                            *ngIf="coursedata.appsit_roleforcourse?.split(',').length>1"  style="cursor: pointer;" matTooltip="{{coursedata.appsit_roleforcourse}}">(+{{coursedata.appsit_roleforcourse?.split(',').length-1}})</span>
+                                    </div>
+                                    <div *ngIf="ifarabic == false" fxFlex="100">
+                                       
+                                        {{coursedata.appsit_roleforcourse?.split(',')[0]}}
+                                        <!-- <span
+                                            *ngIf="coursedata.appsit_mainrole?.split(',').length>1">(+{{coursedata.appsit_mainrole?.split(',').length-1}})</span> -->
+                                            <span *ngIf="coursedata.appsit_roleforcourse?.split(',').length>1" style="cursor: pointer;" matTooltip="{{coursedata.appsit_roleforcourse?.split(',').slice(1).join(',')}}"> (+{{coursedata.appsit_roleforcourse?.split(',').length-1}}) </span>
+
+                                    </div>
+                                    </div>  
+                                </mat-cell>
+                        </ng-container>
+                        <!-- inspeaction -->
+                        <ng-container matColumnDef="appsit_apprasvehinspcattmp_fk">
+                            <mat-header-cell fxFlex="220px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Inspection Categories' | translate}}</mat-header-cell>
+                                <mat-cell data-label="inspection" fxFlex="220px" *matCellDef="let coursedata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">
+
+                                        {{coursedata.coursesubcatname_en?.split(',')[0]}}
+                                        <span
+                                            *ngIf="coursedata.coursesubcatname_en?.split(',').length>1"  style="cursor: pointer;" matTooltip="{{coursedata.coursesubcatname_en?.split(',').slice(1).join(',')}}">(+{{coursedata.coursesubcatname_en?.split(',').length-1}})</span>
+
+                                    </div>   </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appsit_status">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.Stat' | translate}}</mat-header-cell>
+                            <mat-cell data-label="{{'batch.branchname' |
+                            translate}}" fxFlex="160px" *matCellDef="let coursedata">
+                            <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">  
+                                        <p (click)="expandedElement = expandedElement === coursedata ? null : coursedata" *ngIf="coursedata.appsit_status == '3'" class="print flexaligntag">{{'staff.appr' | translate}}<img matTooltip="{{'table.tool'|translate}}" class="p-l-15" src="assets/images/statusicon.svg" alt="statusicon"></p>
+                                        <p  (click)="expandedElement = expandedElement === coursedata ? null : coursedata" *ngIf="coursedata.appsit_status == '4'"  class="declined flexaligntag">{{'staff.decl' | translate}}<img class="p-l-15" matTooltip="{{'table.tool'|translate}}" src="assets/images/statusicon.svg" alt="statusicon"></p>
+                                        <p  (click)="expandedElement = expandedElement === coursedata ? null : coursedata" *ngIf="coursedata.appsit_status == '2'"  class="update flexaligntag">{{'staff.upda' | translate}}<img class="p-l-15" matTooltip="{{'table.tool'|translate}}" src="assets/images/statusicon.svg" alt="statusicon"></p>
+                                        <p (click)="expandedElement = expandedElement === coursedata ? null : coursedata" *ngIf="coursedata.appsit_status == '1'"  class="red">{{'staff.new' | translate}}</p>
+                                        <!-- <p (click)="expandedElement = expandedElement === coursedata ? null : coursedata"  *ngIf="coursedata.appsit_status == '2'"  class="update">{{'staff.upda' | translate}}</p> -->
+                                        </div>
+                           
+                              </mat-cell>
+                        </ng-container> 
+                     <!-- comp -->
+                     <ng-container matColumnDef="comp_card">
+                        <mat-header-cell fxFlex="220px" mat-header-cell *matHeaderCellDef
+                            mat-sort-header>{{'Competency Card' | translate}}</mat-header-cell>
+                            <mat-cell data-label="comp_card" fxFlex="220px" *matCellDef="let coursedata">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> 
+                                    <span *ngIf="coursedata.competcard == '1'"
+                                    class="new">{{'New'}}</span>
+                                    <span *ngIf="coursedata.competcard == '2'"
+                                    class="approved">{{'Active'}}</span>
+                                <span *ngIf="coursedata.competcard == '3'" class="declined">{{'Expired'}}</span>
+                                <span *ngIf="coursedata.competcard == '4'"
+                                class="update">{{'Posted for Card Upgrade'}}</span>
+
+
+                                </div>   </mat-cell>
+                    </ng-container>
+                        <ng-container matColumnDef="appsit_createdon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.addeon' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="263px" *matCellDef="let coursedata">
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">  
+
+                                        {{coursedata.appsit_updatedon?(coursedata.appsit_updatedon | date: 'dd-MM-yyyy'):'-'}}
+                                    </div>  </mat-cell>                        </ng-container>
+                        <ng-container matColumnDef="appsit_updatedon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'staff.lastupdaon' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="263px" *matCellDef="let coursedata">
+                                   
+                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                     <div *ngIf="!tblplaceholder">  
+
+                                        {{coursedata.appsit_updatedon?(coursedata.appsit_updatedon | date: 'dd-MM-yyyy'):'-'}}
+                                    </div>  </mat-cell>                        </ng-container>
+                        <ng-container matColumnDef="action" stickyEnd>
+                             <mat-header-cell fxFlex="125px" mat-header-cell *matHeaderCellDef                               >{{'staff.acti' | translate}}</mat-header-cell>
+                                <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="125px" *matCellDef="let coursedata">                                    <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                    <div *ngIf="!tblplaceholder">
+            
+                                        <span class="viewtextcolor fs-14">
+                                         <span *ngIf="coursedata.appdt_status != '2' &&  coursedata.appdt_status != '4' || type == 'view'"  (click)="action(coursedata.appostaffinfotmp_pk , type , '1')">{{'staff.view' | translate}}</span>   
+                                         <span *ngIf="coursedata.appdt_projectmst_fk == 4 && (coursedata.appdt_status == '2' || coursedata.appdt_status == '4') && type == 'desktopreview'">
+                                            
+                                                <span *ngIf="(coursedata.appdt_apptype == 1  && coursedata.appsit_iscarddetails == 2)
+                                                 || (coursedata.appsit_iscarddetails == 1 || coursedata.appsit_iscarddetails == 3)
+                                                  || (coursedata.appsit_status == 1) 
+                                                   || (coursedata.appsit_iscarddetails == 2 && coursedata.appsit_status == 2 && coursedata.appdt_status == 4 && !coursedata.staffevaluationtmp_pk ) 
+                                                   &&  (type == 'desktopreview')" (click)="action(coursedata.appostaffinfotmp_pk , type , '2')">  View and Evaluate </span>
+                                                <span 
+                                                *ngIf="(coursedata.appdt_apptype == 2  && coursedata.appsit_iscarddetails == 2 && coursedata.appsit_status == 2 && coursedata.appdt_status == 2) ||
+                                                  ((coursedata.appdt_apptype == 3  || coursedata.appdt_apptype == 2 ) && coursedata.appsit_iscarddetails == 2 && (coursedata.appsit_status != 1) && coursedata.staffevaluationtmp_pk  )  || 
+                                                   (coursedata.appdt_apptype == 2  && (coursedata.appsit_iscarddetails == 1 ||  coursedata.appsit_iscarddetails == 3) && type == 'view') " (click)="action(coursedata.appostaffinfotmp_pk , type , '1')">  View and Evaluate </span>
+                                           </span> 
+                                         <span *ngIf="coursedata.appdt_projectmst_fk == 1 && ( coursedata.appdt_status == '2' || coursedata.appdt_status == '4')" (click)="action(coursedata.appostaffinfotmp_pk , type , '1')">View</span>  
+                                        </span>
+                                     </div> </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell fxFlex="100"  *matCellDef="let element" [attr.colspan]="staffListData.length">                             <div *ngIf="element === expandedElement"> 
+                                <div class="example-element-detail"
+                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" *ngIf="element.appsit_status == '3' || element.appsit_status == '4'">
+                             <div class="example-element-diagram"  [ngClass]="element.appsit_status == 4 ? 'declinecmd' : 'successcmd'">
+                                 <div fxLayout="row" fxLayoutAlign="space-between center">
+                                     <p class="fs-18 comment m-0">{{'institue.declcomm' | translate}}  </p>
+                                     <mat-icon  class="fs-18 comment close" matTooltip="{{'table.close'|translate}}" (click)="toggleExpansion()">close</mat-icon>
+                                    </div>
+                                     <p class="16 m-b-30" [innerHtml]='element.status'> </p>
+                                         <mat-divider></mat-divider>
+                                        <div class="validinfo"  fxLayout="row wrap" >
+                                         <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{element.appsit_appdecon?(element.appsit_appdecon | date: 'dd-MM-yyyy'):'-'}} </span></p>                                         <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{element.username}} </span></p>
+                                        </div>
+                             </div>
+                           </div>
+                           <div class="example-element-detail"
+                           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" *ngIf="element.appsit_status == '2'">
+                        <div class="example-element-diagram"  [ngClass]="element.hisstatus == 4 ? 'declinecmd' : 'successcmd'">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <p class="fs-18 comment m-0">{{'institue.declcomm' | translate}}  </p>
+                                <mat-icon  class="fs-18 comment close" matTooltip="{{'table.close'|translate}}" (click)="toggleExpansion()">close</mat-icon>
+                               </div>
+                                <p class="16 m-b-30" [innerHtml]='element.status'> </p>
+                                    <mat-divider></mat-divider>
+                                   <div class="validinfo"  fxLayout="row wrap" >
+                                    <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{element.appsit_appdecon?(element.appsit_appdecon | date: 'dd-MM-yyyy'):'-'}} </span></p>                                    <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{element.username}} </span></p>
+                                   </div>
+                        </div>
+                      </div>
+                        </div>
+                            </td>
+                          </ng-container>
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="65px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="sir_idnumber">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="300px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="sir_name_en">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="300px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="sir_emailid">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="90px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                              
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'staff.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="sir_gender" multiple>
+                                        <mat-option value="1">{{'Male' | translate}}</mat-option>
+                                        <mat-option value="2">{{'Female' | translate}}</mat-option>
+                                        
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- natioanl -->
+                        <ng-container matColumnDef="row-national">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' | translate}}</mat-label>
+                                        <input matInput [formControl]="ocym_countryname_en">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-seven">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'staff.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="appsit_contracttype" multiple>
+                                        <mat-option value="1">{{'Temporary' | translate}}</mat-option>
+                                        <mat-option value="2">{{'Permanent' | translate}}</mat-option>
+                                       
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-eight">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appsit_mainrole">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-newone">  
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appsit_roleforcourse">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- inspection -->
+                        <ng-container matColumnDef="row-inspection">
+                            <mat-header-cell fxFlex="220px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' | translate}}</mat-label>
+                                    <input matInput [formControl]="appsit_apprasvehinspcattmp_fk">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-nine">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'staff.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="appsit_status" multiple>
+                                        <mat-option value="1">{{'staff.new' | translate}}</mat-option>
+                                        <mat-option value="2">{{'staff.upda' | translate}}</mat-option>
+                                        <mat-option value="3">{{'staff.appr' | translate}}</mat-option>
+                                        <mat-option value="4">{{'staff.decl' | translate}}</mat-option>
+                                      
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- comp -->
+                        <ng-container matColumnDef="row-comp">
+                            <mat-header-cell fxFlex="220px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'staff.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="compcardfilt">
+                                        <mat-option value="1">{{'staff.new' | translate}}</mat-option>
+                                        <mat-option value="2">{{'Active' | translate}}</mat-option>
+                                        <mat-option value="3">{{'Expired' | translate}}</mat-option>
+                                        <mat-option value="4">{{'Posted for Card Upgrade' | translate}}</mat-option>
+                                      
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-ten">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                <!-- <mat-label>{{'staff.sear' | translate}}</mat-label> -->
+                                <div class="drpicker" id="regapp">
+                                    <input id="login_session" [formControl]="appsit_createdon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                    <div class="closeanddateicon">
+                                        <mat-datepicker-toggle matSuffix >
+                                        </mat-datepicker-toggle>
+                                    </div>
+                                </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-eleven">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                <!-- <mat-label>{{'staff.sear' | translate}}</mat-label> -->
+                                <div class="drpicker" id="regapp">
+                                    <input id="login_session" [formControl]="appsit_updatedon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                    <div class="closeanddateicon">
+                                        <mat-datepicker-toggle matSuffix >
+                                        </mat-datepicker-toggle>
+                                    </div>
+                                </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-twelve" stickyEnd>
+                            <mat-header-cell fxFlex="125px" class="serachrow" *matHeaderCellDef                                style="text-align:center;display: flex;align-items: center;">
+
+                                <i class="fa fa-refresh m-l-15 cursorview m-b-13" (click)="clearFilter();filtersts=false;"
+                                    aria-hidden="true" matTooltip="{{'table.refresh'|translate}}"></i>
+                            </mat-header-cell>
+                        </ng-container>
+                       
+                        <tr mat-header-row  id="headerrowcells" *matHeaderRowDef="getstaffListData();"></tr>
+                            <mat-header-row id="searchrow"
+                            *matHeaderRowDef="getstaffListDatasearch()">
+                        </mat-header-row>
+                        <tr mat-row *matRowDef="let element; columns: getstaffListData();"
+                            class="example-element-row"
+                            [class.example-expanded-row]="expandedElement === element">
+                        </tr>
+                        <tr mat-row *matRowDef="let element; columns: ['expandedDetail']"
+                        [class.example-detail-row-expanded]="expandedElement === element"
+                        [class.example-detail-row-collapsed]="expandedElement !== element">
+                    </tr>
+                     <!--    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div [ngClass]="!tblplaceholder? 'nofound': ''" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                        class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'common.noreco' | translate}}</p>
+                            </div>
+                        </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'" [style.display]="(resultsLength > 0) ? 'none' : 'block'"
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>   
+</div>

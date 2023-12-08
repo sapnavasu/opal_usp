@@ -1,0 +1,145 @@
+#supplierdashboard{
+    h4, h5, h6{
+        &.title{
+            color: #0c4b9a;
+            display: inline-flex;
+            align-items: center;
+            width:auto;
+            .infoicon{
+                .mat-icon{
+                    width:18px;
+                    height:18px;
+                    font-size:18px;
+                    color:#666;
+                    cursor:pointer;
+                }
+            }
+        }
+    }
+    .flex-column{
+        display:flex;
+        flex-direction:column;
+    }
+    .emulated-flex-gap-20px {
+        display: flex;
+        flex-wrap: wrap;
+        width:100%;
+        gap: 20px;
+    }
+    .dashtabs{
+        width:100%;
+        .mat-tab-header {
+            border: 0px;
+            .mat-tab-list {
+                flex-grow: 1;
+                position: relative;
+                opacity: 1;
+                min-width: auto !important;
+                padding: 0px !important;
+                justify-content: flex-start;
+                @media (max-width:480px){
+                    height:auto !important;
+                }
+                .mat-tab-labels{
+                    display:flex;
+                    @media (max-width:480px){
+                        flex-direction:column;
+                     }
+                    .mat-tab-label {
+                        opacity: 1;
+                        border-radius: 2px;
+                        background-clip: padding-box;
+                        background-color: #eaedf2;
+                        margin-right: 10px;
+                        height: 45px;
+                        justify-content: flex-start !important;  
+                        &.mat-tab-label-active {
+                            background-color: #0c4b9a !important;
+                            color: #fff !important;
+                        }
+                        @media (max-width:800px){
+                            margin-bottom:10px;
+                         }   
+                    }
+                }
+                .mat-ink-bar {
+                    width: 0px !important;
+                } 
+            }
+        }
+        .mat-tab-body{
+            .mat-tab-body-content{
+                .innerdashtabs{
+                    width:100%;
+                    .mat-tab-header {
+                        border: 0px;
+                        .mat-tab-list {
+                            flex-grow: 1;
+                            position: relative;
+                            opacity: 1;
+                            min-width: auto !important;
+                            padding: 0px !important;
+                            justify-content: flex-start;
+                            height:30px !important;
+                            @media (max-width:800px){
+                                height:auto !important;
+                            }
+                            .mat-tab-labels{
+                                display:flex;
+                                @media (max-width:800px){
+                                   flex-direction:column;
+                                }
+                                .mat-tab-label {
+                                    opacity: 1;
+                                    border-radius: 2px;
+                                    background-clip: padding-box;
+                                    background-color: #eaedf2;
+                                    margin-right: 10px;
+                                    height: 28px;
+                                    justify-content: flex-start !important; 
+                                    @media (max-width:800px){
+                                        margin-bottom:10px;
+                                     } 
+                                    &.mat-tab-label-active {
+                                        background-color: #ed1c27 !important;
+                                        color: #fff !important;
+                                    }  
+                                }
+                            }
+                            .mat-ink-bar {
+                                width: 0px !important;
+                            } 
+                        }
+                    }
+                }
+            }
+        }        
+        
+    }    
+}
+.scrolldata {
+    position: relative;
+    z-index: 1;/* 
+    display: block; */
+    overflow-x: auto;
+    background-color: #fff;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #ccc;
+    }
+}

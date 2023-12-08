@@ -1,0 +1,32 @@
+<div id="uploaded" [formGroup]="fileuplode">
+    <div class="filer">
+        <mat-label>{{'upload.upload' | translate}} {{placeholder}}</mat-label>
+        <mat-form-field appearance="outline">
+            <mat-spinner-button matPrifix (click)="uploadFile.click();"   [class.previousdisabled]="twofiles" [disabled]="twofiles" mat-raised-button class="subbtn"
+            [options]="spinnerButtonOptionssaveupdate" ></mat-spinner-button>
+            <i class="opalicon opal-upload subbtnt fs-18 m-r-15 m-b-10"></i>
+            <!-- <span matPrifix   (click)="uploadFile.click();" >Upload a {{placeholder}}</span> -->
+         <input type="text" matInput readonly  formControlName="upload_files"
+               (click)="uploadFile.click()" >
+         <input type="file" id="file" #uploadFile name="userfile[]" hidden multiple (change)="getFileDetails($event)" placeholder="Upload">
+        <!-- <div class="fileupload m-t-5">
+            <input type="text" matInput readonly placeholder="Upload {{placeholder}}" formControlName="upload_files"
+               (click)="uploadFile($event.target.files,$event);f_uplode.click()" >
+            <input type="file" id="file" #f_uplode name="userfile[]" hidden multiple (change)="getFileDetails($event)" placeholder="Upload">
+        </div> -->
+        </mat-form-field> 
+    </div>
+    <div class="document m-t-15" *ngIf="images?.length > 0">
+        <mat-label>{{'upload.Document' | translate}}<span *ngIf="ifrequired">*</span></mat-label>
+       <div class="doc_file" >
+    <div  *ngFor="let filename of images;" class="files m-l-5" id="hidefile{{filename.filePk}}">
+            <a target="_blank" href='{{filename.fileUrl}}' matTooltip="click to view"><img matPrefix src="assets/images/opalimages/{{filename.fileType}}_new.svg" alt="Brochure" ></a>
+            <mat-icon   matTooltip="Delete"  (click)="deleteSelected(11 ,filename.filePk)" class="close_icon">close</mat-icon>
+            <input readonly matInput formControlName="files">
+            <input multiple  hidden #f_input #f_uplode>
+            <!-- <mat-icon matSuffix   matTooltip="Delete"
+            (click)="deleteSelected(4 ,filename.filePk)">delete_outline</mat-icon> -->
+    </div>
+       </div>
+    </div>
+</div>

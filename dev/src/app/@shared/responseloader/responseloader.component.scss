@@ -1,0 +1,45 @@
+:host::ng-deep.aftersearchloaders
+{
+   .loaderrespone
+   {
+       position: fixed !important;
+   }
+}
+
+.loaderrespone {
+    position: fixed;
+    width: 100%;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff !important;
+    .textaligncenter{
+         text-align: center;
+    }
+    .loaderprogress{
+        img{
+            height: 65px;
+            margin: 0 0px 15px 15px;  
+        }
+        .loadedcolor{
+            font-size: 1.125rem;
+            margin: 0px;
+            font-family: 'opal_semibold';
+            color: #333;
+            padding-bottom: 15px;
+       }
+    }
+    .spinner {
+        display: none;
+    }
+    
+}
+.txt-gry3 {
+    color: #262626;
+}
+

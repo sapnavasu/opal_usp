@@ -1,0 +1,12 @@
+<div id="configure_dashboard" fxLayoutAlign="center" >
+    <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+        <div fxLayout="row wrap"  fxLayoutGap="20px">
+            <div fxFlex="30" fxFlex.gt-md="30" fxFlex.gt-xs="45" fxFlex.xs="100" 
+                     class="conf_card"  *ngFor="let item of data" (click)="action(item.url)">
+                    <i class="opalicon {{item.img}} "></i>
+                    <p class="title">{{item.title}}</p>
+                    <p class="des">{{item.content}}</p>
+            </div>
+        </div>
+    </div>
+</div>

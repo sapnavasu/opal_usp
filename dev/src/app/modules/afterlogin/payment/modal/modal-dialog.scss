@@ -1,0 +1,106 @@
+@mixin flexcenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.paymentcolor{
+    h2{
+        color: #333333;
+        text-align: center;
+    }
+}
+
+.successtick {
+    padding-bottom: 30px;
+    @include flexcenter();
+    span {
+        height: 64px;
+        width: 64px;
+        @include flexcenter();
+        border-radius: 100%;
+        background: #71c016;
+        color: #fff;
+        i {
+            font-size: 1.875rem;
+        }
+    }
+}
+.loginbtn{
+    width: 120px;
+    height: 40px;
+    border-radius: 2px;
+    background-color:#006cb7;
+    color: #ffffff;
+    border: none;
+}
+.widthdialog{
+    width:586px;
+    min-height:365px;
+}
+.nextcolor{
+    color:#333333;
+    text-align: center;
+}
+.flexend{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.gridalign{
+    display:grid;
+    
+}
+::ng-deep.gridalign .mat-radio-label-content{
+    padding-left: 15px;
+}
+.background{
+    max-height: 66px;
+    background-color:#f3f5f6;
+    width: 100%;
+}
+::ng-deep.after{
+    height: 50px;
+    width: 50px;
+    background-color: #e3f2d0;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  ::ng-deep.after:after{
+    display: inline-block;
+    content: '';
+    display: block;
+    width: 12px;
+    height: 20px;
+    border: solid #70c015;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg) !important;
+    transform: rotate(45deg) !important;
+    position: relative;
+    left: 19px;
+    top: 12px;
+}
+
+  
+@media (max-width: 768px){
+   .widthresponsive{
+       max-width: 90% !important;
+   } 
+   .widthsucces{
+       max-width: 10% !important;
+   }
+}
+.someonecolor{
+    color: #888;  
+}
+
+@media (max-width: 767px){
+    .widthdialog{
+        width: auto !important;
+    }
+
+    .process{
+        padding: 15px !important;
+    }
+    
+ }

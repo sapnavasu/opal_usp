@@ -1,0 +1,291 @@
+.title {
+    color: #848484;
+}
+
+.sub-title {
+    color: #262626;
+    text-align: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+#journeymap {
+    .journey {
+        position: relative;
+        justify-content: center;
+
+        .icon-circle {
+            position: absolute;
+            z-index: 1;
+            top: -10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 6px #00000014;
+            border: 2px solid #C4C4C4;
+            opacity: 1;
+
+            .view {
+                display: none;
+            }
+
+            img {
+                width: 23px;
+            }
+
+            &:hover {
+                background-color: #E20613;
+                border: 2px solid #E20613;
+                cursor: pointer;
+
+                .cntreapp {
+                    display: none;
+                }
+
+                .view {
+                    display: block;
+                }
+
+            }
+        }
+
+        .level-step4 {
+            position: absolute;
+            z-index: 1;
+
+            .step {
+                bottom: -15px;
+                color: #666666;
+                background-color: #fff;
+                padding: 2px 10px 2px 10px;
+                border: 1.5px solid #C4C4C4;
+                border: 2px solid #C4C4C4;
+                border-radius: 60px;
+                opacity: 1;
+            }
+
+            .step.dashboard:hover {
+                background-color: #E20613;
+                border: 1.5px solid #E20613;
+                cursor: pointer;
+                color: #fff;
+            }
+        }
+
+        .card {
+            width: 310px;
+            border: 1.5px solid #C4C4C4;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow: 0px 0px 6px #00000014;
+            border: 2px solid #C4C4C4;
+            border-radius: 4px;
+            opacity: 1;
+
+            .level {
+                position: relative;
+
+                .step {
+                    position: absolute;
+                    bottom: -15px;
+                    color: #666666;
+                    background-color: #fff;
+                    padding: 2px 10px 2px 10px;
+                    border: 1.5px solid #C4C4C4;
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    border: 2px solid #C4C4C4;
+                    border-radius: 60px;
+                    opacity: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            .icon-circle-step4 {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: #FFFFFF;
+                border: 2px solid #C4C4C4;
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                img {
+                    width: 25px;
+                }
+
+                .view {
+                    display: none;
+                }
+
+                &:hover {
+                    background-color: #E20613;
+                    border: 2px solid #E20613;
+                    cursor: pointer;
+
+                    .cntreapp {
+                        display: none;
+                    }
+
+                    .view {
+                        display: block;
+                    }
+
+                }
+            }
+        }
+
+        .circle-icon {
+            position: absolute;
+            bottom: -55px;
+
+            .icon-1 {
+                height: 47px;
+                border-right: 1px dotted #626366;
+                margin-right: 4px;
+            }
+
+            .icon-2 {
+                height: 10px;
+                width: 10px;
+                border: 2px solid #626366;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+        }
+
+        .circle-icon-step4 {
+            position: absolute;
+            z-index: 1;
+            top: -55px;
+
+            .icon-1 {
+                height: 47px;
+                border-right: 1px dotted #626366;
+                margin-right: 4px;
+            }
+
+            .icon-2 {
+                height: 10px;
+                width: 10px;
+                border: 2px solid #626366;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+        }
+    }
+
+    .line {
+        height: 100px;
+        width: 100%;
+        border: 1.5px solid #C4C4C4;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-left: none;
+
+        .none {
+            background-color: white;
+            width: 19%;
+            height: 1px;
+            margin-top: -1px;
+        }
+
+        .none2 {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100px;
+
+            .none3 {
+                height: 3px;
+                width: 51%;
+                background-color: white;
+            }
+        }
+    }
+
+    .arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (min-width:1920px) {
+    #journeymap {
+        .line {
+            .none {
+                width: 24%;
+                height: 5px;
+                margin-top: -3px;
+            }
+
+            .none2 {
+                .none3 {
+                    height: 5px !important;
+                    width: 51% !important;
+                    background-color: white;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:1295px) {
+    #journeymap {
+        .journey {
+            width: 100%;
+            margin-bottom: 50px;
+
+            .circle-icon {
+                bottom: -45px;
+
+                .icon-2 {
+                    display: none;
+                }
+
+            }
+
+            .circle-icon-step4 {
+                top: -40px;
+
+                .icon-2 {
+                    display: none;
+                }
+            }
+        }
+
+        .arrow {
+            display: none;
+        }
+
+        .line {
+            display: none;
+        }
+
+    }
+}
+
+[dir=rtl] {
+    #journeymap {
+        .line {
+            border-top-left-radius: 50px !important;
+            border-bottom-left-radius: 50px !important;
+            border-right: 0 !important;
+            border-left: 1.5px solid #C4C4C4;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+    }
+
+    .arrow {
+        .fs-30.title {
+            transform: rotate(180deg);
+        }
+    }
+}

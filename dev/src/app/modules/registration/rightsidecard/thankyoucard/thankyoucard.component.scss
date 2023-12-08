@@ -1,0 +1,92 @@
+.cardthree {
+    position: relative;
+    margin-top: 25px;
+    padding-top: 20px !important;
+    img {
+        position: absolute;
+        top: -10px;
+        right: -50px;
+    }
+    .percentage {
+        color: #ef8436;
+        font-size: 3.25rem;
+        font-weight: bold;
+        margin-bottom: 0px;
+    }
+    .greeting {
+        color: #333;
+        font-size: 0.9375rem;
+        margin-bottom: 5px;
+    }
+    .personname {
+        color: #ef8436;
+        font-size: 1rem;
+        margin-bottom: 5px;
+        max-width: 68%;
+        word-break: break-word;
+    }
+}
+
+
+
+.personname {
+    word-break: break-word;
+}
+
+.rightsidecards {
+    border-radius: 10px; /* border radius */
+    background-clip: padding-box; /* prevents bg color from leaking outside the border */
+    background-color: #fff; /* layer fill content */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* drop shadow */
+    padding-top: 30px;
+    position: relative;
+
+    .eachcardbigheader {
+        color: #006cb7;
+        font-size: 1rem;
+        font-family: 'opal_semibold';
+        word-break: break-word;
+        max-width: 75%;
+    }
+    .headercontent {
+        color: #656565;
+        font-size: 0.9375rem;
+    }
+    .smallheader {
+        color: #ec3393;
+        font-size: 0.9375rem;
+        margin-bottom: 5px;
+    }
+
+    .mainheader {
+        color: #006cb7;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .bigheader {
+        color: #ec3393;
+        font-size: 1.375rem;
+        font-weight: bold;
+    }
+    .featurelist {
+        padding-left: 22px;
+        li {
+            padding-bottom: 12px;
+            color: #656565;
+            font-size: 0.9375rem;
+        }
+    }
+    .morefeature {
+        position: absolute;
+        height: 45px;
+        bottom: 0;
+        color: #fff;
+        font-size: 0.875rem;
+        font-weight: bold;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 20px;
+    }
+}

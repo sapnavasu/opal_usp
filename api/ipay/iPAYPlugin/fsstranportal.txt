@@ -1,0 +1,9 @@
+tran.currency=512
+consumer.language=USA
+tran.action=1
+merchant.receiptURL=http://localhost/iPAYPlugin/TranPipeResult.php
+merchant.errorURL=http://localhost/iPAYPlugin/TranPipeResult.php
+gateway.resource.path=D:\\PGDATA\\Config\\resources\\PROD\\FSS\\301\\
+gateway.terminal.tranportalid=ipay629253206350
+gateway.terminal.alias=301
+php.java.bridge.url=http://localhost:8080/JavaBridge/java/Java.inc

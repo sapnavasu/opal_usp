@@ -1,0 +1,419 @@
+<div id="feesubscription" fxLayoutAlign="center start">
+    <app-responseloader *ngIf="fullPageLoaders"></app-responseloader>
+    <div class="vehicleinspection" fxFlex="100" fxFlex.gt-sm="100">
+        <div class="paginationwithfilter masterPageTop ">
+            <mat-paginator class="masterPage masterPageTop" #paginator [length]="feelist_length" [pageSize]="5" 
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);" ></mat-paginator>
+            <div fxLayout="row wrap" fxLayoutAlign="end">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                        class="filter">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                            aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div #TABLE class="awaredtable">
+                    <button mat-button [matMenuTriggerFor]="editcolumn" class="editcolumn">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #editcolumn="matMenu" class="master-menu edit-column-menu">
+                          <div class="table-config-menu-options" fxLayout="column">
+                            <mat-checkbox #editchkbox [(ngModel)]="selectAllVisible"  (change)="selectAllFun($event)"> {{ 'All' | translate}}
+                          </mat-checkbox>
+                          <ng-container *ngFor="let cd of displayedColumns; let i = index">
+                            <mat-checkbox 
+                              (click)="$event.stopPropagation()" 
+                              [(ngModel)]="cd.visible" #columnchkbox (change)="updateSelectAllVisible(cd)">
+                              {{cd.label | translate}}
+                            </mat-checkbox>
+                        </ng-container>
+                          </div>
+                      </mat-menu>
+                    </button>	
+                    <mat-table id="ExampleMaterialTable" #table class="scrolldata" [dataSource]="dataSource"
+                        matSort matSortDisableClear (matSortChange)="sorting($event,'')">
+                         <!-- new 1 -->
+                         <ng-container matColumnDef="project">
+                            <mat-header-cell fxFlex="400px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Project' | translate}}</mat-header-cell>
+                            <mat-cell data-label="project" fxFlex="400px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{ifarbic == true ? element.project_ar : element.project_en}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 2 -->
+                         <ng-container matColumnDef="officetype">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Office Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="officetype" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.officetype}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                         <!-- new 3 -->
+                         <ng-container matColumnDef="feetype">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Fee Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="feetype" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span  *ngIf="element.feetype == '1'">{{'Certification Fee' | translate}}</span>
+                                    <span  *ngIf="element.feetype == '2'">{{'Staff Evaluation Fee' | translate}}</span>
+                                    <span  *ngIf="element.feetype == '3'">{{'Royalty Fee' | translate}}</span>
+                                    <span  *ngIf="element.feetype == '4'">{{'Learner Training Fee' | translate}}</span>
+                                    <span  *ngIf="element.feetype == '5'">{{'Learner Assessment Fee' | translate}}</span>
+                                    <span  *ngIf="element.feetype == '6'">{{'Staff Re-Evaluation Fee' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                         <!-- new 4 -->
+                         <ng-container matColumnDef="applicanttype">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Applicant Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="applicanttype" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span  *ngIf="element.applicanttype == '0'">-</span>
+                                    <span  *ngIf="element.applicanttype == '1'">{{'Initial' | translate}}</span>
+                                    <span  *ngIf="element.applicanttype == '2'">{{'Renewal' | translate}}</span>
+                                    <span  *ngIf="element.applicanttype == '3'">{{'Update' | translate}}</span>
+                                    <span  *ngIf="element.applicanttype == '4'">{{'Refresher' | translate}}</span>
+                                    <span  *ngIf="element.applicanttype == '5'">{{'Surveillance 1' | translate}}</span>
+                                    <span  *ngIf="element.applicanttype == '6'">{{'Surveillance 2 ' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                         <!-- new 4 -->
+                         <ng-container matColumnDef="headcount">
+                            <mat-header-cell fxFlex="300px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Head Count and Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="headcount" fxFlex="300px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span  *ngIf="element.headcount == '1' && (element.projectmst_fk == 1 || element.projectmst_fk == 5)">{{'Per Staff' | translate}}</span>
+                                    <span  *ngIf="element.headcount == '1' && element.projectmst_fk == 4">{{'Per Staff Per Vehicle Category' | translate}}</span>
+                                    <span  *ngIf="!element.headcount">-</span>
+                                    
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                         <!-- new 5 -->
+                         <ng-container matColumnDef="fee">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Fee (OMR)' | translate}}</mat-header-cell>
+                            <mat-cell data-label="fee" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.fee}}</div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 6 -->
+                        <ng-container matColumnDef="validity">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Validity (Years)' | translate}}</mat-header-cell>
+                            <mat-cell data-label="validity" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder"> {{element.validity ? element.validity : '-'}}</div>
+                                
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 7 -->
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="status" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">
+                                    <span class="Active" *ngIf="element.status == '1'">{{'Active' | translate}}</span>
+                                    <span class="inactive" *ngIf="element.status == '2'">{{'In-active' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 8 -->
+                        <ng-container matColumnDef="createdOn">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Created On' | translate}}</mat-header-cell>
+                            <mat-cell data-label="createdOn" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.createdOn | date : 'dd-MM-yyyy'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 9 -->
+                        <ng-container matColumnDef="createdBy">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Created By' | translate}}</mat-header-cell>
+                            <mat-cell data-label="createdBy" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.createdBy?
+                                    element.createdBy : '-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 10 -->
+                        <ng-container matColumnDef="lastUpdatedOn">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Last Updated On' | translate}}</mat-header-cell>
+                            <mat-cell data-label="lastUpdatedOn" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.lastUpdatedOn ? (element.lastUpdatedOn | date : 'dd-MM-yyyy') : '-' }}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 11 -->
+                        <ng-container matColumnDef="lastUpdatedBy">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Last Updated By' | translate}}</mat-header-cell>
+                            <mat-cell data-label="lastUpdatedBy" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.lastUpdatedBy ? element.lastUpdatedBy : '-'}}</div>
+                            </mat-cell>
+                        </ng-container>
+                       
+                        <!-- new 12 -->
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="125px" mat-header-cell *matHeaderCellDef>{{'Action'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="125px" *matCellDef="let element">
+                                <div *ngIf="tblplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tblplaceholder">{{element.irm_intlrecogname_en}}
+                                    <div class="manageoptions">
+                                        <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                            aria-label="Example icon-button with a menu">
+                                            <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                        </button>
+                                        <mat-menu #actionmenu="matMenu"
+                                            class="master-menu whentootltipadded table_menu">     
+                                            <button type="button" mat-menu-item (click)="edit(element.feepk)" *ngIf="updateaccess"><span>{{'Edit' |translate}}</span></button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- new 1 -->
+                        <ng-container matColumnDef="row-one">
+                            <mat-header-cell fxFlex="400px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'select' | translate}}</mat-label>
+                                    <mat-select multiple [formControl]="project" (selectionChange)="searchbatchgrid($event.value,'project')">
+                                        <mat-option *ngFor="let list of projectlist" [value]="list.projectmst_pk">
+                                            {{ifarbic == true ? (list.pm_projectname_ar): (list.pm_projectname_en)}}</mat-option>
+                                    </mat-select>
+                                    
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- new 3 -->
+                        <ng-container matColumnDef="row-two">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'select' | translate}}</mat-label>
+                                    <mat-select multiple [formControl]="officetype" (selectionChange)="searchbatchgrid($event.value,'officetype')">
+                                            <mat-option  value="1">{{'Main Office' | translate}}</mat-option>
+                                            <mat-option  value="2">{{'Branch Office' | translate}}</mat-option>
+                                            <mat-option  value="3">{{'Both' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- new 2 -->
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'select' | translate}}</mat-label>
+                                    <mat-select [formControl]="feetype" multiple (selectionChange)="searchbatchgrid($event.value,'feetype')">
+                                        <mat-option  value="1">{{'Certification Fee' | translate}}</mat-option>
+                                        <mat-option  value="2">{{'Staff Evaluation Fee' | translate}}</mat-option>
+                                        <mat-option  value="3">{{'Royalty Fee' | translate}}</mat-option>
+                                        <!-- <mat-option  value="4">{{'Learner Training Fee' | translate}}</mat-option>
+                                        <mat-option  value="5">{{'Learner Assessment Fee' | translate}}</mat-option> -->
+                                        <mat-option  value="6">{{'Staff Re-Evaluation Fee' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 1 -->
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field appearance="outline" class="filter" >
+                                    <mat-label>{{'select' | translate}} </mat-label>
+                                    <mat-select [formControl]="applicanttype" multiple (selectionChange)="searchbatchgrid($event.value,'applicanttype')">
+                                        <mat-option  value="1">{{'Initial' | translate}}</mat-option>
+                                        <mat-option  value="2">{{'Renewal' | translate}}</mat-option>
+                                        <mat-option  value="3">{{'Update' | translate}}</mat-option>
+                                        <mat-option  value="4">{{'Refresher' | translate}}</mat-option>
+                                        <mat-option  value="5">{{'Surveillance 1' | translate}}</mat-option>
+                                        <mat-option  value="6">{{'Surveillance 2' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-thirteen">
+                            <mat-header-cell fxFlex="300px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <!-- <mat-form-field appearance="outline" class="filter" >
+                                    <mat-label>{{'select' | translate}} </mat-label>
+                                    <mat-select [formControl]="applicanttype" (selectionChange)="searchbatchgrid($event.value,'applicanttype')">
+                                        <mat-option *ngFor="let list of requestforlist" [value]="list.pk">
+                                            {{ifarbic == true ? (list.name_ar): (list.name_en)}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- 2 -->
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field appearance="outline" class="filter" >
+                                    <mat-label>{{'Search' | translate}} </mat-label>
+                                    <input matInput [formControl]="fee" (keyup)="searchbatchgrid($event.target.value,'fee')">
+                                    </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field appearance="outline" class="filter" >
+                                    <mat-label>{{'Search' | translate}} </mat-label>
+                                    <input matInput [formControl]="validity" (keyup)="searchbatchgrid($event.target.value,'validity')">
+                                    </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-seven">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Select</mat-label>
+                                    <mat-select [(value)]="status1" multiple [formControl]="status" (selectionChange)="searchbatchgrid($event.value,'status')">
+                                        <mat-option value="1">{{'Active' | translate }}</mat-option>
+                                        <mat-option value="2">{{'In-active' | translate }}</mat-option>                                       
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-eight">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                                <input id="login_session" [formControl]="createdOn" #pickers matInput type="text" (datesUpdated)="serachdate($event,'createdOn')" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" [max]="today"/>
+                                                <div class="closeanddateicon">
+                                                    <mat-datepicker-toggle matSuffix >
+                                                    </mat-datepicker-toggle>
+                                                </div>
+                                            </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-nine">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'search' |translate}}</mat-label>
+                                    <input matInput [formControl]="createdBy" (keyup)="searchbatchgrid($event.target.value,'createdBy')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-ten">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                                <input id="login_session" [formControl]="lastUpdatedOn" #pickers matInput type="text" (datesUpdated)="serachdate($event,'lastUpdatedOn')" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" [max]="today"/>
+                                                <div class="closeanddateicon">
+                                                    <mat-datepicker-toggle matSuffix >
+                                                    </mat-datepicker-toggle>
+                                                </div>
+                                            </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-eleven">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'search' |translate}}</mat-label>
+                                    <input matInput [formControl]="lastUpdatedBy" (keyup)="searchbatchgrid($event.target.value,'lastUpdatedBy')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="row-twelve" stickyEnd>
+                            <mat-header-cell fxFlex="125px" class="serachrow" *matHeaderCellDef
+                            style="text-align:center">
+                            <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                aria-hidden="true" matTooltip="{{'Refresh'|translate}}"></i>
+                        </mat-header-cell>
+                        </ng-container>
+
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="getdisplayedColumns()">
+                        </mat-header-row>
+                           
+                        <mat-header-row id="searchrow" *matHeaderRowDef="getdisplayedsearch()">
+                        </mat-header-row>
+                       
+                        <mat-row mat-row *matRowDef="let row; columns: getdisplayedColumns();"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div fxFlex="100" fxLayout="column" [ngClass]="tblplaceholder?'':'nofound'" fxLayoutAlign="center center">
+                                    <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                    class="NorecordLoader m-t-20"></div>
+                                    <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder" />
+                                    <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder ">{{'No Records' | translate}} </p>                                    
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container >
+                            <mat-footer-row [class.stickyclass]="(feelist_length > 0) ? 'none' : 'block'"
+                                [style.display]="(feelist_length > 0) ? 'none' : 'block' "
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="feelist_length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

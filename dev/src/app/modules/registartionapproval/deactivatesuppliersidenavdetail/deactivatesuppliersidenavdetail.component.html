@@ -1,0 +1,89 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="{{'deactivesupplier.clos' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="Deactivatesupplieralert()" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">{{'deactivatesuppliersidenavdetail.dacti' | translate}} {{confirmcnt}} {{'deactivatesuppliersidenavdetail.accou' | translate}}<i class="bgi bgi-info"
+            (click)="Deactivateview('deactivatelistview')"></i></h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button type="button" mat-raised-button color="primary"
+          class="clearbutton height-35 m-r-10 p-l-20 p-r-20 spacemargin" 
+          (click)="clearcomment()" [disabled]="!deactivateForm.controls['comments'].valid">{{'deactivesupplier.clear' | translate}}</button>
+        <button color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15" 
+          (click)="submitdata()" [disabled]="!deactivateForm.controls['comments'].valid || disablebtn"
+          class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 deactivatelistview" [@slideInOut]="animationState3">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+      <mat-card-header>
+        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+          <mat-card-subtitle class="informationtext fs-14">
+            {{'deactivatesuppliersidenavdetail.provithereasto' | translate}} {{confirmcnt}} {{'deactivatesuppliersidenavdetail.acconOPAL' | translate}}
+          </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div class="innnerpartofdrwer">
+  <div *ngIf="deleteview" class="projlstngph w-100 listsector">
+    <div class="leftmainspace">
+        <div class="subcontent">
+            <span class="pagetitle secondwidth w-100"></span>
+            <span class="pagetitle secondwidth w-100"></span>
+            <span class="pagetitle secondwidth w-100"></span>
+            <div class="descriptitlesector">
+                <p class="pagetitle w-100"></p>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div [style.display]="!deleteview ? 'block' :'none'"  fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" id="viewcredentiallist">
+      <div class="viewcrdentailheader">
+        <div class="viewcrdetentailtitle">
+          <h2>{{supplierdata?.MCM_CompanyName}}</h2>
+        </div>
+        <div class="regalign">
+          <div class="regtextcolor widthreg">
+            <p>{{'deactivesupplier.OPALregino' | translate}}</p>
+            <span>&nbsp;{{supplierdata?.mcm_RegistrationNo?supplierdata?.mcm_RegistrationNo:'-'}}</span>
+          </div>
+          <div class="regtextcolor">
+            <p>{{'deactivesupplier.OPALcode' | translate}}</p>
+            <span>&nbsp;{{supplierdata?.MRM_ValSubStatus=='A'?supplierdata?.MCM_SupplierCode:'Yet to issue'}}</span>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="p-t-25">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <form [formGroup]="deactivateForm">
+            <mat-form-field>
+              <textarea appAlphanumsymb #deactivatemessages app-restrict-input="firstspace" [matAutocomplete]="auto" maxlength="256" matInput
+                placeholder="{{'deactivesupplier.comm' | translate}}" required cdkTextareaAutosize 
+                #autosize="cdkTextareaAutosize" formControlName="comments" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+              <mat-autocomplete #auto="matAutocomplete">
+                <div class="updatecommentscroll">
+                  <mat-option *ngFor="let option of updateOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </div>
+              </mat-autocomplete>
+              <mat-hint class="txt-black fs-14" align="end">{{deactivatemessages.value.length}}/256</mat-hint>
+            </mat-form-field>
+            <input type="hidden" formControlName="registrationid">
+            <input type="hidden" formControlName="status">
+          </form>
+        </div>
+      </div>      
+    </div>
+  </div>
+</div>

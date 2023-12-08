@@ -1,0 +1,333 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="{{'updatesupplierreg.clos' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="showSweetupdatesupplieralert()" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">{{'updatesupplierreg.updaorgainfo' | translate}}<i class="bgi bgi-info"
+            (click)="updatesupplierdropdown('updatelistview')"></i></h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button type="button" mat-raised-button color="primary" (click)="cancelupdatebtn();"
+          class="clearbutton height-35 m-r-10 p-l-20 p-r-20 spacemargin">{{'updatesupplierreg.cancel' | translate}}</button>
+        <button color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+          class="addbutton height-35 p-l-20 p-r-20" (click)="submitform()" [disabled]="!updateinfoForm.valid || disablebtn">{{buttonname}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 updatelistview" [@slideInOut]="animationState1">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+      <mat-card-header>
+        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+          <mat-card-subtitle class="informationtext fs-14">
+            {{'updatesupplierreg.chanthe' | translate}}   {{confirmcnt}} {{'updatesupplierreg.detbasonthereq' | translate}}   {{confirmcnt}} {{'updatesupplierreg.willbenotifyreg' | translate}}  
+          </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div *ngIf="updatesupplierinfo" class="projlstngph w-100 listsector">
+  <div class="leftmainspace">
+      <div class="subcontent">
+          <span class="pagetitle secondwidth"></span>
+          <span class="pagetitle secondwidth"></span>
+          <span class="pagetitle secondwidth"></span>
+          <div class="descriptitlesector">
+              <p class="pagetitle"></p>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+              <span class="pagetitle sectorheight"></span>
+          </div>
+      </div>
+  </div>
+</div>
+<div [style.display]="!updatesupplierinfo ? 'block' :'none'" class="innnerpartofdrwer">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="updatesupplierlistview">
+        <div fxLayout="row wrap" class="m-b-25">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div class="jsrscertificatebackground">
+              <div class="jsrstextcolor borderrightjsrscertify paddingcertfication">
+                <p class="fs-13 supplychaincolor ">{{stktype==6? 'Supply Chain Certification Status': 'Industrial Organisation (OISSR) Certification Status'}}</p>
+                <span class="txt-gray3 fs-16 lypisfont-regular">{{compdetail?.data?.getstatusheader?.scfstatus || "-"}}</span>
+              </div>
+              <!-- <div *ngIf="compdetail?.data?.MCM_Origin == 'N'" class="jsrstextcolor borderrightjsrscertify p-l-20 paddingbetween">
+                <p class="clabel">SEZD Certification Status</p>
+                <span class="cvalue">{{compdetail?.data?.getstatusheader?.sezadstatus || "-"}}</span>
+              </div> -->
+              <div  class="jsrstextcolor p-l-20 paddingbetween">
+                <p class="fs-13 supplychaincolor ">{{stktype==6? 'OPAL Certification Expiry Date': 'OPAL Certification Expiry Date'}}</p>
+                <span class="txt-gray3 fs-16 lypisfont-regular">{{compdetail?.data?.getstatusheader?.cert_expiry_date}}</span>
+              </div> 
+              <!-- <div *ngIf="compdetail?.data?.MCM_Origin == 'N'" class="jsrstextcolor p-l-20 paddingbetween">
+                <p class="clabel">Riyada Certificate - Date of Expiry</p>
+                <span class="cvalue">{{compdetail?.data?.getstatusheader?.riyadaexpire || "-"}}</span>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" [formGroup]="updateinfoForm">
+          <div fxLayout="row wrap" class="m-b-12 m-t-20">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field>
+                <input matInput (focusout)="onFocusOutEventcomp($event)" formControlName="companyname" maxlength="250" placeholder="{{'updatesupplierreg.compname' | translate}}" [errorStateMatcher]="matcher"
+                  app-restrict-input="firstspace">
+                <mat-error
+                  *ngIf="updateinfoForm.controls['companyname'].hasError('required') && updateinfoForm.controls['companyname'].touched && !updateinfoForm.get('companyname').hasError('duplicateValue')"
+                  class="text-danger font-14">{{'updatesupplierreg.entecompname' | translate}}</mat-error>
+                  <mat-error *ngIf="updateinfoForm.get('companyname').hasError('duplicateValue')"
+                    class="text-danger font-14">
+                    {{'updatesupplierreg.compnamealreregi' | translate}} 
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="m-b-12 m-t-20" *ngIf="compdetail?.data?.MCM_Origin=='N'">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field class="arabiclanguage">
+                <input matInput (focusout)="onFocusOutEventcomp($event)" formControlName="companyname_ar" maxlength="250" placeholder="{{'updatesupplierreg.compnamearab' | translate}}" [errorStateMatcher]="matcher"
+                  app-restrict-input="firstspace">
+                <mat-error
+                  *ngIf="updateinfoForm.controls['companyname_ar'].hasError('required') && updateinfoForm.controls['companyname_ar'].touched && !updateinfoForm.get('companyname_ar').hasError('duplicateValue')"
+                  class="text-danger font-14">{{'updatesupplierreg.entearabcompname' | translate}}</mat-error>
+                  <mat-error *ngIf="updateinfoForm.get('companyname_ar').hasError('duplicateValue')"
+                    class="text-danger font-14">
+                    {{'updatesupplierreg.arabcompnamealreregi' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field>
+                <input matInput (focusout)="onFocusOutEventemail($event)" formControlName="companyemail" [ngClass]="{ 'is-invalid': updateinfoForm.controls['companyemail'].touched && updateinfoForm.controls['companyemail'].errors }" placeholder="{{'updatesupplierreg.primemaiid' | translate}}" [errorStateMatcher]="matcher"
+                  app-restrict-input="firstspace"  pattern="[a-z-A-Z0-9.-_]{1,}@[a-z-A-Z]{2,}[.]{1}[a-z-A-Z-_]{2,}">
+                  <!--div *ngIf="updateinfoForm.controls['companyemail'].touched && updateinfoForm.controls['companyemail'].errors" class="invalid-feedback">
+                    <div *ngIf="updateinfoForm.controls['companyemail'].errors.required">Enter email</div>
+                    <div *ngIf="updateinfoForm.controls['companyemail'].errors.pattern">Enter valid email</div>
+                  </div-->
+                  <mat-error *ngIf="updateinfoForm.controls['companyemail'].hasError('required') && updateinfoForm.controls['companyemail'].touched && !updateinfoForm.get('companyemail').hasError('duplicateValue')"
+                   class="text-danger font-14 caseclass">
+                   {{'updatesupplierreg.entevaliemaiid' | translate}} 
+                  </mat-error>
+                  <mat-error *ngIf="updateinfoForm.get('companyemail').hasError('duplicateValue')"
+                    class="text-danger font-14 caseclass">
+                    {{'updatesupplierreg.emaiidalreregi' | translate}} 
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="m-t-15" *ngIf="enterpriseClass!='International'">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field>
+                  <mat-select formControlName="incorpstyle" placeholder="{{'updatesupplierreg.stylofinco' | translate}}" 
+                      [disableOptionCentering]="true" [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+                      <mat-option *ngFor="let list of incorpstylelist" [value]="list.IncorpStyleMst_Pk">{{list.ISM_IncorpStyleEntity_en }}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="updatetextcolor">
+                <h2>{{'updatesupplierreg.updaOPALprimcont' | translate}}</h2>
+              </div>
+              <div class="addedcertificate m-b-10" *ngFor="let updatecontact of updatecontacts">
+                <div fxLayout="row wrap" class="certificates">
+                  <div class="certificateimage imgalignflex">
+                    <img src="{{updatecontact?.userdp}}" alt="NoimageJPG">
+                  </div>
+                  <div class="companyandofficeinfo">
+                    <h3 class="name">{{updatecontact.contacttitle}}</h3>
+                    <div fxLayout="row wrap" class="countryandcrinfo">
+                      <div class="eachitem countrywidth">
+                        <p><span class="clabel">{{'updatesupplierreg.desi' | translate}}</span></p>
+                        <div class="flexoman p-t-6">
+                          <span class="cvalue" matTooltipPosition="above"
+                            matTooltip="{{updatecontact.contactsubtitle}}">{{updatecontact.contactsubtitle | truncate:[[25]]}}</span>
+                        </div>
+                      </div>
+                      <div class="eachitem mobilewidth">
+                        <p><span class="clabel">{{'updatesupplierreg.mobinumb' | translate}}</span></p>
+                        <p class="datavalue p-t-6 cvalue">{{updatecontact.mobilenum}}</p>
+                      </div>
+                      <div class="eachitem phonewidth">
+                        <p class="p-b-6"><span class="clabel">{{'updatesupplierreg.emaiid' | translate}}</span></p>
+                        <p ngClass.xs="widthset" ngClass.sm="widthset" class="cvalue" matTooltipPosition="above" >
+                          {{updatecontact.contactemail | truncate:[[40]]}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="editview">
+                  <span matTooltip="Change User" class="edit"><i class="bgi bgi-edit1"  (click)="userdata();"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="p-t-15">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="curentcardclassify">
+              <div class="currentcolor">
+                <h2>{{'updatesupplierreg.currclass' | translate}}</h2>
+              </div>
+              <div class="statuscardcertifcate">
+                <div class="currentclassifyalign">
+                  <div class="headcounttextalign" *ngIf="enterpriseClass!='International' && compdetail?.data?.mrm_incorpstylemst_fk!=492">
+                    <p class="clabel">{{'updatesupplierreg.headcoun' | translate}}</p>
+                    <span class="cvalue">{{headcount}}</span>
+                  </div>
+                  <div class="headcounttextalign" *ngIf="enterpriseClass!='International' && compdetail?.data?.mrm_incorpstylemst_fk!=492">
+                    <p class="clabel">{{'updatesupplierreg.annusaleomr' | translate}}</p>
+                    <span class="cvalue">{{annualSale}}</span>
+                  </div>
+                  <!-- <div class="headcounttextalign" *ngIf="enterpriseClass=='International'">
+                    <p class="clabel"> Head Count</p>
+                    <span class="cvalue">-</span>
+                  </div> -->
+                  <!-- <div class="headcounttextalign" *ngIf="enterpriseClass=='International'">
+                    <p class="clabel">Annual Sales (OMR)</p>
+                    <span class="cvalue">-</span>
+                  </div> -->
+                  <div class="headcounttextalign paddingleftspace">
+                    <p class="clabel">{{'updatesupplierreg.enteclass' | translate}}</p>
+                    <span class="{{enterpriseClassfyclass}} fs-12">{{enterpriseClass}}</span>
+                  </div>
+                </div>
+                <div class="omrcountcolor">
+                  <p class="clabel"> {{'updatesupplierreg.totasubsfee' | translate}}</p>
+                  <span>{{currrency}} {{totalamount}}</span>
+                </div>
+              </div>
+              <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="curentcardclassify">
+                  <div class="currentcolor p-t-30"  *ngIf="enterpriseClass!='International' && compdetail?.data?.mrm_incorpstylemst_fk!=492">
+                    <h2>{{'updatesupplierreg.updaclass' | translate}}</h2>
+                  </div>
+                  <!-- <div fxLayout="row wrap" class="p-b-12" *ngIf="enterpriseClass!='International' && isRenewalTemp==1 && compdetail?.data?.mrm_incorpstylemst_fk!=492">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-30 paddingarounspace">
+                      <mat-form-field>
+                        <mat-select formControlName="updatein" placeholder="Update In" 
+                          [disableOptionCentering]="true" [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+                          <mat-option value="1">Profile</mat-option>
+                          <mat-option value="2">Renewal</mat-option>
+                          <mat-option value="3">Both</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="updateinfoForm.controls['updatein'].hasError('required') && updateinfoForm.controls['updatein'].touched"
+                          class="text-danger font-14">Select update in</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                  <div fxLayout="row wrap" class="p-b-12">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-30 paddingarounspace"  *ngIf="enterpriseClass!='International' && compdetail?.data?.mrm_incorpstylemst_fk!=492">
+                      <mat-form-field>
+                        <mat-select formControlName="headcount" placeholder="{{'updatesupplierreg.headcoun' | translate}}"  (selectionChange)="onSelection($event);mandatorycheck(1)"
+                          [disableOptionCentering]="true" [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+                          <mat-option  *ngFor="let hcount of classificationDtl" [value]="hcount?.headcount">{{hcount?.headcount}}</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="updateinfoForm.controls['headcount'].hasError('required') && updateinfoForm.controls['headcount'].touched"
+                          class="text-danger font-14">{{'updatesupplierreg.seleheadcoun' | translate}}t</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" *ngIf="enterpriseClass!='International' && compdetail?.data?.mrm_incorpstylemst_fk!=492">
+                      <mat-form-field>
+                        <mat-select formControlName="annualsale" (selectionChange)="onSelection($event);mandatorycheck(2)" placeholder="{{'updatesupplierreg.annusaleomr' | translate}}" 
+                          [disableOptionCentering]="true" [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+                          <mat-option  *ngFor="let anlsales of classificationDtl" [value]="anlsales?.annualsales">{{anlsales?.annualsales}}</mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="updateinfoForm.controls['annualsale'].hasError('required') && updateinfoForm.controls['annualsale'].touched"
+                          class="text-danger font-14">{{'updatesupplierreg.seleannusaleomr' | translate}}</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" *ngIf="enterpriseClass!='International' && compdetail?.data?.mrm_incorpstylemst_fk!=492">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-30 paddingarounspace">
+                      <mat-form-field>
+                        <!-- <mat-select formControlName="subscriptionfee" (selectionChange)="changeSubscription($event);" placeholder="Subscription Fee" 
+                          [disableOptionCentering]="true" [errorStateMatcher]="matcher" app-restrict-input="firstspace">
+                          <mat-option value="50">OMR 50</mat-option>
+                          <mat-option value="100">OMR 100</mat-option>
+                          <mat-option value="900">OMR 900</mat-option>
+                          <mat-option value="1000">OMR 1000</mat-option>
+                        </mat-select> -->
+                        <input matInput formControlName="subscriptionfee" maxlength="10" placeholder="Subscription Fee to be collected" [errorStateMatcher]="matcher"
+                          app-restrict-input="firstspace">
+                        <mat-error
+                          *ngIf="updateinfoForm.controls['subscriptionfee'].hasError('required') && updateinfoForm.controls['subscriptionfee'].touched"
+                          class="text-danger font-14">{{'updatesupplierreg.entesubsfee' | translate}}</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" class="p-t-30" class="jsrsenterpriseclassify" *ngIf="enterpriseClass!='International' && showChangeclassification">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="widthofenterprise">
+                      <div class="enterpriseclassify" >
+                        <p class="clabel">{{'updatesupplierreg.enteclass' | translate}}</p>
+                        <span class="{{selectackage?.classificationclass}} fs-12" *ngIf="selectackage?.classificationName">{{selectackage?.classificationName}}</span>
+                      </div>
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="widthofenterprise">
+                      <div class="totalsubscription">
+                        <p class="clabel"> {{'updatesupplierreg.totasubsfee' | translate}}</p>
+                        <span *ngIf="selectsubscriptfee">{{selectackage?.subscription?.packageBaseCurrencySymbol}} {{selectsubscriptfee}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="supplierreqcolor p-b-10 m-t-40">
+                    <p>{{'updatesupplierreg.supprequproo' | translate}}</p>
+                  </div>
+                  <div fxLayout="row wrap" class="p-b-25">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                      <app-filee #updateinfo [notePosition]="'bottom'" [fileMstRef]="drvInput"
+                        (filesSelected)="fileeSelected($event,drvInput)" formControlName="updatefileupload">
+                      </app-filee>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" class="p-t-20">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                      <mat-form-field>
+                        <textarea appAlphanumsymb #message required  app-restrict-input="firstspace" [matAutocomplete]="auto" maxlength="256"
+                          matInput placeholder="{{'updatesupplierreg.commen' | translate}}" cdkTextareaAutosize 
+                          #autosize="cdkTextareaAutosize" formControlName="comments" cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"></textarea>
+                        <mat-autocomplete #auto="matAutocomplete">
+                          <div class="updatecommentscroll">
+                            <mat-option *ngFor="let option of updateOptions | async" [value]="option">
+                              {{option}}
+                            </mat-option>
+                          </div>
+                        </mat-autocomplete>
+                        <mat-hint class="txt-black fs-14" align="end">{{message.value.length}}/256</mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawer class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+   <app-paymentmapuser #mapuserpriymary [drawer]="drawer" [userListBackup]='userListBackup' [userList]='userList' [regpk]='regpk' [userpk]='userpk' (compDetails)="updateCompanyDetails($event)" (selectedUsers)="selectuser($event)"></app-paymentmapuser>
+  </mat-drawer>
+</mat-drawer-container>

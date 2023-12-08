@@ -1,0 +1,35 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+      <div class="titletext">
+        <div class="closeandadd">
+          <i mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+            (click)="changesubscriptionAlert()" class="bgi bgi-close p-l-5 fs-14"></i>
+          <h5 class="m-0 p-l-20 tt">Change Subscription<i class="bgi bgi-info"
+              (click)="changesubscriptionlist('changesubscriptionlisted')"></i></h5>
+        </div>
+        <div class="clearandaddbutton">
+          <button type="button" mat-raised-button color="primary"
+            class="clearbutton height-35 m-r-10 p-l-20 p-r-20 spacemargin">Cancel</button>
+          <button color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+            class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 changesubscriptionlisted" [@slideInOut]="animationState1">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+      <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+        <mat-card-header>
+          <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+            <mat-card-subtitle class="informationtext fs-14">
+                Change Subscription
+            </mat-card-subtitle>
+          </div>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+  <div class="innnerpartofdrwer">
+    <app-changesubscriptionlist></app-changesubscriptionlist>
+  </div>

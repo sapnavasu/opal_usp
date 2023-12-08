@@ -1,0 +1,33 @@
+#Organisationviewlist{
+    .coments{
+        border: 1px solid #00A551;
+        background: #F8FFFB;
+        span{
+            color: #00A551;
+        }
+        p{
+            border-bottom: 1px solid #E8E8E8;
+        }
+        .validmsg{
+            p{
+                border: none !important;
+            }
+        }
+        .text-label{
+            color: #848484 !important;
+       }
+       .text-value{
+            color:#262626 !important;
+       }
+    }
+    .decline{
+         @extend .coments;
+         border: 1px solid #ED1C27 !important;
+         span{
+             color: #ED1C27;
+         }
+    }
+    
+    
+}
+

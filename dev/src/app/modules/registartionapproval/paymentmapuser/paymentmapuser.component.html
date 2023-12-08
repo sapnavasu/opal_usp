@@ -1,0 +1,224 @@
+<div fxLayout="row wrap" class="sidenavmainrow" id="user_mapping">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+                <div class="titletext">
+                    <div class="closeandadd">
+                        <i class="bgi bgi-close p-l-5 fs-14" matTooltip="{{'paymentmapuser.clos' | translate}}" (click)="showSweetAlert()"></i>
+                        <h5 class="m-0 p-l-20 tt"> {{sideNavHeading}} <i
+                                (click)="toggleShowDiv('descriptioncontentmember');" class="bgi bgi-info"></i>
+                        </h5>
+                    </div>
+                    <div class="clearandaddbutton">
+                        <button type="button" mat-raised-button (click)="searchControl.reset();clearMappedPk()"
+                            class="clearbutton height-35 m-r-10 p-l-20 p-r-20">{{'paymentmapuser.clea' | translate}}</button>
+                        <button color="preview" type="button" (click)="changeAdmin()" [disabled]="!showChangebtn" mat-raised-button
+                            class="addbutton height-35">{{buttonname}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentmember"
+            [@slideInOut]="animationState1">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                    <mat-card-header>
+                        <div class="titletext">
+                            <mat-card-subtitle class="informationtext fs-14">
+                                {{'paymentmapuser.tranthecomp' | translate}} 
+                            </mat-card-subtitle>
+                        </div>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+        <div *ngIf="paymentuserloader" class="projlstngph w-100 listsector">
+            <div class="leftmainspace">
+                <div class="subcontent">
+                    <span class="pagetitle secondwidth"></span>
+                    <span class="pagetitle secondwidth"></span>
+                    <span class="pagetitle secondwidth"></span>
+                    <div class="descriptitlesector">
+                        <p class="pagetitle"></p>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                    </div>
+                </div>
+            </div>
+          </div>
+        <div [style.display]="!paymentuserloader ? 'block' :'none'"  class="innnerpartofdrwer">
+            <form>
+                <div fxLayout="row wrap" class="m-t-20 marginright">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div class="search">
+                            <mat-form-field class="example-full-width serchform" appearance="none">
+                                <div class="contactsearchbox">
+                                    <div class="spacebetween">
+                                        <div class="space">
+                                            <mat-icon class="searchicon" matPrefix><i class="bgi bgi-search"></i></mat-icon>
+                                            <input autocomplete="off" class="p-l-12" appAlphanumsymb type="text fs-15"
+                                                matInput [formControl]="searchControl" placeholder="Search by Keywords">
+                                        </div>
+                                        <div *ngIf="showreseticon">
+                                            <span matTooltip="Reset" (click)="searchControl.reset();this.showreseticon == false;" style="cursor: pointer;">
+                                                <mat-icon class="reseticon" matSuffix>clear</mat-icon>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="setflexwidth" *ngFor="let dept of userList;let k = index;">
+                        <div>
+                            <label class="control control--checkbox m-l-10 m-r-20 fs-15 m-t-10 color ">
+                                <div class="control__indicator"></div>{{ dept?.deptName }}
+                            </label>
+                        </div>
+                        <div *ngIf="!multiple_select">
+                            <div *ngFor="let user of dept?.userList;let l = index;">
+                                <ul id="officeLocatiion">
+                                    <li [ngClass]="selectedPk == user?.usrPk ? 'selectedVal':'notSelectedVal'"
+                                        (click)="selectedPk = user?.usrPk;selectedUserName = user?.fullName;emitSelectedPks(user.usrPk,dept?.deptPk)">
+                                        <app-declinetooltip [declinemsgPlacement]="'left'" class="declineMediumInfo"
+                                            *ngIf=" user?.status==4" [icontype]="'small'" [declinemsg]="user?.comments">
+                                        </app-declinetooltip>
+                                        <div class="invite cursor">
+                                            <div class="inviteimage">
+                                                <img src="{{user?.userdp}}" onError="this.src = 'assets/images/avatar.svg'"  alt="Investor Image" />
+                                                <span class="selected-tick"><i class="bgi bgi-tick"
+                                                        title="Selected"></i></span>
+                                            </div>
+                                            <div *ngIf="showContactDet" class="p-l-30 invitedata">
+                                                <h4 class="fs-15 m-0" [title]="user?.fullName">
+                                                    {{ user?.fullName | truncate:[30] }}</h4>
+                                                <div fxLayout="row wrap" fxLayoutGap="15px">
+                                                    <div fxFlex.gt-sm="30" fxFlex="100">
+                                                        <p class="fs-12 m-0 p-t-10">
+                                                            <span class="txt-gray91 sub-heading">{{'paymentmapuser.desi' | translate}}</span>
+                                                        </p>
+                                                        <p class="fs-15 m-0"><span>{{ user?.designation || 'NIL'
+                                                                }}</span></p>
+                                                    </div>
+                                                    <div fxFlex.gt-sm="30" fxFlex="100">
+                                                        <p class="fs-12 m-0 p-t-10">
+                                                            <span class="txt-gray91 sub-heading">{{'paymentmapuser.mobinumb' | translate}}</span>
+                                                        </p>
+                                                        <p class="fs-15 m-0 nowrap" *ngIf="user?.um_primobno">
+                                                            <span [title]="user?.um_primobno">{{user?.um_primobnocc}}
+                                                                {{user?.um_primobno | truncate:[15] }}</span>
+                                                        </p>
+                                                        <p class="fs-15 m-0 nowrap" *ngIf="!user?.um_primobno">
+                                                            <span [title]="user?.um_primobno">NIL</span>
+                                                        </p>
+                                                    </div>
+                                                    <div fxFlex.gt-sm="30" fxFlex="100">
+                                                        <p class="fs-12 m-0 p-t-10">
+                                                            <span class="txt-gray91 sub-heading">{{'paymentmapuser.emai' | translate}}</span>
+                                                        </p>
+                                                        <p class="fs-15 m-0"><span>{{ user?.emailId || 'NIL' }}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="!showContactDet" class="p-l-30 ">
+                                                <h4 class="fs-15 m-0" [title]="user?.fullName">
+                                                    {{ user?.fullName | truncate:[30] }}</h4>
+                                                <p class="fs-12 m-0 p-t-10"><span
+                                                        class="txt-gray91 sub-heading">{{'paymentmapuser.desi' | translate}}</span>
+                                                </p>
+                                                <p class="fs-15 m-0"><span>{{ user?.designation || 'NIL' }}</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div *ngIf="multiple_select">
+                            <div *ngFor="let user of dept?.userList;let l = index;">
+                                <ul id="officeLocatiion">
+                                    <li [ngClass]="selectedPkArr.indexOf(user.usrPk) !== -1 ? 'selectedVal':'notSelectedVal'"
+                                        (click)="selectedUserName = user?.fullName;emitSelectedPks(user.usrPk)">
+                                        <div class="invite cursor">
+                                            <div class="inviteimage">
+                                                <img src="{{user?.userdp}}" onError="this.src = 'assets/images/avatar.svg'" alt="Investor Image" />
+                                                <span class="selected-tick"><i class="bgi bgi-tick"
+                                                        title="Selected"></i></span>
+                                            </div>
+                                            <div *ngIf="showContactDet" class="p-l-30 invitedata">
+                                                <h4 class="fs-15 m-0" [title]="user?.fullName">
+                                                    {{ user?.fullName | truncate:[30] }}
+                                                </h4>
+                                                <div fxLayout="row wrap" fxLayoutGap="15px">
+                                                    <div fxFlex.gt-sm="30" fxFlex="100">
+                                                        <p class="fs-12 m-0 p-t-10">
+                                                            <span class="txt-gray91 sub-heading">{{'paymentmapuser.desi' | translate}}</span>
+                                                        </p>
+                                                        <p class="fs-15 m-0"><span>{{ user?.designation }}</span></p>
+                                                    </div>
+                                                    <div fxFlex.gt-sm="30" fxFlex="100">
+                                                        <p class="fs-12 m-0 p-t-10">
+                                                            <span class="txt-gray91 sub-heading">{{'paymentmapuser.mobinumb' | translate}}</span>
+                                                        </p>
+                                                        <p class="fs-15 m-0 nowrap"><span>{{user?.um_primobnocc}}
+                                                                {{user?.um_primobno}}</span></p>
+                                                    </div>
+                                                    <div fxFlex.gt-sm="30" fxFlex="100">
+                                                        <p class="fs-12 m-0 p-t-10">
+                                                            <span class="txt-gray91 sub-heading">{{'paymentmapuser.emai' | translate}}</span>
+                                                        </p>
+                                                        <p class="fs-15 m-0"><span>{{ user?.emailId }}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!showContactDet" class="p-l-30 ">
+                                                <h4 class="fs-15 m-0" [title]="user?.fullName">
+                                                    {{ user?.fullName | truncate:[30] }}</h4>
+                                                <p class="fs-12 m-0 p-t-10"><span
+                                                        class="txt-gray91 sub-heading">{{'paymentmapuser.desi' | translate}}</span>
+                                                </p>
+                                                <p class="fs-15 m-0"><span>{{ user?.designation }}</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="userList?.length === 0 && searchControl.value !== null"
+                        style="padding:24px;align-items: center;text-align: center;width: 100%;">
+                        <h3>{{'paymentmapuser.nousermatcyoursear' | translate}}</h3>
+                    </div>
+                    <div class="noducumentaddedyet w-100"   style="text-align:center;justify-content: center;" *ngIf="userList?.length === 0 && searchControl.value === null"
+                        style="padding:24px;align-items: center;">
+                        <img src="./assets/images/Add.svg" alt="nocollateral.png">
+                       <h3 class="fs-16 lypisfont-bold txt-tropaz header m-0 lh-25 p-t-20">{{'paymentmapuser.therenoth' | translate}}</h3>
+                    </div>
+                   
+                </div>
+                <!-- <div class="fs-16 lypisfont-bold txt-tropaz header m-0 lh-25 p-t-20" (click)="this.draweruserallocation.toggle()">Module allocation </div> -->
+            </form>
+        </div>
+    </div>
+
+</div>
+<app-responseloader class="processloader" *ngIf="disableloader"></app-responseloader>
+<!-- <mat-drawer-container class="example-container sidenavindexclass">
+    <mat-drawer #draweruserallocation class="example-sidenav sidenavsamewidthall modulepermissionsidenav" mode="over"
+        position="end">
+        <app-userallocation [onlyview]="2" [draweruserallocation]="draweruserallocation" #addUpdateAccess
+            (userPermData)="userPermData($event)"></app-userallocation>
+    </mat-drawer>
+</mat-drawer-container> -->

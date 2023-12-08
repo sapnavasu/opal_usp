@@ -1,0 +1,130 @@
+#learnerfeedback{
+    padding-left: 10px;
+    font-size: 14px;
+    .colred{
+        color: red;
+    }
+    .colsand{
+        color: #989898;
+    }
+    .colblue{
+        background-color:#0c4b9a ;
+        color:aliceblue;  
+    }
+    .txt-label{
+        color:#888;
+        font-size:13px;
+    }
+    .txt-value{
+        color:#000;
+    }
+    .colwh{
+       
+        background-color: whitesmoke;
+    }
+    .colli{
+        color: #333;
+    }
+    .colred{
+        color: rgb(238, 102, 102);
+        text-shadow: 1px 1px 1px rgb(234, 151, 151);
+        padding:0px 3px  ;
+    }
+    .cpat{
+        border : 0.001px solid rgb(211, 205, 205);
+    }
+
+
+    .canbtn.mat-flat-button {
+        background-color: #d6cdcd52 ;
+        color: #584f4f;
+        margin-right: 15px;
+        width: 140px;
+        height: 55px;
+        border-radius: 0px;
+    }
+    .subbtn.mat-flat-button {
+        
+        background-color: #ed3323 ;
+        color: #ffff;
+        margin-right: 10px;
+        width: 140px;
+        height: 55px;
+        border-radius: 0px;
+    }
+    .headertitle{
+        display:flex;
+        padding:15px 0;
+        justify-content: center;
+        background:#efefef;
+        margin-bottom:25px;
+        position:relative;
+        .titlediv{
+            text-transform:uppercase;
+            font-size:18px;
+            color:#333;
+            font-family:'opal_semibold', sans-serif;
+        }
+        .backbtn{
+            position:absolute;
+            left:15px;
+            top:18px;
+            color:#888;
+            cursor:pointer;
+        }
+    }
+    
+    .p{
+       padding:  0px 30px 0px 0px;
+    }
+   
+    .trainfact{
+        padding: 30px 10px 10px 0px;
+    }
+    .phadd .mat-body p, .mat-body-2 p, .mat-typography .mat-body p, .mat-typography .mat-body-2 p, .mat-typography p {
+        margin: 0 0 0px;
+    }
+    .ppadd{
+        padding: 0px 30px 0px 30px;
+    }
+    .phadd{
+         padding-left: 20px;
+    }
+    .pstat{
+        padding : 0px 20px 0px 20px;
+    }
+    .border{
+        border: 0px solid #e5dcdc;
+        margin: 1em 0;
+        border-bottom-width: 0.01ex;
+    }
+    .pprdi{
+        padding: 6px 55px 6px 32px;
+    }
+    .pprdi.colli.mat-radio-button.mat-accent .mat-radio-inner-circle{
+        background-color: #e20613 !important;
+    }
+    .pprdi.colli.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+        border-color: #9f9f9f;
+    }
+    // .pprdi .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background::before {#9f9f9f
+    //     background-color: var(--mat-mdc-radio-checked-ripple-color, transparent);
+    //     border-color:#ebe4e4;
+    // }
+    // .pprdi.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+    //     border-color:#595656  !important;
+    // }
+
+    .errmsg{
+        font-size: 16px;
+    }
+}
+
+.rtl{
+    #learnerfeedback{
+        .phadd{
+            padding-left:0;
+            padding-right:20px;
+        }
+    }
+}

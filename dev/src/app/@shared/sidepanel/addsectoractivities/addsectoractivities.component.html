@@ -1,0 +1,209 @@
+
+<div  fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <form class="sidenavform" autocomplete="off" [formGroup]="businessunitForm" #formDirective="ngForm"
+      (ngSubmit)="submitBusinessUnitdetails(formDirective);">
+      <input type="hidden" formControlName="companypk">
+      <input type="hidden" formControlName="sector_pk">
+      <input type="hidden" formControlName="unitnameupd"> 
+      <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0">
+        <!-- column -->
+        <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+          <div class="titletext">
+            <div class="closeandadd">
+              <i (click)="showSweetAlert(formDirective,'sector');closedespchange();animationState2='out';" matTooltip="{{'enterpriseadmin.clos' | translate}}" [matTooltipDisabled]="btnstate"  [ngClass]="btnstate == true ? 'disable_icon' : ' '" class="bgi bgi-close p-l-5 fs-14"></i>
+              <h5 class="m-0 p-l-20 tt">
+                <span>
+                  {{secactbuttonname=='Update'? this.i18n('enterpriseadmin.edit'):this.i18n('enterpriseadmin.add')}}&nbsp;{{'enterpriseadmin.divi' | translate}}</span>
+                <mat-icon #toggleButton (click)="despchange();" class="bgi bgi-info">info_outline</mat-icon>
+              </h5>
+             
+            </div>
+            <div class="clearandaddbutton">
+              <div class="infosteplist" (click)="infolisting('infoview');">
+                <i class="bgi bgi-question" matTooltip="{{'enterpriseadmin.help' | translate}}"></i>
+              </div>
+              <button type="button" mat-raised-button color="primary" class="clearbutton height-35 m-r-10 p-l-20 p-r-20" [disabled]="btnstate"
+                (click)="reset(formDirective,'sector');searchSector = '';resetAll();">{{'enterpriseadmin.clea' | translate}}</button>
+              <button type="submit" color="preview" mat-raised-button [disabled]="businessunitForm.invalid && disableBtn"
+                class="addbutton height-35 p-l-20 p-r-20">{{secactbuttonname}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div #menu fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 p-r-15 businessunitinfo"
+        [ngClass]="{'show': infotoggle, 'hide': !infotoggle}">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0 p-l-0">
+          <mat-card class="headerinformationtext sidenavinfotext m-r-0 p-l-15 p-r-15">
+            <mat-card-header>
+              <div class="titletext">
+                <mat-card-subtitle class="informationtext fs-14">
+                  <p>{{'enterpriseadmin.addyourcompdivi' | translate}}
+                    <br>{{'enterpriseadmin.noteallyourexis' | translate}}
+                  </p>
+                </mat-card-subtitle>
+              </div>
+              <div class="selectforward m-r-0">
+                <div class="p-l-15 gotit">
+                  <span (click)="despchange();" mat-raised-button color="primary">{{'enterpriseadmin.okgotit' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-header>
+          </mat-card>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 infoview" [@slideInOut]="animationState2">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+          <mat-card class="headerinformationtext sidenavinfotext m-r-0 infosteps">
+            <mat-card-header>
+              <div class="titletext">
+                <mat-card-subtitle class="informationtext fs-14">
+                  <div>
+                    <h5 class="m-t-5"><b>{{'enterpriseadmin.steptoadddivi' | translate}}</b></h5>
+                    <ul class="p-l-10 m-t-6">
+                      <li>{{'enterpriseadmin.entethedivi' | translate}}</li>
+                      <li>{{'enterpriseadmin.selethesect' | translate}}</li>
+                      <li>{{'enterpriseadmin.clicontheadd' | translate}}</li>
+                    </ul>
+                  </div>
+                </mat-card-subtitle>
+              </div>
+              <div class="selectforward m-r-0">
+                <div class="p-l-15 gotit">
+                  <span (click)="infolisting('infoview')" mat-raised-button color="primary">{{'enterpriseadmin.okgotit' | translate}}
+                  </span>
+                </div>
+              </div>
+            </mat-card-header>
+          </mat-card>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" fxFlexAlign="center">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottom">
+            <div ngClass.xs="companyinfomcp p-l-0" ngClass.sm="companyinfomcp p-l-0" ngClass.md="companyinfomcp p-l-75"
+              ngClass.lg="companyinfomcp p-l-75" fxFlex.gt-sm="100" fxFlex="100">
+              <img src="{{logourl}}" alt="company logo">
+              <div class="p-l-10">
+                <p class="p-b-8 fs-15">{{ companyname }}</p>
+                <p class="lypisid"><span>{{'enterpriseadmin.jsraid' | translate}}</span>
+                  <span>{{lypisid}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="showprojlstcreate" class="projlstngph w-100 listsector">
+            <div class="leftmainspace">
+                <div class="subcontent">
+                    <span class="pagetitle secondwidth"></span>
+                    <span class="pagetitle secondwidth"></span>
+                    <span class="pagetitle secondwidth"></span>
+                    <div class="descriptitlesector">
+                        <p class="pagetitle"></p>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                        <span class="pagetitle sectorheight"></span>
+                    </div>
+                </div>
+            </div>
+          </div>
+          
+          <div *ngIf="!showprojlstcreate"  class="innnerpartofdrwer" id="select_valuetrigger" #scrollDiv>
+            <div fxLayout="row wrap" fxFlexAlign="center">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-0 p-b-14">
+                <mat-form-field >
+                  <input matInput maxlength="50"  app-restrict-input="firstspace" placeholder="{{'enterpriseadmin.divirefename' | translate}}" appAlphanumsymb
+                    formControlName="unit_name"   [errorStateMatcher]="matcher" required />
+                  <mat-error *ngIf="businessunitFormControl.unit_name.errors?.required">
+                    {{'enterpriseadmin.entedivirefename' | translate}}
+                  </mat-error>
+                  <button mat-button (click)="$event.stopPropagation();" type="button"
+                                  matTooltip="{{'enterpriseadmin.provarefenameforthedivitooltip' | translate}}"
+                                  matTooltipPosition="above" matTooltipClass="allow-cr" matSuffix mat-icon-button
+                                  aria-label="Clear">
+                                  <i class="inputinfoicon bgi bgi-infonew"></i>
+                                </button>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-14">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <mat-select multiple panelClass="myPanelClass" panelClass="select_with_search"
+                    [disableOptionCentering]="true" id="actsector" [errorStateMatcher]="matcher"
+                    (closed)="searchSector = '';" [disabled]="businessunitFormControl.sector_pk.value !== null"  required
+                    placeholder="{{'enterpriseadmin.divisect' | translate}}" formControlName="sector"
+                    (selectionChange)="sectorname = $event.source.triggerValue"
+                    *ngIf="(sectorlist | searchFilter: searchSector : 'SecM_SectorName') as sectoresult" (click)="setlang();">
+                    <div class="searchinmultiselect">
+                      <i class="bgi bgi-search"></i><input matInput name="searchsector" class="searchselect"
+                        type="Search" placeholder="{{'enterpriseadmin.sear' | translate}}" [(ngModel)]="searchSector"
+                        [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="option-listing"> 
+                      <mat-option *ngFor="let sect of sectorlist | searchFilter: searchSector : 'SecM_SectorName'"
+                        [value]="sect.SectorMst_Pk">
+                        {{(sellangcode=='ar')?sect.SecM_SectorName_ar:sect.SecM_SectorName}}
+                      </mat-option>
+                    </div>
+                    <div class="p-10" *ngIf="sectoresult.length == 0">
+                      {{'enterpriseadmin.nodivisect' | translate}}
+                    </div>
+                  </mat-select>
+                  <mat-error *ngIf="businessunitFormControl.sector.errors?.required">
+                    {{'enterpriseadmin.seledivisect' | translate}}
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-40">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="masterTable">
+                <p class="existingcount">{{'enterpriseadmin.exisdivi' | translate}} {{ dataSource.data?.length}}</p>
+                <p class="nottext"><span class="txt-gray3 lypisfont-regular fs-15">{{'enterpriseadmin.note' | translate}}&nbsp;</span><span class="txt-black lypisfont-regular fs-15">{{'enterpriseadmin.youcancreat' | translate}}
+                    </span></p>
+                <mat-table *ngIf="dataSource.data?.length > 0"  #table [dataSource]="dataSource">
+                  <ng-container matColumnDef="mcsd_referenceno">
+                    <mat-header-cell fxFlex="25" *matHeaderCellDef>{{'enterpriseadmin.diviid' | translate}}</mat-header-cell>
+                    <mat-cell fxFlex="25" *matCellDef="let element"> {{element.unit_id}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="mcsd_businessunitrefname">
+                    <mat-header-cell fxFlex="35" *matHeaderCellDef> {{'enterpriseadmin.divirefename' | translate}}</mat-header-cell>
+                    <mat-cell fxFlex="35" *matCellDef="let element"> {{element.unit_name}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="secm_sectorname">
+                    <mat-header-cell fxFlex="40" *matHeaderCellDef>{{'enterpriseadmin.divisect' | translate}}</mat-header-cell>
+                    <mat-cell fxFlex="40" [title]="element.sector" *matCellDef="let element"> {{element.sector |
+                      truncate:[30] }} </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <div fxLayout="row wrap" *ngIf="dataSource.data?.length == 0" class="nodata noducumentaddedyet">
+                  <div fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                      <img src="./assets/images/no_records.svg" alt="nocollateral">
+                      <p class="fs-16 lypisfont-bold txt-tropaz m-0 lh-25 p-t-15">{{'enterpriseadmin.thernoth' | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

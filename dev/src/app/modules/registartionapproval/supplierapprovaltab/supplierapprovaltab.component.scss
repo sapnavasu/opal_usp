@@ -1,0 +1,340 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.approvallist {
+    
+    .spancolor {
+        color: #57626E;
+        cursor: pointer;
+        font-size: 1.125rem;
+    }
+    .bredcrumblist {
+        @include flexend();
+        list-style-type: none;
+        margin-bottom: 0;
+        li {
+            margin-right: 10px;
+            span {
+                color: #006cb7 ;
+                font-size: 0.875rem;
+            }
+            a {
+                color: #006cb7 ;
+                font-size: 0.875rem;
+                margin-right: 10px;
+            }
+        }
+        &:last-child {
+            margin-right: 0;
+            a {
+                margin-right: 0;
+            }
+        }
+    }
+    .topheadermain {
+        display: flex ;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 4px 20px 4px 20px !important;
+    }
+    .flexsame {
+        display: flex !important;
+        align-items: baseline;
+    }
+    .gradientbackgrounds{
+        min-height: calc(100vh - 64px);
+        padding-bottom: 15px;
+        background: linear-gradient(to bottom, #f6f6f6 164px, #fff 2% 40%);
+    }
+   
+   .mainbackgroundsupplier {
+    margin-top: 25px;
+    .mat-tab-label-active {
+        background: #fff;
+        overflow: visible;
+        opacity: initial;
+        font-size: 0.9375rem;
+        font-weight: bold;
+        border-top: 3px solid #4aa1ac;
+        color: #4aa1ac;
+    }
+     .mat-tab-list {
+        height: 48px !important;
+        padding: 20px 15px;
+        cursor: pointer;
+        box-sizing: border-box;
+        opacity: initial;
+        min-width: 160px;
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: center;
+        white-space: nowrap;
+        text-align: left !important;
+        position: relative;
+    }
+    
+     .mat-ink-bar {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        display: none;
+        transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+    }
+     
+    .mat-tab-label{
+        font-size: 0.9375rem;
+        font-weight: bold;
+    }
+    
+    .mat-tab-header {
+        background: #f6f6f6;
+        margin-left: 25px;
+        border-bottom: none !important;
+    }
+        .mat-tab-label {
+            opacity: 1 !important;
+            width: auto;
+        }
+    
+   }
+    .Certifiedcolor {
+        line-height: 1.2;
+        padding: 17px 5px !important;
+        height: auto;
+        margin-left: 0 !important;
+    }
+    .shadow {
+        display: flex;
+    }
+    .background {
+        background-color: #fff;
+        min-height: 410px;
+        overflow: hidden;
+        border-radius: 2px;
+    }
+  
+    .cursor{
+        cursor: pointer;
+    
+        a{
+            color: #cee0f1;
+                    font-size: 0.875rem;
+        }
+    }
+    .count {
+        background-color: #27b8e7 !important;
+        color: white !important;
+        min-height: 25px !important;
+        margin-left: 10px !important;
+    }
+    .standard .mat-standard-chip {
+        transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-flex;
+        padding: 1px 12px !important;
+        border-radius: 16px;
+        align-items: center;
+        cursor: default;
+        min-height: 20px !important;
+        height: 1px;
+    }
+}
+
+
+@media (max-width: 768px) {
+   .masterTable .mat-cell {
+        justify-content: flex-start;
+        display: flex !important;
+    }
+    
+}
+@media (max-width: 767px) {
+    .alignwidth {
+        display: block !important;
+    }
+    .bredcrumblist {
+        padding-left: 0px !important;
+        justify-content: flex-start !important;
+    }
+    .topbreadcrumb {
+        padding-right: 0px !important;
+    }
+    .spancolor {
+       font-size: 14px !important;
+       padding-left: 0px !important;
+    }
+   .mainbackgroundsupplier .mat-tab-header-pagination-chevron {
+        border-color: #fff !important;
+    }
+   .mainbackgroundsupplier .mat-tab-header {
+        margin-left: 0px !important;
+    }
+}
+
+
+
+ 
+.pagetitle{
+    height: 50px;
+    width: 100px;
+    background: #000;
+    position: relative;
+  
+    // Animation
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: pagetitleAnimate;
+    background: #f6f7f8; // Fallback
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px; // Animation Area
+  }
+  @keyframes pagetitleAnimate {
+    0%{ background-position: -650px 0; }
+    100%{ background-position: 650px 0; }
+  }
+  .skycardloaderitem{
+      height: 50px;
+      width: 210px;
+      background: #000;
+      position: relative;
+    
+      // Animation
+      animation-duration: 1.7s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-name: pagetitleAnimate;
+      background: #f6f7f8; // Fallback
+      background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+      background-size: 1300px; // Animation Area
+      .skycardloaderitem:before {
+          width: inherit;
+          height: inherit;
+          content: '';
+          position: absolute;
+      }
+    }
+  
+    @keyframes skycardloaderitemAnimate {
+      0%{ background-position: -650px 0; }
+      100%{ background-position: 650px 0; }
+    }
+  
+    .placeholdercenter{
+      height: 50px;
+      width: 100%;
+      background: #000;
+      position: relative;
+    
+      // Animation
+      animation-duration: 1.7s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-name: pagetitleAnimate;
+      background: #f6f7f8; // Fallback
+      background: linear-gradient(to right, #eee 1%, #ddd 18%, #eee 33%);
+      background-size: 1300px; // Animation Area
+      .placeholdercenter:before {
+          width: inherit;
+          height: inherit;
+          content: '';
+          position: absolute;
+      }
+    }
+  
+    @keyframes placeholdercenterAnimate {
+      0%{ background-position: -650px 0; }
+      100%{ background-position: 650px 0; }
+    }
+  
+   .justify{
+    @include spacebetween();
+   }
+   .approvalalign{
+       width: 97.33%;
+       margin-left: auto;
+       margin-right: auto;
+   }
+   .cardleftwidth{
+     width: 100%;
+   }
+  
+   .aligncard{
+     display: flex;
+     justify-content: space-between;
+   }
+  
+   .broadcastviewwidth{
+      width: 100%;
+      height: 450px;
+      background: #000;
+      position: relative;
+      // Animation
+      animation-duration: 1.7s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-name: pagetitleAnimate;
+      background: #f6f7f8; // Fallback
+      background: linear-gradient(to right, #eee 1%, #ddd 18%, #eee 33%);
+      background-size: 1300px; // Animation Area
+      .broadcastviewwidth:before {
+          width: inherit;
+          height: inherit;
+          content: '';
+          position: absolute;
+      }
+    }
+  
+    @keyframes broadcastviewwidthAnimate {
+      0%{ background-position: -650px 0; }
+      100%{ background-position: 650px 0; }
+    }
+
+    @media (max-width: 767px){
+        .approvallist{
+            .topheadermain {
+                display: flex !important;
+                justify-content: flex-start !important;
+                flex-flow: inherit !important; 
+            }
+            ul.breadcrumb li {
+                margin-bottom: 0px !important;
+                padding-left: 15px !important;
+            }
+        }
+}
+
+
+[dir=rtl]{
+    .tabregapprval{
+        .mat-tab-list {
+            padding: 20px 40px !important;
+        }
+    }
+   
+}

@@ -1,0 +1,144 @@
+<div fxLayout="row wrap" class="p-b-20">
+  <form class="adddepartmentfrm" [formGroup]="adddepartmentForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row wrap" class="p-b-15 p-t-0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <input type="hidden" formControlName="departmentPk">
+        <mat-form-field class="example-full-width">
+          <input placeholder="Department Name" matInput required type="text" formControlName="departmentName"
+            [ngClass]="{'is-invalid': f.departmentName.touched && f.departmentName.errors }" (change)="validationCheck()" appAlphanumsymb/>
+          <div *ngIf="f.departmentName.touched && f.departmentName.errors" class="invalid-feedback">
+            <div *ngIf="f.departmentName.touched &&  f.departmentName.errors"> Department is required
+            </div>
+          </div>
+        </mat-form-field>
+        <div class="organisationinfo bottom">
+          <div fxLayout="row wrap" class=" depModulesTable">
+            <form id="modulecheckform" style="width:100%;">
+              <!---perminssion ui starts from here-->
+              <mat-table #table [dataSource]="dataSourceforpermission">
+                <ng-container matColumnDef="modules">
+                  <mat-header-cell *matHeaderCellDef fxFlex="31"  data-label="Modules">
+                    <input type="checkbox" (change)="fullMOduleCheck($event)" id="alldataselected"
+                      class="example-margin m-r-15 depinput">
+                    <label class="deplabel" for="alldataselected">
+                      Modules
+                    </label>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="35" let mi="element.modules"  >
+                    <input type="checkbox" id="module_{{element.module_id}}" (change)="checkAllModule($event,element.module_id)"
+                      [ngClass]="{'myclass parentofclass': element.child ,'submyclass ':!element.child}"
+                      class="maincheckbox example-margin fs-15 text-gray p-l-30 m-r-15 depinput">
+                    <label class="deplabel" for="module_{{element.module_id}}">{{element.modules}}</label>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="module_id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header hidden="true"> Module id</mat-header-cell>
+                  <mat-cell *matCellDef="let row" hidden="true"  data-label="Module id" > {{row.module_id}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="create">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center"> Create </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk"  data-label="Create" >
+                    <mat-slide-toggle id="mm-{{element.module_id}}-1" (change)="moduleToggle($event, element.module_id, 1)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aC"></mat-slide-toggle>
+                    
+                    <span *ngIf="element.create == 'Y' || element.create == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.create =='Y'" type="checkbox" id="module_{{element.module_id}}_1"
+                        name="module_{{element.module_id}}_1"
+                        (change)="checkBoxCheck($event,element.module_id,1)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i class="bgi bgi-close fs-14 text-red" *ngIf="element.create == 'NIL'" [class.disabledtoggle]="!element.childEnable"></i>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="update">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center" > Update </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Update">
+                    <mat-slide-toggle id="mm-{{element.module_id}}-3" (change)="moduleToggle($event, element.module_id, 3)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aU"></mat-slide-toggle>
+                    
+                    <span *ngIf="element.update == 'Y' || element.update == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.update =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,3)"
+                        id="module_{{element.module_id}}_3" name="module_{{element.module_id}}_3">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i class="bgi bgi-close fs-14 text-red" *ngIf="element.update == 'NIL'" [class.disabledtoggle]="!element.childEnable"></i>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- createed ON Column -->
+                <ng-container matColumnDef="read">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center"  > Read </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Read">
+                    <mat-slide-toggle id="mm-{{element.module_id}}-2" (change)="moduleToggle($event, element.module_id, 2)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aR"></mat-slide-toggle>
+                  
+                    <span *ngIf="element.read == 'Y' || element.read == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.read =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,2)"
+                        id="module_{{element.module_id}}_2" name="module_{{element.module_id}}_2">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i class="bgi bgi-close fs-14 text-red" *ngIf="element.read == 'NIL'" [class.disabledtoggle]="!element.childEnable"></i>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Updated ON Column -->
+                <ng-container matColumnDef="delete">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center"> Delete</mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Delete">
+                    <mat-slide-toggle id="mm-{{element.module_id}}-4" (change)="moduleToggle($event, element.module_id, 4)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aD"></mat-slide-toggle>
+
+                    <span *ngIf="element.delete == 'Y' || element.delete == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.delete =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,4)"
+                        id="module_{{element.module_id}}_4" name="module_{{element.module_id}}_4">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i class="bgi bgi-close fs-14 text-red" *ngIf="element.delete == 'NIL'" [class.disabledtoggle]="!element.childEnable"></i>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="approval">
+                  <mat-header-cell *matHeaderCellDef fxFlex="14" class="text-center"> Approval</mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="14" class="text-center iconChk" data-label="Approval">
+                    <mat-slide-toggle id="mm-{{element.module_id}}-5" (change)="moduleToggle($event, element.module_id, 5)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aA"></mat-slide-toggle>
+
+                    <span *ngIf="element.approval == 'Y' || element.approval == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.approval =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,5)"
+                        id="module_{{element.module_id}}_5" name="module_{{element.module_id}}_5">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i class="bgi bgi-close fs-14 text-red" *ngIf="element.approval == 'NIL'" [class.disabledtoggle]="!element.childEnable"></i>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="download">
+                  <mat-header-cell *matHeaderCellDef fxFlex="14" class="text-center" > Download</mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="14" class="text-center iconChk" data-label="Download">
+                    <mat-slide-toggle id="mm-{{element.module_id}}-6" (change)="moduleToggle($event, element.module_id, 6)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aDwn"></mat-slide-toggle>
+
+                    <span *ngIf="element.download == 'Y' || element.download == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.download =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,6)"
+                        id="module_{{element.module_id}}_6" name="module_{{element.module_id}}_6">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <i class="bgi bgi-close fs-14 text-red" *ngIf="element.download == 'NIL'" [class.disabledtoggle]="!element.childEnable"></i>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="['modules', 'create','update','read','delete','approval','download']">
+                </mat-header-row>
+                <mat-row class="detailedselection"
+                  *matRowDef="let row; columns: ['modules', 'create','update','read','delete','approval','download'];">
+                </mat-row>
+                <mat-row *matRowDef="let row; columns: ['modules', 'create','update','read','delete','approval','download']; when: isExtendedRow" class="darken">
+                </mat-row>
+              </mat-table>
+              <!---Permission end here-->
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

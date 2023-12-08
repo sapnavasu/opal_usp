@@ -1,0 +1,36 @@
+.simpledialogcommon
+{
+    width: 351px;
+    padding: 20px;
+    height: 215px;
+
+    .mat-dialog-actions
+    {
+      justify-content: flex-end;
+    }
+}
+.mat-dialog-container
+{
+    border-radius: 0px !important;
+}
+
+#login_session{
+    position:relative;
+    z-index:1;
+    cursor:pointer;
+}
+
+.boxItems {
+    border: 1px solid #D1D1D1;
+    padding: 5px;
+    margin: 5px 5px 5px 0px;
+}
+.txt-gry {
+    color: #848484;
+}
+.txt-gry3 {
+    color: #262626;
+}
+.mat-dialog-container{
+    overflow: unset !important;
+}

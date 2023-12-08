@@ -1,0 +1,18 @@
+@media (max-width: 767px){
+    .selectproductheaderwithclose {
+        height: auto !important;
+      }
+      .selectproductheaderwithclose .titletext {
+        display: block !important;
+      }
+      .selectproductheaderwithclose .closeandadd {
+        margin-bottom: 10px;
+      }
+      .spacing{
+        padding-right: 10px !important;
+    }
+    }
+  .flexsame{
+    display: flex;
+    align-items: baseline;
+  }

@@ -1,0 +1,47 @@
+<div fxLayout="row wrap" class="widthdialog text-center">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="m-l-40 m-r-40 m-t-30">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="thanktextcolor">
+        <span class="successicon">
+          <i class="bgi  bgi-tick fs-20"></i>
+        </span>
+        <h5 class="p-t-20">Thank you for registering! </h5>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="formcolor">
+        <p class="fs-15">
+          After your organisation approves your registration,
+          you will receive an email to set password.
+        </p>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="formcolor">
+        <p class="nextorange">What's next?</p>
+        <ul class="quickinforeg">
+          <li>Set your password </li>
+          <li>Login to your account</li>
+          <li>Update your profile</li>
+        </ul>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="formcolor">
+        <p>
+          For queries, please send an email to
+          <a class="gotomail" href="jsrssupport@businessgateways.com">jsrssupport@businessgateways.com</a>
+
+        </p>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="p-t-10 p-b-25">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <button type="button" mat-raised-button color="primary" routerLink="/admin/login" (click)="onNoClick()"
+          class="homebtn m-r-20 fs-15" mat-buttons>Go to Login</button>
+        <!-- <button type="button" (click)="onNoClick()" class="loginbtn fs-15" mat-buttons><a
+            style="text-decoration: none;color:white" [href]="data?.pwdLink">Set Password</a></button> -->
+      </div>
+    </div>
+  </div>
+</div>

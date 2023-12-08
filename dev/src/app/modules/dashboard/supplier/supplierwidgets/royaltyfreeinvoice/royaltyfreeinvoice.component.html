@@ -1,0 +1,52 @@
+<div fxFlex.gt-sm="100" fxFlex="100" id="royaltyfreeservice" class="flex-column royaltyfreeservice">
+        <div class="titleinfolink m-t-20">
+            <h5 class="m-b-10 m-t-10 fs-16 title">
+                    {{'centredashboard.royalfeeinvoice' | translate}} <span class="m-l-5 infoicon" matTooltip="View the status of the Royalty Fee Invoices issued to your Company."><mat-icon>info_outline</mat-icon></span>
+            </h5>
+            <span class="viewalllink">{{'centredashboard.viewall' | translate}}</span>
+        </div>
+        <div class="royaltyfreeservicediv" [disabled]="invoiceManagement" [ngClass]="invoiceManagement ? 'commignsoon' : ''">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tbcerititlebg">
+                    {{'centredashboard.yettopay' | translate}}
+            </div>
+            <ul>
+                <li>
+                    <p>{{totalinvoice}}</p>
+                    <span>{{'centredashboard.totalinvoice' | translate}}</span>
+                </li>
+                <li>
+                    <p>{{totalamount}}</p>
+                    <span>{{'centredashboard.amtomr' | translate}}</span>
+                </li>
+                <li>
+                    <p class="txt-red">{{dueinvoice}}</p>
+                    <span>{{'centredashboard.dueinvoice' | translate}} <span class="m-l-5 infoicon" matTooltip="Total Number of pending Invoices."><mat-icon>info_outline</mat-icon></span></span>
+                </li>
+                <li>
+                    <p>{{dueamount}}</p>
+                    <span>{{'centredashboard.dueamt' | translate}}</span>
+                </li>
+            </ul>
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tbcerititlebg">
+                {{'centredashboard.acknowledgepending' | translate}}
+            </div>
+            <ul class="border-bottom">
+                <li>
+                    <p>{{atotalinvoice}}</p>
+                    <span>{{'centredashboard.totalinvoice' | translate}}</span>
+                </li>
+                <li>
+                    <p>{{atotalamount}}</p>
+                    <span>{{'centredashboard.amtomr' | translate}}</span>
+                </li>
+                <li>
+                    <p class="txt-red">{{adueinvoice}}</p>
+                    <span>{{'centredashboard.dueinvoice' | translate}} <span class="m-l-5 infoicon" matTooltip="Total Number of pending Invoices."><mat-icon>info_outline</mat-icon></span></span>
+                </li>
+                <li>
+                    <p>{{adueamount}}</p>
+                    <span>{{'centredashboard.dueamt' | translate}}</span>
+                </li>
+            </ul>
+        </div>
+</div>

@@ -1,0 +1,108 @@
+
+<app-responseloader *ngIf="rightSideSpinner"></app-responseloader>
+<div fxLayout="row wrap" fxLayoutAlign="center" id="supplierdashboard" class="supplierdashboard">
+  <div fxFlex="100" class="flex-column">
+      <mat-tab-group class="tabsdetials dashtabs">
+           <!--Training Tab-->
+          <mat-tab *ngIf="trainingEvaluationCentreshowhide && trainingctrshow">
+            <ng-template mat-tab-label>
+                <div class="tabscontent">
+                    <div class="tabtitle">
+                        <p class="fs-15">{{'centredashboard.trainevalcentre' | translate}}</p>
+                    </div>
+                </div>
+            </ng-template>
+            
+            <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px" >
+              <div fxFlex.gt-sm="35" fxFlex="100">
+                <app-mainofficecertificate [centredtls]="centredtls" [web_url]="web_url"></app-mainofficecertificate>
+                <app-overallstaffinfo [DashboardCounts]="DashboardCounts"></app-overallstaffinfo>
+              </div>
+              <div fxFlex.gt-sm="65" fxFlex="100">
+                <app-branchofficecertificate [DashboardCounts]="DashboardCounts"></app-branchofficecertificate>
+                <app-courseinformation  *ngIf="DashboardCounts" [DashboardCounts]="DashboardCounts"></app-courseinformation>
+              </div>
+            </div>
+            <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <app-batchmanagment *ngIf="DashboardCounts" [DashboardCounts]="DashboardCounts" [BatchTPData]="BatchTPData" [BatchACData]="BatchACData"></app-batchmanagment>
+              </div>
+             <!--  <div fxFlex.gt-sm="50" fxFlex="100">
+                <app-invoicemanagment></app-invoicemanagment>
+              </div> -->
+            </div>
+          </mat-tab>
+          <!--Technical Tab-->
+          <mat-tab *ngIf="technicalEvaluationCentrehowhide && technicalctrshow">
+              <ng-template mat-tab-label>
+                  <div class="tabscontent"  >
+                      <div class="tabtitle">
+                          <p class="fs-15">{{'centredashboard.techevalcentre' | translate}}</p>
+                      </div>
+                  </div>
+              </ng-template>
+              <div fxLayout="row" fxLayoutGap="25px">
+                  <mat-tab-group class="tabsdetials innerdashtabs">
+                    <!--RAS Tab-->
+                    <mat-tab>
+                      <ng-template mat-tab-label >
+                          <div class="tabscontent">
+                              <div class="tabtitle">
+                                  <p class="fs-14">{{'centredashboard.ras' | translate}}</p>
+                              </div>
+                          </div>
+                      </ng-template>
+                      <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+                        <div fxFlex.gt-sm="35" fxFlex="100">
+                          <app-tmainofficecertificate [rascompanydtls]="rascompanydtls" ></app-tmainofficecertificate>
+                        </div>
+                        <div fxFlex.gt-sm="65" fxFlex="100">
+                          <app-tbranchofficecertificate  [rasBranchdata]="rasBranchdata" ></app-tbranchofficecertificate>                        </div>
+                      </div>
+                      <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+                        <div fxFlex.gt-sm="35" fxFlex="100">
+                          <app-toverallstaffinfo [rasroles]="rasroles" ></app-toverallstaffinfo>
+                          <div *ngIf="hide_tabs">
+                             <app-royaltyfreeinvoice ></app-royaltyfreeinvoice>
+                            </div>                        </div>
+                        <div *ngIf="isfocalpoint == 1" fxFlex.gt-sm="65" fxFlex="100">
+                          <app-pendinglistaccordion *ngIf="rasVehicleData" [rasVehicleData]="rasVehicleData"></app-pendinglistaccordion>
+                        </div>
+                      </div>
+                    </mat-tab>
+                    <!--IVMS Tab-->
+                    <mat-tab *ngIf="hide_tabs">                      <ng-template mat-tab-label>
+                          <div class="tabscontent">
+                              <div class="tabtitle">
+                                  <p class="fs-14">{{'centredashboard.ivms' | translate}}</p>
+                              </div>
+                          </div>
+                      </ng-template>
+                      <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+                        <div fxFlex.gt-sm="35" fxFlex="100">
+                          <app-tmainofficecertificate></app-tmainofficecertificate>
+                        </div>
+                        <div fxFlex.gt-sm="65" fxFlex="100">
+                          <app-tbranchofficecertificate></app-tbranchofficecertificate>
+                        </div>
+                      </div>
+                      <div fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayout="row" fxLayoutGap="25px">
+                        <div fxFlex.gt-sm="35" fxFlex="100">
+                          <app-toverallstaffinfo></app-toverallstaffinfo>
+                          <app-royaltyfreeinvoice></app-royaltyfreeinvoice>
+                        </div>
+                        <div fxFlex.gt-sm="65" fxFlex="100">
+                          <app-ivmspendinglistaccordion></app-ivmspendinglistaccordion>
+                        </div>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+              </div>
+          </mat-tab>
+      </mat-tab-group>
+  </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+<!-- <app-stafcv></app-stafcv> -->
+<!-- <app-courseview></app-courseview> -->

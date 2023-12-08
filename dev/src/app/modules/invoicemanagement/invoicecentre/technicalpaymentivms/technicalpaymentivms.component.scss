@@ -1,0 +1,137 @@
+#paymentone {
+    .cancelbtn {
+        min-width: 110px;
+        background-color: #ffff;
+        border: 1px solid #e8e8e8;
+        color: #262626;
+        padding-left: 0px;
+        padding-right: 0px;
+        height: 45px;
+        font-size: 15px;
+        box-shadow: none;
+
+    }
+    .txt-gry {
+        color: #848484 !important;
+    }
+    .txt-gry3 {
+        color: #262626 !important;
+    }
+    .knowledgegrid {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 8px #0000001a;
+        border: 1px solid #D7DCE3;
+        border-radius: 4px;
+        opacity: 1;
+        padding: 10px;
+
+        .text-gray, .txt-gry {
+            color: #848484 !important;
+        }
+
+        .text-default, .txt-gry3 {
+            color: #262626 !important;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        .details {
+
+            .head {
+                justify-content: space-between;
+                align-items: center;
+                height: 40px;
+
+                .grade {
+                    align-items: center;
+                    color: #895B37;
+                }
+
+                .gold {
+                    align-items: center;
+                    color: #BA9666;
+                }
+
+                .silver {
+                    align-items: center;
+                    color: #B9BABC;
+                }
+            }
+
+            .application-detais {
+                border: 1px solid #D7DCE3;
+                padding: 5px;
+                margin-top: 10px !important;
+                span {
+                    color: #262626;
+                }
+            }
+
+        }
+
+        .address {
+            justify-content: space-between;
+            width: 60%;
+
+            .add-details {
+                i {
+
+                    color: transparent;
+                    -webkit-text-stroke-width: 1px;
+                    -webkit-text-stroke-color: #707070;
+
+                }
+            }
+        }
+    }
+    h4 {
+        color: #0C4B9A;
+    }
+    .feedetails {
+       
+
+        .view_dtl {
+            p {
+                min-width: 222px;
+                color: #848484;
+                font-size: 16px;
+             @media(max-width: 768px) {
+                min-width: 178px;
+             }
+            }
+            span {
+                color: #262626;
+                font-size: 16px;
+            }
+            .document {
+                width: 32px;
+             }
+        }
+    }
+    .badge {
+        color: #fff;
+        padding: 3px 5px;
+        font-size: 15px;
+        border-radius: 3px;
+
+        &.pendings {
+            background-color: #f4811f;
+        }
+
+        &.update {
+            background-color: #0c4b9a;
+        }
+
+        &.appr {
+            background-color: #00a551;
+        }
+
+        &.decl {
+            background-color: #ed1c27;
+        }
+
+    }
+     
+}

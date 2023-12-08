@@ -1,0 +1,172 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin marginzero {
+    margin: 0;
+    white-space: normal !important;
+    text-align: left;
+}
+
+
+#thankyoulistview {
+    text-align: center;
+    border-radius: 10px;
+    background-clip: padding-box;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90% !important;
+    margin-top: -135px;
+    min-height: calc(100vh - 232px);
+    padding-top: 25px;
+    .leftspace{
+        text-align: left;
+   }
+   .crossimg{
+        img{
+             width: 44px;
+             height: 44px;
+        }
+   }
+   .flexinfo{
+        display: flex;
+        align-items: center;
+   }
+    .transcationcard {
+        padding: 15px;
+        margin-bottom: 15px;
+        .card_icon {
+            width: 70px;
+            height: 70px;
+            background-color: #fff;
+            color: #fff;
+            border-radius: 3px;
+            font-size: 1.5625rem;
+            display: inline-block;
+            text-align: center;
+            margin-right: 15px;
+            border: 1px solid #ddd;
+    
+            img {
+                width: 100% !important;
+            }
+        }
+    }    
+    .headingalign{
+        &.paymentinfo{
+             max-width: 100% !important;
+        }
+        .msme_small{
+            padding-left: 6px;
+            padding-right: 6px;
+            color:#fff !important;
+            background-color:#f2ac1d;
+            padding-top: 2px;
+            padding-bottom: 2px;  
+            border-radius: 2px;
+            margin: 0px;
+        }
+        .msme_medium{
+             @extend .msme_small;
+             background-color: #2fd0d4 !important;
+        }
+        .msme_micro{
+            @extend .msme_small;
+            background-color: #3e78d8 !important;
+       }
+        .msme_large{
+             @extend .msme_small;
+             background-color: #62a125 !important;
+        }
+        .largenew{
+             @extend .msme_small;
+             background-color: #62a125 !important;
+        }
+        .paymentinprogress{
+            @extend .msme_small;
+            background-color: #fc9202 !important;
+        }
+        .cancel{
+            @extend .msme_small;
+            background-color: #de1818 !important;
+        }
+        max-width: 80%;
+          h3{
+                text-align: left;
+          }
+    }
+    .clickherecolor{
+              a{
+                  text-decoration: underline;
+              }
+    }
+    .cancellogo {
+        i {
+            font-size: 1.875rem;
+            color: red;
+        }
+    }
+    .jsrscontactcolor {
+        padding-bottom: 20px;
+        h2 {
+            font-size: 1.125rem;
+            margin: 0px;
+            color: #71c016;
+        }
+        .awaitingcolor{
+              color: #de1818;
+        }
+       
+    }
+    .redcolor {
+        h2 {
+            font-size: 1.125rem;
+            margin: 0px;
+            color: red  !important;
+        }
+    }
+    .transfertextcolor {
+        p {
+            color: #333333;
+            font-size: 1rem;
+            margin: 0px;
+            span {
+                font-family: 'opal_semibold';
+            }
+        }
+    }
+
+    .loginbtn {
+        @include flexcenter();
+        margin-top: 30px;
+        button {
+            width: 160px;
+            color: #fff;
+            border-radius: 2px;
+            @include flexcenter;
+        }
+    }
+}
+

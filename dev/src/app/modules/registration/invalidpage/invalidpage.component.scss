@@ -1,0 +1,237 @@
+.heightregister {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+}
+.request {
+    width: 200px;
+    height: 42px;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #006cb7;
+    border: none;
+}
+.headerimage {
+    text-align: center;
+    img {
+        width: 150px;
+        height: 150px;
+        margin-top: 50px;
+    }
+    h4 {
+        color: #333333;
+    }
+    p{
+        color:#333;
+    }
+}
+.regfooter {
+    min-height: calc(16vh - 16px);
+    .login_footer {
+        display: flex;
+        justify-content: space-between;
+        background: transparent;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 94% !important;
+        align-items: center;
+    }
+    .login_footer .login_footer_left ul li a {
+        color: #333 !important;
+        display: flex;
+        align-items: center;
+        font-size: 15px !important;
+    }
+    .login_footer_right {
+        span {
+            color: #333 !important;
+            font-size: 15px !important;
+        }
+    }
+    .drivenalign {
+        display: flex;
+        align-items: flex-end;
+        margin-top: -40px;
+        p {
+            color: #333;
+            padding-right: 10px;
+        }
+        img{
+            height: 40px;
+        }
+    }
+}
+.headerstylings {
+    background: #f2f3f7 !important;
+    position: relative;
+}
+
+.bottominfo {
+    margin-left: auto;
+    display: flex;
+    max-width: 80%;
+    margin-right: auto;
+    padding-bottom: 30px;
+}
+
+.topheaderimage {
+    background: #fff !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    .makeitright {
+        width: 70%;
+        margin: 0 auto;
+    }
+    img {
+        max-width: 150px;
+    }
+}
+
+.newcardcontent {
+    p {
+        color: #656565;
+        font-size: 0.875rem;
+    }
+}
+
+.headerimage {
+    text-align: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    
+    img {
+        width: 150px;
+        height: 150px;
+        margin-top: 100px;
+    }
+    h4 {
+        color: #333333;
+    }
+}
+.regfooter {
+    min-height: 110px;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    .login_footer {
+        display: flex;
+        justify-content: space-between;
+        background: transparent;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 94% !important;
+        align-items: center;
+    }
+    .login_footer .login_footer_left ul li a {
+        color: #333 !important;
+        display: flex;
+        align-items: center;
+        font-size: 15px !important;
+    }
+    .login_footer_right {
+        span {
+            color: #333 !important;
+            font-size: 15px !important;
+        }
+    }
+    .drivenalign {
+        display: flex;
+        align-items: flex-end;
+        margin-top: -40px;
+        p {
+            color: #333;
+            padding-right: 10px;
+        }
+        img{
+            height: 40px;
+        }
+    }
+}
+.headerstylings {
+    background: #fff !important;
+    position: relative;
+}
+
+.bottominfo {
+    margin-left: auto;
+    display: flex;
+    max-width: 70%;
+    margin-right: auto;
+    padding-bottom: 20px;
+    margin-top: 10px;
+    min-height: calc(100vh - 200px);
+}
+
+@media (max-width: 768px) {
+    .bottominfo {
+        margin-left: auto;
+        flex-direction: row-reverse;
+        max-width: 95%;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+    .bottominfo {
+        margin-left: auto;
+        display: flex;
+        max-width: 95%;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+}
+@media (max-width: 767px) {
+    .textalignend {
+        padding-top: 20px !important;
+    }
+    .header {
+        font-size: 26px !important;
+    }
+    .makeitright {
+        margin-left: 0px !important;
+    }
+    .circleimage {
+        padding-top: 4px;
+        img {
+            max-width: 72% !important;
+        }
+    }
+
+    .bottominfo {
+        margin-left: auto;
+        display: block !important;
+        max-width: 95%;
+        margin-right: auto;
+        padding-bottom: 30px;
+    }
+
+    .makeitright {
+        text-align: center;
+    }
+}
+
+.expiredandnovalid {
+    h4 {
+        color: #d81f23;
+        font-size: 1.125rem;
+        font-weight: bold;
+    }
+    i {
+        color: #d81f23;
+        font-size: 2.1875rem;
+    }
+}
+.alreadyregistered
+{
+    i {
+        color: #333;
+        font-size: 2.1875rem;
+    }
+    .boldtext
+    {
+        font-family: 'opal_semibold';
+    }
+}

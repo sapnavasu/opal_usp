@@ -1,0 +1,179 @@
+
+.quicksetuplist{
+  .mat-dialog-container {
+    padding: 0px !important;
+   }
+    #traininglistpopup{
+        .clearbtn {
+            min-width: 65px;
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #c4c4c4;
+            padding-left: 0px;
+            padding-right: 0px;
+            height: 30px;
+            box-shadow: none;
+            line-height: 1;
+         }
+         .timepickerwidth{
+            max-width: 85px;
+            .mat-icon {
+                font-size: 20px;
+                color: #848484;
+            }
+       }
+         .slottag{
+             .mat-icon{
+                color: #848484;   
+             }
+             span{
+                 color: #262626;
+             }
+         }
+         .mindaterangewidth{
+             min-width: 230px;
+         }
+         .savebtn{
+            @extend .clearbtn;
+            background-color: #ed1c27 !important;
+            color: #fff !important;
+            border: none !important;
+
+         }
+        .summarytablelist{
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            mat-cell, mat-header-cell, mat-footer-cell {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                overflow: inherit !important;
+                word-wrap: break-word;
+                min-height: inherit;
+          }
+          .mat-header-row, .mat-row{
+             min-height: 36px !important;
+         }
+          .daytopalign{
+            width: 100px;
+            background: #fff;
+            position: relative;
+            top: -18px;
+            overflow: inherit;
+            h4{
+                 color: #262626;
+            }
+          }
+          mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+            padding-left: 0px !important; 
+          }
+          .mat-header-cell{
+                font-size: 14px ;
+                color: #262626 !important;
+            }
+          .mat-header-cell, .mat-cell{
+              text-align: center;
+              border-left: 1px solid #ddd;
+              justify-content: center;
+              &:first-child{
+                 border-left: 0 !important;
+              }
+          }
+        }
+      
+        .trainingdurationhead{
+            padding: 10px 25px;
+            background-color: #0c4b9a;
+            border-radius: 3px;
+            .mat-icon{
+                 color: #fff;
+            }
+            h2{
+                 color: #fff;
+            }
+       }
+       .conftiming{
+           h4{
+            color: #262626;
+          }   
+       }
+       .totalleanerheader{
+        p{
+           color: #848484;
+           padding-bottom: 4px;
+        }
+        span{
+             color: #262626;
+        }
+      }
+       .coursesubtitle{
+        .complantag{
+              border: 1px solid #ddd;
+              padding: 8px 10px;
+        }
+           p{
+                color: #848484;
+           }
+           span{
+             color: #262626;
+           }
+       }
+       
+    }
+}
+
+
+@media (max-width: 699px) {
+  .rangewidthdateres{
+      display: block !important;
+  }
+  .mindaterangewidth{
+     padding-bottom: 10px;
+  }
+  .widthlangtitle{
+
+    padding-top: 15px;
+  }
+}
+
+
+@media (max-width: 768px) {
+ 
+  .summarytablelist {
+    position: relative;
+    z-index: 1;
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background-color: #fff;
+    scroll-behavior: smooth; 
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 5px;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 2px;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+        background: #ccc;
+    }
+  }
+}
+
+
+@media (max-width: 768px) and (min-width: 766px) {
+     .widthrestitle{
+        max-width: 13% !important;
+     }
+     .widthlangtitle{
+      max-width: 87% !important;
+   }
+}

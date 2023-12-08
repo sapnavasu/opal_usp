@@ -1,0 +1,305 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+            <div class="closeandadd">
+                <i mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+                    (click)="inviteexternalalert()" class="bgi bgi-close p-l-5 fs-14"></i>
+                <h5 class="m-0 p-l-20 tt">Invite Members<mat-icon class="bgi bgi-info"
+                        (click)="invitexternallistdropdown('invitelistview')">info_outline</mat-icon></h5>
+            </div>
+        </div>
+        <div class="clearandaddbutton">
+            <button type="button" mat-raised-button color="primary"
+                class="clearbutton height-35 m-r-10 p-l-20 p-r-20 spacemargin">Clear</button>
+            <button color="preview" type="submit" mat-raised-button ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+                class="addbutton height-35 p-l-20 p-r-20 m-r-10" (click)='OnSave()'>{{buttonname}}</button>
+        </div>
+    </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 invitelistview" [@slideInOut]="animationState">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+            <mat-card-header>
+                <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                    <mat-card-subtitle class="informationtext fs-14">
+                        Invite Members
+                    </mat-card-subtitle>
+                </div>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>
+<div class="innnerpartofdrwer">
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" id="invitememberslisted">
+            <mat-tab-group [disableRipple]="true" class="tabsection invitememberview">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabselectheadercontent accrodianheader">
+                            <div class="selectionlogo">
+                                <i class="bgi bgi-user1"></i>
+                            </div>
+                            <div class="selectiontext">
+                                <h4>Internal Members</h4>
+                                <p>Map the point of contacts for your
+                                    company from your existing users</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="industrycontent p-t-15">
+                        <div class="invitefiled">
+                            <mat-form-field [floatLabel]="'never'">
+                                <input autocomplete="off" class="input-text-color" placeholder="Search by Users"
+                                    matInput>
+                                <button type="button" class="searchcolor" mat-button matPrefix mat-icon-button
+                                    aria-label="Search">
+                                    <mat-icon matPrefix>search</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div class="notenamecolor p-t-10">
+                            <p>Note: After search company name, Select the Members to initiate invite.</p>
+                        </div>
+                        <div class="departmenttitle p-t-20 p-b-10">
+                            <h2>Marketing Department (03)</h2>
+                        </div>
+                        <div fxLayout="row wrap" class="showalignflex certificates"
+                            *ngFor="let externallist of externallists">
+                            <div class="p-r-8">
+                                <mat-checkbox (change)='addRem(externallist,"External")' [checked]='checkMembers(externallist,"External")'></mat-checkbox>
+                            </div>
+                            <div class="inviteimg">
+                                <img src="assets/images/NoimageJPG.jpg" alt="NoimageJPG">
+                            </div>
+                            <div class="companyandofficeinfo">
+                                <h3 class="name">
+                                    {{externallist.contacttitle}}
+                                </h3>
+                                <div fxLayout="row wrap" class="countryandcrinfo">
+                                    <div class="eachitem countrywidth">
+                                        <p class="p-b-5"><span class="lablename">Designation</span></p>
+                                        <div class="flexoman">
+                                            <span matTooltipPosition="below"
+                                                matTooltip="{{externallist.contactsubtitle}}">
+                                                {{externallist.contactsubtitle | truncate:[15]}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="eachitem phonewidth">
+                                        <p class="p-b-5"><span class="lablename">Mobile</span></p>
+                                        <p class="datavalue"> {{externallist.mobilenum}}</p>
+
+                                    </div>
+                                    <div class="eachitem phonewidth">
+                                        <p class="p-b-5"><span class="lablename">Email ID</span></p>
+                                        <p matTooltipPosition="below" matTooltip="{{externallist.contactemail}}"
+                                            ngClass.xs="widthset" ngClass.sm="widthset" class="datavalue">
+                                            {{externallist.contactemail | truncate:[15]}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="departmenttitle p-t-20 p-b-10">
+                            <h2>Financial Department (03)</h2>
+                        </div>
+                        <div fxLayout="row wrap" class="showalignflex certificates"
+                            *ngFor="let financiallist of financiallists">
+                            <div class="p-r-8">
+                                <mat-checkbox (change)='addRem(financiallist,"External")'  [checked]='checkMembers(financiallist,"External")'></mat-checkbox>
+                            </div>
+                            <div class="inviteimg">
+                                <img src="assets/images/NoimageJPG.jpg" alt="NoimageJPG">
+                            </div>
+                            <div class="companyandofficeinfo">
+                                <h3 class="name">
+                                    {{financiallist.contacttitle}}
+                                </h3>
+                                <div fxLayout="row wrap" class="countryandcrinfo">
+                                    <div class="eachitem countrywidth">
+                                        <p class="p-b-5"><span class="lablename">Designation</span></p>
+                                        <div class="flexoman">
+                                            <span matTooltipPosition="below"
+                                                matTooltip="{{financiallist.contactsubtitle}}">
+                                                {{financiallist.contactsubtitle | truncate:[15]}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="eachitem phonewidth">
+                                        <p class="p-b-5"><span class="lablename">Mobile</span></p>
+                                        <p class="datavalue"> {{financiallist.contactmobilenum}}</p>
+
+                                    </div>
+                                    <div class="eachitem phonewidth">
+                                        <p class="p-b-5"><span class="lablename">Email ID</span></p>
+                                        <p matTooltipPosition="below" matTooltip="{{financiallist.contactemail}}"
+                                            ngClass.xs="widthset" ngClass.sm="widthset" class="datavalue">
+                                            {{financiallist.contactemail | truncate:[15]}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabselectheadercontent accrodianheader">
+                            <div class="selectionlogo">
+                                <i class="bgi bgi-user1"></i>
+                            </div>
+                            <div class="selectiontext">
+                                <h4>External Members</h4>
+                                <p>Create JSRS user accounts for your
+                                    company employees.</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="industrycontent p-t-15">
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="100" fxFlex="100">
+                                <div class="invitefiled">
+                                    <mat-form-field floatLabel="never">
+                                        <mat-select placeholder="Select Company" [disableOptionCentering]="true">
+                                            <mat-option *ngFor="let searchBy of searchcountry" [value]="searchBy.value">
+                                                {{searchBy.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="notenamecolor p-t-10 p-b-30">
+                                    <p>Note: After selecting the company, select user with whome you want to
+                                        collaborate.</p>
+                                </div>
+                                <div id="invitelistaccordio">
+                                    <mat-accordion>
+                                        <mat-expansion-panel (opened)="setOpen(1)" [expanded]="panel === 1">
+                                            <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                                                [expandedHeight]="customExpandedHeight">
+                                                <mat-panel-title>
+                                                    <div class="paperttextaling">
+                                                        <div class="usertitle">
+                                                            <h2 class="fs-15 m-0">
+                                                                Selected Companies (01)
+                                                            </h2>
+                                                        </div>
+                                                        <div class="datetimecolor">
+                                                            <span class="fs-14">Members selected
+                                                                (03)</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-panel-title>
+                                                <mat-panel-description>
+                                                </mat-panel-description>
+                                            </mat-expansion-panel-header>
+                                            <div fxLayout="row wrap">
+                                                <div fxFlex.gt-sm="100" fxFlex="100">
+                                                    <div class="papersoftcolor p-t-20">
+                                                        <h3>Paper Softwares</h3>
+                                                    </div>
+                                                    <div class="departmenttitle p-t-10 p-b-10">
+                                                        <h2>Marketing Department (03)</h2>
+                                                    </div>
+                                                    <div fxLayout="row wrap" class="showalignflex certificates"
+                                                        *ngFor="let externallist of externallists">
+                                                        <div class="p-r-8">
+                                                            <mat-checkbox (change)='addRem(externallist,"Internal")'  [checked]='checkMembers(externallist,"Internal")'></mat-checkbox>
+                                                        </div>
+                                                        <div class="inviteimg">
+                                                            <img src="assets/images/NoimageJPG.jpg" alt="NoimageJPG">
+                                                        </div>
+                                                        <div class="companyandofficeinfo">
+                                                            <h3 class="name">
+                                                                {{externallist.contacttitle}}
+                                                            </h3>
+                                                            <div fxLayout="row wrap" class="countryandcrinfo">
+                                                                <div class="eachitem countrywidth">
+                                                                    <p class="p-b-5"><span
+                                                                            class="lablename">Designation</span>
+                                                                    </p>
+                                                                    <div class="flexoman">
+                                                                        <span matTooltipPosition="below"
+                                                                            matTooltip="{{externallist.contactsubtitle}}">
+                                                                            {{externallist.contactsubtitle |
+                                                                            truncate:[15]}}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="eachitem phonewidth">
+                                                                    <p class="p-b-5"><span
+                                                                            class="lablename">Mobile</span></p>
+                                                                    <p class="datavalue"> {{externallist.mobilenum}}</p>
+
+                                                                </div>
+                                                                <div class="eachitem phonewidth">
+                                                                    <p class="p-b-5"><span class="lablename">Email
+                                                                            ID</span></p>
+                                                                    <p matTooltipPosition="below"
+                                                                        matTooltip="{{externallist.contactemail}}"
+                                                                        ngClass.xs="widthset" ngClass.sm="widthset"
+                                                                        class="datavalue">
+                                                                        {{externallist.contactemail | truncate:[15]}}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="departmenttitle p-t-20 p-b-10">
+                                                        <h2>Financial Department (03)</h2>
+                                                    </div>
+                                                    <div fxLayout="row wrap" class="showalignflex certificates"
+                                                        *ngFor="let financiallist of financiallists">
+                                                        <div class="p-r-8">
+                                                            <mat-checkbox  (change)='addRem(financiallist,"Internal")'  [checked]='checkMembers(financiallist,"Internal")'></mat-checkbox>
+                                                        </div>
+                                                        <div class="inviteimg">
+                                                            <img src="assets/images/NoimageJPG.jpg" alt="NoimageJPG">
+                                                        </div>
+                                                        <div class="companyandofficeinfo">
+                                                            <h3 class="name">
+                                                                {{financiallist.contacttitle}}
+                                                            </h3>
+                                                            <div fxLayout="row wrap" class="countryandcrinfo">
+                                                                <div class="eachitem countrywidth">
+                                                                    <p class="p-b-5"><span
+                                                                            class="lablename">Designation</span>
+                                                                    </p>
+                                                                    <div class="flexoman">
+                                                                        <span matTooltipPosition="below"
+                                                                            matTooltip="{{financiallist.contactsubtitle}}">
+                                                                            {{financiallist.contactsubtitle |
+                                                                            truncate:[15]}}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="eachitem phonewidth">
+                                                                    <p class="p-b-5"><span
+                                                                            class="lablename">Mobile</span></p>
+                                                                    <p class="datavalue">
+                                                                        {{financiallist.contactmobilenum}}
+                                                                    </p>
+
+                                                                </div>
+                                                                <div class="eachitem phonewidth">
+                                                                    <p class="p-b-5"><span class="lablename">Email
+                                                                            ID</span></p>
+                                                                    <p matTooltipPosition="below"
+                                                                        matTooltip="{{financiallist.contactemail}}"
+                                                                        ngClass.xs="widthset" ngClass.sm="widthset"
+                                                                        class="datavalue">
+                                                                        {{financiallist.contactemail | truncate:[15]}}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<div id="weareenable"  *ngIf="userdls">
+  
+  <div class="logoinlogin enable p-b-20">
+    <img src="assets/images/OPAL web.svg" alt="OPAL logo">
+  </div>
+  <div class="lypislogoimage enable">
+    <h2 class="fs-22 p-t-0 lypisfont-bold p-b-5 text-left">{{'commonsetpassword.weareenab' | translate}}</h2>
+  </div>
+  <div class="lypislogoimage">
+    <h3 class="fs-18 p-t-0  p-b-5 text-left">{{'commonsetpassword.the2factauth' | translate}}</h3>
+  </div>
+  <div class="easycolormail" *ngIf="userdls.origin == 'N' ">
+    <p class="fs-14 m-t-5 m-b-10 lh-26 text-left">{{'commonsetpassword.becastropass' | translate}}</p>
+  </div>
+  <div class="easycolormail" *ngIf="userdls.origin != 'N'">
+    <p class="fs-14 m-t-5 m-b-10 lh-26 text-left">{{'commonsetpassword.becastropassother' | translate}}</p>
+  </div>
+  <form class="example-form" [formGroup]="AuthenticationForm" autocomplete="off">
+
+    <div class=" m-t-20">
+      <mat-radio-group formControlName="authenfor"
+        (change)="Onselecting(AuthenticationForm.controls['authenfor'].value)" class="radiobtn">
+        <mat-radio-button value="1">
+          <h2 class="fs-14 m-0 p-l-15 lh-20 lypisfont-bold  usdcenteralign">
+            {{'commonsetpassword.emailadd' | translate}}  
+          </h2>
+          <p class="fs-14 m-0 p-l-15">{{userdls?.maskemailid}} </p>
+        </mat-radio-button>
+        <mat-radio-button value="2" *ngIf="userdls && userdls.origin == 'N'">
+          <h2 class="fs-14 m-0 p-l-15 lh-20 lypisfont-bold  usdcenteralign">
+            {{'commonsetpassword.mob' | translate}} 
+          </h2>
+          <p class="fs-14 m-0 p-l-15">+968&nbsp;{{userdls?.maskmobileno}}</p>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="d-flex m-b-20 m-t-50" *ngIf="verifyenablesetup">
+      <mat-form-field class="flexalign match numberandcode notetext" floatLabel="always">
+        <span ngClass.xs="p-r-0" ngClass.sm="p-r-0" *ngIf="AuthenticationForm.controls['authenfor'].value == 2"
+        class="p-r-5 countrycodecolor">{{primobile}}</span>
+        <input placeholder="{{placeholder}}" formControlName="inputauthenfor" *ngIf="AuthenticationForm.controls['authenfor'].value == 1" [readonly]="otpshow == true" minlength="1" maxlength="255"
+          class="inputcolor" matInput loginname app-restrict-input="firstspace">
+        <input placeholder="{{placeholder}}" formControlName="inputauthenfor" *ngIf="AuthenticationForm.controls['authenfor'].value == 2" [readonly]="otpshow == true" appNumberonly minlength="8" maxlength="8"
+          class="inputcolor" matInput loginname app-restrict-input="firstspace">
+        <mat-error *ngIf="AuthenticationForm.controls['inputauthenfor'].hasError('invalid') && AuthenticationForm.controls['authenfor'].value == 1"
+          class="text-danger fs-13 lowercaseremove"> {{'commonsetpassword.invalidemail' | translate}}</mat-error>
+        <mat-error *ngIf="AuthenticationForm.controls['inputauthenfor'].hasError('invalid') && AuthenticationForm.controls['authenfor'].value == 2"
+          class="text-danger fs-13 lowercaseremove"> {{'commonsetpassword.invalidmobile' | translate}}</mat-error>
+        <mat-error *ngIf="AuthenticationForm.controls['inputauthenfor'].hasError('required') && AuthenticationForm.controls['authenfor'].value == 1"
+          class="text-danger fs-13 lowercaseremove"> {{'commonsetpassword.enteremail' | translate}}</mat-error>
+        <mat-error *ngIf="AuthenticationForm.controls['inputauthenfor'].hasError('required') && AuthenticationForm.controls['authenfor'].value == 2"
+          class="text-danger fs-13 lowercaseremove"> {{'commonsetpassword.entermobile' | translate}}</mat-error>
+      </mat-form-field>
+      <span *ngIf="matched" class="verified"><i class="bgi bgi-tick"></i> {{'commonsetpassword.matched' | translate}}</span>
+      <mat-spinner-button  *ngIf="!otpshow" class="submitbtn fs-14 button-35 m-l-10 p-l-6 p-r-6" (click)="onsetup()"
+        [options]="spinnerButtonOptionsLogin"></mat-spinner-button>
+    </div>
+    <div class="d-block divouter otpfieldalign" *ngIf="otpshow">
+      <span class="d-block">{{'commonsetpassword.enteotp' | translate}}</span>
+      <div class="d-flex divouter">
+        <mat-form-field appearance="none" class="flexalign divinner">
+          <input maxlength="6" type="text" formControlName="otp"   [formControl]="OTPControl" (keydown.space)="$event.preventDefault();"
+            class="inputcolor" id="partitioned" matInput loginname app-restrict-input="firstspace" >
+        </mat-form-field>
+        <button type="button" mat-raised-button color="primary" (click)="verifyotpdata()"
+           class="button-35 m-l-10"> {{'commonsetpassword.proce' | translate}}</button>
+      </div>
+    </div>
+    <div class="p-t-8 m-l-50">
+      <mat-error *ngIf="AuthenticationForm.controls['otp'].hasError('invalidOTP')"
+        class="fs-13 colorotp lowercaseremove"> {{'commonsetpassword.invaotp' | translate}}
+      </mat-error>
+      <mat-error *ngIf="AuthenticationForm.controls['otp'].hasError('expired')"
+        class="fs-13 colorotp lowercaseremove"> {{'commonsetpassword.expired' | translate}}
+      </mat-error>
+      <mat-error *ngIf="AuthenticationForm.controls['otp'].hasError('countexeed')"
+        class="fs-13 colorotp lowercaseremove"> {{'commonsetpassword.counexc' | translate}}
+      </mat-error>
+    </div>
+    <div fxLayout="row wrap" class="p-b-20">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing">
+          <div *ngIf="otpshow">
+            <div fxLayoutAlign="flex-start" class=" otp-field  d-flex">
+              <button type="button" class="fs-14" *ngIf="disableResend == false" [disabled]="disableResend == true" (click)="verifySource()"> {{'commonsetpassword.reotp' | translate}}</button>
+              <p class="fs-14 m-0 txt-gray3" *ngIf="disableResend == true"> {{'commonsetpassword.reotp' | translate}}<span> {{countDown}}</span> </p>
+             </div>
+          </div>
+        </div>
+        <span *ngIf="verfiedtagshow" class="verifiedcontent">
+          <i class="bgi bgi-tick fs-12"></i>
+          <span class="p-l-8"> {{'commonsetpassword.verif' | translate}}</span>
+        </span>
+      </div>
+    </div>
+  </form>
+  <div class="continue-btn">
+    <button mat-raised-button color="primary" class="button-40" (click)="remind()">{{'commonsetpassword.contilog'
+      | translate}}</button>
+  </div>
+</div>
+<app-responseloader *ngIf="!userdls"></app-responseloader>

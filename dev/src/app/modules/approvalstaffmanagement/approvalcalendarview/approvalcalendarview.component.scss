@@ -1,0 +1,176 @@
+#calendarView {
+    .calendar {
+        .transformbtn {
+            min-width: 110px;
+            background-color: #fff;
+            border: 1px solid #e8e8e8;
+            color: #262626;
+            height: 45px;
+            box-shadow: none;
+        }
+
+        .txt-gry3 {
+            color: #262626;
+        }
+
+        .txt-gry {
+            color: #848484;
+        }
+
+        .fw-semi {
+            font-family: "opal_semibold", sans-serif !important;
+            font-weight: 400;
+        }
+
+        .matDivider {
+            border-top-width: 2px;
+            background-color: #ed1c27;
+        }
+
+        .booking {
+            color: #00b6db;
+        }
+
+        .notavailable {
+            color: #999999;
+        }
+
+        .holidays {
+            color: #ed1c27;
+
+            &.weekEnd {
+                background: #fff3f3;
+                width: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 36px;
+                margin-top: 20px;
+            }
+        }
+
+        .icon_button {
+            border: 1px solid #e1e1e1;
+            padding: 0;
+            min-width: 0;
+            width: 36px;
+            display: flex;
+            height: 22px;
+            align-items: center;
+            border-radius: 10px;
+            justify-content: center;
+
+            .mat-icon {
+                font-size: 24px;
+                color: #666666;
+            }
+        }
+
+        .txt-align {
+            text-align: start;
+        }
+
+        .monthChangeButton {
+            min-width: 208px;
+        }
+
+        .editBtn{
+            line-height: 0px !important;
+            height: 0px;
+        }
+        .infoForCanlendar {
+            .colorDiffer {
+                .mat-raised-button {
+                    height: 45px;
+                    border-radius: 2px;
+                    box-shadow: none;
+
+                    .mat-button-wrapper {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+                .mat-icon {
+                    width: 20px;
+                    height: 20px;
+                    background-color: #ffffff;
+                    border-radius: 20px;
+                    color: #666;
+                }
+
+                .availableDetails {
+                    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+                    border: 1.5px solid #f5f6f8;
+                    border-radius: 2px;
+                    padding: 15px;
+                    height: 45px;
+
+                    .booked {
+                        span {
+                            color: #00b6db;
+                        }
+                    }
+
+                    .notavailable {
+                        span {
+                            color: #999999;
+                        }
+                    }
+
+                    .cube {
+                        display: block;
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 2px;
+
+                        &.available {
+                            background-color: #00a551;
+                        }
+
+                        &.booked {
+                            background-color: #00b6db;
+                        }
+
+                        &.notAvailable {
+                            background-color: #999999;
+                        }
+
+                        &.holiday {
+                            background-color: #ed1c27;
+
+                        }
+                    }
+
+                }
+            }
+        }
+
+        .dateDetails {
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+            border: 1.5px solid #f5f6f8;
+            border-radius: 2px;
+            padding: 20px;
+
+            .dayanddate {
+                .Date {
+                    width: 55px;
+                    height: 55px;
+                    background-color: #ed1c27;
+                    color: #ffffff;
+                    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+                    border-radius: 2px;
+                }
+            }
+
+            .menuValues {
+                &:hover {
+                    background-color: #f8f8f8;
+                }
+            }
+        }
+    }
+
+   
+   
+}

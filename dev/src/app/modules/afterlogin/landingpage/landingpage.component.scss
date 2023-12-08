@@ -1,0 +1,34 @@
+.page-content{
+    background:#fff !important;
+}
+#landingpage{
+    background-color: #fff;
+    .landingbanner{
+        width:100%;
+        height: auto;
+    }    
+}
+@media(max-width:960px){
+    .reverse-row{
+        flex-wrap:wrap-reverse !important;
+    }
+}
+
+.sizewidthimg{
+    img{
+        max-width: 100%;
+    }
+}
+.sizewidthimg>div{
+    text-align: center;
+    padding-right: 50px;
+}
+.sizewidthimg>div>img{
+    padding:5px;
+}
+
+.aligncenter{
+     align-items: center;
+}
+
+

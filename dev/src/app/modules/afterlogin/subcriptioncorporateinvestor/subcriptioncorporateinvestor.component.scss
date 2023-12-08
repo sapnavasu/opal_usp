@@ -1,0 +1,680 @@
+.spancolor{
+    color:white;
+  }
+  .topheadermain{
+   display: flex !important;
+   justify-content: space-between;
+ }
+ .flexsame{
+     display: flex !important;
+     align-items: baseline;
+ }
+ .gradientbackgrounds {
+    background: linear-gradient(to bottom, #022f67  250px, #fff 10% 40%);
+    min-height: calc(100vh - 64px);
+}
+table{
+    width: 100%;
+   
+    th{
+        font-size: 0.9375rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #345f9f;
+        min-height: 38px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    td{
+        border: 1px solid #dadada;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
+.bordernone{
+    border:none !important;
+}
+.borderpromocode{
+    border-bottom: none !important;
+}
+.bordernonebottom{
+    border-top:none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+}
+::ng-deep.yearcolor{
+    border:1px solid #dadada;
+    border-radius: 18px;
+    background-color: #fff;
+    width: 100px;
+    height: 22px;
+    color:#666666;
+    font-size: 12px !important;
+
+}
+.colorlogo{
+   color:#9b9b9b; 
+}
+.mainheader {
+    color: #eb2f95;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.mainrow{
+    border: 1px solid #dadada;
+}
+.tender{
+    background-color: #fff;
+    border-right: 1px solid #dadada;
+    h2{
+        color: #006cb7;
+    }
+    .startcolor{
+        color: #333333;
+    }
+    p{
+        color:#9b9b9b;
+    }
+}
+.flexalign{
+    display: flex;
+}
+.flexcenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #dadada;
+    p{
+        text-align: center;
+    }
+}
+.alignflex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.stylecolor{
+    color: #999999 !important;
+}
+
+.freecolor{
+    padding-left: 6px;
+    padding-right: 6px;
+     color:#fff;
+     background-color:#71c015;
+     padding-top: 2px;
+     width: 56px;
+     padding-bottom: 2px;
+     text-align: center;
+ }
+.alignfreecolor{
+    text-align: center;
+}
+.textcolorli{
+
+    span{
+        color: #666666;
+    }
+}
+.formationcolor{
+    color: #b0b0bb;
+}
+
+.mainrowborder{ 
+border: 1px solid #dadada;
+}
+.flexend{
+    display: flex !important;
+    align-items: flex-end !important;
+}
+    .year{
+    font-weight: bold;
+   
+        }
+.vertical{
+vertical-align: sub;
+}
+.align{
+    text-align: center;
+}
+
+.termscheckall {
+    display: flex;
+    .mat-checkbox-layout {
+        margin-bottom: 2px;
+        color:#333333;
+    }
+    .termsandcondtions {
+        text-decoration: underline;
+        color: #006cb7;
+        padding-left: 5px;
+    }
+}
+.coloragree{
+    color: #333333;
+}
+.textcolor{
+    p{
+        color: #666666;
+    }
+}
+.paybtn{
+    background-color: #006cb7;
+    color: #fff;
+    font-size: 0.875rem;
+    width: 220px;
+    height: 35px;
+    border-radius: 4px !important;
+}
+
+.cancelbtn{
+    background-color:#ececec;
+    color:#666666;
+    font-size:14px;
+    font-family:calibri;
+    border-radius:4px !important;
+    width:150px;
+    height:35px;
+    margin-bottom:20px;
+}
+.cancelsubsription{
+    display: flex;
+    justify-content: flex-end;
+}
+.investoridcolor{
+    font-size:14px;
+    color:#96b2e7;
+}
+
+.idnumber{
+    font-size:14px;
+    font-family:calibri;
+    color:white;
+    padding-left:65px;
+}
+.crmunber{
+    p{
+        color:#96b2e7;
+        margin: 0px;
+    }
+}
+.indcolor{
+    p{
+        color: #fff;
+        margin: 0px;
+    }
+}
+.webalign{
+    display: flex;
+}
+.flex{
+    display: flex;
+    img{
+        width: 24px;
+        height:24px;
+    }
+    span{
+        color:#96b2e7;
+    }
+}
+.companyrow{
+    h2{
+        color:#333333;
+    }
+    h3{
+        color: #010101;
+    }
+    .spancolor{
+       padding-left: 6px;
+       padding-right: 6px;
+        color:#fff;
+        background-color:#71c015;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    p{
+        color: #666666;
+    }
+}
+.alignrow{
+    display: flex;
+    background-color: #fff;
+    justify-content: space-between;
+    border-bottom: 1px dotted #dadada;
+    align-items: center;
+}
+.flexspacebetween{
+    display: flex;
+    background-color: #fff;
+    justify-content: space-between;
+    border-bottom: 1px dotted #dadada;  
+
+}
+
+.validity{
+    h2{
+        color:#006cb7;
+    }
+    p{
+        color: #666666;
+    }
+}
+.Additionalcolor {
+    color: #eb2f95 !important;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.linetext{
+    width: 224px;
+    h2{
+        line-height: 24px;
+    }
+}
+.removerow{
+    i{
+        color: #666666;
+    }
+    span{
+        color:#666666
+    }
+}
+.business{
+    width: 212px;
+}
+.viewcolor{
+    text-decoration: underline;
+    color:#333333;
+}
+.businessoffer{
+    width: 160px;
+}
+.promoalign{
+    display: flex;
+    align-items: center;
+}
+.spaceend{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    background-color: #e4efff;
+    margin: 5px;
+}
+.totalcolor{
+    h2{
+        color: #006cb7;
+        margin: 0px;
+    }
+}
+.omrcolor{
+    h2{
+        color:#006cb7;
+        margin: 0px;
+    }
+}
+::ng-deep.numberandcode {
+    .mat-form-field-infix {
+        display: flex !important;
+    }
+}
+.groupcolor{
+    h2{
+        color: #fff;
+    }
+   
+}
+.radiotextcolor{
+    span{
+        color: #333333;
+    }
+}
+.borderbottommake{
+    border-bottom: 1px solid #dadada;
+}
+.rightsidecards {
+    border: 1px solid #dadada;
+    background-clip: padding-box;
+    background-color: #fff;
+    padding-top: 30px;
+    position: relative;
+}
+.cardtwo {
+    margin-top: 74px;
+    background-size: 200px 130px;
+    background-image: url("/src/assets/images/investorregbg.png");
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-position-x: 116%;
+    background-position-y: -5px;
+}
+.personemail {
+    color: #ec3393;
+    font-size: 0.9375rem;
+    font-weight: bold;
+    word-break: break-word;
+}
+.greeting {
+    color: #333;
+    font-size: 0.9375rem;
+    margin-bottom: 5px;
+}
+.personname {
+    color: #006cb7;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.ordertext{
+    ul{
+        margin-left: 20px;
+        list-style-type: none;
+        color: #333333;
+    }
+    li{
+        list-style-type: disc;
+        font-size: 0.875rem;
+    }
+    span{
+        color:#808080;
+    }
+}
+
+.valuelinetext{
+    h2{
+      line-height: 10px;
+    }
+  }
+  .cursor{
+      cursor: pointer;
+  }
+  .colorfont{
+    font-weight: bold;
+}
+
+.colortextyear{
+    color: #333333;
+    font-weight: bold;
+}
+
+.widthyear::after {
+    content: '';
+    border-top: 18px solid #ffffff;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    position: absolute;
+    bottom: 96px;
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+    left: 25px;
+  }
+  
+
+.widthyear{
+    min-width: 200px;
+    min-height: 100px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    position: relative;
+    padding: 20px;
+    text-align: left;
+}
+@media (max-width: 768px){
+    
+ 
+    .gradientbackgrounds {
+     background: linear-gradient(to bottom, #022f67  250px, #fff 2% 40%);
+     min-height: calc(100vh - 64px) !important;
+ }
+ 
+ .radiussalesspacing{
+     padding-right: 0px !important;
+ }
+ .tenderwidth{
+     max-width: 7% !important;
+ }
+ 
+ .ordertext{
+     max-width: 93% !important; 
+ }
+ 
+ .bottomresponsive{
+     margin-bottom: 0px !important;
+ }
+ .yearspacing{
+     padding-top: 0px !important;
+ }
+ .responsivetopspacing{
+     padding-top: 15px;
+ }
+ 
+ .personalbordercolor{
+     border-top: 1px solid #dadada;
+     margin-top: 15px;
+ }
+ 
+ .widthresponsiveside {
+     max-width: initial !important;
+   }
+ 
+  .numberresponsive{
+     padding-left: 0px !important;
+ }
+ .searchwidthresponsive{
+     padding-right: 0px !important;
+ }
+ .companyalignment{
+     padding-left: 0px !important;
+     padding-top: 15px;
+     margin-top: 0px !important;
+ }
+ }
+
+@media (max-width: 767px){
+
+    // .flagwidth{
+    //     max-width: initial !important;
+    // }
+
+    // .mobilenumwidth{
+    //     max-width: initial !important;
+    // }
+    // .landcodewidth{
+    //     max-width: initial !important;
+    // }
+    .flexspacebetween{
+        display: block !important;
+    }
+    .alignwidth{
+        display: block !important;
+        padding-left: 28px !important;
+    }
+   
+ .topbreadcrumb{
+     padding-left: 10px !important;
+     display: flex;
+ }
+ .spancolor{
+     padding-left: 10px !important;
+ }
+    .widthradius{
+        margin-left: 16px !important;
+        margin-right: 16px !important;
+    }
+    .bottomresponsive{
+        margin-left: 10px !important;
+    }
+    .flexbank{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .companyrow{
+        padding-left: 0px !important;
+    }
+    .validity{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+    .rightcardborder{
+       margin-right: 0px !important;
+       margin-left: 26px !important;
+    }
+    .alignrow{
+        display: block !important;
+        margin-left: 0px !important;
+    }
+    .omrresponsive{
+        padding-left: 0px !important;
+    }
+    .cancelbtndragdrop{
+        margin-right: 10px !important;
+    }
+   
+    .formspace{
+        padding: 20px !important;
+    }
+    .termscheckall{
+       flex-flow: wrap;
+    }
+
+    .cancelsubsription{
+        display: block !important;
+    }
+
+    ::ng-deep.termscheckall .mat-checkbox-layout .mat-checkbox-label {
+        line-height: 19px;
+        white-space: pre-wrap;
+    }
+    .termsandcondtions {
+        padding-left: 22px !important;
+        padding-bottom: 10px;
+    }
+    .ordertext{
+        padding-left: 10px;
+    }
+    .applyflex{
+        display: block !important;
+    }
+
+    .applyspace{
+        margin-bottom: 10px;
+    }
+    .applybtn{
+        margin-left: 0px !important;
+    }
+
+    .councilspace{
+        padding-left: 0px !important;
+    }
+
+    .linespace{
+        line-height: 1.6;
+        padding-bottom: 8px;
+    } 
+     
+    
+    .alignheadcount{
+        display: block !important;
+        background-color: #ffffff;
+        
+    } 
+    .headerwidth{
+        width: auto !important;
+       
+    }
+    .headerwidthselected{
+        width: auto !important;
+        }
+
+        
+    .headerwidthsmecolor{
+            width: auto !important;
+            }
+    .headerwidthempl{
+            width: auto !important;
+            }
+
+     .millionborder{
+         border-bottom: 1px solid #dadada;
+     }       
+                 
+ }
+
+.applyflex{
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 414px) and (min-width: 320px) {
+    .nonehaeder{
+        display: none !important;
+    } 
+   
+    }
+
+    @media (max-width: 320px) {
+
+        .widthyear{
+            min-width: 200px;
+            min-height: 100px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+            position: relative;
+            padding: 20px;
+            text-align: left;
+            margin-left: -19px;
+        }
+        .widthyear::after {
+            left: 50px !important;
+          }
+        }
+
+
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .sourcewidth{
+                max-width: 100% !important;
+            }
+            .marginspace{
+                margin-bottom: 0px !important;
+            }
+             .companyalignment{
+                 max-width:100% !important;
+                 margin-top: 0px !important;
+             }   
+             .widthradius{
+                 display: block !important;
+             }
+
+             .companyalignment{
+                 padding-left: 0px !important;
+                 padding-top: 15px;
+             } 
+             .widthradius{
+                 margin-left: 30px !important;
+                 margin-right: 30px !important;
+             }      
+            }
+
+            @media (max-width: 1366px) and (min-width: 1280px){
+            .flagwidth{
+                max-width: 24% !important;
+            }
+
+            .mobilenumwidth{
+                max-width: 76% !important;
+            }
+            .landcodewidth{
+                max-width: 61% !important;
+            }
+            .sourcewidth{
+                max-width: 65% !important;
+            }
+            .companyalignment{
+                max-width:35% !important;
+               
+            }
+        }

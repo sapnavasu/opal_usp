@@ -1,0 +1,144 @@
+#viewStatus {
+    .questions {
+        font-family: "opal_semibold", sans-serif;
+    }
+    .online {
+        .fonts {
+            font-family: "opal_regular",sans-serif;
+        }
+        .indication {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border: none;
+            border-radius: 1px;
+            &.blue {
+                color: #0c4b9a !important;
+              }
+              &.fail {
+                background-color: #ff3434 !important;
+              }
+              &.pass {
+                background-color: #00a551 !important;
+              }
+              &.na {
+                background-color: #f5b62e !important;
+              }
+        }
+        .mat-divider {
+            border-top-width: 2px !important;
+        }
+        .passfailcount {
+            display: inline-flex;
+            align-items: center;
+        }
+    }
+    .contenthere {
+        h4 {
+            margin: 0px;
+        }
+        p {
+            margin-top: 3px;
+        }
+    }
+    .cancelbtn {
+        min-width: 100px;
+        background-color: #ffff;
+        border: 1px solid #e8e8e8;
+        color: #262626;
+        padding-left: 0px;
+        padding-right: 0px;
+        height: 45px;
+        font-size: 15px;
+        box-shadow: none;
+    
+    }
+    .txt-gry {
+        color: #848484;
+    }
+    .txt-gry3 {
+        color: #262626;
+    }
+    .badge {
+        padding: 6px !important;
+    }
+    img {
+        &.documents {
+            width: 32px;
+        }
+    }
+    .ckeditorborder {
+        height: auto;
+        border: 1px solid #d9d9d9;
+        cursor: text;
+        padding: 5px 10px;
+        min-height: 50px;
+        &:hover {
+            border: 1px solid #6ba5ec;
+        }
+    }
+    #validmsg {
+        .validet {
+            background-color: #0c4b9a;
+            color: #fff !important;
+        }
+        .btngroup {
+            .submitbtns {
+                min-width: 160px !important;
+            }
+            .cancel_btns {
+                min-width: 160px;
+                background-color: #ffff;
+                border: 1px solid #e8e8e8;
+                color: #262626 !important;
+                padding-left: 0px;
+                padding-right: 0px;
+                height: 40px;
+                font-size: 15px;
+                box-shadow: none;
+        
+            }
+        }
+    }
+    .timeduration_contain{
+        .trainingdurationtitle{
+            color: #0c4b9a;
+            font-size: 	1.125rem;
+            display: flex;
+            align-items: center;
+            .mat-icon {
+                color: #848484;
+                margin-top: 6px;
+            }
+        }
+    }
+    .company_dtlview {
+        h4 {
+            color: #262626;
+        }
+
+        .view_dtl {
+            p {
+                min-width: 322px;
+                color: #848484;
+                font-size: 16px;
+
+                @media(max-width: 768px) {
+                    min-width: 142px;
+                    width: 141px;
+                }
+            }
+
+            span {
+                color: #262626;
+                font-size: 16px;
+
+                .document {
+                    width: 22px;
+                    height: 28px;
+                }
+            }
+        }
+    }
+    
+}

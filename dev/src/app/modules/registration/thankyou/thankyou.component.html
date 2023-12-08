@@ -1,0 +1,46 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" class="m-t-20 m-b-20">
+  <div fxFlex="50" id="thanks_page">
+    <div fxLayout="row wrap" fxLayoutAlign="center" class="thankyoupage">
+      <div fxFlex="86">
+        <div class="successtick" fxLayoutAlign="center">
+          <div class="succes_icon">
+            <mat-icon class="">check</mat-icon>
+          </div>
+        </div>
+        <div class="successtexts text-center" fxLayout="column wrap" fxLayoutAlign="center">
+          <p class="thankstext fs-24 m-t-20">{{'supplierreg.thanyou' | translate}}</p>
+          <p class="m-t-20">
+            {{'supplierreg.youwillrece' | translate}}  
+          </p>
+          <p class="fs-15 txt-orange m-t-20">
+            {{'supplierreg.whatsnext' | translate}} 
+          </p>
+          <p class="fs-15 m-t-20">
+            {{'supplierreg.setyoupass' | translate}} &nbsp;&nbsp; {{'supplierreg.setyoupassone' | translate}}&nbsp;&nbsp; {{'supplierreg.setyoupasstwo' | translate}}
+          </p>
+          <p class="m-t-20 m-b-20">{{'supplierreg.forquer' | translate}}
+            <a class="supportmail m-0" href="mailto:support@businessgateways.com">
+              <!-- <span class="supportcolor">opalsupport@opal.om</span> -->
+              <span class="fs-14"><a href="mailto:usp@opaloman.org">usp@opaloman.org</a></span>
+            </a>
+          </p>
+         <div class="btn" fxLayoutAlign="center">
+          <button type="button" mat-raised-button [routerLink]="['/admin/login']" class="log_btn"
+          color="primary">{{'supplierreg.login' | translate}}</button>
+         </div>
+        </div>
+        <!-- <div class="socialmedia m-t-20 m-b-20" fxLayout="column" fxLayoutAlign="center">
+          <p class="p-b-15 text-center">{{'supplierreg.followus' | translate}}</p>
+          <div fxLayout="row wrap" fxLayoutAlign="center">
+            <div fxFlex="40" class="centerarrange" fxLayoutAlign="space-around center">
+              <a href="#"><img class="fs-12" src="assets/images/opalimages/facebook.png" alt="facebook"></a>
+              <a href="#"><img class="fs-12" src="assets/images/opalimages/ins.png" alt="insta"></a>
+              <a href="#"><img class="fs-12" src="assets/images/opalimages/linked.png" alt="linkd"></a>
+              <a href="#"><img class="fs-12" src="assets/images/opalimages/you-tube.png" alt="youtbe"></a>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

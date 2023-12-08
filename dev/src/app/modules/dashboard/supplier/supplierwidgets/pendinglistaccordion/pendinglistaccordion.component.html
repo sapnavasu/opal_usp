@@ -1,0 +1,131 @@
+<div fxFlex.gt-sm="100" fxFlex="100" id="pendinglistaccordion" *ngIf="counts" class="flex-column pendinglistaccordion m-t-30">
+    <mat-accordion class="placcordpanel commonexpandandcollapse">
+        <!--Inspection Pending-->
+        <mat-expansion-panel >
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <div class="accrodianheader">
+                        <p class="header">{{'centredashboard.inspectionpending' | translate}} ({{counts.Inspection_Pending}})</p>
+                    </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <span (click)="navigate('In')">{{'centredashboard.viewall' | translate}}</span>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="iptable">
+                <table mat-table [dataSource]="ipdataSource" #tableinsp class="mat-iptable">
+                    <!-- vehicleno Column -->
+                    <ng-container matColumnDef="vehicleno">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="20">{{'centredashboard.vehicleno' | translate}}</th>
+                        <td mat-cell *matCellDef="let element" fxFlex="20" class="cursor-pointer" (click)="viewdetails(element.pk)"> {{element.vehicleno}} </td>
+                    </ng-container>
+                    <!-- ownername Column -->
+                    <ng-container matColumnDef="ownername">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="25"> {{'centredashboard.ownername' | translate}}</th>
+                        <td mat-cell *matCellDef="let element" fxFlex="25" class="cursor-pointer" (click)="viewdetails(element.pk)"> {{element.ownername}} </td>
+                    </ng-container>
+                    
+                    <!-- inspectiondate Column -->
+                    <ng-container matColumnDef="inspectiondate">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="30"> {{'Inspection Date & Time' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" fxFlex="30" class="cursor-pointer" (click)="viewdetails(element.pk)"> {{element.inspectiondate}} <span *ngIf="element.inspectionstart && element.inspectiondateend">({{element.inspectionstart}} - {{element.inspectiondateend}})</span> </td>
+                    </ng-container>
+                    
+                    <!-- assignedinspector Column -->
+                    <ng-container matColumnDef="assignedinspector">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="20"> {{'centredashboard.assignedinspector' | translate}} </th>
+                        <td mat-cell *matCellDef="let element" fxFlex="20" class="cursor-pointer" (click)="viewdetails(element.pk)"> {{element.assignedinspector}} </td>
+                    </ng-container>
+                    
+                    
+                    <tr mat-header-row *matHeaderRowDef="ipdisplayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ipdisplayedColumns;"></tr>
+                </table>
+            </div>
+
+        </mat-expansion-panel>
+        <!--Verification Pending-->
+        <mat-expansion-panel >
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <div class="accrodianheader">
+                        <p class="header">{{'centredashboard.verifypending' | translate}} ({{counts.Verification_Pending}})</p>
+                    </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <span (click)="navigate('Vf')">{{'centredashboard.viewall' | translate}}</span>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="vptable">
+                <table mat-table [dataSource]="vpdataSource"  class="mat-iptable">
+                    <!-- vehicleno Column -->
+                    <ng-container matColumnDef="vvehicleno">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="25">{{'centredashboard.vehicleno' | translate}}</th>
+                        <td mat-cell class="cursor-pointer" fxFlex="25" (click)="viewdetails(element.vpk)" *matCellDef="let element"> {{element.vvehicleno}} </td>
+                    </ng-container>
+                    <!-- ownername Column -->
+                    <ng-container matColumnDef="vownername">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="30"> {{'centredashboard.ownername' | translate}}</th>
+                        <td mat-cell class="cursor-pointer" fxFlex="30" (click)="viewdetails(element.vpk)" *matCellDef="let element"> {{element.vownername}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="pending">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="20"> {{'Pending Since' | translate}}</th>
+                        <td mat-cell class="cursor-pointer" fxFlex="20" (click)="viewdetails(element.vpk)" *matCellDef="let element"> {{element.pending}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="inspectby">
+                        <th mat-header-cell *matHeaderCellDef fxFlex="25"> {{'Inspected By' | translate}}</th>
+                        <td mat-cell class="cursor-pointer" fxFlex="25" (click)="viewdetails(element.vpk)" *matCellDef="let element"> {{element.inspectby}} </td>
+                    </ng-container>
+                    
+                    
+                    
+                    <tr mat-header-row *matHeaderRowDef="vpdisplayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: vpdisplayedColumns;"></tr>
+                </table>
+            </div>
+        </mat-expansion-panel>
+        <!--Approval Pending-->
+        <mat-expansion-panel >
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <div class="accrodianheader">
+                        <p class="header">{{'centredashboard.approvepending' | translate}} ({{counts.Approval_Pending}})</p>
+                    </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <span (click)="navigate('Ap')">{{'centredashboard.viewall' | translate}}</span>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="aptable">
+                <table mat-table [dataSource]="apdataSource" class="mat-iptable">
+                    <!-- vehicleno Column -->
+                    <div >
+                        <ng-container matColumnDef="avehicleno">
+                            <th mat-header-cell *matHeaderCellDef fxFlex="25">{{'centredashboard.vehicleno' | translate}}</th>
+                            <td  class="cursor-pointer" fxFlex="25" (click)="viewdetails(element.apk)"  mat-cell *matCellDef="let element"> {{element.avehicleno}} </td>
+                        </ng-container>
+                        <!-- ownername Column -->
+                        <ng-container matColumnDef="aownername">
+                            <th mat-header-cell *matHeaderCellDef fxFlex="30"> {{'centredashboard.ownername' | translate}}</th>
+                            <td mat-cell class="cursor-pointer" fxFlex="30" (click)="viewdetails(element.apk)" *matCellDef="let element"> {{element.aownername}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="pending_since">
+                            <th mat-header-cell *matHeaderCellDef fxFlex="20"> {{'Pending Since' | translate}}</th>
+                            <td mat-cell class="cursor-pointer" fxFlex="20" (click)="viewdetails(element.apk)" *matCellDef="let element"> {{element.pending_since}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="inspect_by">
+                            <th mat-header-cell *matHeaderCellDef fxFlex="25"> {{'Verified By' | translate}}</th>
+                            <td mat-cell class="cursor-pointer" fxFlex="25" (click)="viewdetails(element.apk)" *matCellDef="let element"> {{element.inspect_by}} </td>
+                        </ng-container>
+                    </div>
+
+                    
+                    
+                    
+                    <tr mat-header-row *matHeaderRowDef="apdisplayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: apdisplayedColumns;"></tr>
+                </table>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

@@ -1,0 +1,122 @@
+@import "~angular-calendar/css/angular-calendar.css";
+
+
+.cal-cell-row {
+  &.cal-header {
+    background-color: #f8f8f8;
+    border-top: 1px solid #ecedef;
+    border-left: 1px solid #ecedef;
+    border-right: 1px solid #ecedef;
+
+    .cal-cell {
+      border-right: 1px solid #ecedef;
+      padding: 12px 0px;
+    }
+  }
+
+}
+
+.cal-month-view {
+  
+  .cal-day-cell {
+    background-color: #ffffff;
+    border-right: 1px solid #ecedef;
+    align-items: center;
+    &.cal-today {
+      background-color: #ffffff;
+      border: 2px solid #0c4b9a;
+      .cal-day-number {
+        font-size: 1.2em !important;
+        color: #333333 !important;
+        background: #f8f8f8;
+        width: none;
+        height: none;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+      }
+    }
+
+    .cal-day-number {
+      float: left;
+      margin-right: auto;
+      margin-left: 20px;
+      color: #333333;
+      opacity: 1;
+      background: #f8f8f8;
+      width: 36px;
+      height: 36px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+    }
+    &.cal-weekend  {
+      .cal-day-number { 
+        color: #333333;
+      }
+    }
+
+  }
+  .cal-days {
+    .cal-cell-row {
+      min-height: 156px;
+    }
+  }
+  .cal-cell-top {
+    min-height: 10px;
+  }
+  .cal-events {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  .cal-day-badge {
+    display: none;
+  }
+  .cal-event-title {
+    text-decoration: none !important;
+    line-height: 20px;
+    font-size: 14px;
+  }
+  .availableColor {
+    line-height: 28px;
+    .cal-event-title {
+        background-color: #d6ffdc;
+        color: #00a551 !important;
+        padding: 0px 8px;
+    }
+  }
+  .holidayColor {
+    line-height: 28px;
+    height: 65px;
+    margin-top: 20px;
+    display: block;
+
+    .cal-event-title {
+        background-color: #ed1c27;
+        color: #ffffff;
+        padding: 6px 10px;
+        border-radius: 2px;
+        margin-top: 20px;
+    }
+  }
+  .bookingColor {
+    line-height: 28px;
+    .cal-event-title {
+        background-color: #e5f8fc;
+        color: #00b6db;
+        padding: 0px 8px;
+    }
+  }
+  .notColor {
+    line-height: 28px;
+    .cal-event-title {
+        background-color: #f8f8f8;
+        color: #999999;
+        padding: 0px 8px;
+    }
+  }
+}
+

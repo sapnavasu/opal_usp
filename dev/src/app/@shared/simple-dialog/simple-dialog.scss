@@ -1,0 +1,31 @@
+.simpledialogcommon
+{
+    width: 351px;
+    padding: 20px;
+    height: 215px;
+
+    .mat-dialog-actions
+    {
+      justify-content: flex-end;
+    }
+}
+.mat-dialog-container
+{
+    border-radius: 0px !important;
+}
+.cancelfolder
+{
+background-color: #e8ebef !important;
+font-size: 14px !important;
+color: #61666c !important;
+height: 40px;
+}
+.createfolder
+
+{
+    background-color: #f58020 !important;
+    font-size: 14px !important;
+    color: #fff !important;
+    height: 40px;
+
+}

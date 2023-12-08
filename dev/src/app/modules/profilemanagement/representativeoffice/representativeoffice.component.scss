@@ -1,0 +1,644 @@
+@mixin flexcenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin spacebetween {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  @mixin commancssforptag {
+    color: #333;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  .displaysame{
+    display: flex;
+    align-items: center;
+    width:400px
+  }
+  .nextbutton{
+    background-color: #006cb7 !important;
+    color: white  !important;
+    border: none  !important;
+}
+  img[src="null"] {
+    display: none;
+  }
+  img[src="[object Storage]"] {
+    display: none;
+  }
+  .showfilterandadditem button {
+    font-size: 14px !important;
+  }
+  .widthfiled{
+    width:50%;
+  }
+  .flexstart{
+    display: flex;
+    align-items: center;
+  }
+  
+  .information {
+    padding: 0px !important;
+    display: block;
+    margin: 0;
+    .info {
+      padding: 15px !important;
+      display: flex;
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .mat-button-toggle-checked {
+    background: #2dbe55;
+    color: #fff;
+  }
+  
+  .documentsrow {
+    align-items: center !important;
+  }
+  
+  mat-option[aria-label] {
+    position: relative;
+    font-size: 0.875rem;
+    color: #333 !important;
+    height: 50px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+    &::after {
+      content: attr(aria-label);
+      position: absolute;
+      bottom: -5px;
+      font-size: 0.75rem;
+      color: #666666;
+    }
+  }
+  
+  .mat-tab-body-content::-webkit-scrollbar {
+    width: 0.5em;
+    position: absolute;
+    right: 0;
+  }
+  
+  .mat-tab-body-content::-webkit-scrollbar-thumb {
+    background-color: #b8c3cb;
+  }
+  
+  .organisationinfo {
+    background: #fff;
+  }
+  
+  #mastercompanydetail {
+    .borderclass {
+      border: 5px solid #006cb7;
+    }
+  }
+  .topheadermain {
+    @include spacebetween();
+    color: #fff !important;
+    .imagewithtext {
+      @include flexcenter();
+    }
+  }
+
+  .cancelandpublish {
+    .cancel {
+      height: 45px;
+      color: #777;
+      border: 1px solid #cbcbcb;
+      border-radius: 2px !important;
+    }
+    .publish {
+      height: 45px;
+      border-radius: 2px !important;
+    }
+  }
+  
+  .mat-form-field {
+    font-size: 0.9375rem;
+  }
+  
+  .mat-form-field-infix {
+    border-top: 0.54375em solid transparent;
+  }
+  
+  ::slotted .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: rgba(0, 0, 0, 0.22);
+  }
+  .profilecompleteness {
+    p {
+      color: #fff;
+      font-size: 0.75rem;
+    }
+    .mat-progress-bar {
+      width: 190px;
+      margin-bottom: 15px;
+    }
+  }
+  .mat-progress-bar-fill::after {
+    background-color: #71c015 !important;
+  }
+
+  .progressandhistory {
+    @include spacebetween();
+    margin-bottom: 10px;
+  }
+  .pagenumberinprofile {
+    border: 1px solid #fff;
+  height: 20px;
+  min-width: 20px;
+  color: #fff;
+  border-radius: 10px / 11px;
+  background: #2b7db5;
+  font-size: 0.75rem;
+  width: auto;
+  padding: 0 6px;
+    @include flexcenter();
+    margin-right: 10px;
+  }
+  .completed {
+    background: #71c114;
+  }
+  
+  .mat-select-panel {
+    border-radius: 0;
+  }
+  
+  .mat-option[aria-disabled="true"] {
+    background: #006cb7;
+    color: #fff;
+    height: 35px;
+  }
+  
+  .accrodianheader {
+    .header {
+      @include flexstart();
+    }
+  }
+  .uploadandcompnayinfo {
+    display: flex;
+  }
+  
+  .dropfilesheretoadd {
+    padding: 5px;
+    border: 1px dashed #999;
+    border-radius: 2px;
+    div {
+      background: #f3f4f6;
+      height: 45px;
+      @include flexcenter();
+      p {
+        @include commancssforptag();
+        font-family: 'opal_semibold';
+        span {
+          color: #006cb7;
+        }
+      }
+    }
+  }
+  .saveandnext {
+    background: #ececec;
+    border-radius: 2px;
+    border: 1px solid #ececec !important;
+    color: #999 !important;
+    font-size: 0.9375rem;
+  }
+  .previous {
+    @extend .saveandnext;
+    background: transparent;
+    font-size: 15px !important;
+    margin-right: 15px;
+    width: auto;
+  }
+  .viewingcontrols {
+    .mat-form-field {
+      width: 90px;
+    }
+  }
+  
+  .mat-paginator-container {
+    padding: 0 !important;
+    font-size: 0.875rem;
+    justify-content: flex-start !important;
+  }
+  .showfilterandadditem button {
+    font-size: 14px !important;
+  }
+  .selectproductheaderwithclose {
+    .closeandadd {
+      @include flexstart();
+    }
+    height: 56px;
+    .titletext {
+      @include spacebetween();
+      padding: 10px;
+    }
+    .clearandaddbutton {
+      @include flexstart();
+      .clearbutton {
+        background: #006cb7;
+      }
+      .addbutton {
+        background: #28b8e7;
+      }
+    }
+  }
+  .mat-drawer-backdrop {
+    position: fixed;
+  }
+  .companyinfomcp {
+    @include flexstart();
+    align-items: flex-start !important;
+  
+    img {
+      width: 44px;
+      height: 44px;
+    }
+    .lypisid {
+      color: #666666;
+      font-size: 0.75rem;
+    }
+    p {
+      margin: 0;
+      line-height: 1;
+      color: #000;
+    }
+  }
+  
+  .borderbottom {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+  }
+  .innnerpartofdrwer {
+    padding-top: 25px;
+    padding-left: 75px !important;
+    padding-right: 75px !important;
+    padding-bottom: 45px !important;
+  }
+  
+  .mat-select-panel {
+    max-height: 400px;
+  }
+  .mat-option:hover:not(.mat-option-disabled),
+   .mat-option:focus:not(.mat-option-disabled),
+  .mat-option.mat-selected:not(.mat-option-disabled) {
+    background: #cbdcf9 !important;
+  }
+  .mat-option.mat-active {
+    background: transparent;
+  }
+  
+  :host .mastercompnaycontent .commonexpandandcollapse .mat-expansion-panel-body {
+    padding: 10px !important;
+  }
+  .certiticatecounts {
+    @include spacebetween();
+    p {
+      color: #006cb7;
+      font-size: 0.875rem;
+    }
+  
+    .addbutton {
+      background: #006cb7;
+      font-size: 14px !important;
+      @include flexcenter();
+    }
+  }  
+  .primaryofficeinfo {
+    @include spacebetween();
+    .officebuilding {
+      @include flexstart();
+      padding: 20px;
+      align-items: flex-start !important;
+      width: 100%;
+    }
+    .addresslabel {
+      color: #999;
+      font-size: 11px !important;
+    }
+    .companyandofficeinfo {
+      width: calc(100% - 65px);
+      .name {
+        color: #006cb7;
+      }
+    }
+  }
+  .companyandofficeinfo {
+    p {
+      margin: 0;
+    }
+    .crandbranchids {
+      @include flexstart();
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .count {
+        font-family: 'opal_semibold';
+      }
+    }
+    padding-left: 20px;
+    .title {
+      color: #999;
+      font-size: 0.75rem;
+      margin: 0;
+      line-height: 0.9;
+      padding-bottom: 6px;
+    }
+    .lablename {
+      color: #999;
+      font-size: 0.9375rem;
+    }
+    .name {
+      color: #333;
+      font-size: 1rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+  .officeaddressdetail {
+    padding-top: 20px;  
+    .addressinfo {
+      font-size: 0.9375rem;
+    }
+  }
+  .contactandwebsite {
+    @include flexstart();
+    align-items: flex-start !important;
+    padding-top: 20px;
+    p {
+      font-size: 0.9375rem;
+      padding-bottom: 5px;
+    }
+    .contact {
+      padding-right: 20px;
+    }
+    .webiste {
+      padding-left: 20px;
+    }
+  }
+  .contactdetails {
+    @include flexstart();
+    padding-top: 15px;
+    div {
+      padding-right: 30px;
+      @include flexstart();
+      i {
+        color: #9a9a9a;
+        padding-right: 10px;
+      }
+      span {
+        color: #333;
+        font-size: 0.875rem;
+      }
+    }
+  }
+  
+  .companydetailwithflag {
+    @include spacebetween();
+  }
+  .certificateimage {
+    position: relative;
+    width: 65px;
+    height: 65px;
+    background: #e5eefe;
+    @include flexcenter();
+    i {
+      color: #006cb7;
+      font-size: 1.5625rem;
+    }
+  }
+  .countryandcrinfo {
+    @include flexstart();
+    padding-top: 10px;
+    .eachitem {
+      padding-right: 90px;
+      .lablename {
+        font-size: 12px !important;
+      }
+      img {
+        width: 22px;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+  
+  .searchitembelow {
+    @include spacebetween();
+    border: 1px solid #ddd;
+    height: 50px;
+    input {
+      height: 100%;
+      width: 100%;
+      border: none;
+    }
+  }
+  .Paymentcontacthead {
+    p {
+      color: red;
+      margin: 0px;
+    }
+  }
+  .setcountryflag {
+    align-items: center;
+  }
+  .flagimage img {
+    max-width: 24px;
+  }
+   
+  .countrynameselect {
+    .mat-option-text {
+      display: flex;
+      align-items: center;
+      img
+      {
+          padding-right: 10px;
+      }
+    }
+  }
+  .mapwidth{
+    img{
+      width:100%;
+    }
+  }
+  .profilelinkboxshadow{
+    box-shadow: 0 0 5px #ddd;
+    width:100%;
+    padding-left: 7px;
+    padding-right: 7px;
+   
+   
+  }
+  .start{
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
+  }
+  .borderflex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 45px;
+    padding-top: 5px;
+  }
+  .pdfview{
+    display: flex;
+  }
+  .Search{
+    p{
+      color:#a9a9a9;
+    }
+  }
+  .Searchcolor{
+    color: #a9a9a9;
+  }
+ .certificateborder{
+    border:1px  dashed #b3b3b3 !important;
+    width:100%;
+    height:60px;
+    border-radius:2px;
+    background:#f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    .fileherecolor{
+        color:#333333;  
+    }
+    .addfilecolor{
+        color:#006cb7;
+    }
+   .uploadpdf{
+       color:#989898;
+      p{
+       color:#989898;   
+      } 
+
+   }
+ 
+}
+.pdfbackground{
+  background-color: #edf3ff;
+}
+.uploadphoto {
+    padding: 5px;
+    border: 1px dashed #999;
+    border-radius: 2px;
+    height: 150px;
+    width: 150px;
+    .outerlayer {
+      background: #e8ebf0;
+      height: 100%;
+      @include flexcenter();
+     
+      p {
+        margin: 0;
+        color: #333;
+        font-size: 0.875rem;
+        padding-top: 10px;
+      }
+    }
+  }
+  .marketingheight {
+    display: flex;
+    align-items: center;
+    height: 195px;
+    p{
+        margin:0px;
+        margin-top:38px;
+    }
+  }
+  .textcolor{
+    color:#006cb7 !important;
+}
+.deleteflexend{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .widthratio{
+      width:45%;
+  }
+  .border{
+    border: none !important;
+    width:96% !important;
+  }
+  .flexoman{
+  display: flex;
+  align-items: center;
+  }
+  .flexserach{
+    display: flex;
+    align-items: center;
+  }
+  .iconstyle {
+    font-size: 1.125rem;
+    color: #006cb7;
+  }
+  .pdfimage {
+    width: 14px;
+    height: 14px;
+  }
+  .propertytype {
+      display: flex;
+  }
+  @media (max-width: 767px){
+
+  .countryandcrinfo {
+    display: block !important;
+    .eachitem {
+      padding-right: 0px !important;
+      padding-bottom: 15px;
+    }
+  }
+ 
+  .selectproductheaderwithclose .titletext .bgi-info {
+    font-size: 0.75rem;
+    margin-left: 4px;
+    position: relative;
+    top: -1px;
+  }
+  .flexserach
+{
+  display: block !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.showfilterandadditem{
+  margin-left: 0px !important;
+}
+.masterPage .mat-paginator-range-label {
+  margin: 0 32px 0 12px;
+  color: black;
+  display: contents !important;
+}
+.masterbottom .mat-paginator-range-label {
+  margin: 0 32px 0 12px;
+  color: black;
+  display: contents !important;
+  margin-right: -6px;
+  font-size: 0.75rem;
+}
+.masterbottom .mat-paginator-page-size {
+  display: flex;
+  align-items: baseline;
+  margin-right: 30px;
+}
+.mat-paginator-page-size-label {
+  font-size: 0.75rem;
+}
+  }

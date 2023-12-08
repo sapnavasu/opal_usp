@@ -1,0 +1,22 @@
+tran.currency=356
+consumer.language=USA
+tran.action=1
+merchant.receiptURL=http://localhost:84/ipay/iPAYPlugin/HostedPaymentResult.php
+merchant.errorURL=http://localhost:84/ipay/iPAYPlugin/HostedPaymentResult.php
+gateway.resource.path=D:\\xampp\\htdocs\\ipay\\iPAYPlugin\\
+gateway.terminal.tranportalid=ipay705329903073
+gateway.terminal.alias=BGATEWAYS
+php.java.bridge.url=http://localhost:8080/JavaBridge/java/Java.inc
+
+resourcePath=K:\\xampp\\htdocs\\ipay\\iPAYPlugin\\
+aliasName=BGATEWAYS
+currency=356
+language=USA
+action=1
+receiptURL=http://localhost:84/ipay/iPAYPlugin/HostedPaymentResult.php
+errorURL=http://localhost:84/ipay/iPAYPlugin/HostedPaymentResult.php
+udf1=Udf 1 Field
+udf2=Udf 2 Field
+udf4=Udf 4 Field
+udf5=Udf 5 Field
+udf3=10.44.71.168

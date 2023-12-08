@@ -1,0 +1,203 @@
+<div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" id="viewroles">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="viewrolesnew">
+                    <form class="example-form" [formGroup]="viewroleform">
+                    <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width mat-form-field-readonly" appearance="outline">
+                                <mat-label>{{'viewroles.stactype' | translate}}</mat-label>
+                                <input matInput readonly="true" formControlName="stkholdertype" value="OPAL Admin">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                        ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width mat-form-field-readonly" appearance="outline">
+                                <mat-label>{{'viewroles.techevacen' | translate}}</mat-label>
+                                <input matInput readonly="true" formControlName="techeval" value="Road Worthiness Assurance Standard (RAS)">                                
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" class="p-t-15" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="paddingspacing" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width mat-form-field-readonly" appearance="outline">
+                                <mat-label>{{'viewroles.role' | translate}}</mat-label>
+                                <input matInput readonly="true" formControlName="arrole" value="CEO">  
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                        ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" ngClass.sm="m-0">
+                            <mat-form-field class="example-full-width mat-form-field-readonly" appearance="outline">
+                                <mat-label>{{'viewroles.highrrole' | translate}}</mat-label>
+                                <input matInput readonly="true" formControlName="arrolehigh" value="Authority"> 
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" class="p-t-15">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="aligncenter">
+                            {{'viewroles.allomodulacce' | translate}}
+                        </div>
+                    </div>
+    
+                    <!--permission access table-->
+                    <div fxLayout="row wrap" class="p-t-15">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="permissiontable">
+                            <table mat-table
+                            [dataSource]="dataSource" multiTemplateDataRows
+                            class="mat-elevation-z8">
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef> 
+                                        {{'viewroles.modulname' | translate}}  
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                            {{element.name}} 
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="create">
+                                    <th mat-header-cell *matHeaderCellDef> 
+                                        {{'viewroles.cret' | translate}} 
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        <label class="checkcontainer">
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label> {{element.create}} 
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="update">
+                                    <th mat-header-cell *matHeaderCellDef> 
+                                        {{'viewroles.updat' | translate}} 
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        <label class="checkcontainer">
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        {{element.update}} 
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="delete">
+                                    <th mat-header-cell *matHeaderCellDef> 
+                                        {{'viewroles.dele' | translate}}  
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        <label class="checkcontainer">
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        {{element.delete}} 
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="approve">
+                                    <th mat-header-cell *matHeaderCellDef> 
+                                        {{'viewroles.approv' | translate}} 
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        <label class="checkcontainer">
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        {{element.approve}} 
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="download">
+                                    <th mat-header-cell *matHeaderCellDef> 
+                                        {{'viewroles.dowl' | translate}}
+                                    </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        <label class="checkcontainer">
+                                            <input type="checkbox" disabled>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        {{element.download}} 
+                                        <span 
+                                        class="example-element-row expandicon"
+                                        [class.example-expanded-row]="expandedElement === element"
+                                        (click)="expandedElement = expandedElement === element ? null : element"><mat-icon>{{expandedElement === element? 'remove' : 'add'}}</mat-icon></span>
+                                    </td>
+                                </ng-container>
+                                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                                <ng-container matColumnDef="expandedDetail">
+                                    <td class="nopaddingtd" mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                                    <div class="example-element-detail"
+                                            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                            <table #innerTables class="subtable" mat-table [dataSource]="element.submodule">
+                                                    <ng-container matColumnDef="sname">
+                                                            <th mat-header-cell *matHeaderCellDef></th>
+                                                            <td mat-cell *matCellDef="let element"> <span class="p-l-30">{{element.sname}} </span></td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="screate">
+                                                            <th mat-header-cell *matHeaderCellDef></th>
+                                                            <td mat-cell *matCellDef="let element"> 
+                                                                <label class="checkcontainer">
+                                                                    <input type="checkbox">
+                                                                    <span class="checkmark"></span>
+                                                                </label> 
+                                                                {{element.screate}} 
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="supdate">
+                                                            <th mat-header-cell *matHeaderCellDef></th>
+                                                            <td mat-cell *matCellDef="let element"> 
+                                                                <label class="checkcontainer">
+                                                                    <input type="checkbox">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                                {{element.supdate}} 
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="sdelete">
+                                                            <th mat-header-cell *matHeaderCellDef></th>
+                                                            <td mat-cell *matCellDef="let element"> 
+                                                                <label class="checkcontainer">
+                                                                    <input type="checkbox">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                                {{element.sdelete}} 
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="sapprove">
+                                                            <th mat-header-cell *matHeaderCellDef></th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                <label class="checkcontainer">
+                                                                    <input type="checkbox">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                                {{element.sapprove}}
+                                                             </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="sdownload">
+                                                            <th mat-header-cell *matHeaderCellDef></th>
+                                                            <td mat-cell *matCellDef="let element"> 
+                                                                <label class="checkcontainer">
+                                                                    <input type="checkbox">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                                {{element.sdownload}} 
+                                                            </td>
+                                                        </ng-container>
+                                                <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: innerDisplayedColumns;"></tr>
+                                            </table>
+                                    </div>
+                                    </td>
+                                </ng-container>
+                                
+                                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                                <tr mat-row *matRowDef="let element; columns: columnsToDisplay;">
+                                </tr>
+                                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                            </table>
+                        </div>
+                    </div>                
+                    <!--permission access table-->
+                    <div fxLayout="row wrap" class="m-t-30" fxLayoutAlign="end">
+                        <div fxFlex.gt-sm="100" fxFlex="100" fxLayoutAlign="flex-end center">
+                            <button mat-raised-button type="button" color="secondary"
+                                class="filterbtn height-45">{{'viewroles.clos' | translate}}</button>
+                        </div>
+                    </div>
+    
+                    </form>
+            </div>
+        </div>
+    </div>

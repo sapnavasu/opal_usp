@@ -1,0 +1,365 @@
+<div id="courseviewivms" fxLayout="row wrap" fxLayoutAlign="center">
+    <div class="viewcourseview m-b-25" fxFlex="100">
+        <div class="verify" fxflex fxLayoutAlign="space-between center">
+            <h2 class="headcolor fs-18 m-0">{{'courseview.stafviw' | translate}}<span class="aprove fs-13 pd-3 m-l-10"
+                    *ngIf="appoct_status == 3">{{'courseview.approv' | translate}}</span><span
+                    class="declin fs-13 pd-3 m-l-10" *ngIf="appoct_status == 4">{{'courseview.declin' | translate}}</span></h2>
+            <app-validation [callbackFn]="onValidation" *ngIf="viewForm == false" [submitbutton]="'validation.sumb' | translate" [addClass]="'validet'" [buttonName]="'validation.vali' | translate"></app-validation>
+        </div>
+        <!-- comment box -->
+        <div class="successcmd m-l-0 m-r-0 m-b-20 m-t-20" *ngIf="appoct_status == 3" [ngClass]="appoct_status? 'declinecmd':'successcmd'">
+            <p class="18 comment">{{'institute.declcomm' | translate}}</p>
+            <p class="16 m-b-30" [innerHtml]='appsit_appdeccomment'></p>
+            <mat-divider></mat-divider>
+            <div class="validinfo" fxLayout="row wrap">
+                <p class="fs-16 txt-gry m-r-40">{{'institute.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{appsit_appdecon | date: 'dd-MM-yyyy'}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'institute.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{username1}}</span></p>
+            </div>
+        </div>
+    </div>
+    <!-- details -->
+   <div fxLayout="column" fxFlex="100">
+        <div class="company_dtlview  m-b-30">
+            <div class="view_dtl m-t-20" fxLayout="ro">
+                <p class="m-0">{{'courseview.civilno' | translate}}</p>
+                <span>{{sir_idnumber}} </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.stafnameng' | translate}} </p>
+                <span>{{sir_name_en}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.stafnamarabi' | translate}} </p>
+                <span>{{sir_name_ar}} </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.emaiid' | translate}}</p>
+                <span>{{sir_emailid}} </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.datofbirth' | translate}}</p>
+                <span>{{sir_dob?(sir_dob| date: 'dd-MM-yyyy'):'-'}} </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.age' | translate}} </p>
+                <span>{{age}} </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.gen' | translate}}</p>
+                <span>{{sir_gender == 1?'Male':'Female'}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.nationlit' | translate}} </p>
+                <span>{{sir_nationality}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.permresid' | translate}}</p>
+                <span *ngIf="address">{{address}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.jobtitl' | translate}}</p>
+                <span>{{appsit_jobtitle}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'courseview.conttyp' | translate}}</p>
+                <span>{{appsit_contracttype == 1?'Temporary':'Permanent'}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row" >
+                <p class="m-0">{{'Role' | translate}}</p>
+                <span>{{appsit_mainrole}}</span>
+            </div>
+        </div>
+        <!-- mat Tab education and work -->
+        <div class="tab m-b-10 m-t-40">
+            <mat-tab-group>
+                <mat-tab label="{{'courseview.eduquali' | translate}}">
+                    <div class="tab-content" *ngIf="educationLength !=0">
+                        <div class="paginationwithfilter masterPageTop pd-0 d-flex m-t-20">
+                            <mat-paginator *ngIf="educationLength>5" class="masterPage masterPageTop" #paginator
+                                [length]="educationLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="educationPaginator($event);"></mat-paginator>
+                        </div>
+                        <div class="institute-detail m-t-20" *ngFor="let acad of staffacd">
+                            <div class="institue-name pd-10">
+                                <h4 class="fs-18 txt-gry3 m-5 txt-cap">{{acad.sacd_institutename}}</h4>
+                            </div>
+                            <div class="institute-location pd-10" fxLayout="row wrap">
+                                <div class="m-r-30">
+                                    <div class="view_dtl m-t-15" fxLayout="row">
+                                        <p class="m-0 txt-cap text-gray">{{'courseview.high' | translate}} </p>
+                                        <span class="txt-cap">{{acad.sacd_degorcert}}</span>
+                                    </div>
+                                    <div class="view_dtl m-t-25" fxLayout="row">
+                                        <p class="m-0 text-gray">{{'Graduation Date' | translate }} </p>
+                                        <span>{{acad.sacd_enddate}}</span>
+                                    </div>
+                                    <div class="view_dtl m-t-25" fxLayout="row">
+                                        <p class="m-0 text-gray">{{'Uploaded Certificate' | translate}} </p>
+                                        <span><a fxLayoutAlign="start center" href="{{acad.coverImg}}" class="txt-gry3 fs-16" target="_blank"><img
+                                           src="assets\images\opalimages\{{acad.mcfd_filetype}}_new.svg "
+                                          class="documentimg m-r-10" alt="" cractivitydocument>{{'View' | translate}}</a></span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="view_dtl m-t-15" fxLayout="row">
+                                        <p class="m-0 text-gray">{{'courseview.educleve' | translate}} </p>
+                                        <span>{{acad.sacd_edulevel}}</span>
+                                    </div>
+                                    <div class="view_dtl m-t-25" fxLayout="row">
+                                        <p class="m-0 text-gray">{{'courseview.gpagrad' | translate}} </p>
+                                        <span>{{acad.sacd_grade}}</span>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="100" class="norecordfound" fxLayout="column" fxLayoutAlign="center center"
+                        *ngIf="educationLength == 0">
+                        <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                        <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}
+                        </p>
+                    </div>
+                </mat-tab>
+                <!-- work -->
+                <mat-tab label="{{'courseview.workexp' | translate}}">
+                    <div class="tab-content" *ngIf="workLength !=0">
+                        <div class="paginationwithfilter masterPageTop pd-0 d-flex m-t-20">
+                            <mat-paginator *ngIf="workLength>5" class="masterPage masterPageTop" #paginator
+                                [length]="workLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="workPaginator($event);"></mat-paginator>
+                        </div>
+                        <div class="institute-detail m-t-20" *ngFor="let wrk of staffwrk">
+                            <div class="institue-name pd-10">
+                                <h2 class="fs-18 txt-gry3 m-0 txt-cap">{{wrk.sexp_employername}}</h2>
+                                <p class="text-gray m-0">{{'courseview.locan' | translate}}: <span class="text-default">
+                                        <span *ngIf="wrk.ocim_cityname_en">{{wrk.ocim_cityname_en}},</span>
+                                        <span *ngIf="wrk.osm_statename_en"> {{wrk.osm_statename_en}},
+                                        </span>{{wrk.ocym_countryname_en}}</span></p>
+                            </div>
+    
+                            <div class="institute-location pd-10">
+    
+                                <div class="view_dtl m-t-15" fxLayout="row">
+                                    <p class="m-0 text text-gray">{{'courseview.jobtitl' | translate}} </p>
+                                    <span class="txt-cap"> {{wrk.appsit_jobtitle}}</span>
+                                </div>
+                                <div class="view_dtl m-t-20" fxLayout="row" *ngIf="wrk.sexp_doj">
+                                    <p class="m-0 text-gray">{{'courseview.datofjoin' | translate}} </p>
+                                    <span> {{wrk.sexp_doj}}</span>
+                                </div>
+                                <div class="view_dtl m-t-20" fxLayout="row">
+                                    <p class="m-0 text-gray">{{'courseview.worktil' | translate}} </p>
+                                    <span> {{(wrk.sexp_currentlyworking == 2)?wrk.sexp_eod:'
+                                        Till date'}}</span>
+                                </div>
+                                <div class="view_dtl m-t-25" fxLayout="row" *ngIf="wrk.mcfd_filetype">
+                                    <p class="m-0 text-gray">{{'Uploaded Document' | translate}} </p>
+                                    <span><a fxLayoutAlign="start center" href="{{wrk.coverImageswork}}"
+                                            class="txt-gry3 fs-16" target="_blank"><img
+                                                src="assets\images\opalimages\{{wrk.mcfd_filetype}}_new.svg "
+                                                class="documentimg m-r-10" alt="" cractivitydocument>{{'View' |
+                                            translate}}</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="100" fxLayout="column" class="norecordfound" fxLayoutAlign="center center"
+                        *ngIf="workLength == 0">
+                        <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                        <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}
+                        </p>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <!-- other documents -->
+       <div class="othersDocuments m-t-20">
+        <h2 class="headcolor fs-18 m-0">{{'Other Documents' | translate}}</h2>
+            <div class="uploadedDocuments " fxLayout="column" fxLayoutAlign="center start" *ngFor="let docimage of documentList;let i = index;">
+                <div class="imageBadge gap-10" fxLayout="row wrap" fxLayoutAlign="start center">
+                    <p class="txt-gry3 m-0 fs-16">{{docimage.title | translate}}</p>
+                    <div fxLayout="row warp" class="viewdocuments" >
+                        <span *ngFor="let imgs of docimage.images;let j = index;">
+                            <a *ngIf="imgs?.type?.length != 0;"  [href]="imgs.url" target="_blank" class="fs-15 txt-gry3" fxLayout="row" fxLayoutAlign="start center"><img src="assets/images/opalimages/{{imgs.type}}_new.svg" [alt]="imgs.type">{{'View'| translate}}</a>
+                            <span *ngIf="imgs?.type?.length ==0">{{'Nil' | translate }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+       </div>
+       <!-- knowledge  -->
+       <div class="documentheader commonForm p-t-45" fxLayout="column">
+        <h4  class="fs-18 m-0 m-r-10 txt-ble">{{'Knowledge Assessment Details' | translate}}</h4>
+          <form autocomplete="off" [formGroup]="assessForm" #assess='ngForm' *ngIf="viewForm == false">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-20">
+                <div fxFlex.gt-sm="50" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-select required formControlName="status"
+                            panelClass="select_with_search" (selectionChange)="statustype(form.status.value)">
+                            <mat-option [value]="1">{{'viewusers.appro' | translate}}</mat-option>
+                            <mat-option [value]="2">{{'staff.decli' | translate}}</mat-option>
+                            <mat-option [value]="3">{{'staff.fail' | translate}}</mat-option>
+                        </mat-select>
+                        <mat-label>{{'staff.selestatus' | translate}}</mat-label>
+                        <mat-error *ngIf="form.status.errors?.required || assess.submitted">
+                            {{'staff.selectstatus' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="50" *ngIf="this.assessForm.controls.status.value == '1'"  ngClass.xs="p-l-0" ngClass.sm="p-l-0"
+                    ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                    <mat-form-field appearance="outline">
+                        <mat-label> {{'staff.seleassessstatu' | translate}}</mat-label>
+                        <mat-select [errorStateMatcher]="matcher" [required]="this.assessForm.controls.status.value == '1'" formControlName="status_info"
+                            panelClass="select_with_search"
+                            (selectionChange)="applicabled(form.status_info.value)">
+                            <mat-option [value]="1">{{'staff.appli' | translate}}</mat-option>
+                            <mat-option [value]="2">{{'Not Applicable (Knowledge Assessment Alone)' | translate}}</mat-option>
+                            <mat-option [value]="3">{{'Not Applicable (Both Assessment)' | translate}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.status_info.errors?.required || assessForm.submitted">
+                            {{'staff.selectedassessstatu' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div *ngIf="this.assessForm.controls.status_info.value == '1' || this.assessForm.controls.status.value == '3'">
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-20">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <mat-label class="editortitle txt-gry">{{'uploadassess.uploadassessmt' | translate}} <span class="error">*</span></mat-label>
+                        <app-filee #assesmentrepot [notePosition]="'bottom'" [fileMstRef]="report"
+                            [deleteicon]="true" (filesSelected)="fileeSelected($event,report)"
+                            formControlName="reportdocument">
+                        </app-filee>
+                        <mat-hint>{{'uploadassess.upassesserror' | translate}} </mat-hint>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-20">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'staff.markscor' | translate}}</mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                                matInput required formControlName="mark" appNumberonly>
+                            <mat-error *ngIf="form.mark.errors?.required || assessForm.submitted">
+                                {{'staff.entemark' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                        ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                        <mat-form-field appearance="outline">
+                            <mat-label> {{'staff.perc' | translate}}</mat-label>
+                            <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher"
+                                matInput required formControlName="percentage"
+                                [app-restrict-input]="percentage">
+                            <mat-error *ngIf="form.percentage.errors?.required || assessForm.submitted">
+                                {{'staff.enterperc' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10" *ngIf="comment">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                        <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                            <div class="ckeditorborder">
+                                <p class="editortitle importantfield txt-gry3">{{'validation.comm' | translate}}
+                                    <span class="error" *ngIf="approvedcmt">*</span>
+                                </p>
+                                <div class="contenthere" [innerHTML]='techinfo'>
+                                </div>
+                            </div>
+                            <div class="messagecount" fxLayoutAlign="flex-end">
+                                <p class="m-0 txt-gry"> {{length_Of_ck}} / 1000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" *ngIf="edittechinfo">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-20">
+                            <div class="d-flex">
+                                <span class="d-block editortitle ckeditortitle p-b-5 importantfield txt-gry">{{'validation.comm'| translate}}<span class="error" *ngIf="approvedcmt"> *</span></span>
+                            </div>
+                            <div class="ckeditror finalgrade">
+                                <ckeditor
+                                    [ngClass]="{'is-invalid': form.comments.touched && form.comments.errors }"
+                                    (change)="onChangeeditor($event)" [(ngModel)]="contact"
+                                    (ready)="onReady($event)" [editor]="Editor" [config]="config"
+                                    [formControl]="assessForm.controls['comments']" appAlphanumsymb [required]="approvedcmt">
+                                </ckeditor>
+                                <div *ngIf="(form.comments.touched && form.comments.errors?.required == true) ">
+                                    <div class="error fs-13"
+                                        *ngIf="form.comments.touched &&  form.comments.errors">
+                                        {{'validation.entemess' | translate}}</div>
+                                </div>
+                            </div>
+                            <mat-hint *ngIf=" (length_Of_ck>1000)" class="error font-14"
+                                align="start">{{'validation.cannexcechar' | translate}}</mat-hint>
+                            <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                                <p class="txt-gry"> {{length_Of_ck}}/1000</p>
+                            </div>
+                            <div class="groupBtns p-t-20 b-5" fxLayoutAlign="flex-end">
+                                <button type="button" [disabled]="assessForm.controls['comments'].value?.length==0"
+                                    (click)="resinfo()" mat-raised-button
+                                    class="clearbutton button-40">{{'validation.clear' |
+                                    translate}}</button>
+                                <button mat-raised-button color="primary"
+                                    [disabled]="length_Of_ck == 0 ||length_Of_ck>1000 || f.comments.errors?.required == true"
+                                    (click)="messagedone()" class="button-40">{{'validation.done' |
+                                    translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="groupBtns m-t-30 m-b-10" fxLayout="row" fxLayoutAlign="flex-end">
+                        <button mat-raised-button class="standardbutton mat-white-bg" type="button" (click)="cancelbtn()">{{'Back' | translate}}</button>
+                        <button mat-raised-button class="standardbutton mat-white-bg" type="button" (click)="cancel()">{{'company.canc' | translate}}</button>
+                        <button mat-raised-button class="standardbutton mat-red-bg" [disabled]="done" color="primary" type="submit" (click)="submit()">{{'validation.sumb' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+          </form>
+        <div *ngIf="viewForm == true" [ngClass]="declinedmessage == true ? 'declinecmd' : 'successcmd '" class=" m-l-0 m-r-0 m-b-20 m-t-25">
+            <h4 *ngIf="staff_docs != null && staff_docs !=''" class="18 comment m-t-10"> {{'commentslist.uploadassess' | translate}}</h4>
+            <a *ngIf="staff_docs != null && staff_docs !=''" class="txt-gry3"  fxLayoutAlign="start center" href="{{staff_docs}}" target="_blank">
+            <img src="assets/images/opalimages/pdf_new.svg"  class="document m-r-3" alt="document">{{'View' | translate}}
+            </a>
+            <div class="company_dtlview" fxLayout="row wrap">
+                <div *ngIf="card_mark != '' && card_mark != null" class="view_dtl m-t-25">
+                    <p class="m-0 comment fw">{{'staff.markscor' | translate}}</p>
+                    <span>{{card_mark}}</span>
+                </div>
+                <div *ngIf="card_percentage != '' && card_percentage != null" class="view_dtl m-t-25">
+                    <p class="m-0 comment fw">{{'staff.perc' | translate}}</p>
+                    <span>{{card_percentage}}</span>
+                </div>
+            </div>
+            <h4 class="18 comment  m-b-10">{{'commentslist.coments' | translate}}</h4>
+            <p [innerHTML]="card_comments" class="16 m-b-30">
+            </p>
+            <mat-divider></mat-divider>
+            <div class="validinfo" fxLayout="row wrap">
+                <p class="fs-16 txt-gry m-r-40">{{'commentslist.veryon' | translate}} : 
+                    <span class="fs-16 txt-gry3">{{appsit_appdecon | date:'dd-MM-yyyy'}}</span>
+                </p>
+                <p class="fs-16 txt-gry m-l-30">{{'commentslist.veryby' | translate}} : <span
+                        class="fs-16 txt-gry3">{{validated_by}}</span></p>
+            </div>
+        </div>
+        <div *ngIf="viewForm == true" class="declinecmd m-l-0 m-r-0 m-b-20 m-t-25">
+            <h4 class="18 comment  m-b-10">{{'commentslist.coments' | translate}}</h4>
+            <p [innerHTML]="card_comments" class="16 m-b-30">
+            </p>
+            <mat-divider></mat-divider>
+            <div class="validinfo" fxLayout="row wrap">
+                <p class="fs-16 txt-gry m-r-40">{{'commentslist.veryon' | translate}} : 
+                    <span class="fs-16 txt-gry3">{{appsit_appdecon | date:'dd-MM-yyyy'}}</span>
+                </p>
+                <p class="fs-16 txt-gry m-l-30">{{'commentslist.veryby' | translate}} : <span
+                        class="fs-16 txt-gry3">{{validated_by}}</span></p>
+            </div>
+        </div>
+       </div>
+    </div>
+    <div class="btngroup m-t-15" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="flex-end end" *ngIf="!comment || viewForm">
+       <button mat-raised-button class="cancbtn" type="button" (click)="cancelbtn()">{{'Back' | translate}}</button>
+   </div>
+</div>

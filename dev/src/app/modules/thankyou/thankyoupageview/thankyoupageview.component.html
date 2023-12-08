@@ -1,0 +1,46 @@
+<div fxLayout="row wrap" *ngIf="type == 'accept'" class="contain">
+  <div fxFlex.gt-sm="100" fxFlex="100" id="thankyoulistview">
+    <div class="successtick">
+      <span>
+        <i class="bgi bgi-tick"></i>
+      </span>
+    </div>
+    <div class="jsrscontactcolor">
+      <h2>{{'registrationconfirmed.regconfim' | translate}}</h2>
+    </div>
+    <div class="transfertextcolor">
+      <p>{{'registrationconfirmed.thankyufrconfirm' | translate}}&nbsp;{{newUser}}&nbsp;{{'registrationconfirmed.thankyufrconfirmnext' | translate}}</p>
+      
+    </div>
+    <div class="btns d-flex">
+      <div class="loginbtn p-r-20">
+        <button mat-raised-button (click)="navigate()" class="downloadbtncolor fs-16 button-45">{{'registrationconfirmed.gotolog' | translate}}</button>
+      </div>
+      <div class="loginbtn">
+        <a href="https://qa.OPAL.om/"> <button mat-raised-button
+          class="downloadbtncolor fs-16 button-45">{{'registrationconfirmed.backtohom' | translate}}</button></a>   
+    </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" *ngIf="type == 'cancel'">
+  <div fxFlex.gt-sm="100" fxFlex="100" id="thankyoulistview">
+    <div class="successtick">
+      <span>
+        <i class="bgi bgi-tick"></i>
+      </span>
+    </div>
+    <div class="jsrscontactcolor">
+      <h2>{{'thankyoupageview.chanreqinprim' | translate}}</h2>
+    </div>
+    <div class="transfertextcolor">
+      <p>{{'thankyoupageview.youhavcanthereq' | translate}}&nbsp;{{newUser}}&nbsp;{{'thankyoupageview.to' | translate}}&nbsp;{{oldUser}}.</p>
+      <p>{{'thankyoupageview.forfurtquer' | translate}}<a href="support@OPAL.om" target="_blank" innerHtml="{{'thankyoupageview.email' | translate}}"></a>{{'thankyoupageview.orcal' | translate}}  +968 2416 6177.</p>
+      <p><a href="//www.qa.OPAL.om" target="_blank" innerHtml="{{'thankyoupageview.website' | translate}}"></a></p>
+     
+    </div>
+    <div class="loginbtn">
+      <button mat-raised-button (click)="navigate()" class="downloadbtncolor fs-16 button-45">{{'thankyoupageview.gotolog' | translate}}</button>
+    </div>
+  </div>
+</div>

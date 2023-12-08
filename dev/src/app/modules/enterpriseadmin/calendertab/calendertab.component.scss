@@ -1,0 +1,234 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+}
+
+:host::ng-deep.taskitemtabdetails {
+    display: flex;
+    .leftsidecontent {
+        width: 420px;
+        border-right: 1px solid #ddd;
+        padding-right: 25px;
+        .lefttop {
+            @include spacebetween();
+            padding-bottom: 10px;
+            .menutopic {
+                height: 30px;
+                width: 30px;
+                @include flexcenter();
+                color: #555;
+                .mat-button-wrapper {
+                    max-height: 100%;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+            p {
+                margin: 0;
+            }
+            .searchandmore {
+                @include flexend();
+                i {
+                    padding-right: 5px;
+                    margin-right: 15px;
+                    padding-left: 5px;
+                    color: #666;
+                    cursor: pointer;
+                    &:nth-child(2) {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+        .calenderview {
+            padding: 2px 5px !important;
+            .calenderforevents {
+                box-shadow: 0 0 6px rgba(23, 23, 23, 0.2);
+                padding: 0;
+                .mat-calendar-header {
+                    padding: 8px 8px 8px 8px !important;
+                    background: #006cb7;
+                }
+                .mat-calendar-content {
+                    padding: 0px 10px 10px 10px !important;
+                }
+                .mat-calendar-table-header-divider {
+                    display: none;
+                }
+                .mat-calendar-body {
+                    .mat-calendar-body-label {
+                        visibility: hidden;
+                        padding: 0 !important;
+                        padding-bottom: 10px !important;
+                    }
+                }
+                .mat-calendar-controls {
+                    margin: 0 !important;
+                    color: #fff;
+                    position: relative;
+                    @include spacebetween();
+                    .mat-calendar-period-button {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    .mat-calendar-arrow {
+                        border-top-color: #fff !important;
+                    }
+                }
+                .mat-calendar-table-header {
+                    tr {
+                        border-bottom: 1px solid #e5e5e5;
+                    }
+                }
+                .mat-calendar-table-header th {
+                    text-align: center;
+                    padding: 15px 0 15px 0 !important;
+                    color: #333;
+                    font-size: 0.9375rem;
+                    -webkit-text-stroke: 0.2px;
+                }
+                .mat-calendar-spacer {
+                    display: none;
+                }
+                .mat-calendar-body-cell-content {
+                    font-size: 0.9375rem;
+                    color: #333;
+                }
+                .mat-calendar-body-selected {
+                    background-color: #006cb7;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+
+    .rightsidecontent {
+        width: calc(100% - 420px);
+        padding-left: 25px;
+        padding: 5px;
+        position: relative;
+        .headerrowright {
+            background-color: #f4f6f9;
+            padding: 10px 15px;
+            p {
+                margin: 0;
+                color: #333;
+                font-size: 1.375rem;
+                line-height: 1;
+                padding-bottom: 5px;
+            }
+            .datenum {
+                font-size: 1.75rem;
+                font-weight: bold;
+            }
+        }
+        .eventsindetailed {
+            .mat-expanded {
+                .mat-expansion-panel-header-title {
+                    .aligncenter {
+                        p {
+                            color: #006bb7 !important;
+                        }
+                    }
+                }
+            }
+            .mat-expansion-panel {
+                box-shadow: none !important;
+            }
+            .mat-expansion-panel-body {
+                padding-bottom: 0 !important;
+            }
+            .innerdetails {
+                @include flexstart();
+                padding-top: 15px;
+                i {
+                    padding-right: 10px;
+                }
+                p {
+                    margin: 0;
+                }
+            }
+            .mat-expansion-panel-header {
+                border-bottom: 1px solid #e5e5e5;
+                height: 50px !important;
+            }
+            .mat-expansion-panel-spacing {
+                margin: 0px 0 16px !important;
+            }
+            .mat-expansion-panel:nth-child(3n + 1) {
+                .aligncenter {
+                    .square {
+                        background-color: #006cb7;
+                    }
+                }
+            }
+            .mat-expansion-panel:nth-child(3n + 2) {
+                .aligncenter {
+                    .square {
+                        background-color: #f4811f;
+                    }
+                }
+            }
+            .mat-expansion-panel:nth-child(3n + 3) {
+                .aligncenter {
+                    .square {
+                        background-color: #999999;
+                    }
+                }
+            }
+            .mat-expansion-panel-header-title {
+                .aligncenter {
+                    @include flexcenter();
+                    p {
+                        margin: 0;
+                    }
+                    .square {
+                        width: 15px;
+                        height: 15px;
+                        margin-right: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .discussionleftright {
+        display: block !important;
+        .eachtopiccontainer {
+            width: 100%;
+        }
+        .leftsidecontent {
+            width: 100% !important;
+            padding-right: 0 !important;
+            border: 0 !important;
+        }
+        .rightsidecontent {
+            width: 100% !important;
+            padding-left: 3px !important;
+        }
+        .joincomment
+        {
+            width: calc(100% - 5px) !important;
+        }
+    }
+}

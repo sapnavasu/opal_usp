@@ -1,0 +1,115 @@
+<div id="organisation">
+    <form autocomplete="off" [formGroup]="siteAuditForm" #ngSiteAuditForm (ngSubmit)="saveQuestions()">
+        <div class="organisation_questions m-t-20" *ngFor="let ques of questArr;let indexOfelement=index;">
+        
+            <div class="title" fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                <h4 *ngIf="question" class="m-b-7">{{indexOfelement +1}}. <span
+                        *ngIf="editId != ques[0].appsiteauditquestionmsttmp_pk"> {{ques[0].asaqm_question_en}}</span>
+                </h4>
+                <div fxLayout="row wrap" fxFlex="90" class="m-l-5"
+                    *ngIf="editId == ques[0].appsiteauditquestionmsttmp_pk">
+                    <div fxLayout="row wrap" fxFlex="50">
+                        <mat-form-field appearance="outline">
+                            <input matInput [(ngModel)]="ques[0].asaqm_question_en"
+                                formControlName="editquestion_{{ques[0].appsiteauditquestionmsttmp_pk}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="m-l-20" fxLayout="row wrap" fxLayoutAlign="center center">
+                        <button mat-raised-button class="addbtn m-r-15" type="button" (click)="addbtn(ques[0])">Save</button>
+                        <button type="button" mat-raised-button class="cancl_e" (click)="cancleedit(ques[0])">Cancel</button>
+
+                    </div>
+                </div>
+                <div *ngIf="!commentsview " class="btns m-l-20"
+                    fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                    <button class="m-r-20" type="button" (click)="editfun(ques[0])" *ngIf="ques[0].quesview"><i
+                            class="opalicon opal-edit fs-16" fxLayoutAlign="start center"></i></button>
+                    <button class="m-r-20" type="button">
+                        <mat-icon fxLayoutAlign="start center" class="fa fa-trash-o "
+                            (click)="canclequestion(ques[0].appsiteauditquestionmsttmp_pk ,indexOfelement )"></mat-icon>
+                    </button>
+                    <button  class="m-r-20" type="button" *ngIf="!commentsview  &&  !ques[0].commentbox" (click)="commentfun(ques[0])">
+                        <mat-icon fxLayoutAlign="start center">chat_bubble_outline</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="content">
+                <p class="m-b-20" *ngIf="editId != ques[0].appsiteauditquestionmsttmp_pk">{{ques[0].asaqm_quesdesc_en}}</p>
+                  <div *ngIf="editId == ques[0].appsiteauditquestionmsttmp_pk &&  ques[0].asaqm_questiontype == 1">
+                     <mat-form-field appearance="outline">
+                        <input matInput  [(ngModel)]="ques[0].asaqm_quesdesc_en"    formControlName="editquestiondesc_{{ques[0].appsiteauditquestionmsttmp_pk}}" >
+                     </mat-form-field>
+                     
+                </div>
+                <mat-radio-group [class.disabledradio]="hideforeditdata" class="example-radio-group"
+                    *ngIf="ques[0].asaqm_questiontype == 1"
+                    (change)="radioButtonGroupChange($event , ques[0].appsiteauditquestionmsttmp_pk)">
+                    <mat-radio-button class="example-radio-button" *ngFor="let season of ques"
+                        [value]="season.appsiteauditanswerdtls_pk" [checked]="season.asaad_isselected == 1">
+                        {{season.asaad_answer_en}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <div *ngIf="ques[0].asaqm_questiontype == 2" class="checkboxclass">
+                    <div *ngFor="let checkbox of ques; let indexOfelement=index;" fxLayout="column wrap">
+                        <span *ngIf="formParentArray(checkbox.appsiteauditanswerdtls_pk)"></span>
+                        <mat-checkbox [class.disabledcheck]="hideforeditdata"
+                            (change)="onCheckboxChange($event,ques[0].appsiteauditquestionmsttmp_pk,checkbox.appsiteauditanswerdtls_pk,indexOfelement)"
+                            class="m-t-20" [value]="checkbox.appsiteauditanswerdtls_pk"
+                            [checked]="checkbox.asaad_isselected == 1">
+                            <p>{{checkbox.asaad_answer_en}}<br></p>
+                        </mat-checkbox>
+                        <p *ngIf="check">{{checkbox.asaad_answer_en}}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngIf="ques[0].asaqm_comments  && commentsview">
+                <div class="commentsheading m-t-30" >
+                    <p class="fs-16 m-0 p-b-8">{{'organisation.comm' | translate}}</p>
+                    <span class="fs-16 lh-25">{{ques[0].asaqm_comments}}</span>
+                </div>
+                <div class="uploaddocument_head p-t-30" *ngIf="ques[0].asaqm_fileupload">
+                    <span class="fs-16">Uploaded Document</span>
+                    <div class="viewhaderpdf p-t-15 p-b-15" fxLayoutAlign="flex-start center">
+                        <div class="viewhaderpdf p-t-15 p-b-15" fxLayoutAlign="flex-start center">
+                            <img src="assets/images/opalimages/{{ques[0].mcfd_filetype}}_new.svg " alt="document_new">
+                            <p 
+                                class="viewcolor txt-gry3 fs-14 m-0 p-l-15"><a href="{{ques[0].coverImages}}"
+                                    class="txt-gry3" target="_blank">{{'documentrequired.view' | translate}}</a> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="fields m-t-20" *ngIf="ques[0].commentbox  && !commentsview">
+                <div fxLayout="row wrap" fxLayoutAlign="fPlex-start center" *ngIf="!isValid">
+                    <div fxFlex="100" fxFlex="90" class="remark">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'organisation.comm' | translate}}</mat-label>
+                            <textarea maxlength="2500" matInput
+                                formControlName="editcomment_{{ques[0].appsiteauditquestionmsttmp_pk}}"
+                                [(ngModel)]="ques[0].asaqm_comments"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center"
+                        id="doc_{{ques[0].appsiteauditquestionmsttmp_pk}}">
+                        <div fxFlex="100" class="documents">
+                            <app-fileuploadwrapper [formControlId]="ques[0].appsiteauditquestionmsttmp_pk"
+                                [filesSelected]="fileeSelected1" [formGroup]="siteAuditForm"
+                                [drvInputFromParent]="centreRequiredDocs" [deleteicon]="deleteicon">
+                            </app-fileuploadwrapper>                            
+                            <mat-hint class="txt-gry fs-12"> {{'organisation.onlyfilesareallow' |  translate}}
+                            </mat-hint>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayoutAlign="flex-end">
+                    <button mat-raised-button type="button" class="cancel fs-15"
+                        (click)="resetfun(ques[0])">{{'organisation.canc' | translate}}</button>
+                </div>
+            </div>
+         
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

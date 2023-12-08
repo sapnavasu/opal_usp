@@ -1,0 +1,214 @@
+<div fxLayoutAlign="center start" id="inspectionApproval">
+    <app-responseloader *ngIf="loader"></app-responseloader>
+    <div fxFlex="100" fxFlex.gt-sm="100">
+        <app-vehicleinfobox [vehiclepk]="veiclepk"></app-vehicleinfobox>
+        <div>
+            <div class="m-l-0 m-r-0 m-b-30"  *ngIf="declineDtls && declineDtls.declinedOn"
+                [ngClass]="'declinecmd'">
+                <h4 class="18 m-5 m-l-0">{{'Comments' | translate}}</h4>
+                <p class="fs-16 txt-gry3 m-b-30"
+                    [innerHTML]="declineDtls?.declinedComments ? declineDtls?.declinedComments :'Nil'"></p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'Verified on' | translate}} : <span
+                            class="fs-16 txt-gry3">{{declineDtls?.declinedOn}}</span></p>
+                    <p class="fs-16 txt-gry m-l-30">{{'Verified by' | translate}} : <span
+                            class="fs-16 txt-gry3">{{declineDtls?.declinedBy}}</span></p>
+                </div>
+            </div>
+        </div>
+        <form autocomplete="off" [formGroup]="approveDecline"  #form="ngForm" (ngSubmit)="movetoverifier()">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class=" ">
+                <div fxFlex.gt-sm="35" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="inspctiontype"
+                            panelClass="select_with_search" (selectionChange)="ChkInspType(Form.inspctiontype.value)">
+                            <mat-option [value]="1">{{'Online Form' | translate}}</mat-option>
+                            <mat-option [value]="2">{{'Scanned Copy (Physical)' | translate}}</mat-option>
+                            <!-- <mat-option [value]="3">{{'staff.fail' | translate}}</mat-option> -->
+                        </mat-select>
+                        <mat-label>{{'Select Inspected Report Type' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.inspctiontype.errors?.required || (Form.inspctiontype.touched) || form.submitted">
+                            {{'Select the inspected report type from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div *ngIf="Form.inspctiontype.value">
+                <div [ngSwitch]="InspectionTemplate" class="rightsideinfodetail m-t-8 m-b-10">
+                    <ng-template [ngSwitchCase]="'Offline'">
+                        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="">
+                            <div fxFlex.gt-sm="70" fxFlex="100">
+                                <app-filee #assesmentrepot [notePosition]="'bottom'"  [fileMstRef]="report"
+                                    [deleteicon]="deleteicon" (filesSelected)="fileeSelected($event,report)"
+                                    formControlName="reportdocument" [notecontentrequired]="true">
+                                </app-filee>
+                                <!-- <mat-hint>{{'Only (3) JPG, JPEG, PNG, PDF are allowed up to 3MB in size.' | translate}} </mat-hint> -->
+                             
+                                <mat-error class="error fs-13" *ngIf="approveDecline.get('reportdocument').invalid && form.submitted">
+                                    {{'Upload a Inspected Report' | translate}} </mat-error>
+                            
+                             <!-- <div  class="error fs-13" *ngIf="approveDecline.get('reportdocument').errors?.required && this.approveDecline.submitted">
+                                {{'Upload a Inspected Report' | translate}} </div> -->
+            
+                            </div>
+                           <div>
+                            <!-- <mat-hint class="fs-13">{{'Only (3) JPG, JPEG, PNG, PDF are allowed up to 3MB in size.' | translate}} </mat-hint> <br>
+                            <mat-error class="error fs-13" *ngIf="approveDecline.get('reportdocument').invalid && form.submitted">
+                                {{'Upload a Inspected Report' | translate}} </mat-error> -->
+                           </div>
+                        </div>
+                        
+                        </ng-template>
+                    <ng-template [ngSwitchCase]="'Online'">
+                        <h4 class="fs-18 blue m-t-0">{{'Checklist for Inspection' | translate}}</h4>
+                        <mat-checkbox *ngIf="passanswrslist && passanswrslist.length > 0"   #editchkbox  (change)="checkAllFun($event.checked)"> {{ 'All Pass' | translate}}
+                        </mat-checkbox>
+                        <div *ngIf="checklist && checklist?.length > 0" formArrayName="onlinechecklist" class="m-b-30">
+                            <div class="contents m-t-20"  *ngFor="let list of checklist; let i = index">
+                                <div [formGroupName]="i">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center" *ngIf="checklist[i]">
+                                        <div fxLayout="row"  class="questions">{{i + 1}}.&nbsp;<h4 class="fs-16 txy-gry3 m-0">{{list.aqm_question_en}}
+                                        <!-- <span fxLayout="row"> -->
+                                            <!-- <span class="passfailcount"> -->
+                                                <button  class="p-l-15" type="button" class="btns" *ngIf="!isopen[i]" (click)="toggle(i)">
+                                                    <mat-icon fxLayoutAlign="start center">chat_bubble_outline</mat-icon></button>
+                                            <!-- </span> -->
+                                        <!-- </span> -->
+                                    </h4>
+                                    </div>
+                                    </div>
+                                <!-- <div fxLayout="row" fxLayoutAlign="start start" class="questions"><h4 class="fs-16 txt-gry3">{{i+1}}.</h4>&nbsp;<h4 class="fs-16 txt-gry3" fxLayout="row">{{list.aqm_question_en}} <span>  <button  class="p-l-15" type="button" class="btns" *ngIf="!isopen[i]" (click)="toggle(i)">
+                                    <mat-icon fxLayoutAlign="start center">chat_bubble_outline</mat-icon></button></span></h4> </div> -->
+                                <mat-radio-group class="m-t-15" aria-label="Select an option" fxLayout="row" formControlName="answer" (change)="checkIfAllPass()">
+                                    <div *ngFor="let option of list.ansoptions">
+                                        <mat-radio-button [value]="option.auditanswerdtls_pk" class="m-r-30">{{option.aad_answer_en}}</mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                                    <div *ngIf="isopen[i]" class="m-l-20">
+                                        <div class="secondtab" fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                                            <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-20">
+                                               
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>{{'Comments' | translate}}</mat-label>
+                                                    <textarea [readonly]="textareastatus" matInput   formControlName="chklistcomments" (change)="OnCommentAdd($event, i)"
+                                                        maxlength="1000" rows="3" [required]="isopen[i] == true"></textarea>
+                                                    <mat-error class="text-danger errormsgtext font-14"
+                                                        *ngIf="getChecklistForm(i).get('chklistcomments').invalid || getChecklistForm(i).get('chklistcomments').touched">
+                                                        {{'validation.entemess' | translate}}</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="secondtab" fxLayout="row wrap" fxLayoutAlign="flex-start center">
+                                            <div fxFlex.gt-sm="70" fxFlex="100" class="m-t-10">
+                                                <app-filee #assesmentrepotre [notePosition]="'bottom'" [fileMstRef]="ChekclistDocuments[i]"  formControlName="chcklistdoc" 
+                                                [deleteicon]="deleteicon" 
+                                                 [fileuploadcommon]="false" [notecontentrequired]="true" [uploaddocumentname]="'Upload Proof of Document' | translate" [requiredfield]="isopen[i] == true" >
+                                            </app-filee>
+                                            <!-- <mat-hint>{{'Only (3) JPG, JPEG, PNG, PDF are allowed up to 3MB in size.' | translate}} </mat-hint> -->
+                                            <mat-error class="error fs-13"
+                                            *ngIf="getChecklistForm(i).get('chcklistdoc').errors?.required && form.submitted">
+                                            {{'Upload document' | translate}}</mat-error>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="end center">
+                                            <button mat-raised-button class="cancelbtn fs-16"  type="button" (click)="toggle(i)" color="primary">{{'Cancel' | translate}}</button>
+                                         </div>   
+                                    </div>  
+                                </div>  
+                            </div> 
+                        </div>
+
+                        
+                    </ng-template>
+                </div>
+            </div>
+           
+            <div class="timeduration_contain p-t-10 p-b-10">
+                <h5 class="trainingdurationtitle m-0 fs-16">{{'Inspection Status' | translate}} 
+                </h5>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-10">
+                <div fxFlex.gt-sm="35" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-select [errorStateMatcher]="matcher" required formControlName="status" (selectionChange)="statustype($event.value)"
+                            panelClass="select_with_search">
+                            <mat-option [value]="2">{{'Approve' | translate}}</mat-option>
+                            <!-- <mat-option [value]="8">{{'Reject' | translate}}</mat-option> -->
+                            <mat-option [value]="7">{{'Decline (Reinspection Required)' | translate}}</mat-option>
+                        </mat-select>
+                        <mat-label>{{'Select Status' | translate}}</mat-label>
+                        <mat-error *ngIf="Form.status.errors?.required || (Form.status.touched) || form.submitted">
+                            {{'Select the Status from the drop-down' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10" >
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                        <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                            <div class="ckeditorborder">
+                                <p class="editortitle importantfield txt-gry3">{{'validation.comm' | translate}}
+                                    <span class="error">*</span>
+                                </p>
+                                <div class="contenthere" [innerHTML]='techinfo'>
+                                </div>
+                            </div>
+                            <div class="messagecount" fxLayoutAlign="flex-end">
+                                <p class="m-0 txt-gry"> {{ck.ckeditor_count(contact)}} / 1000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" *ngIf="edittechinfo" class="m-t-20">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-20">
+                            <div class="d-flex">
+                                <span
+                                    class="d-block ckeditortitle p-b-5 importantfield txt-gry">{{'validation.comm'
+                                    | translate}}<span class="error"> *</span></span>
+                            </div>
+                            <div class="ckeditror finalgrade">
+                                <ckeditor
+                                    [ngClass]="{'is-invalid': Form.comments.touched && Form.comments.errors }"
+                                    (change)="onChangeeditor($event)" [(ngModel)]="contact"
+                                    [editor]="Editor" [config]="config" class="ck-editorbox"
+                                    [formControl]="approveDecline.controls['comments']" appAlphanumsymb required>
+                                </ckeditor>
+                                <div *ngIf="(Form.comments.touched && Form.comments.errors?.required == true) || form.submitted">
+                                    <div class="error fs-13"
+                                        *ngIf="(Form.comments.touched &&  Form.comments.errors || form.submitted)">
+                                        {{'validation.entemess' | translate}}</div>
+                                </div>
+                            </div>
+                            <mat-hint *ngIf="(ck.ckeditor_count(contact)>1000)" class="error font-14"
+                                align="start">{{'validation.cannexcechar' | translate}}</mat-hint>
+                            <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                                <p class="txt-gry"> {{ck.ckeditor_count(contact)}}/1000</p>
+                            </div>
+                            <div class="clearbut p-t-20 b-5" fxLayoutAlign="flex-end">
+                                <button type="button"
+                                    [disabled]="approveDecline.controls['comments'].value?.length==0"
+                                    (click)="resinfo()" mat-raised-button
+                                    class="m-r-10 clearbutton button-40">{{'Clear' |
+                                    translate}}</button>
+                                <button mat-raised-button color="primary"
+                            [disabled]="ck.ckeditor_count(contact)>1000 || Form.comments.errors?.required == true"   (click)="messagedone()" class="button-40">{{'Done' |
+                                    translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="btngroup m-t-30 m-b-10" fxLayout="row" fxLayoutAlign="flex-end">
+                <button mat-raised-button class="transformbtn fs-15" type="button"
+                    (click)="cancel()">{{'Cancel' | translate}}</button>
+                <button mat-raised-button class="submit_btn m-l-20 fs-16"   *ngIf="approvalstatus" 
+                    color="primary" type="submit">{{'Move to Verifier' | translate}}</button>
+                <button mat-raised-button class="submit_btn m-l-20 fs-16" *ngIf="!approvalstatus"
+                color="primary" type="submit" >{{'Submit' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

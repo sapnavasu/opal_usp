@@ -1,0 +1,26 @@
+{
+    "apiName": [
+        "kaliaperumal",
+        "seenu"
+    ],
+    "apiFor": [
+        "mailchimp",
+        "webinar"
+    ],
+    "apiOwner": [
+        "kali",
+        "billa"
+    ],
+    "apiAppId": [
+        "BGI-127",
+        "1234657865"
+    ],
+    "apiAppKey": [
+        "8608616862",
+        "98765432100123456789"
+    ],
+    "apiAppSecret": [
+        "Personal",
+        ""
+    ]
+}

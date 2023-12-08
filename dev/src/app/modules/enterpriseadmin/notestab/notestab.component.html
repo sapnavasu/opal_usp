@@ -1,0 +1,271 @@
+<div class="notesitemtabdetails">
+  <div class="leftsidecontent">
+    <div class="spacebetweenserch">
+      <div class="productlistview">
+        <div class="pos-relative">
+          <div class="seachwithoptions" (click)="toggleShowDiv('aftersearchanimate')">
+            <div class="searchbox">
+              <input readonly type="search" #searchedText placeholder="Select Category" value="{{keyText}}">
+            </div>
+            <div class="searchicon">
+              <i  class="bgi bgi-dropdown"></i>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 aftersearchanimate"
+            [@slideInOut]="animationState1">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+              <ul>
+                <li (click)="toggleShowDiv('aftersearchanimate'); changeType('Products (3)',1)">
+                  Products (3)
+                </li>
+                <!-- <li (click)="toggleShowDiv('aftersearchanimate'); changeType('Domain',2)">Domain</li> -->
+                <li (click)="toggleShowDiv('aftersearchanimate'); changeType('Services (3)',2)">Services (3)</li>
+                <li (click)="toggleShowDiv('aftersearchanimate'); changeType('Project (3)',3)">Project (3)</li>
+                <li (click)="toggleShowDiv('aftersearchanimate'); changeType('Tender (3)',4)">Tender (3)</li>
+                <li (click)="toggleShowDiv('aftersearchanimate'); changeType('Contract (3)',5)">Contract (3)</li>
+                <li (click)="toggleShowDiv('aftersearchanimate'); changeType('SubContract (3)',6)">SubContract (3)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="searchandmore cursorview">
+          <i popover="Create Task" popoverPlacement="top" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+            [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+            (click)="openDialog()" class="bgi bgi-Create"></i>
+          <button class="menutopic widthsapce" mat-icon-button [matMenuTriggerFor]="menutopic">
+            <mat-icon class="morecolor">more_vert</mat-icon>
+          </button>
+          <mat-menu class="master-menu" #menutopic="matMenu">
+            <!-- <button mat-menu-item>
+                  Select All
+                </button> -->
+            <button mat-menu-item>
+              Edit
+            </button>
+            <button mat-menu-item>
+              Delete
+            </button>
+            <button mat-menu-item>
+              Archive
+            </button>
+          </mat-menu>
+        </div>
+    </div>
+  
+      <div class="collaborateviewfilter m-t-10 m-b-10">
+        <mat-form-field [floatLabel]="'never'">
+          <input autocomplete="off" class="input-text-color" placeholder="Search" matInput>
+          <button type="button" mat-button matSuffix mat-icon-button aria-label="Search">
+            <mat-icon matSuffix class="searccolor">search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    <div class="lefttop">
+      <!-- <p><span>12</span> Notes </p> -->
+      <!-- <div class="searchandmore">
+        <i (click)="openDialog()" popover="Create Note" popoverPlacement="top"
+        [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+        [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+          class="bgi bgi-Create"></i>
+      </div> -->
+    </div>
+    <div>
+      <div class="taskandarchive" id='topicsandacrchieve'>
+      
+          <div class="tabcontent">
+            <div class="eachtaskcontainer">
+              <div (click)='refreshData("My Notes")' class="eachtaskdetail" [ngClass]='{"active":currentlySelected == "My Notes"}'>
+                <div class="userimage">
+                  <i class="bgi bgi-notes"></i>
+                  <span class="notifycount">03</span>
+                </div>
+                <div class="usercontent">
+                  <p class="topicname"> My Notes</p>
+                </div>
+              </div>
+              <div (click)='refreshData("Shared")' class="eachtaskdetail" [ngClass]='{"active":currentlySelected == "Shared"}'>
+                <div class="userimage">
+                  <i class="bgi bgi-Shared_notes"></i>
+                  <span class="notifycount">02</span>
+                </div>
+                <div class="usercontent">
+                  <p class="topicname"> Shared Notes</p>
+                </div>
+              </div>
+              <div (click)='refreshData("Pinned Notes")' class="eachtaskdetail" [ngClass]='{"active":currentlySelected == "Pinned Notes"}'>
+                <div class="userimage">
+                  <i class="bgi bgi-Pinned_notes"></i>
+                  <span class="notifycount">03</span>
+                </div>
+                <div class="usercontent">
+                  <p class="topicname"> Pinned Notes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- <mat-tab>
+          <ng-template mat-tab-label>
+            <div (click)='refreshData("Archived_all")'>Archives</div> 
+          </ng-template>
+          <div class="tabcontent">
+            <div class="eachtaskcontainer">
+              <div (click)='refreshData("Archived")' class="eachtaskdetail" [ngClass]='{"active":currentlySelected == "Archived"}'>
+                <div class="userimage">
+                  <i class="bgi bgi-Completed_event"></i>
+                  <span class="notifycount">{{refreshNumber('Archived')}}</span>
+                </div>
+                <div class="usercontent">
+                  <p class="topicname"> Archived</p>
+                </div>
+              </div>
+              <div (click)='refreshData("Deleted")' class="eachtaskdetail" [ngClass]='{"active":currentlySelected == "Deleted"}'>
+                <div class="userimage">
+                  <i class="bgi bgi-delete"></i>
+                  <span class="notifycount">{{refreshNumber('Deleted')}}</span>
+                </div>
+                <div class="usercontent">
+                  <p class="topicname"> Deleted Task</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab> -->
+      </div>
+    </div>
+  </div>
+  <div class="rightsidecontent taskdaterangeview formwidth">
+    <div class="searchandmore">
+      <i class="bgi bgi-search"></i>
+      <mat-form-field>
+        <div class="drpicker">
+          <input id="login_session" [formControl]="dateFilter" #login_session matInput type="text"
+            autocomplete="off" ngxDaterangepickerMd [dateLimit]="14" [locale]="locale"
+            [singleDatePicker]="false" placeholder="Select Date Range" [autoApply]="false"
+            [showClearButton]="true" [showDropdowns]="true" readonly
+            class="form-control" />
+          <div class="closeanddateicon">
+            <mat-datepicker-toggle matPrefix></mat-datepicker-toggle>
+          </div>
+        </div>
+      </mat-form-field>
+    
+      <button class="menutopic" mat-icon-button [matMenuTriggerFor]="menutopic">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu class="master-menu" #menutopic="matMenu">
+        <button mat-menu-item>
+          Select All
+        </button>
+        <button mat-menu-item>
+          Delete
+        </button>
+        <button mat-menu-item>
+          Archive
+        </button>
+      </mat-menu>
+    </div>
+    <mat-accordion class="thenotesdetailedview">
+      <mat-expansion-panel *ngFor="let notespanels of filteredList">
+        <mat-expansion-panel-header (click)="scrollTo('page-content')">
+          <mat-panel-title>
+            <div class="taskindetail">
+              <mat-checkbox>
+              </mat-checkbox>
+              <p>{{notespanels.titleinfo}}</p>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="dateandtimehere">
+              <p>20-05-2020 <span class="p-l-25">11:30 PM</span></p>
+              <!-- <p *ngIf='notespanels.allTime'>9:40 PM</p> -->
+              <!-- <p *ngIf='!notespanels.allTime'>{{notespanels.time  |date:'shortTime'}}</p> -->
+
+
+              <button (click)="$event.stopPropagation()" class="menuexpand" mat-icon-button
+                [matMenuTriggerFor]="menuexpandnotes">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu class="master-menu" #menuexpandnotes="matMenu">
+                <ng-container >
+                  <button  mat-menu-item>
+                    Edit
+                  </button>
+                </ng-container>
+
+                <button mat-menu-item>
+                  Pin this
+                </button>
+                <!-- <ng-container>
+                  <button  mat-menu-item>
+                    Move to My Notes
+                  </button>
+                </ng-container> -->
+                <ng-container >
+                  <button mat-menu-item>
+                    Delete
+                  </button>
+                </ng-container>
+                <ng-container >
+                  <button  mat-menu-item>
+                    Archive
+                  </button>
+                </ng-container>
+
+              </mat-menu>
+
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="insidecontentdetail">
+          <div class="eachfilteritem">
+            <ng-container *ngIf='notespanels && notespanels.shared_to'>
+              <p class="titlelabels">Shared to ({{notespanels.shared_to.length}})</p>
+              <p class="contentinfo">
+                <ng-container *ngFor='let shared of notespanels.shared_to '>
+                  {{shared.name}};
+                </ng-container>
+
+              </p>
+            </ng-container>
+            <ng-container *ngIf='notespanels && notespanels.shared_by'>
+              <p class="titlelabels">From </p>
+              <p class="contentinfo">
+                {{notespanels.shared_by.name}} &nbsp;
+              <p class="displaynone"
+                [class.showexdesign]="notespanels && notespanels.shared_by && notespanels.shared_by.status.toLowerCase() =='ex'">
+              </p>
+
+              <p class="contentinfo">
+                {{notespanels.shared_by.company_name}}
+              </p>
+            </ng-container>
+
+            <p class="titlelabels">Title</p>
+            <p class="contentinfo">{{notespanels.title}}</p>
+            <p class="titlelabels">Description</p>
+            <p class="contentinfo">{{notespanels.description}}</p>
+          </div>
+          <div class="noticedocument">
+            <div class="commondiv">
+              <div class="noteicon">
+                <i class="bgi bgi-notes"></i>
+              </div>
+              <div class="fileinfo">
+                <p class="filename">Article.docx</p>
+                <p class="filesize">245 kb</p>
+              </div>
+            </div>
+            <div class="deleteanddownload">
+              <span class="collaboratebtn">Collaborate</span>
+              <span class="eachitem" matTooltip="Download" matTooltipPosition="above" aria-label="Download">
+                <i class="bgi bgi-download1" ></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </div>
+</div>

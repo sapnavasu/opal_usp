@@ -1,0 +1,193 @@
+* Structure */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  position: relative;
+}
+
+.example-header {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 1.25rem;
+}
+
+.example-table {
+  overflow: auto;
+  min-height: 300px;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-rate-limit-reached {
+  color: #980000;
+  max-width: 360px;
+  text-align: center;
+}
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}
+.txt-active{
+  color: #5fa857;
+}
+.txt-inactive{
+color: #cd3333;
+}
+.txt-blue{
+  color: #006cb7;
+}
+.font-bold{
+  font-weight: 700;
+}
+.example-container {
+  width:auto;
+  height: 100%;
+  }
+
+.example-sidenav-content {
+   height: 100%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+}
+.spancolor{
+  color:white;
+}
+.topheadermain{
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+.flexsame{
+   display: flex;
+   align-items: baseline;
+}
+::ng-deep.block .mat-paginator-range-label {
+  display: contents;
+}
+.responsiveblock{
+  display: block !important;
+} 
+.flexstartspacing{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+.responsive{
+  display: flex !important;
+  justify-content: space-between;
+}
+@media (max-width: 767px){
+  .imagewithtext {
+    display: flex !important;
+}
+  ::ng-deep.masterbottom .mat-paginator-range-label {
+    margin: 0 20px 0 10px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterTable .mat-row .mat-cell .mat-success {
+    background: #71c015 !important;
+    width: 50px;
+  }
+  ::ng-deep.masterTable .mat-row .mat-cell .mat-error {
+    background: #e53935 !important;
+    width: 58px;
+  }
+  ::ng-deep.masterbottom .mat-paginator-page-size {
+    display: flex;
+    align-items: baseline;
+    margin-right: 53px;
+    font-size: 0.625rem;
+  }
+  ::ng-deep.masterPageTop .mat-paginator-outer-container {
+    width: 176px;
+    display: flex;
+}
+::ng-deep.masterbottom .mat-paginator-outer-container {
+  display: flex;
+  justify-content: center;
+}
+  ::ng-deep.masterbottom .mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    padding: 0px;
+    flex-wrap: wrap-reverse;
+    width: 313px;
+}
+  ::ng-deep.masterbottom .mat-paginator-range-actions {
+    display: contents !important;
+   
+}
+::ng-deep.masterPage .mat-paginator-range-label {
+  margin: 0 0px 0 6px;
+  font-size: 0.875rem;
+}
+::ng-deep.masterPage .mat-paginator-page-size {
+  
+  font-size: 0.75rem;
+}
+::ng-deep.size .mat-paginator-range-label {
+  font-size: 0.625rem;
+}
+label.m-r-20 {
+margin-right: 6px !important;
+}
+::ng-deep.size .mat-paginator-page-size {
+  
+  margin-right: 0px !important;
+}
+::ng-deep.size .mat-paginator-range-label {
+  margin: 0 10px 0 0px;
+  font-size: 0.75rem;
+}
+.topheadermain{
+  display:block !important;
+  align-items: center;
+  justify-content: space-between;
+}
+}
+@media (min-width: 550px){
+  .responsiveblock{
+    display: flex!important;
+  } 
+  .topheadermain{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+  ::ng-deep.masterbottom .mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    padding: 0px;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+}  
+      
+}
+
+

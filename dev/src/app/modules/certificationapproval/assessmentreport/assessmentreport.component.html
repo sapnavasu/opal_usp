@@ -1,0 +1,248 @@
+<div id="assessment_report" fxLayoutAlign="center">
+<app-responseloader *ngIf="disableLoader"></app-responseloader>
+
+    <div class="compantdtl" fxFlex="100">
+        <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+            <div class="details pd-15" fxFlex="100">
+                <div class="head" fxLayout="row wrap">
+                    <h2 class="headcolor fs-18 m-0 lh-15">{{staffinspectiondata?.sir_name_en}}</h2>
+                </div>
+                <div class="m-t-5">
+                    <p class="text-gray m-0 fs-15 ">{{'staff.civinumb' | translate}}:<span class="text-default">
+                            {{staffinspectiondata?.sir_idnumber}} </span></p>
+                </div>
+                <div class="m-t-15 m-b-10 fs-14" fxLayout="row wrap">
+                    <p class="application-detais fs-14 m-r-10 text-gray m-0">{{'Inspection Category' | translate}}:<span
+                            class="text-default"> {{staffinspectiondata?.rcm_coursesubcatname_en}}</span>
+                    </p>
+                    <p class="application-detais fs-14 m-r-10 text-gray m-0">{{'Knowledge Assessment Status' |
+                        translate}}:
+                    <span *ngIf="(staffinspectiondata?.appsit_iscarddetails == 1 || staffinspectiondata?.appsit_iscarddetails == 3) && staffeval?.set_apppytminvoicedtls_fk && assessmenttype == '1'">
+                               <span *ngIf="(staffeval == null ) || (staffeval != null && !staffeval.set_staffevanfee && staffeval.set_asmtstatus != 2 && staffeval.set_asmtstatus != 7) || ((staffinspectiondata?.appsit_iscarddetails == 1 || staffinspectiondata?.appsit_iscarddetails == 3) && staffeval?.set_apppytminvoicedtls_fk)"   class="Pending">{{'Pending' | translate }}</span>
+                    </span>
+                     <span *ngIf="!staffeval?.set_apppytminvoicedtls_fk || (staffeval?.set_apppytminvoicedtls_fk && staffinspectiondata?.appsit_iscarddetails == 2) ||  ((staffinspectiondata?.appsit_iscarddetails == 1 || staffinspectiondata?.appsit_iscarddetails == 3) &&  assessmenttype == '2')">
+                        <span *ngIf="(staffeval == null ) || (staffeval != null && !staffeval.set_staffevanfee && staffeval.set_asmtstatus != 2 && staffeval.set_asmtstatus != 7)"   class="Pending">{{'Pending' | translate }}</span>
+                        <span *ngIf="staffeval != null && staffeval.set_asmtstatus == 5" class="Pass">{{'Pass' | translate }} </span>
+                        <span *ngIf="staffeval != null && staffeval.set_asmtstatus == 6" class="Fail">{{ 'Fail' | translate }} </span>
+                        <span *ngIf="staffeval != null && (staffeval.set_asmtstatus == 2 || staffeval.set_asmtstatus == 7)" class="Available Not">{{'Not Applicable' | translate }}</span>
+                     </span>
+                    
+                    </p>
+                    <p class="application-detais fs-14 m-r-10 text-gray m-0">{{'Practical Assessment Status' |
+                        translate}}:
+                        <span *ngIf="(staffinspectiondata?.appsit_iscarddetails == 1 || staffinspectiondata?.appsit_iscarddetails == 3)  && staffevalp?.set_apppytminvoicedtls_fk && assessmenttype == '1'">
+                                <span *ngIf="(staffeval == null ) || (staffeval != null && !staffeval.set_staffevanfee && staffeval.set_asmtstatus != 2 && staffeval.set_asmtstatus != 7) || ((staffinspectiondata?.appsit_iscarddetails == 1 || staffinspectiondata?.appsit_iscarddetails == 3 ) && staffevalp?.set_apppytminvoicedtls_fk)"   class="Pending">{{'Pending' | translate }}</span>
+                      </span>
+                 
+                    <span *ngIf="!staffevalp?.set_apppytminvoicedtls_fk || (staffevalp?.set_apppytminvoicedtls_fk && staffinspectiondata?.appsit_iscarddetails == 2) ||  ((staffinspectiondata?.appsit_iscarddetails == 1 || staffinspectiondata?.appsit_iscarddetails == 3) &&  assessmenttype == '2')">
+                          
+                            <span *ngIf="(staffevalp == null) && ((staffeval == null) ||  (staffeval != null  && staffeval.set_staffevanfee && staffeval.set_asmttype == 1) ||  (staffeval != null && !staffeval.set_staffevanfee && staffeval.set_asmtstatus != 2)) ||  staffevalp != null &&   staffevalp.set_asmtstatus == 7" class="Pending">{{'Pending' | translate }}</span>
+                            <span *ngIf="staffeval != null && ( staffevalp != null &&   staffevalp.set_asmtstatus == 3)" class="Pass">{{'Competent' | translate }}</span>
+                            <span *ngIf="staffeval != null &&  (staffevalp != null &&  staffevalp.set_asmtstatus == 4)" class="Fail">{{'Not Yet Competent' | translate }}</span>
+                            <span *ngIf="staffeval != null &&  (staffevalp != null &&  staffevalp.set_asmtstatus == 2)" class="Available Not">{{'Not Applicable' | translate }}</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- knowledge Assessment -->
+        <div class="KnowledgeAssessment">
+            <h4 class="blue fs-18 m-0" *ngIf="knowAssessment">{{'Knowledge Assessment Details' | translate}}</h4>
+            <h4 class="blue fs-18 m-0" *ngIf="!knowAssessment">{{'Practical Assessment Details' | translate}}</h4>
+            <!-- comment -->
+            <div *ngIf="viewComments && staffeval" [ngClass]="(staffeval?.set_asmtstatus == 6  ||  staffevalp?.set_asmtstatus == 4)? 'declinecmd' : 'successcmd '"
+                class="m-l-0 m-r-0 m-b-30 m-t-25">
+                <h4 class="18 comment m-t-10 m-b-5" *ngIf="knowAssessment &&  staffeval?.set_asmtupload">
+                    {{'commentslist.uploadassess' | translate}}
+                </h4>
+                <h4 class="18 comment m-t-10 m-b-5" *ngIf="!knowAssessment &&  staffevalp?.set_asmtupload">
+                        {{'commentslist.uploadassess' | translate}}
+                    </h4>
+                <a class="txt-gry3" fxLayoutAlign="start center" href=" " target="_blank"  *ngIf="staffevalp?.set_asmtupload || staffeval?.set_asmtupload">
+                    <div *ngIf="staffevalp?.set_asmtupload && !knowAssessment && staffevalp?.set_asmtstatus == 3" class="viewhaderpdf p-t-15 p-b-15" fxLayoutAlign="flex-start center">
+                            
+                            <p  class="viewcolor fs-14 m-0 "><a href="{{driveimgp}}" class="txt-gry3 " target="_blank" fxLayoutAlign="start center"><img  src="assets/images/opalimages/{{staffevalp.mcfd_filetype}}_new.svg " class="m-r-5" alt="document_new">{{'documentrequired.view' | translate}}</a> </p>
+                        </div>
+                       
+                        <div *ngIf="staffeval?.set_asmtupload && knowAssessment" class="viewhaderpdf p-t-15 p-b-15" fxLayoutAlign="flex-start center">
+                           
+                            <p  class="viewcolor fs-14 m-0 "><a href="{{driveimg}}" class="txt-gry3 " target="_blank" fxLayoutAlign="start center"> <img  src="assets/images/opalimages/{{staffeval.mcfd_filetype}}_new.svg " class="m-r-5" alt="document_new">{{'documentrequired.view' | translate}}</a> </p>
+                        </div>
+                </a>
+                <div class="company_dtlview" fxLayout="row wrap" *ngIf="knowAssessment && staffeval?.set_marksecured && staffeval?.set_percentage">
+                    <div class="view_dtl m-t-25" >
+                        <p class="m-0 p-b-5 comment fw">{{'staff.markscor' | translate}}</p>
+                        <span>{{staffeval.set_marksecured}}</span>
+                    </div>
+                    <div class="view_dtl m-t-25">
+                        <p class="m-0 p-b-5 comment fw">{{'staff.perc' | translate}}</p>
+                        <span>{{staffeval.set_percentage}}</span>
+                    </div>
+                </div>
+                <h4 class="p-t-18 comment  m-b-10">{{'commentslist.coments' | translate}}</h4>
+                <p  *ngIf="!knowAssessment"  [innerHTML]="staffevalp.set_comment" class="fs-16 m-b-30">
+                </p>
+                <p  *ngIf="knowAssessment"  [innerHTML]="staffeval.set_comment" class="fs-16 m-b-30">
+                </p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+
+                    <p class="fs-16 txt-gry m-r-40"  *ngIf="staffeval?.set_createdon">{{'Validated on' | translate}} :
+                        <span class="fs-16 txt-gry3">{{ staffeval?.set_createdon  | date:'dd-MM-yyyy'}}</span>
+                    </p>
+                    <p class="fs-16 txt-gry m-l-30" *ngIf="staffeval?.oum_firstname">{{'Validated by' | translate}} : <span
+                            class="fs-16 txt-gry3">{{staffeval?.oum_firstname}}</span></p>
+                </div>
+            </div>
+            <h4 *ngIf="updateAssessment && knowAssessment" class="blue fs-18 m-0 m-t-15">{{'Update Knowledge Assessment Details' | translate}}</h4>
+            <h4 *ngIf="updateAssessment && !knowAssessment" class="blue fs-18 m-0 m-t-15">{{'Update Practical Assessment Details' | translate}}</h4>
+            <form autocomplete="off" [formGroup]="assessForm" #forms="ngForm" *ngIf="updateAssessment || uploadAssessment">
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-20">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field appearance="outline">
+                            <mat-select required formControlName="status" panelClass="select_with_search"
+                                (selectionChange)="statustype(form.status.value)">
+                                <mat-option *ngIf="knowAssessment" [value]="1">{{'staff.appli' | translate}}</mat-option>
+                                <mat-option *ngIf="knowAssessment" [value]="2">{{'Not Applicable' | translate}}</mat-option>
+                                <!-- <mat-option *ngIf="knowAssessment" [value]="3">{{'staff.fail' | translate}}</mat-option> -->
+                                <mat-option *ngIf="knowAssessment" [value]="3">{{'Not Applicable (Knowledge Assessment Alone)' |
+                                    translate}}</mat-option>
+                                <mat-option *ngIf="!knowAssessment" [value]="4">{{'Competent' | translate}}</mat-option>
+                                <mat-option *ngIf="!knowAssessment" [value]="5">{{'Not Competent' | translate}}</mat-option>
+                                <mat-option *ngIf="!knowAssessment" [value]="6">{{'Not Applicable ' |  translate}}</mat-option>
+                                  <!-- <mat-option [value]="3">{{'staff.fail' | translate}}</mat-option> -->
+                            </mat-select>
+                            <mat-label>{{'staff.selestatus' | translate}}</mat-label>
+                            <mat-error *ngIf="form.status.errors?.required || forms.submitted">
+                                {{'staff.selectstatus' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="50" *ngIf="assessForm.controls.status.value == '1' " ngClass.xs="p-l-0"
+                        ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100"
+                        class="date_exp">
+                        <mat-form-field appearance="outline">
+                            <mat-label> {{'staff.seleassessstatu' | translate}}</mat-label>
+                            <mat-select [errorStateMatcher]="matcher" required formControlName="status_info"
+                                panelClass="select_with_search" (selectionChange)="slectSatatus(form.status_info.value)">
+                                <mat-option [value]="1">{{'Pass' | translate}}</mat-option>
+                                <mat-option [value]="2">{{'Fail' | translate}}</mat-option>
+                                <!-- <mat-option [value]="3">{{'Not Applicable (Both Assessment)' |
+                                    translate}}</mat-option> -->
+                            </mat-select>
+                            <mat-error *ngIf="form.status_info.errors?.required || forms.submitted">
+                                {{'staff.selectedassessstatu' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div  *ngIf="assessForm.controls.status.value == '1' && (assessForm.controls.status_info.value == '1' || assessForm.controls.status_info.value == '2') ||  assessForm.controls.status.value == '4'">
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-10">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-label class="m-b-5 txt-gry"><span *ngIf="assessForm.controls.status.value == '1' && (assessForm.controls.status_info.value == '1' || assessForm.controls.status_info.value == '2') || assessForm.controls.status.value == '3'">{{'uploadassess.uploadassessmt' | translate}}</span><span *ngIf="assessForm.controls.status.value == '4'">{{'Upload Practical Assessment Report' | translate}}</span> <span
+                                    class="error"> *</span></mat-label>
+                            <app-filee #assesmentrepot [notePosition]="'bottom'" [fileMstRef]="assessmentReport"
+                                [deleteicon]="true" (filesSelected)="fileeSelected($event,report)"
+                                formControlName="reportdocument">
+                            </app-filee>
+                            <mat-hint class="fs-14 txt-gry">{{'uploadassess.upassesserror' | translate}} </mat-hint>
+                            <mat-error class="fs-14" *ngIf="form.reportdocument.errors?.required && forms.submitted">
+                                {{'Please Upload a file' | translate}} </mat-error>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-25" *ngIf="assessForm.controls.status.value == '1'  && (assessForm.controls.status_info.value == '1' || assessForm.controls.status_info.value == '2' )">
+                        <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field appearance="outline">
+                                <mat-label>{{'staff.markscor' | translate}}</mat-label>
+                                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                                    [required]="assessForm.controls.status.value == '1'" formControlName="mark" appNumberonly>
+                                <mat-error *ngIf="form.mark.errors?.required || forms.submitted">
+                                    {{'staff.entemark' | translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                            <mat-form-field appearance="outline">
+                                <mat-label> {{'staff.perc' | translate}}</mat-label>
+                                <input (keydown.enter)="$event.preventDefault()" [errorStateMatcher]="matcher" matInput
+                                [required]="assessForm.controls.status.value == '1'" formControlName="percentage" [app-restrict-input]="percentage">
+                                <mat-error *ngIf="form.percentage.errors?.required || forms.submitted">
+                                    {{'staff.enterperc' | translate}} </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10 m-t-15"
+                    *ngIf="assessForm.controls.status.value == '1' && (assessForm.controls.status_info.value == '1' || assessForm.controls.status_info.value == '2' || assessForm.controls.status_info.value == '3') || assessForm.controls.status.value == '2'|| assessForm.controls.status.value == '3'|| assessForm.controls.status.value == '4' || assessForm.controls.status.value == '5'  || assessForm.controls.status.value == '6' ">
+                    <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                            <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                                <div class="ckeditorborder">
+                                    <p class="editortitle importantfield txt-gry">{{'validation.comm' | translate}}
+                                        <span class="error" *ngIf="approvedcmt">*</span>
+                                    </p>
+                                    <div class="contenthere" [innerHTML]='techinfo'>
+                                    </div>
+                                </div>
+                                <div class="messagecount" fxLayoutAlign="flex-end">
+                                    <p class="m-0 txt-gry3"> {{length_Of_ck}} / 1000</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" *ngIf="edittechinfo">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-20 m-t-10">
+                                <div class="d-flex">
+                                    <span
+                                        class="d-block ckeditortitle p-b-5 importantfield txt-gry">{{'validation.comm'
+                                        | translate}}<span class="error" *ngIf="approvedcmt"> *</span></span>
+                                </div>
+                                <div class="ckeditror finalgrade">
+                                    <ckeditor [ngClass]="{'is-invalid': form.comments.touched && form.comments.errors }"
+                                        (change)="onChangeeditor($event)" [(ngModel)]="contact"
+                                         [editor]="Editor" [config]="config"
+                                        [formControl]="assessForm.controls['comments']" appAlphanumsymb
+                                        [required]="approvedcmt">
+                                    </ckeditor>
+                                    <div *ngIf="(form.comments.touched && form.comments.errors?.required == true)|| forms.submitted">
+                                        <div class="error fs-13" *ngIf="form.comments.touched &&  form.comments.errors || forms.submitted">
+                                            {{'validation.entemess' | translate}}</div>
+                                    </div>
+                                </div>
+                                <mat-hint *ngIf=" (length_Of_ck>1000)" class="error font-14"
+                                    align="start">{{'validation.cannexcechar' | translate}}</mat-hint>
+                                <div class="messagecount txt-gry3" fxLayoutAlign="flex-end">
+                                    <p class="txt-gry3"> {{length_Of_ck}}/1000</p>
+                                </div>
+                                <div class="clearbut p-t-20 b-5" fxLayoutAlign="flex-end">
+                                    <button type="button" [disabled]="assessForm.controls['comments'].value?.length==0"
+                                        (click)="resinfo()" mat-raised-button
+                                        class="m-r-10 clearbutton button-40">{{'validation.clear' |
+                                        translate}}</button>
+                                    <button mat-raised-button color="primary"
+                                        [disabled]="length_Of_ck == 0 || length_Of_ck>1000 || f.comments.errors?.required == true"
+                                        (click)="messagedone()" class="button-40">{{'validation.done' |
+                                        translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btngroup m-t-30 m-b-10" fxLayout="row" fxLayoutAlign="flex-end">
+                            <!-- <button mat-raised-button class="cancelbtn m-r-15 fs-15" type="button"
+                                (click)="cancelbtn()">{{'Back' | translate}}</button> -->
+                            <button mat-raised-button class="cancelbtn fs-15" type="button"
+                                (click)="cancel()">{{'uploadassess.cancel' | translate}}</button>
+                            <button mat-raised-button class="submit_btn m-l-20 fs-16" [disabled]="done" 
+                                type="submit" (click)="submit(1)">{{'validation.sumb' |
+                                translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center"
+                *ngIf="assessForm.controls.status_info.value != '1' && assessForm.controls.status_info.value != '2' && assessForm.controls.status.value != '2' &&  assessForm.controls.status.value != '3' &&  assessForm.controls.status.value != '4' &&  assessForm.controls.status.value != '5' &&  assessForm.controls.status.value != '6'">
+                <button mat-raised-button class="cancelbtn fs-16" type="submit" (click)="cancelbtn()">{{'Back' |
+                    translate}}</button>
+            </div>
+        </div>
+    </div>
+    
+</div>

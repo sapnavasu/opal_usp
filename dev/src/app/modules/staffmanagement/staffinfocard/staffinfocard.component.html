@@ -1,0 +1,109 @@
+<div id="profileCard" fxLayout="center start">
+    <div class="profilecard" fxFlex="100" fxFlex.ft-sm="100" fxLayout="column">
+        <div class="topInfo" fxLayout="row">
+            <div  fxLayout="row wrap" fxFlex="95">
+                <div class="profileImage" fxFlex="18" fxFlex.md="24">
+                    <img src="assets/images/opalimages/banner.png" alt="profile" class="m-l-5 m-b-2">
+                </div>
+                <div fxLayout="column" fxFlex="100" fxFlex.gt-md="80" fxFlex.md="70">
+                    <h4 class="fs-18 blue fw m-0">Ahmed Bin</h4>
+                    <div fxLayout="row wrap" class="fs-15" fxLayoutGap="10px">
+                        <p class= "txt-gry boxItems">{{'Civil Number' | translate }}: <span class="txt-gry3">10610796</span></p>
+                        <p class= "txt-gry boxItems">{{'Email ID' | translate }}: <span class="txt-gry3">10610796</span></p>
+                        <p class= "txt-gry boxItems">{{'Account Status' | translate }}: <span class="txt-gry3">10610796</span></p>
+                        <p class= "txt-gry boxItems" *ngIf="traningCentre">{{'Course' | translate }}: <span class="txt-gry3">10610796</span></p>
+                        <p class= "txt-gry boxItems">{{'Last Approved On' | translate }}: <span class="txt-gry3">10610796</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="cardMenu" fxFlex="5">
+                <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu" aria-label="Example icon-button with a menu">
+                    <mat-icon class="moremenucolor txt-gry">more_horiz</mat-icon>
+                </button>
+                <mat-menu #actionmenu="matMenu"class="master-menu whentootltipadded table_menu">
+                    <button type="button" mat-menu-item><span>{{'View Staff Details' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'View Schedule' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'Print Competency Card' |translate}}</span></button>
+                    <button type="button" mat-menu-item><span>{{'View Competency Card' |translate}}</span></button>
+                </mat-menu>
+            </div>
+        </div>
+        <div class="bottomInfo" fxLayout="row wrap">
+            <div fxFlex="0" fxFlex.gt-md="16">
+
+            </div>
+            <!-- training -->
+            <div *ngIf="traningCentre" class="company_dtlview m-l-20 p-b-20 p-t-10 lh-30" fxFlex="100" fxFlex.gt-sm="80" fxLayout="column">
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Training Centre' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Branch Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+               </div>
+               <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Office Type' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Site Location' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                </div>
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Competency Card Status' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Date of Expiry' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                </div>
+            </div>
+            <!-- technical -->
+            <div *ngIf="!traningCentre" class="company_dtlview m-l-20 p-b-20 p-t-10 lh-30" fxFlex="100" fxFlex.gt-sm="80" fxLayout="column">
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Project Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Centre Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+               </div>
+               <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Office Type' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Branch Name' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                </div>
+               <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Site Location' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Date of Expiry' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                </div>
+                <div fxFlex="100" fxLayout="row wrap">
+                    <div class="view_details" fxLayout="row" fxFlex.lt-md="100" fxFlex="50">
+                        <p class="m-0 text-gry fs-16">{{'Competency Card Status' | translate}}</p>
+                            <span class="fs-16 txt-gry3">NIT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

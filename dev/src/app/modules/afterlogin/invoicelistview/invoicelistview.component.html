@@ -1,0 +1,199 @@
+<div fxLayout="row wrap" class="p-t-20">
+  <div fxFlex.gt-sm="83.33" fxFlex="100" id="invoicemainheader">
+    <div class="flexenddown">
+      <button [disableRipple]="true" mat-raised-button class="downloadbtncolor fs-15 button-35"><i
+          class="bgi bgi-download fs-12 p-r-10"></i><span>Download</span></button>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="bordermainheader">
+        <div fxLayout="row wrap" class="aligitems">
+          <div fxFlex.gt-sm="60" fxFlex="100" class="widthsapce">
+            <div class="papernotealign">
+              <img src="assets/images/jsrsnewlogo.png" alt="jsrsnewlogo.png">
+            </div>
+          </div>
+          <div fxFlex.gt-sm="40" fxFlex="100" class="invoicerightsidetext">
+            <div class="invoicetextcolor">
+              <h2>Invoice</h2>
+            </div>
+            <div class="invoicerevercenoalign">
+              <p>Invoice Reference No</p>
+              <span>: {{invoiceDtl?.invoiceRefNo}}</span>
+            </div>
+            <div class="invoicerevercenoalign">
+              <p>Reg No</p>
+              <span>: {{invoiceDtl?.regNo}}</span>
+            </div>
+            <div class="invoicerevercenoalign">
+              <p>Invoice Date</p>
+              <span>: {{invoiceDtl?.invoiceDate}}</span>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="pd-20 backgrounbilled">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="billedheadercolor">
+            <div class="billedleftsidealign">
+              <h2 class="p-b-20">Billed From</h2>
+              <img src="assets/images/bgilogonew.png" alt="bgilogonew.png">
+              <div class="papernotecolor p-t-30 p-b-5">
+                <p>Business Gateways International (I) Private Limited</p>
+              </div>
+              <div class="addressalign">
+                <div class="addresstext">
+                  <span>Address</span>
+                </div>
+                <div class="officetextcolor">
+                  <p>: Office 14, Building 4,</p>
+                  <p class="p-l-8">Knowledge Oasis Muscat (KOM),</p>
+                  <p class="p-l-8">Rusayl, Sultanate of Oman.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="billedheadercolor borderleftcard">
+            <div class="billedleftsidealign">
+              <h2>Billed To</h2>
+              <img src="assets/images/papernotelogonew.png" alt="papernotelogonew.png">
+              <div class="papernotecolor p-t-20">
+                <p>{{invoiceDtl?.companyName}}</p>
+              </div>
+              <div class="biiledaligntextcolor">
+                <p>Supplier Code</p>
+                <span>: OM100722</span>
+              </div>
+              <div class="biiledaligntextcolor">
+                <p>Address</p>
+                <span>: Falaj , Al Qubail, Sohar , PC 322 , Muscat</span>
+              </div>
+              <div class="marketingtextcolor">
+                <p>{{invoiceDtl?.paymentContact?.firstname}} {{invoiceDtl?.paymentContact?.lastname}} ({{invoiceDtl?.paymentContact?.designation}})</p>
+              </div>
+              <div class="biiledaligntextcolor">
+                <p>Mobile</p>
+                <span>: ({{invoiceDtl?.paymentContact?.mobileDialCode}}) {{invoiceDtl?.paymentContact?.mobileno}}</span>
+              </div>
+              <div class="biiledaligntextcolor">
+                <p>Email ID</p>
+                <span>: {{invoiceDtl?.paymentContact?.emailid}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="pd-20 backgrounbilled">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div fxLayout="row wrap" class="backgrounclassify">
+              <div fxFlex.gt-sm="25" fxFlex="100" class="classifywidth">
+                <p>Classification</p>
+              </div>
+              <div fxFlex.gt-sm="65" fxFlex="100" class="descripwidth">
+                <p>Description</p>
+              </div>
+              <div fxFlex.gt-sm="10" fxFlex="100" class="alignend">
+                <p>Amount</p>
+              </div>
+            </div>
+            <div fxLayout="row wrap" class="subscriptiontype">
+              <div fxFlex.gt-sm="25" fxFlex="100" class="classifytextcolor classifywidth">
+                <h2>OPAL : {{invoiceDtl?.classificationType | uppercase}}</h2>
+                <!-- <h2>JSRS OMAN: SME - Medium</h2> -->
+              </div>
+              <div fxFlex.gt-sm="65" fxFlex="100" class="descriptiontext descripwidth">
+                <div class="jsrsregtextcolor">
+                  <p>Subscription Type</p>
+                  <span>: OPAL Registration Fee</span>
+                  <!-- <span>: GCC Open Tenders Service</span> -->
+                </div>
+                <div class="jsrsregtextcolor">
+                  <p>Pack</p>
+                  <span>: Unlimited Products and Services</span>
+                  <!-- <span>: Basic Pack</span> -->
+                </div>
+                <div class="jsrsregtextcolor">
+                  <p>Subscription Period</p>
+                  <span>: {{invoiceDtl?.subscription?.duration?.Years}} {{invoiceDtl?.subscription?.duration?.Years > 1 ? 'Years' : 'Year' }}</span>
+                </div>
+              </div>
+              <div fxFlex.gt-sm="10" fxFlex="100" class="alignend">
+                <p>{{invoiceDtl?.packageDtl?.subscription?.packageBaseCurrencySymbol}} {{invoiceDtl?.packageDtl?.subscription?.packageBasePrice}}</p>
+                <!-- <p>OMR 100.000</p> -->
+              </div>
+            </div>
+            <div class="p-r-18 p-t-15 p-b-15">
+              <div class="subtotalcolor">
+                <p>Sub Total</p>
+                <span>{{invoiceDtl?.packageDtl?.subscription?.packageBaseCurrencySymbol}} {{invoiceDtl?.packageDtl?.subscription?.packageBasePrice}}</span>
+                <!-- <span>OMR 100.000</span> -->
+              </div>
+              <div class="subtotalcolor">
+                <p>Vat @ 0%</p>
+                <span>OMR 105.000</span>
+              </div>
+            </div>
+            <div class="amountwordbackground">
+              <div class="biiledaligntextcolor">
+                <p>Amount In Words</p>
+                <span>: US Dollars One Thousand Only</span>
+                <!-- <span>: Rial Omani One Hundred Five</span> -->
+              </div>
+              <div class="totalcolor">
+                <h2>Total <span>{{invoiceDtl?.packageDtl?.subscription?.packageBaseCurrencySymbol}} {{invoiceDtl?.packageDtl?.subscription?.packageBasePrice}}</span></h2>
+                <!-- <span>OMR 105.000</span> -->
+              </div>
+            </div>
+            <div class="paymenttermcolor">
+              <p>Payment Terms: </p>
+              <span>Immediate</span>
+            </div>
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="detailcolor">
+                <div class="bankdetailcolor p-t-10">
+                  <h2>Bank Details</h2>
+                </div>
+                <div class="banknamecolor">
+                  <p>Bank Name </p>
+                  <span>: Bank of Beirut (Al-Ghubrah Branch), Oman</span>
+                  <!-- <span>: Bank Muscat , Oman</span> -->
+                </div>
+                <div class="banknamecolor">
+                  <p>Account Number</p>
+                  <span>: USD A/c No. 1140100149500</span>
+                  <!-- <span>: A/c No. 0323014650610016</span> -->
+                </div>
+                <div class="banknamecolor">
+                  <p>Swift Code</p>
+                  <span>: Swift Code - BABEOMRX</span>
+                  <!-- <span>: Swift Code - BMUSOMRXXXX</span> -->
+                </div>
+                <div class="onlinepaymentcolor">
+                  <P>(i) Online Payment : An addition of 2.31% on the Subscription Fee will be added towards Processing
+                    Charges.</P>
+                  <p>(ii) Bank Transfer: For International Suppliers, An Addition Of Usd 25 On The Subscription Fee Will
+                    Be Added Towards
+                    Processing Charges.</p>
+                  <P>(iii) The amount Invoiced is based on the Company Classification chosen by the Supplier and is
+                    subject to change if any discrepancy
+                    is noticed in the Classification as part of the Validation process.</P>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="invoicecolor">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="systemcolor">
+            <p>Note: This is a system generated invoice, valid without signature</p>
+          </div>
+          <div class="enquriycolor">
+            <p>For any enquiry, reach out via email at </p>
+            <h2>accounts@businessgateways.com or call on +968 24166100 <span class="p-l-8 p-r-8">|</span> Fax : +968
+              24170045</h2>
+          </div>
+          <div class="gatewayscolor">
+            <h3>www.<span class="businesscolor">business</span><span class="wayscolor">gateways</span>.com</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

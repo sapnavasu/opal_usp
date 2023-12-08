@@ -1,0 +1,29 @@
+<div class="modalwidth" *ngIf="renewalstatus == 'NE' || renewalstatus == 'E' || renewalstatus == 'RW' || renewalstatus == 'D'">
+  <div class="textnotecolor">
+    <div class="jsrsimage">
+      <img src="assets/images/JSRS.svg" alt="JSRS.svg">
+    </div>
+    <div class="flexalignsubscrip">
+      <div>
+        <img src="assets/images/alertnew.png" alt="alertnew.png">
+      </div>
+      <div class="subscriptioncontent">
+        <h3>Subscription Alert</h3>
+        <div class="expiredcontent">
+          <P>{{renewalstatus == 'NE'? 'Date of expiry': 'Expired on'}} </P>
+          <span class="datecolor">: <span class="p-l-5">{{expdate}}</span></span>
+        </div>
+        <div class="expiredcontent">
+          <P>{{renewalstatus == 'NE'? 'Days left to expire': 'Grace period left'}} </P>
+          <span>: <span class="p-l-5">{{gracedays}}</span></span>
+        </div>
+        <p class="subscriptionnotecolor"><span>Note:</span> Click Renew button to renew your JSRS Subscription.</p>
+      </div>
+    </div>
+  </div>
+  <div class="btnalign">
+    <button mat-raised-button type="button" color="secondary" (click)="closedialog()"
+      class="remindmelater button-35 fs-15 laterbtn m-r-10">Remind me later</button>
+    <button mat-raised-button type="button" (click)="goTo()" color="preview" class="button-35 fs-15">Renew</button>
+  </div>
+</div>

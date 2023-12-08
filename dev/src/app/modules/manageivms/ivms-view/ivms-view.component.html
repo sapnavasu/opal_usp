@@ -1,0 +1,29 @@
+<form [formGroup]="acknowledgeform">
+    <div id="ivmsview" class="moheriCard company_dtlview m-t-20" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="start center" class="dividerCustom">
+            <h4 class="fs-18 txt-gry3 m-r-7">{{'Create IVMS Device Installed Vechicles via MS-Excel Template' |
+                translate}}
+            </h4>
+            <!-- <mat-divider fxFlex="4" class="matDivider"></mat-divider> -->
+        </div>
+        <div class="moheriCard cardUpload company_dtlview m-t-25">
+            <p class="m-0 stepFollow">{{'Step to Follow' | translate}}</p>
+            <div class="followStep">
+                <ul>
+                    <li>Click here to <a href="javascript:void()" class="blue"><u>Download Sample Template</u></a> Format</li>
+                    <li>Fill in the <b>Vehicle Details</b> into the XLS and save the file</li>
+                    <li>Click on <b>Upload IVMS Device Installed Vechicles</b> and select the saved/ updated file </li>
+                    <li>File Upload is done and the next screen display the status of the record which have all
+                        information correct as <b>Success</b> and records which have missing fields as <b>Failure.</b></li>
+                </ul>
+            </div>
+        </div>
+
+        
+        <p class="uploadText" fxFlex="20">{{'Upload IVMS Device Installed Vechicles Details' | translate}}</p>
+
+        <app-filee #temporary [notePosition]="'bottom'" [fileMstRef]="drvInput" [deleteicon]="deleteicon"
+            (filesSelected)="fileeSelected($event,drvInput)" formControlName="reportdocument" [uploadexcel]="true">
+        </app-filee>
+    </div>
+</form>

@@ -1,0 +1,20 @@
+{"applicationName":"BGI",
+    "defaultLanguage":"Amsterdam",
+    "localeLanguage":"Frankfurt",
+    "timeZone":"America\/Nome",
+    "dateFormat":"%d-%m-%Y",
+    "timeFormat":"g:i a",
+    "applicationLogoUrl":"lypis.png",
+    "applicationTagLine":"The LyPIS portal aims to Enhance Procurement Image of the Nation. ",
+    "applicationBGUrl":"http:\/\/www.businessgateways.com\/images\/email\/bgi_bg.png",
+    "applicationBottomstripBG":"",
+    "applicationBottomstripTitle":" Enhance your Products & Services ",
+    "applicationBottomstripSubTitle":"on international market",
+    "feature":[
+        {"FeatureTitle":"Transparency in Procurement Operations & Investment Process","Featuresubtitle":""},
+        {"FeatureTitle":"Empower Libyan Citizens & Other Stakeholders understand Government Spend","Featuresubtitle":""},
+        {"FeatureTitle":"Enforce Adherence to NOC\u2019s Strategic Targets & Objectives","Featuresubtitle":""},
+        {"FeatureTitle":"Unified Supplier Pool for Industry Level Procurement","Featuresubtitle":""}
+    ],
+    "JSRS_v2_baseURL":"http://192.168.1.32:81/jsrslive/"
+}

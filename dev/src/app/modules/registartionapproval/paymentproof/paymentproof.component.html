@@ -1,0 +1,235 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+            <div class="closeandadd">
+                <i mat-button matTooltip="{{'paymentproof.close' | translate}}" aria-label="Displays a tooltip"
+                    matTooltipClass="custom-tooltip" (click)="paymentproofclose()"
+                    class="bgi bgi-close p-l-5 fs-14"></i>
+                <h5 class="m-0 p-l-20 tt">{{'paymentproof.subspaymdeta' | translate}}<i class="bgi bgi-info"
+                        (click)="paymentprooflist('paymentprooflistdata')"></i></h5>
+            </div>
+            <!-- <div class="clearandaddbutton">
+                <button type="button" (click)="paymentproofclose()" mat-raised-button color="primary"
+                    class="clearbutton height-35 p-l-20 p-r-20 spacemargin">{{'paymentproof.close' |
+                    translate}}</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 paymentprooflistdata" [@slideInOut]="animationState7">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+            <mat-card-header>
+                <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                    <mat-card-subtitle class="informationtext fs-14">
+                        {{'paymentproof.infocontentpayproof' | translate}}
+                    </mat-card-subtitle>
+                </div>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>
+<div fxLayout="row wrap" fxFlexAlign="center" class="bordersubscrippay">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottomrenwalalign p-l-50 p-r-50">
+        <div class="p-t-8 p-b-8">
+            <div class="renewalalign">
+                <p class="fs-15 interbold m-0 p-b-8"> {{compdetails?.MCM_CompanyName}}</p>
+            </div>
+            <div fxLayoutAlign="flex-start center">
+                <p class="clabel m-0">{{'paymentproof.OPALregnum' | translate}}:<span class="cvalue">
+                    {{compdetails?.mcm_RegistrationNo}}</span>
+                </p>
+                <p class="clabel p-l-45 m-0">{{'paymentproof.OPALcode' | translate}}:<span class="cvalue">
+                    {{compdetails?.MCM_SupplierCode}}</span>
+                </p>
+                <p class="clabel p-l-45 flexstatuspay m-0">{{'paymentproof.membstat' | translate}}
+                    <span class="pending fs-13 m-l-10 p-t-2 p-b-2" *ngIf="compdetails?.member_statusval==1 || compdetails?.member_statusval==2 || compdetails?.member_statusval==3 || compdetails?.member_statusval==4">{{compdetails?.member_status}}</span>
+                    <span class="warning fs-13 m-l-10 p-t-2 p-b-2" *ngIf="compdetails?.member_statusval==5 || compdetails?.member_statusval==6">{{compdetails?.member_status}}</span>
+                    <span class="received fs-13 m-l-10 p-t-2 p-b-2" *ngIf="compdetails?.member_statusval==7">{{compdetails?.member_status}}</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="innnerpartofdrwer" id="spacepartdrawer">
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" id="subpaydetaillist">
+            <div class="statuscardcertifcate">
+                <div class="updateclassifyview">
+                    <h4 class="fs-16 txt-gray3 lypisfont-semibold">{{paymentsubdata?.module}}</h4>
+                </div>
+                <div fxLayout="row wrap" class="pd-20" fxLayoutAlign="flex-start">
+                    <div fxFlex.gt-sm="52" fxFlex="100">
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.date' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.mcid_generatedon | date: 'dd-MM-yyyy'}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.enterpriseclassify' | translate}}</p>
+                            <span [class.micro]="paymentsubdata?.classificationclass.toLowerCase().includes('micro')"
+                                    [class.small]="paymentsubdata?.classificationclass.toLowerCase().includes('small')"
+                                    [class.medium]="paymentsubdata?.classificationclass.toLowerCase().includes('medium')"
+                                    [class.large]="paymentsubdata?.classificationclass.toLowerCase().includes('large') || paymentsubdata?.classificationclass.toLowerCase().includes('international')">{{paymentsubdata?.classificationName
+                                    || 'NIL'}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.subscripfee' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.currency}} {{paymentsubdata?.subscriptionfee}}</span>
+                        </div>
+                        <div class="updateflex p-b-0">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.invoiceamount' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.currency}} {{paymentsubdata?.invoiceamount}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex.gt-sm="48" fxFlex="100">
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'organisationdetailtracker.headcount' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.ClM_HeadCount}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.annualsales' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.ClM_AnnualSales}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.subscripvalidity' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.subscription_validity}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.paymstat' | translate}}</p>
+                            <span class="pending fs-13" *ngIf="paymentsubdata?.paymentsts==1">{{paymentsubdata?.paymentstatus}}</span>
+                            <span class="received fs-13" *ngIf="paymentsubdata?.paymentsts==2">{{paymentsubdata?.paymentstatus}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-b-15 p-t-45 downtextcolor" fxLayoutAlign="flex-end">
+                <button class="button-35 fs-14 menuitemcolor"  *ngIf="paymentsubdata?.paymentsts==1" mat-raised-button color="primary">
+                    <a href="{{paymentsubdata?.proforma_invoice}}" target="_blank" class="downtextcolor">Download Proforma Invoice</a>
+                    </button>
+                <button  *ngIf="paymentsubdata?.paymentsts==2" class="button-35 fs-14" mat-raised-button color="primary"
+                    [matMenuTriggerFor]="accessreport">{{'paymentproof.downloadinvoice' | translate}}
+                    <i class="fa fa-angle-down m-l-10"></i></button>
+                <mat-menu class="master-menu m-t-10" #accessreport="matMenu">
+                    <button mat-menu-item *ngIf="paymentsubdata?.paymentsts==1"><a class="viewtextcolorupdate"  href="{{paymentsubdata?.proforma_invoice}}"  target="_blank">{{'paymentproof.proformainvoice' | translate}}</a></button>
+                    <button mat-menu-item *ngIf="paymentsubdata?.paymentsts==2" ><a  class="viewtextcolorupdate"  href="{{paymentsubdata?.tax_invoice}}"  target="_blank">{{'paymentproof.taxinvoice' | translate}}</a></button>
+                    <button mat-menu-item *ngIf="paymentsubdata?.paymentsts==2" ><a   class="viewtextcolorupdate"   href="{{paymentsubdata?.receipt}}"  target="_blank">{{'paymentproof.receipt' | translate}}</a></button>
+                </mat-menu>
+            </div>
+            <div class="statuscardcertifcate box_removepaydet" *ngIf="paymentsubdata?.paymentsts==2">
+                <div class="updateclassifyview">
+                    <h4 class="fs-16 txt-gray3 lypisfont-semibold">{{'paymentproof.paydetails' | translate}}</h4>
+                </div>
+                <div fxLayout="row wrap" class="pd-20" fxLayoutAlign="flex-start">
+                    <div fxFlex.gt-sm="52" fxFlex="100" *ngIf="paymentsubdata?.mcpid_paymenttype==1">
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.paymentmode' | translate}}</p>
+                            <span class="cvalue">Offline</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.chequenum' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.paymentstatus}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.bankname' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.mcpid_bankname}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.dateoftransfer' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.mcpid_submittedon | date: 'dd-MM-yyyy'}}</span>
+                        </div>
+                        <div class="updateflex p-b-0">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.paymentproff' | translate}}</p>
+                            <span class="infocmp">
+                                <a target="_blank" href="javascript:void(0)" class="imgsize">
+                                    <img src="assets/images/pdfnewimage.png" alt="pdfnewimage">
+                                </a>
+                                <!-- <a target="_blank" *ngIf="paymentDetails.filetype=='jpeg' || paymentDetails.filetype=='JPEG'" href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                                  <img src="assets/images/jpeg-02.png" alt="jpeg-02">
+                                </a>
+                                <a target="_blank" *ngIf="paymentDetails.filetype=='jpg' || paymentDetails.filetype=='JPG'" href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                                  <img src="assets/images/jpeg.png" alt="jpg">
+                                </a>
+                                <a target="_blank" *ngIf="paymentDetails.filetype=='PNG' || paymentDetails.filetype=='png'" href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                                  <img src="assets/images/jpeg.png" alt="jpeg">
+                                </a> -->
+                            </span>
+                        </div>
+                    </div>
+                    <div fxFlex.gt-sm="52" fxFlex="100" *ngIf="paymentsubdata?.mcpid_paymenttype==2">
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.paymmode' | translate}}</p>
+                            <span class="cvalue">Online</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.paymthrou' | translate}}</p>
+                            <span class="cvalue" *ngIf="paymentsubdata?.mcpid_cardtype=='SP'">{{'paymentproof.smarpay' | translate}}</span>
+                            <span class="cvalue" *ngIf="paymentsubdata?.mcpid_cardtype=='OTO'">{{'paymentproof.ottudebit' | translate}}</span>
+                            <span class="cvalue" *ngIf="paymentsubdata?.mcpid_cardtype=='OTC'">{{'paymentproof.ottucredit' | translate}}</span>
+                            <span class="cvalue" *ngIf="paymentsubdata?.mcpid_cardtype=='T'">{{'paymentproof.thaw' | translate}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.tranid' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.mcpid_transrefno}}</span>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel minwidthdate">{{'paymentproof.dateoftran' | translate}}</p>
+                            <span class="cvalue">{{paymentsubdata?.mcpid_submittedon | date: 'dd-MM-yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex.gt-sm="48" fxFlex="100">
+                        <div class="updateflex">
+                            <p class="m-0 clabel widthlabel">{{'paymentproof.subsfee' | translate}}</p>
+                            <div class="widthinnerlabel">
+                                <span class="cvalue widthomr">{{paymentsubdata?.currency}}</span>
+                                <span class="floatalign">{{paymentsubdata?.subscriptionfee}}</span>
+                            </div>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel widthlabel">{{'paymentproof.specdisc' | translate}} ({{paymentsubdata?.mcpt_discpercent}}%)</p>
+                            <div class="widthinnerlabel">
+                                <span class="cvalue widthomr">{{paymentsubdata?.currency}}</span>
+                                <span class="floatalign">{{paymentsubdata?.mcpt_discountval}}</span>
+                            </div>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel widthlabel">{{'paymentproof.promdisc' | translate}}</p>
+                            <div class="widthinnerlabel">
+                                <span class="cvalue widthomr">{{paymentsubdata?.currency}}</span>
+                                <span class="floatalign">{{paymentsubdata?.mcpt_promodiscount}}</span>
+                            </div>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel widthlabel">{{'paymentproof.procfee' | translate}} ({{paymentsubdata?.addi_charge_percent}}%)</p>
+                            <div class="widthinnerlabel">
+                                <span class="cvalue widthomr">{{paymentsubdata?.currency}}</span>
+                                <span class="floatalign">{{paymentsubdata?.additional_charge}}</span>
+                            </div>
+                        </div>
+                        <div class="updateflex">
+                            <p class="m-0 clabel widthlabel">{{'paymentproof.vatchar' | translate}} ({{paymentsubdata?.mcpt_vatpercent}}%)</p>
+                            <div class="widthinnerlabel">
+                                <span class="cvalue widthomr">{{paymentsubdata?.currency}}</span>
+                                <span class="floatalign">{{paymentsubdata?.mcpt_vatamount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="background_totalpay" fxLayoutAlign="space-between center">
+                    <div fxFlex.gt-sm="52" fxFlex="100">
+                        &nbsp;
+                    </div>
+                    <div fxFlex.gt-sm="48" fxFlex="100" fxLayoutAlign="flex-start">
+                        <p class="m-0  widthlabel fs-16 txt-gray3 lypisfont-semibold ">{{'paymentproof.totalamountpaid'
+                            | translate}}</p>
+                        <div class="widthinnerlabel">
+                            <span class="fs-16 widthomr txt-gray3 lypisfont-semibold ">{{paymentsubdata?.currency}}</span>
+                            <span class="fs-16 floatalign txt-gray3 lypisfont-semibold ">{{paymentsubdata?.invoiceamount}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

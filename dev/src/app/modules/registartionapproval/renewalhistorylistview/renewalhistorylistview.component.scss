@@ -1,0 +1,459 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+#renewaldetaillistview{
+    .renewalviewwidth{
+        width: 65%;
+    }
+    .mat-drawer-container {
+        position: relative;
+        z-index: 100;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+        display: block;
+        overflow: hidden;
+    }
+    .renewalbtn{
+        border-radius: 22px !important;
+        background-clip: padding-box; 
+        @include flexcenter();
+        height: 40px;
+        width: 148px;
+        background-color: #fff;
+        color: #016bb7;
+        font-size: 0.9375rem;
+        border: 1px solid #016bb7;
+    }
+    .borderbottomrenewallist{
+        width: 100%;
+        border-bottom: 1px solid #dadada;
+        .borderbottomrenwalalign{
+            width: 100%;
+            @include spacebetween();
+            .codecolor{
+                color: #666666;
+                font-size: 0.875rem;
+            }
+            p {
+              margin: 0;
+              line-height: 1;
+              color: #000;
+            }
+            .textcolorno{
+                color: #333333;
+            }
+          }
+          .textcolorpaper{
+              .verifycolor{
+                color: #666666;
+              }
+              .approvedcolor{
+                color: #333333;
+              }
+          }    
+      }
+      .renewal_details{
+          .renewalcountcolor{
+              p{
+                color: #666666;
+              }
+
+          }
+          .renewallistdetailaccordio {
+            .spaceend{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #d4eeff;
+                max-height: 32px;
+                .totalcolor{
+                    h2{
+                        color: #136eb5;
+                        margin: 0px;
+                        font-size: 0.875rem;
+                    }
+                }
+                .omrcolor{
+                    h2{
+                        color:#136eb5;
+                        margin: 0px;
+                        font-size: 0.875rem;
+                    }
+                }
+            }
+            .mat-expansion-panel-body {
+                padding: 0px;
+            }
+              .spacealignrenewal{
+                  width: 100%;
+                  @include spacebetween();
+                .renewaltextcolor{
+                    h2{
+                        color:#333333;
+                    }
+                    }
+                    .datetimecolor{
+                        padding-left: 8px;
+                        padding-right: 8px;
+                        span{
+                            color: #333333;
+                        }
+                        .boderrightdate{
+                            border-right: 2px solid #dadada;
+                            padding-right: 8px;
+                        }
+                    }
+              }
+              .paymentstatuslist{
+                  .certificatebackground{
+                      background: #fbfbfd;
+                      padding: 20px;
+                  }
+                .innerrows {
+                    .eachtwoboxes {
+                        width: 100%;
+                    }
+                    .cmpnyinfo {
+                        margin-bottom: 0;
+                        @include flexstart();
+                        align-items: flex-start !important;
+                        padding-bottom: 15px;
+                        .labelcmp {
+                            color: #999;
+                            font-size: 0.875rem;
+                            display: block;
+                            min-width: 250px;
+                            word-break: break-word;
+                        }
+                        .infocmp {
+                            color: #333;
+                            font-size: 0.875rem;
+                            word-break: break-word;
+                        }
+                      }
+                     .smecolor{
+                     padding-left: 6px;
+                     padding-right: 6px;
+                     color:#fff !important;
+                     background-color:#71c015;
+                     padding-top: 2px;
+                     padding-bottom: 2px;
+                     font-size: 0.75rem;
+                      }
+                    }
+                  .approveflexalign{
+                      @include flexstart();
+                      width: 100%;
+                      .approvewidth{
+                          width: 50%;
+                      }
+                      .expirywidth{
+                        width: 50%;
+                      }
+                      .expirdatecolor{
+                        p{
+                            font-size: 0.8125rem;
+                            color: #666666;
+                            margin: 0px;
+                        }
+                        .spandeviatecolor{
+                            color: #333333;
+                            font-size: 1rem;
+                        } 
+                        .deviatedcolor{
+                            color: #e82323;
+                            font-size: 1rem;
+                        } 
+                      }
+                  }
+                .renewalhistory_tab {
+                    flex-flow: row wrap;
+                    position: relative;
+                    margin-top: 30px !important;
+                    .mat-tab-header {
+                        margin: 0;
+                        width: 30%;
+                        padding: 0;
+                        overflow: visible;
+                        background: none;
+                        position: relative;
+                        border-bottom: none;
+
+                        >.mat-tab-header-pagination {
+                            display: none;
+                        }
+                        .mat-tab-label-container {
+                            position: relative;
+                            overflow: visible;
+
+                            >.mat-tab-list {
+                                height: auto !important;
+                                padding: 0px !important;
+                                opacity: 1 !important;
+                                display: flex !important;
+                                align-items: flex-start;
+
+                                >.mat-tab-labels {
+                                    flex-direction: column;
+                                    width: 100%;
+                                    background: transparent;
+
+                                >.mat-tab-label {
+                                        background: #ffffff;
+                                        border-left: 2px solid #e3e3e3;
+                                        border-radius: 0px;
+                                        padding: 0px 0px !important;
+                                        opacity: 1 !important;
+                                        height: auto !important;
+                                        font-size: 0.9375rem;
+                                        justify-content: start;
+                                        margin-top: 0px !important;
+                                        width: 100%;
+                                        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                                        overflow: hidden;
+                                        cursor: pointer;
+                                        font-weight: 500;
+
+                                        &:first-child {
+                                            display: flex;
+                                        }
+                                >.mat-tab-label-content {
+                                            white-space: pre-wrap !important;
+                                            text-align: left !important;
+                                            justify-content: start !important;
+                                            align-content: flex-start;
+                                            flex-direction: row;
+                                            align-items: flex-start;
+                                            padding: 5px 12px;
+                                            background: #fff;
+                                        }
+
+                                &.mat-tab-label-active {
+                                    border-top: 0px !important;
+                                    border-left-color:#57626E;
+                                        .mat-tab-label-content{
+                                        background: #e0f0ff;
+                                        color: #57626E;
+                                        width:100%;
+                                        }
+                                            &::after {
+                                                display: none;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .mat-tab-body-wrapper {
+                        width: 70%;
+                        margin: 0;
+                        padding: 0;
+                        position: relative;
+
+                        >.mat-tab-body {
+                            >.mat-tab-body-content {
+                                display: inline !important;
+                            }
+                        }
+                    }
+
+                    .mat-ink-bar {
+                        display: none !important;
+                    }
+                }
+                  .paymentcolor{
+                      h2{
+                          color: #016db6;
+                          font-size: 0.9375rem;
+                      }
+                  }
+                  .approvedalign{
+                    @include flexstart();
+                    p{
+                        font-size: 0.8125rem;
+                        color: #666666;
+                        margin: 0px;
+                        min-width: 150px;
+                        word-break: break-word;
+                    }
+                    span{
+                        color: #333333;
+                        font-size: 1rem;
+                        min-width: 150px;
+                        word-break: break-word;
+                    }
+                  }
+                  .entercommentcolor{
+                      padding-top: 30px;
+                      p{
+                        font-size: 1rem;  
+                        color: #666666;
+                        margin: 0px;
+                        line-height: 2.5;
+                      }
+                      span{
+                        color: #333333;
+                        font-size: 1rem; 
+                      }
+                  }
+              }
+
+            .mat-expansion-indicator{
+                border-radius: 50%;
+                background-color: #fff;
+                height: 30px;
+                width: 30px;
+                text-align: center;
+                margin-right: 20px;
+                }
+            .mat-expansion-panel-header {
+              margin-bottom: 10px;
+              height: 56px !important;
+              padding: 0px;
+              border-radius: 0;
+              border-top: 1px solid #dadada;
+              border-bottom: 1px solid #dadada;
+              background-color: transparent ;
+              p {
+                  margin: 0;
+              }
+              &:last-child {
+                .mat-expansion-panel-header  {
+                      margin-bottom: 0px;
+                  }
+              }
+            }
+            .mat-expansion-panel-header:hover {
+            background: #f4f6f9;
+            }
+            .mat-expansion-panel {
+            box-shadow: none !important;
+            }
+            
+             .mat-expansion-panel-content {
+            margin: 2px;
+            }
+            .mat-expansion-panel-header-description {
+              flex-grow: 0;
+              display: flex;
+              align-items: center;
+              margin-right: 0;
+              p {
+                  padding-right: 30px;
+              }
+            }  
+            .mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+            display: flex;
+            align-items: center;
+        }
+      }
+    }
+}
+
+@media (max-width:1366px) and (min-width:1362px) {
+    .renewalviewwidth{
+        width: 75% !important;
+    }
+}
+@media (max-width:1280px) and (min-width:1270px) {
+    .renewalviewwidth{
+        width: 85% !important;
+    }
+}
+@media (max-width:1024px) and (min-width:769px) {
+    .renewsidenav .renewalviewwidth{
+        width: 98% !important;
+    }
+}
+
+@media (max-width:768px) {
+    #renewaldetaillistview{
+        .renewsidenav .renewalviewwidth{
+            width: 98% !important;
+        }
+        .paddingspace{
+            padding-left: 0px !important;
+        }
+        .renewalhistory_tab {
+            flex-flow: column !important;
+        }
+        .approvewidth{
+            width: 70% !important;
+        }
+        .expirywidth{
+          width: 30% !important;
+        }
+        .mat-tab-body-wrapper {
+            width: 100% !important;
+            margin-top: 15px !important;
+        }
+        .mat-tab-header {
+            margin: 0;
+            width: 100% !important;
+            padding: 0;
+            overflow: visible;
+            background: none;
+            position: relative;
+            border-bottom: none;
+        }
+    }
+
+}
+
+@media (max-width:767px) {
+#renewaldetaillistview{
+    .renewal_details .renewallistdetailaccordio .paymentstatuslist .approveflexalign {
+        display: block !important;
+    }
+    .innerrows .cmpnyinfo {
+        margin-bottom: 0;
+        display: block !important;
+        align-items: center !important;
+        align-items: flex-start !important;
+        padding-bottom: 15px;
+    }
+    .borderbottomrenewallist .borderbottomrenwalalign {
+    width: 100%;
+    display: block !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-left: 10px !important;
+    padding-right: 0px !important;
+    }
+    .renewal_details .renewallistdetailaccordio .spacealignrenewal {
+        width: 100%;
+        display: block !important;
+    }
+    .renewaltextcolor {
+    padding-left: 8px !important;
+    }
+    .approvedalign {
+    display: block !important;
+    }
+    .approvewidth{
+        width: 100% !important;
+    }
+    .expirywidth{
+      width: 100% !important;
+    }
+}
+}

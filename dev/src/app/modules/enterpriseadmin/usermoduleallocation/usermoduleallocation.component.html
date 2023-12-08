@@ -1,0 +1,177 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-20">
+      <!-- column -->
+      <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <mat-icon (click)="draweruserlallocationnew.toggle()" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+            <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.modupermsett' | translate}}  <mat-icon (click)="toggleShowDiv('userroleallocation')" class="bgi bgi-info">info_outline</mat-icon></h5>
+          </div>
+          <div class="clearandaddbutton">
+            <!-- <button type="button" mat-raised-button color="primary"
+              class="clearbutton height-35 m-r-10 p-l-20 p-r-20">Clear</button> -->
+            <button color="preview" (click)="saveModulePermission()" mat-raised-button
+              class="addbutton height-35 p-l-20 p-r-20">{{'enterpriseadmin.add' | translate}}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 userroleallocation" [@slideInOut]="animationState3">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+          <mat-card-header>
+            <div class="titletext">
+              <mat-card-subtitle class="informationtext fs-14">
+                {{'enterpriseadmin.adduserdepaandassi' | translate}} 
+              </mat-card-subtitle>
+            </div>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxFlexAlign="center">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottom">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="companyinfomcp p-l-75">
+            <img src="./assets/images/uploadthelogo.png" alt="upload logo">
+            <div class="p-l-10">
+              <p class="p-b-8 fs-15">{{companyName}}</p>
+              <p class="lypisid"><span>{{'enterpriseadmin.jsraid' | translate}} </span> <span>-</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="innnerpartofdrwer organisationinfo">
+          <p class="showothermodules">{{'enterpriseadmin.showothemodu' | translate}}Show Other Modules</p>
+          <div fxLayout="row wrap" class=" depModulesTable">
+            <form id="moduleaccesscheckform" style="width:100%;">
+              <!---perminssion ui starts from here-->
+              <mat-table #table [dataSource]="dataSourceforpermission">
+                <ng-container matColumnDef="modules">
+                  <mat-header-cell *matHeaderCellDef fxFlex="35">
+                    <input type="checkbox" (change)="fullMOduleCheck($event)" id="alldataselected"
+                      class="example-margin m-r-15 depinput">
+                    <label class="deplabel" for="alldataselected">
+                      {{'enterpriseadmin.modu' | translate}} 
+                    </label>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="35" let mi="element.modules">
+                    <input type="checkbox" id="uamodule_{{element.module_id}}" (change)="checkAllModule($event,element.module_id)"
+                      [ngClass]="{'myclass parentofclass': element.child ,'submyclass ':!element.child}"
+                      class="maincheckbox example-margin fs-15 text-gray p-l-30 m-r-15 depinput">
+                    <label class="deplabel" for="uamodule_{{element.module_id}}">{{element.modules}}</label>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="module_id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header hidden="true">{{'enterpriseadmin.moduid' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let row" hidden="true"> {{row.module_id}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="create">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center"> {{'enterpriseadmin.crea' | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Create">
+                    <mat-slide-toggle id="uamm-{{element.module_id}}-1" (change)="moduleToggle($event, element.module_id, 1)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aC"></mat-slide-toggle>
+                    
+                    <span *ngIf="element.create == 'Y' || element.create == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.create =='Y'" type="checkbox" id="uamodule_{{element.module_id}}_1"
+                        name="uamodule_{{element.module_id}}_1"
+                        (change)="checkBoxCheck($event,element.module_id,1)">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <mat-icon class="bgi bgi-close fs-14 text-red" *ngIf="element.create == 'NIL'" [class.disabledtoggle]="!element.childEnable">close</mat-icon>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="update">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'enterpriseadmin.upda' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Update">
+                    <mat-slide-toggle id="uamm-{{element.module_id}}-3" (change)="moduleToggle($event, element.module_id, 3)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aU"></mat-slide-toggle>
+                    
+                    <span *ngIf="element.update == 'Y' || element.update == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.update =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,3)"
+                        id="uamodule_{{element.module_id}}_3" name="uamodule_{{element.module_id}}_3">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <mat-icon class="bgi bgi-close fs-14 text-red" *ngIf="element.update == 'NIL'" [class.disabledtoggle]="!element.childEnable">close</mat-icon>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- createed ON Column -->
+                <ng-container matColumnDef="read">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'enterpriseadmin.read' | translate}}  </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Read">
+                    <mat-slide-toggle id="uamm-{{element.module_id}}-2" (change)="moduleToggle($event, element.module_id, 2)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aR"></mat-slide-toggle>
+                  
+                    <span *ngIf="element.read == 'Y' || element.read == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.read =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,2)"
+                        id="uamodule_{{element.module_id}}_2" name="uamodule_{{element.module_id}}_2">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <mat-icon class="bgi bgi-close fs-14 text-red" *ngIf="element.read == 'NIL'" [class.disabledtoggle]="!element.childEnable">close</mat-icon>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Updated ON Column -->
+                <ng-container matColumnDef="delete">
+                  <mat-header-cell *matHeaderCellDef fxFlex="10" class="text-center">{{'enterpriseadmin.dele' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="10" class="text-center iconChk" data-label="Delete" >
+                    <mat-slide-toggle id="uamm-{{element.module_id}}-4" (change)="moduleToggle($event, element.module_id, 4)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aD"></mat-slide-toggle>
+
+                    <span *ngIf="element.delete == 'Y' || element.delete == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.delete =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,4)"
+                        id="uamodule_{{element.module_id}}_4" name="uamodule_{{element.module_id}}_4">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <mat-icon class="bgi bgi-close fs-14 text-red" *ngIf="element.delete == 'NIL'" [class.disabledtoggle]="!element.childEnable">close</mat-icon>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="approval">
+                  <mat-header-cell *matHeaderCellDef fxFlex="14" class="text-center">{{'enterpriseadmin.apprval' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="14" class="text-center iconChk" data-label="Approval">
+                    <mat-slide-toggle id="uamm-{{element.module_id}}-5" (change)="moduleToggle($event, element.module_id, 5)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aA"></mat-slide-toggle>
+
+                    <span *ngIf="element.approval == 'Y' || element.approval == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.approval =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,5)"
+                        id="uamodule_{{element.module_id}}_5" name="uamodule_{{element.module_id}}_5">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <mat-icon class="bgi bgi-close fs-14 text-red" *ngIf="element.approval == 'NIL'" [class.disabledtoggle]="!element.childEnable">close</mat-icon>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="download">
+                  <mat-header-cell *matHeaderCellDef fxFlex="14" class="text-center">{{'enterpriseadmin.down' | translate}} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxFlex="14" class="text-center iconChk" data-label="Download">
+                    <mat-slide-toggle id="uamm-{{element.module_id}}-6" (change)="moduleToggle($event, element.module_id, 6)" class="selectalltoggle" [class.disabledtoggle]="!element.parentEnable" [checked]="element.aDwn"></mat-slide-toggle>
+
+                    <span *ngIf="element.download == 'Y' || element.download == 'N'" [class.disabledtoggle]="!element.childEnable">
+                      <input [checked]="element.download =='Y'" type="checkbox"
+                      (change)="checkBoxCheck($event,element.module_id,6)"
+                        id="uamodule_{{element.module_id}}_6" name="uamodule_{{element.module_id}}_6">
+                      <label for="checkboxOne"></label>
+                    </span>
+                    <mat-icon class="bgi bgi-close fs-14 text-red" *ngIf="element.download == 'NIL'" [class.disabledtoggle]="!element.childEnable">close</mat-icon>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="['modules', 'create','update','read','delete','approval','download']">
+                </mat-header-row>
+                <mat-row class="detailedselection"
+                  *matRowDef="let row; columns: ['modules', 'create','update','read','delete','approval','download'];">
+                </mat-row>
+                <mat-row *matRowDef="let row; columns: ['modules', 'create','update','read','delete','approval','download']; when: isExtendedRow" class="darken">
+                </mat-row>
+              </mat-table>
+              <!---Permission end here-->
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

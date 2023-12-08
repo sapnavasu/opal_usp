@@ -1,0 +1,22 @@
+<div fxFlex.gt-sm="100" fxFlex="100" id="toverallstaffinfo" class="flex-column toverallstaffinfo m-t-25">
+    <h5 class="m-b-10 m-t-10 fs-16 title">{{'centredashboard.overallstaff' | translate}} <span class="m-l-5 infoicon" matTooltip="{{'info.overal' | translate}}"><mat-icon>info_outline</mat-icon></span></h5>
+    <div class="overallbox" *ngIf="rasroles">
+        <div fxLayout="row" fxLayoutGap="10px" >
+            <div fxFlex.gt-sm="50" fxFlex="100" class="flex-column staffinfo">
+                <span class="clabel">{{'centredashboard.inspector' | translate}}</span>
+                <span class="cvalue">{{rasroles.Inspector}}<span class="linkarrow m-l-5"><i class="fa fa-long-arrow-right" aria-hidden="true"  (click)="navigate(DashboardCounts?.TutorInstructor_osi,'Inspector')"></i></span></span>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex="100" class="flex-column staffinfo">
+                <span class="clabel">{{'centredashboard.verifier' | translate}}</span>
+                <span class="cvalue">{{rasroles.Verifier}} <span class="linkarrow m-l-5"><i class="fa fa-long-arrow-right" aria-hidden="true" (click)="navigate(DashboardCounts?.TutorInstructor_osi,'Verifier')"></i></span></span>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px" class="m-t-10">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="flex-column staffinfo">
+                <span class="clabel">{{'centredashboard.supervisor' | translate}}</span>
+                <span class="cvalue">{{rasroles.Superivisor}} <span class="linkarrow m-l-5"><i class="fa fa-long-arrow-right" aria-hidden="true" (click)="navigate(DashboardCounts?.TutorInstructor_osi,'Supervisor')"></i></span></span>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex="100">&nbsp;</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,177 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <i mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="trackhistorylistalert()" class="bgi bgi-close p-l-5 fs-14"></i>
+        <h5 class="m-0 p-l-20 tt">Track History of Temporary Login<i class="bgi bgi-info"
+            (click)="trackhistorylistdropdown('trackhistorylist')"></i></h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button type="button" mat-raised-button color="primary"
+          class="clearbutton height-35 p-l-20 p-r-20 spacemargin">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 trackhistorylist" [@slideInOut]="animationState2">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+      <mat-card-header>
+        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+          <mat-card-subtitle class="informationtext fs-14">
+            Track History of Temporary Login
+          </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div class="innnerpartofdrwer">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="trackhistorylistview">
+      <div class="tracklistheader">
+        <div class="headerlistview">
+          <h2>Business Gateways International - India Pvt. Ltd.</h2>
+        </div>
+        <div class="gatewaysalign">
+          <div class="tracklistviewalign">
+            <p>Registration No.</p>
+            <span>OMN123456</span>
+          </div>
+          <div class="tracklistviewalign">
+            <p>Supplier Code</p>
+            <span>OMN887356</span>
+          </div>
+          <div class="tracklistviewalign">
+            <p>Member Status</p>
+            <span>Certified</span>
+          </div>
+          <div class="tracklistviewalign">
+            <p>Subscription Status</p>
+            <span class="activecolor">Active</span>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="modulealign">
+          <div class="accessmainheader">
+            <div class="accesstextcolor">
+              <span>Accessed Modules</span>
+            </div>
+            <div class="accesstextcolor">
+              <span>Users</span>
+            </div>
+            <div class="accesstextcolor">
+              <span>OTP Requested </span>
+            </div>
+            <div class="accesstextcolor">
+              <span>OTP Entered</span>
+            </div>
+            <div class="accesstextcolor">
+              <span>Success</span>
+            </div>
+            <div class="accesstextcolor">
+              <span>Expired</span>
+            </div>
+          </div>
+          <button mat-raised-button color="preview" class="button-40 m-l-10 exporticon">Export<i
+              class="bgi bgi-dropdown p-l-8"></i></button>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="countmainbackground">
+            <div class="counttextcolor">
+              <h2>2</h2>
+            </div>
+            <div class="counttextcolor">
+              <h2>2</h2>
+            </div>
+            <div class="counttextcolor">
+              <h2>4</h2>
+            </div>
+            <div class="counttextcolor">
+              <h2>4</h2>
+            </div>
+            <div class="counttextcolor">
+              <h2 class="countnumbercolor">3</h2>
+            </div>
+            <div class="counttextcolor">
+              <h2 class="countonecolor">1</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="masterTable trackhistoryscroll">
+        <mat-table #table matSort [dataSource]="dataSource">
+          <ng-container matColumnDef="module">
+            <mat-header-cell fxFlex="22" class="modulewidth" mat-sort-header *matHeaderCellDef>Module
+            </mat-header-cell>
+            <mat-cell fxFlex="22" class="modulewidth" data-label="Module" *matCellDef="let element">
+              {{element.module}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="requested_by">
+            <mat-header-cell fxFlex="25" class="regesterwidth" mat-sort-header *matHeaderCellDef> Requested by
+            </mat-header-cell>
+            <mat-cell matTooltipPosition="below" class="regesterwidth" fxFlex="25" data-label="Requested by"
+              *matCellDef="let element">
+              {{element.requestedby}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="requested_to">
+            <mat-header-cell fxFlex="22" class="regesterwidth" mat-sort-header *matHeaderCellDef> Requested to
+            </mat-header-cell>
+            <mat-cell fxFlex="22" class="regesterwidth" matTooltipPosition="below" matTooltip="{{element.requested_to }}"
+              data-label="Requested to" *matCellDef="let element">
+              {{element.requested_to | truncate:[22]}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="requestor_mobileno">
+            <mat-header-cell fxFlex="30" mat-sort-header class="invoicegeneratedwidth" *matHeaderCellDef> Requestor
+              Mobile No.
+            </mat-header-cell>
+            <mat-cell fxFlex="30" matTooltipPosition="below" class="invoicegeneratedwidth"
+              matTooltip="{{element.requestor_mobileno }}" data-label="Requestor Mobile No." *matCellDef="let element">
+              {{element.requestor_mobileno | truncate:[20]}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="otp_requested">
+            <mat-header-cell fxFlex="25" mat-sort-header class="otpenterwidth" *matHeaderCellDef> OTP Requested On
+            </mat-header-cell>
+            <mat-cell fxFlex="25" data-label="OTP Requested On" class="otpenterwidth" *matCellDef="let element">
+              {{element.otprequested}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="otp_entered">
+            <mat-header-cell fxFlex="25" class="otpenterwidth" mat-sort-header *matHeaderCellDef> OTP Entered on
+            </mat-header-cell>
+            <mat-cell fxFlex="25" class="otpenterwidth" data-label="OTP Entered on" *matCellDef="let element">
+              {{element.otpenteredon}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="login_status">
+            <mat-header-cell fxFlex="20" class="otpenterwidth"  mat-sort-header *matHeaderCellDef> Login Status
+            </mat-header-cell>
+            <mat-cell fxFlex="20" class="otpenterwidth" data-label="Login Status" *matCellDef="let element">
+              <span *ngIf="element.loginstatus == 'statuslogin'" class="successcolor">Success</span>
+              <span *ngIf="element.loginstatus == 'expired'" class="expiredcolor">Expired</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Action">
+            <mat-header-cell class="actionclmn" fxFlex="10" *matHeaderCellDef>Action
+            </mat-header-cell>
+            <mat-cell fxFlex="10" class="user actionclmn viewcolor"  *matCellDef="let fleetData"
+              data-label="Action">
+              <i class="bgi bgi-view" [routerLink]="'/regapproval/temporaryaudittrail'" ></i>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
+  </div>
+</div>

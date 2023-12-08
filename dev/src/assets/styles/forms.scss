@@ -1,0 +1,146 @@
+@mixin flexcenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin flexend {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+@mixin flexstart {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+@mixin uploadbutton {
+	background: $upload;
+	color: $white !important;
+	padding: 7px 15px !important;
+	line-height: 1.5 !important;
+	min-width: 153px !important;
+}
+
+@mixin fileuploadlabel {
+	display: inline-block;
+	/* padding: 10px 25px 10px 0px; */
+	padding: 10px 0 10px 0px;
+	border-radius: 5px;
+}
+
+.fileupload {
+	@include fileuploadlabel();
+}
+
+.mat-upload {
+    @include uploadbutton();
+     i {
+        padding-right: 15px;
+    }
+}
+
+.draganddrop {
+	color: #626b7e;
+}
+
+
+
+.uploadicon {
+	width: 145px;
+	height: 145px;
+	max-width: 145px;
+	margin: 0 auto;
+	cursor: pointer;
+	position: relative;
+	border: 1px dashed #ccc;
+	background: #fff;
+	@include flexcenter();
+	i {		
+		font-size: 3.75rem;
+		position: relative;
+		color: #ccc;
+		font-weight: 500;
+		@include flexcenter();
+	}
+	img {
+		width: 100%;
+	/* 	height: 100%; */
+		z-index: 1;
+		cursor: pointer;
+		/* background: #fff;
+		position: absolute;
+		top: 0px;
+		left: 0px; */
+	}
+	img[src="/"] {
+		display: none;
+	}
+}
+
+
+
+@mixin fontgeneral {
+	position: relative;
+	font-size: 0.8125rem;
+	padding: 10px 20px 10px 46px;
+	@include flexstart();
+}
+
+@mixin fontafter {
+	font-family: 'bgi-icon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.info {
+	background-color: #f2faff;
+	color: #333;
+	border-left: 3px solid #469bcd;
+	@include fontgeneral();
+	&::before {
+		content: "\E90f";
+		font-size: 1.25rem;
+		color: #469bcd;
+		left: 14px;
+		padding-right: 10px;
+		@include fontafter();
+	}
+}
+
+.idea {
+	background-color: #fffae9;
+	color: #333;
+	border-left: 3px solid #f0c338;
+	@include fontgeneral();
+	&::before {
+		content: "\E923";
+		position: absolute;
+		font-size: 1.0625rem;
+		color: #f0c338;
+		left: 14px;
+		@include fontafter();
+	}
+}
+.information  p
+{
+	font-size: 0.8125rem;
+	width: 60%;
+}
+.information
+{
+box-shadow: none !important;
+}
+.popover .popover-title
+{
+	padding: 8px 14px 0px !important;
+	background-color: transparent !important;
+	border-bottom: none !important;
+}

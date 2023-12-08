@@ -1,0 +1,249 @@
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="gradientbackgrounds">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div ngClass.xs="responsive" ngClass.sm="responsive" class="topheadermain p-l-20 p-r-20 p-t-20 alignwidth">
+          <div class="imagewithtext">
+            <span class="p-l-20  lypisfont-bold spancolor fs-18">Payment</span>
+          </div>
+        
+        </div>
+
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+      <div fxFlex.gt-sm="83.33" fxFlex="100" class="mainresponsivewidth ">
+        <div class="backgrounddeposit" *ngIf="stakeholderDtl?.showDeclinedTag">
+          <div fxLayout="row wrap" class="declindbackground">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="aligndeclined p-t-20">
+              <img src="assets/images/exclamatorynew.png" alt="exclamatorynew">
+              <div class="m-l-20 declinedpaymentwidth">
+
+                <span class="fs-15">Your payment has been declined. </span>
+                <p class="fs-14 m-0">Reason: Display validation comments</p>
+                <p class="fs-14">Please do the needful to proceed further. For queries, write to us at
+                  support@lypis.com.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="bordermainpayment">
+
+          <div fxFlex.gt-sm="50" fxFlex="100" class="headerpayment ">
+            <div class="rightcardborder m-l-28 m-r-28 p-t-48 p-b-28">
+              <div class="flexbank p-l-50 p-r-50">
+                <div class="depositwidth">
+                  <form [formGroup]='checkform'>
+                    <h2 class="fs-16 m-0">Cheque/ Demand Draft (DD)/Bank Deposit</h2>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <mat-form-field class="example-full-width">
+                          <mat-select placeholder="Payment Type" formControlName='paymentType' panelClass="myPanelClass"
+                            [errorStateMatcher]="matcher" app-restrict-input="firstspace" appAlphanumsymb
+                            maxlength="50" (selectionChange)="selectedPaymentType = $event.value == 1 ? 'Cheque' : $event.value == 2 ? 'Demand Draft' : 'Bank Transfer'">
+                            <mat-option value="1">Cheque</mat-option>
+                            <mat-option value="2">Demand Draft</mat-option>
+                            <mat-option value="3">Bank Transfer</mat-option>
+                          </mat-select>
+                          <mat-error
+                            *ngIf="checkform.controls['paymentType'].hasError('required') && checkform.controls['paymentType'].touched"
+                            class="text-danger font-14">Select payment type
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="p-t-12 p-b-12">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Bank Name" formControlName='bankName' required maxlength="50"
+                          app-restrict-input="firstspace" appAlphabetonly [errorStateMatcher]="matcher">
+                        <mat-error
+                          *ngIf="checkform.controls['bankName'].hasError('required') && checkform.controls['bankName'].touched"
+                          class="text-danger font-14">Enter bank name
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field>
+                          <mat-label>Date of transfer</mat-label>
+                          <input [errorStateMatcher]="matcher" readonly formControlName='transcdate' matInput
+                            [matDatepicker]="picker" readonly required [max]="maxDate">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-error
+                            *ngIf="checkform.controls['transcdate'].hasError('required') && checkform.controls['transcdate'].touched"
+                            class="text-danger font-14">Select date of transaction
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div fxFlex.gt-sm="50" fxFlex="100">
+                        <mat-form-field class="p-l-18 numberresponsive">
+                          <input formControlName="refno"  appAlphanumsymb matInput [errorStateMatcher]="matcher" maxlength="50"
+                            [placeholder]="paymentType == 1 ? 'Cheque Number': paymentType == 2 ? 'Demand Draft Number' : 'Transaction ID'"
+                            required app-restrict-input="firstspace">
+                          <mat-error
+                            *ngIf="checkform.controls['refno'].hasError('required') && checkform.controls['refno'].touched"
+                            class="text-danger font-14">Enter
+                            {{ paymentType == 1 ? 'cheque number': paymentType == 2 ? 'demand draft number' : 'transaction id' }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <p class="fs-14 p-t-12">Payment Proof<span class="title">*</span></p>
+                    <app-filee #financialdoc [notePosition]="'bottom'" [fileMstRef]="drv_proofdoc"
+                      (filesSelected)="fileeSelected($event,drv_proofdoc)" formControlName="proofdoc"
+                      isMandatory="true"></app-filee>
+                    <div fxLayout="row wrap" class="m-t-25">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <button type="button" (click)="cancelPayment()" mat-raised-button color="primary"
+                          class="cancelbtndragdrop m-r-20">Cancel
+                        </button>
+                        <button type="button" (click)="saveOfflinePaymentdtl()" mat-raised-button color="primary"
+                          [disabled]="checkform.invalid" class="submitbtn">
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="borderleftside">
+            <div class="mainrow  backgroundcolor " *ngIf="stakeholderDtl['origin'] != 'INTERNATIONAL'">
+              <div class="alignrow m-l-28 m-r-28 p-t-48  p-b-22">
+                <div class="companyrow p-l-15">
+                  <h2 class="fs-18 m-0">Company Classification -</h2>
+                  <span class="fs-12 spancolor">{{packageDtl?.classificationName}}</span>
+                  <h3 class="fs-14 p-t-10">Key Features:</h3>
+                  <p class="m-0 p-b-8">{{packageDtl?.subscription?.packageDesc}}</p>
+                </div>
+                <div class="validity  p-r-40 omrresponsive">
+                  <h2 class="fs-18 m-0">{{packageDtl?.subscription?.packageBasePrice}}
+                    {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+                  <p class="fs-14">{{packageDtl?.subscription?.duration?.Years}} Year(s) Validity</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mainrow alignrow p-l-22 p-r-22 p-t-22 p-b-22"
+              *ngIf="stakeholderDtl['origin'] == 'INTERNATIONAL'">
+              <div class="companyrow">
+                <h2 class="fs-18 m-0">
+                  {{ stakeholderDtl['origin'] == 'INTERNATIONAL' ? packageDtl?.subscription?.packageName : 'Company Classification' }}
+                  -</h2>
+                <!-- <span class="fs-12 spancolor" *ngIf="isPackageSelected">{{ packageDtl?.classificationName}}</span> -->
+                <h3 class="fs-14 p-t-10">Key Features:</h3>
+                <p class="m-0 p-b-8">{{packageDtl?.subscription?.packageDesc}}</p>
+                <!-- <p class="m-0 p-b-8">1. Unlimited Products & Services</p>
+                <p>2.Oman National Business Framework</p> -->
+              </div>
+              <div class="validity">
+                <h2 class="fs-18 m-0">
+                  {{packageDtl?.subscription?.packageBasePrice ? (packageDtl?.subscription?.packageBasePrice).toFixed(2) : ''}}
+                  {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+                <p class="fs-14">{{packageDtl?.subscription?.duration?.Years}} Year(s) Validity</p>
+              </div>
+            </div>
+
+            <ng-container *ngFor="let additionalPackage of packageDtl?.additionalpackage; let i = index">
+              <div class="mainrow" *ngIf="selectedAddnlPackage.includes(additionalPackage?.subscriptionPk)">
+                <div class="m-l-28 m-r-28 p-t-28 p-b-28">
+                  <p class="fs-14 Additionalcolor p-b-18 p-l-15"
+                    *ngIf="selectedAddnlPackage[0] == additionalPackage?.subscriptionPk">Additional Value Package(s)
+                  </p>
+                  <div class="flexvalidityspace p-r-40">
+                    <div class="companyrow valuelinetext  p-l-15">
+
+                      <h2 class="fs-15 m-0">{{additionalPackage?.packageName}}</h2>
+                      <div class="removerow p-t-20 cursor">
+                        <!-- <i class="bgi bgi-delete p-r-10"><span class="fs-12 p-l-10">Remove</span></i> -->
+                      </div>
+                    </div>
+                    <div class="validity">
+                      <h2 class="fs-18 m-0">
+                        {{additionalPackage?.packageBasePrice ? (additionalPackage?.packageBasePrice).toFixed(2) : ''}}
+                        {{additionalPackage?.packageBaseCurrencySymbol}}</h2>
+                      <p class="fs-14">{{additionalPackage?.duration?.Years}} Year(s) Validity</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="mainrow" *ngIf="!promoApplied">
+              <div class="alignrow borderpromocode p-l-22 p-r-22 p-t-22 p-b-22">
+                <div class="companyrow businessoffer">
+                  <!-- <span (click)="openDialog()" class="fs-15 viewcolor cursor">View offer disclaimers</span> -->
+                </div>
+              </div>
+              <div class="spaceend pd-15">
+                <div class="totalcolor">
+                  <h2 class="fs-18">Total</h2>
+                </div>
+                <div class="omrcolor">
+                  <h2 class="fs-18">
+                    {{subTotal + additionalPackageTotalPrice ? (subTotal + additionalPackageTotalPrice).toFixed(2) : ''}}
+                    {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+                </div>
+              </div>
+
+              <div class="m-t-20 m-b-20 p-r-26 enddownload">
+                <button class="fs-14 downloadcolor"><a [href]="invoiceDownloadLink"><i
+                      class="bgi bgi-download fs-12 colorlogo p-r-8"></i>Download
+                    Invoice
+                  </a></button>
+              </div>
+            </div>
+
+            <div class="mainrow " *ngIf="promoApplied">
+              <div class="m-l-28 m-r-28 ">
+                <div class="alignend p-r-40">
+                  <span (click)="openDialog()" class="fs-15 viewcolor cursor p-l-15">View offer disclaimers</span>
+                  <i class="bgi bgi-delete  cursor p-l-15"><span class="fs-14 p-l-10">Remove Pack</span></i>
+                </div>
+
+                <div class="alignrow borderpromocode p-t-20">
+                  <div class="companyrow  businessoffer p-l-15">
+
+                    <!-- <p class="fs-14 discountcolor p-t-24">Additional Charges (12%)</p> -->
+                    <p class="fs-14  formationcolor">Promo Code:<span
+                        class="Additionalcolor p-l-6">{{promoCodeCtrl.value}}</span></p>
+                    <p class="fs-14 discountcolor">Discount Amount</p>
+                  </div>
+                  <div class="validity p-r-40">
+
+                    <div class="removerow">
+
+                      <!-- <h2 class="fs-18 p-t-15 m-0">12.000 OMR</h2> -->
+                      <h2 class="fs-18 m-0 lh-36">{{promoDtl?.discount}}</h2>
+                      <h2 class="fs-18">-{{promoDtl?.discountAmount}}
+                        {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="spaceend pd-15">
+                <div class="totalcolor">
+                  <h2 class="fs-18"> Total</h2>
+                </div>
+                <div class="omrcolor">
+                  <h2 class="fs-18">
+                    {{subTotal + additionalPackageTotalPrice ? (subTotal + additionalPackageTotalPrice).toFixed(2) : ''}}
+                    {{packageDtl?.subscription?.packageBaseCurrencySymbol}}</h2>
+                </div>
+              </div>
+              <div class="m-t-20 m-b-20 p-r-26 enddownload">
+                <button class="fs-14 downloadcolor"><a [href]="invoiceDownloadLink"><i
+                      class="bgi bgi-download fs-12 colorlogo p-r-8"></i>Download
+                    Invoice
+                  </a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,211 @@
+<app-drive #bgiDrive (selectedFileData)="afterFileSeleted($event)" [fileeCriteria]="fileeCriteria"
+    [alreadySelectedData]="fileeSelectedPks" [isLogo]="isLogo"></app-drive>
+<div *ngIf="!isLogo && !isGallery">
+
+    <div fxLayout="row wrap" fxFlex="100"
+        [class.hideforbannerchange]="isChangebanner || isEditbanner || uploadimage || documentupload || isChangebanneredit"
+        fxFlexAlign="center" class="documentsrow">
+        <div ngClass.xs="p-r-0" ngClass.sm="p-r-0" fxFlex.gt-sm="100" fxLayout="row wrap" fxFlex="100"
+            [class.displayright]="displayRight==true">
+            <div class="doc" fxFlex.gt-sm="50" fxFlex="100">
+                <div class="dropfilesheretoadd disabledstateView"
+                    [class.uploaddisabled]="(fileeCriteria!=undefined) ? fileeCriteria.selectedFiles.length>=fileeCriteria.fileMaxCount:''">
+                    <div *ngIf="fileuploadcommon" (click)="openDrive(fileCriteria)" [ngClass]="deleteicon == false? 'notallow' : ' ' ">
+                        <p><span *ngIf="!paymentNote && !certificate" class="primarycolor"><i class="opalicon opal-upload fs-18 m-r-15"></i>{{'uploadfile.uploafileorsele' | translate}} </span><span
+                                *ngIf="requiredfield && !paymentNote && !certificate" class="errors">*</span></p>
+                                <p><span *ngIf="!paymentNote && certificate" class="primarycolor"><i class="opalicon opal-upload fs-18 m-r-15"></i>{{'uploadfile.uploadcertifiacte' | translate}} </span><span
+                                    *ngIf="requiredfield && !paymentNote && certificate"  class="errors">*</span></p>
+                                <p><span *ngIf="paymentNote && !certificate" class="primarycolor"><i class="opalicon opal-upload fs-18 m-r-15"></i>{{'uploadfile.dcument' | translate}} </span><span
+                                    *ngIf="requiredfield && paymentNote && !certificate" class="errors">*</span></p>
+                    </div>
+                    <div *ngIf="!fileuploadcommon" (click)="openDrive(fileCriteria)" [ngClass]="deleteicon == false? 'notallow' : ' ' ">
+                        <p><span class="primarycolor"><i class="opalicon opal-upload fs-18 m-r-15"></i>{{uploaddocumentname}} </span><span
+                                *ngIf="requiredfield" class="errors">*</span></p>
+                    </div>
+                </div>
+                <div *ngIf="notedcontent">
+                       <span class="txt-gry fs-14">{{'uploadfile.youcanpay' | translate}}</span>
+                </div>
+                <div *ngIf=" fileeCriteria!=undefined && !notecontentrequired" class="p-t-5 noteContent">
+                    <p class="fs-14 m-0">
+                        <span *ngIf="fileeCriteria.fileMaxCount > 1"><span class="notetitle m-r-5">{{'uploadfile.note' |
+                                translate}}</span> <span>{{'uploadfile.youcanupload' | translate}}
+                                {{fileeCriteria.fileMaxCount}} {{'uploadfile.files' | translate}}
+                                ({{fileeCriteria.fileFormat}})
+                                {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes }}
+                                {{'uploadfile.each' | translate}}</span></span>
+                        <span *ngIf="fileeCriteria.fileMaxCount == 1"><span class="notetitle m-r-5">{{'uploadfile.note'
+                                | translate}}</span> <span>{{'uploadfile.youcanupload' | translate}}
+                                {{fileeCriteria.fileMaxCount}}{{'uploadfile.file' | translate}}
+                                ({{fileeCriteria.fileFormat}})
+                                {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes
+                                }}.</span></span>
+                    </p>
+                </div>
+                <mat-hint class="fs-14" *ngIf="notecontentrequired">{{'Only (3) JPG, JPEG, PNG, PDF are allowed up to 3MB in size.' | translate}} </mat-hint>
+                <mat-hint class="fs-13" *ngIf="uploadexcel">{{'Only XLS Format are allowed.' | translate}} </mat-hint>
+            </div>
+            <div *ngIf="fileeCriteria!=undefined" fxFlex.gt-md="50" class="imageliner" fxFlex.gt-sm="100">
+                <div *ngFor='let file of fileeCriteria.selectedFiles;let i=index' class="uploadedfileinfo widthspacing" fxLayout="column" fxLayoutAlign="start start">
+                    <div class="" fxLayoutAlign="start center">
+                        <div class="documenttypeimage">
+                            <img src="assets/images/opalimages/{{file.fileType}}_new.svg" alt="" />
+                            <mat-icon *ngIf="deleteicon" matTooltip="{{'uploadfile.delete' | translate}}" matTooltipPosition="above"
+                                (click)="userPermissionDelete(file, i)" class="deleteicon ">close</mat-icon>
+    
+                        </div>
+                        <div fxFlex="100" fxLayout="column">
+                            <p *ngIf="!documentname"
+                                class="blueheader txt-gry3 m-0 p-t-0 p-b-0 fs-16 m-l-20 m-b-25 oraganizationheaders filenamecase">
+                                {{file.fileName}} </p>
+    
+                            <div class="viewanddelete m-l-7">
+                                <a target="_blank" *ngIf="file.fileType != 'ppt'" href="{{util.fileSrcPath(file)}}"
+                                    id="file_{{file.filePk}}" attr.data-pathurl="{{util.fileSrcPath(file)}}"><span
+                                        class="txt-gry3">{{'uploadfile.view' | translate}}</span></a>
+                                <a target="_blank" *ngIf="file.fileType == 'ppt'" href="{{util.fileSrcPath(file)}}"
+                                    id="file_{{file.filePk}}" attr.data-pathurl="{{util.fileSrcPath(file)}}"><span
+                                        class="p-r-30">{{'uploadfile.down' | translate}}</span></a>
+                                <!-- <i matTooltip="{{'uploadfile.delete' | translate}}" matTooltipPosition="above" (click)="userPermissionDelete(file, i)" class="fa fa-trash-o "></i> -->
+    
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <div *ngIf="0 && displayRight=='nonote' && fileeCriteria!=undefined" ngClass.xs="p-l-0 p-r-0 rightsidedetails"
+            ngClass.sm="p-l-0 p-r-0 rightsidedetails" ngClass.md="p-l-30 p-r-20 rightsidedetails"
+            ngClass.lg="p-l-30 p-r-20 rightsidedetails" fxFlex.gt-sm="30" fxFlex="100">
+            <p class="fs-14 m-0">
+                <span *ngIf="fileeCriteria.fileMaxCount > 1"><span class="notetitle m-r-5">{{'uploadfile.note' |
+                        translate}}</span> <span>{{'uploadfile.youcanupload' | translate}}
+                        {{fileeCriteria.fileMaxCount}} {{'uploadfile.files' | translate}} ({{fileeCriteria.fileFormat}})
+                        {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes }} {{'uploadfile.each' |
+                        translate}}</span></span>
+                <span *ngIf="fileeCriteria.fileMaxCount == 1"><span class="notetitle m-r-5">{{'uploadfile.note' |
+                        translate}}</span> <span>{{'uploadfile.youcanupload' | translate}}
+                        {{fileeCriteria.fileMaxCount}} {{'uploadfile.file ' | translate}} ({{fileeCriteria.fileFormat}})
+                        {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes }}.</span></span>
+            </p>
+        </div>
+    </div>
+
+</div>
+<label *ngIf="isLogo && !isGallery" class="custom-file">
+    <div [popover]="imagepopover" [popoverOnHover]="true" [popoverDisabled]="false" class="uploadicon"
+        (click)="getclick(fileCriteria,fileeCriteria)">
+
+        <div *ngIf="fileeCriteria!=undefined">
+            <div>
+                <!-- <i class="bgi" [ngClass]="logoType=='profile'? 'bgi-male': 'bgi-upload_logo'"></i> -->
+                <div fxLayout="row wrap" class="imgcenter" *ngFor='let file of fileeCriteria.selectedFiles;let i=index'>
+                    <img src="{{util.fileImageSrcPath(file)}}" alt="">
+
+                </div>
+            </div>
+            <div class="uploaddocumentname" fxLayout="column" fxLayoutAlign="center center">
+               <div class="opaliconlogo">
+                <i class="opalicon opal-upload fs-22 txt-gry "></i>
+               </div>
+                <span class="blue">{{logoType=='profile'? this.i18n('uploadfile.UploadImage'): this.i18n('uploadfile.upload')}} </span>
+
+            </div>
+            <div *ngIf="isDelete && fileeCriteria.selectedFiles.length" class="deleteandview commondelete">
+                <span class="deleteimage" matTooltip="{{'uploadfile.delete' | translate}}"
+                    (click)="deleteimage(fileeCriteria.selectedFiles[0].filePk);$event.stopPropagation();"><i
+                        class="fa fa-trash-o"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <popover-content #imagepopover placement="bottom" [closeOnClickOutside]="true" [closeOnMouseOutside]="false"
+        [animation]="true" class="popoverHide">
+        <div *ngIf="fileeCriteria!=undefined">
+            <!-- {{'uploadfile.clicontheboxtoupload' | translate}} {{fileeCriteria.fileFormat}} {{'uploadfile.ofmaxsize' | translate}}  {{fileeCriteria.fileSize | bytes }} -->
+            {{'uploadfile.youcanuploadj' | translate}}
+        </div>
+    </popover-content>
+</label>
+
+
+
+<div *ngIf="isGallery" fxLayout="row wrap" fxFlexAlign="center" class="documentsrow">
+    <div fxFlex.gt-sm="70" fxFlex="100">
+        <div class="imagesitemcontainer">
+            <div class="eachimageitem" *ngFor="let item of galleryItems; index as i">
+                <img [src]="item.data.thumb" alt="images">
+                <div class="deleteandview">
+                    <!-- [lightbox]="i"-->
+                    <span class="viewimage">
+                        <i class="fa fa-search-plus" aria-hidden="true"></i>
+                    </span>
+                    <span class="deleteimage" (click)="deleteimage(item.data.pk)"><i class="bgi bgi-delete"></i></span>
+                </div>
+            </div>
+            <div class="eachimageitem addimage" *ngIf="fileeCriteria?.fileMaxCount != galleryItems.length">
+                <div class="addphoto" (click)="bgiDrive.openModal(fileCriteria)">
+                    <i class="bgi bgi-photo-camera"></i>
+                    <p>{{'uploadfile.addphoto' | translate}}</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="rightsidedetails" *ngIf="fileeCriteria && notePosition == 'bottom' && noteHideShow == 'nonote'">
+            <p class="p-t-10">
+                <span *ngIf="fileeCriteria.fileMaxCount > 1"><span class="notetitle m-r-5">{{'uploadfile.note' |
+                        translate}}</span> <span>{{'uploadfile.youcanupload' | translate}}
+                        {{fileeCriteria.fileMaxCount}} {{'uploadfile.files' | translate}} ({{fileeCriteria.fileFormat}})
+                        {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes }} {{'uploadfile.each' |
+                        translate}}</span></span>
+                <span *ngIf="fileeCriteria.fileMaxCount == 1"><span class="notetitle m-r-5">{{'uploadfile.note' |
+                        translate}}</span> <span>{{'uploadfile.youcanupload' | translate}}
+                        {{fileeCriteria.fileMaxCount}} {{'uploadfile.file' | translate}} ({{fileeCriteria.fileFormat}})
+                        {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes }}.</span></span>
+            </p>
+        </div>
+    </div>
+    <div ngClass.xs="p-r-0 p-l-0 rightsidedetails" ngClass.sm="p-r-0 p-l-0 rightsidedetails"
+        *ngIf="fileeCriteria && notePosition != 'bottom' && noteHideShow == 'nonote'"
+        ngClass.md="p-r-20 p-l-30 rightsidedetails" ngClass.lg="p-r-20 p-l-30 rightsidedetails" fxFlex.gt-sm="30"
+        fxFlex="100">
+        <p class="p-t-0">
+            <span *ngIf="fileeCriteria.fileMaxCount > 1"><span class="notetitle m-r-5">{{'uploadfile.note' |
+                    translate}}</span> <span>{{'uploadfile.youcanupload' | translate}} {{fileeCriteria.fileMaxCount}}
+                    {{'uploadfile.files' | translate}} ({{fileeCriteria.fileFormat}})
+                    {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes }} {{'uploadfile.each' |
+                    translate}}</span></span>
+            <span *ngIf="fileeCriteria.fileMaxCount == 1"><span class="notetitle m-r-5">{{'uploadfile.note' |
+                    translate}}</span> <span>{{'uploadfile.youcanupload' | translate}} {{fileeCriteria.fileMaxCount}}
+                    {{'uploadfile.file' | translate}} ({{fileeCriteria.fileFormat}})
+                    {{'uploadfile.ofmaxsize' | translate}} {{fileeCriteria.fileSize | bytes }}.</span></span>
+        </p>
+    </div>
+</div>
+
+<div *ngIf="isChangebanner" class="fileuploadbanner">
+    <button class="changebannerbtn" type="button" mat-raised-button (click)="openDrive(fileCriteria)">
+        <i class="bgi bgi-photo-camera p-r-8" aria-hidden="true"></i>{{'uploadfile.bann' | translate}}</button>
+</div>
+
+<div *ngIf="isEditbanner">
+    <button class="changebannerbtn" type="button" mat-raised-button (click)="openDrive(fileCriteria)">
+        {{'uploadfile.oplonewbann' | translate}} </button>
+</div>
+
+<div *ngIf="uploadimage">
+    <button class="uploadbtn" type="button" mat-raised-button (click)="openDrive(fileCriteria)">
+        {{'uploadfile.photo' | translate}} </button>
+</div>
+
+<div *ngIf="documentupload">
+    <button class="uploadbtn" type="button" mat-raised-button (click)="openDrive(fileCriteria)">
+        {{'uploadfile.docu' | translate}} </button>
+</div>
+
+
+<div *ngIf="isChangebanneredit && appstatus != 19" class="fileuploadbanner">
+    <button class="editchangebannerbtn" type="button" mat-raised-button (click)="openDrive(fileCriteria)">
+      <i class="bgi bgi-photo-camera p-r-8" aria-hidden="true"></i>   Edit Banner</button>
+  </div>

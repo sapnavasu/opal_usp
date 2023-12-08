@@ -1,0 +1,11 @@
+<form [formGroup]="vehicleForm">
+    <mat-form-field appearance="outline">
+        <mat-label> {{'Model Year' | translate}}</mat-label>
+             <input matInput required [formControlName]="'modelYear'" (mousedown)="picker2.open(); $event.preventDefault"
+              [disabled]="picker2.opened" [matDatepicker]="picker2" readonly >
+             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+             <mat-datepicker #picker2 ></mat-datepicker>
+              <mat-error *ngIf="vehicleForm && vehicleForm.get('modelYear').errors?.required">
+            {{'Select Model Year' | translate}} </mat-error> 
+    </mat-form-field> 
+</form>

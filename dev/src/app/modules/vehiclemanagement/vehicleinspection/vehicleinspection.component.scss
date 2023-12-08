@@ -1,0 +1,241 @@
+#inspectionApproval {
+    .passfailcount {
+        display: inline-flex;
+        align-items: center;
+    }
+    .btns {
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #dce4f1;
+            color: #0c4b9a;
+            margin-left: 12px;
+            position: relative;
+            top: 4px;
+            .mat-icon {
+                font-size: 19px !important;
+                justify-content: flex-start !important;
+            }
+    }        
+    .mat-radio-button {
+        .mat-radio-outer-circle {
+            border-color: #d9d9d9;
+
+        }
+
+        &.mat-accent {
+            .mat-radio-inner-circle {
+                background-color: #e20613 !important;
+            }
+
+            &.mat-radio-checked {
+                .mat-radio-outer-circle {
+                    border-color: #d9d9d9;
+
+                }
+            }
+        }
+    }
+    .ckeditorborder {
+        height: auto;
+        border: 1px solid #d9d9d9;
+        cursor: text;
+        padding: 13px 10px;
+        min-height: 150px;
+        &:hover {
+            border: 1px solid #6ba5ec;
+        }
+
+        .editortitle {
+            color: #848484;
+            cursor: text;
+
+            span {
+                color: #dc4c64;
+            }
+        }
+        
+        p {
+            margin: 0;
+            padding-bottom: 5px;
+            cursor: text;
+        }
+
+        figure {
+            img {
+                max-width: 100%;
+            }
+        }
+
+        .contenthere {
+            p {
+                margin: 0 !important;
+                padding-bottom: 5px;
+                cursor: text;
+                word-break: break-word;
+            }
+        }
+       
+    }
+    .timeduration_contain{
+        .trainingdurationtitle{
+            color: #0c4b9a;
+            font-size: 	1.125rem;
+            display: flex;
+            align-items: center;
+            .mat-icon {
+                color: #848484;
+                margin-top: 6px;
+            }
+        }
+    }
+    .clearbutton {
+        background-color: #fff;
+        border: 1px solid #e8e8e8;
+        color: #262626;
+    }
+    .transformbtn {
+        min-width: 110px;
+        background-color: #fff;
+        border: 1px solid #e8e8e8;
+        color: #262626;
+        padding-left: 0px;
+        padding-right: 0px;
+        height: 45px;
+    }
+    .submit_btn {
+        min-width: 110px;
+        height: 45px;
+    }
+    .mat-raised-button {
+        box-shadow: none;
+        border-radius: 2px;
+    }
+    .error {
+        color: #dc4c64;
+    }
+    .mat-form-field-appearance-outline {
+
+        // &.mat-form-field-outline-thick {
+        &.mat-form-field-readonly {
+            // .mat-form-field-outline {
+            background-color: #009c3a !important;
+            // }
+            // }
+        }
+
+        .mat-form-field-outline {
+            color: #d9d9d9;
+        }
+
+        .mat-form-field-outline-start {
+            border-radius: 3px 0 0 3px;
+        }
+
+        .mat-form-field-outline-end {
+            border-radius: 0 3px 3px 0;
+        }
+
+        .mat-form-field-required-marker {
+            color: #ED1C27;
+        }
+
+        .mat-form-field-outline-thick {
+            color: #6ba5ec;
+            background-color: #f8f8f8;
+
+        }
+
+        &.mat-focused {
+            .mat-form-field-outline-thick {
+                color: #0c4b9a;
+                background-color: #f8f8f8;
+            }
+
+            &.mat-form-field-can-float {
+                &.mat-form-field-should-float {
+                    .mat-form-field-label {
+                        color: #0c4b9a;
+                    }
+                }
+            }
+        }
+
+        &.mat-form-field-disabled {
+            .mat-form-field-outline {
+                background-color: #f8f8f8;
+            }
+        }
+
+
+        &.mat-form-field-invalid.mat-form-field-invalid {
+            .mat-form-field-outline-thick {
+                color: #dc4c64;
+                background-color: #f8f8f8;
+            }
+        }
+
+        &.mat-form-field-can-float {
+            &.mat-form-field-should-float {
+                .mat-form-field-label {
+                    transform: translateY(-.9rem) scale(0.75);
+                    color: #848484;
+
+                    .mat-form-field-required-marker {
+                        color: #ED1C27;
+                    }
+                }
+
+                .mat-form-field-outline-gap {
+                    width: 0px !important;
+                }
+            }
+        }
+    }
+    .mat-form-field {
+        &.mat-form-field-invalid {
+            .mat-form-field-label {
+                color: #dc4c64 !important;
+            }
+        }
+    }
+    .cancelbtn {
+        height: 45px;
+        width: 110px;
+    }
+    .imageliner{
+        display: flex;
+        flex-wrap: wrap;
+        .uploadedfileinfo {
+            padding: 5px 5px !important;
+            width: 115px;
+        }
+    }
+    .questions {
+        font-family: "opal_semibold", sans-serif;
+        display:flex;
+        align-items: baseline;
+    }
+    
+}
+[dir=rtl] {
+    #inspectionApproval{
+        .ck-editorbox {
+            .ck {
+                &.ck-toolbar {
+                    justify-content: end;
+                }
+                &.ck-content {
+                    text-align: end;
+                }
+            }
+            .ck-placeholder {
+                text-align: right;
+            }
+        }
+    }
+}

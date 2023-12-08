@@ -1,0 +1,22 @@
+<div fxLayout="row wrap" *ngIf="showwelcomeback =='1'"   fxLayoutAlign="flex-end" class="m-t-0 welcomebackrow">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="maindivision">
+    <div class="welcomeback">
+      <mat-card>
+        <mat-card-header class="addproductheaders">
+          <div mat-card-avatar class="example-header-image m-r-0">
+            <img src="assets/images/editor.svg" alt="" />
+          </div>
+          <div  routerLink="{{routerlink}}" (click)="welcomeback()" class="titletext">
+            <mat-card-title  class="selecttitle notyettitle fs-18 p-b-2 m-b-0">{{'welcomeback.welcback' | translate}}</mat-card-title>
+            <mat-card-subtitle class="selectsubtitle fs-14">{{'welcomeback.tolastedit' | translate}}</mat-card-subtitle>
+          </div>
+        </mat-card-header>
+        <mat-card-actions>
+          <div>
+            <span (click)="cancellastview()" class="close">{{'welcomeback.close' | translate}}</span>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  </div>

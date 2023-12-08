@@ -1,0 +1,174 @@
+<div class="addteammbers">
+  <span (click)="onNoClick()" class="closethepopup">
+    <mat-icon class="bgi bgi-close">close</mat-icon>
+    <span>Close</span>
+  </span>
+  <div class="mainbanner">
+    <div class="widthhalf">
+      <p *ngIf='edit' class="topheader">Edit Notes</p>
+      <p *ngIf='!edit' class="topheader">Create Notes</p>
+      <p class="desccontent">Quickly capture what's on your mind & get a reminder on later</p>
+    </div>
+  </div>
+  <form [formGroup]="notesform" (ngSubmit)='submitNotes(notesform.value)'>
+    <div class="bottominfo lightscroll">
+      <div class="inputsdetail">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-0 pos-relative">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field>
+              <input autocomplete="false" formControlName='title' matInput placeholder="Title">
+              <mat-error *ngIf="notesform.get('description').hasError('required')">
+                Title is Required.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-0 pos-relative">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field>
+              <textarea autocomplete="false" formControlName='description' matInput rows="0" placeholder="Take a note"
+                cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="0"
+                cdkAutosizeMaxRows="20"></textarea>
+              <mat-error *ngIf="notesform.get('description').hasError('required')">
+                Note is Required.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0 timepickerrow">
+          <div fxFlex.gt-sm="33.33" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-r-7 "
+            ngClass.lg="p-r-7">
+            <mat-form-field>
+              <input autocomplete="false" formControlName='date' matInput [matDatepicker]="picker"
+                placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="notesform.get('date').hasError('required')">
+                Date is Required.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="35.33" fxFlex="100" ngClass.xs="p-r-0 p-l-0" ngClass.sm="p-r-0 p-l-0"
+            ngClass.md="p-r-7 p-l-7" ngClass.lg="p-r-7 p-l-7">
+            <mat-form-field>
+              <input autocomplete="false" formControlName='time' placeholder="Choose a Time" #startFrom matTimepicker>
+              <mat-icon class="timepickericon" matSuffix (click)="startFrom.showDialog()">access_time</mat-icon>
+            </mat-form-field>
+            <span style="font:10px;color:red;"
+              *ngIf="!notesform.value.allTime && notesform.value.time==null && submitted">
+              Time is Required or select All time
+            </span>
+          </div>
+          <div fxFlex.gt-sm="30.33" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-15 "
+            ngClass.lg="p-l-15" class="flexenditem">
+            <mat-checkbox formControlName='allTime'>All Day</mat-checkbox>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-0 pos-relative">
+          <div fxFlex.gt-sm="33.33" fxFlex="100" ngClass.xs="p-r-0" ngClass.sm="p-r-0" ngClass.md="p-r-7"
+            ngClass.lg="p-r-7">
+            <mat-form-field>
+              <mat-select formControlName='notifytime' placeholder="Notify Me">
+                <mat-option *ngFor="let notify of notifytime" [value]="notify.viewValue">
+                  {{notify.viewValue}}
+                </mat-option>
+
+              </mat-select>
+              <mat-error *ngIf="notesform.get('notifytime').hasError('required')">
+                Date is required.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-10 p-b-0">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <app-filee #newsDoc [notePosition]="'bottom'" [fileMstRef]="reqdocument"
+              (filesSelected)="fileeSelected($event,reqdocument)" isMandatory="false" formControlName="newsupload">
+            </app-filee>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class=" p-t-15 p-b-15 pos-relative">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-checkbox formControlName='require'>If you want add internal & external members check this
+            </mat-checkbox>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let people of peoplelist" [selectable]="selectable" [removable]="removable"
+                  (removed)="remove(people)">
+                  {{people.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Internal Member" [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)" [matAutocomplete]="auto">
+                <mat-error *ngIf='peoplelist.length == 0 && submitted && notesform.value.require'>
+                  Internal Peoples are required
+                </mat-error>
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option (click)='addPeople("Ahmed Al Badi")' value="Ahmed Al Badi">
+                    Ahmed Al Badi
+                  </mat-option>
+                  <mat-option (click)='addPeople("Mohammed Saif")' value="Mohammed Saif">
+                    Mohammed Saif
+                  </mat-option>
+                  <mat-option (click)='addPeople("Ahmed Abdulla")' value="Ahmed Abdulla">
+                    Ahmed Abdulla
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-chip-list>
+
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList2>
+                <mat-chip *ngFor="let people of externalpeoplelist" [selectable]="selectable" [removable]="removable"
+                  (removed)="removeExternal(people)">
+                  {{people.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input autocomplete="false" placeholder="External Member" [matChipInputFor]="chipList2"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="addExternal($event)" [matAutocomplete]="auto2">
+                <mat-error *ngIf='externalpeoplelist.length == 0 && submitted &&  notesform.value.require'>
+                  External Peoples are required
+                </mat-error>
+                <mat-autocomplete #auto2="matAutocomplete">
+                  <mat-option (click)='addExternalPeople("Ahmed Al Badi")' value="Ahmed Al Badi">
+                    Ahmed Al Badi
+                  </mat-option>
+                  <mat-option (click)='addExternalPeople("Mohammed Saif")' value="Mohammed Saif">
+                    Mohammed Saif
+                  </mat-option>
+                  <mat-option (click)='addExternalPeople("Ahmed Abdulla")' value="Ahmed Abdulla">
+                    Ahmed Abdulla
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-chip-list>
+
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popupfooter">
+      <button type="button" (click)="onNoClick()" class="cancelbtn m-r-15" mat-raised-button>
+        Cancel
+      </button>
+      <button type="submit" color="primary" mat-raised-button>
+        Save Note
+      </button>
+    </div>
+  </form>
+</div>

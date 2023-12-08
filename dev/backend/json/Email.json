@@ -1,0 +1,13 @@
+{
+    "comanyEmail": "BGI New",
+    "usePostmark": "on",
+    "emailPostmarkAPI": "BGI127",
+    "emailPostmarkEmail": "bgi@adminbgi.com",
+    "emailProtocol": "smtp",
+    "smtpHost": "bginew.com",
+    "smtpUser": "admin_bgi",
+    "smtpPassword": "admin123456789",
+    "smtpPort": "12345",
+    "emailEncryption": "ssl",
+    "sentTestEmail": "admin@bgi.com"
+}

@@ -1,0 +1,102 @@
+#ivmspendinglistaccordion{
+    .mat-accordion{
+        &.placcordpanel{
+            .mat-expansion-panel{
+                box-shadow:none;
+                margin-bottom:15px;
+                border-radius:0px !important;  
+                .mat-expansion-panel-header{
+                    background:rgba(0, 0, 0, 0.04);
+                    height:48px;
+                    border-radius:0px !important;  
+                    &.right-aligned-header > .mat-content {
+                        justify-content: space-between;
+                    }
+                    .mat-content > mat-panel-title, 
+                    .mat-content > mat-panel-description {
+                        flex: 0 0 auto;
+                        align-items: center;
+                        span{
+                            font-size:13px;
+                            font-family: "opal_semibold", sans-serif; 
+                        }
+                    } 
+                    .mat-expansion-panel-header-title{
+                        font-family: "opal_semibold", sans-serif; 
+                        font-size:15px;
+                    }                                    
+                }
+                &.mat-expanded{
+                    .mat-expansion-panel-header{
+                        height:48px !important;
+                        background:#0c4b9a;
+                        .mat-expansion-panel-header-title{
+                            color:#fff; 
+                        }
+                        .mat-expansion-indicator::after{
+                            color:#fff;
+                        }
+                        .mat-content > mat-panel-title, 
+                        .mat-content > mat-panel-description {
+                            span{
+                                color:#fff; 
+                            }
+                        } 
+                    }
+                }
+                .mat-expansion-panel-body{
+                    padding:0px !important;
+                    .mat-iptable{
+                        width:100%;
+                        border-collapse: collapse;
+                        .mat-header-row{
+                            border:0px !important;
+                            height:30px;
+                            background:#f3f5f7;
+                            th.mat-header-cell{
+                                &:first-of-type{
+                                    padding-left:0px;
+                                }
+                                padding:5px 10px !important;
+                                text-align:left;
+                                white-space: nowrap;
+                                color:#333;
+                                background:#f3f5f7;
+                                font-family: "opal_semibold", sans-serif;
+                                font-size:0.875rem;  
+                                @media (max-width:800px){
+                                    white-space: unset;
+                                }
+                                &:last-child{
+                                    text-align:center;
+                                }
+                            }
+                        }
+                        .mat-row{
+                            border:0px !important;
+                            height:32px;
+                            td.mat-cell{
+                                &:first-of-type{
+                                    padding-left:0px;
+                                }
+                                padding:5px 10px !important; 
+                                text-align:left;
+                                color:#000;
+                                font-size:0.875rem;
+                                white-space: nowrap;
+                                vertical-align: middle; 
+                                font-family: "opal_regular", sans-serif; 
+                                @media (max-width:800px){
+                                    white-space: unset;
+                                }
+                                &:last-child{
+                                    text-align:center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

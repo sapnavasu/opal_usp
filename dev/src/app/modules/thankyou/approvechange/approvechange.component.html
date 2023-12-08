@@ -1,0 +1,310 @@
+<div class="headerstylings" dir="{{dir}}">
+  <!-- <div class="topheaderimage">
+    <div class="completebanner">
+      <div class="leftsiddebanner">
+        <div class="makeitright p-t-40 m-l-60">
+          <img src="assets/images/JSRSlogologin.png" alt="jsrs logo">
+        </div>
+      </div>
+      <div class="rightsidebanner">  
+        <div class="innerrightbanner">
+          <div class="textalignend m-b-10 m-t-22">
+            <p class="helplinect fs-16  lypisfont-bold p-l-10 m-0">Sultanate of Oman</p>
+            <img src="assets/images/flags/31.png" alt="lybiyaflagimage">
+          </div>
+          <img class="flaglypis" src="assets/images/Flagbig.png" alt="Country Flag">
+          <div class="regcontentbanner">
+            <div class="leftregcontrent position">
+              <mat-list class="menulistitems" role="list">
+                <mat-list-item role="listitem"><a href="javascript:void(0)"><i class="bgi bgi-home" matTooltip="Home" matTooltipPosition="below"></i></a>
+                </mat-list-item>
+                <mat-list-item role="listitem"><a href="javascript:void(0)">About</a></mat-list-item>
+                <mat-list-item role="listitem"><a href="javascript:void(0)">Platforms</a></mat-list-item>
+                <mat-list-item role="listitem"><a href="javascript:void(0)">Media </a></mat-list-item>
+                <mat-list-item role="listitem"><a href="javascript:void(0)">Contact</a></mat-list-item>
+               
+              </mat-list>
+            </div>
+            <div class="rightregcontent">
+              <button disabled type="button" routerLink="/registration/index" mat-raised-button color="primary"
+                class="registerbtn m-r-15">Register</button>
+              <button type="button" routerLink="/admin/login" mat-raised-button color="primary"
+                class="loginbutton">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="leftisideinfodetail">
+    <!-- <owl-carousel-o [options]="customOptions"> -->
+
+    <!-- <ng-template carouselSlide> -->
+    <div class="imgposition loginbg">
+      <!-- <img src="assets/images/jsrs-bannernew" alt="jsrs-bannernew.jpg"> -->
+    </div>
+    <!-- </ng-template> -->
+
+
+    <!-- </owl-carousel-o> -->
+  </div>
+
+  <div  class="rightsideinfodetail">
+    <div class="langbtn d-flex">
+      <button class="fs-15" (click)="setLanguageFlag(lang);">{{'commonlogin.engl' | translate}}</button>
+
+    </div>
+
+    <div class="footer-height">
+    <div *ngIf="!pageStatus && pageFor == 'accept_cancel_reg'">
+      <app-responseloader class="fixedaloders" ></app-responseloader> 
+    </div>
+    <div *ngIf="!isAuthorized && !isExpired && pageFor == 'change_user_authorise'">
+       <app-registerationconfirmed></app-registerationconfirmed>
+    </div>
+    <div *ngIf="isAuthorized && !isExpired && pageFor == 'change_user_authorise'">
+      <app-thankyoupageview [newUser]="newUser"  [oldUser]="oldUser" [type]='changetype'></app-thankyoupageview>
+    </div>
+    <div *ngIf="isExpired && !isAuthorized && pageFor == 'change_user_authorise'">
+      <app-inviteexpired></app-inviteexpired>
+    </div>
+    </div>
+    <div ngClass.xs="responsivefooter" ngClass.sm="responsivefooter" class="login_footer p-l-5 p-r-5"
+        fxLayout="row wrap" fxLayoutAlign="center">
+        <div fxFlex="<grow> <shrink> 100" fxLayoutAlign='end' class="fs-14 adminfooter res_dis-con" id="res_white-spc">
+          <div ngClass.xs="fs-14 p-r-24 p-t-12" ngClass.sm="fs-14 p-r-24 p-t-12 " id="res_pr-0 ">
+            <p class="res_center">&copy; OPAL {{currentyear}}{{'superadminfooter.allrigh' | translate}} .</p>
+
+          </div>
+        </div>
+        <div fxFlex="<grow> <shrink> 100" class="fs-14 adminfooter footerspace">
+          <div ngClass.xs="fs-14 p-r-24 p-t-12" ngClass.sm="fs-14 p-r-24 p-t-12" id="res_pr-0">
+            <p>{{'superadminfooter.drivby' | translate}} <img class="img_hig-mar p-l-5 p-r-5" src="./assets/images/bgi.svg"
+                alt="Businessgateways International"></p>
+          </div>
+        </div>
+      </div>
+  </div>
+ 
+  <app-responseloader class="aftersearchloaders" *ngIf="initSpinner"></app-responseloader>
+  <div *ngIf="pageStatus == 'C' && pageFor == 'accept_cancel_reg'"  class="makeittopminus">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" id="cancelledreglist">
+        <div class="registercancellist">
+          <div class="textheadingreg">
+            <h2 class="fs-18 m-0">We are sorry to see you go.
+            </h2>
+            <p class="fs-15 m-0">Before we cancel your OPAL Subscription, please let us know your feedback.</p>
+          </div>
+          <form [formGroup]="RegistercancelledForm" (ngSubmit)="cancelRegistration()">
+          <div fxLayout="row wrap" class="subscribetext">
+            <div fxFlex.gt-sm="16" fxFlex="100">
+              <p class="fs-16 m-0">We are unsubscribing
+              </p>
+              <p class="fs-16 m-0 p-l-15">from OPAL because:</p>
+            </div>
+            <div fxFlex.gt-sm="84" fxFlex="100">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="canceldata"  class="specifyradiogroup"
+                [(ngModel)]="otherspecify" (change)="radioChange()">
+                <mat-radio-button class="example-radio-button" *ngFor="let createspecify of createspecifys"
+                  [value]="createspecify">
+                  {{createspecify}}
+                </mat-radio-button>
+              </mat-radio-group>
+              <div *ngIf="RegistercancelledForm.controls['canceldata'].value == 'Others'">                
+                  <div class="p-l-30 widthfiled">
+                    <mat-form-field>
+                      <input matInput formControlName="pleasespecify" [errorStateMatcher]="matcher"
+                        placeholder="Please Specify" required app-restrict-input="firstspace">
+                      <mat-error
+                        *ngIf="RegistercancelledForm.controls['pleasespecify'].errors?.required && RegistercancelledForm.controls['pleasespecify'].touched"
+                        class="text-danger font-14">
+                        Please specify others
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+              </div>
+              <div class="willingcolor p-t-20">
+                <mat-checkbox formControlName="termsandcondition">
+                  <p class="m-0 fs-15">We are willing to explore OPAL Certification after a year.</p>
+                </mat-checkbox>
+              </div>
+              <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="btnalignsub">
+                  <button mat-raised-button type="submit" class="submitbtn m-r-15"
+                    [class.submitdisable]="!RegistercancelledForm.valid"
+                    [disabled]="!RegistercancelledForm.valid">Submit</button>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <app-responseloader class="aftersearchloaders" *ngIf="initSpinner"></app-responseloader>
+          <!-- <div class="loginbtn">
+          <button mat-raised-button (click)="navigate()" class="downloadbtncolor fs-16 button-45">Go to Login</button>
+        </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="pageStatus == 'CC' && pageFor == 'accept_cancel_reg'" class="makeittopminus">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" id="thankyoulistview">
+        <div class="thankyouinnerpart">
+          <div class="p-b-10">
+            <span class="cancellogo">
+              <i class="bgi bgi-cancel"></i>
+            </span>
+          </div>
+          <div class="jsrscontactcolor redcolor">
+            <h2>Registration has been cancelled</h2>
+          </div>
+          <div class="transfertextcolor">
+            <p>You have cancelled your OPAL registration. </p>
+          </div>
+          <div class="loginbtn">
+            <button mat-raised-button (click)="navigateToLogin()" color="primary"
+              class="downloadbtncolor fs-16 button-45">Go to Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="pageStatus == 'A' && pageFor == 'accept_cancel_reg'" class="makeittopminus">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" id="thankyoulistview">
+        <div class="thankyouinnerpart">
+          <div class="successtick">
+            <span>
+              <i class="bgi bgi-tick"></i>
+            </span>
+          </div>
+          <div class="jsrscontactcolor">
+            <h2>Registration Confirmed</h2>
+          </div>
+          <div class="transfertextcolor">
+            <p>Thank you for confirming your registration. An email has been sent for setting your password. </p>
+            <p> The OPAL Certification fee invoice has been sent to your registered email ID.</p>
+          </div>
+          <div class="loginbtn">
+            <button mat-raised-button color="primary" (click)="redirectToSetPassword()" class="downloadbtncolor fs-16 button-45">Set Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="pageStatus == 'AA' && pageFor == 'accept_cancel_reg'" class="makeittopminus">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" id="thankyoulistview">
+        <div class="thankyouinnerpart">
+          <div class="p-b-10">
+            <span class="cancellogo">
+              <i class="bgi bgi-cancel"></i>
+            </span>
+          </div>
+          <div class="jsrscontactcolor redcolor">
+            <h2>Registration already confirmed</h2>
+          </div>
+          <div class="transfertextcolor">
+            <p>You have already confirmed your OPAL registration. </p>
+          </div>
+          <div class="loginbtn">
+            <button mat-raised-button (click)="navigateToLogin()" color="primary" class="downloadbtncolor fs-16 button-45">Go to Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="pageStatus == 'AC' && pageFor == 'accept_cancel_reg'" class="makeittopminus">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" id="thankyoulistview">
+        <div class="thankyouinnerpart">
+          <div class="p-b-10">
+            <span class="cancellogo">
+              <i class="bgi bgi-cancel"></i>
+            </span>
+          </div>
+          <div class="jsrscontactcolor redcolor">
+            <h2>Registration already cancelled</h2>
+          </div>
+          <div class="transfertextcolor">
+            <p>You have already cancelled your OPAL registration. </p>
+          </div>
+          <div class="loginbtn">
+            <button mat-raised-button (click)="navigateToLogin()" color="primary"
+              class="downloadbtncolor fs-16 button-45">Go to Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="pageStatus == 'EP' && pageFor == 'accept_cancel_reg'">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" id="expiredlistview">
+        <div>
+          <img src="assets/images/expiredview.png" alt="expiredview">
+        </div>
+        <div class="jsrscontactcolor">
+          <h2>OPAL Registration Expired!</h2>
+        </div>
+        <div class="transfertextcolor">
+          <p>This link has expired. Kindly contact your Company Administrator.</p>
+        </div>
+        <div class="loginbtn">
+          <button mat-raised-button (click)="navigateToLogin()" class="downloadbtncolor fs-16 button-45">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="pageStatus == 'AI' && pageFor == 'accept_cancel_reg'">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" id="sessionexpired">
+        <div  id="sessionlistview">
+        <div>
+          <img src="assets/images/expiredview.png" alt="expiredview">
+        </div>
+        <div class="jsrscontactcolor">
+          <h2>Registration Confirmation - Time Period Lapsed </h2>
+        </div>
+        <div class="transfertextcolor">
+          <p>You have missed the 30-day time period to confirm your registration. Your registration is no longer valid, and we kindly request you to register once again on OPAL.
+            For queries or concerns, please feel free to reach out to us via email: <a href="mailto:jsrs@businessgateways.com">jsrs@businessgateways.com </a>or call: +968 9671 3467</p>
+          
+        </div>
+        <div class="loginbtn">
+          <button mat-raised-button (click)="navigateToLogin()" class="downloadbtncolor fs-16 button-45">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="regfooter">
+    <div class="login_footer" fxFlex="100" fxFlex.gt-xs="90" fxFlex.gt-md="83.33">
+      <div class="login_footer_left" fxHide="true" fxHide.gt-md='false'>
+        <ul>
+          <li>
+            <a href="#">Terms of Service</a>
+          </li>
+          <li>
+            <a href="#">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="#">Help Center</a>
+          </li>
+          <li>
+            <a href="#" class="m-r-20"><i class="bgi bgi-facebook" aria-hidden="true"></i></a>
+            <a href="#" class="m-r-20"><i class="bgi bgi-twitter" aria-hidden="true"></i></a>
+            <a href="#"><i class="bgi bgi-instagram" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="login_footer_right">
+        <span>All Rights Reserved &copy; Business Gateways International 2022.</span>
+      </div>
+      <div class="drivenalign">
+        <P class="fs-14 m-0 p-t-38">Driven by </P>
+        <img src="assets/images/bgi.svg" alt="Business Gateways International">
+      </div>
+    </div>
+  </div>
+
+</div>

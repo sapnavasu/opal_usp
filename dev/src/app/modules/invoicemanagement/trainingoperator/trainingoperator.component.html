@@ -1,0 +1,444 @@
+<div fxLayout="row wrap" fxLayoutAlign="center" id="traininglist">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <app-responseloader *ngIf="pageloader"></app-responseloader>
+        <!-- top paginator -->
+        <div class="paginationwithfilter masterPageTop " fxLayout="row wrap">
+            <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginators($event);"></mat-paginator>
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <button mat-raised-button class="cancelbtn m-r-10" type="button">{{'invoice.export' | translate}}</button>
+                    <button mat-raised-button type="button" color="primary" (click)="clickedEvent()"
+                        class="filter fs-15">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                        aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+          <!-- table -->
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable">
+                    <button mat-button [matMenuTriggerFor]="editcolumn" class="editcolumn">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #editcolumn="matMenu" class="master-menu edit-column-menu">
+                          <div class="table-config-menu-options" fxLayout="column">
+                            <mat-checkbox #trainchkBox [(ngModel)]="selecttrainChkbox"  (change)="selecttraintablelable($event)"> {{ 'All' | translate}}
+                          </mat-checkbox>
+                            <mat-checkbox 
+                              *ngFor="let trainlist of TrainingListData; let i = index"
+                              (click)="$event.stopPropagation()"
+                              [(ngModel)]="trainlist.trainhide" #columnchkbox (change)="updateSelectAlltrainhide(trainlist)">
+                              {{trainlist.label | translate}}
+                            </mat-checkbox>
+                          </div>
+                      </mat-menu>
+                      </button>		
+                    <mat-table #table class="scrolldata" [dataSource]="trainingData" matSort matSortDisableClear>
+                        <!-- column 1 -->
+                        <ng-container matColumnDef="invoiceno">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.invonumb' | translate}}</mat-header-cell>
+                            <mat-cell data-label="invoiceno" fxFlex="250px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.invoiceno}} </div></mat-cell>
+                        </ng-container>
+                        <!-- column 2 -->
+                        <ng-container matColumnDef="trainingprovider">
+                            <mat-header-cell fxFlex="270px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.trainname' | translate}}</mat-header-cell>
+                            <mat-cell data-label="trainingprovider" fxFlex="270px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.trainingprovider}} </div></mat-cell>
+                        </ng-container>
+                        <!-- column 3 -->
+                        <ng-container matColumnDef="officetype">
+                            <mat-header-cell fxFlex="140px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{"invoice.offitype" | translate}}</mat-header-cell>
+                            <mat-cell data-label="officetype" fxFlex="140px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.officetype}} </div></mat-cell>
+                        </ng-container>
+                        <!-- column 4 -->
+                        <ng-container matColumnDef="branchname">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{"invoice.branchname" | translate}}</mat-header-cell>
+                            <mat-cell data-label="branchname" fxFlex="280px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.branchname}}</div> </mat-cell>
+                        </ng-container>
+                      <!-- column 5 -->
+                      <ng-container matColumnDef="opalmember">
+                        <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                            mat-sort-header>{{'invoice.opalmemb' | translate}}</mat-header-cell>
+                        <mat-cell data-label="opalmember" fxFlex="250px"
+                            *matCellDef="let operatorlistData">
+                            <div *ngIf="tablelodaerlist" class="w-100">
+                                <div class="tabledataloader"></div>
+                            </div>
+                            <div *ngIf="!tablelodaerlist"> 
+                            {{operatorlistData.opalmember}} </div></mat-cell>
+                      </ng-container>
+                        <!-- column 6 -->
+                        <ng-container matColumnDef="operatorname">
+                            <mat-header-cell fxFlex="220px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{"Operator Name" | translate}}</mat-header-cell>
+                            <mat-cell data-label="operatorname" fxFlex="220px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.operatorname}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 7 -->
+                        <ng-container matColumnDef="invoicemonth">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Invoice for the Month' | translate}}</mat-header-cell>
+                            <mat-cell data-label="invoicemonth" fxFlex="160px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.invoicemonth}} </div></mat-cell>
+                        </ng-container>
+                        <!-- column 8 -->
+                        <ng-container matColumnDef="totallearner">
+                            <mat-header-cell fxFlex="100px" mat-header-cell mat-sort-header *matHeaderCellDef>{{'Total Learners'|translate}}</mat-header-cell>
+                            <mat-cell data-label="totallearner" fxFlex="100px" *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> {{operatorlistData.totallearner}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 9 -->
+                        <ng-container matColumnDef="invoiceamount">
+                            <mat-header-cell fxFlex="170px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.invoamount' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="invoiceamount" fxFlex="170px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.invoiceamount}} </div></mat-cell>
+                        </ng-container>
+                        <!-- column 10 -->
+                        <ng-container matColumnDef="paymentstatus">
+                            <mat-header-cell fxFlex="280px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.status' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="paymentstatus" fxFlex="280px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                <span class="Receive"
+                                            *ngIf="operatorlistData.paymentstatus == '1'">{{'invoice.receive'
+                                            |translate}}</span>
+                                        <span class="Pending"
+                                            *ngIf="operatorlistData.paymentstatus == '2'">{{'invoice.pending'
+                                            |translate}}</span>
+                                        <span class="Paid"
+                                            *ngIf="operatorlistData.paymentstatus == '3'">{{'Paid - Confirmation Pending'
+                                            |translate}}</span>
+                                            <span class="Overdue"
+                                            *ngIf="operatorlistData.paymentstatus == '4'">{{'Overdue'
+                                            |translate}}</span></div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- column 11 -->
+                        <ng-container matColumnDef="invoicedate">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'invoice.invodate' | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="invoicedate" fxFlex="262px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.invoicedate}}</div> </mat-cell>
+                        </ng-container>
+                        <!-- column 12 -->
+                        <ng-container matColumnDef="invoiceage">
+                            <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'invoice.invoage' | translate}} </mat-header-cell>
+                            <mat-cell data-label="invoiceage" fxFlex="150px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.invoiceage}}</div></mat-cell>
+                        </ng-container>
+                        <!-- column 13 -->
+                        <ng-container matColumnDef="paymentdate">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'invoice.paydate' | translate}} </mat-header-cell>
+                            <mat-cell data-label="paymentdate" fxFlex="263px"
+                                *matCellDef="let operatorlistData">
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                {{operatorlistData.paymentdate}} </div> </mat-cell>
+                        </ng-container>
+                        <!-- column 14 Action-->
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="100px" mat-header-cell *matHeaderCellDef>{{'invoice.action'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="100px" *matCellDef="let operatorlistData" stickyEnd>
+                                <div *ngIf="tablelodaerlist" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tablelodaerlist"> 
+                                    <div class="manageoptions" type="button">
+                                    <button class="menubutton" type="button" mat-icon-button
+                                        [matMenuTriggerFor]="actionmenu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                    </button>
+                                    <mat-menu #actionmenu="matMenu"
+                                        class="master-menu whentootltipadded">
+                                        <button type="button" mat-menu-item (click)="viewoperatorFee()">{{'View' | translate}}
+                                        </button>
+                                        <button type="button" mat-menu-item>{{'Download' | translate}}
+                                        </button>
+                                    </mat-menu>
+                                    </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- search filter -->
+                        <!-- column 1 -->
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="invoice_no">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 2 -->
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="270px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="training_provider">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 3 -->
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="140px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                <mat-label>{{'Select' |
+                                    translate}}</mat-label>
+                                <mat-select [formControl]="office_type" multiple>
+                                    <mat-option value="1">{{'invoice.main' |translate}}</mat-option>
+                                    <mat-option value="2">{{'invoice.branch' |translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 4 -->
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="bran_name">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 5 -->
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="opal_member">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 6 -->
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="220px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'invoice.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="operator_name">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 7 -->
+                        <ng-container matColumnDef="row-eight">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <input matInput required [formControl]="invoice_month" (focus)="invoice_picker.open()"
+                                    (mousedown)="invoice_picker.open(); $event.preventDefault"
+                                    [disabled]="invoice_picker.opened" [matDatepicker]="invoice_picker" >
+                                <mat-datepicker-toggle matSuffix
+                                    [for]="invoice_picker"></mat-datepicker-toggle>
+                                <mat-datepicker #invoice_picker  startView="multi-year"
+                                (yearSelected)="chosenYearHandler($event)"
+                                (monthSelected)="chosenMonthHandler($event, invoice_picker);"
+                                panelClass="example-month-picker"></mat-datepicker>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 8 -->
+                        <ng-container matColumnDef="row-nine">
+                            <mat-header-cell fxFlex="100px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                               
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 9 -->
+                        <ng-container matColumnDef="row-ten">
+                            <mat-header-cell fxFlex="170px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                               
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 10 -->
+                        <ng-container matColumnDef="row-eleven">
+                            <mat-header-cell fxFlex="280px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="paystatus" multiple>
+                                        <mat-option value="1">{{'invoice.pending' |translate}}</mat-option>
+                                        <mat-option value="2">{{'invoice.paidackn' |translate}}</mat-option>
+                                        <mat-option value="3">{{'invoice.receive' |translate}}</mat-option>
+                                        <mat-option value="4">{{'invoice.over' |translate}}</mat-option>]
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 11 -->
+                        <ng-container matColumnDef="row-twelve">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="invoicedate" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                            [showClearButton]="true"  readonly class="form-control"  />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix> </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 12 -->
+                        <ng-container matColumnDef="row-thirteen">
+                            <mat-header-cell fxFlex="150px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'Select' | translate}}</mat-label>
+                                    <mat-select [formControl]="invoiceage" multiple>
+                                        <mat-option value="1">20 Days</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 13 -->
+                        <ng-container matColumnDef="row-fourteen">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="paymentdate" #paydate matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                            [showClearButton]="true"  readonly class="form-control"  />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix> </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- column 14 -->
+                        <ng-container matColumnDef="row-fifteen" stickyEnd>
+                            <mat-header-cell fxFlex="100px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <i class="fa fa-refresh m-l-15 cursorview"
+                                    (click)="clearFilter();filtersts=false;" aria-hidden="true"
+                                    matTooltip="{{'Refresh' |translate}}"></i>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- end -->
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="TrainingListDatafun()">
+                        </mat-header-row>
+                        <mat-header-row id="searchrow" *matHeaderRowDef="TrainingListDatasear()">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: TrainingListDatafun();"></mat-row>
+                        <!--  <mat-header-row id="searchrow"
+                            *matHeaderRowDef="['row-first' , 'row-second' , 'row-three' , 'row-four' , 'row-five' , 'row-six' ,'row-eight' , 'row-nine' , 'row-ten' , 'row-eleven' , 'row-twelve' , 'row-thirteen' , 'row-fourteen' , 'row-fifteen' ]">
+                        </mat-header-row> -->
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100"
+                                    fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tablelodaerlist"
+                                        class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tablelodaerlist">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tablelodaerlist">{{'No Records' | translate}} 
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"  [style.display]="(resultsLength > 0) ? 'none' : 'block' "  *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginators($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btngroup m-t-30 m-b-10" fxLayout="row" fxLayoutAlign="flex-end">
+            <button mat-raised-button class="cancelbtn" type="button">{{'invoice.prev' |
+                translate}}</button>
+            <button mat-raised-button class="submit_btn m-l-20" (click)="next()" type="submit">{{'invoice.next' |
+                translate}}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<!-- <div style="padding: 50px;background: white;"> -->
+
+
+
+
+
+
+<!-- ============================================================== -->
+<!-- Only router without any element -->
+<!-- ============================================================== -->
+
+<div class="headerstylings">
+  <div class="topheaderimage">
+    <div class="makeitright">
+      <img src="assets/images/OPAL_logo.svg" alt="regitration">
+    </div>
+  </div>
+  <div class="bottominfo">
+    <!-- Invalid URl Starts -->
+    <div *ngIf="invalidType == 'IU' || (invalidType != 'AR' && invalidType != 'EP' && invalidType != 'DE')"
+      class=" heightregister">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="headerimage expiredandnovalid">
+        <i class="bgi bgi-Link-Expired"></i>
+        <h4 class="p-t-25"> Link is not Valid</h4>
+        <button class="fs-14 request m-t-25" routerLink="/admin/login">Login</button>
+      </div>
+    </div>
+    <!-- Invalid URL Ends -->
+
+    <!-- Expiry Starts -->
+    <div *ngIf="invalidType == 'EP'" fxLayout="row wrap" class=" heightregister">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="headerimage expiredandnovalid">
+        <i class="bgi bgi-Link-Expired"></i>
+        <h4 class="p-t-20"> Invite Expired</h4>
+        <p class="fs-14 p-t-10 m-b-0">This link has expired. Kindly contact your Company Administrator.</p>
+        <button class="fs-14 request m-t-25" routerLink="/admin/login">Home</button>
+      </div>
+    </div>
+    <!-- Expiry Ends -->
+
+    <!-- Already Registered Starts -->
+    <div *ngIf="invalidType == 'AR'" fxLayout="row wrap" class=" heightregister">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="headerimage alreadyregistered">
+      
+        <i class="bgi bgi-Already-Registered"></i>
+        <h4 class="p-t-20 fs-18 boldtext"> Email ID Already Registered!</h4>
+        <p class="fs-14 p-t-10 m-b-0">This email ID has already been registered as a JSRS user. Kindly sign up with a different email ID.</p>
+        <button class="fs-14 request m-t-25" routerLink="/admin/login">Login</button>
+      </div>
+    </div>
+    <!-- Already registered Ends -->
+
+    <!-- Deleted Starts -->
+    <div *ngIf="invalidType == 'DE'" fxLayout="row wrap" class=" heightregister">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="headerimage">
+        <img src="assets/images/invitedeleted.svg" alt="Already Registered">
+        <h4 class="fs-24 p-t-30"> Invite Withdrawn</h4>
+        <p class="fs-14 p-t-20">Your invite to join as user has been withdrawn.</p>
+        <button class="fs-14 request m-t-25" routerLink="/admin/login">Home</button>
+
+      </div>
+    </div>
+  </div>
+  <div class="regfooter">
+    <div class="login_footer" fxFlex="100" fxFlex.gt-xs="90" fxFlex.gt-md="83.33">
+      <div class="login_footer_left" fxHide="true" fxHide.gt-md='false'>
+        <ul>
+          <li>
+            <a href="#">Terms of Service</a>
+          </li>
+          <li>
+            <a href="#">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="#">Help Center</a>
+          </li>
+          <li>
+            <a href="#" class="m-r-20"><i class="bgi bgi-facebook" aria-hidden="true"></i></a>
+            <a href="#" class="m-r-20"><i class="bgi bgi-twitter" aria-hidden="true"></i></a>
+            <a href="#"><i class="bgi bgi-instagram" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="login_footer_right">
+        <span>All Rights Reserved &copy; Business Gateways International 2022.</span>
+      </div>
+      <div class="drivenalign">
+        <P class="fs-14 m-0 p-t-38">Driven by </P>
+        <img src="assets/images/bgi.svg" alt="Business Gateways International">
+      </div>
+    </div>
+  </div>
+</div>

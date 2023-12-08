@@ -1,0 +1,999 @@
+<div id="learnerlisting" fxFlex.gt-sm="100" fxFlex="100" class="flex-column coursesinfo">
+    <div *ngIf="!loading && gridlisting">
+        <div class="coursesinfotbale">
+            <div class="batchheader clflex flex-column rwidth" *ngIf="batchdata_data !=null">
+                <div class="batchdetails flex-column">
+                    <div fxLayout="row" class="clflex rwidth p-l-10 p-r-10 p-t-10 p-b-5">
+                        <div fxLayout="row" class="clflex rwidth ">
+                         
+                            <p class="fs-15 txt-gry">Training Evaluation Centre: <span class="fs-15 fontblack">{{batchdata_data.traning_center}}</span></p>
+                            <p class="fs-15 txt-gry">Batch No.: <span class="fs-15 fontblack">{{batchdata_data.batach_no}}</span></p>
+                            <p class="fs-15 txt-gry">Batch Type: <span class="fs-15 fontblack">{{batchdata_data.batch_type}}</span></p>
+                        </div>
+                        <p>
+                            <button mat-icon-button class="batchIcon" [matMenuTriggerFor]="menu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon class="txt-gry">more_horiz</mat-icon>
+                            </button>
+                            <mat-menu class="topmenu whentootltipadded" #menu="matMenu">
+                                <button mat-menu-item *ngIf="(batchdata_data?.regpk == regpk  || stktype == 1 ) && batchreadaccess" (click)="viewbatch()">
+                                    <span>{{'table.batchview' | translate}} </span>
+                                </button>
+                                <button mat-menu-item *ngIf="batchdata_data.status == 1 && ( batchdata_data.total_learners == 0 || (batchdata_data.req_status != 5 && batchdata_data.total_learners > 0 )  && ((batchdata_data.regpk == regpk && stktype == 2) || stktype == 1 )) && batchdeleteaccess" (click)="cancelbatch()">
+                                    <span>{{'table.cancel' | translate}}</span>
+                                </button>
+                                <button type="button" *ngIf="batchdata_data.status == 1 && ((batchdata_data.regpk == regpk && stktype == 2) || stktype == 1 ) && batchdata_data.total_learners > 0 && batchupdateaccess" (click)="MovebatchToTheory()" mat-menu-item><span>{{'table.statuschange' |
+                                    translate}}</span></button>
+                                <button mat-menu-item
+                                    *ngIf="batchdata_data.status == 1 && batchdata_data.total_learners < batchdata_data.total  &&  (( batchdata_data.regpk == regpk && stktype == 2) || stktype == 1 ) && learnercreateaccess == true"
+                                    (click)="registerPage()">
+                                    <span>{{'table.registerlearner' | translate}}</span>
+                                </button>
+                                
+                                <button mat-menu-item
+                                *ngIf="batchdata_data.status != 1 && batchdata_data.status < 6 && batchdata_data.req_status != 1 && (stktype == 2 && batchdata_data.regpk == regpk) && batchupdateaccess"
+                                (click)="requesttrack()">
+                                <span>{{'table.requestforbacktrack' | translate}}</span>
+                            </button>
+                                <button mat-menu-item *ngIf="stktype == 1 && batchdata_data.req_status == 1 && batchdata_data.status != 8 && batchapproveaccess"
+                                    (click)="updatestatus()">
+                                    <span>{{'table.updatestatus' | translate}}</span>
+                                </button>
+                                <button mat-menu-item *ngIf="stktype == 1 && batchdata_data.req_status == 1 && batchdata_data.status != 8 && batchapproveaccess"
+                                    (click)="cancelbacktrack()">
+                                    <span>{{'table.cancelbacktrak' | translate}}</span>
+                                </button>
+
+                                <button type="button" mat-menu-item
+                                *ngIf="((stktype == 2  && batchdata_data.regpk == regpk) || stktype == 1) && userattendancedownload && batchdata_data.attenddwldaccess"
+                                (click)="downloadAttenance()">
+                                <span>{{'table.downloadattendancereport' | translate}}</span>
+                            </button>
+                                <button type="button" mat-menu-item (click)="ChangeAssessor()"
+                                    *ngIf="(batchdata_data.req_status != 1 && batchdata_data.req_status != 2) && (batchdata_data.status != 4 && batchdata_data.status != 6 && batchdata_data.status != 8) && batchdata_data.assessmentcentre == regpk && batchdata_data.regpk != regpk && batchupdateaccess"><span>{{'table.assessorchangerequest'
+                                        | translate}}</span></button>
+
+                                <button type="button" mat-menu-item (click)="ChangeAssessorReq()"
+                                    *ngIf="(batchdata_data.req_status != 1 && batchdata_data.req_status != 2) && (batchdata_data.status != 4 && batchdata_data.status != 6 && batchdata_data.status != 8) && batchdata_data.assessmentcentre == regpk && batchdata_data.regpk == regpk && batchupdateaccess"><span>{{'table.changeassessor'
+                                        | translate}}</span></button>
+                                    <button type="button" mat-menu-item (click)="ChangeAssessorReq()"
+                                    *ngIf="(batchdata_data.req_status != 1 && batchdata_data.req_status != 2) && (batchdata_data.status != 4 && batchdata_data.status != 6 && batchdata_data.status != 8) && batchdata_data.assessmentcentre == regpk && batchdata_data.regpk != regpk && batchupdateaccess"><span>{{'table.changeassessor'
+                                        | translate}}</span></button>
+
+                                <button mat-menu-item (click)="ChangeAssessorReq()"
+                                    *ngIf="stktype == 1 && batchdata_data.req_status == 2 && (batchdata_data.status != 4 && batchdata_data.status != 6 && batchdata_data.status != 8) && userassessment">
+                                    <span>{{'table.changeassessor' | translate}}</span>
+                                </button>
+                            </mat-menu>
+                        </p>
+                    </div>
+                    <div fxLayout="row" class="clflex rwidth statusrow p-l-10 p-r-10">
+                       
+                        <p class="bor fs-15 txt-gry">Status: <span
+                                class={{getassessmentstatus(batchdata_data.status)}} class="fs-15">{{getassessmentstatus(batchdata_data.status)}}</span>
+                        </p>
+                        
+                        <p class="bor fs-15 txt-gry">Office Type: <span class="fs-15 fontblack">{{batchdata_data.office_type==1 ? 'Main Office' : 'Branch Office'}}</span></p>
+                        <p class="bor fs-15 txt-gry" *ngIf="batchdata_data.office_type != 1">Branch Name:
+                            <span class="fs-15 fontblack">{{batchdata_data.branch_name}}</span>
+                        </p>
+                    </div>
+                    <div class="" fxLayout="row">
+                        <div class="batchdetails1innerdiv clflex flex-column">
+                            <p class="fs-15 txt-gry"
+                                *ngIf="batchdata_data.status == 1 || batchdata_data.status == 2 || batchdata_data.status == 7">
+                                Training Duration(Theory)</p>
+                           
+                            <p class="fs-15 txt-gry" *ngIf="batchdata_data.status == 3">Training Duration(Practical)</p>
+                            <p class="fs-15 txt-gry"
+                                *ngIf="batchdata_data.status == 4 || batchdata_data.status == 6 || batchdata_data.status == 8">
+                                Assessment Date & Time</p>
+                            <p class="fontblack" *ngIf="!batchdata_data.starttime && !batchdata_data.endtime">
+                                {{batchdata_data.start_date | date : 'dd-MM-yyyy'}} to {{batchdata_data.end_date | date
+                                : 'dd-MM-yyyy'}}</p>
+                            <p class="fontblack" *ngIf="batchdata_data.starttime && batchdata_data.endtime">
+                                {{batchdata_data.start_date | date : 'dd-MM-yyyy'}} ({{batchdata_data.starttime | date:
+                                'h:mm a'}} - {{batchdata_data.endtime | date: 'h:mm a'}})</p>
+                        </div>
+                        <div class="batchdetails1innerdiv clflex flex-column">
+                          
+                            <p class="fs-15 txt-gry">Total Learners</p>
+                            <p class="fontblack">{{batchdata_data.total_learners}}/{{batchdata_data.total}}</p>
+                        </div>
+                        <div class=" batchdetails1innerdiv clflex flex-column">
+                           
+                            <p class="fs-15 txt-gry">Remaining Capacity</p>
+                            <p class="fontblack">{{batchdata_data.reamaining_learners}}/{{batchdata_data.total}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="paginator-add-filter" fxLayoutAlign="space-between center">
+            <div class="example-button-row m-t-10">
+                <mat-paginator #paginator length="{{resultLenagth}}" pageSize="5" pageIndex="0"
+                    [pageSizeOptions]="[5,10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                <button mat-stroked-button type="button"
+                    *ngIf="attendance_data.length > 0 && ((batchdata_data?.isthytutor && userattendance && batchdata_data?.status==2) || (batchdata_data?.ispratutor && userattendance && batchdata_data?.status==3))"
+                    class="mr-1 btn-no-rad m-t-10 m-l-10" (click)="bulkAttendance(1)">{{'basics.present' |
+                    translate}}</button>
+                <button mat-stroked-button type="button"
+                    *ngIf="attendance_data.length > 0  && ((batchdata_data?.isthytutor && userattendance && batchdata_data?.status==2) || (batchdata_data?.ispratutor && userattendance && batchdata_data?.status==3))"
+                    class="mr-1 btn-no-rad  m-t-10" (click)="bulkAttendance(2)">{{'basics.absent' | translate}}</button>
+                <button mat-stroked-button type="button"
+                    *ngIf="attendance_data.length > 0 && batchdata_data?.isthytutor && batchdata_data?.status && (batchdata_data.status==2) && batchdata_data.moveto=='practical'"
+                    class="mr-1 btn-no-rad  m-t-10" (click)="moveStatus(3)">{{'basics.mtraining' | translate}}</button>
+                <button mat-stroked-button type="button"
+                    *ngIf="attendance_data.length > 0 && ((batchdata_data?.ispraclass == 1 && batchdata_data?.ispratutor) || (batchdata_data?.ispraclass == 2 && batchdata_data?.isthytutor ||  (batchdata_data?.ispraclass == 1 && batchdata_data?.isthytutor && batchdata_data.moveto=='assesst'))) && batchdata_data?.status && (batchdata_data.status==3 || batchdata_data.status==2 && batchdata_data.moveto=='assesst')"
+                    class="mr-1 btn-no-rad  m-t-10" (click)="moveStatus(6)">{{'basics.massessment' |
+                    translate}}</button>
+            </div>
+            <div class="m-t-10" fxLayoutAlign="end center">
+                <button mat-raised-button color="danger" type="button"
+                   
+                   *ngIf="createaccess == true && batchdata_data?.total_learners < batchdata_data?.total && batchdata_data.status == 1 && (((isfocalpoint == 1|| isStudentregStaff== true) && batchdata_data?.regpk == regpk ) || (createuseraccess && batchdata_data?.regpk == regpk )|| (stktype == 1 && userPk == 1) || (stktype == 1 && createuseraccess))"
+                    class="btn btn-danger submit_btn m-r-10" (click)="registerPage()">Add</button>
+                <button mat-raised-button type="button" color="primary" class="filterbtn"
+                    ng-reflect-color="primary"><span class="mat-button-wrapper" (click)="showFilter()">
+                        {{filter ? "Show Filter" : "Hide Filter"}}<i aria-hidden="true"
+                            class="opalicon opal-filter fs-15 m-l-7"></i></span>
+                </button>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable">
+                    <mat-table [dataSource]="learnerdata" matSort class="scrolldata"
+                        [ngClass]="batchdata_data?.isthytutor == false && batchdata_data?.ispratutor ? 'tutortable':'nontutortable'"
+                        (matSortChange)="announceSortChange($event)">
+                        <ng-container matColumnDef="checkbox">
+                            <mat-header-cell fxFlex="70px" mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox class="example-margin" [(ngModel)]="selectheader"
+                                    (change)="isAllSelected($event)"
+                                    *ngIf="((batchdata_data?.status == 2 && batchdata_data?.isthytutor && userattendance) || (batchdata_data?.status == 3 && batchdata_data?.ispratutor && userattendance)) && !trngattdntdtls_pk"></mat-checkbox>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxFlex="70px">
+                                <mat-checkbox
+                                    *ngIf="(((element.lrhd_status == 2 || element.lrhd_status == 4)  && batchdata_data?.status == 2 && batchdata_data?.isthytutor && element.th_tutorpk == userPk) || ((element.lrhd_status == 3 || element.lrhd_status == 5) && batchdata_data?.status == 3 && batchdata_data?.ispratutor && element.pra_tutorpk == userPk)) && userattendance && !trngattdntdtls_pk"
+                                    class="example-margin" [checked]="selectAll"
+                                    (change)="selectCheckbox($event,element)"></mat-checkbox>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_idnumber">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.civil_num' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px"
+                                *matCellDef="let element">{{element.sir_idnumber}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_name_en">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'learnerfdbck.lrnrname' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px"
+                                *matCellDef="let element">{{ifarbic?element.sir_name_ar:element.sir_name_en}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_emailid">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.email' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px"
+                                *matCellDef="let element">{{element.sir_emailid}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_dob">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.age' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px"
+                                *matCellDef="let element">{{getage(element.sir_dob)}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sir_gender">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.gender' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element">{{element.sir_gender==1 ? "Male"
+                                : "Female" }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="th_tutor">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.th_tutor' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element">{{element.th_tutor ||
+                                'N/A'}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="pra_tutor">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.pra_tutor' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element">{{element.pra_tutor ||
+                                'N/A'}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="asmt_staff">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.asmt_staff' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element">{{element.asmt_staff ||
+                                'N/A'}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="ivqastaff">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.ivqastaff' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element">{{element.ivqastaff ||
+                                'N/A'}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="lrhd_feestatus">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.lrhd_feestatus' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element"
+                                class="{{element.lrhd_feestatus==1 ? 'Paid' : 'text-danger'}}">{{element.lrhd_feestatus==1
+                                ? "Paid" : "Yet to pay"}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="kstatus" *ngIf="batchdata_data?.isknw == 1">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.knowledge' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element"
+                                class="{{element.kstatus ? element.kstatus=='Pass' ? 'Pass' : 'Fail' : 'colorange'}}">{{element.kstatus
+                                ? element.kstatus : 'Pending'}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="pstatus" *ngIf="batchdata_data?.ispra == 1">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'reg.practical' | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element"
+                                class="{{element.pstatus ? element.pstatus=='Pass' || element.pstatus=='Competent' ? 'text-success' : 'text-danger' : 'colorange'}}">{{element.pstatus
+                                ? element.pstatus : 'Pending'}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="lrhd_status">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Status'
+                                | translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="250px" *matCellDef="let element"
+                                style="{{'color:'+getstatuscolor(element.lrhd_status)}}">{{getstatus(element.lrhd_status)}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="action" class="suspended" stickyEnd>
+                            <mat-header-cell fxFlex="100px" mat-header-cell *matHeaderCellDef> {{'basics.action' |
+                                translate}}
+                            </mat-header-cell>
+                            <mat-cell mat-cell fxFlex="100px" *matCellDef="let element">
+                                <button mat-icon-button [matMenuTriggerFor]="menu"
+                                    aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_horiz</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu" class="master-menu whentootltipadded">
+                                    <button mat-menu-item
+                                        *ngIf="(((element.lrhd_status == 2 || element.lrhd_status == 4)  && batchdata_data?.status == 2 && batchdata_data?.isthytutor && element.th_tutorpk == userPk) || ((element.lrhd_status == 3 || element.lrhd_status == 5) && batchdata_data?.status == 3 && batchdata_data?.ispratutor && element.pra_tutorpk == userPk)) && userattendance && !trngattdntdtls_pk"
+                                        (click)="markAttendance(1,element)">
+                                        <span>Mark as Present</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="(((element.lrhd_status == 2 || element.lrhd_status == 4)  && batchdata_data?.status == 2 && batchdata_data?.isthytutor && element.th_tutorpk == userPk) || ((element.lrhd_status == 3 || element.lrhd_status == 5) && batchdata_data?.status == 3 && batchdata_data?.ispratutor && element.pra_tutorpk == userPk)) && userattendance && !trngattdntdtls_pk"
+                                        (click)="markAttendance(2,element)">
+                                        <span>Mark as No Show</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="element.lrhd_status == 6 &&  batchdata_data?.isassessor && userassessment"
+                                        (click)="actionRoute(element.tad_learnerreghrddtls_fk, 'assessment')">
+                                        Upload Assessment Report
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="(element.lrhd_status == 7 || element.lrhd_status == 8 || element.lrhd_status == 9 || element.lrhd_status == 10 || element.lrhd_status == 11 || element.lrhd_status == 12)  && (((batchdata_data?.isivqastaff || batchdata_data?.isassessor) && userassessmentview) || isfocalpoint == 1 || (stktype == 1 && userPk == 1) || (stktype == 1 && userassessmentview) || (stktype == 2 && userassessmentview) )"
+                                        (click)="actionRoute(element.tad_learnerreghrddtls_fk, 'ViewAssessmentReport')">
+                                        <span>View Assessment Report</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="(element.lrhd_status == 7 || element.lrhd_status == 9) && (batchdata_data?.isivqastaff && element.ivqastaffpk == userPk && userassessmentapprovel)"
+                                        (click)="actionRoute(element.tad_learnerreghrddtls_fk, 'view&approvel')">
+                                        <span>View & Approve</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="element.lrhd_status == 8 && (element.kstatus!=null || element.pstatus!=null) &&  batchdata_data?.isassessor && userassessment">
+                                        <span
+                                            (click)="actionRoute(element.tad_learnerreghrddtls_fk, 'assessment')">Update
+                                            Assessment Report</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="(element.lrhd_status == 10 || element.lrhd_status == 11) &&  batchdata_data?.printcard == 1 && ((isfocalpoint == 1 && batchdata_data?.regpk == regpk) || (stktype == 1 && userPk == 1) || viewcardaccess) && element.lcd_viewcardpath && element.viewfileexist"
+                                        (click)="viewcard(element.tad_learnerreghrddtls_fk)">
+                                        <span>View Card</span>
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="(element.lrhd_status == 10 || element.lrhd_status == 11) &&  batchdata_data?.printcard == 1 && ((isfocalpoint == 1 && batchdata_data?.regpk == regpk) || (stktype == 1 && userPk == 1) || printcardaccess) && element.lcd_plaincard && element.printfileexist"
+                                        (click)="opendialogprintsetup(element.tad_learnerreghrddtls_fk)">
+                                        <span>Print Card</span>
+                                    </button>
+                                    <button mat-menu-item *ngIf="element.lrhd_feestatus!=1 && isfocalpoint == 1"
+                                        (click)="updatepaymentstaus(element.tad_learnerreghrddtls_fk)">
+                                        Update Payment Status
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="updateaccess == true && memReg == batchdata_data.bmd_opalmemberregmst_fk &&  (batchdata_data.status != '7' && batchdata_data.status != '8') && (element.lrhd_status < 10)"  (click)="editLear(element.tad_learnerreghrddtls_fk)">
+                                        Edit Learner Details
+                                    </button>
+                                   
+                                  
+                                    <button mat-menu-item *ngIf="readaccess == true" (click)="viewLear(element.tad_learnerreghrddtls_fk)">
+                                        View Learner Details
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="(batchdata_data?.status < 4) && (element.lrhd_status < 6) && ((isfocalpoint == 1 && batchdata_data?.regpk == regpk) || (stktype == 2 && deleteuseraccess && batchdata_data?.regpk == regpk))"
+                                        (click)="regicancel(element.tad_learnerreghrddtls_fk)">
+                                        Cancel Registration
+                                    </button>
+                                    <button mat-menu-item
+                                        *ngIf="batchdata_data?.status == 1 && (element.lrhd_status == 1 || element.lrhd_status == 4 || element.lrhd_status == 5 || element.lrhd_status == 13)  && ((isfocalpoint == 1 && batchdata_data?.regpk == regpk) || (stktype == 2 &&  deleteuseraccess && batchdata_data?.regpk == regpk))"
+                                        (click)="deletelearner(element.tad_learnerreghrddtls_fk)">
+                                        Delete Learner
+                                    </button>
+                                </mat-menu>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="70px" *matHeaderCellDef id="search" class="serachrow">
+                                &nbsp;
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-second" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput formControlName="sir_idnumber">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-three" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput formControlName="sir_name_en">
+
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-four" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput formControlName="sir_emailid">
+
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                &nbsp;
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-six" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Select</mat-label>
+                                    <mat-select [(value)]="gen_selection" formControlName="sir_gender" multiple>
+                                        <mat-option value="1">Male</mat-option>
+                                        <mat-option value="2">Female</mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-seven" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput formControlName="th_tutor">
+
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-eight" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput formControlName="pra_tutor">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-nine" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput formControlName="asmt_staff">
+
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-ten" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Search</mat-label>
+                                    <input matInput formControlName="ivqastaff">
+
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-eleven" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Select</mat-label>
+                                    <mat-select [(value)]="learner_selection" formControlName="lrhd_feestatus" multiple>
+                                        <mat-option value="0">Yet to pay</mat-option>
+                                        <mat-option value="1">Paid</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-twelve" [formGroup]="filterForm"
+                            *ngIf="batchdata_data?.isknw == 1">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Select</mat-label>
+                                    <mat-select [(value)]="knowledge_selection" formControlName="kstatus" multiple>
+                                        <mat-option value="Pass">Pass</mat-option>
+                                        <mat-option value="Fail">Fail</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-thirteen" [formGroup]="filterForm"
+                            *ngIf="batchdata_data?.ispra == 1">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Select</mat-label>
+                                    <mat-select [(value)]="practical_selection" formControlName="pstatus" multiple>
+                                        <mat-option value="Pass">Pass</mat-option>
+                                        <mat-option value="Fail">Fail</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-fourteen" [formGroup]="filterForm">
+                            <mat-header-cell fxFlex="250px" *matHeaderCellDef id="search" class="serachrow">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>Select</mat-label>
+                                    <mat-select [(value)]="status_selection" multiple formControlName="lrhd_status">
+                                        <mat-option value="1">New</mat-option>
+                                        <mat-option value="2">Teaching (Theory)</mat-option>
+                                        <mat-option value="3">Teaching (Practical)</mat-option>
+                                        <mat-option value="4">No Show (Theory)</mat-option>
+                                        <mat-option value="5">No Show (Practical)</mat-option>
+                                        <mat-option value="6">Assessment</mat-option>
+                                        <mat-option value="7">Quality Check</mat-option>
+                                        <mat-option value="8">Declined during Quality Check</mat-option>
+                                        <mat-option value="9">Resubmitted for Quality Check</mat-option>
+                                        <mat-option value="10">Print</mat-option>
+                                        <mat-option value="11">Completed</mat-option>
+                                        <mat-option value="12">Re-take Assesment</mat-option>
+                                        <mat-option value="13">Registration Cancelled</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-fifteen" stickyEnd>
+                            <mat-header-cell fxFlex="100px" *matHeaderCellDef id="search" class="serachrow">
+                                <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                    aria-hidden="true" matTooltip="Refresh"></i>
+                            </mat-header-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-header-row id="searchrow" *matHeaderRowDef="displaySearchColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+
+                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                        <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row
+                                [class.stickyclass]="( resultLenagth > 0 || learnerdata?.filteredData?.length > 0) ? 'none' : 'block'"
+                                [style.display]="(!resultLenagth || resultLenagth == 0 || learnerdata?.filteredData?.length == 0)? 'block' : 'none' "
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                    <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                            <mat-paginator #paginator [pageSize]="paginator?.pageSize" showFirstLastButtons
+                                (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                                [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!gridlisting" id="coursesinfos">
+        <!-- Learner Edit and View Starts-->
+        <h4 class="color-default fs-18">{{'Learner Registration Form' | translate}}</h4>
+        <form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+
+            <div class="projlstngph w-100 listsector" *ngIf="loaderformlearner">
+                <div class="leftmainspace">
+                    <div class="subcontent">
+                        <div class="descriptitlesector">
+                            <p class="pagetitle"></p>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+                            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-25" ngClass.md="m-l-25"
+                                ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100"
+                                class="pagetitle secondwidth"></span>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+                            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-0" ngClass.md="m-l-25"
+                                ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100"
+                                class="pagetitle secondwidth"></span>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+                            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-25" ngClass.md="m-l-25"
+                                ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100"
+                                class="pagetitle secondwidth"></span>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+                            <span fxFlex.gt-sm="48" ngClass.xs="m-l-25" ngClass.sm="m-l-25" ngClass.md="m-l-25"
+                                ngClass.lg="m-l-25" ngClass.xl="m-l-25" fxFlex="100"
+                                class="pagetitle secondwidth"></span>
+                        </div>
+                        <div fxLayout="row wrap">
+                            <span fxFlex.gt-sm="48" fxFlex="100" class="pagetitle secondwidth "></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="batchdetails2 flex-column" *ngIf="!loaderformlearner">
+
+                <div fxLayout="row" class="clflex swidth p-t-0">
+                    <mat-form-field appearance="outline" class="table_wid">
+                        <mat-label>{{'reg.civil_num' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="sir_idnumber" appAlphanum
+                            app-restrict-input="englishkeyboard" (input)="checkCivilNum($event)" required>
+                        <mat-error *ngIf="form.sir_idnumber.errors?.required">
+                            {{'learnerregister.entcivino' | translate}} </mat-error>
+                    </mat-form-field>
+                    <!-- <mat-form-field appearance="outline" class="table_wid">
+                    <mat-label>Civil Number<span class="text-danger">*</span></mat-label>
+                    <input type="text" matInput formControlName="sir_idnumber">
+                </mat-form-field> -->
+
+                    <div class="table_wid"></div>
+                </div>
+
+
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'reg.learn_english' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="sir_name_en" required
+                            app-restrict-input="englishspace">
+                        <mat-error *ngIf="form.sir_name_en.errors?.required">
+                            {{'learnerregister.entelearnamineng' | translate}} </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class='table_wid text-right'>
+                        <mat-label>{{'reg.learn_arabic' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="sir_name_ar" required app-restrict-input="arabic"
+                            appAlphabetonly>
+                        <mat-error *ngIf="form.sir_name_ar.errors?.required">
+                            {{'learnerregister.entelearnaminar' | translate}} </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label name="email" type="email">{{'reg.email' | translate}}</mat-label>
+                        <input type="email" matInput formControlName="sir_emailid" required
+                            pattern="[a-z-A-Z0-9.-_]{1,}@[a-z-A-Z]{2,}[.]{1}[a-z-A-Z-_]{2,}"
+                            app-restrict-input="english">
+                        <mat-error *ngIf="form.sir_emailid.errors?.required">
+                            {{'learnerregister.entemaid' | translate}} </mat-error>
+                        <mat-error *ngIf="form.sir_emailid.hasError('pattern')"> {{'learnerregister.entvalidemai' |
+                            translate}}</mat-error>
+                    </mat-form-field>
+                    <div class="table_wid"></div>
+                </div>
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'reg.mobile' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="mnumber" minlength="8" required appNumberonly>
+                        <mat-error *ngIf="form.mnumber.errors?.required">
+                            {{'learnerregister.entmobno' | translate}} </mat-error>
+                        <mat-error *ngIf="form.mnumber.errors?.minlength"> {{'learnerregister.minleng' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'reg.alt_mobile' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="mnumber2" appNumberonly>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" class="clflex swidth p-t-15">
+
+                    <mat-form-field appearance="outline" class="date_box">
+                        <mat-label>{{'reg.dob' | translate}}</mat-label>
+                        <input matInput required formControlName="sir_dob"
+                            (mousedown)="picker.open(); $event.preventDefault" [disabled]="picker.opened"
+                            [max]="maxDate" [matDatepicker]="picker" readonly>
+                        <mat-datepicker-toggle matIcon [for]="picker" class="date_img"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <!-- <input matInput [max]="maxDate" [matDatepicker]="picker" (dateChange)="getage($event)" formControlName="sir_dob" required> -->
+                        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                        <mat-error *ngIf="form.sir_dob.errors?.required">
+                            {{'learnerregister.entdateofbirth' | translate}} </mat-error>
+                        <!-- <mat-datepicker-toggle matIcon [for]="picker" class="date_img"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker> -->
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" [ngClass]="this.default == true ? 'readonlyfield' : ' '">
+                        <mat-label>{{'reg.age' | translate}}</mat-label>
+                        <input type="number" readonly="default" matInput formControlName="age">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'reg.gender' | translate}}</mat-label>
+                        <mat-select formControlName="sir_gender" (selectionChange)="changeFormAddress($event)" required>
+                            <mat-option value="1">{{'learnerregister.male' | translate}}</mat-option>
+                            <mat-option value="2">{{'learnerregister.femal' | translate}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.sir_gender.errors?.required">
+                            {{'learnerregister.selegen' | translate}} </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" [ngClass]="this.default == true ? 'readonlyfield' : ' '">
+                        <mat-label>{{'reg.form_of' | translate}} </mat-label>
+                        <input type="text" readonly="default" matInput formControlName="form_address">
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'reg.nationality' | translate}}</mat-label>
+                        <mat-select formControlName="sir_nationality" required panelClass="select_with_search"
+                            *ngIf="(countrylist | filter : searchcountry) as countryresult">
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">{{'basics.search' | translate}}</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchcountry"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchcountry = ''" class="reseticon" matSuffix
+                                    *ngIf="searchcountry !='' && searchcountry !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let list of countrylist | filter : searchcountry"
+                                    [value]="list.opalcountrymst_pk">
+                                    {{ifarabic == true ? list.ocym_countryname_ar :
+                                    list.ocym_countryname_en}}
+                                </mat-option>
+                            </div>
+                        </mat-select>
+                        <mat-error *ngIf="form.sir_nationality.errors?.required">
+                            {{'learnerregister.selenati' | translate}} </mat-error>
+                    </mat-form-field>
+                    <!-- <div class="table_wid"></div> -->
+                </div>
+
+                <div class="content">
+                    <div class="content">
+                        <label for="profile" color="gray">
+                            {{'reg.profile_photo' | translate}}
+                        </label>
+                    </div>
+                    <div class="content m-b-10">
+                        <app-filee #photodoc [fileMstRef]="profilePhoto"
+                            (filesSelected)="fileeSelected($event,profilePhoto)" formControlName="sir_photo"
+                            [notePosition]="'bottom'">
+                        </app-filee>
+                        <mat-hint class="txt-gry fs-12 m-t-5">Only (1) JPG, JPEG, PNG, JFIF are allowed upto 3MB in size.</mat-hint>
+                        <mat-error *ngIf="formGroup.get('sir_photo').invalid && fileeselect">Please Select Profile Photo
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="content m-t-15">
+                    <div class="content">
+                        <label for="profile" color="gray">
+                            {{'reg.civil_id' | translate}}
+                        </label>
+                    </div>
+
+                    <div class="content">
+                        <app-filee #cividoc [fileMstRef]="cividId" (filesSelected)="fileeSelected($event,cividId)"
+                            formControlName="sir_civilidfront" [notePosition]="'bottom'">
+                        </app-filee>
+                        <mat-hint class="txt-gry fs-12 m-t-5">{{'learnerregister.documenthinttwo' |
+                            translate}}</mat-hint>
+                        <mat-error *ngIf="formGroup.get('sir_civilidfront').invalid && fileeselect">Please Select Civil
+                            ID Card </mat-error>
+                    </div>
+                </div>
+
+                <div class="content m-t-30">
+                    <div class=" fs-16 color-default">
+                        <h4 class="fs-16">{{'reg.royal_oman' | translate}}</h4>
+                    </div>
+                </div>
+
+                <div class="content mb-1">
+                    <div class="col-12 ">
+                        <p>{{'reg.has_license' | translate}}<span class="text-danger">*</span>
+                            <mat-radio-group formControlName="radion_button" aria-label="Select an option"
+                                style="padding-left: 20px;" [(ngModel)]="radion_buttonGroup"
+                                (ngModelChange)="onradion_buttonGroupChange()">
+                                <mat-radio-button [value]="1" class="m-r-10 m-l-10">{{'learnerregister.yes' |
+                                    translate}}</mat-radio-button>
+                                <mat-radio-button [value]="2">{{'learnerregister.no' | translate}} </mat-radio-button>
+                                <mat-error
+                                    *ngIf="form.radion_button.errors?.required && form.radion_button.errors?.touched">Select
+                                    Has ROP Driving License </mat-error>
+                            </mat-radio-group>
+                        </p>
+                    </div>
+                </div>
+
+                <div fxLayout="row" class="clflex swidth p-t-5" *ngIf="showroplicense">
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'reg.license' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="license_number" required maxlength="20">
+                        <mat-error *ngIf="form.sir_gender.errors?.required">
+                            {{'learnerregister.entlicnnum' | translate}}</mat-error>
+                    </mat-form-field>
+                    <div class="table_wid"></div>
+                </div>
+
+                <div class="content" *ngIf="showroplicense">
+                    <div class="content">
+                        <label for="profile" color="gray">
+                            {{'reg.lic_card' | translate}}
+                        </label>
+                    </div>
+                    <div class="content">
+                        <app-filee #licensedoc [fileMstRef]="licenseCard"
+                            (filesSelected)="fileeSelected($event,licenseCard)" formControlName="license_card"
+                            [notePosition]="'bottom'">
+                        </app-filee>
+                        <mat-hint class="txt-gry fs-12 m-t-5">{{'learnerregister.documenthinttwo' |
+                            translate}}</mat-hint>
+
+                        <mat-error *ngIf="formGroup.get('license_card').invalid && fileeselect">Please Select ROP
+                            License Card</mat-error>
+
+                    </div>
+                </div>
+
+                <div fxLayout="row" class="clflex swidth m-t-20">
+                    <p class="license">{{'learnerregister.hasrop' | translate}}<span class="text-danger">*</span>
+                        <mat-radio-group aria-label="Select an option" formControlName="light_license"
+                            style="padding-left: 20px;" [(ngModel)]="light_licenseGroup"
+                            (ngModelChange)="onlight_licenseGroupChange()">
+                            <mat-radio-button [value]="1" class="m-r-10 m-l-10 color-default">{{'learnerregister.yes' |
+                                translate}}</mat-radio-button>
+                            <mat-radio-button [value]="2" class="color-default">{{'learnerregister.no' | translate}}
+                            </mat-radio-button>
+                            <mat-error
+                                *ngIf="form.light_license.errors?.required && form.radion_button.errors?.touched">{{'learnerregister.selehasroplight'
+                                | translate}}</mat-error>
+                        </mat-radio-group>
+                    </p>
+                    <p class="license">{{'learnerregister.hasropheavy' | translate}}<span class="text-danger">*</span>
+                        <mat-radio-group aria-label="Select an option" formControlName="heavy_license"
+                            style="padding-left: 20px;" [(ngModel)]="heavy_licenseGroup"
+                            (ngModelChange)="onheavy_licenseGroupChange()">
+                            <mat-radio-button [value]="1" class="m-r-10 m-l-10 color-default">{{'learnerregister.yes' |
+                                translate}}</mat-radio-button>
+                            <mat-radio-button [value]="2" class="color-default"> {{'learnerregister.no' |
+                                translate}}</mat-radio-button>
+                            <mat-error
+                                *ngIf="form.heavy_license.errors?.required && form.radion_button.errors?.touched">{{'learnerregister.selehasheavy'
+                                | translate}} </mat-error>
+                        </mat-radio-group>
+                    </p>
+                </div>
+
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <!-- <div fxLayout="row wrap"  class="p-t-15" fxLayoutAlign="space-between center"> -->
+                    <div fxFlex.gt-sm="98" fxFlex="100" class="paddingspacing" ngClass.sm="m-0"
+                        fxLayoutAlign="start center">
+                        <mat-form-field appearance="outline" class='date_box' *ngIf="lightlicenseradio">
+                            <mat-label>{{'learnerregister.firstissuedat' | translate}}</mat-label>
+                            <input matInput [max]="issueDate" [matDatepicker]="picker1"
+                                formControlName="light_issue_date" required readonly
+                                (mousedown)="picker1.open(); $event.preventDefault" [disabled]="picker1.opened">
+                            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                            <mat-error *ngIf="form.light_issue_date.errors?.required">
+                                {{'learnerregister.selfirissudat' | translate}}</mat-error>
+                            <mat-datepicker-toggle [for]="picker1" class="date_img"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="98" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" ngClass.lg="p-l-0"
+                        ngClass.xl="p-l-0" fxFlex="100" fxLayoutAlign="end center">
+                        <mat-form-field appearance="outline" class='date_box' *ngIf="heavylicenseradio">
+                            <mat-label>{{'learnerregister.firstissuedat' | translate}}</mat-label>
+                            <input matInput [max]="issueDate" [matDatepicker]="picker2"
+                                formControlName="heavy_issue_date" required readonly
+                                (mousedown)="picker2.open(); $event.preventDefault" [disabled]="picker2.opened">
+                            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                            <mat-error *ngIf="form.light_issue_date.errors?.required">
+                                {{'learnerregister.selfirissudats' | translate}}</mat-error>
+                            <mat-datepicker-toggle [for]="picker2" class="date_img"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="content ">
+                    <h4 class="color-default fs-16">{{'learnerregister.permresiden' | translate}}</h4>
+                </div>
+
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'learnerregister.houseatrt' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="sir_addrline1">
+                        <mat-error *ngIf="form.light_issue_date.errors?.required">{{'learnerregister.enthousestreet' |
+                            translate}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'learnerregister.housestret2' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="sir_addrline2">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'learnerregister.country' | translate}}</mat-label>
+                        <mat-select formControlName="country" panelClass="select_with_search"
+                            (selectionChange)="getState($event)"
+                            *ngIf="(countrylist | filter : searchcountry) as countryresult" required [disabled]="true">
+                            <div class="searchinmultiselect">
+                                <mat-icon>{{'course.sear' | translate}}</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchcountry"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchcountry = ''" class="reseticon" matSuffix
+                                    *ngIf="searchcountry !='' && searchcountry !=null">clear</mat-icon>
+                            </div>
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let list of countrylist | filter : searchcountry"
+                                    [value]="list.opalcountrymst_pk">
+                                    {{ifarabic == true ? list.ocym_countryname_ar :
+                                    list.ocym_countryname_en}}
+                                </mat-option>
+                            </div>
+                        </mat-select>
+                        <mat-error *ngIf="form.country.errors?.required">Select Country</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'learnerregister.govern' | translate}}</mat-label>
+                        <mat-select formControlName="state"
+                            (closed)="searchstate = '';getCity(formGroup.controls['state'].value,formGroup.controls['country'].value)"
+                            (selectionChange)="getCity(formGroup.controls['state'].value,formGroup.controls['country'].value)"
+                            *ngIf="(stateList | filter : searchstate) as stateresult" panelClass="select_with_search"
+                            required>
+                            <div class="searchinmultiselect">
+                                <mat-icon>search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchstate"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchstate = ''" class="reseticon" matSuffix
+                                    *ngIf="searchstate !='' && searchstate !=null">clear</mat-icon>
+                            </div>
+
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let stat of stateList | filter : searchstate"
+                                    [value]="stat.opalstatemst_pk">
+                                    {{ifarabic == true ? stat.osm_statename_ar :
+                                    stat.osm_statename_en}}
+                                </mat-option>
+                                <div *ngIf="stateresult.length == 0">{{'learnerregister.noresufoun' | translate}}</div>
+                            </div>
+
+                        </mat-select>
+                        <mat-error *ngIf="form.state.errors?.required">{{'learnerregister.selegover' |
+                            translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- <div fxLayout="row"   class="clflex swidth p-t-15">
+                <mat-form-field appearance="outline" class='table_wid'>
+                    <mat-label>Country</mat-label>
+                    <mat-select formControlName="country" panelClass="select_with_search" (selectionChange)="getState($event)"
+                        *ngIf="(countrylist | filter : searchcountry) as countryresult" required [disabled]="true">
+                        <div class="searchinmultiselect">
+                            <mat-icon class="">search</mat-icon>
+                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchcountry"
+                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                            <mat-icon (click)="searchcountry = ''" class="reseticon" matSuffix
+                                *ngIf="searchcountry !='' && searchcountry !=null">clear</mat-icon>
+                        </div>
+                        <div class="option-listing countryselectwithimage">
+                            <mat-option *ngFor="let list of countrylist | filter : searchcountry"
+                                [value]="list.opalcountrymst_pk">
+                                {{ifarabic == true ? list.ocym_countryname_ar :
+                                list.ocym_countryname_en}}
+                            </mat-option>
+                        </div>
+                    </mat-select>
+                    <mat-error *ngIf="form.country.errors?.required">Select Country</mat-error>
+                </mat-form-field>
+                <div class="table_wid"></div>
+            </div> -->
+                <div fxLayout="row" class="clflex swidth p-t-15">
+                    <!-- <mat-form-field appearance="outline" class='table_wid'>
+                    <mat-label>Governorate</mat-label>
+                    <mat-select formControlName="state"
+                    (closed)="searchstate = '';getCity(formGroup.controls['state'].value,formGroup.controls['country'].value)"
+                        (selectionChange)="getCity(formGroup.controls['state'].value,formGroup.controls['country'].value)"
+                        *ngIf="(stateList | filter : searchstate) as stateresult" panelClass="select_with_search" required>
+                        <div class="searchinmultiselect">
+                            <mat-icon class="">search</mat-icon>
+                            <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                (keydown)="$event.stopPropagation();" [(ngModel)]="searchstate"
+                                [ngModelOptions]="{standalone: true}" autocomplete="off">
+                            <mat-icon (click)="searchstate = ''" class="reseticon" matSuffix
+                                *ngIf="searchstate !='' && searchstate !=null">clear</mat-icon>
+                        </div>
+
+                        <div class="option-listing countryselectwithimage">
+                            <mat-option *ngFor="let stat of stateList | filter : searchstate"
+                                [value]="stat.opalstatemst_pk">
+                                {{ifarabic == true ? stat.osm_statename_ar :
+                                stat.osm_statename_en}}
+                            </mat-option>
+                            <div *ngIf="stateresult.length == 0">No result found</div>
+                        </div>
+
+                    </mat-select>
+                    <mat-error *ngIf="form.state.errors?.required">Select Governorate</mat-error>
+                </mat-form-field> -->
+                    <mat-form-field appearance="outline" class='table_wid'>
+                        <mat-label>{{'learnerregister.wilay' | translate}}</mat-label>
+                        <mat-select formControlName="city" *ngIf="(cityList | filter : searchcity) as cityresult"
+                            [disableOptionCentering]="true" panelClass="select_with_search" required>
+                            <div class="searchinmultiselect">
+                                <mat-icon class="">search</mat-icon>
+                                <input (keydown.enter)="$event.preventDefault()" appAlphanumsymb matInput
+                                    class="searchselect" type="Search" placeholder="{{'course.sear' | translate}} "
+                                    (keydown)="$event.stopPropagation();" [(ngModel)]="searchcity"
+                                    [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                <mat-icon (click)="searchcity = ''" class="reseticon" matSuffix
+                                    *ngIf="searchcity !='' && searchcity !=null">clear</mat-icon>
+                            </div>
+
+                            <div class="option-listing countryselectwithimage">
+                                <mat-option *ngFor="let cty of cityList | filter : searchcity"
+                                    [value]="cty.opalcitymst_pk">
+                                    {{ifarabic == true ? cty.ocim_cityname_ar :
+                                    cty.ocim_cityname_en}}
+                                </mat-option>
+                                <div *ngIf="cityresult.length == 0">{{'learnerregister.noresulfoun' | translate}}</div>
+                            </div>
+                        </mat-select>
+                        <mat-error *ngIf="form.city.errors?.required">{{'learnerregister.selewil' |
+                            translate}}</mat-error>
+                    </mat-form-field>
+                    <div class="table_wid"></div>
+                </div>
+                <p class="txt-gry3 fs-16 w-100 color-default m-t-5 m-b-30" *ngIf="shownotetext && !staffrep_id">
+                    <b>{{'staff.notetxt' | translate}}</b> {{'staff.notelr' | translate}}</p>
+                <div fxLayout="row" class="clflex rwidth fbutton" *ngIf="!staffrep_id">
+                    <button class="clear-btn fs-16" mat-raised-button type="button" (click)="gobatch()">Cancel</button>
+                    <button class="add-btn fs-16" mat-raised-button> {{ 'Update' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-responseloader *ngIf="loading"></app-responseloader>

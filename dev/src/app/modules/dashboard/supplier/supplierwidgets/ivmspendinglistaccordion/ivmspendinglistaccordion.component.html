@@ -1,0 +1,140 @@
+<div fxFlex.gt-sm="100" fxFlex="100" id="ivmspendinglistaccordion" class="flex-column ivmspendinglistaccordion m-t-30">
+        <mat-accordion class="placcordpanel commonexpandandcollapse">
+            <!--Installation Pending-->
+            <mat-expansion-panel >
+                <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <div class="accrodianheader">
+                            <p class="header">{{'centredashboard.installationpending' | translate}} (15)</p>
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <span>{{'centredashboard.viewall' | translate}}</span>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="iptable">
+                    <table mat-table [dataSource]="ivmsipdataSource" class="mat-iptable">
+                        <!-- vehicleno Column -->
+                        <ng-container matColumnDef="ivmsvehicleno">
+                            <th mat-header-cell *matHeaderCellDef>{{'centredashboard.vehicleno' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsvehicleno}} </td>
+                        </ng-container>
+                        <!-- ownername Column -->
+                        <ng-container matColumnDef="ivmsownername">
+                            <th mat-header-cell *matHeaderCellDef>{{'centredashboard.ownername' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsownername}} </td>
+                        </ng-container>
+                        
+                        <!-- Installationdate Column -->
+                        <ng-container matColumnDef="ivmsinspectiondate">
+                            <th mat-header-cell *matHeaderCellDef> {{'centredashboard.dateofinstall' | translate}}  </th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsinspectiondate}} </td>
+                        </ng-container>
+                        
+                        <!-- assignedinspector Column -->
+                        <ng-container matColumnDef="ivmsassignedinspector">
+                            <th mat-header-cell *matHeaderCellDef> {{'centredashboard.assignedinspector' | translate}}  </th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsassignedinspector}} </td>
+                        </ng-container>
+                        
+                        <!-- action Column -->
+                        <ng-container matColumnDef="ivmsaction">
+                            <th mat-header-cell *matHeaderCellDef> {{'centredashboard.action' | translate}}  </th>
+                            <td mat-cell *matCellDef="let element"> 
+                                <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>{{'centredashboard.inspect' | translate}}</button>
+                                </mat-menu>                                
+                            </td>
+                        </ng-container>
+                        
+                        <tr mat-header-row *matHeaderRowDef="ivmsipdisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ivmsipdisplayedColumns;"></tr>
+                    </table>
+                </div>
+    
+            </mat-expansion-panel>
+            <!--Verification Pending-->
+            <mat-expansion-panel >
+                <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <div class="accrodianheader">
+                            <p class="header">{{'centredashboard.verifypending' | translate}} (10)</p>
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <span>{{'centredashboard.viewall' | translate}}</span>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="vptable">
+                    <table mat-table [dataSource]="ivmsvpdataSource" class="mat-iptable">
+                        <!-- vehicleno Column -->
+                        <ng-container matColumnDef="ivmsvvehicleno">
+                            <th mat-header-cell *matHeaderCellDef>{{'centredashboard.vehicleno' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsvvehicleno}} </td>
+                        </ng-container>
+                        <!-- ownername Column -->
+                        <ng-container matColumnDef="ivmsvownername">
+                            <th mat-header-cell *matHeaderCellDef> {{'centredashboard.ownername' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsvownername}} </td>
+                        </ng-container>
+                        
+                        <!-- action Column -->
+                        <ng-container matColumnDef="ivmsvaction">
+                            <th mat-header-cell *matHeaderCellDef> {{'centredashboard.action' | translate}}  </th>
+                            <td mat-cell *matCellDef="let element"> 
+                                <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>{{'centredashboard.verify' | translate}}</button>
+                                </mat-menu>                                
+                            </td>
+                        </ng-container>
+                        
+                        <tr mat-header-row *matHeaderRowDef="ivmsvpdisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ivmsvpdisplayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-expansion-panel>
+            <!--Approval Pending-->
+            <mat-expansion-panel >
+                <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <div class="accrodianheader">
+                            <p class="header">{{'centredashboard.approvepending' | translate}} (02)</p>
+                        </div>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <span>{{'centredashboard.viewall' | translate}}</span>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="aptable">
+                    <table mat-table [dataSource]="ivmsapdataSource" class="mat-iptable">
+                        <!-- vehicleno Column -->
+                        <ng-container matColumnDef="ivmsavehicleno">
+                            <th mat-header-cell *matHeaderCellDef>{{'centredashboard.vehicleno' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsavehicleno}} </td>
+                        </ng-container>
+                        <!-- ownername Column -->
+                        <ng-container matColumnDef="ivmsaownername">
+                            <th mat-header-cell *matHeaderCellDef> {{'centredashboard.ownername' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.ivmsaownername}} </td>
+                        </ng-container>
+                        
+                        <!-- action Column -->
+                        <ng-container matColumnDef="ivmsaaction">
+                            <th mat-header-cell *matHeaderCellDef> {{'centredashboard.action' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> 
+                                <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>{{'centredashboard.approve' | translate}}</button>
+                                </mat-menu>                                
+                            </td>
+                        </ng-container>
+                        
+                        <tr mat-header-row *matHeaderRowDef="ivmsapdisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ivmsapdisplayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>

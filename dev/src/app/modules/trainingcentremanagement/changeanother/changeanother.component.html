@@ -1,0 +1,42 @@
+<div id="changeanother" fxLayout="row wrap" fxLayoutAlign="center">
+    <div class="viewchangeanother m-b-50" fxFlex="95">
+        <div class="audit d-flex">
+            <button>{{'changeanother.auditlog' | translate}}</button>
+        </div>
+        <div class="knowledgegrid m-t-10 ">
+            <div class="details pd-15">
+                <p class="fs-16 text-gray m-0">{{'changeanother.audito' | translate}}</p>
+                <h2 class="fs-18 headcolor m-0"> test {{omrm_tpname_en}}</h2>
+                <p class="text-gray m-0 fs-15">{{'changeanother.trainprovname' | translate}}:<span class="text-default">{{omrm_tpname_en}}</span></p>
+                <div class="d-flex fs-13 m-t-20 m-b-20">
+
+                    <p class="application-detais m-r-10 pd-2 text-gray m-0">{{'changeanother.dat' | translate}} :<span
+                            class="text-default">{{asd_date}}</span>
+                    </p>
+
+                    <p class="application-detais m-r-10 pd-2 text-gray m-0">{{'changeanother.status' | translate}} :<span
+                            class="text-default">Booked</span></p>
+                    <p class="application-detais m-r-10 pd-2 text-gray m-0">{{'changeanother.centre' | translate}}:<span
+                            class="text-default">{{omrm_tpname_en}} <button class="viewbtn">{{'changeanother.view' | translate}}</button></span></p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="staf-section p-t-10 p-b-10">
+            <h2 class="text-default fs-18 bold">{{'changeanother.assianaudi' | translate}}</h2>
+            <div class="staf-dtl">
+                <mat-form-field appearance="outline" class="field-width">
+                    <mat-select placeholder="{{'changeanother.stafname' | translate}}" required>
+                        <mat-option *ngFor="let staf of stafs" [value]="staf.value">
+                            {{staf.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="action-btn d-flex m-t-30">
+                <button mat-spinner-button class="canc m-r-20">{{'changeanother.canc' | translate}}</button>
+                <button mat-spinner-button class="add">{{'changeanother.add' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

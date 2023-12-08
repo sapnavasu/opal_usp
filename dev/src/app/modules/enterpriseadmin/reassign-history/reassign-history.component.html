@@ -1,0 +1,126 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+  <!-- column -->
+  <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+    <div class="titletext">
+      <div class="closeandadd">
+        <mat-icon mat-button matTooltip="Close" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+          (click)="reassignhistoryalert()" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+        <h5 class="m-0 p-l-20 tt">Re-Assigned History<mat-icon class="bgi bgi-info"
+            (click)="reassignhistorylistdropdown('reassignhistorylistview')">info_outline</mat-icon></h5>
+      </div>
+      <div class="clearandaddbutton">
+        <button  (click)="reassignhistoryalert()" type="button" mat-raised-button color="primary"
+          class="clearbutton height-35 p-l-20 p-r-20 spacemargin">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 reassignhistorylistview"
+  [@slideInOut]="animationState3">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+      <mat-card-header>
+        <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+          <mat-card-subtitle class="informationtext fs-14">
+            History of User's re-assignment to different roles / Designation is displayed
+          </mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div class="innnerpartofdrwer">
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="re-assignlisthistoryview">
+      <div class="makeitforlistview">
+        <div class="personimage">
+          <img src="assets/images/avatar.svg" alt="user image">
+        </div>
+        <div class="personinformation">
+          <div class="nameandhisid">
+            <div class="forlistviewname p-t-10 p-b-10">
+              <h4 class="mat-subheading-1 text-center">
+                Muzaffar
+              </h4>
+            </div>
+            <div class="sttusofprson forlistviewonly">
+              <span class="active">Active</span>
+              <p class="employeeid text-center">BGI - 157</p>
+            </div>
+          </div>
+          <div class="contactdetilslandingwidth">
+            <p>
+              <i class="bgi bgi-investor p-r-12"></i>
+              <span>Chartered Financial Analyst</span>
+            </p>
+            <p><i class="bgi bgi-add-department-new p-r-12"></i><span>Accounting and Finance</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <mat-table class="masterTable m-t-40" [dataSource]="dataSource" #sort="matSort" matSort
+        matSortActive="MemberRegMst_Pk" matSortDirection="desc" matSortDisableClear>
+        <ng-container matColumnDef="reassign_to">
+          <mat-header-cell class="suppliercodewidth" fxFlex="40" *matHeaderCellDef mat-sort-header>
+            Re-assigned to
+          </mat-header-cell>
+          <mat-cell fxFlex="40" popover="{{ fleetData.reassignto}}" popoverPlacement="top"
+          [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+          [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+          [popoverAnimation]="true"
+            class="suppliercodewidth" *matCellDef="let fleetData" data-label="Re-assigned to">
+            {{fleetData.reassignto | truncate:[15]}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="reassign_by">
+          <mat-header-cell class="organiserclmn" fxFlex="25" *matHeaderCellDef mat-sort-header>
+            Re-assigned by
+          </mat-header-cell>
+          <mat-cell fxFlex="25" class="organiserclmn" popover="{{ fleetData.reassignby}}" popoverPlacement="top"
+          [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+          [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false"
+          [popoverAnimation]="true"
+            *matCellDef="let fleetData" data-label="Re-assigned by">
+            {{fleetData.reassignby | truncate:[15]}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="re-assignedtype">
+          <mat-header-cell fxFlex="25" class="companynameclmn" *matHeaderCellDef mat-sort-header>
+            Re-assigned Type
+          </mat-header-cell>
+          <mat-cell fxFlex="25" class="widthalign companynameclmn"  *matCellDef="let fleetData" data-label="Re-assigned Type">
+            {{fleetData.reassigntype}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="reassign_on">
+          <mat-header-cell fxFlex="25" class="contractfeewidth" *matHeaderCellDef mat-sort-header>
+            Reassigned on
+          </mat-header-cell>
+          <mat-cell fxFlex="25" class="contractfeewidth" *matCellDef="let fleetData" data-label="Reassigned on">
+            {{fleetData.reassignbyon}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="from_date">
+          <mat-header-cell fxFlex="25" class="tenderprocesswidth" *matHeaderCellDef mat-sort-header>
+            From Date
+          </mat-header-cell>
+          <mat-cell fxFlex="25" class="tenderprocesswidth" *matCellDef="let fleetData" data-label="From Date">
+            {{fleetData.fromdate}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="To_date">
+          <mat-header-cell fxFlex="25" class="invoicegeneratedwidth" *matHeaderCellDef mat-sort-header>
+            To Date
+          </mat-header-cell>
+          <mat-cell fxFlex="25" class="invoicegeneratedwidth" *matCellDef="let fleetData" data-label="To Date">
+            {{fleetData.Todate}}
+          </mat-cell>
+        </ng-container>
+        <mat-header-row id="headerrowcells" *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+          <input type="text" name="value">
+        </mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

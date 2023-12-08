@@ -1,0 +1,135 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<app-responseloader *ngIf="showLoader == true"></app-responseloader>
+<div id="maincontnr"  class="main-container minisidenavbar" [dir]="dir" [ngClass]="{minisidebar: minisidebar, boxed: boxed,  danger: danger, blue: blue, dark: dark, green: green, horizontal: horizontal, 'sidebar-opened': sidebarOpened, 'sidebar-closed': sidebarOpened, 'rtl': dir == 'rtl'}">
+    <button id="sidmnutogglbtn" [style.display]="maxmobileQuerytab.matches == false ? 'block' : 'none'" (click)="menuexpand()" mat-icon-button class="sidemenutogglebtn ml-xs overflow-visible"></button> 
+  <!-- <mat-slide-toggle [(ngModel)]="minisidebar">Mini Sidebar</mat-slide-toggle> -->
+  <mat-sidenav-container class="example-sidenav-container mat-drawer-transition" [style.marginTop.px]="mobileQuery.matches ? 0 : 0" [ngClass]="{ minisidebar: minisidebar }">
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+        
+        <mat-sidenav #snav id="snav" class="pl-xs mat-sidenav" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="false" (open)="sidebarOpened = true" (close)="sidebarOpened = false" (mouseenter)="onMouseenter()" (mouseleave)="onMouseleave()">
+          
+          <perfect-scrollbar *ngIf="!horizontal" class="scbar" [config]="config" >
+              <app-superadminsidebar (parentFun)="parentFun(drawercontactus)" [msidenav]="snav" #sdbar></app-superadminsidebar>
+          </perfect-scrollbar>
+        </mat-sidenav>
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar - style you can find in rightsidebar.component.scss -->
+        <!-- ============================================================== -->
+    <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
+      <div class="scroll">
+          <mat-nav-list>
+            <h3 mat-subheader class="text-uppercase font-weight-bold">Settings</h3>
+            <mat-list-item *ngIf="!minisidebar">
+              <mat-slide-toggle color="warn" [(ngModel)]="horizontal">Horizontal Layout</mat-slide-toggle>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-slide-toggle color="warn" (change)="dir = dir == 'rtl' ? 'ltr' : 'rtl'">RTL</mat-slide-toggle>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-slide-toggle color="warn" [(ngModel)]="boxed">Boxed Layout</mat-slide-toggle>
+            </mat-list-item>   
+            <mat-list-item *ngIf="!horizontal">
+              <mat-slide-toggle [(ngModel)]="minisidebar">Mini Sidebar</mat-slide-toggle>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <h3 mat-subheader class="text-uppercase font-weight-bold">Colors</h3>
+            <mat-list-item>
+              <mat-checkbox color="warn" [(ngModel)]="danger" (change)="green = blue = false" class="text-danger" >Red</mat-checkbox>
+            </mat-list-item>  
+            <mat-list-item>
+              <mat-checkbox  color="warn"  [(ngModel)]="green"  (change)="danger = blue = false" class="text-megna" >Teal Green</mat-checkbox>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-checkbox color="warn" [(ngModel)]="blue" (change)="green = danger = false" class="text-info" >Blue </mat-checkbox>
+            </mat-list-item>    
+            <mat-list-item>
+              <mat-checkbox color="warn" [(ngModel)]="dark" (change)="darkClick()">Dark</mat-checkbox>
+            </mat-list-item>
+          </mat-nav-list>
+        </div>
+    </mat-sidenav>
+            
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+    <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''" #pageScroll (scroll)="pageonScroll($event)">
+        <!-- ============================================================== -->
+        <!-- Topbar - style you can find in header.scss -->
+        <!-- ============================================================== -->
+      <mat-toolbar  class="topbar relative" [ngClass]="showshadow ? 'showsahdow' : ''"  [style.height]="maxmobileQuerytab.matches == true?'auto' : '105px'" >
+          <div class="w-100 fix-width-for-horizontal" [fxLayout]="maxmobileQuerytab.matches == true?'column-reverse':'row'">
+            <app-breadcrumb></app-breadcrumb>
+          <!-- ============================================================== -->
+          <!-- sidebar toggle -->
+          <!-- ============================================================== -->
+         
+          <!-- ============================================================== -->
+          <!-- Search - style you can find in header.scss -->
+          <!-- ============================================================== -->
+         <!--  <button mat-icon-button class="srh-btn" (click)="showSearch = !showSearch">
+              <mat-icon>search</mat-icon>
+          </button> -->
+         <!--  <form class="app-search" [ngClass]="{ 'show-search': showSearch }">
+            <input type="text" class="form-control" placeholder="Search &amp; enter" />
+            <a class="cl-srh-btn" (click)="showSearch = !showSearch">
+              <i class="ti-close"></i>
+            </a>
+          </form> -->
+        
+          <span fxFlex></span>
+          <!-- <div class="journeybutton m-r-20" fxLayout="row wrap" fxLayoutAlign="center center">
+            <button mat-raised-button class="headerbtn" [routerLink]="['/dashboard/journeymap']"> {{ 'View Journey Map' | translate }}</button>
+        </div> -->
+          <!-- ============================================================== -->
+          <!-- app header component - style you can find in header.scss / header.component.ts-->
+          <!-- ============================================================== -->
+          <div class="headerRightsection" fxLayout="row" [fxLayoutAlign]="maxmobileQuerytab.matches == false ? 'end centre' : 'space-between center'">
+            <button (click)="snav.toggle()" [style.display]="maxmobileQuerytab.matches == false ? 'none' : 'block'" mat-icon-button class="ml-xs overflow-visible">
+               <mat-icon>menu</mat-icon>
+            </button>
+           <div class="userProfile" fxLayout="row" fxLayoutAlign="end centre">  
+              <button (click)="setLanguageFlag(lang);" class="langbtn"> <img src="assets/images/flags/{{this.flagid}}.png" class="languageflag m-r-10"/>{{languagetext}}</button>
+              <app-superadminheader [class]="mobileQuery.matches ? 'headerRight' : 'headerRightMatch'"></app-superadminheader>
+           </div>
+          </div>
+          <!-- ============================================================== -->
+          <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
+          <!-- ============================================================== -->
+        <!--button (click)="end.toggle()" mat-icon-button class="ml-xs overflow-visible">
+            <mat-icon>settings</mat-icon>
+        </button--> 
+      </div>
+      </mat-toolbar>
+    <!-- ============================================================== -->
+      <!-- End Topbar - style you can find in pages.scss -->
+      <!-- ============================================================== -->
+        <div class="perfectscroll" (scroll)="pageonperfectScroll($event)">
+          <div class="page-container">
+            <div class="page-content">
+                <router-outlet>
+                    <app-spinner></app-spinner>
+                </router-outlet>  
+            </div>   
+          </div>
+          <app-superadminfooter></app-superadminfooter>
+        </div>  
+      </mat-sidenav-content>
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+    </mat-sidenav-container>
+   
+    
+</div>
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawercontactus class="example-sidenav sidenavsamewidthall filtersidenav" mode="over"  position="end">
+      <app-contactusnav [drawercontactus]="drawercontactus" #contactusdataupdate [contactusData]="contactusData"></app-contactusnav>
+  </mat-drawer>
+</mat-drawer-container>

@@ -1,0 +1,639 @@
+<div fxLayout="row wrap" class="m-b-35 m-t-35">
+  <app-responseloader *ngIf="showLoader"></app-responseloader>
+  <div fxFlex.gt-sm="100" fxFlex="100" id="payonlinetablist">
+    <mat-accordion class="offlineaccordion" *ngIf="paymentDetails?.renewalstatus =='D' || paymentDetails?.afvpstatus=='D'">
+      <mat-expansion-panel class="p-l-20 p-b-20 p-r-20">
+        <mat-expansion-panel-header (click)="scrollTo('page-content')">
+          <mat-panel-title>
+            <div class="alignpayment">
+              <img src="assets/images/exclamatorycircle.png" alt="exclamatorycircle.png">
+              <div class="declinedtext p-l-15">
+                <h2>Payment Declined</h2>
+                <!-- <p>{{paymentDetails?.payComments}}</p> -->
+              </div>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="accordionshowtext"> 
+          <div class="fs-14 m-0 d-flex" >
+            <p class="m-r-5 mw75">Comments: </p>
+            <p [innerHTML]="paymentDetails?.payComments" class="posreltop0"></p>
+          </div>       
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="alignend p-r-20">
+      <div class="widthload m-r-15">
+        <div class="methodcolor p-b-10 p-l-20">
+          <h2>Choose Online Payment Method</h2>
+        </div>
+        <div class="industrycontent">
+          <mat-tab-group [selectedIndex]="0"
+            class="tabinsidetabssubscriptionlist">
+            <mat-tab *ngIf="smartpay_apistatus">
+              <ng-template mat-tab-label>
+                <div class="accrodianheader">
+                  <p class="header m-0 fs-15">
+                    <span> Credit / Debit Cards</span>
+                  </p>
+                  <!-- <p class="header m-0 fs-15">
+                    <span>  </span>
+                  </p> -->
+                </div>
+              </ng-template>
+              <div class="industrycontent debitcarddetail">
+                <!-- <div class="omantextcard p-t-20">
+                  <h2>Recommended for Smart Cards.</h2>
+                </div> -->
+                <div class="p-l-10 p-r-10 p-t-20">
+                  <div class="p-b-20">
+                    <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5">Certification Fee Details</p>
+                    <div class="subscriptiontitle">
+                      <p class="spacingwidth widthfirttag ">OPAL Certification Fee</p>
+                      <div class="flexwidth">
+                        <span>:</span>
+                        <p class="spacingalignwidth m-l-40">
+                          {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                          <span class="p-l-25 floatalign">
+                            {{paymentDetails?.packageDtl?.subscription?.packageBasePrice}}
+                          </span>
+                        </p>
+                        <!-- <p class="spacingalignwidth m-l-40">
+                            USD
+                            <span class="p-l-25">
+                              1000.00
+                            </span>
+                          </p> -->
+                      </div>
+                    </div>
+                  </div>
+               <div class="p-b-20">
+                <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5">Discount Details</p>
+                <div class="subscriptiontitle">
+                  <p class="spacingwidth widthfirttag ">Special Discount (5%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                        OMR
+                      <span class="p-l-25 floatalign">
+                        - 5.000
+                      </span>
+                    </p>
+                    <!-- <p class="spacingalignwidth m-l-40">
+                        USD
+                        <span class="p-l-25">
+                          1000.00
+                        </span>
+                      </p> -->
+                  </div>
+                </div>
+               </div>
+                <div class="p-b-40">
+                  <p class="fs-13 m-0 txt-gray6 lypisfont-regular p-b-6">Applied Promo Code (Discount)</p>
+                  <div class="subscriptiontitle">
+                    <div class="specialdis">
+                      <p class="fs-13 txt-gray3 OPALcolorinner">OPALOFF891</p>
+                    </div>
+                    <div class="flexwidth">
+                      <span>:</span>
+                      <p class="spacingalignwidth m-l-40">
+                          OMR
+                        <span class="p-l-25 floatalign">
+                          - 10.000
+                        </span>
+                      </p>
+                      <!-- <p class="spacingalignwidth m-l-40">
+                          USD
+                          <span class="p-l-25">
+                            1000.00
+                          </span>
+                        </p> -->
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="subscriptiontitle p-b-6">
+                  <p class="spacingwidth widthfirttag">
+                    Processing Fee (2.31%)	</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">OMR
+                      <span class="p-l-25 floatalign">
+                        2.310
+                      </span>
+                    </p>
+                  </div>
+                </div> -->
+                  <div class="subscriptiontitle p-b-6">
+                    <p class="spacingwidth widthfirttag">
+                      VAT Charges ({{paymentDetails?.packageDtl?.subscription?.vatrate}}%)</p>
+                    <div class="flexwidth">
+                      <span>:</span>
+                      <p class="spacingalignwidth m-l-40">
+                        {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                        <span class="p-l-25 floatalign">
+                          {{paymentDetails?.packageDtl?.subscription?.vatprice}}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="subscriptiontitle p-b-6">
+                    <p class="spacingwidth widthfirttag">
+                      Additional Charges (2.31%)</p>
+                    <div class="flexwidth">
+                      <span>:</span>
+                      <p class="spacingalignwidth m-l-40">
+                        {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                        <span class="p-l-25 floatalign">
+                          {{paymentDetails?.packageDtl?.subscription?.additionalPrice}}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="paymenttitlecolor m-t-12">
+                  <p class="spacingwidthtotal widthfirttag fs-18">Total Payable Amount</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-25 fs-18"><span
+                        class="p-r-25 omrpaddinremove">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}</span>
+                      <span class="floatalign">{{paymentDetails?.packageDtl?.subscription?.totalPrice}}</span>
+                      <!-- <span class="p-r-25 floatalign"> 107.310</span> -->
+                    </p>
+                  </div>
+                </div>
+                <div class="paycolor p-t-35 textcenter">
+                  <p>Pay through</p>
+                </div>
+                <!-- <div class="p-t-10 textcenter">
+                  <img src="assets/images/omannetimage.png" alt="omannetimage">
+                </div> -->
+                <div class="recommendedcolor p-t-15 textcenter notecolorrole">
+                  <p><span>Note:</span> This payment gateways are applicable only for Smart Cards.</p>
+                </div>
+                <div class="m-t-30">
+                  <button mat-raised-button (click)="proceedToPay('SP')" color="primary" type="button" class="button-45 w-100">Proceed to
+                    Pay</button>
+                </div>
+                <div class="paymentalign">
+                  <p (click)="openDialog()"><a>Payment Notes</a></p>
+                </div>
+
+              </div>
+            </mat-tab>
+            <mat-tab *ngIf="omannet_apistatus && (!paymentDetails || paymentDetails?.origin === 'NATIONAL')">
+              <ng-template mat-tab-label>
+                <div class="accrodianheader">
+                  <p class="header m-0 fs-15">
+                    <span> Oman</span>
+                  </p>
+                  <p class="header m-0 fs-15">
+                    <span>Debit Cards </span>
+                  </p>
+                </div>
+              </ng-template>
+              <div class="industrycontent debitcarddetail">
+                <div class="omantextcard p-t-20">
+                  <h2>Recommended for Oman Debit Cards.</h2>
+                </div>
+                <div class="subscriptiontitle p-t-35">
+                  <p class="spacingwidth widthfirttag">OPAL Certification Fee</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign">
+                        {{paymentDetails?.packageDtl?.subscription?.packageBasePrice}}
+                      </span>
+                    </p>
+                    <!-- <p class="spacingalignwidth m-l-40">
+                        USD
+                        <span class="p-l-25">
+                          1000.00
+                        </span>
+                      </p> -->
+                  </div>
+                </div>
+                <div class="subscriptiontitle">
+                  <p class="spacingwidth widthfirttag">
+                    VAT Charges ({{paymentDetails?.packageDtl?.subscription?.vatrate}}%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign">
+                        {{paymentDetails?.packageDtl?.subscription?.vatprice}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <!-- <div class="subscriptiontitle">
+                  <p class="spacingwidth widthfirttag">
+                    VAT Charges (0%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">USD
+                      <span class="p-l-25 floatalign">
+                        0.00
+                      </span>
+                    </p>
+                  </div>
+                </div> -->
+
+                <div class="subscriptiontitle">
+                  <p class="spacingwidth widthfirttag">
+                    Additional Charges (2.31%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign">
+                        {{paymentDetails?.packageDtl?.subscription?.additionalPrice}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div class="paymenttitlecolor m-t-12">
+                  <p class="spacingwidthtotal widthfirttag">Total Payable Amount</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40"><span
+                        class="p-r-25">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}</span>
+                      <span class="floatalign">{{paymentDetails?.packageDtl?.subscription?.totalPrice}}</span>
+                      <!-- <span class="p-r-25 floatalign"> 107.310</span> -->
+                    </p>
+                  </div>
+                </div>
+                <div class="paycolor p-t-35 textcenter">
+                  <p>Pay through</p>
+                </div>
+                <div class="p-t-10 textcenter">
+                  <img src="assets/images/omannetimage.png" alt="omannetimage">
+                </div>
+                <div class="recommendedcolor p-t-15 textcenter notecolorrole">
+                  <p><span>Note:</span> This payment gateways are applicable only for Omani Credit/Debit Cards.</p>
+                </div>
+                <div class="m-t-30">
+                  <button mat-raised-button (click)="proceedToPay('ODC')" color="primary" type="button" class="button-45 w-100">Proceed to
+                    Pay</button>
+                </div>
+                <div class="paymentalign">
+                  <p (click)="openDialog()"><a>Payment Notes</a></p>
+                </div>
+
+              </div>
+            </mat-tab>
+            <mat-tab *ngIf="cybersource_apistatus || thawani_apistatus">
+              <ng-template mat-tab-label>
+                <div class="accrodianheader">
+                  <p class="header m-0 fs-15">
+                    <span>International</span>
+                  </p>
+                  <p class="header m-0 fs-15">
+                    <span>Credit/Debit Cards</span>
+                  </p>
+                </div>
+              </ng-template>
+              <div class="industrycontent debitcarddetail">
+
+                <div class="omantextcard p-t-20">
+                  <h2>Recommended for International Credit/Debit Cards.</h2>
+                </div>
+                <div class="p-t-20">
+                  <img src="assets/images/visacardimage.png" alt="visacardimage">
+                </div>
+                <div class="subscriptiontitle p-t-35">
+                  <p class="spacingwidth widthfirttag">OPAL Certification Fee</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      <span class="p-r-25">
+                        {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      </span>
+                      <span class="floatalign">{{paymentDetails?.packageDtl?.subscription?.packageBasePrice}}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="subscriptiontitle">
+                  <p class="spacingwidth widthfirttag">
+                    VAT Charges ({{paymentDetails?.packageDtl?.subscription?.vatrate}}%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign">
+                        {{paymentDetails?.packageDtl?.subscription?.vatprice}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <!-- <div class="subscriptiontitle">
+                  <p class="spacingwidth widthfirttag">
+                    VAT Charges (0%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">USD
+                      <span class="p-l-25 floatalign">
+                        0.00
+                      </span>
+                    </p>
+                  </div>
+                </div> -->
+                <!-- <div class="subscriptiontitle">
+                    <p class="spacingwidth widthfirttag">
+                        Processing Fee (2.31%)</p>
+                    <div class="flexwidth">
+                      <span>:</span>
+                      <p class="spacingalignwidth m-l-40">
+                          USD
+                        <span class="p-l-25 floatalign">
+                           23.10
+                        </span>
+                      </p>
+                    </div>
+                  </div> -->
+                <div class="subscriptiontitle">
+                  <p class="spacingwidth widthfirttag">
+                    Additional Charges (2.31%) </p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      <span class="p-r-25">
+                        {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      </span>
+                      <span class="floatalign">{{ paymentDetails?.packageDtl?.subscription?.additionalPrice }}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="subscriptiontitle" *ngIf="discount">
+                  <p class="spacingwidth widthfirttag">
+                    Discount ({{paymentDetails?.packageDtl?.subscription?.discount_percent}}%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign">
+                        {{paymentDetails?.packageDtl?.subscription?.discount_amount}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div class="paymenttitlecolor m-t-12">
+                  <p class="spacingwidthtotal widthfirttag">Total Payable Amount</p>
+                  <div class="flexwidth ">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40"> <span
+                        class="p-r-25">{{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}</span>
+                      <span class="{{ paymentDetails?.packageDtl?.subscription?.additionalPrice }} floatalign">{{paymentDetails?.packageDtl?.subscription?.totalPrice}}</span>
+                      <!-- <span class="p-r-25 {{ paymentDetails?.packageDtl?.subscription?.additionalPrice }}"> 107.310</span> -->
+                    </p>
+                  </div>
+                </div>
+                <div class="paycolor p-t-40">
+                  <p>Pay through</p>
+                </div>
+                <popover-content #myPopover placement="bottom-left" [animation]="true" [closeOnClickOutside]="true">
+                  Thawani is a payment gateway that provides smart, simple and secure e-payment services for
+                  merchants.
+                </popover-content>
+                <div class="alignpaythrough">
+                  
+                  <div class="leftalignpaythrough m-r-22 borderright" *ngIf="cybersource_apistatus">
+                    <button class="infoalign" mat-button (click)="$event.stopPropagation();" type="button" #el
+                      popover="CyberSource is a payment gateway solution which allows the merchants to safely make payments worldwide."
+                      popoverPlacement="top" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                      [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true" matSuffix
+                      mat-icon-button aria-label="Clear">
+                      <i class="inputinfoicon bgi bgi-infonew"></i>
+                    </button>
+                    <div class="p-t-10 textcnter">
+                      <img src="assets/images/cybersourceimage.png" alt="cybersourceimage">
+                    </div>
+                  </div>
+                  <div class="leftalignpaythrough" *ngIf="thawani_apistatus">
+                    <span class="infoalign" [popover]="myPopover" matSuffix>
+                      <i class="inputinfoicon bgi bgi-infonew"></i>
+                    </span>
+                    <div class="p-t-50 textcnter">
+                      <img src="assets/images/thawanimage.png" alt="thawanimage">
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="recommendedcolor p-t-15">
+                  <p>Recommended for Oman & Worldwide</p>
+                </div> -->
+                <div class="alignpaythrough">
+                  <div class="leftalignpaythrough m-r-22" *ngIf="cybersource_apistatus">
+                    <div class="m-t-30">
+                      <button mat-raised-button type="button" color="primary" (click)="proceedToPay('OC')" class="button-45 w-100">Proceed
+                        to Pay</button>
+                    </div>
+                    <div class="paymentalign">
+                      <p (click)="openDialog()"><a>Payment Notes</a></p>
+                    </div>
+                  </div>
+                  <div class="leftalignpaythrough" *ngIf="thawani_apistatus">
+                    <div class="m-t-30">
+                      <button mat-raised-button type="button" color="primary" (click)="proceedToPay('T')" class="button-45 w-100">Proceed
+                        to Pay</button>
+                    </div>
+                    <div class="paymentalign">
+                      <p (click)="openDialog()"><a>Payment Notes</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab *ngIf="ottu_apistatus">
+              <ng-template mat-tab-label>
+                <div class="accrodianheader" (click)="checkOttuLink()">
+                  <p class="header m-0 fs-15">
+                    <span> Share Link </span>
+                  </p>
+                  <!-- <p class="header m-0 fs-15">
+                    <span>Payment Link</span>
+                  </p> -->
+                </div>
+              </ng-template>
+              <div class="industrycontent debitcarddetail">
+
+              <div class="p-l-10 p-r-10">
+                <div class="omantextcard p-t-20">
+                  <h2 class="lh-25">Generate and Share a unique and secure link to pay from any other browser or forward it to your
+                    finance team.</h2>
+                </div>
+                <div class="p-t-20">
+                  <img src="assets/images/visacardimage.png" alt="visacardimage">
+                </div>
+                <div class="p-b-20">
+                  <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5">Certification Fee Details</p>
+                  <div class="subscriptiontitle">
+                    <p class="spacingwidth widthfirttag">OPAL Certification Fee</p>
+                    <div class="flexwidth">
+                      <span>:</span>
+                      <p class="spacingalignwidth m-l-40">
+                        {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+  
+                        <span class="p-l-25 floatalign">{{paymentDetails?.packageDtl?.subscription?.packageBasePrice}}</span>
+                      </p>
+  
+                    </div>
+                  </div>
+                  </div>
+                  <div class="p-b-20">
+                    <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5">Discount Details</p>
+                    <div class="subscriptiontitle">
+                      <p class="spacingwidth widthfirttag ">Special Discount (5%)</p>
+                      <div class="flexwidth">
+                        <span>:</span>
+                        <p class="spacingalignwidth m-l-40">
+                            OMR
+                          <span class="p-l-25 floatalign">
+                            - 5.000
+                          </span>
+                        </p>
+                        <!-- <p class="spacingalignwidth m-l-40">
+                            USD
+                            <span class="p-l-25">
+                              1000.00
+                            </span>
+                          </p> -->
+                      </div>
+                    </div>
+                   </div>
+                    <div class="p-b-40">
+                      <p class="fs-13 m-0 txt-gray6 lypisfont-regular p-b-6">Applied Promo Code (Discount)</p>
+                      <div class="subscriptiontitle">
+                        <div class="specialdis">
+                          <p class="fs-13 txt-gray3 OPALcolorinner">OPALOFF891</p>
+                        </div>
+                        <div class="flexwidth">
+                          <span>:</span>
+                          <p class="spacingalignwidth m-l-40">
+                              OMR
+                            <span class="p-l-25 floatalign">
+                              - 10.000
+                            </span>
+                          </p>
+                          <!-- <p class="spacingalignwidth m-l-40">
+                              USD
+                              <span class="p-l-25">
+                                1000.00
+                              </span>
+                            </p> -->
+                        </div>
+                      </div>
+                    </div>
+                    <p class="fs-15 m-0 bluegreen lypisfont-semibold p-b-5">Other Charges</p> 
+                <div class="subscriptiontitle p-b-6">
+                  <p class="spacingwidth widthfirttag">
+                    VAT Charges ({{paymentDetails?.packageDtl?.subscription?.vatrate}}%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign">
+                        {{paymentDetails?.packageDtl?.subscription?.vatprice}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div class="subscriptiontitle p-b-6">
+                  <p class="spacingwidth widthfirttag">
+                    Additional Charges (2.31%)</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-40">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign">
+                        {{paymentDetails?.packageDtl?.subscription?.additionalPrice}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+                <div class="paymenttitlecolor m-t-12">
+                  <p class="spacingwidthtotal widthfirttag fs-18">Total Payable Amount</p>
+                  <div class="flexwidth">
+                    <span>:</span>
+                    <p class="spacingalignwidth m-l-25 fs-18">
+                      {{paymentDetails?.packageDtl?.subscription?.packageBaseCurrencySymbol}}
+                      <span class="p-l-25 floatalign"> {{paymentDetails?.packageDtl?.subscription?.totalPrice}}</span>
+                    </p>
+
+                  </div>
+                </div>
+                <div class="paycolor p-t-20">
+                  <p class="p-b-15">Pay through</p>
+                  <img src="assets/images/ottuimage.png" alt="ottuimage">
+                </div>
+                <div >
+                  <form [formGroup]="ottuInfoForm" class="alignpaythrough" autocomplete="off">
+                  <div class="typethenameher m-r-10" *ngIf="oman_access">
+                    <p>Pay Using Oman Debit Cards</p>
+                    <div class="neverfloatsearchlinkanyware">
+                      <button mat-raised-button type="button" (click)="ConfirmationDialog('dc');" color="primary" class="button-30 m-r-10">
+                       {{dcBtnName}}
+                     </button>
+                      <mat-form-field floatLabel="never">
+                        <input formControlName="debit_link" matInput app-restrict-input="firstspace" placeholder="">
+                      </mat-form-field>
+                    </div>
+                    <div class="copylinkcolor">
+                      <p><a class="linkcolor" [class.diabledlink]="dcvalidBtn"  [disabled]="dcvalidBtn" (click)="copyText(debit_url);openSnackBar();" href="javascript:void(0);">Copy Link</a></p>
+                    </div>
+                  </div>
+                  <div class="typethenameher">
+                    <p>Pay Using Other Cards</p>
+                    <div class="neverfloatsearchlinkanyware">
+                      <button mat-raised-button type="button" (click)="ConfirmationDialog('cc');" color="primary" class="button-30 m-r-10">
+                        {{ccBtnName}}
+                      </button> 
+                      <mat-form-field floatLabel="never">
+                        <input formControlName="credit_link" matInput app-restrict-input="firstspace" placeholder="">
+                      </mat-form-field>
+                    </div>
+                    <div class="copylinkcolor">
+                      <p><a class="linkcolor" [class.diabledlink]="ccvalidBtn"  [disabled]="ccvalidBtn" (click)="copyText(credit_url);openSnackBar();" href="javascript:void(0);">Copy Link</a></p>
+                    </div>
+                  </div>
+                </form>
+                </div>
+                <!-- <div class="sendpaycolor p-t-30 p-b-30">
+                  <p><span>Send Payment Links</span> to your registered Email ID - <span
+                      class="webcolor">yourmail@website.com</span></p>
+                </div> -->
+                <div class="alignpaythrough">
+                  <div class="leftalignpaythrough m-r-22" *ngIf="oman_access">
+                    <div class="m-t-15"  matTooltipPosition="above">
+                      <button mat-raised-button type="button"  *ngIf="!dcvalidBtn" (click)="ottuPayment('dc')" [class.disabledbtn]="dcvalidBtn"  color="primary"   class="button-45 w-100">Proceed to Pay</button>
+                      <button color="primary" mat-raised-button type="button" *ngIf="dcvalidBtn" matTooltipPosition="below" matTooltip="Generate the payment link to proceed with the payment" [class.disabledbtn]="dcvalidBtn"  class="button-45 w-100" >Proceed to Pay</button>
+                    </div>
+                    <div class="paymentalign">
+                      <p (click)="openDialog()"><a>Payment Notes</a></p>
+                    </div>
+                  </div>
+                  <div class="leftalignpaythrough">
+
+                    <div class="m-t-15"  >
+                      <button mat-raised-button type="button" *ngIf= "!ccvalidBtn" (click)="ottuPayment('cc')" [class.disabledbtn]="ccvalidBtn" color="primary"  class="button-45 w-100" >Proceed to Pay</button>
+                      <button color="primary" mat-raised-button type="button" *ngIf= "ccvalidBtn"  matTooltip="Generate the payment link to proceed with the payment" matTooltipPosition="below" [class.disabledbtn]="ccvalidBtn"   class="button-45 w-100"  >Proceed to Pay</button>
+                    </div>
+                    <div class="paymentalign">
+                      <p (click)="openDialog()"><a>Payment Notes</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+
+        </div>
+      </div>
+      <app-jsrsregisterdetaillist [paymentMode]="'online'" (updatePayment)="updatePayment($event)"
+        [paymentDetails]="paymentDetails" [contactusData]="contactusData" class="jsrswidth"></app-jsrsregisterdetaillist>
+    </div>
+  </div>
+</div>

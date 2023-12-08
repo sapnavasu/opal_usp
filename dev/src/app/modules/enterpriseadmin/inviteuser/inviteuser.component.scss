@@ -1,0 +1,160 @@
+@mixin flexstart {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+::ng-deep.addproductsmainselect {
+  background: #fff;
+  border: 1px solid #e2e4e8;
+  box-shadow: none !important;
+  padding: 10px !important;
+  margin: 0;
+
+  
+  .mat-card-avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    color: #006cb7;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    i {
+      font-size: 1.5625rem;
+    }
+  }
+
+  .mat-card-header {
+    width: 100%;
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-card-content {
+    .productinfo {
+      color: #006cb7;
+    }
+  }
+  .selectsubtitle {
+    color: #656565;
+    font-size: 14px !important;
+  }
+  .mat-card-footer {
+    margin: 0;
+  }
+  .selectforward {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 15px;
+    i {
+      -webkit-transform: rotate(270deg);
+      transform: rotate(270deg);
+      color: #777;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.headerinformationtext::after {
+  left: 251px;
+}
+.text-blue {
+  color: #006cb7;
+}
+.titletext {
+  width: 100% !important;
+}
+.companyinfomcp {
+  @include flexstart();
+  align-items: flex-start !important;
+
+  img {
+    width: 44px;
+    height: 44px;
+    border-radius: 2px;
+  }
+  .lypisid {
+    color: #666666;
+    font-size: 0.75rem;
+  }
+  p {
+    margin: 0;
+    line-height: 1;
+    color: #000;
+  }
+}
+
+.notecolor {
+  color: #ec2f96;
+}
+
+.email-padding {
+  padding: 90px;
+}
+
+.noteandaddbutton {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  ::ng-deep.addemail {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    background: #012967 !important;
+    .mat-button-wrapper {
+      max-height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .bgi-add {
+      font-size: 0.625rem;
+      padding-right: 5px;
+    }
+  }
+}
+
+.notelist {
+  padding-left: 25px;
+  li {
+    font-size: 0.875rem;
+  }
+}
+.notetitle {
+  color: #333 !important;
+  margin: 0;
+  padding-bottom: 5px;
+}
+.employeeadded {
+  font-size: 0.875rem;
+  color: #333 !important;
+  padding-top: 3px;
+  width: 100%;
+  text-align: right;
+}
+.headerspantext {
+  font-size: 0.875rem;
+}
+:host::ng-deep.emailtoinvite {
+  .errormessage {
+    position: absolute;
+    bottom: -18px;
+    font-size: 0.8125rem;
+  }
+  .mat-form-field-hint-spacer {
+    display: none;
+  }
+  .ck .ck-content
+  {
+    ul,ol {
+      padding-left: 20px !important;
+    }
+  } 
+}
+

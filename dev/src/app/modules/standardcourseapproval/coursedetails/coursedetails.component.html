@@ -1,0 +1,104 @@
+<div id="course_container" fxLayoutAlign="center">
+    <div class="compantdtl m-t-30" fxFlex="100">
+        <div fxLayoutAlign="space-between center">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'course.cour' | translate}}</h4>
+              <span class="badge new" *ngIf="newone">{{'course.new' | translate}}</span>
+                  <!-- <span class="badge update" *ngIf="update">{{'course.update' | translate}}</span> -->
+                <span class="badge appr" *ngIf="successcmd">{{'course.appr' | translate}}</span>
+                <span class="badge decl" *ngIf="declinecmd">{{'course.decl' | translate}}</span>
+            </div>
+            <!-- <div [class.dis_none]="status == 2" class="validbtn"> -->
+                <!-- <button mat-raised-button class="validation fs-16" color="primary">{{'course.vali' |
+                    translate}}</button> -->
+                    <div *ngIf="viewcertificate">
+                        <!-- *ngIf="applytype !=3" -->
+                <app-viewvalidation [course_approved]="data" (booleanValue)="onBooleanValue($event)" (approvedEmitter)="approvedvalue($event)" [hidebtn]="true" ></app-viewvalidation>
+            </div>
+            <!-- </div> -->
+
+        </div>
+        <div class="declinecmd m-l-0 m-r-0 m-b-20" *ngIf="declinecmd">
+            <p class="18 comment">{{'course.declcomm' | translate}}</p>
+            <p *ngIf=" comment == null || comment == ''" class="16 m-b-30">Nil</p>
+            <p [innerHTML]="comment" *ngIf=" comment != null || comment != ''" class="16 m-b-30"></p>
+            <mat-divider></mat-divider>
+            <div class="validinfo" fxLayout="row wrap">
+               <p class="fs-16 txt-gry m-r-40">{{'course.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{last_updated |date:'dd-MM-yyyy'}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'course.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{last_updated_by}}</span></p>
+            </div>
+        </div>
+        <div class="successcmd m-l-0 m-r-0 m-b-20" *ngIf="successcmd">
+            <p class="18 comment">{{'course.declcomm' | translate}}</p>
+            <p *ngIf=" comment == null || comment == ''" class="16 m-b-30">Nil</p>
+            <p [innerHTML]="comment" *ngIf=" comment != null || comment != ''" class="16 m-b-30"></p>
+            <mat-divider></mat-divider>
+            <div class="validinfo" fxLayout="row wrap">
+                <p class="fs-16 txt-gry m-r-40">{{'course.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{last_updated |date:'dd-MM-yyyy'}}</span></p>
+                <p class="fs-16 txt-gry m-l-30">{{'course.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{last_updated_by}}</span></p>
+            </div>
+        </div>
+
+        <div class="company_dtlview">
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'course.offitype' | translate}}</p>
+                <span>
+                    <div *ngIf="offitype == 1" >{{'table.main' |translate}}</div>
+                    <div *ngIf="offitype == 2">{{'table.branch' |translate}}</div>
+                </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'branch.branchname' | translate}}</p>
+                <span *ngIf="compnameeng == ''|| compnameeng == null">-</span>
+                <span *ngIf="compnameeng != ''|| compnameeng != null">{{compnameeng}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'course.courtitl' | translate}}</p>
+                <span> {{courtitl}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'course.courlevel' | translate}}</p>
+                <span>{{courlevel}}</span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'course.courcate' | translate}}</p>
+                <span> {{courcate}} </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'course.coursubcate' | translate}}</p>
+                <span>
+                    <ul *ngFor="let response of  coursubcate">
+                        <li class="m-b-13">{{response}}</li>
+                    </ul>
+                </span>
+            </div>
+            <div class="view_dtl m-t-25" fxLayout="row">
+                <p class="m-0">{{'course.request' | translate}}</p>
+                <span>{{request}}</span>
+            </div>
+            <div *ngIf="carditems?.length>0" class="unitcode m-t-25">
+                <p class="fs-18 txt-gry3">{{'course.courunit' | translate}}</p>
+                <div class="paginationwithfilter masterPageTop ">
+                    <mat-paginator class="masterPage masterPageTop" #paginator [length]="carditems?.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" (page)="slicepage($event);"></mat-paginator>
+                </div>
+                <div class="units m-b-20" *ngFor="let unitcard of  carditems">
+                    <p class="fs-14 txt-gry">{{'course.unitcode' | translate}}: 
+                        <span *ngIf="unitcard.appocut_unitcode!=null" class="fs-16 txt-gry3">{{unitcard.appocut_unitcode}}</span>
+                        <span *ngIf="unitcard.appocut_unitcode==null" class="fs-16 txt-gry3"> -</span></p>
+                    <p *ngIf="unitcard.appocut_unittitle!=null" class="fs-16 txt-gry3">{{unitcard.appocut_unittitle}}</p>
+                    <p *ngIf="unitcard.appocut_unittitle==null" class="fs-16 txt-gry3"> -</p>
+                </div>
+                <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                    <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block" class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                        [pageSizeOptions]="paginator?.pageSizeOptions">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+        <div class="btngroup m-t-30 m-b-10" fxLayout="row" fxLayoutAlign="flex-end">
+            <button mat-raised-button class="cancelbtn" type="button" (click)="courseprevious.emit()">{{'course.canc' | translate}}</button>
+            <button mat-raised-button class="submit_btn m-l-20" type="submit" (click)="coursebutton.emit()">{{'course.next' | translate}}</button>
+        </div>
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

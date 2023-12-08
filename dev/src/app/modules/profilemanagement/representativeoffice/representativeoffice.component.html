@@ -1,0 +1,369 @@
+<app-profilemanagementheader></app-profilemanagementheader>
+  <div fxLayout="row wrap" fxLayoutAlign="flex-end" class="m-t-3" *ngIf="showwelcomeback =='1'">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <app-welcomeback></app-welcomeback>
+      </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="resultsLength == 0" fxLayoutAlign="center" class="p-t-40 p-r-0">
+      <div fxFlex.gt-sm="83.33" fxFlex="100" class="">
+        <div fxLayout="row wrap" fxLayoutAlign="center" class="p-t-5 p-r-0">
+          <div fxFlex.gt-sm="25" fxFlex="100" class="">
+            <div class="catalogimage">
+              <img src="assets/images/firstpagecatalog.png" alt="" />
+            </div>
+          </div>
+    
+          <div fxFlex.gt-sm="50" fxFlexOffset="8.33" fxFlex="100" class="">
+            <div class="introwithoutdatamain">
+              <h2 class="firstdataheading">Representative Office</h2>
+              <p class="">The Ultimate Service Catalog is also a great solution for those who are running affiliate stores,
+                in which you link out to service for sale on other sites. </p>
+              <ul>
+                <li>Service catalog categories, sub-categories and text search to organize your catalog, making product
+                  filtering easy</li>
+                <li>Upload and import Services directly from a spreadsheet for your service catalog</li>
+              </ul>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="center" class="p-t-5 p-r-0 emptycatalog">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="d-flex">
+                <a _ngcontent-c12="" class="addbranch" (click)="addrepresentative.toggle();formreset()">Add Representative Office</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center" [ngClass]="resultsLength ? 'datafound' : 'nodatafound'" class="m-t-0">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" id="brnach">
+      <div class="maparea">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
+          <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
+            [latitude]="m.lat" [longitude]="m.lng" [label]="m.label">
+
+            <agm-info-window>
+              <strong>InfoWindow content</strong>
+            </agm-info-window>
+
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" [ngClass]="resultsLength ? 'datafound' : 'nodatafound'" fxLayoutAlign="center" >
+      <div fxFlex.gt-sm="100" fxFlex="100" class="box-border-bottom market-presence">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="d-flex">
+            <mat-paginator *ngIf="searchresalt != 0" [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageEvent = $event; onPaginateChange($event)">
+            </mat-paginator>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="d-flex p-t-10 p-b-10" fxLayoutAlign="end">
+            <i class="bgi bgi-search fs-20 search-icon" (click)="searchiconclick()"></i>
+              <button class="addbranch m-r-15" (click)="addrepresentative.toggle();formreset()" mat-raised-button color="primary">Add Representative Office</button>
+          </div>
+      </div>
+      <div fxFlex.gt-sm="100" fxFlex="100" *ngIf="searchfilter" class="search-bg market-presence">
+          <div fxFlex.gt-sm="60" fxFlex="100" class="d-flex">
+              <span class="search-span fw-700">Search by:</span> 
+              <input matInput class="fs-16 text-gray p-t-0 p-l-10" id="search" [(ngModel)]="searchValue" (keyup.enter)="searchfilterlist()" fxLayoutAlign="flex-start" autocomplete="off" placeholder="Company Name / Country">
+          </div>
+          <div fxFlex.gt-sm="40" fxFlex="100" class="d-flex" fxLayoutAlign="end">
+            <a href="JavaScript:Void();" (click)="filterreset()" class="clear-btn">Clear All</a>
+          </div>
+      </div>
+    </div>
+  <div fxLayout="row wrap" [ngClass]="resultsLength ? 'datafound' : 'nodatafound'" fxLayoutAlign="center" class="m-t-10">
+    <div fxFlex.gt-sm="91.66" fxFlex="100" class="branchpagination">
+        <div fxLayout="row wrap" fxLayoutAlign="center" class="m-t-35 aligncenter">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="d-flex">
+                <div class="pageheaderhere">
+                  <h4 class="pageheader p-b-0 m-t-0 p-l-12">Representative Office
+                    <i (click)="toggleShowDiv('descriptioncontent');" class="bgi bgi-info"></i></h4>
+                </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 p-r-0 descriptioncontent" [@slideInOut]="animationState" >
+              <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0 p-l-12">
+                <mat-card class="headerinformationtext sidenavinfotext m-t-15 m-r-0">
+                  <mat-card-header>
+                    <div class="titletext">
+                      <mat-card-subtitle class="informationtext fs-14">
+                        A company profile is an introduction to your business, and aims to tell an audience about your
+                        products
+                        or services. However, a company profile shouldn't just tell your audience what you sell -- it should
+                        also tell viewers why you sell it.
+                      </mat-card-subtitle>
+                    </div>
+                    <div class="selectforward m-r-0">
+                      <div class="p-l-15 gotit">
+                        <span (click)="toggleShowDiv('descriptioncontent')" mat-raised-button color="primary">Ok, Got It </span>
+                      </div>
+                    </div>
+                  </mat-card-header>
+                </mat-card>
+            </div>
+          </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" [ngClass]="resultsLength ? 'datafound' : 'nodatafound'" *ngIf="searchresalt != 0"  fxLayoutAlign="center" class="m-t-10">
+    <div fxFlex.gt-sm="91.66" fxFlex="100">
+      <mat-card class="addbranchessmainselect" *ngFor="let repoffice of representativeofficearray">
+        <mat-card-header>
+          <div fxLayout="row wrap" fxLayoutAlign="center" class="m-t-10">
+            <div fxFlex.gt-sm="25" fxFlex="100">
+            </div>
+          </div>
+          <div mat-card-avatar class="example-header-image m-r-25">
+            <label class="custom-file">
+              <!-- <input type='file' (selectionChange)="onSelectFile($event)"> -->
+              <div class="uploadicon resultimagehere">
+                <img src="assets/images/noimagenewforv3.png" *ngIf="repoffice.fileUrl == null" height="">
+                <img src="{{util.fileSrcPath(repoffice)}}" *ngIf="repoffice.fileUrl != null" height="">
+              </div>
+            </label>
+          </div>
+          <div class="titletext">
+            <mat-card-title class="mainheadertitle fs-18 p-b-12 m-b-0">{{repoffice.brand}} 
+                <i (click)="setFormValue(repoffice);addrepresentative.toggle()" class="bgi bgi-edit txt-gray p-r-15 p-l-15"></i>
+                <i (click)="deletemarketpresence(repoffice.pk)" class="bgi bgi-delete txt-gray"></i>
+            </mat-card-title>
+            <p class="address m-t-0 p-t-0 m-b-0 p-b-0 fs-16" *ngIf="repoffice.address != null && repoffice.address != ''">{{repoffice.address}},</p>
+            <p class="address m-t-0 p-t-0 m-b-0 p-b-0 fs-16" *ngIf="repoffice.address1 != null && repoffice.address1 != ''">{{repoffice.address1}},</p>
+            <p class="address m-t-0 p-t-0 m-b-0 p-b-0 fs-16" *ngIf="repoffice.address2 != null && repoffice.address2 != ''">{{repoffice.address2}},</p>
+            <p class="address m-t-0 p-t-0 m-b-0 p-b-0 fs-16">{{repoffice.city}}, {{repoffice.state}},{{repoffice.country}} </p>            
+            <p class="contactinfo m-t-0 m-b-0">
+              <span class="titleinfo">Business Scope : </span>
+              <span class="contactresult" *ngIf="repoffice.MCMP_Business_Scope == 'T'">Trade</span>
+              <span class="contactresult" *ngIf="repoffice.MCMP_Business_Scope == 'P'">Project</span>
+              <span class="contactresult" *ngIf="repoffice.MCMP_Business_Scope == 'I'">Investment</span>
+              <span class="contactresult" *ngIf="repoffice.MCMP_Business_Scope == 'S'">Strategic Partner</span>
+            </p>
+            <p class="contactinfo m-t-0 m-b-0">
+              <span class="titleinfo">Phone : </span>
+              <span class="contactresult">{{repoffice.code}} {{repoffice.phone}}</span>
+            </p>
+            <p class="contactinfo m-t-0 m-b-0" *ngIf="repoffice.fax != null ">
+              <span class="titleinfo">Fax : </span>
+              <span class="contactresult">{{repoffice.code}} {{repoffice.fax}}</span>
+            </p>
+            <p class="contactinfo m-t-0 m-b-0">
+              <span class="titleinfo"> Email : </span>
+              <span class="contactresult">{{repoffice.email}}</span>
+            </p>
+          </div>
+        </mat-card-header>                
+        <div class="matcontrols p-t-20 p-b-20 p-l-10">
+          <div class="p-r-50 controlresults" *ngIf="repoffice.website != null ">
+            <a href="{{repoffice.website}}" [target]="'_blank'">
+               <i class="bgi bgi-web p-r-10"></i>
+                <span>{{repoffice.website}}</span>
+              </a>
+          </div>
+          <div class="p-r-50 controlresults">
+            <a href="javascript:void(0)" (click)="mapit(repoffice.country,'')"> <i class="bgi bgi-Map-it p-r-10"></i>
+              <span>Map it</span></a>
+          </div>
+          <div class="controlresults">
+            <a href=""> <i class="bgi bgi-share p-r-10"></i> <span>Share</span></a>
+          </div>
+        </div>
+        <mat-card-content>
+          <h6 class="m-b-0 fs-15">Description </h6>
+          <p class="m-t-5 content" [class.show]="show">{{repoffice.MCMP_RepresentDesc}}</p>
+          <span *ngIf="repoffice.MCMP_RepresentDesc?.length >= 250" class="btn-show" (click)="show = !show">{{ show ? 'Show less': 'Show More' }}</span>
+        </mat-card-content>
+      </mat-card>
+      <div fxLayout="row wrap" [style.display]="resultsLength > 10 ? 'block' : 'none'" *ngIf="searchresalt != 0" fxLayoutAlign="center" class="m-t-10">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="branchpagination">
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="m-t-10 aligncenter">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="d-flex">
+              <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="pageEvent = $event; onPaginateChange($event)">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="searchresalt == 0">
+    <div fxFlex.gt-sm="25" fxFlex="100" >
+      <div class="catalogimage">
+        <img src="assets/images/firstpagecatalog.png" alt="" />
+      </div>
+      <h5 class="p-t-20 txt-center m-0 w-100">No Result Found</h5>
+    </div>
+  </div>
+<mat-sidenav class="sidenavsamewidthall" #addrepresentative position="end" class="chat-panel" mode="over" opened="false" id="sidenavforaddproduct">
+    <form [formGroup]="representForm" (ngSubmit)="onSubmitdata();representForm.reset();" novalidate>
+      <div class="scroll">
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <!-- column -->
+          <div fxFlex.gt-sm="100" fxFlex="100" class="selectproductheaderwithclose">
+            <div class="titletext">
+              <i (click)="addrepresentative.toggle();formreset();bgimap.mapinput()" class="bgi bgi-close p-l-25 fs-14"></i>
+              <h5 class="m-0 p-l-20">{{heading}}</h5>
+            </div>
+            <div class="resetbutton">
+              <button mat-raised-button type="reset" (click)="representForm.reset();bgimap.mapinput()" *ngIf="buttonname == 'Add'" color="clear">Clear</button>
+            </div>
+            <div class=" applyselected">
+              <button mat-raised-button color="apply" [disabled]="!representForm.valid"
+                (click)="addrepresentative.toggle()">{{buttonname}}</button>
+            </div>
+          </div>
+        </div>
+        <app-bgimapper (selectedAddress)="getSelectedAddress($event)" #bgimap ></app-bgimapper>
+        <div fxLayout="row wrap" fxFlexAlign="center" class=" p-t-25">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-r-9 p-l-9">            
+          <app-filee isLogo=true [fileeCriteria]="representativeLogo"></app-filee>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-r-9 p-l-9">
+            <mat-form-field>
+              <input matInput placeholder="Name" maxlength="250" [formControl]="representForm.controls['brand']" required>
+              <mat-error *ngIf="!representForm.controls['brand'].valid && representForm.controls['brand'].touched">Name cannot be blank</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-r-9 p-l-9 ">
+            <mat-form-field class="representative description">
+              <textarea matInput autocomplete="off" 
+               placeholder="Short Info" 
+               [formControl]="representForm.controls['repdesc']" 
+                required></textarea>                 
+              <mat-error *ngIf="!representForm.controls['repdesc'].valid && representForm.controls['repdesc'].touched"> Short Info cannot be blank </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="p-r-9 p-l-9">
+            <mat-form-field>
+              <mat-select placeholder="Business Scope" [formControl]="representForm.controls['business_scope']"
+                required>
+                <mat-option value='T'>Trade</mat-option>
+                <mat-option value='P'>Project</mat-option>
+                <mat-option value='I'>Investment</mat-option>
+                <mat-option value='S'>Strategic Partner</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!representForm.controls['business_scope'].valid &&
+            representForm.controls['business_scope'].touched">
+                Please Select Business Scope
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-r-9 p-l-9">
+              <div formArrayName="addressrepresent">
+                  <div *ngFor="let address of addressrepresent.controls; let i=index;">
+                      <div [formGroupName]="i">
+                          <mat-form-field class="example-full-width">
+                            <input matInput formControlName="address" placeholder="Address line {{i+1}}" >
+                              <div *ngIf="address.controls.address.value != null && i < 2 && addressrepresent.controls.length == i+1" (click)="addaddress(i)" class="addmultipleadd">
+                                <i class="bgi bgi-add addingnew"></i>Add
+                              </div>                                 
+                          </mat-form-field>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" >
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9">
+            <mat-form-field>
+              <mat-select placeholder="Country" [formControl]="representForm.controls['country']" 
+                (selectionChange)="getcountry($event.value);changecountry();getcountrycode($event.value)" required>
+                <mat-option *ngFor="let country of countryarray" [value]="country.CountryMst_Pk">
+                  {{country.CyM_CountryName_en}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!representForm.controls['country'].valid && representForm.controls['country'].touched">
+                Country cannot be blank
+              </mat-error>
+            </mat-form-field>
+          </div>          
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9" *ngIf="updateform==false">
+              <mat-form-field>
+                  <input type="text" #stateinput (keyup)="0" placeholder="State"  matInput [formControl]="representForm.controls['state']" [matAutocomplete]="auto" required>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getcity($event.option.value)'
+                    [displayWith]="displayFnstate">
+                    <mat-option (onSelectionChange)="stateinput.value !=undefined" *ngFor="let state of statearray" [value]="state">{{state.SM_StateName_en}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="!representForm.controls['state'].valid && representForm.controls['state'].touched">
+                    State cannot be blank
+                  </mat-error>
+              </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9" *ngIf="updateform">
+            <mat-form-field>
+              <mat-select placeholder="State" [formControl]="representForm.controls['state']"
+                (onSelectionChange)="getcountry($event.value)" required>
+                <mat-option *ngFor="let state of statearray" [value]="state.StateMst_Pk">
+                  {{state.SM_StateName_en}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!representForm.controls['state'].valid && representForm.controls['state'].touched">state cannot be blank</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center" >         
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9" *ngIf="updateform==false">              
+            <mat-form-field>
+                <input type="text" placeholder="City" (focusout)="mapit(representForm.controls['city'].value,'F')" id="inputCity" matInput [formControl]="representForm.controls['city']" [matAutocomplete]="auto1" required>
+                <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFncity">
+                  <mat-option *ngFor="let city of cityarray" [value]="city">{{city.CM_CityName_en}}</mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="!representForm.controls['city'].valid && representForm.controls['city'].touched">
+                  City cannot be blank
+                </mat-error>
+              </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9" *ngIf="updateform">
+            <mat-form-field>
+              <mat-select placeholder="City" [formControl]="representForm.controls['city']"
+                (onSelectionChange)="getcountry($event.value)" required>
+                <mat-option *ngFor="let city of cityarray" [value]="city.CityMst_Pk">
+                  {{city.CM_CityName_en}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!representForm.controls['city'].valid &&  representForm.controls['city'].touched">City cannot be blank</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9 ">
+            <mat-form-field>
+                <span matPrefix>{{countryCode}} &nbsp;</span>
+              <input matInput placeholder="Phone No." NumberOnly required maxlength="40" [formControl]="representForm.controls['phone']">
+              <mat-error *ngIf="!representForm.controls['phone'].valid && representForm.controls['phone'].touched"> Phone cannot be blank</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxFlexAlign="center">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9 ">
+            <mat-form-field>
+              <span matPrefix>{{countryCode}} &nbsp;</span>
+              <input matInput placeholder="Fax No." NumberOnly maxlength="40" [formControl]="representForm.controls['fax']">
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-r-9 p-l-9 ">
+            <mat-form-field class="Email">
+              <input matInput placeholder="Email" maxlength="255" required [formControl]="representForm.controls['email']" autocomplete="off">
+              <mat-error *ngIf="!representForm.controls['email'].valid && representForm.controls['email'].touched">Email cannot be blank</mat-error>
+              <mat-error *ngIf="representForm.controls['email'].errors?.email && 
+              representForm.controls['email'].touched" >You must include a valid email
+                address.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>        
+        <div fxLayout="row wrap" fxFlexAlign="center">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-r-9 p-l-9 ">
+              <mat-form-field>
+                <input matInput placeholder="Website" maxlength="255" [formControl]="representForm.controls['website']">
+              </mat-form-field>
+            </div>
+          </div>
+      </div>
+    </form>
+  </mat-sidenav>

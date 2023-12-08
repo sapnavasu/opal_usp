@@ -1,0 +1,85 @@
+<!--div *ngIf="Contentplaceloader" fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div fxLayout="row wrap" class="page m-l-20 m-r-20 m-t-20">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="justify m-b-40 m-l-20 m-r-20">
+          <h1 class="pagetitle"></h1>
+          <h1 class="pagetitle"></h1>
+        </div>
+        <div class="approvalalign">
+          <div class="m-t-30">
+            <div class="skycardloaderitem"></div>
+            <div class="broadcastviewwidth m-b-20"></div>
+            <h1 class="accordionwidth"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div-->
+<div fxLayout="row wrap" class="approvallist">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="gradientbackgrounds">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div ngClass.xs="responsive" ngClass.sm="responsive" class="topheadermain alignwidth">
+          <div class="imagewithtext">
+            <!-- <span class="p-l-20  mat-pagetitle-1" *ngIf="type=='pp'">Payment Pending – OPAL Supplier</span>
+            <span class="p-l-20  mat-pagetitle-1" *ngIf="type=='pc'">Approved Stakeholders – OPAL Suppliers</span> -->
+            <span class="p-l-20  mat-pagetitle-1">Supplier Registration Approval</span>
+            <!-- <span class="p-l-20  mat-pagetitle-1" *ngIf="type=='inp'">OPAL Suppliers – Renewal In-Progress</span> -->
+          </div>
+       
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-tab-group class="mainbackgroundsupplier tabregapprval" [disableRipple]="true" [selectedIndex]="tabIndex">
+          <mat-tab>
+            <ng-template mat-tab-label >
+              <div (click)="userdata('6')">
+                Supplier
+              </div>  
+            </ng-template>
+            <app-registrationapproval #regapproval [type]="6"></app-registrationapproval>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label >
+              <div (click)="userdata('15')">
+                Industrial Organization
+              </div>
+            </ng-template>
+            <app-registrationapproval #regapproval [type]="15"></app-registrationapproval>
+          </mat-tab>
+          <!-- <mat-tab label="">
+            <ng-template mat-tab-label> -->
+              <!-- Investor -->
+              <!-- <mat-chip-list aria-label="Fish selection" class="standard">
+                      <mat-chip class="count" selected>{{investorRef.resultsLength}}</mat-chip>
+                    </mat-chip-list> -->
+            <!-- </ng-template>
+            <app-suppliertab #investorRef></app-suppliertab>
+          </mat-tab> -->
+          <!-- <mat-tab label="">
+            <ng-template mat-tab-label>
+              Project Owner -->
+              <!-- <mat-chip-list aria-label="Fish selection" class="standard">
+                      <mat-chip class="count" selected>{{projOwnRef.resultsLength}}</mat-chip>
+                    </mat-chip-list> -->
+            <!-- </ng-template>
+            <app-projectownertab #projOwnRef></app-projectownertab>
+          </mat-tab> -->
+          <!-- <mat-tab label="">
+              <ng-template mat-tab-label>
+                  Buyer 
+                  <mat-chip-list aria-label="Fish selection" class="standard">
+                      <mat-chip class="count" selected>{{buyerRef.resultsLength}}</mat-chip>
+                    </mat-chip-list>
+                </ng-template>
+            <app-buyer #buyerRef></app-buyer>
+          </mat-tab> -->
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,255 @@
+<div  fxLayoutAlign="center" id="audit_log">
+    <app-responseloader *ngIf="disabledloader"></app-responseloader>
+    <div  fxFlex="100">
+            <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+                    <div class="details pd-15" fxFlex="100">
+                        <div class= "head" fxLayout="row wrap">
+                            <h2 class="headcolor fs-18 m-0 lh-15">{{ (cookieService.get('languageCookieId') ==1) ? auditcomdata.omrm_companyname_en : auditcomdata.omrm_companyname_ar }}</h2>
+                           <div class="grade" *ngIf="auditcomdata.appdm_grademst_fk" >
+                            <p class="grade d-flex fs-16" *ngIf="auditcomdata.appdm_grademst_fk == 1"><img src="assets\images\opalimages\BRONZE.svg" alt="Grade">{{'desktop.gradbron' | translate}} </p>
+                            <p class="gold d-flex fs-16" *ngIf="auditcomdata.appdm_grademst_fk == 3"><img src="assets\images\opalimages\GOLD.svg" alt="Grade">{{'desktop.gradgold' | translate}}
+                            </p>
+                            <p class="silver d-flex fs-16"  *ngIf="auditcomdata.appdm_grademst_fk == 2"><img src="assets\images\opalimages\SILVER.svg" alt="Grade">{{'desktop.gradsilv' | translate}} </p>
+                           </div>
+                        </div>
+                       <div class="m-t-20" *ngIf="auditcomdata.appdt_projectmst_fk == 1">
+                        <p class="text-gray m-0 fs-15 ">{{'desktop.traiprovname' | translate}}:<span class="text-default"> {{(cookieService.get('languageCookieId') ==1) ? auditcomdata.omrm_tpname_en : auditcomdata.omrm_tpname_ar}}</span></p>
+                       </div>
+                       <div class="m-t-10"  *ngIf="auditcomdata.appdt_projectmst_fk == 4">
+                        <p class="text-gray m-0 fs-15 ">{{'Centre Name' | translate}}:<span class="text-default"> {{(cookieService.get('languageCookieId') ==1) ? auditcomdata.omrm_branch_en : auditcomdata.omrm_branch_ar}}</span></p>
+                       </div>
+                        <div class="fs-13 m-t-20 m-b-20" fxLayout="row wrap">
+                           
+                            
+                            <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applirefno' | translate}}:<span
+                                    class="text-default"> {{auditcomdata.appdt_appreferno || '-'}}</span>
+                            </p>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'desktop.offitype' | translate}}:
+                                <span *ngIf="auditcomdata.officetype == null" class="text-default"> -</span>
+                                <span *ngIf="auditcomdata.officetype == '1'" class="text-default"> {{'desktop.maiofc' | translate}}</span>
+                                <span *ngIf="auditcomdata.officetype == '2'" class="text-default"> {{'desktop.branofc' | translate}}</span>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applytype' | translate}}:
+                                <span *ngIf="auditcomdata.appdt_apptype == null" class="text-default"> -</span>
+                                <span *ngIf="auditcomdata.appdt_apptype == '1'" class="text-default"> {{'desktop.initi' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_apptype == '2'" class="text-default"> {{'desktop.rene' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_apptype == '3'" class="text-default"> {{'company.update' | translate}}</span> 
+                            <p class="application-detais m-r-10 text-gray m-0">{{'desktop.applstat' | translate}}:
+                                <span *ngIf="auditcomdata.appdt_status == '1'" class="text-default">{{'table.yettosubmit'
+                                    |translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '2'" class="text-default">{{ 'Desktop Review Pending' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '3'" class="text-default">{{ 'Missing Files' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '4'" class="text-default">{{ 'Desktop Review Pending' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '5'" class="text-default">{{ 'Payment Pending'| translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '6'" class="text-default">{{ 'Confirm Payment' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '7'" class="text-default">{{ 'Yet to schedule for Site Audit' | translate}}</span> 
+                                <span *ngIf="auditcomdata.appdt_status == '8' && auditcomdata.appdt_projectmst_fk == 1" class="text-default">{{ 'Audit Date Selection (Training Provider)' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '8' && auditcomdata.appdt_projectmst_fk == 4" class="text-default">{{ 'Audit Date Selection (Inspection Centre)' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '9'" class="text-default">{{ 'Ready for Audit' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '10'" class="text-default">{{ 'Quality Manager Approval Pending' | translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '11'" class="text-default">{{'Authority  Approval Pending'| translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '12'" class="text-default">{{'CEO Approval Pending'| translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '13'" class="text-default">{{'Site Audit Report Declined'| translate}}</span> 
+                                <span *ngIf="auditcomdata.appdt_status == '14'" class="text-default">{{ 'Quality Manager Approval Pending' | translate}}</span> 
+                                <span *ngIf="auditcomdata.appdt_status == '15'" class="text-default">{{'table.resubmforauth'
+                                    |translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '16'" class="text-default">{{'table.resubmforceoapp'
+                                    |translate}}</span> 
+                                <span *ngIf="auditcomdata.appdt_status == '17'" class="text-default">{{'table.approved'
+                                    |translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '18'" class="text-default">{{'table.fineteam'
+                                    |translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '19'" class="text-default">{{'table.susb'
+                                        |translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == '20'" class="text-default">{{'Certification Form Declined'| translate}}</span>
+                                <span *ngIf="auditcomdata.appdt_status == null" class="text-default"> -</span>
+                            <p class="application-detais m-r-10 text-gray m-0">{{'desktop.certstat' | translate}}:
+                                <!-- <span
+                                    class="text-default">Pending</span> -->
+                                    <!-- <span class=" yetcert">Yet to Certify</span> -->
+                                    <!-- <span  *ngIf="auditcomdata.appdt_certificategenon == null && auditcomdata.appdt_certificateexpiry == null" class="text-default"> -</span> -->
+                                    <span  *ngIf="auditcomdata.appdt_certificateexpiry == null" class="red bold">{{'table.new'
+                                        |translate}}</span>
+                                    <span *ngIf="auditcomdata.appdt_certificateexpiry && isexpired == 0" class="green bold"> {{'table.acti'
+                                            |translate}}</span>
+                                    <span  *ngIf="auditcomdata.appdt_certificateexpiry && isexpired == 1"  class="red bold">{{'table.expi'
+                                        |translate}}</span>
+                                    <!-- <span
+                                    class="text-default">Active</span>
+                                    <span
+                                    class="text-default">decline</span> -->
+                                </p>
+                                <p class="application-detais m-r-10 text-gray m-0">{{'Site Audit Scheduled on' | translate}}:
+                                    <span class="text-default">{{auditcomdata.asd_date?(auditcomdata.asd_date | date: 'dd-MM-yyyy'):'-'}}</span>
+                                </p>
+                        </div>
+                    </div>
+                    <div class="address  p-l-15" fxLayout="row wrap" fxFlex.gt-sm="60"  fxFlex="100">
+                        <div class="add-details" fxFlex.gt-sm="20"  fxFlex="50"  *ngIf="auditcomdata.locmapurl">
+                               <p class="text-gray fs-15">{{'desktop.siteloca' | translate}} <br>   <a matTooltip="{{'table.viewlocat'|translate}}"  target="_blank" href="https://{{auditcomdata.locmapurl}}"><mat-icon class="fa fa-map-marker mapicon" ></mat-icon></a></p>
+                        </div>
+                        <div  class="add-details" fxFlex.gt-sm="20"  fxFlex="50" >
+                            <p class="text-gray fs-14">{{'desktop.dateexoi' | translate}} <br>
+                            <span class="text-default">{{auditcomdata.appdt_certificateexpiry || '-'}}</span> </p>
+                        </div>
+                        <div class="add-details" fxFlex.gt-sm="20"  fxFlex="50" >
+                            <p class="text-gray fs-14">{{'desktop.addon' | translate}} <br>
+                            <span class="text-default">{{auditcomdata.appdt_submittedon || '-'}}</span></p>
+                        </div>
+                        <div class="add-details" fxFlex.gt-sm="20"  fxFlex="50" >
+                            <p class="text-gray fs-14">{{'desktop.lastupdat' | translate}}<br>
+                            <span class="text-default">{{auditcomdata.appdt_updatedon || '-'}}</span></p>
+                        </div>
+                    </div>
+                </div>
+        <div class="paginationwithfilter masterPageTop ">
+            <mat-paginator class="masterPage masterPageTop"  #paginator [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+            
+        </div>
+        
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable">
+                        <mat-table #table class="scrolldata" [dataSource]="auditData" matSortActive="applicationdtlshsty_pk"  matSortDirection="desc"  matSort multiTemplateDataRows matSort matSortDisableClear  >
+                        <ng-container matColumnDef="applstatus">
+                            <mat-header-cell fxFlex="50" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'desktop.status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="status" fxFlex="50" *matCellDef="let auditlist">
+                                {{auditlist.applstatus | translate}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appdh_appdecon">
+                            <mat-header-cell fxFlex="30" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'desktop.date' | translate}}</mat-header-cell>
+                            <mat-cell data-label="date" fxFlex="30" *matCellDef="let auditlist">
+                                <span>{{ auditlist.appdh_updatedon || '-'}}</span>
+                                <!-- <span *ngIf="auditlist.appdh_status == '2' || auditlist.appdh_status == '4' || auditlist.appdh_status == '6' || auditlist.appdh_status == '9'">{{auditlist.appdh_submittedon || auditlist.appdh_updatedon || '-'}}</span> 
+                                <span *ngIf="auditlist.appdh_status != '2' && auditlist.appdh_status != '4' && auditlist.appdh_status != '6' && auditlist.appdh_status != '9'">{{auditlist.appdh_appdecon || '-'}}</span></mat-cell> -->
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="comment">
+                            <mat-header-cell fxFlex="30" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'desktop.comment' | translate}} </mat-header-cell>
+                            <mat-cell data-label="comment" fxFlex="30" *matCellDef="let auditlist">
+                                
+                                <span [innerHTML]="auditlist.appdh_appdecComments||'-'"></span> </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <mat-header-cell fxFlex="8" mat-header-cell *matHeaderCellDef>
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="8" *matCellDef="let auditlist">
+                                <!-- <div class="manageoptions">
+                                    <button class="action_btn" >
+                                        {{'desktop.view' | translate}}
+                                    </button>
+                                </div> -->
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="30" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <mat-select [formControl]="applstatus" panelClass="select_with_search" multiple>
+                                            <div class="option-listing">
+                                                <!-- <mat-option value="1">{{'table.yettosubmit' |translate}}</mat-option> -->
+                                            <mat-option value="2">{{'Desktop Review Pending' | translate}}</mat-option>
+                                            <mat-option value="3">{{'Missing Files' | translate}}</mat-option>
+                                            <!-- <mat-option value="4">{{'table.resubmdesk' |translate}}</mat-option> -->
+                                            <mat-option value="5">{{ 'Payment Pending' | translate}}</mat-option>
+                                            <mat-option value="6">{{ 'Confirm Payment' | translate}}</mat-option>
+                                            <mat-option value="7">{{ 'Yet to schedule for Site Audit'| translate}}</mat-option>
+                                            <mat-option value="8" *ngIf="auditcomdata.appdt_projectmst_fk == 1">{{ 'Audit Date Selection (Training Provider)'| translate}}</mat-option>
+                                            <mat-option value="8" *ngIf="auditcomdata.appdt_projectmst_fk == 4">{{ 'Audit Date Selection (Inspection Centre)'| translate}}</mat-option>
+                                            <mat-option value="9">{{ 'Ready for Audit' | translate}}</mat-option>
+                                            <mat-option value="10">{{ 'Quality Manager Approval Pending'| translate}}</mat-option>
+                                            <mat-option value="11">{{ 'Authority  Approval Pending' | translate}}</mat-option>
+                                            <mat-option value="12">{{ 'CEO Approval Pending'| translate}}</mat-option>
+                                            <mat-option value="13">{{ 'Site Audit Report Declined' | translate}}</mat-option>
+                                            <!-- <mat-option value="14">{{'table.resubmforqual' |translate}}</mat-option>
+                                            <mat-option value="15">{{'table.resubmforauth' |translate}}</mat-option>
+                                            <mat-option value="16">{{'table.resubmforceoapp' |translate}}</mat-option> -->
+                                            <mat-option value="17">{{'table.approved' |translate}}</mat-option>
+                                            <mat-option value="18">{{'table.fineteam'|translate}}</mat-option>
+                                            <mat-option value="19">{{'table.susb'|translate}}</mat-option>
+                                            <mat-option value="20">{{'Certification Form Declined'|translate}}</mat-option>
+    
+                                        </div>
+    
+                                        </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="25" class="serachrow datepickerrangeform" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.search' |translate}}</mat-label> -->
+                                   <!--  <input matInput [formControl]="date_expiry" (click)="dateexpiry.open()"  [matDatepicker]="dateexpiry" >
+                                    <mat-datepicker-toggle matSuffix [for]="dateexpiry"></mat-datepicker-toggle>
+                                    <mat-datepicker #dateexpiry></mat-datepicker> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input matInput type="text" id="login_session"  [formControl]="date_expiry" 
+                                            ngxDaterangepickerMd [showCustomRangeLabel]="true"
+                                            [alwaysShowCalendars]="true" [ranges]="ranges" [locale]="locale"
+                                                [linkedCalendars]="true" 
+                                            [showClearButton]="true" 
+                                            [showClearButton]="true" readonly class="form-control" />
+                                                <div class="closeanddateicomax">
+                                                    <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                                </div>
+                                    </div>            
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-fourteen" stickyEnd>
+                            <mat-header-cell fxFlex="100" class="serachrow" *matHeaderCellDef 
+                                style="text-align:center;display: flex;justify-content: end;">
+                                <i class="fa fa-refresh m-l-15 cursorview" (click)="clearFilter();filtersts=false;"
+                                    aria-hidden="true" matTooltip="{{'table.refresh'|translate}}"></i>
+                            </mat-header-cell>
+                            </ng-container>
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="auditdatalist;">
+                        </mat-header-row>
+                        <mat-header-row id="searchrow"
+                            *matHeaderRowDef="['row-first' , 'row-second','row-fourteen']">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: auditdatalist;"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                               
+                                    <div [ngClass]="!tblplaceholder? 'nofound': ''" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                                <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                    <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                                    class="NorecordLoader"></div>
+                                                    <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder">
+                                                    <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'common.noreco' | translate}}</p>
+                                        </div>
+                                    </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"[style.display]="(resultsLength > 0) ? 'none' : 'block' " 
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                        class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                        (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                        [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                    </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+            <!-- <button mat-raised-button class="cancelbtn" (click)="cancle()"></button> -->
+           <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goBack()">{{'Back' | translate}}</button>
+           <!-- <button mat-raised-button class="submitbtn" type="button" (click)="subdate.emit()">{{'payment.subm' | translate}}</button> -->
+           </div>
+    </div>
+</div>
+

@@ -1,0 +1,145 @@
+<div fxLayout="row wrap" *ngIf="paymentStatusPage">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="thankyoulistview">
+        <div class="thankyouinnerpart" *ngIf="paymentStatus==1">
+            <div class="successtick">
+                <img src="assets/images/ticksymbol.svg" alt="ticksymbol">
+            </div>
+            <div class="jsrscontactcolor p-b-15">
+                <h2>Transaction Successful</h2>
+            </div>
+            <div class="transfertextcolor">
+                <p class="p-b-30">Thank you for completing your payment. Here are the details.</p>
+                <h4 class="txt-gray6 fs-16 m-0 lypisfont-semibold p-b-20">Payment Ref. No.: <span
+                        class="txt-gray3 m-0">{{pymtResponseDtls?.ref_no}}</span></h4>
+                <p *ngIf="sameUser" class="m-0 p-b-6 clickherecolor">Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to view your payment details.</p>
+                <p *ngIf="!sameUser" class="m-0 p-b-6 clickherecolor">Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to login and view your payment details.</p>
+            </div>
+        </div>
+        <div class="thankyouinnerpart" *ngIf="paymentStatus==2">
+            <div class="successtick">
+                <img src="assets/images/alertnewtag.svg" alt="alertnewtag">
+            </div>
+            <div class="jsrscontactcolor p-b-15">
+                <h2 class="awaitingcolor">Awaiting payment transaction status</h2>
+            </div>
+            <div class="transfertextcolor">
+                <p class="p-b-10">We will authenticate your transaction and confirm your status at the earliest.</p>
+                <p class="p-b-30">Please contact <span class="txt-blue lypisfont-regular">accounts@businessgateways.com / +968 24166123, </span> if you need further assistance.</p>
+                <h4 class="txt-gray6 fs-16 m-0 lypisfont-semibold p-b-20">Payment Ref. No.: <span
+                        class="txt-gray3 m-0">{{pymtResponseDtls?.ref_no}}</span></h4>
+                <p *ngIf="sameUser" class="m-0 p-b-6 clickherecolor">Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to view your payment details.</p>
+                <p *ngIf="!sameUser" class="m-0 p-b-6 clickherecolor">Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to login and view your payment details.</p>
+            </div>
+        </div> 
+        <div class="thankyouinnerpart" *ngIf="paymentStatus==8">
+            <div class="successtick crossimg">
+                <img src="assets/images/CROSS.svg" alt="CROSS">
+            </div>
+            <div class="jsrscontactcolor p-b-15">
+                <h2 class="awaitingcolor">Transaction Cancelled</h2>
+            </div>
+            <div class="transfertextcolor">
+                <p class="p-b-30">You have chosen 'Cancel' option during payment.</p>
+                <!-- <h4 class="txt-gray6 fs-16 m-0 lypisfont-semibold p-b-20">Payment Ref. No.: <span
+                        class="txt-gray3 m-0">{{pymtResponseDtls?.ref_no}}</span></h4> -->
+                <p *ngIf="sameUser" class="m-0 p-b-6 clickherecolor">Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to make payment.</p>
+                <p *ngIf="!sameUser" class="m-0 p-b-6 clickherecolor">Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to make payment.</p>
+            </div>
+        </div>
+        <div class="thankyouinnerpart" *ngIf="paymentStatus==6">
+            <div class="successtick crossimg">
+                <img src="assets/images/CROSS.svg" alt="CROSS">
+            </div>
+            <div class="jsrscontactcolor p-b-15">
+                <h2 class="awaitingcolor">Transaction Failed</h2>
+            </div>
+            <div class="transfertextcolor">                
+                <h4 class="txt-gray6 fs-16 m-0 lypisfont-semibold p-b-20">Payment Ref. No.: <span
+                        class="txt-gray3 m-0">{{pymtResponseDtls?.ref_no}}</span></h4>
+                <p *ngIf="sameUser" class="m-0 p-b-6 clickherecolor">There is an error occurred during the Payment. Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to make payment.</p>
+                <p *ngIf="!sameUser" class="m-0 p-b-6 clickherecolor">There is an error occurred during the Payment. Click <a class="bgi-orange fs-15" [routerLink]="[redirectto]">here</a> to make payment.</p>
+            </div>
+        </div>
+        <div class="thankyouinnerpart" *ngIf="error_type">
+            <div class="successtick crossimg">
+                <img src="assets/images/CROSS.svg" alt="CROSS">
+            </div>
+            <div class="jsrscontactcolor p-b-15">
+                <h2 *ngIf="error_type == 1" class="awaitingcolor">Link expired, Please download file again</h2>
+                <h2 *ngIf="error_type == 2" class="awaitingcolor">File not Available</h2>
+            </div> 
+        </div> 
+        <div fxLayout="row wrap" class="transcationcard" *ngIf="!error_type">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+                <h4 class="fs-16 m-0 txt-blue leftspace p-b-20">Company Information</h4>
+                <div class="flexinfo">
+                    <div class="card_icon">
+                        <img src="{{pymtResponseDtls?.image_url}}" alt="">
+                    </div>
+                    <div class="headingalign w-100">
+                        <h3 class="fs-15 txt-gray3 lh-35">{{pymtResponseDtls?.comp_name}}</h3>
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="15" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">NBF Number</p>
+                                <span class="txt-black lypisfont-regular fs-15">{{pymtResponseDtls?.nbf_no}}</span>
+                            </div>
+                            <div fxFlex.gt-sm="15" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Country</p>
+                                <span class="txt-black lypisfont-regular fs-15">{{country}}</span>
+                            </div>
+                            <div fxFlex.gt-sm="15" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Classification</p>
+                                <span class="msme_micro" *ngIf="classification=='SME-Micro'">{{classification}}</span>
+                                <span class="msme_small" *ngIf="classification=='SME-Small'">{{classification}}</span>
+                                <span class="msme_medium" *ngIf="classification=='SME-Medium'">{{classification}}</span>
+                                <span class="msme_large" *ngIf="classification=='Non-SME'">{{classification}}</span>
+                                <span class="msme_large" *ngIf="classification=='International'">{{classification}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="transcationcard p-t-0" *ngIf="!error_type">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+                <h4 class="fs-16 m-0 txt-blue leftspace p-b-20">Payment Information</h4>
+                <div class="d-flex">
+                    <div class="headingalign w-100 paymentinfo">
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="16.6666" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Payment Made through</p>
+                                <span *ngIf="pymtResponseDtls?.card_type=='OTO'" class="txt-black lypisfont-regular fs-15">Ottu (Debit Card)</span>
+                                <span *ngIf="pymtResponseDtls?.card_type=='OTC'" class="txt-black lypisfont-regular fs-15">Ottu (Credit Card)</span>
+                            </div>
+                            <div fxFlex.gt-sm="16.6666" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Payment Date</p>
+                                <span class="txt-black lypisfont-regular fs-15">{{pymtResponseDtls?.trans_date}}</span>
+                            </div>
+                            <div fxFlex.gt-sm="16.6666" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Payment Ref. No.</p>
+                                <span class="txt-black lypisfont-regular fs-15">{{pymtResponseDtls?.ref_no}}</span>
+                            </div>
+                            <div fxFlex.gt-sm="16.6666" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Payment status</p>
+                                <span class="largenew" *ngIf="paymentStatus==1" >Success</span>
+                                <span class="paymentinprogress" *ngIf="paymentStatus==2" >Payment In-progress</span> 
+                                <span class="cancel" *ngIf="paymentStatus==8" >Cancelled</span>
+                                <span class="cancel" *ngIf="paymentStatus==6" >Failed</span>
+                            </div>
+                            <div fxFlex.gt-sm="16.6666" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Subscription for</p>
+                                <span *ngIf="module=='REG'" class="txt-black lypisfont-regular fs-15">OPAL Registration</span>
+                                <span *ngIf="module=='RENEW'" class="txt-black lypisfont-regular fs-15">OPAL Renewal</span>
+                            </div>
+                            <div fxFlex.gt-sm="16.6666" fxFlex="100" class="leftspace">
+                                <p class="txt-blue lypisfont-regular fs-14 m-0 p-b-6">Amount Paid</p>
+                                <span class="txt-black lypisfont-regular fs-15">OMR {{pymtResponseDtls?.amount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-responseloader class="processloader"  *ngIf="showLoader"></app-responseloader>

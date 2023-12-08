@@ -1,0 +1,103 @@
+@font-face {
+	font-family: 'bgi-menu';
+	src: url('icons/menu-icons/fonts/bgi.eot?zic8qw');
+	src: url('icons/menu-icons/fonts/bgi.eot?zic8qw#iefix') format('embedded-opentype'), 
+	url('icons/menu-icons/fonts/bgi.ttf?zic8qw') format('truetype'), 
+	url('icons/menu-icons/fonts/bgi.woff?zic8qw') format('woff'), 
+	url('icons/menu-icons/fonts/bgi.svg?zic8qw#bgi') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+[class^="menu-"] {
+	font-family: 'bgi-menu' !important;
+	speak: never;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.bgi-menu {
+		font-family: 'bgi-menu' !important;
+		speak: never;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+.menu-dashboard {
+	&:before {
+		content: "\e900";
+	}
+}
+.menu-Enterprise-Admin {
+	&:before {
+		content: "\e901";
+	}
+}
+.menu-Skycard {
+	&:before {
+		content: "\e902";
+	}
+}
+.menu-Master-Company-Profile {
+	&:before {
+		content: "\e903";
+	}
+}
+.menu-supplier-profile {
+	&:before {
+		content: "\e904";
+	}
+}
+.menu-Supplier-Certification-Form {
+	&:before {
+		content: "\e905";
+	}
+}
+.menu-Additional-Certifications {
+	&:before {
+		content: "\e906";
+	}
+}
+.menu-Contracts-Management-System {
+	&:before {
+		content: "\e907";
+	}
+}
+.menu-Jsearch {
+	&:before {
+		content: "\e908";
+	}
+}
+.menu-JDo {
+	&:before {
+		content: "\e909";
+	}
+}
+.menu-Connect-Oman {
+	&:before {
+		content: "\e90a";
+	}
+}
+.menu-JSRS-Connect {
+	&:before {
+		content: "\e90b";
+	}
+}
+.menu-Contact {
+	&:before {
+		content: "\e90c";
+	}
+}
+.menu-operator {
+	&:before {
+		content: "\e90d";
+	}
+}

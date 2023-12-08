@@ -1,0 +1,29 @@
+export class User {
+  userpk: number;
+  memregpk: number;
+  empname: string;
+  empid: string;
+  loginid: string;
+  designation: string;
+  isAdmin: string;
+  email: string;
+  priEmail: string;
+  secEmail: string;
+  priMobCc: string;
+  priMobile: string;
+  secMobCc: string;
+  secMobile: string;
+  landlineCc: string;
+  landlineNo: string;
+  landlineExt: string;
+  directlineCc: string;
+  directline: string;
+  directlineExt: string;
+  faxCc: string;
+  faxNo: string;
+  isEmailConfirmed: string;
+  emailConfirmedOn: string;
+  userStatus: string;
+  userType: string;
+  extLink: string;
+}

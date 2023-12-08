@@ -1,0 +1,45 @@
+<div class="headerstyle" dir="{{dir}}">
+  <div class="leftisideinfodetail">
+    <!-- <owl-carousel-o [options]="customOptions"> -->
+
+    <!-- <ng-template carouselSlide> -->
+    <div class="imgposition loginbg">
+      <!-- <img src="assets/images/jsrs-bannernew" alt="jsrs-bannernew.jpg"> -->
+    </div>
+    <!-- </ng-template> -->
+
+
+    <!-- </owl-carousel-o> -->
+  </div>
+
+  <div class="rightsideinfodetail">
+    <div class="langbtn d-flex">
+      <button class="fs-15" (click)="setLanguageFlag(lang);">{{'commonlogin.engl' | translate}}</button>
+
+    </div>
+
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div id="registerlistview">
+          <div class="successtick">
+            <span>
+              <i class="bgi bgi-tick"></i>
+            </span>
+          </div>
+          <div class="jsrscontactcolor">
+            <h2>{{'registrationconfirmed.regconfim' | translate}}</h2>
+          </div>
+          <div class="transfertextcolor">
+            <p>{{'registrationconfirmed.thankyufrconfirm' | translate}}
+            </p>
+           
+          </div>
+          <div class="loginbtn d-flex">
+            <button mat-raised-button (click)="navigate()"class="downloadbtncolor fs-16 button-45 m-r-10">{{'registrationconfirmed.gotolog' | translate}}</button>
+            <button mat-raised-button  routerLink="https://qa.OPAL.om/" class="downloadbtncolor fs-16 button-45">{{'registrationconfirmed.backtohom' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

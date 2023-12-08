@@ -1,0 +1,559 @@
+<div fxLayout="row wrap" #scrollDiv class="topbar">
+  <div fxFlex.gt-sm="60" fxFlex.gt-xs="60" fx fxFlex="100" class="p-l-30 p-r-30">
+    <h1 class="fs-18 m-t-13 m-b-9 txt-blue">Notifications</h1>
+  </div>
+  <div fxFlex.gt-sm="40" fxFlex.gt-xs="40" fxFlex="100" fxLayoutAlign="end" class="p-l-30 p-r-30">
+    <ul class="breadcrumb">
+      <li>
+        <span class="activebreadcrumb">Notifications</span>
+      </li>
+      <li><a href="dashboard/supplier"><i class="fa fa-home" matTooltip="Home" matTooltipPosition="below"></i></a></li>
+    </ul>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="center">
+<div fxFlex.gt-sm="100" fxFlex="100" >   
+      <div class="discussionleftright">
+        <div class="leftsidecontent">
+          <div>
+            <mat-tab-group id='topicsandacrchieve' (selectedTabChange)="tabidentify($event)">
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Categories
+                </ng-template>
+                <div class="tabcontent">
+                  <div class="eachtopiccontainer">
+                    <div class="eachtopicitem">
+                      <div class="checkboxes">
+                        <i class="bgi bgi-speech-bubble"></i>
+                      </div>
+                      <div class="topicdetails" (click)="noticetab()">
+                        <div class="usercontent" >
+                          <p class="topicname">Enquiries</p>
+                          <p class="dateandcreateby">
+                            (EOI, PQ, RFQ, RFT & Sealed Bid)
+                          </p>
+                        </div>
+                      </div>
+                      <div class="counting">
+                        <p>{{resultsnoticeLength}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--div class="tabcontent">
+                  <div class="eachtopiccontainer">
+                    <div class="eachtopicitem">
+                      <div class="checkboxes">
+                        <i class="bgi bgi-broadcast"></i>
+                      </div>
+                      <div class="topicdetails" (click)="broadtab()">
+                        <div class="usercontent">
+                          <p class="topicname">Broadcasts</p>
+                        </div>
+                      </div>
+                      <div class="counting">
+                        <p>18</p>
+                      </div>
+                    </div>
+                  </div>
+                </div-->
+                <!-- <div class="tabcontent">
+                  <div class="eachtopiccontainer">
+                    <div class="eachtopicitem">
+                      <div class="checkboxes">
+                        <i class="bgi bgi-speech-bubble"></i>
+                      </div>
+                      <div class="topicdetails" (click)="advisorytab()">
+                        <div class="usercontent">
+                          <p class="topicname">Advisories</p>
+                        </div>
+                      </div>
+                      <div class="counting">
+                        <p>04</p>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="tabcontent">
+                  <div class="eachtopiccontainer">
+                    <div class="eachtopicitem">
+                      <div class="checkboxes">
+                        <i class="bgi bgi-contractsonly"></i>
+                      </div>
+                      <div class="topicdetails"  (click)="contracttab()">
+                        <div class="usercontent">
+                          <p class="topicname">Awards</p>
+                        </div>
+                      </div>
+                      <div class="counting">
+                        <p>{{resultsawardLength}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="tabcontent">
+                  <div class="eachtopiccontainer">
+                    <div class="eachtopicitem">
+                      <div class="checkboxes">
+                        <i class="bgi bgi-speech-bubble"></i>
+                      </div>
+                      <div class="topicdetails" (click)="bidtab()">
+                        <div class="usercontent">
+                          <p class="topicname">eBid</p>
+                          <p class="dateandcreateby">
+                            (e-Tender,e-Auction)
+                          </p>
+                        </div>
+                      </div>
+                      <div class="counting">
+                        <p>20</p>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  Trash
+                </ng-template>
+                <div class="tabcontent">
+                  <div class="eachtopiccontainer">
+                    <div class="eachtopicitem">
+                      <div class="checkboxes">
+                        <i class="bgi bgi-speech-bubble"></i>
+                      </div>
+                      <div class="topicdetails" (click)="tashnotice()">
+                        <div class="usercontent">
+                          <p class="topicname">Enquiries</p>
+                          <p class="dateandcreateby">
+                            (EOI, PQ, RFQ, RFT & Sealed Bid)
+                          </p>
+                        </div>
+                      </div>
+                      <div class="counting">
+                        <p>{{resultsnoticeLength}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tabcontent">
+                  <!--div class="eachtopiccontainer">
+                    <div class="eachtopicitem">
+                      <div class="checkboxes">
+                        <i class="bgi bgi-speech-bubble"></i>
+                      </div>
+                      <div class="topicdetails" (click)="tashbroad()">
+                        <div class="usercontent">
+                          <p class="topicname">Broadcast</p>
+                        </div>
+                      </div>
+                      <div class="countash">
+                        <p>10</p>
+                      </div>
+                    </div>
+                  </div-->
+                  <!-- <div class="tabcontent">
+                    <div class="eachtopiccontainer">
+                      <div class="eachtopicitem">
+                        <div class="checkboxes">
+                          <i class="bgi bgi-speech-bubble"></i>
+                        </div>
+                        <div class="topicdetails" (click)="tashadvisory()">
+                          <div class="usercontent">
+                            <p class="topicname">Advisories</p>
+                          </div>
+                        </div> -->
+                        <!--div class="countash">
+                          <p>10</p>
+                        </div-->
+                      <!-- </div>
+                    </div>
+                  </div> -->
+                  <div class="tabcontent">
+                    <div class="eachtopiccontainer">
+                      <div class="eachtopicitem">
+                        <div class="checkboxes">
+                          <i class="bgi bgi-speech-bubble"></i>
+                        </div>
+                        <div class="topicdetails" (click)="tashadvisory()">
+                          <div class="usercontent">
+                            <p class="topicname">Awards</p>
+                          </div>
+                        </div>
+                        <div class="counting">
+                          <p>{{resultsawardLength}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+        <div class="rightsidecontent1 w-100">
+          <div fxLayout="row wrap" class="w-100 rightsidecontent">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="w-100">
+              <div class="rightinfo">
+                <div class="checkboxes">
+                  <mat-checkbox [(ngModel)]="checkall" (change)="check_uncheckall()"></mat-checkbox>
+                  <button mat-button [matMenuTriggerFor]="menu1" class="txt-blue sortby m-t-5">
+                    <i class="bgi bgi-dropdown p-l-10 fs-10"></i>
+                  </button>
+                  <mat-menu #menu1="matMenu" class="editdelete">
+                    <button mat-menu-item (click)="updatenotification('read')">Mark as Read</button>
+                    <button mat-menu-item (click)="updatenotification('unread')">Mark all as Read</button>
+                    <button mat-menu-item (click)="updatenotification('delete')">Delete</button>
+                  </mat-menu>
+                  <!-- <mat-menu #menu1="matMenu" class="editdelete">
+                    <button mat-menu-item>Restore</button>
+                    <button mat-menu-item>Delete Permanently</button>
+                    <button mat-menu-item>Empty trash now</button>
+                  </mat-menu> -->
+                  <p class="unred">{{notification_title}}</p>
+                </div>
+                <div class="searchfilter">
+                  <div class="searchProject">
+                    <form [formGroup]="filterform">
+                      <mat-form-field class="example-full-width " appearance="fill">
+                        <input autocomplete="off" appAlphanumsymb type="text fs-15" matInput
+                          placeholder="Search by Title" formControlName="searchbytitle">
+                        <mat-icon class="searchicon" matSuffix><i class="bgi bgi-search"></i>
+                        </mat-icon>
+                        <!-- <mat-icon  class="reseticon" matSuffix>clear</mat-icon> -->
+                      </mat-form-field>
+                    </form>
+                  </div>
+                </div>
+                <div class="p-t-1">
+                  <p><span class="p-r-5 unred">Unread</span>
+                    <mat-slide-toggle [checked]="unreadflag" (change)="filterunread()"></mat-slide-toggle>
+                  </p>
+                </div>
+                <div class="sort p-t-5">
+                  <button mat-button [matMenuTriggerFor]="menu" class="txt-blue sortby m-t-5">Sort by
+                    <i class="bgi bgi-dropdown p-l-10 fs-10"></i>
+                  </button>
+                  <mat-menu #menu="matMenu" class="editdelete">
+                    <button mat-menu-item (click)="sortnotification('asc')">Ascending</button>
+                    <button mat-menu-item (click)="sortnotification('desc')">Descending</button>
+                  </mat-menu>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="tabnotice">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of allnoticelistfilter;let i = index">
+                    
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title (click)="statustoRead(notice.bcastnotifdtls_pk,i)">
+                        <p>
+                          <ng-template *ngIf="notice['checked'] = castconversion(notice.checked)"></ng-template>
+                          <mat-checkbox [(ngModel)]="notice.checked" (change)="isSelected()"></mat-checkbox> <span class="p-l-10 txt-3 titlehover removbold{{i}}" [ngClass]="notice.bnd_status==1 ? 'fw-bold':''">{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span>{{notice.date | date:'dd-MM-y' }}</span><span class="m-l-30">{{notice.date | date:'HH:mm(z)'}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3" [innerHtml]="messagecontent(notice)"></p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p>
+                      <!-- <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download"></i>
+                        </div>
+                      </div> -->
+                      <button mat-button [routerLink]="['/pms/rfxlist']" [queryParams]="{ refno:notice.bnm_refno}" class="txt-blue  m-t-5"> View more
+                      </button>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                    [style.visibility]="(resultsLength > 10) ? 'visible' : 'hidden' "
+                    class="masterPage masterbottom normalpage" showFirstLastButtons (page)="noticePaginator($event);"
+                    [pageSize]="perpage"
+                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length">
+                  </mat-paginator>
+                </mat-accordion>
+                
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="tabbroad">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of noticelist">
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title>
+                        <p>                        
+                          <mat-checkbox></mat-checkbox> <span class="p-l-10 txt-3 titlehover">{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span> {{notice.date}}</span><span class="m-l-30">{{notice.time}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3">{{notice.para1}}</p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p>
+                      <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download txt-6"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="tabadvisory">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of noticelist">
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title>
+                        <p>                        
+                          <mat-checkbox></mat-checkbox> <span class="p-l-10 txt-3 titlehover">{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span> {{notice.date}}</span><span class="m-l-30">{{notice.time}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3">{{notice.para1}}</p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p>
+                      <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download txt-6"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="tabcontract">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of noticelist">
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title>
+                        <p>                        
+                          <mat-checkbox></mat-checkbox> <span class="p-l-10 txt-3 titlehover">{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span> {{notice.date}}</span><span class="m-l-30">{{notice.time}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3">{{notice.para1}}</p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p>
+                      <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download txt-6"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="tabbid">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of noticelist">
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title>
+                        <p>                        
+                          <mat-checkbox></mat-checkbox> <span class="p-l-10 txt-3 titlehover">{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span> {{notice.date}}</span><span class="m-l-30">{{notice.time}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3">{{notice.para1}}</p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p>
+                      <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download txt-6"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+          <!-- <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="noticetrash">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of allnoticelistfilter | searchFilter:filternotice : 'title'">
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title>
+                        <p>
+                          <ng-template *ngIf="notice['checked'] = castconversion(notice.checked)"></ng-template>
+                          <mat-checkbox [(ngModel)]="notice.checked" (change)="isSelected()"></mat-checkbox> <span class="p-l-10 txt-3 titlehover">{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span> {{notice.date | date:'dd-MM-y'}}</span><span class="m-l-30">{{notice.date | date:'HH:mm(z)'}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3">{{notice.para1}} {{notice.bnm_closing_date | date:'HH:mm(z)'}}.</p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p> -->
+                      <!-- <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download txt-6"></i>
+                        </div>
+                      </div> -->
+                      <!-- <button mat-button [routerLink]="['/pms/rfxlist']" [queryParams]="{ refno:notice.bnm_refno}" class="txt-blue  m-t-5"> View more
+                      </button>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div> -->
+          <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="broadtrash">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of noticelist">
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title>
+                        <p>                        
+                          <mat-checkbox></mat-checkbox> <span class="p-l-10 txt-3 titlehover">{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span> {{notice.date}}</span><span class="m-l-30">{{notice.time}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3">{{notice.para1}}</p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p>
+                      <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download txt-6"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="rightcontent notice"  *ngIf="advisorytrash">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="p-10">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle *ngFor="let notice of noticelist">
+                    <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                    [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                      <mat-panel-title>                        
+                        <p>                        
+                          <mat-checkbox></mat-checkbox> <span class="p-l-10 txt-3 titlehover" >{{notice.title}}</span>
+                        </p>
+                        <p class="txt-6"><span> {{notice.date}}</span><span class="m-l-30">{{notice.time}}</span></p>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expcontent m-t-30">
+                      <h4 class="fs-13 txt-6">Message</h4>
+                      <p class="fs-15 txt-3">{{notice.para1}}</p>
+                      <h4 class="fs-13 txt-6 m-t-20">Received from</h4>
+                      <p class="fs-15 txt-3">{{notice.para2}}</p>
+                      <div class="article m-t-30">
+                        <div class="docart">
+                          <div class="notes m-r-10"> <i class="bgi bgi-notes "></i> </div>
+                          <div>
+                            <p class="artdoc fs-14 m-0">Article.dox</p>
+                            <p class="txt-6 fs-14">256 kb</p>
+                          </div>
+                        </div>
+                        <div class="download">
+                          <i class="bgi bgi-download txt-6"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

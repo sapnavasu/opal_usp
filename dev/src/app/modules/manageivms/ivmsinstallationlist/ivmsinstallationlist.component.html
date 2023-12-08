@@ -1,0 +1,617 @@
+<div id="trainingcentreapp" class="commonForm" fxLayoutAlign="center start">
+    <!-- pageloader -->
+    <app-responseloader *ngIf="PageLoaders"></app-responseloader>
+    <div class="vehicleinspection" *ngIf="this.adminreadaccess || this.readaccess || this.isfocalpoint==1" fxFlex="100" fxFlex.gt-sm="100">
+        <div class="paginationwithfilter masterPageTop ">
+            <!-- paginator -->
+            <div [style.display]="tableplaceholder?'block':'none'" fxFlex="30"> <div class="tabledataloader"></div></div>
+           <div [style.display]="!tableplaceholder?'block':'none'">
+             <mat-paginator #paginator class="masterPage masterPageTop" [length]="resultsLength" [pageSize]="10"
+             [pageSizeOptions]="[5, 10, 25, 100] " (page)="syncPrimaryPaginator($event);"></mat-paginator>
+           </div>
+            <div fxLayout="row wrap" fxLayoutAlign="end" class="groupBtns">
+                <button mat-raised-button type="button" class="standardbutton mat-white-bg" *ngIf="(createaccess || isfocalpoint == 1) && stktype ==2" [routerLink]="'../ivmsdevicereg'">{{'Register New Vehicle' | translate}}</button>
+                <button mat-raised-button type="button" (click)="importVehicleData()" class="standardbutton mat-white-bg" *ngIf="(admincreateaccess || isfocalpoint == 1) && stktype == 1">{{'Import Vehicle Details' | translate}}</button>
+                <button mat-raised-button type="button" (click)="exportIvmsGridData();" class="standardbutton mat-white-bg" *ngIf="(downloadaccess || admindownloadaccess || isfocalpoint == 1)">{{'Export' | translate}}</button>
+                <button mat-raised-button type="button" (click)="clickEvent();" class="standardbutton mat-blue-bg">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                        aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <!-- table -->
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div #TABLE class="awaredtable">
+                    <!-- show and hide button -->
+                    <button mat-button [matMenuTriggerFor]="editcolumn" class="editcolumn">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #editcolumn="matMenu" class="master-menu edit-column-menu">
+                            <div class="table-config-menu-options" fxLayout="column">
+                                <mat-checkbox #editchkbox [(ngModel)]="selectAllVisible"
+                                    (change)="selectAllFun($event)"> {{ 'All' | translate}}
+                                </mat-checkbox>
+                                <ng-container *ngFor="let cd of displayedColumns; let i = index">
+                                    <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="cd.visible"
+                                        #columnchkbox (change)="updateAllVisible(cd)">
+                                        {{cd.label | translate}}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </mat-menu>
+                    </button>
+                    <!-- ------------------------------Grid Start -------------------------------------------------->
+
+                    <mat-table id="ExampleMaterialTable" #table class="scrolldata" [dataSource]="dataSource" matSort (matSortChange)="sortingfunc($event,'')"
+                        matSortDisableClear>
+                        <!--Centre Name -->
+                        <ng-container matColumnDef="centre_name">
+                            <mat-header-cell fxFlex="320px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Centre Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="centre_name" fxFlex="320px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">
+                                    <span *ngIf="ifarbic == false">
+                                        {{element.compname_en?element.compname_en:'-'}}
+                                    </span>
+                                    <span *ngIf="ifarbic == true">
+                                        {{element.compname_ar?element.compname_ar:'-'}}
+                                    </span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!--Office Type -->
+                        <ng-container matColumnDef="office_type">
+                            <mat-header-cell fxFlex="210px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Office Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="office_type" fxFlex="210px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.office_type?element.office_type:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Branch name -->
+                        <ng-container matColumnDef="branch_name">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Branch Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="branch_name" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.branch_name?element.branch_name:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- CRnumber -->
+                        <ng-container matColumnDef="cr_number">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'CR Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="cr_number" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.crnumber?element.crnumber:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Owner name -->
+                        <ng-container matColumnDef="owner_name">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Owner Name' | translate}}</mat-header-cell>
+                            <mat-cell data-label="owner_name" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.owner_name}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Contact Person Email -->
+                        <ng-container matColumnDef="contact_person">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Contact Person Email ID' | translate}}</mat-header-cell>
+                            <mat-cell data-label="contact_person" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.contact_person?element.contact_person:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Vichle -->
+                        <ng-container matColumnDef="vehichle_reg">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Vehicle Reg. Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="vehichle_reg" fxFlex="230px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.vehichle_reg?element.vehichle_reg:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Chasis Number -->
+                        <ng-container matColumnDef="chasis_number">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Chassis Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="chasis_number" fxFlex="200px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">
+                                    {{element.chasis_number?element.chasis_number:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- IVMS Device -->
+                        <ng-container matColumnDef="ivms_device">
+                            <mat-header-cell fxFlex="240px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'IVMS Device Model Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="ivms_device" fxFlex="240px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.ivms_device?element.ivms_device:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Device number -->
+                        <ng-container matColumnDef="device_number">
+                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Device Serial Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="device_number" fxFlex="260px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.device_number?element.device_number:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Device IMEI -->
+                        <ng-container matColumnDef="device_IMEI">
+                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Device IMEI Number' | translate}}</mat-header-cell>
+                            <mat-cell data-label="device_IMEI" fxFlex="260px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.device_IMEI?element.device_IMEI:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Vechile Category -->
+                        <ng-container matColumnDef="vechile_cate">
+                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'vehicle Category' | translate}}</mat-header-cell>
+                            <mat-cell data-label="vechile_cate" fxFlex="260px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.vechile_cate?element.vechile_cate:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Vechile Sub Category -->
+                        <ng-container matColumnDef="vechile_Subcate">
+                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'vehicle Sub Category' | translate}}</mat-header-cell>
+                            <mat-cell data-label="vechile_Subcate" fxFlex="260px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.vechile_Subcate?element.vechile_Subcate:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Installer Name -->
+                        <ng-container matColumnDef="installer_name">
+                            <mat-header-cell fxFlex="230px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Installer Name'
+                                | translate}}</mat-header-cell>
+                            <mat-cell data-label="installer_name" fxFlex="230px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{ifarbic == true ? (element.installer_name):
+                                    (element.installer_name)}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!--Installation Date and Time -->
+                        <ng-container matColumnDef="installationdate_time">
+                            <mat-header-cell fxFlex="260px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'Installation Date & Time' | translate}}</mat-header-cell>
+                            <mat-cell data-label="installationdate_time" fxFlex="260px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.installationdate_time}}<span *ngIf="element?.startTime && element?.endTime">&nbsp;({{element?.startTime}} - {{element?.endTime}})</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Applicant Type -->
+                        <ng-container matColumnDef="applicant_type">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                >{{'Applicant Type' | translate}}</mat-header-cell>
+                            <mat-cell data-label="applicant_type" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">
+                                    <span *ngIf="element.applicant_type == 1">{{'Initial' | translate}}</span>
+                                    <span *ngIf="element.applicant_type == 2">{{'Device Replacement' | translate}}</span>
+                                    <span *ngIf="element.applicant_type == 3">{{'Renewal' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Installation Status -->
+                        <ng-container matColumnDef="installation_status">
+                            <mat-header-cell fxFlex="250px" mat-header-cell *matHeaderCellDef
+                                >{{'Installation Status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="installation_status" fxFlex="250px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">
+                                    <span *ngIf="element.installation_status == 1 && element.applicant_type != 3">{{'Installation Pending' | translate}}</span>
+                                    <span *ngIf="element.installation_status == 1 && element.applicant_type == 3">{{'Health Check Pending' | translate}}</span>
+                                    <span *ngIf="element.installation_status == 2">{{'Approval Pending' | translate}}</span>
+                                    <span *ngIf="element.installation_status == 3">{{'Completed' | translate}}</span>
+                                    <span *ngIf="element.installation_status == 4">{{'Registration cancelled' | translate}}</span>
+                                    <span *ngIf="element.installation_status == 5">{{'Cancelled (Device Replacement Requested)' | translate}}</span>
+                                    <span *ngIf="element.installation_status == 6">{{'Device Removed and Cancelled' | translate}}</span>
+                                    <span *ngIf="element.installation_status == 7">{{'Declined by Senior Technician' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Installation Certificate Status -->
+                        <ng-container matColumnDef="certi_status">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                >{{'Installation Certificate Status' | translate}}</mat-header-cell>
+                            <mat-cell data-label="certi_status" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                
+                                <div *ngIf="!tableplaceholder">
+                                    <span class="New" *ngIf="element.certi_status == 1">{{'New' | translate}}</span>
+                                    <span class="Pass" *ngIf="element.certi_status == 2">{{'Valid' | translate}}</span>
+                                    <span  class="New" *ngIf="element.certi_status == 3">{{'Expired' | translate}}</span>
+                                    <span class="New" *ngIf="element.certi_status == 4">{{'Cancelled' | translate}}</span>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Date of Expiry -->
+                        <ng-container matColumnDef="dateofexp">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>{{'Date of Expiry' | translate}}</mat-header-cell>
+                            <mat-cell data-label="dateofexp" fxFlex="263px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">{{element.dateofexp?element.dateofexp:'-'}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Action -->
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="120px" mat-header-cell *matHeaderCellDef>{{'Action' | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="120px" *matCellDef="let element">
+                                <div *ngIf="tableplaceholder" class="w-100">
+                                    <div class="tabledataloader"></div>
+                                </div>
+                                <div *ngIf="!tableplaceholder">
+                                    <div class="manageoptions">
+                                        <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                            aria-label="Example icon-button with a menu">
+                                            <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                        </button>
+                                        <mat-menu #actionmenu="matMenu" class="master-menu whentootltipadded table_menu">
+                                            <button type="button" mat-menu-item *ngIf="(updateaccess || isfocalpoint == 1 && stktype == 2) && (element.installation_status == 1) && (element.applicant_type == 1 && userPk == element.ivrd_createdby)" (click)="editdevicedetails(element)" ><span>{{'Edit Vehicle Details'| translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.installation_status == 1) && isInstaller && (userPk == element.ivrd_Installername) && createaccess" (click)="installationreport('upload',element)"><span>{{'Upload Installation Report'|translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.installation_status == 7) && isInstaller && (userPk == element.ivrd_Installername) && createaccess" (click)="installationreport('update',element)"><span>{{'Update Installation Report'|translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.installation_status == 3) && (createaccess || isfocalpoint == 1 && stktype == 2)" (click)="schedule(element)"><span>{{'Schedule for Device Replacement'|translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.installation_status == 2) && approvalaccess && isSeniorTech && (userPk != element.ivrd_Installername)" (click)="viewandapprove('Approve',element)"><span>{{'View & Approve'|translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(readaccess || adminreadaccess || isfocalpoint == 1)" (click)="viewandapprove('View',element)" ><span>{{'View Details'|translate}}</span></button>
+                                            <!-- <button type="button" mat-menu-item  (click)="viewButton('viewDetails')"><span>{{'View Details'|translate}}</span></button> -->
+                                            <button type="button" mat-menu-item *ngIf="element.irvrd_viewcertificatepath && (viewcertificateaccess || adminreadaccess || isfocalpoint == 1)" (click)="printorviewcertificate(element,1)"  ><span><a target="_blank" class="view_Cert" href="{{this.url+element.irvrd_viewcertificatepath}}?v={{version}}">{{'View IVMS Certificate'
+                                                |translate}}</a></span></button>
+                                            <button type="button" mat-menu-item *ngIf="element.ivrd_printcertificatepath && (printcertificateaccess || adminupdateaccess || isfocalpoint == 1)" (click)="printorviewcertificate(element,2)"  ><span><a target="_blank" class="view_Cert" href="{{this.url+element.ivrd_printcertificatepath}}?v={{version}}">{{'Print IVMS Certificate'
+                                                |translate}}</a></span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.ifExpired == 1 || element.ifNearingExpiry == 1) && element.certi_status != 1 && element.certi_status != 4 && element.installation_status == 3 && (createaccess || (isfocalpoint == 1 && stktype == 2))" (click)="renew(element)"><span>{{'Renew Now' | translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="getRemovedivicecondition(element) && (createaccess || isfocalpoint == 1 && stktype == 2)" (click)="removedevice(element)" ><span>{{'Cancel (Removed Device)'| translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf="(element.installation_status == 1 )&& (updateaccess || isfocalpoint == 1 && stktype == 2)  && (element.applicant_type == 1 && userPk == element.ivrd_createdby)" (click)="cancelregistration(element)" ><span>{{'Cancel Registration'| translate}}</span></button>
+                                            <button type="button" mat-menu-item *ngIf=" element.installation_status == 3 && stktype == 1 && (adminupdateaccess || isfocalpoint == 1)" (click)="generatesticker(element)" ><span>{{'Re-generate IVMS Certificate' |translate}}</span></button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+
+                        <!-- ------------------------------Grid End -------------------------------------------------->
+                        <!-- ------------------------------Search Start -------------------------------------------------->
+                        <!--Centre Name -->
+                        <ng-container matColumnDef="one">
+                            <mat-header-cell fxFlex="320px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="centreName" (keyup)="ivmsgridfilter($event.target.value,'centreName')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!--Office Type -->
+                        <ng-container matColumnDef="two">
+                            <mat-header-cell fxFlex="210px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="officeType" multiple (selectionChange)="ivmsgridfilter($event.value,'officeType')">
+                                        <mat-option value="1">{{'Main Office' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Branch Office' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Branch name -->
+                        <ng-container matColumnDef="three">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="branchName" (keyup)="ivmsgridfilter($event.target.value,'branchName')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- CR number -->
+                        <ng-container matColumnDef="three-one">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="crnumber" (keyup)="ivmsgridfilter($event.target.value,'crnumber')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Owner name -->
+                        <ng-container matColumnDef="four">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="ownerName" (keyup)="ivmsgridfilter($event.target.value,'ownerName')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Contact Person Email -->
+                        <ng-container matColumnDef="five">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="contactPerson" (keyup)="ivmsgridfilter($event.target.value,'contactPerson')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Vichle -->
+                        <ng-container matColumnDef="six">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="vehichleReg" (keyup)="ivmsgridfilter($event.target.value,'vehichleReg')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Chasis Number -->
+                        <ng-container matColumnDef="seven">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="chasisNumber" (keyup)="ivmsgridfilter($event.target.value,'chasisNumber')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- IVMS Device -->
+                        <ng-container matColumnDef="eight">
+                            <mat-header-cell fxFlex="240px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="ivmsDevice" (keyup)="ivmsgridfilter($event.target.value,'ivmsDevice')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Device number -->
+                        <ng-container matColumnDef="nine">
+                            <mat-header-cell fxFlex="260px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="deviceNumber" (keyup)="ivmsgridfilter($event.target.value,'deviceNumber')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Device IMEI number -->
+                        <ng-container matColumnDef="ten">
+                            <mat-header-cell fxFlex="260px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="deviceIMEI" (keyup)="ivmsgridfilter($event.target.value,'deviceIMEI')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!--Vechile Category-->
+                        <ng-container matColumnDef="eleven">
+                            <mat-header-cell fxFlex="260px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                        <input matInput [formControl]="vechileCate" (keyup)="ivmsgridfilter($event.target.value,'vechileCate')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Vechicle Sub cateogy -->
+                        <ng-container matColumnDef="twelve">
+                            <mat-header-cell fxFlex="260px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                    <input matInput [formControl]="vechileSubCate" (keyup)="ivmsgridfilter($event.target.value,'vechileSubCate')">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Installer Name -->
+                        <ng-container matColumnDef="thirteen">
+                            <mat-header-cell fxFlex="230px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |
+                                        translate}}</mat-label>
+                                        <input matInput [formControl]="installerName" (keyup)="ivmsgridfilter($event.target.value,'installerName')">
+                                    
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!--Installation Date and Time -->
+                        <ng-container matColumnDef="fouteen">
+                            <mat-header-cell fxFlex="260px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="installationDate" #pickers matInput
+                                            type="text" autocomplete="off" ngxDaterangepickerMd (datesUpdated)="changeDateInsp($event,'installationDate')"
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [maxDate]='selected2' readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix>
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Applicant Type -->
+                        <ng-container matColumnDef="fifteen">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="applicantType" multiple
+                                        (selectionChange)="ivmsgridfilter($event.value,'applicantType')">
+                                        <mat-option value="1">{{'Initial' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Device Replacement' |translate}}</mat-option>
+                                        <mat-option value="3">{{'Renewal' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Installation Status -->
+                        <ng-container matColumnDef="sixteen">
+                            <mat-header-cell fxFlex="250px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select panelClass="select_with_search" [formControl]="installationStatus" multiple  (selectionChange)="ivmsgridfilter($event.value,'installationStatus')">
+                                        <div class="option-listing countryselectwithimage">
+                                        <mat-option value="1">{{'Installation Pending/Health Check Pending' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Approval Pending' |translate}}</mat-option>
+                                        <mat-option value="3">{{'Completed' |translate}}</mat-option>
+                                        <mat-option value="4">{{'Registration cancelled' |translate}}</mat-option>
+                                        <mat-option value="5">{{'Cancelled (Device Replacement Requested)' |translate}}</mat-option>
+                                        <mat-option value="6">{{'Device Removed and Cancelled' |translate}}</mat-option>
+                                        <mat-option value="7">{{'Declined by Senior Technician' |translate}}</mat-option>
+                                    </div>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Installation Certificate Status -->
+                        <ng-container matColumnDef="seventeen">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="installCertiStatus" multiple (selectionChange)="ivmsgridfilter($event.value,'installCertiStatus')" >
+                                        <mat-option value="1">{{'New' |translate}}</mat-option>
+                                        <mat-option value="2">{{'Valid' |translate}}</mat-option>
+                                        <mat-option value="3">{{'Expired' |translate}}</mat-option>
+                                        <mat-option value="4">{{'Cancelled' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- Date of Expiry -->
+                        <ng-container matColumnDef="eighteen">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="expiryDate" #pickers matInput
+                                            type="text" autocomplete="off" ngxDaterangepickerMd  (datesUpdated)="changeDateInsp($event,'expiryDate')"
+                                            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                                            [locale]="locale" [linkedCalendars]="true" [showClearButton]="true"
+                                            [maxDate]='selected2' readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix>
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- action -->
+                        <ng-container matColumnDef="row-action" stickyEnd>
+                            <mat-header-cell fxFlex="120px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <i class="fa fa-refresh m-l-15 cursorview" (click)="!tableplaceholder?clearFilter():''"
+                                aria-hidden="true" matTooltip="{{'table.refresh'|translate}}"></i>
+                            </mat-header-cell>
+                        </ng-container>
+                        <!-- ------------------------------Search End -------------------------------------------------->
+
+                        <mat-header-row id="headerrowcells" *matHeaderRowDef="getdisplayedColumn()">
+                        </mat-header-row>
+                        <mat-header-row id="searchrow" *matHeaderRowDef="getdisplayedsearch()">
+                        </mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: getdisplayedColumn();"></mat-row>
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="tableplaceholder"
+                                            class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord"
+                                            *ngIf="!tableplaceholder">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tableplaceholder">{{'No Records' |
+                                            translate}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+
+                <!-- footer paginator -->
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div [style.display]="tableplaceholder?'block':'none'" fxFlex="100"> <div class="tabledataloader" fxFlex="30"></div></div>
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator" [style.display]="!tableplaceholder?'block':'none'">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

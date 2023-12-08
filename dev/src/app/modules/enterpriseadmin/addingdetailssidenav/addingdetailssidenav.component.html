@@ -1,0 +1,87 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+      <!-- column -->
+      <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <mat-icon (click)="closeform();" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+            <h5 class="m-0 p-l-20 tt">{{'enterpriseadmin.adduserdepa' | translate}} <mat-icon (click)="toggleShowDiv('descriptioncontentuserrole')" class="bgi bgi-info">info_outline</mat-icon></h5>
+          </div>
+          <div class="clearandaddbutton">
+            <button type="button" mat-raised-button color="primary" class="clearbutton height-35 m-r-10 p-l-20 p-r-20" (click)="clearForm()">{{'enterpriseadmin.clea' | translate}}</button>
+            <button color="preview" type="button" [disabled]="addDisable" (click)="commonSubmit()" mat-raised-button class="addbutton height-35 p-l-20 p-r-20">{{addUpdateText}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentuserrole" [@slideInOut]="animationState">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+          <mat-card-header>
+            <div class="titletext">
+              <mat-card-subtitle class="informationtext fs-14">
+                {{'enterpriseadmin.adduserdepaandassi' | translate}}
+              </mat-card-subtitle>
+            </div>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-10">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <!-- <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottom">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="companyinfomcp p-l-75">
+            <img src="{{logoUrl}}" alt="upload logo">
+            <div class="p-l-10">
+              <p class="p-b-8 fs-15">{{companyName}} </p>
+              <p class="lypisid"><span>JSRS ID : </span> <span>{{lypisID}}</span></p>
+            </div>
+          </div>
+        </div> -->
+        <div class="innnerpartofdrwer organisationinfo">
+          <div fxLayout="row wrap" class=" tabforclientelenew">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabsectionadmin masterTable">
+              <mat-tab-group class="p-t-0">
+                <mat-tab label="Second" (click)="tabCheck(1)">
+                  <ng-template mat-tab-label>
+                    <div class="tabselectheadercontent" (click)="tabCheck(1)">
+                      <div class="selectionlogo">
+                        <i class="bgi bgi-add-user_new"></i>
+                      </div>
+                      <div class="selectiontext">
+                        <h4 class="">{{'enterpriseadmin.adduser' | translate}}</h4>
+                        <p>{{'enterpriseadmin.creauseracco' | translate}}<br>
+                        </p>
+                      </div>
+                    </div>
+                  </ng-template>
+                <app-inviteuser *ngIf="updateUserPk == ''"  [logoUrl]="logoUrl" 
+                [companyName]="companyName" [lypisID]="lypisID"
+                (closeAddSlider)="draweruseranddepartment.toggle()"></app-inviteuser>
+                <app-addinguser #addUpdateUser [triggercountrymst]="triggercountryser" (addUserData)="addUserData($event)" (hideResponseLoader)="showResponsiveLoader = $event" (closeSideNav)="closeUserSIdeNav($event)" (editDeptData)="editDeptData($event)" (click)="tabCheck(1)"></app-addinguser>
+                </mat-tab>
+                <mat-tab label="" (click)="tabCheck(2)">
+                  <ng-template mat-tab-label>
+                    <div class="tabselectheadercontent" (click)="tabCheck(2)">
+                      <div class="selectionlogo">
+                        <i class="bgi bgi-add-department-new"></i>
+                      </div>
+                      <div class="selectiontext">
+                        <h4 class="">{{'enterpriseadmin.adddepa' | translate}}</h4>
+                        <p>{{'enterpriseadmin.creatdepaandconf' | translate}}<br> 
+                          </p>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <app-adddepartment #addDepartmentData [logoUrl]="logoUrl" (addDeptData)="addDeptData($event)" (closeSideNav)="closeUserSIdeNav($event)" (click)="tabCheck(2)"></app-adddepartment>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-responseloader *ngIf="showResponsiveLoader"></app-responseloader>

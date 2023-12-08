@@ -1,0 +1,51 @@
+<div fxLayout="row wrap" id="suggestion_temp">
+  <div fxFlex="100">
+    <div fxLayout="row wrap">
+      <div fxFlex.sm="40" fxFlex.md="40" fxFlex.lg="40" fxFlex.xl="40" fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex="100">
+            <h3 mat-dialog-title class="lypisfont-bold">{{shortContent}}</h3>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="suggestion_list_box border-right-4">
+          <div fxFlex="100" class="suggestion_listing">
+            <div fxLayout="row wrap">
+              <div fxFlex="100" *ngFor="let suggestData of defaulttemplate; let i = index;" class="list">
+                <mat-radio-button (click)="txtPreview(suggestData)">
+                  {{suggestData.suggestTitle}}
+                </mat-radio-button>
+                <div  class="suggest_text" [innerHTML]="suggestData.suggestText | striphtml"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex.sm="60" fxFlex.md="60" fxFlex.lg="60" fxFlex.xl="60" fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex="100">
+            <h3 mat-dialog-title class="lypisfont-bold">Preview</h3>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="suggestion_list_box">
+          <div fxFlex="100">
+            <div fxLayout="row wrap">
+              <div fxFlex="100">
+                <h5 class="fs-15 p-t-5 lh-20 m-b-0 p-b-10 txt-blue lypisfont-bold">
+                  {{previewHeading}}&nbsp;
+                </h5>
+              </div>
+              <div fxFlex="100" class="suggestion_text">
+                <p class="fs-15 lh-22 txt-black m-b-0" [innerHTML]="previewText">
+                </p>
+              </div>
+              <div fxFlex="100" class="p-t-15 p-b-15 p-r-15" fxLayoutAlign="end">
+                <button mat-button class="m-r-10 previous" (click)="onNoClick()" type="button">Close</button>
+                <button mat-button [mat-dialog-close]="addData" cdkFocusInitial class="savebutton">Add Text</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

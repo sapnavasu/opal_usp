@@ -1,0 +1,32 @@
+#staffpages {
+    .othersDocuments {
+        gap: 40px;
+        display: grid;
+    }
+    .uploadedDocuments {
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        padding: 18px 30px;
+        background-color: #ffffff;
+        border-radius: 2px;
+        min-height: 70px;
+        .imageBadge {
+            p{
+                min-width: 435px;
+                @media (max-width: 768px) {
+                    min-width: auto;
+                }
+            }
+            .viewdocuments {
+                gap:45px;
+                span{
+                    a {
+                        gap: 10px;
+                    }
+                    img {
+                        width: 28px;
+                    }
+                }
+            }
+        }
+    }
+}  

@@ -1,0 +1,114 @@
+<div fxLayout="row wrap" class="sidenavmainrow">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" id="headerremoveindex" fxFlex="100">
+    <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+      <!-- column -->
+      <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+          <div class="closeandadd">
+            <mat-icon (click)="onCloseClick();" matTooltip="{{'enterpriseadmin.clos' | translate}}" class="bgi bgi-close p-l-5 fs-14">close</mat-icon>
+            <h5 class="m-0 p-l-20 tt"> {{addUserFromType==1? this.i18n('enterpriseadmin.add'):(addUserFromType==2? this.i18n('enterpriseadmin.edit'): this.i18n('enterpriseadmin.appr'))}}&nbsp;{{'enterpriseadmin.useradd' | translate}}
+              <mat-icon (click)="toggleShowDiv('descriptioncontentuserrole');" class="bgi bgi-info">info_outline</mat-icon>
+            </h5>
+          </div>
+          <div class="clearandaddbutton">
+            <div class="infosteplist" (click)="toggleShowDiv('infoview');" >
+              <i class="bgi bgi-question" matTooltip="{{'enterpriseadmin.help' | translate}}" ></i>
+            </div>
+            <button type="button" mat-raised-button color="primary" class="clearbutton height-35 m-r-10 p-l-20 p-r-20" [disabled]="addupdateProgressing"
+              (click)="resetFormCustomForClearData()">{{'enterpriseadmin.clea' | translate}}</button>
+            <button color="preview" type="button" [disabled]="addDisable" (click)="commonSubmit();" mat-raised-button
+              class="addbutton height-35 p-l-20 p-r-20">{{addUserFromType==1? this.i18n('enterpriseadmin.add'):(addUserFromType==2?this.i18n('enterpriseadmin.upda'):this.i18n('enterpriseadmin.appr'))}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptioncontentuserrole"
+      [@slideInOut]="animationState">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+          <mat-card-header>
+            <div class="titletext">
+              <mat-card-subtitle class="informationtext fs-14">
+                {{addUserFromType==1? this.i18n('enterpriseadmin.addcompaemplasuser'): this.i18n('enterpriseadmin.updatheinfoofyourcomp') }}
+
+              </mat-card-subtitle>
+            </div>
+            <div class="selectforward m-r-0">
+              <div class="p-l-15 gotit">
+                <span (click)="toggleShowDiv('descriptioncontentuserrole')" mat-raised-button color="primary">{{'enterpriseadmin.okgotit' | translate}}
+                </span>
+              </div>
+            </div>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 infoview" [@slideInOut]="animationState2">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0 infosteps">
+          <mat-card-header>
+            <div class="titletext">
+              <mat-card-subtitle *ngIf="addUserFromType==1" class="informationtext fs-14">
+                <div class="p-t-10">
+                  <span class="stepbold">{{'enterpriseadmin.steptoadduser' | translate}}</span>
+                  <ul class="unorderview">
+                    <li>{{'enterpriseadmin.fillinthebasiinfo' | translate}}
+                    </li>
+                    <li>{{'enterpriseadmin.maptheuserdivi' | translate}}</li>
+                    <li>{{'enterpriseadmin.maptheuserdepa' | translate}}</li>
+                    <li>{{'enterpriseadmin.mapthemodufor' | translate}}</li>
+                  </ul>
+                </div>
+              </mat-card-subtitle>
+              <mat-card-subtitle *ngIf="addUserFromType==2" class="informationtext fs-14">
+                  <div class="p-t-10">
+                    <span class="stepbold">{{'enterpriseadmin.steptoedit' | translate}}</span>
+                    <ul>
+                    <li>{{'enterpriseadmin.viewtheinfo' | translate}}</li>
+                    <li>{{'enterpriseadmin.alllfieldlist' | translate}}
+                      <ul class="unorderview">
+                        <li>{{'enterpriseadmin.maptheuseranotdivi' | translate}}</li>
+                        <li>{{'enterpriseadmin.youcancreanewdivi' | translate}}</li>
+                      </ul> 
+                    </li>                   
+                    <li>{{'enterpriseadmin.viewandchange' | translate}}</li>
+                    </ul>
+                  </div>
+                </mat-card-subtitle>
+            </div>
+            <div class="selectforward m-r-0">
+              <div class="p-l-15 gotit">
+                <span (click)="toggleShowDiv('infoview')" mat-raised-button color="primary">{{'enterpriseadmin.okgotit' | translate}}
+                </span>
+              </div>
+            </div>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxFlexAlign="center" class="p-t-0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="innnerpartofdrwer organisationinfo">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div *ngIf="hideComponentHeader" fxLayout="row wrap"  fxLayoutAlign="start" class="m-b-20">
+                <div fxFlex="100" class="addingusernote">
+                  <img src="assets/images/exclamatorysymbolnew.png" alt="exclamatorysymbolnew">
+                  <span class="fs-14 lypisfont-regular p-l-12">{{'enterpriseadmin.youcanmapthis' | translate}}
+                   </span>
+                  <!-- BUYER LOGIN NOTE CONTENT -->
+                </div>
+              </div>
+              <app-addinguser [fromwhere]="fromwhere" [fromwheremobile]="fromwheremobile" [lusrtpye]="lusrtpye" [enableformvalue]="disableuserformval" (showLoaderview)="showResponsiveLoader = $event" #addUpdateUser #addupdateemailuser  [triggercountrymst]="triggercountrymst" (hideResponseLoader)="responsiveLoder($event);"
+                (toggleModulepermission)="animationState = 'out'" (addUserData)="addUserData($event)" (isdisableclosebtn)="isdisableclosebtn=$event"
+                [addUserFromType]="addUserFromType" (closeSideNav)="closeUserSIdeNav($event)"></app-addinguser>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<app-responseloader *ngIf="showResponsiveLoader"></app-responseloader>

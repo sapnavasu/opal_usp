@@ -1,0 +1,17 @@
+#documentFormivms {
+    .titleCard {
+        align-items: baseline !important;
+    }
+    .infoIcon{
+        position: relative;
+        top: 5px;
+    }
+
+    .comment {
+        img {
+            width: 25px;
+            position: relative;
+            top: 2px;
+        }
+    }
+}

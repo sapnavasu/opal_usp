@@ -1,0 +1,33 @@
+{"BS_Outside_Card":"List out the business source of your service, this will let us categorise your service and direct potential buyers accordingly",
+"Trade_Outside_Card":"You can mention all your trade information for the buyers who are intrested in purchasing your service.",
+"BS_Inside_Card":"Select the Business Source that you have used for your previous services or create a new one.",
+"Trade_Inside_Card":"Select the trade information that you have used for your previous service or create a new one.",
+"CA_Info_Map_sub":"Map your Sevice to the existing Activity Information.",
+"BS_BS_MapBS":"Select the Business Source that you have used for your previous service.",
+"BS_Trade_Map_Trade_Dtls":"Select the Trade Information that you have used for your previous service.",
+"Add_Additional_Info":"Adding these additional information about your service will increase your profile visibility to the buyers will get more responses from our market.",
+"Wholesale":"Map the information of your Wholesale / Distributor, who sells your Products in the market.",
+"Retailer":"Map the information of your Retailer, who sells your Products in the market.",
+"Agent":"Map the information of your Agent, who sells your Products in the market.",
+"Principle":"Map the information of your Principle, who sells your Products in the market.",
+"Gov_Agency":"Map the information of your Government Agency / Organization, who sells your Products in the market.",
+"Stockist":"Map the information of your Stockist, who sells your Products in the market.",
+"Trade_House":"Map the information of your Trade House, who sells your Products in the market.",
+"min_field_validation":"The Minimum Order value should be lesser than the Maximum Order value.",
+"Others":"Map the information of your Other market presence, who sells your Products in the market.",
+"Clientele":"Map the information of your Client, who sells your Products in the market",
+"Service_Info":"Give a generic description for your Service highlighting its features and merits.",
+"Service_Specification":"Give a detailed description of your Service, describing its specifications and features.",
+"CA_Info_Select_Activity":"Map Activity",
+"CA_Info_Select_Activity_Category":"Select the Activity of the service that your are providing.",
+"CA_Info_Select_Activity_Category_Outside":"Categorise your activity based on the UNSPSC standards",
+"CA_Info_Select_serv_category_pro_note":"Select the unique UNSPSC category that matches your Service.",
+"CA_Info_Select_serv_category":"The United Nations Standard Products and Services Code (UNSPSC) is a taxonomy of Services and Services for use in eCommerce.",
+"CA_Info_select_serv_category_fild_note":"Select the UNSPSC Service Category of the service that you are providing.",
+"BS_Change_Message":"On changing the business source the corresponding contact information mapped towards it will be reset. Do you want to proceed?",
+"Add_Popup":"Service Information Uploaded Successfully","Update_Popup":"Service Information Updated Successfully","Delete_Popup":"Service Deleted Successfully",
+"Trading":"Map the information of your Trade, who sells your Products in the market.","Service_readiness_info":"Looks like you haven't filled all your service information yet, fill in all the information to get good responses from the buyers."}
+
+
+
+

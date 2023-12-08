@@ -1,0 +1,1155 @@
+<div *ngIf="Contentplaceloader" fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div fxLayout="row wrap" class="page  m-t-20">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="justify m-b-40 m-l-20 m-r-20">
+          <h1 class="pagetitle"></h1>
+          <h1 class="pagetitle"></h1>
+        </div>
+        <div class="approvalalign">
+          <div class="m-t-30">
+            <h1 class="accordionwidth"></h1>
+            <h1 class="accordionwidth"></h1>
+            <h1 class="accordionwidth"></h1>
+            <h1 class="accordionwidth"></h1>
+            <h1 class="accordionwidth"></h1>
+          </div>
+          <div class="alignend">
+            <h1 class="pagetitle m-r-12"></h1>
+            <h1 class="pagetitle"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!Contentplaceloader" fxLayout="row wrap" class="profileviewlist">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <div class="topheadermain">
+          <div class="imagewithtext">
+            <h4 class="mat-pagetitle-1">{{'profilecreationlist.userprof' | translate}}</h4>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center" class=" organizationdetail" id="mastercompanydetail" class="m-t-40">
+      <div fxFlex.gt-sm="83.33" fxFlex="100" class="marginspace p-b-30">
+
+        <form [formGroup]="basicinfoForm" (ngSubmit)="onSubmitbasic()">
+          <div fxLayout="row wrap" class="listbasicinfo">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <div class="alignfileds">
+                <div class="innerside">
+                  <div class="backgrounduploadbasicinfo m-r-30 m-t-25">
+                    <app-filee class="viewheight" #logo logoType="profile" isLogo=true isDelete="true"
+                      [fileMstRef]="drv_companylogo" (filesSelected)="fileeSelected($event,drv_companylogo)"
+                      (deleteImageID)="deleteLogo($event)" formControlName="upload">
+                    </app-filee>
+
+                  </div>
+                  <div class="acceptedcolor">
+                    <p class="p-b-10"> {{'profilecreationlist.uployourprof' | translate}}
+                    </p>
+                    <p> {{'profilecreationlist.acceimagform' | translate}} <br>
+                      {{'profilecreationlist.maxifilesize' | translate}}  <br>
+                    </p>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" class="alignitems">
+                  <div fxFlex.gt-sm="100" fxFlex="100">
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div class="progressandhistory alignpreview p-b-15">
+                          <div class="pagetitlenew">
+                            <h4 class="mat-pagetitle-2 textorgange">{{'profilecreationlist.corpinfo' | translate}}</h4>
+                          </div>
+                          <div class="manageprofile">
+                            <button type="button" [routerLink]="'/profilecreation/profilelistview'" mat-raised-button
+                              color="preview" class="button-30 lineheight">
+                              {{'profilecreationlist.viewprof' | translate}}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10">
+                        <div fxLayout="row wrap">
+                          <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field>
+                              <input  (keyup)="upadtebtn();" required [errorStateMatcher]="matcher" appAlphabetonly matInput maxlength="50" formControlName="firstname"
+                                placeholder="{{'profilecreationlist.firsname' | translate}}"
+                                app-restrict-input="firstspace" />
+                                <mat-error
+                                *ngIf="basicinfoForm.controls['firstname'].errors?.required && basicinfoForm.controls['firstname'].touched"
+                                class="text-danger font-14">
+                                 Enter firstname
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+                            <mat-form-field>
+                              <input (keyup)="upadtebtn();" [errorStateMatcher]="matcher" appAlphabetonly maxlength="50" formControlName="middlename" matInput
+                                placeholder="{{'profilecreationlist.middname' | translate}}"
+                                app-restrict-input="firstspace" />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div fxFlex.gt-sm="30" fxFlex="100" ngClass.xs="p-l-0 rightsidedetails"
+                        ngClass.sm="p-l-0 rightsidedetails" ngClass.md="p-l-30 rightsidedetails"
+                        ngClass.lg="p-l-30 rightsidedetails" ngClass.xl="p-l-30 rightsidedetails"> -->
+                        <!-- <p>{{'profilecreationlist.uployourprof' | translate}}.
+                        </p> -->
+
+                      <!-- </div> -->
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="70" fxFlex="100" class="p-b-10">
+                        <div fxLayout="row wrap">
+                          <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field>
+                              <input (keyup)="upadtebtn();" required [errorStateMatcher]="matcher" appAlphabetonly maxlength="50" matInput formControlName="lastname"
+                                placeholder="{{'profilecreationlist.lastname' | translate}}"
+                                app-restrict-input="firstspace" />
+                                <mat-error
+                                *ngIf="basicinfoForm.controls['lastname'].errors?.required && basicinfoForm.controls['lastname'].touched"
+                                class="text-danger font-14">
+                                 Enter lastname
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-15">
+                        <div fxLayout="row wrap">
+                          <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field>
+                              <input (keyup)="upadtebtn();" [errorStateMatcher]="matcher" matInput formControlName="employeeid"
+                                placeholder="{{'profilecreationlist.emplid' | translate}}"
+                                app-restrict-input="firstspace" required />
+                                <mat-error
+                                *ngIf="basicinfoForm.controls['employeeid'].errors?.required && basicinfoForm.controls['employeeid'].touched"
+                                class="text-danger font-14">
+                                {{'profilecreationlist.enteemplid' | translate}}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div  fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+                            <mat-form-field>
+                              <input  matInput [max]="maxDate" (click)="picker2.open();upadtebtn();" required formControlName="dateofjoining"
+                                [errorStateMatcher]="matcher"
+                                placeholder="{{'profilecreationlist.dateofjoin' | translate}}" [matDatepicker]="picker2"
+                                readonly>
+                              <mat-datepicker-toggle   matSuffix [for]="picker2" ></mat-datepicker-toggle>
+                              <mat-datepicker #picker2></mat-datepicker>
+                              <mat-error
+                                *ngIf="basicinfoForm.controls['dateofjoining'].errors?.required && basicinfoForm.controls['dateofjoining'].touched"
+                                class="text-danger font-14">
+                                {{'profilecreationlist.seledateofjoin' | translate}}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10">
+                        <div fxLayout="row wrap" id="select_valuetrigger">
+                          <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field>                           
+                              <mat-select (selectionChange)='divisionChange($event.value)'   placeholder="{{'profilecreationlist.divi' | translate}}"
+                                [disableOptionCentering]="false" required formControlName="division" multiple>
+                                <mat-select-trigger>
+                                  {{basicinfoForm.controls['division'].value ? businessUnitDataTemp : ''}}
+                                  <span *ngIf="basicinfoForm.controls['division'].value?.length > 1" class="example-additional-selection">
+                                    (+{{basicinfoForm.controls['division'].value.length - 1}}
+                                    {{basicinfoForm.controls['division'].value?.length === 2 ? 'other' : 'others'}})
+                                  </span>
+                                </mat-select-trigger>
+                                <mat-option [disabled]="optionvalue" (click)="upadtebtn();"  *ngFor="let divisionviewlist of businesssource"
+                                  [value]="divisionviewlist.bunitPk">{{divisionviewlist.bunitName }}
+                                </mat-option>
+                              
+                              </mat-select>
+                              <mat-error
+                              *ngIf="basicinfoForm.controls['division'].errors?.required && basicinfoForm.controls['division'].touched"
+                              class="text-danger font-14">
+                              Select division
+                            </mat-error>
+                            <button *ngIf="usertype == 'U'" mat-button (click)="$event.stopPropagation();" type="button"
+                            matTooltip="Kindly contact your company admin to update your Divisions and Departments."
+                            matTooltipPosition="above" matTooltipClass="allow-cr" matSuffix mat-icon-button
+                            aria-label="Clear">
+                            <i class="inputinfoicon bgi bgi-infonew"></i>
+                          </button>
+                            </mat-form-field>
+                            <div *ngIf="usertype == 'A'" class="mdepsapce">
+                              <mat-hint  align="end" *ngIf="businesssource?.length < 10"
+                              (click)="addbusinessunitmcp.toggle();getbusinessInput();">
+                              <div class="addingdepartment indexmdespace">
+                                <span>{{'profilecreationlist.adddivi' | translate}}</span>
+                              </div>
+                            </mat-hint>
+                            </div>
+                          </div>
+                          <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+                            <mat-form-field>
+                              <mat-select (selectionChange)='valueChanged($event.value)' multiple placeholder="{{'profilecreationlist.depa' | translate}}"
+                                [disableOptionCentering]="true" required formControlName="department">
+                                <mat-select-trigger>
+                                  {{basicinfoForm.controls['department'].value ? deptDataTemp : ''}}
+                                  <span *ngIf="basicinfoForm.controls['department'].value?.length > 1" class="example-additional-selection">
+                                    (+{{basicinfoForm.controls['department'].value.length - 1}}
+                                    {{basicinfoForm.controls['department'].value?.length === 2 ? 'other' : 'others'}})
+                                  </span>
+                                </mat-select-trigger>
+                                <mat-option [disabled]="optionvalue"  (click)="upadtebtn();" *ngFor="let departmentviewlist of Deptartment"
+                                  [value]="departmentviewlist.deptPk">{{departmentviewlist.deptName }}  
+                                </mat-option>
+                              
+                              </mat-select>
+                              <mat-error
+                              *ngIf="basicinfoForm.controls['department'].errors?.required && basicinfoForm.controls['department'].touched"
+                              class="text-danger font-14">
+                              Select department
+                            </mat-error>
+                           
+                             
+                            </mat-form-field>
+                            <div *ngIf="usertype == 'A'" class="mdepsapce">
+                              <mat-hint align="end" >
+                                <div class="addingdepartment indexmdespace" (click)="openDeptSide();this.drawerdepartment.toggle();">
+                                <span>{{'profilecreationlist.adddepa' | translate}} </span>
+                              </div>
+                            </mat-hint>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10">
+                        <div fxLayout="row wrap">
+                          <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field>
+                              <input  (keyup)="upadtebtn();" maxlength="50"  matInput formControlName="designation"
+                                placeholder="{{'profilecreationlist.desi' | translate}}"
+                                app-restrict-input="firstspace" required />
+                                <mat-error
+                                *ngIf="basicinfoForm.controls['designation'].errors?.required && basicinfoForm.controls['designation'].touched"
+                                class="text-danger font-14">
+                                {{'profilecreationlist.entedesi' | translate}}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <!-- <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+                            <mat-form-field>
+                              <mat-select matInput formControlName="designationlevel" [disableOptionCentering]="true"
+                                placeholder="{{'profilecreationlist.desileve' | translate}}">
+                                <mat-option *ngFor="let desiglevl of designlevel" [value]="desiglevl.value">
+                                  {{desiglevl.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div fxLayout="row wrap"> -->
+                      <!-- <div fxFlex.gt-sm="70" fxFlex="100">
+                        <div fxLayout="row wrap" class="pos-relative checkevenchild">
+                          <div fxFlex.gt-sm="50" fxFlex="100">
+                            <mat-form-field>
+                              <mat-select [disableOptionCentering]="true" [errorStateMatcher]="matcher"
+                                formControlName="reportingto"
+                                placeholder="{{'profilecreationlist.repoto' | translate}}">
+                                <mat-option *ngFor="let report of reportedto" [value]="report.value">
+                                  {{report.viewValue}}
+                                </mat-option>
+                              </mat-select> -->
+                              <!-- <mat-error
+                                *ngIf="basicinfoForm.controls['reportingto'].errors?.required && basicinfoForm.controls['reportingto'].touched"
+                                class="text-danger font-14">
+                                Select reporting authority
+                              </mat-error> -->
+                            <!-- </mat-form-field>
+                          </div>
+                          <div fxFlex.gt-sm="50" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                            ngClass.lg="p-l-30" ngClass.xl="p-l-30" formArrayName="gdp"
+                            *ngFor="let control of gdpControl;let i = index">
+                            <div fxLayout="row wrap" [formGroupName]="i">
+                              <div fxFlex.gt-sm="100" fxFlex="100" class="alignremove">
+                                <mat-form-field>
+                                  <mat-select (selectionChange)="changesuppervisor($event,i)"
+                                    [disableOptionCentering]="true" *ngIf="addsupervise" [errorStateMatcher]="matcher"
+                                    formControlName="supervisor"
+                                    placeholder="{{'profilecreationlist.supe' | translate}}">
+                                    <mat-option *ngFor="let Supervisorval of addsupervise"
+                                      [value]="Supervisorval.value">{{Supervisorval.viewValue}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                                <span class="p-l-15 bt-delete" matSuffix (click)="removeGDP(i)" mat-icon-button>
+                                  <i class="bgi bgi-delete"></i>
+                                </span>
+                              </div>
+                            </div>
+                          </div> -->
+                          <!-- <div fxFlex.gt-sm="50" fxFlex="100" style="position: relative;">
+                            <div class="suptextcolor" *ngIf="reportedto?.length > 0">
+                              <p *ngIf="gdpControl.length < 3" (click)="addGDP()">{{'profilecreationlist.addsupe' |
+                                translate}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <!-- <div fxFlex.gt-sm="30" fxFlex="100" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                        ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+                        <div class="supervisortextcolor">
+                          <p>{{'profilecreationlist.youcanadd' | translate}}<br>
+                            {{'profilecreationlist.supetowa' | translate}}</p>
+                        </div>
+                      </div>
+                    </div> -->
+                    <div fxLayout="row wrap" class="m-t-20">
+                      <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10">
+                        <div fxLayout="row wrap">
+                          <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                              <textarea (keyup)="upadtebtn();" matInput #profileview minlength="1" maxlength="1000"
+                                formControlName="briefprofile"
+                                placeholder="{{'profilecreationlist.brieprof' | translate}}" cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="9"></textarea>
+                              <!-- appAlphanumsymb -->
+                              <mat-hint align="end" class="p-t-3">{{profileview.value.length}} / 1000</mat-hint>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div fxLayout="row wrap">
+                          <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                              <textarea (keyup)="upadtebtn();" matInput #message minlength="1" maxlength="1000" formControlName="Roles"
+                                placeholder="{{'profilecreationlist.role' | translate}}" cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="9"></textarea>
+                              <mat-hint align="end" class="p-t-3">{{message.value.length}} / 1000</mat-hint>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <form [formGroup]="communicationinfoForm" (ngSubmit)="onSubmitcommunic()">
+                          <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="100" fxFlex="100">
+                              <div class="pagetitlenew p-b-40 p-t-40">
+                                <h4 class="mat-pagetitle-2 textorgange">{{'profilecreationlist.comminfo' | translate}}</h4>
+                              </div>
+                              <div fxLayout="row wrap" class="p-b-12 userprofilmailidmail">
+                                <div fxFlex.gt-sm="50" fxFlex="100" ngClass.md="p-r-0" ngClass.lg="p-r-0 paddingspace"
+                                  ngClass.sm="p-r-0" ngClass.xs="p-r-0" ngClass.xl="p-r-0">
+                                  <div fxLayout="row wrap" class="p-b-15">
+                                    <div fxFlex.gt-sm="15" fxFlex="100">
+                                      <mat-form-field class="country-flag">
+                                        <mat-select [(value)]="mobile_country_code_flag" (closed)="searchMobileCC = ''"
+                                          formControlName="code"
+                                          (selectionChange)="setcountryFlag($event.value,'mobile');"
+                                          [disableOptionCentering]="true" panelClass="select_with_search" [disabled]="codeselect"
+                                          *ngIf="(countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en') as cntryresult">
+                                          <div class="searchinmultiselect">
+                                            <i class="bgi bgi-search"></i>
+                                            <input appAlphanumsymb matInput class="searchselect" type="Search"
+                                              placeholder="{{'profilecreationlist.sear' | translate}}"
+                                              (keydown)="$event.stopPropagation();" [(ngModel)]="searchMobileCC"
+                                              [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchMobileCC = ''" class="reseticon" matSuffix
+                                              *ngIf="searchMobileCC !='' && searchMobileCC !=null">clear</mat-icon>
+                                          </div>
+                                          <mat-select-trigger class="flagwithcode">
+                                            <img src="assets/images/flags/{{mobile_country_code_flag}}.png"
+                                              alt="Country Flag">
+                                          </mat-select-trigger>
+                                          <div class="option-listing">
+                                            <mat-option class="countrynameselect"
+                                              *ngFor="let country of countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en'"
+                                              [value]="country.CountryMst_Pk">
+                                              <img class="widthimg"
+                                                src="assets/images/flags/{{country.CountryMst_Pk}}.png"
+                                                alt="Country Flag">
+                                              {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                                            </mat-option>
+                                          </div>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div fxFlex.gt-sm="85" fxFlex="100" ngClass.md="p-l-15 paddingspace"
+                                      ngClass.lg="p-l-15 paddingspace" ngClass.sm="p-l-0" ngClass.xs="p-l-0"
+                                      ngClass.xl="p-l-15 paddingspace">
+                                      <mat-form-field class="numberandcode" floatLabel="always">
+                                        <span ngClass.xs="p-r-0" ngClass.sm="p-r-0"
+                                          class="p-r-5 countrycodecolor">{{mobilecode}}</span>
+                                        <input (keyup)="mobilenumchange();" minlength="5" [maxlength]="mobile_country_code_flag == 31? 8 : 20" matInput appNumberonly minlength="1" maxlength="20"
+                                          formControlName="mobileno" [errorStateMatcher]="matcher"
+                                          placeholder="{{'profilecreationlist.mobi' | translate}}" required>
+                                        <input matInput hidden='true' formControlName="mobilecc"
+                                          placeholder="{{'profilecreationlist.phoncode' | translate}}">
+                                        <mat-error 
+                                          *ngIf="communicationinfoForm.controls.mobileno.errors?.required  && (communicationinfoForm.controls.mobileno.touched)"
+                                          class="text-danger nowrap ">{{'profilecreationlist.entemobinumb' | translate}}
+                                        </mat-error>
+                                        <mat-error
+                                          *ngIf="communicationinfoForm.controls.mobileno.errors?.minlength && (communicationinfoForm.controls.mobileno.touched)"
+                                          class="text-danger nowrap ">{{'profilecreationlist.enteminidigi' | translate}}
+                                        </mat-error>
+                                        <mat-error
+                                        *ngIf="communicationinfoForm.controls.mobileno.errors?.minlength && (communicationinfoForm.controls.mobileno.touched) && mobile_country_code_flag != 31"
+                                        class="text-danger nowrap ">{{'profilecreationlist.enteminidigi' | translate}}
+                                      </mat-error>
+                                      <mat-error *ngIf="communicationinfoForm.controls.mobileno.errors?.samemobno" class="text-danger">{{'This mobile number is already verified'}}</mat-error>
+                                        <mat-error
+                                          *ngIf="communicationinfoForm.controls.mobileno.errors?.alreadyavailable">
+                                          {{'profilecreationlist.mobinumbalre' | translate}}</mat-error>
+                                        <i  *ngIf="showeditbtnmobile" (click)="editdatamobileotp();" class="bgi bgi-edit1 p-l-15" matTooltip="{{'profilecreationlist.edit' | translate}}"></i>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div *ngIf="verifyshowfield" fxFlex.gt-sm="50" fxFlex="100"
+                                  class="paddingspacing userprofilmailidmail" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                                  ngClass.lg="p-l-30" ngClass.xl="p-l-30">
+                                  <div fxLayout="row wrap" id="emailotpspinner">
+                                    <div fxFlex.gt-sm="100"  fxFlex="100" id="mobileverifyspace">
+                                      <mat-spinner-button  type="button" *ngIf="mobnumverifybtn && verfiymobile && f1.mobileno.valid"
+                                        (click)="otpshowdatamobiledata()" class="submitbtnedit verifytop"
+                                        [options]="spinnerButtonOptionsmobile">
+                                      </mat-spinner-button>
+                                      <div *ngIf="otpshowmobile && divshow" fxFlex.gt-sm="100" fxFlex="100" class="paddingspacing">
+                                        <div    class="otpheader_reg">
+                                          <p class="m-0 fs-14 txt-gray6 importantfield">{{'commoncontactinfo.enteotp' |
+                                            translate}}</p>
+                                          <div class="alignflex divouter">
+                                            <div id="divOuter">
+                                              <div id="divInner">
+                                                <input formControlName="mobileotp" required matinput (keyup)="otplengthcheck()" 
+                                                  onpaste="return false;" (keydown.space)="$event.preventDefault();"
+                                                  id="partitioneduserprofile" type="text" maxlength="6">
+                                              </div>
+                                            </div>
+                                           
+                                            <a mat-raised-button color="primary"  (click)="submitdatamobile()"  
+                                              class="button-30 submitwrap m-l-20">{{'commoncontactinfo.subm' |
+                                              translate}} </a>
+                                              <a mat-raised-button color="primary" (click)="cancelmobilever()" class="button-30 previous fs-13 m-l-5">{{'Cancel'}}</a>
+                                          </div>
+                                          <!-- <div class="p-t-8">
+                <mat-error *ngIf="mobileotp.errors?.expiredOTP"
+                  class="fs-13 colorotp lowercaseremove">{{'commoncontactinfo.expiotp' |
+                  translate}}
+                </mat-error>
+                <mat-error *ngIf="mobileotp.errors?.invalidOTP"
+                  class="fs-13 colorotp lowercaseremove">{{'commoncontactinfo.invaotp' |
+                  translate}}
+                </mat-error>
+              </div> -->
+                                          <div fxLayoutAlign="flex-start" class="p-t-8">
+                                            <!-- <p class="fs-13 m-0 txt-gray3"  *ngIf="!iferrorotp" >{{'commoncontactinfo.otpvalionlyfor' |
+                  translate}}</p> -->
+                                            <mat-error class="fs-13 m-0 red" *ngIf="iferrorotp">{{'profilecreationlist.invaliotp' | translate}}</mat-error>
+                                            <!-- <a href="javascript:void(0)"
+                  class="resendotpcolor fs-13 p-l-30">{{'commoncontactinfo.reseotp' |
+                  translate}}
+                </a> -->
+                                            <div class="p-t-0 resendotp d-flex">
+                                              <button type="button" [disabled]="this.disableResendmob == true"
+                                                (click)="submitdatamobile()">{{'commoncontactinfo.reseotp' |
+                                                translate}}</button>
+                                              <span>{{countDownMob}}</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <span *ngIf="verfiedtagshowmobile" class="verifiedcontentbtn">
+                                        <i class="bgi bgi-tick fs-12"></i>
+                                        <span class="p-l-8">{{'commoncontactinfo.verified' | translate}}</span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div fxLayout="row wrap" class="p-b-15">
+                                <div fxFlex.gt-sm="50" fxFlex="100" class="flagwidthspend">
+                                  <div fxLayout="row wrap">
+                                    <div fxFlex.gt-sm="15" fxFlex="100" class="flagimage code paddingright">
+                                      <mat-form-field class="country-flag">
+                                        <mat-select [(value)]="landline_country_code_flag"
+                                          (closed)="searchMobileCC = ''" formControlName="coumtrycode"
+                                          (selectionChange)="setcountryFlag($event.value,'landline');"
+                                          [disableOptionCentering]="true" panelClass="select_with_search"
+                                          *ngIf="(countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en') as cntryresult">
+                                          <div class="searchinmultiselect">
+                                            <i class="bgi bgi-search"></i>
+                                            <input appAlphanumsymb matInput class="searchselect" type="Search"
+                                              placeholder="{{'profilecreationlist.sear' | translate}}"
+                                              (keydown)="$event.stopPropagation();" [(ngModel)]="searchMobileCC"
+                                              [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                            <mat-icon (click)="searchMobileCC = ''" class="reseticon" matSuffix
+                                              *ngIf="searchMobileCC !='' && searchMobileCC !=null">clear</mat-icon>
+                                          </div>
+                                          <mat-select-trigger class="flagwithcode">
+                                            <img src="assets/images/flags/{{landline_country_code_flag}}.png"
+                                              alt="Country Flag">
+                                          </mat-select-trigger>
+                                          <div class="option-listing">
+                                            <mat-option class="countrynameselect"
+                                              *ngFor="let country of countrylist | searchFilter : searchMobileCC:'CyM_CountryName_en'"
+                                              [value]="country.CountryMst_Pk">
+                                              <img class="widthimg"
+                                                src="assets/images/flags/{{country.CountryMst_Pk}}.png"
+                                                alt="Country Flag">
+                                              {{country.CyM_CountryName_en}} ({{country.dialcode}})
+                                            </mat-option>
+                                          </div>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                    <div fxFlex.gt-sm="64" fxFlex="100" ngClass.md="p-l-15 paddingspace"
+                                      ngClass.lg="p-l-15 paddingspace" ngClass.sm="p-l-0" ngClass.xs="p-l-0"
+                                      ngClass.xl="p-l-15 paddingspace">
+                                      <mat-form-field class="numberandcode" floatLabel="always">
+                                        <span class="p-r-5 countrycodecolor">{{landlinecode}}</span>
+                                        <input  (keyup)="upadtebtn();" id="landlineno" [maxlength]="landline_country_code_flag== 31? 8 : 20"  minlength="5" #landlinenumber matInput [errorStateMatcher]="matcher"
+                                          minlength="1"  appNumberonly formControlName="landlineno"
+                                          placeholder="{{'profilecreationlist.landline' | translate}}">
+                                        <input matInput hidden='true' formControlName="landlinecc"
+                                          placeholder="{{'profilecreationlist.phoncode' | translate}}">
+                                      </mat-form-field>
+                                    </div>
+                                    <div fxFlex.gt-sm="21" fxFlex="100" ngClass.md="p-l-15 paddingspace"
+                                      ngClass.lg="p-l-15 paddingspace" ngClass.sm="p-l-0" ngClass.xs="p-l-0"
+                                      ngClass.xl="p-l-15 paddingspace">
+                                      <mat-form-field>
+                                        <input matInput maxlength="5" app-restrict-input="firstspace" formControlName="extn"
+                                          placeholder="{{'profilecreationlist.extn' | translate}}" NumberOnly>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div fxLayout="row wrap" class="userprofilmailidmail">
+                                <div fxFlex.gt-sm="50" fxFlex="100">
+                                  <mat-form-field class="numberandcode" floatLabel="always">
+                                    <input matInput required
+                                      placeholder="{{'profilecreationlist.workemaiid' | translate}}" required
+                                      [errorStateMatcher]="matcher" app-restrict-input="firstspace"
+                                      formControlName="workemialid" (ngModelChange)="checksamemailid();"  (keyup)="emailcheck()">
+                                    <mat-error
+                                      *ngIf="communicationinfoForm.controls['workemialid'].errors?.required && communicationinfoForm.controls['workemialid'].touched"
+                                      class="text-danger font-14">
+                                      {{'profilecreationlist.entethework' | translate}}
+                                    </mat-error>
+                                    <mat-error *ngIf="f1.workemialid.errors?.pattern" class="text-danger">{{'profilecreationlist.entevaliemai' | translate}}</mat-error>
+                                    <mat-error *ngIf="f1.workemialid.errors?.alreadyExist" class="text-danger">{{'profilecreationlist.emaiidalreexis' | translate}}</mat-error>
+                                    <mat-error *ngIf="f1.workemialid.errors?.samemailid" class="text-danger">{{'This email id is already verified'}}</mat-error>
+                                    <i *ngIf="showeditbtn" (click)="editdataotp();" class="bgi bgi-edit1 p-l-15" matTooltip="{{'profilecreationlist.edit' | translate}}"></i>
+                                  </mat-form-field>
+                                </div>
+                                <div *ngIf="emailview" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                                ngClass.lg="p-l-30" id="emailotpspinner" ngClass.xl="p-l-30" fxFlex="50" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"  class="userprofilmailidmail p-t-0 p-b-0">
+
+                                  <mat-spinner-button   type="button" *ngIf="verfiy && f1.workemialid.valid" (click)="otpshowdata()"  class="submitbtnedit"
+                                  [options]="spinnerButtonOptions">
+                                </mat-spinner-button>
+                                <div id="verifyemailtop">
+                                  <div *ngIf="otpviewfield" fxFlex.gt-sm="100" fxFlex="100"  class="paddingspacing">
+                                    <div *ngIf="divshowemail" class="otpheader_reg verifyemailspaced">
+                                      <p class="m-0 fs-14 txt-gray6 importantfield">{{'commoncontactinfo.enteotp' |
+                                        translate}}</p>
+                                      <div class="alignflex divouter">
+                                        <div id="divOuter">
+                                          <div id="divInner">
+                                            <input formControlName="emailotp" matinput onpaste="return false;" required
+                                              (keydown.space)="$event.preventDefault();" id="partitioneduserprofile" type="text"
+                                              maxlength="6">
+                                          </div>
+                                        </div>
+                                        <a mat-raised-button color="primary" (click)="submitdtataotp()"
+                                          class="button-30 submitwrap m-l-20">{{'commoncontactinfo.subm' | translate}}</a>
+                                          <a mat-raised-button color="primary" (click)="cancelmailver()" class="button-30 fs-13 m-l-5 previous">{{'Cancel'}}</a>
+                                        <!-- <a mat-raised-button color="primary" (click)="otpshowdata()"
+                                          class="button-30 fs-13 m-l-15">Resend</a> -->
+                                      </div>
+                                        <!-- <div class="p-t-8">  -->
+                                         <!-- <mat-error *ngIf="emailotp.errors?.expiredOTP"
+                                          class="fs-13 colorotp lowercaseremove">{{'commoncontactinfo.expiotp' |
+                                          translate}}
+                                        </mat-error>  -->
+                                       <!-- <mat-error *ngIf="emailotp.errors?.invalidOTP"
+                                          class="fs-13 colorotp lowercaseremove">{{'commoncontactinfo.invaotp' |
+                                          translate}}
+                                        </mat-error> -->
+                                        <mat-error class="fs-13 m-0 red"  *ngIf="iferrorotpmail">{{'profilecreationlist.invaliotp' | translate}}</mat-error>
+                                      <!-- </div>  -->
+                                      <div fxLayoutAlign="flex-start" class="p-t-5">
+                                      <div class="p-t-0 resendotp d-flex">
+                                      <button type="button" (click)="submitdtataotp()" [disabled]="disableResendemail == true">{{'commoncontactinfo.reseotp' | translate}}</button>
+                                      <span>{{countDown}}</span>
+                                      </div>
+                                      </div> 
+                                    </div>
+                                  </div>
+                                  <span *ngIf="verfiedtagshow" class="verifiedcontentbtn verifytagtop">
+                                    <i class="bgi bgi-tick fs-12"></i>
+                                    <span class="p-l-8">{{'profilecreationlist.veri' | translate}}</span>
+                                  </span>
+                                </div>
+                                
+                                </div>
+                              </div>
+                              <!-- <mat-card *ngIf="addressists.length == 0" class="shadowcard m-t-10"
+                                (click)="mappingdrawer.toggle()">
+                                <mat-card-header class="p-r-14">
+                                  <mat-card-title class="suppliertextcolor">
+                                    <span>{{'profilecreationlist.addyouroffic' | translate}}</span>
+                                  </mat-card-title>
+                                  <mat-card-subtitle class="selectjsrtext fs-14">
+                                    <p>{{'profilecreationlist.addiyourcommuinfo' | translate}}
+                                    </p>
+                                  </mat-card-subtitle>
+                                  <div class="selectforward">
+                                    <i class="bgi bgi-dropdown"></i>
+                                  </div>
+                                </mat-card-header>
+                              </mat-card> -->
+                              <!-- <div *ngIf="addressists.length != 0" class="officetext">
+                                <div class="changealign">
+                                  <h2>{{addressists.officeloc}}</h2>
+                                  <p (click)="changecomadd(addressists.value)">{{'profilecreationlist.chan' | translate}}</p>
+                                </div>
+                                <div class="papernotecolor">
+                                  <h2>{{addressists.officename}}</h2>
+                                  <p><span class="txt-blue lypisfont-regular fs-14">{{'profilecreationlist.branid' | translate}}:</span> <span class="txt-black lypisfont-regular fs-15">{{addressists.branchid}}</span></p>
+                                </div>
+                                <div class="addresscolor p-t-15">
+                                  <p class="txt-blue lypisfont-regular fs-14">{{'profilecreationlist.offiaddr' | translate}}</p>
+                                  <span class="txt-black lypisfont-regular fs-15">{{addressists.officeaddress}}</span>
+                                </div>
+                              </div> -->
+                            </div>
+                          </div>
+                          <div fxLayout="row wrap" class="p-t-30" fxLayoutAlign="end">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="alignnext">
+                              <button mat-raised-button color="primary" type="button" class="button-40 previous m-r-10"
+                                (click)="cancelprocess()">{{'profilecreationlist.prev' | translate}}</button>
+                              <button mat-raised-button color="primary" type="submit" class="button-40 saveandnext"
+                               
+                                [disabled]="!upadtebtnn || !communicationinfoForm.valid || !basicinfoForm.valid">{{'profilecreationlist.saveandnext' |
+                                translate}}</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div fxLayout="row wrap" class="p-t-30" fxLayoutAlign="end">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="alignnext">
+              <button mat-raised-button type="submit" class="button-40 saveandnext" color="primary"
+                [class.previous]="!basicinfoForm.valid" [disabled]="!basicinfoForm.valid"
+                (click)="panelUpdate(2)">{{'profilecreationlist.saveandnext' | translate}}</button>
+            </div>
+          </div> -->
+        </form>
+
+        <!-- <mat-accordion class="commonexpandandcollapse profileaccordion"> -->
+        <!-- <div fxLayout="row wrap" class="triggeredto">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-expansion-panel class="required" (opened)="setOpen(1)" [expanded]="panel === 1">
+                <mat-expansion-panel-header (click)="scrollTo('page-content')" [collapsedHeight]="customCollapsedHeight"
+                  [expandedHeight]="customExpandedHeight">
+                  <mat-panel-title>
+                    <div class="accrodianheader">
+                      <p class="header m-0 fs-15">
+                        <span class="pagenumbercolorblank" [class.completed]="basicinfoForm.valid">1</span>
+                        <span>{{'profilecreationlist.userinfo' | translate}}</span>
+                      </p>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+              
+              </mat-expansion-panel>
+            </div>
+          </div> -->
+        <!-- <div fxLayout="row wrap" class="triggeredto">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-expansion-panel (opened)="panel = 2" [expanded]="panel === 2">
+                <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                  [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                  <mat-panel-title>
+                    <div class="accrodianheader">
+                      <p class="header m-0 fs-15">
+                        <span class="pagenumbercolorblank m-r-10" [class.completed]="certificatecnt > 0">2</span>
+                        <span>{{'profilecreationlist.certs' | translate}}</span>
+                      </p>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div fxLayout="row wrap" class="alignpublish">
+                  <div fxFlex.gt-sm="70" fxFlex="100" class="certificatewidth">
+                    <p class="venuecolor">{{'profilecreationlist.certs' | translate}}:
+                      <span>{{(certificatecnt > 0)?certificatecnt:''}}</span>
+                    </p>
+                    <div>
+                      <mat-paginator
+                        [style.visibility]="(certificatecnt > 3 || overallcertificatecnt > 3) ? 'visible' : 'hidden' "
+                        class="masterPage masterPageTop" #paginator [length]="overallcertificatecnt"
+                        [pageSize]="perpage" (page)="pageEvent = $event; onPaginateChange($event)"
+                        [pageSizeOptions]="paginationSet">
+                      </mat-paginator>
+                    </div>
+                  </div>
+                  <div fxFlex.gt-sm="30" fxFlex="100" class="venuewidth">
+                    <mat-form-field *ngIf="overallcertificatecnt > 3 || searchcertificatetitle" class="m-r-15">
+                      <input autocomplete="off" placeholder="{{'profilecreationlist.sear' | translate}}" matInput [(ngModel)]="searchcertificatetitle">
+                      <button mat-button matSuffix mat-icon-button aria-label="Search"
+                        (click)="oncertififiltersubmit()">
+                        <mat-icon matSuffix>search</mat-icon>
+                      </button>
+                      <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="searchcertificatetitle = '';oncertififiltersubmit()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <div class="alignvenue m-b-0">
+                      <button color="preview" (click)="addcertificatedraw()" type="button" mat-raised-button
+                        class="addbutton height-35 p-l-20 p-r-20 lineheight">
+                        <span>{{'profilecreationlist.add' | translate}}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="certificatelists" fxLayout="row wrap" class="m-t-30">
+                  <div fxFlex.gt-sm="100" fxFlex="100" id="creationlist">
+                    <div class="addedcertificate p-l-20" *ngFor="let certificatelist of certificatelists">
+                      <div fxLayout="row wrap" class="certificates">
+                        <div class="imgalignflex">
+                          <img src="{{certificatelist.certuploadurl}}"
+                            onError="this.src = 'assets/images/NoimageJPG.jpg'" alt="NoimageJPG">
+                        </div>
+                        <div class="companyandofficeinfo p-l-20">
+                          <h3 class="name " *ngIf="certificatelist.title.length < 60">{{certificatelist.title |
+                            truncate:[60,'...']}}</h3>
+                          <h3 class="name pointer" *ngIf="certificatelist.title.length > 60"
+                            popover="{{certificatelist?.title}}" popoverTitle="" popoverPlacement="bottom-right"
+                            [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                            [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true">
+                            {{certificatelist.title |
+                            truncate:[60,'...']}}</h3>
+                          <div fxLayout="row wrap" class="countryandcrinfo">
+                            <div class="eachitem countrywidth">
+                              <p><span class="lypisfont-regular fs-14">{{'profilecreationlist.dateofissu' | translate}}</span></p>
+                              <div class="flexoman">
+                                <span class="txt-black lypisfont-regular fs-15">{{certificatelist.dateofissue}}</span>
+                              </div>
+                            </div>
+                            <div *ngIf="certificatelist.relateddocurl.length > 0" class="eachitem countrywidth">
+                              <p><span class="lablename">{{'profilecreationlist.reladocu' | translate}}
+                                </span></p>
+                              <span *ngFor="let reldoc of certificatelist.relateddocurl"><a href="{{reldoc.fileurl}}"
+                                  target="_blank">
+                                  <img src="assets/images/{{reldoc.fileType}}_new.svg" alt="pdfsmallimage.png">
+                                </a></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="editanddelete p-r-20">
+                        <span matTooltip="{{'profilecreationlist.edit' | translate}}" (click)="editcert(certificatelist)" class="edit m-r-20">
+                          <i class="bgi bgi-edit1"></i>
+                        </span>
+                        <span matTooltip="{{'profilecreationlist.dele' | translate}}" (click)="deletecert(certificatelist.id)" class="delete m-r-15">
+                          <i class="bgi bgi-delete"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="noducumentaddedyet" *ngIf="certificatecnt == 0" style="text-align:center">
+                  <img src="./assets/images/Add.svg" alt="nocollateral.png">
+                  <p class="fs-16 lypisfont-bold txt-tropaz header m-0 lh-25 p-t-20">{{'profilecreationlist.thernothinhere' | translate}}</p>
+                </div>
+                <mat-paginator
+                  [style.visibility]=" (certificatecnt > 3 || overallcertificatecnt > 3) ? 'visible' : 'hidden' "
+                  class="masterPage masterbottom" showFirstLastButtons
+                  (page)="pageEvent = $event; onPaginateChange($event);syncPrimaryPaginator($event);"
+                  [pageSize]="paginator?.pageSize" [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                  [pageSizeOptions]="paginator?.pageSizeOptions">
+                </mat-paginator>
+                <div fxLayout="row wrap" class="p-t-30" fxLayoutAlign="end">
+                  <div fxFlex.gt-sm="100" fxFlex="100" class="alignnext">
+                    <button mat-raised-button color="primary" type="button" class="button-40 previous m-r-15"
+                      (click)="panelUpdate(1)">{{'profilecreationlist.prev' | translate}}</button>
+                    <button mat-raised-button color="primary" type="button" class="button-40 saveandnext"
+                      (click)="panelUpdate(3)">{{'profilecreationlist.next' | translate}}</button>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </div>
+          </div> -->
+        <!-- <div fxLayout="row wrap" class="triggeredto">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-expansion-panel class="required" (opened)="panel = 3" [expanded]="panel === 3">
+                <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                  [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                  <mat-panel-title>
+                    <div class="accrodianheader alignblock">
+                      <p class="header m-0 fs-15">
+                        <span class="pagenumbercolorblank m-r-10" [class.completed]="communicationinfoForm.valid">3</span>
+                        <span>{{'profilecreationlist.comminfo' | translate}} </span>
+                      </p>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+              
+              </mat-expansion-panel>
+            </div>
+          </div> -->
+        <!-- <div fxLayout="row wrap" class="triggeredto p-b-40">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-expansion-panel (opened)="panel = 4" [expanded]="panel === 4">
+                <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight"
+                  [expandedHeight]="customExpandedHeight" (click)="scrollTo('page-content')">
+                  <mat-panel-title>
+                    <div class="accrodianheader">
+                      <p class="header m-0 fs-15">
+                        <span class="pagenumbercolorblank m-r-10" [class.completed]="socialmediaForm.valid">4</span>
+                        <span>{{'profilecreationlist.webpresandsoci' | translate}}</span>
+                      </p>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form [formGroup]="socialmediaForm" (ngSubmit)="onSubmitsocialmed()">
+                  <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="70" fxFlex="100">
+                      <div class="webtextcolor">
+                        <h2>{{'profilecreationlist.webpres' | translate}}</h2>
+                      </div>
+                      <div class="eachsociallink">
+                        <img src="./assets/images/skypeimage.png" alt="Skype">
+                        <p class="p-l-10">{{'profilecreationlist.skyp' | translate}}</p>
+                        <div class="alignremove">
+                          <mat-form-field>
+                            <input matInput app-restrict-input="firstspace" appAlphanumsymb minlength="1" maxlength="250" formControlName="Skype"
+                              placeholder="{{'profilecreationlist.enteskypid' | translate}}">
+                            <mat-error *ngIf="socialmediaForm.controls['Skype'].errors?.pattern">
+                              {{'profilecreationlist.invaurl' | translate}} 
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="socialmediaForm.controls['Skype'].value" matTooltip="{{'profilecreationlist.dele' | translate}}"
+                            (click)="deletewebprese(1,'Skype')" class="p-l-15 bt-delete" matSuffix>
+                            <i class="bgi bgi-delete"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="eachsociallink">
+                        <img src="./assets/images/zoom.png" alt="Zoom">
+                        <p class="p-l-10">{{'profilecreationlist.zoom' | translate}}</p>
+                        <div class="alignremove">
+                          <mat-form-field>
+                            <input matInput app-restrict-input="firstspace" appAlphanumsymb minlength="1" maxlength="250" formControlName="Zoom"
+                              placeholder="{{'profilecreationlist.entezoomid' | translate}}">
+                            <mat-error *ngIf="socialmediaForm.controls['Zoom'].errors?.pattern">
+                              {{'profilecreationlist.invaurl' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="socialmediaForm.controls['Zoom'].value" matTooltip="{{'profilecreationlist.dele' | translate}}"
+                            (click)="deletewebprese(2,'Zoom')" class="p-l-15 bt-delete" matSuffix>
+                            <i class="bgi bgi-delete"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="eachsociallink">
+                        <img src="./assets/images/gmeet.png" alt="Google Meet">
+                        <p class="p-l-10">{{'profilecreationlist.googmeet' | translate}}</p>
+                        <div class="alignremove">
+                          <mat-form-field>
+                            <input matInput app-restrict-input="firstspace" appAlphanumsymb minlength="1" maxlength="250" formControlName="GoogleMeet"
+                              placeholder="{{'profilecreationlist.entegoogmeet' | translate}}">
+                            <mat-error *ngIf="socialmediaForm.controls['GoogleMeet'].errors?.pattern">
+                              {{'profilecreationlist.invaurl' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="socialmediaForm.controls['GoogleMeet'].value" matTooltip="{{'profilecreationlist.dele' | translate}}"
+                            (click)="deletewebprese(3,'GoogleMeet')" class="p-l-15 bt-delete" matSuffix>
+                            <i class="bgi bgi-delete"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="webtextcolor">
+                        <h2 class="m-0">{{'profilecreationlist.socimedihand' | translate}}</h2>
+                      </div>
+                      <div class="eachsociallink">
+                        <img src="./assets/images/Facebookweb.svg" alt="Facebook">
+                        <p class="p-l-10">{{'profilecreationlist.face' | translate}}</p>
+                        <div class="alignremove">
+                          <mat-form-field>
+                            <input matInput app-restrict-input="firstspace" appAlphanumsymb minlength="1" maxlength="250" formControlName="facebook"
+                              placeholder="{{'profilecreationlist.enteurl' | translate}}">
+                            <mat-error *ngIf="socialmediaForm.controls['facebook'].errors?.pattern">
+                              {{'profilecreationlist.invaurl' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="socialmediaForm.controls['facebook'].value" matTooltip="{{'profilecreationlist.dele' | translate}}"
+                            (click)="deletesocialmed(1,'facebook')" class="p-l-15 bt-delete" matSuffix>
+                            <i class="bgi bgi-delete"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="eachsociallink">
+                        <img src="./assets/images/Twitterweb.svg" alt="Twiiter">
+                        <p class="p-l-10">{{'profilecreationlist.twit' | translate}}</p>
+                        <div class="alignremove">
+                          <mat-form-field>
+                            <input matInput app-restrict-input="firstspace" appAlphanumsymb minlength="1" maxlength="250" formControlName="twitter"
+                              placeholder="{{'profilecreationlist.enteurl' | translate}}">
+                            <mat-error *ngIf="socialmediaForm.controls['twitter'].errors?.pattern">
+                              {{'profilecreationlist.invaurl' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="socialmediaForm.controls['twitter'].value" matTooltip="{{'profilecreationlist.dele' | translate}}"
+                            (click)="deletesocialmed(2,'twitter')" class="p-l-15 bt-delete" matSuffix>
+                            <i class="bgi bgi-delete"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="eachsociallink">
+                        <img src="./assets/images/Instagramweb.svg" alt="Instagram">
+                        <p class="p-l-10">{{'profilecreationlist.insta' | translate}}</p>
+                        <div class="alignremove">
+                          <mat-form-field>
+                            <input matInput app-restrict-input="firstspace" appAlphanumsymb minlength="1" maxlength="250" formControlName="instagram"
+                              placeholder="{{'profilecreationlist.enteurl' | translate}}">
+                            <mat-error *ngIf="socialmediaForm.controls['instagram'].errors?.pattern">
+                              {{'profilecreationlist.invaurl' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="socialmediaForm.controls['instagram'].value" matTooltip="{{'profilecreationlist.dele' | translate}}"
+                            (click)="deletesocialmed(3,'instagram')" class="p-l-15 bt-delete" matSuffix>
+                            <i class="bgi bgi-delete"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="eachsociallink">
+                        <img src="./assets/images/Linkedinweb.svg" alt="Linked In">
+                        <p class="p-l-10">{{'profilecreationlist.link' | translate}}</p>
+                        <div class="alignremove">
+                          <mat-form-field>
+                            <input matInput app-restrict-input="firstspace" appAlphanumsymb minlength="1" maxlength="250" formControlName="linkedin"
+                              placeholder="{{'profilecreationlist.enteurl' | translate}}">
+                            <mat-error *ngIf="socialmediaForm.controls['linkedin'].errors?.pattern">
+                              {{'profilecreationlist.invaurl' | translate}} 
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="socialmediaForm.controls['linkedin'].value" matTooltip="{{'profilecreationlist.dele' | translate}}"
+                            (click)="deletesocialmed(4,'linkedin')" class="p-l-15 bt-delete" matSuffix>
+                            <i class="bgi bgi-delete"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" class="p-t-30" fxLayoutAlign="end">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="alignnext">
+                      <button mat-raised-button color="primary" type="button" class="button-40 previous m-r-15"
+                        (click)="panelUpdate(3)">{{'profilecreationlist.prev' | translate}}</button>
+                      <button mat-raised-button color="primary" type="submit" [class.previous]="!socialmediaForm.valid"
+                        [disabled]="socialmediaForm.invalid" class="button-40 saveandnext">{{'profilecreationlist.save' | translate}}</button>
+                    </div>
+                  </div>
+                </form>
+              </mat-expansion-panel>
+            </div>
+          </div> -->
+        <!-- </mat-accordion> -->
+      </div>
+    </div>
+  </div>
+</div>
+<mat-drawer-container class="example-container targetwidth">
+  <mat-drawer #certificatesdrawer disableClose class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <form [formGroup]="certificatelistForm" (ngSubmit)="onSubmitcertifi()">
+      <div fxLayout="row wrap" class="tabforclientelenew">
+        <div fxFlex="100" class="tabsection">
+          <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0 w-100">
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+              <div class="titletext">
+                <div class="closeandadd">
+                  <i mat-button matTooltip="{{'profilecreationlist.clos' | translate}}" aria-label="Displays a tooltip"
+                    matTooltipClass="custom-tooltip" (click)="showSweetAlert()" class="bgi bgi-close p-l-5 fs-14"></i>
+                  <h5 class="m-0 p-l-20 tt"> {{'profilecreationlist.certs' | translate}}<i class="bgi bgi-info"
+                      (click)="toggleShowDiv('descriptionnonjsrs');;this.animationState6 = 'out'"></i></h5>
+                </div>
+                <div class="clearandaddbutton">
+                  <div class="infosteplist" (click)="infolisting('infoview');this.animationState = 'out'">
+                    <i class="bgi bgi-question cursor-pointer"
+                      matTooltip="{{'profilecreationlist.help' | translate}}"></i>
+                  </div>
+                  <button type="button" (click)="clearformcert()" mat-raised-button color="primary"
+                    class="clearbutton height-35 m-r-10 p-l-20 p-r-20">{{'profilecreationlist.clea' |
+                    translate}}</button>
+                  <button color="preview" [disabled]="certificatelistForm.invalid" type="submit" mat-raised-button
+                    ngClass.xs=" m-r-15" ngClass.sm=" m-r-15"
+                    class="addbutton height-35 p-l-20 p-r-20">{{buttonname}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 descriptionnonjsrs"
+            [@slideInOut]="animationState">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+              <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                <mat-card-header>
+                  <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                    <mat-card-subtitle class="informationtext fs-14">
+                      {{'profilecreationlist.uplothecert' | translate}}
+                    </mat-card-subtitle>
+                  </div>
+                  <div class="selectforward m-r-0">
+                    <div class="p-l-15 gotit">
+                      <span (click)="toggleShowDiv('descriptionnonjsrs')" mat-raised-button
+                        color="primary">{{'profilecreationlist.okgotit' | translate}} </span>
+                    </div>
+                  </div>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 infoview" [@slideInOut]="animationState6">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0" id="withClear_certficate">
+              <mat-card class="headerinformationtext sidenavinfotext m-r-0 infosteps_certficate">
+                <mat-card-header>
+                  <div class="titletext">
+                    <mat-card-subtitle class="informationtext fs-14">
+                      <div>
+                        <strong>{{'profilecreationlist.steptoadd' | translate}}</strong>
+                        <ul>
+                          <li>{{'profilecreationlist.enteyourcert' | translate}}</li>
+                          <li>{{'profilecreationlist.seletheissudate' | translate}}</li>
+                          <li>{{'profilecreationlist.uploasoft' | translate}}</li>
+                          <li>{{'profilecreationlist.uplodocurela' | translate}}</li>
+                          <li>{{'profilecreationlist.clickontheaddbutt' | translate}}</li>
+                        </ul>
+                      </div>
+                    </mat-card-subtitle>
+                  </div>
+                  <div class="selectforward m-r-0">
+                    <div class="p-l-15 gotit">
+                      <span (click)="infolisting('infoview')" mat-raised-button
+                        color="primary">{{'profilecreationlist.okgotit' | translate}} </span>
+                    </div>
+                  </div>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-responseloader class="aftersearchloaders" *ngIf="initSpinner"></app-responseloader>
+      <div class="innnerpartofdrwer">
+
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <div fxLayout="row wrap">
+              <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10">
+                <mat-form-field>
+                  <input [errorStateMatcher]="matcher" minlength="1" maxlength="250" matInput
+                    formControlName="certificatetitle" placeholder="{{'profilecreationlist.certtitl' | translate}}"
+                    app-restrict-input="firstspace" required />
+                  <mat-error
+                    *ngIf="certificatelistForm.controls['certificatetitle'].errors?.required && certificatelistForm.controls['certificatetitle'].touched"
+                    class="text-danger font-14">
+                    {{'profilecreationlist.entecerttitl' | translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="alignfiledscertificate">
+              <div class="widthemp">
+                <mat-form-field>
+                  <input matInput [max]="maxDate" formControlName="dateofissue"
+                    placeholder="{{'profilecreationlist.dateofissu' | translate}}" [matDatepicker]="picker1" readonly
+                    required>
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                  <mat-error
+                    *ngIf="certificatelistForm.controls['dateofissue'].errors?.required && certificatelistForm.controls['dateofissue'].touched"
+                    class="text-danger font-14">
+                    {{'profilecreationlist.seledateofissu' | translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="uploadlabel letterfieldmand">
+              <h4 class="fs-15 m-b-20 m-t-20 importantfield">{{'profilecreationlist.uplocert' | translate}}</h4>
+            </div>
+            <app-filee #certificateFile [notePosition]="'bottom'" [fileMstRef]="drvInput"
+              (filesSelected)="fileeSelected($event,drvInput)" formControlName="certificateFileUpload">
+            </app-filee>
+            <div class="uploadlabel letterfieldmand m-t-30">
+              <h4 class="fs-15 m-b-20">{{'profilecreationlist.reladocu' | translate}}</h4>
+            </div>
+            <app-filee #relateddocument [notePosition]="'bottom'" [fileMstRef]="relateddoc"
+              (filesSelected)="fileeSelected($event,relateddoc)" formControlName="relateddocument">
+            </app-filee>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-drawer>
+</mat-drawer-container>
+
+
+
+<mat-drawer-container class="example-container mappingwidth">
+  <mat-drawer #mappingdrawer disableClose class="example-sidenav sidenavsamewidthall mappingsidenavwidth" mode="over"
+    position="end">
+    <app-mapcommunicateaddresslist (valueChange)='updatecommunadd($event)' [addressid]="addressid"
+      [mappingdrawer]="mappingdrawer">
+    </app-mapcommunicateaddresslist>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #addbusinessunitmcp class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-addsectoractivities #refBusinessunit [dataSource]="dataSource2" [drawer]="addbusinessunitmcp"
+      (bunitReload)="bunitReload($event)"></app-addsectoractivities>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawerdepartment class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-adddepartment #refBunitDept [drawerdepartment]="drawerdepartment" (deptReload)="deptReload($event)">
+    </app-adddepartment>
+  </mat-drawer>
+</mat-drawer-container>

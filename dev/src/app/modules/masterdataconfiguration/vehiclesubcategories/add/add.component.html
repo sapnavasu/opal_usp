@@ -1,0 +1,45 @@
+<div fxLayoutAlign="center" id="addVehiclesubcategory" class="changeassessor" >
+    <form [formGroup]="Vehiclesubcategory" (ngSubmit)="Vehiclesubcategory.valid ? submit(Vehiclesubcategory.value) : focusInvalidInput(Vehiclesubcategory)">
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0">
+                <mat-form-field class="filter"  appearance="outline">
+                    <mat-label>{{'Vehicle Category' |translate}}</mat-label>
+                    <input matInput formControlName="Vehicle" required>
+                    <mat-error *ngIf="form.Vehicle.errors?.required || form.submitted"> {{'Enter the Vehicle Category' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field class="filter" appearance="outline">
+                    <mat-label>{{'Vehicle Sub-Category Code' |translate}}</mat-label>
+                    <input matInput (keydown.enter)="$event.preventDefault()" matInput   app-restrict-input="englishspace" formControlName="code" required>
+                    <mat-error *ngIf="form.code.errors?.required || form.submitted"> {{'Enter the Vehicle Sub-Category Code' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-md="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-0" 
+                 fxFlex="100" class="date_exp">
+                 <mat-form-field   appearance="outline">
+                    <mat-label>{{'Vehicle Sub-Category (English)' |translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" matInput   app-restrict-input="englishspace"  formControlName="subcategoty_en" required>
+                    <mat-error *ngIf="form.subcategoty_en.errors?.required || form.submitted"> {{'Enter the Vehicle Sub-Category (English)' | translate}} </mat-error>
+                </mat-form-field>
+                
+            </div>
+            <div fxFlex.gt-md="50" fxFlex="100" class="paddingspacing verifybtn" ngClass.sm="m-0" ngClass.xl="p-l-30" ngClass.lg="p-l-30">
+                <mat-form-field class="filter" class="arabiclanguage" appearance="outline">
+                    <mat-label>{{'Vehicle Sub-Category (Arabic)' | translate}}</mat-label>
+                    <input (keydown.enter)="$event.preventDefault()" matInput  app-restrict-input="arabic" appAlphabetonly formControlName="subcategoty_ar" required>
+                    <mat-error *ngIf="form.subcategoty_ar.errors?.required || form.submitted"> {{'Enter the Vehicle Sub-Category (Arabic)' | translate}} </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="p-t-10" fxLayoutAlign="start center">            
+            <div class="buttonalign" >
+                <button mat-raised-button type="button"  class="btnwhite" (click)="cancel()">{{'Cancel' | translate}}</button>
+                <button mat-raised-button class="btnred m-l-15"  >{{'Submit' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

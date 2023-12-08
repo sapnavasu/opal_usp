@@ -1,0 +1,300 @@
+<mat-drawer-container>
+  <mat-drawer-content >
+    <app-registrationheader [usernameshow]="enableloginbtn" ></app-registrationheader>
+    <div dir="{{dir}}" class="{{dir}}">
+      <div  id="login_page" class="scrollerdata">
+        <div fxLayout="row wrap" class=" container single-blog-bg"
+          style="background-image: url(assets/images/opalimages/bg-bg.svg)">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="bottominfo">
+            <div [ngSwitch]="loginTemplate" class="rightsideinfodetail m-t-50 m-b-50">
+              <div [ngClass]=" loginTemplate == 'twofactor' ? 'twofactor' : ''">
+                <ng-template [ngSwitchCase]="'login'">
+                  <form [formGroup]="loginForm" autocomplete="off" #lgForm="ngForm" (ngSubmit)="onSubmit()">
+                    <div [ngSwitch]="loginInnerTemplate">
+                      <ng-template [ngSwitchCase]="'usernameshow'">
+                        <div *ngIf="usernameshow">
+                          <div class="spaceforleftright ">
+                            <h2 class="lypisfont-semibold fs-22 m-0  text-center">{{'commonlogin.title' | translate}}
+                              <span class="headcolor lypisfont-bold">{{'commonlogin.opal' | translate}}</span>
+                            </h2>
+                            <h2 class="log-bold fs-22 m-0  text-center"> {{'commonlogin.log' | translate}} </h2>
+                            <p class="m-b-40 m-t-20 text-center">{{'commonlogin.logitoyouraccousin' | translate}}</p>
+                          </div>
+                          <div>
+                            <mat-form-field appearance="outline" class="flexalign">
+                              <mat-label class="fs-14"> {{'commonlogin.emailuser' | translate}}</mat-label>
+                              <input restrictKeyboard [restrictInputFromKeyboard]="vk.showKeyboard"
+                                formControlName="username" class="inputcolor" matInput 
+                                app-restrict-input="firstspace" maxlength="255"
+                                (focus)="this.spinnerButtonOptions.active = false" required>
+                              <mat-error
+                                *ngIf="loginForm.controls['username'].hasError('required') && (lgForm.touched || lgForm.submitted)"
+                                class="text-danger fs-13 lowercaseremove">
+                                {{'commonlogin.entremailuser' | translate}}  
+                              </mat-error>
+                              <mat-error
+                                *ngIf="loginForm.controls['username'].hasError('notavailable') && (lgForm.touched || lgForm.submitted)"
+                                class="text-danger fs-13 lowercaseremove">
+                                {{'commonlogin.invauser' | translate}}
+                              </mat-error>
+                            </mat-form-field>
+                            <div class="another-btn d-flex">
+                              <app-virtual-keyboard class="userkeyboard" #vk [inputControl]="userNameControl">
+                              </app-virtual-keyboard>
+                            </div>
+                          </div>
+                          <div fxLayout="row wrap" class="p-t-0 m-t-10 m-b-10">
+                            <div fxFlex.gt-sm="100" fxFlex="100"class="spinnercircle">
+                              <mat-spinner-button (click)="onSubmitusername();loginForm.controls.password.reset();"
+                                class="fs-14 submitbtn" [options]="spinnerButtonOptions"></mat-spinner-button>
+                            </div>
+                          </div>    
+                          <div class="havecolor registerfromhere p-t-20">
+                            <p class="fs-13"> <span> {{'commonlogin.donthave' | translate}} </span>
+                              <a routerLink="/registration/index" class="cursor fs-13 m-l-5">{{'commonlogin.regis' |
+                                translate}}</a>
+                            </p>
+                          </div>
+                        </div>
+                      </ng-template>
+                      
+                      <ng-template [ngSwitchCase]="'singlepasswordpageshow'">
+                        <div class="p-t-5 lypislogoimage logintexts">
+                          <div class="spaceforleftright ">
+                            <h2 class="lypisfont-semibold fs-26 m-0 p-b-10">{{'commonlogin.title' | translate}} <span
+                                class="headcolor lypisfont-bold">{{'commonlogin.opal' | translate}}</span></h2>
+                            <h2 class="log-bold fs-22 m-0  text-center"> {{'commonlogin.log' | translate}} </h2>
+                            <p class="fs-14 txt-gray3 m-t-15 lypisfont-regular">{{'commonlogin.entelogipass' | translate}}
+                              <b>'{{loginForm.controls.username.value}}'</b>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="keyboardpassword spaceforleftright p-t-10">
+                          <mat-form-field appearance="outline" class="p-t-5">
+                            <mat-label>{{'commonlogin.pass' | translate}}</mat-label>
+                            <input restrictKeyboard [restrictInputFromKeyboard]="vk1.showKeyboard"
+                              formControlName="password" class="inputcolor pw" matInput app-restrict-input="firstspace"
+                              maxlength="20" [type]="isInputTextType ? 'text' : 'password'"
+                              (focus)="this.spinnerButtonOptions.active = false" required>
+                            <mat-error
+                              *ngIf="loginForm.controls['password'].hasError('required') && (lgForm.touched || lgForm.submitted)"
+                              class="text-danger fs-13 lowercaseremove">{{'commonlogin.enterpass' |
+                              translate}}</mat-error>
+                            <span matSuffix class="eyeicon">
+                              <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="!isInputTextType"
+                                (click)="isInputTextType = !isInputTextType" matTooltip="Show"></i>
+                              <i class="fa fa-eye" aria-hidden="true" *ngIf="isInputTextType"
+                                (click)="isInputTextType = !isInputTextType" matTooltip="Hide"></i>
+                            </span>
+                          </mat-form-field>
+                          <div class="m-0" *ngIf="loginForm.hasError('invalidError')">
+                            <mat-error class="text-danger support-text fs-15 lowercaseremove">{{'commonlogin.invacred' |
+                              translate}}</mat-error>
+                          </div>
+                        </div>
+                        <div class="anotherway d-flex p-b-25 m-t-0">
+                          <div class="passwordcolor ">
+                            <span (click)="loginForm.reset();validusermismatch = false;forgotMail.reset();checkinter();"
+                              class="cursor fs-14">{{'commonlogin.forgpass' | translate}}</span>
+                          </div>
+                          <app-virtual-keyboard class="userkeyboard" #vk1 [inputControl]="passwordControl">
+                          </app-virtual-keyboard>
+                        </div>
+                        <div class="p-t-8" *ngIf="loginForm.hasError('wrongAttemptError')">
+                          <mat-error class="text-danger support-text fs-15 lowercaseremove">
+                            {{'commonlogin.youhav' | translate}} {{wrongAttemptLeftCount}}
+                            {{'commonlogin.outof5logatteleft'
+                            |
+                            translate}}
+                          </mat-error>
+                        </div>
+                        <div class="p-t-8" *ngIf="loginForm.hasError('attemptReachedError')">
+                          <mat-error class="text-danger support-text fs-15 lowercaseremove">
+                            {{'commonlogin.youhavbeenlockoutof' | translate}}
+                          </mat-error>
+                        </div>
+                        <div class="p-t-8 text-center" *ngIf="loginForm.hasError('notRegisteredError')">
+                          <mat-error class="text-danger support-text fs-15 lowercaseremove">
+                            {{'commonlogin.thisemaiusermpbisbot' | translate}}
+                          </mat-error>
+                        </div>
+                        <div class="p-t-8 text-center" *ngIf="loginForm.hasError('deactivatedError')">
+                          <mat-error class="text-danger support-text fs-15 lowercaseremove">
+                            {{'commonlogin.yourrabtaccohasbeen' | translate}}
+  
+                          </mat-error>
+                        </div>
+                        <div class="p-t-8" *ngIf="loginForm.hasError('setPasswordError')">
+                          <mat-error class="text-danger support-text fs-15 lowercaseremove">
+                            {{'commonlogin.yourrabtaccohasbedeact' | translate}}
+  
+                          </mat-error>
+                        </div>
+                        <div class="p-t-8" *ngIf="loginForm.hasError('changeUserError')">
+                          <mat-error
+                            class="text-danger support-text fs-15 lowercaseremove">{{'commonlogin.chanuserisinprog'
+                            |
+                            translate}}
+                          </mat-error>
+                        </div>
+                        <div class="p-t-8" *ngIf="loginForm.hasError('captchaError')">
+                          <mat-error
+                            class="text-danger support-text fs-15 lowercaseremove">{{'commonlogin.thewasaprobwithyou'
+                            |
+                            translate}}
+                          </mat-error>
+                        </div>
+                        <mat-spinner-button type="submit" class="fs-14 submitbtn pass spinnercircle"
+                          [options]="spinnerButtonOptionsLogin">
+                        </mat-spinner-button>
+                        <div class="havecolor registerfromhere p-t-20">
+                          <p class="fs-13"> <span> {{'commonlogin.donthave' | translate}} </span>
+                            <a routerLink="/registration/index" class="cursor fs-13 m-l-5">{{'commonlogin.regis' |
+                              translate}}</a>
+                          </p>
+                          <p class="m-0  backtohometxt fs-14"><a href="admin/login"
+                            class="p-r-5 m-t-10"> <mat-icon class="m-r-5 arrow">keyboard_backspace</mat-icon>{{'commonlogin.backto' |
+                            translate}}</a></p>
+                        </div>
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="'accountLink'">
+                        <div class="linkAcoounts">
+                          <div class="spaceforleftright ">
+                            <h2 class="lypisfont-semibold fs-22 m-0  text-center">{{'commonlogin.title' | translate}}
+                              <span class="headcolor lypisfont-bold">{{'commonlogin.opal' | translate}}</span>
+                            </h2>
+                            <!-- <h2 class="log-bold fs-22 m-0  text-center"> {{'commonlogin.log' | translate}} </h2> -->
+                            <p class="m-b-40 m-t-10 text-center"><span class="mailidcolor fs-16">"{{lgnemailid}}"</span> {{'commonlogin.islink' | translate}}</p>
+                            <p class="m-t-20 text-center">{{'commonlogin.choosacc' | translate}}</p>
+                            <mat-divider></mat-divider>
+                            <div *ngFor="let user of userdatalist">
+                          <div  fxLayout="row" class="batchtype" fxLayoutAlign="space-between center">
+                            <div class="m-l-15 ">
+                              <h4 class="fs-16 txt-gry">{{user.compen}}</h4>
+                              <span class="fs-14">{{user.oum_isfocalpoint == 1 ?'Focal Point':(user.rmen)}}</span>
+                             </div>
+                             <mat-icon class="loginIcon" (click)="password(user)">keyboard_arrow_right</mat-icon>
+                          </div>
+                            <mat-divider class="m-t-15"></mat-divider>
+                          </div>
+                          </div>
+                          <p class="m-0 fs-14 backtohometxt fs-14 lypisfont-regular p-t-25"><a href="admin/login"
+                            class="p-l-5 p-r-5"> <mat-icon class="m-r-5 arrow">keyboard_backspace</mat-icon>{{'commonlogin.backto' |
+                            translate}}</a></p>
+                          <!-- <div class="havecolor registerfromhere p-t-20">
+                            <p class="fs-13"> <span> {{'commonlogin.donthave' | translate}} </span>
+                              <a routerLink="/registration/index" class="cursor fs-13 m-l-5">{{'commonlogin.regis' |
+                                translate}}</a>
+                            </p>
+                          </div> -->
+                        </div>
+                      </ng-template>
+                    </div>
+                  </form>
+                </ng-template>
+                <ng-template [ngSwitchCase]="'forgot'">
+                  <form [formGroup]="forgotForm" autocomplete="off" #fgForm="ngForm">
+                    <div [ngSwitch]="forgotTemplate">
+                      <ng-template [ngSwitchCase]="'getemail'">
+                        <div class="spaceforleftright">
+                          <div class="lypislogoimage">
+                            <h2 class="log-bold fs-22 m-0 p-b-5">{{'commonlogin.forgyourpass' | translate}}</h2>
+                          </div>
+                          <div class="easycolor m-b-25">
+                            <p>{{"Please confirm the email ID and click 'Submit' to enter the OTP received in the email." | translate}}</p>
+                          </div>
+                          <form [formGroup]="userAddressValidations">
+                            <mat-form-field appearance="outline">
+                              <mat-label>{{'commonlogin.emaiid' | translate}}</mat-label>
+                              <input matInput formControlName="email" required>
+                              <mat-error *ngIf="userAddressValidations.get('email').hasError('required')">
+                                {{'commonlogin.entemaiid' | translate}} 
+                              </mat-error> <mat-error *ngIf="userAddressValidations.get('email').hasError('pattern')">
+                                {{'commonlogin.entvalimail' | translate}}
+                              </mat-error>
+                            </mat-form-field>
+  
+                          </form>
+                          <div class="w-100 m-t-5 spinnercircle" [class.p-t-8]="!forgotMail.hasError('limitReached')"
+                            [class.p-t-20]="forgotMail.hasError('limitReached')">
+                              <mat-spinner-button  [disabled]="userAddressValidations.get('email').hasError('pattern') || userAddressValidations.get('email').hasError('required')" (click)="selectedfrgtemailaccountt(lgnemailid)" type="submit" class="fs-14 submitbtn pass"
+                              [options]="spinnerButtonOptionsForgrt">
+                            </mat-spinner-button>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <div class="havecolor registerfromhere p-t-20">
+                        <p class="fs-13"> <span>{{'commonlogin.donthaveanaccou' | translate}}</span>
+                          <a href="/registration/index" class="cursor fs-13 m-l-5">{{'commonlogin.regis' | translate}}
+                          </a>
+                        </p>
+                      </div>
+                      <p class="m-0 fs-14 backtohometxt fs-14 lypisfont-regular p-t-25"><a href="admin/login"
+                          class="p-l-5 p-r-5"> <mat-icon class="m-r-5 arrow">keyboard_backspace</mat-icon>{{'commonlogin.backto' |
+                          translate}}</a></p>
+                    </div>
+                  </form>
+                </ng-template>
+                <ng-template [ngSwitchCase]="'otptemplate'">
+                  <form>
+                    <div class="spaceforleftright p-r-30">
+                      <div class="lypislogoimage">
+                        <h2 class="lypisfont-semibold fs-26 m-0 p-b-5">{{'commonlogin.forgyourpass' | translate}}</h2>
+                      </div>
+                      <p class="m-b-30 m-t-5 text-center" *ngIf="true">{{'commonlogin.entethe6digiotpsentto' |
+                        translate}}{{maskemail}}</p>
+                    </div>
+                    <div class="d-flex divouter">
+                      <mat-form-field appearance="none" class="flexalign divinner">
+                        <lable>{{'commonlogin.enteotp' | translate}}</lable>
+                        <input maxlength="4" type="text" [formControl]="OTPControl"
+                          (keydown.space)="$event.preventDefault();" class="inputcolor" id="partitioned" matInput
+                          loginname app-restrict-input="firstspace" autocomplete="off"  required numbersOnly>
+                      </mat-form-field>
+                    </div>
+                    <div class="alignvalid">
+                      <div class="validmsg">
+                        <div class="textalign">
+                          <mat-error *ngIf="OTPControl.errors?.expiredOTP" class="fs-13 colorotp lowercaseremove">
+                            {{'commonlogin.expirotp' | translate}}
+                          </mat-error>
+                          <mat-error *ngIf="OTPControl.errors?.invalidOTP" class="fs-13 colorotp lowercaseremove">
+                            {{'commonlogin.invalotp' | translate}}
+                          </mat-error>
+                          <mat-error *ngIf="lastattempt > 0" class="fs-13 colorotp lowercaseremove">
+                            {{lastattempt}} {{'commonlogin.attempts' | translate}}
+                          </mat-error>
+                        </div>
+                        <div class="p-t-0 resendotp">
+                          <button [disabled]=" disableResend == true" [ngClass]="{'text-muted ' : disableResend}"
+                            (click)="selectedfrgtemailaccountt(lgnemailid,'reset')">{{'commonlogin.reseotp' |
+                            translate}} :<span *ngIf="showCountDown"> ({{countDown}}
+                              Sec)</span></button>
+                          <span class="fs-13">{{countDown}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p-t-0 m-t-15 textalign spinnercircle">
+                      <mat-spinner-button type="submit" [disabled]="OTPControl.invalid " (click)="isValidOTP()" 
+                        color="primary" class="fs-16 submitbtn" [options]="spinnerButtonOptionsotp"></mat-spinner-button>
+                    </div>
+                    <div class="havecolor registerfromhere p-t-20">
+                      <p class="fs-13"> <span>{{'commonlogin.donthaveanacc' | translate}}</span>
+                        <a href="/registration/index" class="cursor fs-13 m-l-5">{{'commonlogin.regis' | translate}}</a>
+                      </p>
+                    </div>
+                    <p class="m-0 fs-14 backtohometxt fs-14 lypisfont-regular p-t-15"><a href="admin/login"
+                        class="p-l-5 p-r-5"> <mat-icon class="m-r-5 arrow">keyboard_backspace</mat-icon> {{'commonlogin.backto' |
+                        translate}}</a></p>
+                  </form>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      <app-registrationfooter></app-registrationfooter>
+    </div>
+    </div>
+    <app-responseloader *ngIf="showLoader"></app-responseloader>
+  </mat-drawer-content>
+</mat-drawer-container>

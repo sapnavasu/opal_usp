@@ -1,0 +1,189 @@
+<div id="payment" #pageScroll fxLayoutAlign="center">
+ <app-responseloader *ngIf="pageloader"></app-responseloader>
+    <div fxFlex.gt-sm="100" fxFlex="100">
+            <!-- validation button -->
+        <!-- <div class="view" fxLayoutAlign="end">
+            <app-validation [Validationplaceholder]="'Confirm Payment' | translate" [courseValid]="true"></app-validation>
+        </div> -->
+        <!-- info box -->
+        <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+            <div class="details pd-10" fxFlex="100">
+                <div class= "head" fxLayout="row wrap">
+                    <h4 class="headcolor fs-18 m-0 lh-15">{{ifarabic == true ? resdata?.omrm_companyname_ar : resdata?.omrm_companyname_en}}</h4>
+                   <!-- <div class="grade">
+                    <p class="grade d-flex fs-16" *ngIf="bronze"><img src="assets\images\opalimages\BRONZE.svg" alt="Grade">{{'invoice.bron' | translate}} </p>
+                    <p class="gold d-flex fs-16" *ngIf="gold"><img src="assets\images\opalimages\GOLD.svg" alt="Grade">{{'invoice.gold' | translate}}
+                    </p>
+                    <p class="silver d-flex fs-16"><img src="assets\images\opalimages\SILVER.svg" alt="Grade">{{'invoice.silv' | translate}} </p>
+                   </div> -->
+                </div>
+               <div class="m-t-20">
+                <p class="text-gray m-0 fs-15 ">{{'invoice.trainname' | translate}}:<span class="text-default"> {{ifarabic == true ? resdata?.omrm_tpname_ar : resdata?.omrm_tpname_en}}</span></p>
+               </div>
+                <div class="d-flex fs-15 m-t-20 m-b-20 " fxLayout="row wrap">
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.offitype' | translate}}: 
+                        <span class="text-default"> 
+                            <span *ngIf="resdata.appiim_officetype == '1'">Main office</span>
+                            <span *ngIf="resdata.appiim_officetype == '2'">Branch office</span>
+                            <span *ngIf="!resdata.appiim_officetype">-</span>
+
+                        </span>
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.opalmemb' | translate}}: 
+                        <span class="text-default">{{resdata.omrm_opalmembershipregnumber || '-'}}</span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.courtitle' | translate}}: 
+                        <span class="text-default"> 
+                            <span *ngIf="resdata.appcdt_standardcoursemst_fk">{{ifarabic == true ? resdata?.scm_coursename_ar || '-' : resdata?.scm_coursename_en || '-'}}</span>
+                            <span *ngIf="resdata.appcdt_appoffercoursemain_fk">{{ifarabic == true ? resdata?.appocm_coursename_ar || '-' : resdata?.appocm_coursename_en || '-'}}</span>
+                            <span *ngIf="!resdata.appcdt_appoffercoursemain_fk && !resdata.appcdt_standardcoursemst_fk">-</span>
+                        </span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.courtype' | translate}}: 
+                        <span class="text-default">
+                            {{ifarabic == true ? resdata.pm_projectname_ar || '-' : resdata.pm_projectname_en || '-'}}
+                        </span></p>
+
+                    
+                    <p class="application-detais m-r-10 text-gray m-0">{{ 'Course Category' | translate}}: 
+                        
+                                <span class="text-default" *ngIf="resdata.appcdt_standardcoursemst_fk">{{ifarabic == true ? resdata?.catstdar || '-' : resdata.catstden || '-'}}</span>
+                                <span class="text-default" *ngIf="resdata.appcdt_appoffercoursemain_fk">{{ifarabic == true ? resdata?.catofrar || '-':  resdata.catofren || '-' }}</span>
+                                <span class="text-default" *ngIf="!resdata.appcdt_appoffercoursemain_fk && !resdata.appcdt_standardcoursemst_fk">-</span>
+                            
+                        </p>
+
+                    <p class="application-detais m-r-10 text-gray m-0">{{'Course Sub Categories' | translate}}: 
+                        <span class="text-default">{{ifarabic == true ? resdata.subcatar : resdata.subcaten}}</span></p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.fee' | translate}}: 
+                        <span class="text-default">
+                            <span *ngIf="resdata.fsm_feestype =='1'">{{'Certification Fee' | translate }}</span>
+                                <span *ngIf="resdata.fsm_feestype =='2'">{{'Staff Evaluation Fee' | translate }}</span>
+                                <span *ngIf="resdata.fsm_feestype =='3'">{{'Royalty Fee' | translate }}</span>
+                                <span *ngIf="resdata.fsm_feestype =='4'">{{'Learner Training Fee' | translate }}</span>
+                                <span *ngIf="resdata.fsm_feestype =='5'">{{'Learner Assessment Fee' | translate }}</span>
+                                <span *ngIf="resdata.fsm_feestype =='6'">{{'Staff Re-Evaluation Fee' | translate }}</span>
+                                <span *ngIf="!resdata.fsm_feestype">-</span>
+                            <span *ngIf="resdata.fsm_feestype">
+                                <span *ngIf="resdata.fsm_applicationtype =='1'">{{'(Initial)' | translate}}</span>
+                                <span *ngIf="resdata.fsm_applicationtype =='2'">{{'(Renewal)' | translate}}</span>
+                                <span *ngIf="resdata.fsm_applicationtype =='3'">{{'(Update)' | translate}}</span>
+                                <span *ngIf="resdata.fsm_applicationtype =='4'">{{'(Refresher)' | translate}}</span>
+                                <span *ngIf="resdata.fsm_applicationtype =='5'">{{'(Surveillance 1)' | translate}}</span>
+                                <span *ngIf="resdata.fsm_applicationtype =='6'">{{'(Surveillance 2)' | translate}}</span>
+                            </span>
+                        </span>
+                        
+                    </p>
+                    <p class="application-detais m-r-10 text-gray m-0">{{'invoice.status' | translate}}: 
+                        <span class="Pending" *ngIf="resdata.apid_invoicestatus == '1'">{{'Pending' | translate}}</span>
+                        <span class="Teaching" *ngIf="resdata.apid_invoicestatus == '2'">{{'Paid - Verification Pending' | translate}}</span>
+                        <span class="Approved" *ngIf="resdata.apid_invoicestatus == '3'">{{'Approved' | translate}}</span>
+                        <span class="Declined" *ngIf="resdata.apid_invoicestatus == '4'">{{'Declined' | translate}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- details -->
+        <div fxLayoutAlign="flex-start start" fxLayout="row wrap">
+            <div class="feedetails m-t-20 m-b-20" fxFlex.gt-md="50" fxFlex="100">
+                <h4 class="headcolor fs-18 m-0">{{'invoice.certfeedeta' | translate}}</h4>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.invonumb' | translate}}</p>
+                    <span>{{ resdata.apid_invoiceno || '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.nostaff' | translate}}</p>
+                    <span>{{ resdata.apid_noofstaffeval || '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.courcert' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ resdata.apid_coursecertfee | number: '.3-3' || '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.stafeval' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ resdata.apid_staffevalfee | number: '.3-3' || '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.vat' | translate}} (5%)</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ resdata.apid_vatamount | number: '.3-3' || '-' }}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.totaamou' | translate}}</p>
+                    <span>{{'invoice.omr' | translate}} &nbsp; {{ resdata.total | number: '.3-3' || '-' }}</span>
+                </div>
+            </div>
+            <!-- payment details -->
+            <div class="feedetails" ngClass.gt-md="m-t-20"  fxFlex.gt-md="50"
+                fxFlex="100">
+                <h4 class="headcolor fs-18 m-0">{{'invoice.paymdeta' | translate}}</h4>
+
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.paymtype' | translate}}</p>
+                    <span *ngIf="resdata.apid_paymenttype == '1'">Online</span>
+                    <span *ngIf="resdata.apid_paymenttype == '2'">Offline</span>
+                    <span *ngIf="!resdata.apid_paymenttype">-</span>
+
+                </div>
+                
+                <div class="view_dtl m-t-25" fxLayout="row" *ngIf="resdata.apid_paymenttype == '2'">
+                    <p class="m-0">{{'invoice.paymmode' | translate}}</p>
+                    <span *ngIf="resdata.apid_paymentmode == '1' && resdata.apid_paymenttype == '2'">{{'Cheque' | translate }}</span>
+                    <span *ngIf="resdata.apid_paymentmode == '2' && resdata.apid_paymenttype == '2'">{{'Bank Transfer' | translate }}</span>
+                    <span *ngIf="resdata.apid_paymentmode == '3' && resdata.apid_paymenttype == '2'">{{'Cash' | translate }}</span>
+                    <span *ngIf="!resdata.apid_paymentmode">-</span>
+
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.tranid' | translate}}</p>
+                    <span *ngIf="resdata.apid_paymenttype == '1'">{{resdata?.apid_transuniqueId || '-'}}</span>
+                    <span *ngIf="resdata.apid_paymenttype == '2'">{{resdata?.apid_offlinerefno || '-'}}</span>
+                    <span *ngIf="!resdata.apid_paymenttype">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row" *ngIf="resdata.apid_paymenttype == '2'">
+                    <p class="m-0">{{'invoice.bankname' | translate}}</p>
+                    <span *ngIf="resdata.apid_paymenttype == 2">{{resdata.apid_bankname || '-'}}</span>
+                    <span *ngIf="!resdata.apid_paymenttype">-</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'invoice.dateofpaym' | translate}}</p>
+                    <span>{{resdata.pymtdate || '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-20" fxLayout="row" *ngIf="resdata.apid_paymenttype == 2">
+                    <p class="m-0">{{'invoice.paymproo' | translate}}</p>
+                    <span class="">
+                        <!-- <a href="" class="txt-gry3" style="cursor: pointer;" fxLayout="row wrap" fxLayoutAlign="start center">
+                            <img class="document m-r-5" src="assets\images\opalimages\pdf_new.svg" alt="" cractivitydocument>{{'View' | translate}}</a> -->
+
+                            <a class="txt-gry3" style="cursor: pointer;" target="_blank" *ngIf="resdata.ext != 'ppt'" href="{{resdata.docUrl}}" fxLayoutAlign="start center">
+                                <img class="document m-r-5" src="assets/images/opalimages/{{resdata?.ext}}_new.svg" alt="{{element?.ext}}"/>
+                                <span class="txt-gry3 fs-14 m-l-5">{{'View' | translate}}</span>
+                            </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <mat-divider class="m-t-30 m-b-20"></mat-divider>
+        <!-- comment box -->
+        <div class="comments m-t-10" *ngIf="resdata.apid_invoicestatus == 4 || resdata.apid_invoicestatus == 3">
+            <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+                <h4 class="m-r-10">{{'invoice.verification' | translate}}</h4>
+                <span class="badge decl" *ngIf="resdata.apid_invoicestatus == 4">{{'Declined' | translate}}</span>
+                <span class="badge appr" *ngIf="resdata.apid_invoicestatus == 3">{{'Approved' | translate}}</span>
+            </div>
+            <div class="m-l-0 m-r-0 m-b-20" [ngClass]="resdata.apid_invoicestatus == 3 ? 'successcmd' : 'declinecmd'">
+                <p class="18 comment">{{'invoice.comm' | translate}}</p>
+                <p class="16 m-b-30" [innerHTML]="resdata?.apid_appdecComments ? resdata?.apid_appdecComments : 'Nil'"></p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'invoice.lastvalion' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{resdata.apdecdate}}</span></p>
+                    <p class="fs-16 txt-gry" >{{'invoice.lastvaliby' | translate}}:<span
+                            class="fs-16 txt-gry3 m-l-10">{{resdata.approvrby}}</span></p>
+                </div>
+            </div>
+        </div>
+         <!-- button -->
+         <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+            <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goBack()">{{'Back' | translate}}</button>
+         </div>
+    </div>
+</div>

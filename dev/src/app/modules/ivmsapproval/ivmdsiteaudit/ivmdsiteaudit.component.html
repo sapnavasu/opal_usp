@@ -1,0 +1,34 @@
+<div id="ivmssiteaudit" class="commonForm">
+      <div class="commonTab pagescroll" fxLayout="column">
+         <app-ivmsinfocard></app-ivmsinfocard>
+         <mat-tab-group class="tabsdetials" [(selectedIndex)]="mattab" fxFlex="100">
+            <!--tab 1-->
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tabscontent">
+                            <span class="contentcircle m-r-10">
+                                    1
+                            </span>
+                            <div class="tabtitle">
+                                    <P class="fs-15">{{tab1 | translate}}</P>
+                             </div>
+                        </div>
+                    </ng-template>
+                    <app-siteaudittab></app-siteaudittab>
+                </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tabscontent">
+                                <span class="contentcircle m-r-10">
+                                    2
+                                </span>
+                                <div class="tabtitle">
+                                    <P class="fs-15">{{tab2 | translate}}</P>
+                                </div>
+                            </div>
+                        </ng-template>
+                     <app-sitepractical (cancel)="cancel()" (next)="next()"></app-sitepractical>   
+                </mat-tab>
+           </mat-tab-group>
+      </div>
+</div>

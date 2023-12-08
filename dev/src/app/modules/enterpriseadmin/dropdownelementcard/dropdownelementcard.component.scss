@@ -1,0 +1,233 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  @mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  @mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  @mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  @mixin commancssforptag {
+    color: #333;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+#popoverlistcard{
+    .personimagepopover {
+        position: relative;
+        margin: 0 auto;
+        margin-top: -10px;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        &::after {
+          content: "\f00c";
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          text-decoration: inherit;
+          font-size: 1.125rem;
+          position: absolute;
+          right: -30px;
+          top: -23px;
+        }
+    
+      }
+      .pophoverperson {
+        &::after {
+          bottom: 0;
+          width: 18px;
+          height: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #3bb54a;
+          color: #fff;
+          border-radius: 50%;
+          border: 2px solid #fff;
+          font-size: 10px !important;
+        }
+      }
+
+    .popoveronline{
+        display: flex;
+        justify-content: flex-end;
+        z-index: 99;
+        .onlinepopcount{
+          background: #40c339;
+          color: #fff;
+          width: 74px;
+          border-radius: 16px;
+          height: 24px;
+          padding-left: 26px;
+          font-size: 0.75rem;
+          display: flex;
+          align-items: center;
+        }
+      }
+    .aligntitle{
+        display: flex;
+    }
+    .colorcontact{
+        color: #2e4f93;
+        font-size: 1.375rem;
+    }
+      .afternext::after{
+        content: '';
+        border-top: 18px solid #006cb7;
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        position: absolute;
+        bottom: 290px;
+        -webkit-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+        left: 5px;
+    }
+    
+    .afternext{
+        position: relative;
+    }
+    
+    .popheadingalign{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .widthpophver{
+        width:100%;
+    }
+
+    .gradientbackgrounds {
+        background: linear-gradient(to bottom, #006cb7 75px, #fff 10% 40%);
+        min-height: calc(20vh - 10px);
+        }
+    
+        .positionname{
+            position: relative;
+        }
+        .headerevent{
+            position: relative;
+            h2{
+              color: #fff;
+              margin: 0px;
+            }
+           
+        
+        }
+        .seniorcolor{
+            margin: 0px;
+            color: #fff;
+            line-height: 0.3;
+        }
+        .cmpnyinfoelementcard {
+            margin-bottom: 0;
+           display: flex;
+           line-height: 25px;
+           justify-content: flex-start;
+            align-items: center !important;
+
+            i{
+                font-size: 0.875rem;
+            }
+        }
+      
+
+        .infocmpnance {
+            color: #333;
+            font-size: 0.875rem;
+            margin: 0px;
+        }
+
+        .dropbackground{
+            background: #fce6d7;
+            color: #f19355;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 38px;
+        }
+
+        .chatbackground{
+            background: #cce2f1;
+            color: #337fbf;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 174px;
+            height: 38px;
+            margin-right: 10px;
+             font-family: 'opal_semibold';
+        }
+
+        .countdetaillistcolor {
+            background-color: #ff4747 !important;
+            color: white !important;
+            min-height: inherit !important;
+            margin-left: 10px !important;
+            padding: 0px 8px !important;
+            z-index: 99;
+        }
+        
+        .alignflexcountpopover{
+          display: flex;
+          align-items: center;
+          margin-right: 10px;
+          margin-top: -12px;
+        }
+        
+      .flexchat{
+          display: flex;
+      }
+        
+}
+
+
+:host::ng-deep.activedropelement .popover-body {
+    padding: 0px !important; 
+}
+
+:host::ng-deep.activedropelement .popover.popover-content.sm {
+  
+    background-color: #fff;
+    margin-left: 25px;
+    margin-top: 18px;
+    min-width: 300px;
+}
+
+:host::ng-deep.activedropelement .popover.popover-content .popover-body {
+    color: #333;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+:host::ng-deep.activedropelement .popover.popover-content.bs-popover-bottom .arrow::after, .popover.popover-content.bs-popover-bottom-right .arrow::after, .popover.popover-content.bs-popover-bottom-left .arrow::after {
+    top: 0rem;
+    border-bottom-color: #fff;
+}
+:host::ng-deep.activedropelement .popover.popover-content.bs-popover-bottom .arrow::before, .popover.popover-content.bs-popover-bottom-right .arrow::before, .popover.popover-content.bs-popover-bottom-left .arrow::before {
+    border-bottom-color: #fff;
+}
+:host::ng-deep.activedropelement .popover.popover-content.bs-popover-bottom .arrow::before, .popover.popover-content.bs-popover-bottom .arrow::after, .popover.popover-content.bs-popover-bottom-right .arrow::before, .popover.popover-content.bs-popover-bottom-right .arrow::after, .popover.popover-content.bs-popover-bottom-left .arrow::before, .popover.popover-content.bs-popover-bottom-left .arrow::after {
+    top:-2px;
+    border-width: 0 8px 8px 8px;
+}
+:host::ng-deep.activedropelement .popover.popover-content.bs-popover-bottom .arrow:before, .popover.popover-content.bs-popover-bottom .arrow:after, .popover.popover-content.bs-popover-bottom-right .arrow:before, .popover.popover-content.bs-popover-bottom-right .arrow:after, .popover.popover-content.bs-popover-bottom-left .arrow:before, .popover.popover-content.bs-popover-bottom-left .arrow:after {
+    top: -2px !important;
+}
+
+

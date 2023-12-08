@@ -1,0 +1,201 @@
+<div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0 p-b-0">
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+        <div class="titletext">
+            <div class="closeandadd">
+                <i mat-button matTooltip="{{'subscriptionpaytracker.close' | translate}}" aria-label="Displays a tooltip" matTooltipClass="custom-tooltip"
+                    (click)="subcriptionclosedrawer()" class="bgi bgi-close p-l-5 fs-14"></i>
+                <h5 class="m-0 p-l-20 tt">{{'subscriptionpaytracker.subscrippaytracker' | translate}}<i
+                        class="bgi bgi-info" (click)="subscriptionpaylist('subscriptionpaylistview')"></i></h5>
+            </div>
+            <!-- <div class="clearandaddbutton">
+                <button type="button" (click)="subcriptionclosedrawer()" mat-raised-button color="primary"
+                    class="clearbutton height-35 p-l-20 p-r-20 spacemargin">{{'paymentproof.close' |
+                    translate}}</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 subscriptionpaylistview"
+    [@slideInOut]="animationState5">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+        <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+            <mat-card-header>
+                <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                    <mat-card-subtitle class="informationtext fs-14">
+                        {{'subscriptionpaytracker.infocontent' | translate}}
+                    </mat-card-subtitle>
+                </div>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>
+<div fxLayout="row wrap" fxFlexAlign="center" class="borderbottomrenewallist">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottomrenwalalign p-l-50 p-r-50">
+        <div class="p-t-8 p-b-8">
+            <div class="renewalalign">
+                <p class="p-b-8 fs-15 interbold m-0"> {{compdetails?.MCM_CompanyName}}</p>
+            </div>
+            <div fxLayoutAlign="flex-start center">
+                <p class="clabel">{{'paymentproof.OPALregnum' | translate}}<span class="cvalue">:
+                    {{compdetails?.mcm_RegistrationNo}}</span>
+                </p>
+                <p class="clabel p-l-45">{{'paymentproof.OPALcode' | translate}}<span class="cvalue">:
+                    {{compdetails?.MCM_SupplierCode}}</span>
+                </p>
+                <p class="clabel p-l-45 flexstatuspay">{{'subscriptionpaytracker.membstat' | translate}}
+                    <span class="pending fs-13 m-l-10 p-t-2 p-b-2" *ngIf="compdetails?.member_statusval==1 || compdetails?.member_statusval==2 || compdetails?.member_statusval==3 || compdetails?.member_statusval==4">{{compdetails?.member_status}}</span>
+                    <span class="warning fs-13 m-l-10 p-t-2 p-b-2" *ngIf="compdetails?.member_statusval==5 || compdetails?.member_statusval==6">{{compdetails?.member_status}}</span>
+                    <span class="received fs-13 m-l-10 p-t-2 p-b-2" *ngIf="compdetails?.member_statusval==7">{{compdetails?.member_status}}</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="innnerpartofdrwer" id="spacepartdrawer">
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" id="subpaytrackerlist">
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="masterTable">
+                    <mat-table #table matSort [dataSource]="dataSource">
+                        <ng-container matColumnDef="date">
+                            <mat-header-cell id="OPALcode" fxFlex="13" *matHeaderCellDef> {{'paymentproof.date' |
+                                translate}}
+                            </mat-header-cell>
+                            <mat-cell fxFlex="13" data-label="{{'paymentproof.date' | translate}}"
+                                *matCellDef="let element">
+                                {{element.mcid_generatedon | date: 'dd-MM-yyyy'}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="subscription_name">
+                            <mat-header-cell id="OPALcode" fxFlex="25" *matHeaderCellDef>
+                                {{'subscriptionpaytracker.subscriptionname' | translate}}
+                                <div class="editarrow">
+                                </div>
+                            </mat-header-cell>
+                            <mat-cell fxFlex="25" data-label="{{'subscriptionpaytracker.subscriptionname' | translate}}"
+                                *matCellDef="let element">
+                                {{element.module}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="classification">
+                            <mat-header-cell id="OPALcode" fxFlex="18" *matHeaderCellDef>
+                                {{'subscriptionpaytracker.classification' | translate}}
+                                <div class="editarrow">
+                                </div>
+                            </mat-header-cell>
+                            <mat-cell fxFlex="18" data-label="{{'subscriptionpaytracker.classification' | translate}}"
+                                *matCellDef="let element">
+                                <span [class.micro]="element?.classificationclass.toLowerCase().includes('micro')"
+                                    [class.small]="element?.classificationclass.toLowerCase().includes('small')"
+                                    [class.medium]="element?.classificationclass.toLowerCase().includes('medium')"
+                                    [class.large]="element?.classificationclass.toLowerCase().includes('large') || element?.classificationclass.toLowerCase().includes('international')">{{element?.classificationName
+                                    || 'NIL'}}</span>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="subscription_fee">
+                            <mat-header-cell id="OPALcode" fxFlex="14" *matHeaderCellDef>{{'paymentproof.subscripfee'
+                                | translate}}
+                                <div class="editarrow">
+                                </div>
+                            </mat-header-cell>
+                            <mat-cell fxFlex="14" data-label="{{'paymentproof.subscripfee' | translate}}"
+                                *matCellDef="let element">
+                                {{element.currency}} {{element.subscriptionfee}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="invoice_amount">
+                            <mat-header-cell id="OPALcode" fxFlex="15" *matHeaderCellDef>
+                                {{'paymentproof.invoiceamount' | translate}}
+                                <div class="editarrow">
+                                </div>
+                            </mat-header-cell>
+                            <mat-cell fxFlex="15" data-label="{{'paymentproof.invoiceamount' | translate}}"
+                                *matCellDef="let element">
+                                {{element.currency}} {{element.invoiceamount}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="paymentstatus">
+                            <mat-header-cell id="OPALcode" fxFlex="13" *matHeaderCellDef>
+                                {{'subscriptionpaytracker.paymstat' | translate}}
+                                <div class="editarrow">
+                                </div>
+                            </mat-header-cell>
+                            <mat-cell fxFlex="13" data-label="{{'subscriptionpaytracker.classification' | translate}}"
+                                *matCellDef="let element">
+                                <span class="pymt_pending" *ngIf="element.mcid_invoicestatus!='I'">{{'subscriptionpaytracker.pend' | translate}}</span>
+                                <span class="pymt_received" *ngIf="element.mcid_invoicestatus=='I'">{{'subscriptionpaytracker.rece' | translate}}</span>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <mat-header-cell id="OPALcode" fxFlex="8" *matHeaderCellDef>
+                                {{'registeredstakeholderpage.action' | translate}}
+                            </mat-header-cell>
+                            <mat-cell fxFlex="8" data-label="{{'registeredstakeholderpage.action' | translate}}"
+                                *matCellDef="let element">
+                                <div class="manageoptions">
+                                    <button class="menubutton" mat-icon-button [matMenuTriggerFor]="actionmenu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon class="moremenucolor">more_horizontal</mat-icon>
+                                    </button>
+                                    <mat-menu #actionmenu="matMenu" class="master-menu matmenu_container">
+                                        <!-- <button mat-menu-item (click)="subcriptionpaydetail.toggle()">
+                                            <span class="viewtextcolorupdate">{{'paymentproof.payproof' |
+                                                translate}}</span>
+                                        </button> -->
+                                        <button mat-menu-item  *ngIf="element.mcid_invoicestatus=='I'" (click)="paymentproofdrawer.toggle();getPaymentInfo(element.memcompinvoicedtls_pk);">
+                                            <span class="viewtextcolorupdate">{{'subscriptionpaytracker.viewsubpaydet' |
+                                                translate}}
+                                            </span>
+                                        </button>
+                                        <button mat-menu-item  *ngIf="element.mcid_invoicestatus!='I'" (click)="paymentproofdrawer.toggle();getPaymentInfo(element.memcompinvoicedtls_pk);">
+                                            <span class="viewtextcolorupdate">{{'subscriptionpaytracker.viewsubsdeta' | translate}}</span>
+                                        </button>
+                                        <button mat-menu-item class="downloadlinksts" *ngIf="element.mcid_invoicestatus=='G'">
+                                            <a  (click)="checkpermission(element.proforma_invoice);" target="_blank">
+                                            <span class="viewtextcolorupdate">{{'subscriptionpaytracker.downproinvoice'
+                                                | translate}}
+                                            </span>
+                                            </a>
+                                        </button>
+                                        <button mat-menu-item class="downloadlinksts" *ngIf="element.mcid_invoicestatus=='I'">
+                                            <a href="{{element.tax_invoice}}" target="_blank">
+                                            <span class="viewtextcolorupdate">{{'subscriptionpaytracker.downtaxinvoice'
+                                                | translate}}
+                                            </span>
+                                            </a>
+                                        </button>
+                                        <button mat-menu-item class="downloadlinksts" *ngIf="element.mcid_invoicestatus=='I'">
+                                            <a href="{{element.receipt}}" target="_blank">
+                                            <span class="viewtextcolorupdate">{{'subscriptionpaytracker.downreceipt' |
+                                                translate}}
+                                            </span>
+                                            </a>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-drawer-container class="example-container subscriptionpaydrawer">
+    <mat-drawer #subcriptionpaydetail disableClose class="example-sidenav sidenavsamewidthall subscriptionwidth"
+        mode="over" position="end">
+        <app-subscriptionpaydetail [subcriptionpaydetail]="subcriptionpaydetail">
+        </app-subscriptionpaydetail>
+    </mat-drawer>
+</mat-drawer-container>
+<mat-drawer-container class="example-container paymentproofsidenav">
+    <mat-drawer #paymentproofdrawer disableClose class="example-sidenav sidenavsamewidthall paymentproofwidth"
+        mode="over" position="end">
+        <app-paymentproof [paymentproofdrawer]="paymentproofdrawer" *ngIf="loadpaymentinvoiceinfo" [compdetails]="compdetails" [paymentsubdata]="paymentsubdata">
+        </app-paymentproof>
+    </mat-drawer>
+</mat-drawer-container>

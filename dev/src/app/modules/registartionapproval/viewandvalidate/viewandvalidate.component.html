@@ -1,0 +1,1040 @@
+<div class="viewandvalidate">
+  <ng-container>
+    <!-- <app-responseloader ></app-responseloader> -->
+  </ng-container>
+  <div fxLayout="row wrap " fxLayoutAlign="center" *ngIf="viewData?.companyInfo?.name">
+    <div fxFlex.gt-sm="100" fxFlex="100" class="maindivision">
+      <div class="headertitle">
+        <p *ngIf="paymentLastData?.mcpah_pymtstatus!='A' && paymentLastData?.mcpah_pymtstatus!='D'">View & Validate</p>
+        <p *ngIf="paymentLastData?.mcpah_pymtstatus=='A' || paymentLastData?.mcpah_pymtstatus=='D'">View</p>
+        
+      </div>
+      <div fxLayout="row wrap " fxLayoutAlign="center">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="headerpart">
+          <div class="logogandcompnayinfo">
+            <div class="cmpnylogo">
+              <img src="{{viewData?.companyInfo?.logo}}" onError="this.src = 'assets/images/Nologonew.png'"
+                alt="company logo">
+            </div>
+            <div class="companyinformation">
+              <div class="firstrow">
+                <h3>{{viewData?.companyInfo?.name}}</h3>
+                <div class="alignjsrs">
+                  <p class="countryflag"> <img class="p-r-8" src="{{viewData?.companyInfo?.countryFlag}}"
+                      alt="omanflaglogo">
+                    <!-- <span class="widthflag">{{viewData?.companyInfo.country}}</span> -->
+                    <span class="widthflag p-r-15">{{viewData?.companyInfo?.country}}</span>
+                    <span class="renewalfreshcolor"
+                      *ngIf="viewData?.companyInfo?.payfor=='Renewal'">{{viewData?.companyInfo?.payfor}}</span>
+                    <span class="freshcolor"
+                      *ngIf="viewData?.companyInfo?.payfor=='Fresh'">{{viewData?.companyInfo?.payfor}}</span>
+                  </p>
+                  <p *ngIf="approvalStatus" class="jsrstext">OPAL Certification Status <span> Yet to Approve</span></p>
+                </div>
+              </div>
+              <div class="secondrow">
+                <div class="eachitem firstbox">
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp clable linecmpy">OPAL Registration No.</span>
+                    <span class="infocmp cvalue linecmpy">{{viewData?.companyInfo?.reg_No}}</span>
+                  </p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp clable linecmpy">Registered on</span>
+                    <span class="infocmp cvalue linecmpy">{{viewData?.companyInfo?.registerdOn}}</span>
+                  </p>
+                  <!-- <p class="cmpnyinfo">
+                    <span class="labelcmp">{{viewData?.companyInfo.supplierId_investorid_label}}</span>
+                    <span class="infocmp">{{stkId}}</span>
+                  </p> -->
+                  <!-- <p class="cmpnyinfo">
+                    <span class="labelcmp">Incorporation Style</span>
+                    <span class="infocmp"
+                      [title]="viewData?.companyInfo.incop_style">{{viewData?.companyInfo.incop_style | truncate:[20]}}</span>
+                  </p> -->
+                </div>
+                <div class="eachitem secondbox sectorword">
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp clable linecmpy">CR Number </span>
+                    <span class="infocmp cvalue linecmpy">{{viewData?.companyInfo?.CR_No}}</span>
+                  </p>
+                  <p class="cmpnyinfo">
+                    <span class="labelcmp clable linecmpy"> Submitted on</span>
+                    <span class="infocmp cvalue linecmpy">{{viewData?.companyInfo?.submittedon}}</span>
+                  </p>
+                  <!-- <p class="cmpnyinfo">
+                    <span class="labelcmp">Business Source </span>
+                    <span class="infocmp"
+                      [title]="viewData?.companyInfo.business_source">{{viewData?.companyInfo.business_source | truncate:[40]}}</span>
+                  </p> -->
+                  <!-- <p class="cmpnyinfo">
+                    <span class="labelcmp">Website</span>
+                    <span class="infocmp">{{viewData?.companyInfo.website}}</span></p> -->
+                </div>
+              </div>
+              <div class="validationrow">
+                <!-- <div class="m-r-18">
+                  <button mat-raised-button type="button" hidden="true" (click)="reneviewlistdrawer.toggle()"
+                    class="renewalbtn">Renewal History</button>
+                </div> -->
+                <div class="m-r-18" *ngIf="viewData?.companyInfo?.payfor=='Renewal' || (paymentLastData?.mcpah_pymtstatus=='A' || paymentLastData?.mcpah_pymtstatus=='D')">
+                  <button mat-raised-button type="button" hidden="true" color="primary" (click)="drawerbizfilter.toggle()"
+                    class="button-40 viewlogbtn">View Activity Log</button>
+                </div>
+                <div class="allboxinside">
+                  <!-- <div *ngIf="selectStatus" class="forselecting eachboxeshere"
+                    (click)="toggleShowDiv('validateselect')">
+                    <p>Select Status</p>
+                    <i class="bgi bgi-dropdown"></i>
+                  </div> -->
+                  <div [popoverOnHover]="false" [popover]="myPopover" class="approvedpmnt eachboxeshere"
+                    *ngIf="approvalStatus">
+                    <img src="assets/images/verfiedimage.png" alt="verfiedimage">
+                    <p>Approved</p>
+                  </div>
+                  <div [popoverOnHover]="false" [popover]="myPopover" class="declinedpmnt eachboxeshere"
+                    *ngIf="declinedStatus">
+                    <img src="assets/images/declined.svg" alt="payment Declined">
+                    <p>Rejected</p>
+                  </div>
+                  <div [popoverOnHover]="true" [popover]="myPopover" class="approvedpmnt eachboxeshere"
+                    *ngIf="activeStatus">
+                    <img src="assets/images/approved.svg" alt="payment Approved">
+                    <p>Active</p>
+                  </div>
+                  <div [popoverOnHover]="true" [popover]="myPopover" class="approvedpmnt eachboxeshere"
+                    *ngIf="inactiveStatus">
+                    <img src="assets/images/declined.svg" alt="payment Approved">
+                    <p>Inactive</p>
+                  </div>
+                  <div [popoverOnHover]="true" [popover]="myPopover" class="approvedpmnt eachboxeshere"
+                    *ngIf="failedStatus">
+                    <img src="assets/images/declined.svg" alt="payment Approved">
+                    <p>Failed</p>
+                  </div>
+                  <popover-content #myPopover placement="bottom" [animation]="true" [closeOnClickOutside]="false"
+                    [closeOnMouseOutside]="false">
+                    <div class="statusapprve" fxLayout="row wrap" fxLayoutAlign="flex-start">
+                      <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div class="alignext p-l-10 p-r-10 p-t-10 p-b-15">
+                          <div class="informcolor p-r-30">
+                            <p class="fs-12">Status</p>
+                            <span class="fs-15" *ngIf="paymentLastData?.mcpah_pymtstatus=='A'">Approved</span>
+                            <span class="fs-15" *ngIf="paymentLastData?.mcpah_pymtstatus=='D'">Rejected</span>
+                          </div>
+                          <div class="informcolor" *ngIf="viewData?.companyInfo?.payfor=='Renewal'">
+                            <p class="fs-12">Extended Expiry Date</p>
+                            <span class="fs-15"> {{viewData?.CompanyadressData?.mcm_accexpirydate | date:
+                              'dd-MM-yyyy'}}</span>
+                          </div>
+                        </div>
+                        <div class="p-l-10 p-r-10 informcolor p-b-10">
+                          <p class="fs-12">Comments</p>
+                          <span class="fs-15 p-t-5 commentspara" [innerHTML]="paymentLastData?.mcpah_comment? paymentLastData?.mcpah_comment:
+                          'Nil'"> </span>
+                        </div>
+                        <div class="alignext  p-l-10 p-r-10 p-b-15">
+                          <div class="informcolor p-r-30">
+                            <p class="fs-12">Validated on</p>
+                            <span class="fs-15"> {{paymentLastData?.mcpah_appdeclon | date: 'dd-MM-yyyy'}}</span>
+                          </div>
+                          <div class="informcolor">
+                            <p class="fs-12">Validated by</p>
+                            <span class="fs-15"> {{paymentLastData?.supusername}}</span>
+                          </div>
+                        </div>
+
+                        <div class="cardfooters">
+                          <button type="button" class="okbtn" (click)="myPopover.hide()">Ok</button>
+                        </div>
+                      </div>
+                    </div>
+                  </popover-content>
+                </div>
+
+
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 validateselect"
+                  [@slideInOut]="animationState" *ngIf="selectStatus">
+                  <form [formGroup]="approvalForm"
+                    (ngSubmit)="submitApprForm(approvalReqPk,approvalfor,viewData?.companyInfo?.stktype,viewData?.companyInfo?.payfor);">
+                    <div fxFlex.gt-sm="100" fxFlex="100" id="cardcolor" class="p-b-0">
+                      <mat-card class="headerinformationtext m-r-0 backgroundcard">
+                        <mat-card-header>
+                          <!-- <div class="titletext groupfilterdropdown">
+                            <mat-card-subtitle class="informationtext criterialist">
+                              <div class="align p-l-10 p-r-10 p-t-10 p-b-15">
+                                <div class="informcolor p-r-30">
+                                  <p class="fs-12">Status</p>
+                                  <span class="fs-15">Approved</span>
+                                </div>
+                                <div class="informcolor">
+                                  <p class="fs-12">Extended Expiry Date</p>
+                                  <span class="fs-15">23-12-2021</span>
+                                </div>
+                              </div>
+                              <div class="align  p-l-10 p-r-10 p-b-15">
+                                <div class="informcolor p-r-30">
+                                  <p class="fs-12">Validated on</p>
+                                  <span class="fs-15">02-09-2020</span>
+                                </div>
+                                <div class="informcolor">
+                                  <p class="fs-12">Validated by</p>
+                                  <span class="fs-15">Santhosh</span>
+                                </div>
+                              </div>
+                              <div class="p-l-10 p-r-10 informcolor p-b-10">
+                                <p class="fs-12">Comments</p>
+                                <span class="fs-15 p-t-5">Some examples of approved comments & declined
+                                  comment available as per predefined</span>
+                              </div>
+                              <div class="cardfooters">
+                                <button type="button" (click)="updatedeviationdrawer.toggle()" mat-raised-button
+                                  class="deviatebutton m-r-8" [disabled]="cancelDisabled">Deviate</button>
+                                <button type="submit" mat-raised-button 
+                                  class="okbtn">Ok</button>
+                              </div>
+                            </mat-card-subtitle>
+                          </div> -->
+
+                          <div class="titletext groupfilterdropdown">
+                            <mat-card-subtitle class="informationtext criterialist fs-14">
+                              <div class="p-l-10 p-r-10 p-t-20">
+                                <mat-form-field>
+                                  <mat-select      [errorStateMatcher]="matcher" (selectionChange)="approvalTypeChange($event)"
+                                    formControlName="approvalType" [disableOptionCentering]="true"
+                                    placeholder="Select Payment Status" required>
+
+                                    <mat-option *ngFor="let validate of validating" [value]="validate.value">
+                                      {{validate.viewValue}}
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error class="text-danger font-14"
+                                    *ngIf="approvalForm.controls['approvalType'].errors?.required">
+                                    Select payment status
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                              <!-- <div class="p-l-10 p-r-10">
+                                <mat-form-field>
+                                  <input matInput placeholder="Payment Transaction Number" required>
+
+                                </mat-form-field>
+                                <mat-error *ngIf="hasError('approvalCmds','required')">Enter payment transaction number
+                                </mat-error>
+                              </div> -->
+                              <div fxLayout="row wrap" *ngIf="paymentReceivedOn">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-10 p-r-10 p-b-12 p-t-12">
+                                  <mat-form-field>
+                                    <input matInput [max]="maxDate" placeholder="Payment Received On"
+                                      [matDatepicker]="picker1" readonly formControlName="approvedOn" required>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <!-- <input readonly matInput [matDatepicker]="pickerstart" placeholder="Start Date">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerstart"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerstart></mat-datepicker> -->
+                                    <mat-error class="text-danger font-14"
+                                    *ngIf="approvalForm.controls['approvedOn'].errors?.required">
+                                    Select Payment received on date
+                                  </mat-error>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div fxLayout="row wrap" class="">
+                                <div fxFlex.gt-sm="100" fxFlex="100" class="p-l-10 p-r-10 p-b-12 p-t-12">
+                                  <!-- <mat-menu #demoMenu="matMenu">
+                                    <mat-selection-list class="temcomlist">
+                                      <mat-list-item class="fs-15" *ngFor="let cl of commList"
+                                        (click)="defaultComment(cl.text)">{{cl.text}}</mat-list-item>
+                                      <mat-list-item (click)="defaultComment('owncomment')">Write your own comments...
+                                      </mat-list-item>
+                                    </mat-selection-list>
+                                  </mat-menu> -->
+                                  <!-- <div *ngIf="(GeneraltermDesc)">
+                                    <div fxLayout="row wrap" fxLayoutGap="0px grid">
+                                      <div fxFlex="100" [matMenuTriggerFor]="demoMenu" (click)="editgneral()">
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                                          <label class="txt-gray6 fs-12 lypisfont-regular">
+                                            Comments<span *ngIf="manditory"
+                                              class="mat-placeholder-required mat-form-field-required-marker">*</span>
+                                          </label> -->
+
+                                  <!-- <div fxFlex="<grow> <shrink> 100" class="edit" align="end"  *ngIf="ValidationForm.controls['comment'].value" (click)="editgneral()">
+                        
+                                          </div> -->
+                                  <!-- </div>
+                                       
+                                        <mat-hint class="txt-gray6 fs-14 p-t-5" align="end">Max 256</mat-hint>
+                                      </div>
+
+                                    </div>
+                                  </div> -->
+                                  <div fxFlex="100" class="techapp">
+                                    <div fxLayout="row wrap">
+                                      <div fxFlex="100">
+                                        <label fxLayout="row" class="txt-gray6 fs-12 lypisfont-regular m-b-10">
+                                          {{appComments}} 
+                                          <span *ngIf="showRequired" class="mat-placeholder-required mat-form-field-required-marker importantfield m-l-3 m-t-3"></span>
+                                        </label>
+                                        <ckeditor [(ngModel)]="sample" [editor]="Editor" [required]="manditory"
+                                          (keyup)="sample=ck.ckeditor_dir($event,snackBar,sample);"
+                                          (paste)="sample=ck.ckeditor_dir($event,snackBar,sample)"
+                                          (drop)="sample=ck.ckeditor_dir($event,snackBar,sample)" [config]="config"
+                                          [formControl]="approvalForm.controls['approvalCmds']">
+                                        </ckeditor>
+
+                                        <div fxLayout="row wrap" fxLayoutAlign="space-between" fxLayout.xs="row-reverse"
+                                          fxLayout.sm="row-reverse">
+                                          <div fxFlex.xs="100" fxFlex.sm="100" fxFlex="60">
+                                            <mat-hint fxFlex="nogrow" align="start"
+                                              *ngIf="ck.ckeditor_count(sample)>500" class="text-danger font-14">Cannot exceed 500 characters.</mat-hint>
+                                            <mat-hint fxFlex="nogrow" align="start"
+                                              *ngIf="approvalForm.controls['approvalCmds'].hasError('required') && ck.ckeditor_count(sample)==0 && approvalForm.controls['approvalCmds'].touched"
+                                              class="text-danger font-14">
+                                              Please Enter the comments
+                                            </mat-hint>
+                                          </div>
+                                          <div fxFlex.xs="100" fxFlex.sm="100" fxFlex="40" fxLayoutAlign="end">
+                                            <mat-hint fxFlex="nogrow" align="end">
+                                              {{ck.ckeditor_count(sample)}}/500
+                                            </mat-hint>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div fxLayout="row wrap" class="m-t-10 m-b-10 m-l-10">
+                                <div fxFlex.gt-sm="100" fxFlex="100">
+                                  <app-suggesttext class="m-t-5" [dataSetName]="approvalForm.controls['approvalCmds']"
+                                    [defaulttemplate]="commentArray">
+                                  </app-suggesttext>
+                                </div>
+                              </div>
+
+                              <!-- <div class="p-l-10 p-r-10 p-b-15">
+                                <mat-form-field>
+                                  <textarea appAlphanum app-restrict-input="firstspace" maxlength="256" matInput
+                                    placeholder="Comments" #message [required]="validatetrue" cdkTextareaAutosize
+                                    #autosize="cdkTextareaAutosize" formControlName="approvalCmds"
+                                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                                  <mat-hint class="txt-black fs-14">{{message.value.length}}/256</mat-hint>
+                                </mat-form-field>
+                                <mat-error *ngIf="hasError('approvalCmds','required')">Enter your comments</mat-error>
+                              </div> -->
+
+                              <div class="cardfooters">
+                                <!-- <span (click)="drawerbizfilter.toggle()" *ngIf="false">view aprroval log</span> -->
+                                <button (click)="toggleShowDiv('validateselect');clearstatusform();" type="button"
+                                  mat-raised-button class="cancelbutton m-r-10"
+                                  [disabled]="cancelDisabled">Cancel</button>
+                                <button [class.submit]="!approvalForm.valid || ck.ckeditor_count(sample)>500" [disabled]="!approvalForm.valid || ck.ckeditor_count(sample)>500"
+                                  type="submit" mat-raised-button color="primary" 
+                                 >Submit</button>
+                              </div>
+                            </mat-card-subtitle>
+                          </div>
+                        </mat-card-header>
+                      </mat-card>
+                    </div>
+                  </form>
+                </div>
+                <!-- <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 validateselect">
+
+                  <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+                    <mat-card class="headerinformationtext m-r-0">
+                      <mat-card-header>
+                      
+                      </mat-card-header>
+                    </mat-card>
+                  </div>
+
+                </div> -->
+              </div>
+
+
+              <app-projectownercard *ngIf="viewData?.companyInfo?.stktype==11" [projectCardCallback]="projectcardload">
+              </app-projectownercard>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div id="tabdivision">
+        <mat-tab-group [disableRipple]="true" class="border1  maintab maintabdetaillist">
+          <mat-tab label="Payment Details">
+            <div class="alignend m-r-20 m-t-50 m-b-20">
+              <div class="widthload  borderspeccompanycolordownload m-l-20 m-r-15 spacerightalign">
+                <div class="spencercoorpaymentclassification">
+                  <p class="fs-15 p-r-20 m-0">OPAL Certification Fee Details </p>
+                  <div class="alignpassword spacebtn">
+                    <button mat-raised-button class="changecolor m-r-8 fs-14" *ngIf="invoiceBtn"><i
+                        class="bgi bgi-download fs-12 colorlogo p-r-8"></i><a class="angertagcolor"
+                        href="{{viewData?.downloadData.invoice}}" download="invoice.pdf" target="_blank">
+                        Invoice</a></button>
+                  </div>
+                </div>
+                <div class="projectborder pd-25">
+                  <div class="innerrows">
+                    <!-- <p class="mainheaders">Basic Information</p> -->
+                    <div class="eachtwoboxes">
+                      <div class="eachitem firstbox">
+                        <p class="cmpnyinfo" *ngIf="viewData?.companyInfo?.JSRSValSubStatus=='A'">
+                          <span class="labelcmp clable">Supplier Code</span>
+                          <span class="infocmp cvalue">{{viewData?.companyInfo?.SupplierCode}}</span>
+                        </p>
+                        <p class="cmpnyinfo" *ngIf="viewData?.companyInfo?.JSRSValSubStatus!='A'">
+                          <span class="labelcmp clable">OPAL Registration No.</span>
+                          <span class="infocmp cvalue">{{viewData?.companyInfo?.reg_No}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Enterprise Classification</span>
+                          <span class="msme_micro" *ngIf="viewData?.certificationFeeInfo.enterpriseClassfyclass=='micro'">{{viewData?.certificationFeeInfo.enterpriseClass}}</span>
+                          <span class="msme_small" *ngIf="viewData?.certificationFeeInfo.enterpriseClassfyclass=='small'">{{viewData?.certificationFeeInfo.enterpriseClass}}</span>
+                          <span class="msme_medium" *ngIf="viewData?.certificationFeeInfo.enterpriseClassfyclass=='medium'">{{viewData?.certificationFeeInfo.enterpriseClass}}</span>
+                          <span class="msme_large" *ngIf="viewData?.certificationFeeInfo.enterpriseClassfyclass=='large'">{{viewData?.certificationFeeInfo.enterpriseClass}}</span>
+                        </p>
+                        <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp">Incorporation Style</span>
+                          <span class="infocmp">{{viewData?.companyInfo.incopStyle}}
+                          </span>
+                        </p> -->
+                        <p class="cmpnyinfo"
+                          *ngIf="viewData?.certificationFeeInfo.enterpriseClass !='International' && !hideChangeSubscription">
+                          <span class="labelcmp clable">Head Count</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.headCount}}</span>
+                        </p>
+                        <p class="cmpnyinfo"
+                          *ngIf="viewData?.certificationFeeInfo.enterpriseClass !='International' && !hideChangeSubscription">
+                          <span class="labelcmp clable">Annual Sales/Turnover (OMR) </span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.annualSale}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Certificate Validity</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.years_of_sub}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Product & Services Pack</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.productservicePack}}</span>
+
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">OPAL Certification Fee</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="countalgin">{{viewData?.certificationFeeInfo.total_sub}}</span>
+                        </p>
+                        <p class="cmpnyinfo" *ngIf="discount_enable">
+                          <span class="labelcmp clable">Discount ({{viewData?.certificationFeeInfo.discpercent}}%)</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="countalgin cvalue">{{viewData?.certificationFeeInfo.discountval}}</span>
+                        </p>
+                        <p class="cmpnyinfo"
+                          *ngIf="viewData?.certificationFeeInfo.paymenttype==1 && viewData?.paymentDetails.paymentMode=='Offline' && viewData?.certificationFeeInfo.CurrSymbol=='USD'">
+                          <span class="labelcmp clable">Processing Charges</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}</span>
+                          <span class="countalgin cvalue">25.00</span>
+                        </p>
+                        <p class="cmpnyinfo"
+                          *ngIf="viewData?.certificationFeeInfo.paymenttype==2 && viewData?.paymentDetails.paymentMode=='Online'">
+                          <span class="labelcmp clable">Additional Charges(2.31%)</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="infocmp countalgin cvalue">{{viewData?.certificationFeeInfo.aditionalcharges}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Vat Charges({{viewData?.certificationFeeInfo.vatpercetage}}%)</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="infocmp countalgin cvalue">{{viewData?.certificationFeeInfo.vatamount}}</span>
+                        </p>                        
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Total Payable</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="countalgin cvalue">{{viewData?.certificationFeeInfo.total_sub_fee}}</span>
+                        </p>
+                        
+                        <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp">Sector </span>
+                          <span class="infocmp">{{viewData?.companyInfo.sector}}</span></p> -->
+                      </div>
+                      <div class="eachitem secondbox">
+                        <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp">Buisness Source</span>
+                          <span class="infocmp">{{viewData?.companyInfo.business_source}}</span>
+                        </p> -->
+                        <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp">Objective to be OPAL Certified</span>
+                          <span class="infocmp">We are looking for International
+                            Partners for our Products or Services</span>
+                        </p> -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="innerrows" *ngIf="viewData?.paymentPk"> -->
+                  <!-- <p class="mainheaders">Subscription Details</p> -->
+                  <!-- <div class="eachtwoboxes">
+                      <div class="eachitem firstbox">
+
+
+
+                      </div>
+                      <div class="eachitem secondbox">
+
+                      </div>
+                    </div> -->
+                  <!-- </div> -->
+                  <!-- <div class="innerrows">
+
+                    <div class="eachtwoboxes">
+                      <div class="eachitem firstbox">
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">First Name </span>
+                          <span class="infocmp">{{viewData?.contactInfo.primaryContact.firstName}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Last Name </span>
+                          <span class="infocmp">{{viewData?.contactInfo.primaryContact.lastName}}</span></p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Department</span>
+                          <span class="infocmp">{{viewData?.contactInfo.primaryContact.department}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Designation</span>
+                          <span class="infocmp">{{viewData?.contactInfo.primaryContact.designation}}</span>
+                        </p>
+                      </div>
+                      <div class="eachitem secondbox">
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Email ID </span>
+                          <span class="infocmp">{{viewData?.contactInfo.primaryContact.emailId}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Mobile</span>
+                          <span class="infocmp">{{viewData?.contactInfo.primaryContact.mobile}}</span></p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Landline</span>
+                          <span class="infocmp">{{viewData?.contactInfo.primaryContact.landline}}</span></p>
+                      </div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="innerrows" *ngIf="viewData?.paymentPk"> -->
+                  <!-- <p class="mainheaders">Payment Contact</p> -->
+                  <!-- <div class="eachtwoboxes">
+                      <div class="eachitem firstbox">
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">First Name </span>
+                          <span class="infocmp">{{viewData?.contactInfo.paymentContact.firstName}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Last Name </span>
+                          <span class="infocmp">{{viewData?.contactInfo.paymentContact.lastName}}</span></p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Department</span>
+                          <span class="infocmp">{{viewData?.contactInfo.paymentContact.department}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Designation</span>
+                          <span class="infocmp">{{viewData?.contactInfo.paymentContact.designation}}</span>
+                        </p>
+                      </div>
+                      <div class="eachitem secondbox">
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Email ID </span>
+                          <span class="infocmp">{{viewData?.contactInfo.paymentContact.emailId}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Mobile</span>
+                          <span class="infocmp">{{viewData?.contactInfo.paymentContact.mobile}}</span></p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp">Landline</span>
+                          <span class="infocmp">{{viewData?.contactInfo.paymentContact.landline}}</span></p>
+                      </div>
+                    </div> -->
+                  <!-- </div> -->
+                </div>
+
+              </div>
+              <div class="widthload  borderspeccompanycolordownload spacepayment">
+                <div class="spencercoorpaymentclassification">
+                  <p class="fs-15 p-r-20 m-0">Payment Details </p>
+                  <div class="alignpassword spacebtn">
+                    <button mat-raised-button class="changecolor m-r-8 fs-14" *ngIf="taxInvoiceBtn"><i
+                        class="bgi bgi-download fs-12 colorlogo p-r-8"></i><a class="angertagcolor"
+                        href="{{viewData?.downloadData.taxinvoice}}" target="_blank">
+                        Tax invoice</a></button>
+                    <button mat-raised-button class="changecolor m-r-8 fs-14" *ngIf="approvalStatus"><i
+                        class="bgi bgi-download fs-12 colorlogo p-r-8"></i><a class="angertagcolor"
+                        href="{{viewData?.downloadData.receipt}}" download="receipt.pdf" target="_blank">
+                        Receipt</a></button>
+                  </div>
+                </div>
+                <div class="projectborder pd-25">
+                  <div class="innerrows" *ngIf="viewData?.paymentDetails.paymentMode">
+                    <div class="eachtwoboxes">
+                      <div class="eachitem firstbox">
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Payment Mode </span>
+                          <span class="infocmp cvalue">{{viewData?.paymentDetails.paymentMode}}</span>
+                        </p>
+                        <p class="cmpnyinfo" *ngIf="viewData?.paymentDetails.paymentMode=='Online'">
+                          <span class="labelcmp clable">Payment through </span>
+                          <span class="infocmp cvalue">{{viewData?.paymentDetails.carddetails}}</span>
+                        </p>
+                        <p class="cmpnyinfo" *ngIf="viewData?.paymentDetails.paymentMode=='Online'">
+                          <span class="labelcmp clable">Payment Ref. No. </span>
+                          <span class="infocmp cvalue">{{viewData?.paymentDetails.transactionId}}</span>
+                        </p>
+                        <p class="cmpnyinfo" *ngIf="viewData?.paymentDetails.paymentMode=='Offline'">
+                          <span class="labelcmp clable">Transaction ID </span>
+                          <span class="infocmp cvalue">{{viewData?.paymentDetails.transactionId}}</span>
+                        </p>
+                        <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp">{{viewData?.paymentDetails.transactionLabel}} </span>
+                          <span class="infocmp">{{viewData?.paymentDetails.transactionId}}</span></p> -->
+                        <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp">Payment Type </span>
+                          <span class="infocmp">{{viewData?.paymentDetails.paymentType}}</span>
+                        </p> -->
+
+                        <p class="cmpnyinfo" *ngIf="viewData?.paymentDetails.paymentMode=='Offline'">
+                          <span class="labelcmp clable">Bank Name</span>
+                          <span class="infocmp cvalue">{{viewData?.paymentDetails.bankName}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Date of Transfer</span>
+                          <span class="infocmp cvalue">{{viewData?.paymentDetails.date}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">OPAL Certification Fee</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="infocmp countalgin cvalue">{{viewData?.certificationFeeInfo.total_sub}}</span>
+                        </p>
+                        <p class="cmpnyinfo" *ngIf="discount_enable">
+                          <span class="labelcmp clable">Discount ({{viewData?.certificationFeeInfo.discpercent}}%)</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="infocmp countalgin cvalue">{{viewData?.certificationFeeInfo.discountval}}</span>
+                        </p>
+                        <p class="cmpnyinfo"
+                          *ngIf="viewData?.certificationFeeInfo.paymenttype==1 && viewData?.paymentDetails.paymentMode=='Offline' && viewData?.certificationFeeInfo.CurrSymbol=='USD'">
+                          <span class="labelcmp clable">Processing Charges</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}} </span>
+                          <span class="countalgin cvalue">25.00</span>
+                        </p>
+                        <p class="cmpnyinfo"
+                          *ngIf="viewData?.certificationFeeInfo.paymenttype==2 && viewData?.paymentDetails.paymentMode=='Online'">
+                          <span class="labelcmp clable">Additional Charges(2.31%)</span>
+                          <span class="infocmp cvalue">{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </span>
+                          <span class="infocmp countalgin cvalue">{{viewData?.certificationFeeInfo.aditionalcharges}}</span>
+                        </p>
+                        <!-- <p class="cmpnyinfo">
+                          <span class="labelcmp">View / Download Receipt</span>
+                          <span class="infocmp">
+                            <img src="assets/images/pdfsmallimage.png" alt="pdfsmallimage.png">
+                          </span>
+                        </p> -->
+                        <p class="cmpnyinfo" *ngIf="viewData?.paymentDetails.paymentMode=='Offline'">
+                          <span class="labelcmp">Payment Proof</span>
+                          <span class="infocmp">
+                            <a class="imgsize" target="_blank" href={{viewData?.paymentDetails.paymentProof}}>
+                              <img *ngIf="viewData?.paymentDetails.filetype=='pdf'" src="assets/images/pdfnewimage.png"
+                                alt="pdfnewimage">
+                              <img *ngIf="viewData?.paymentDetails.filetype=='jpeg'" src="assets/images/jpeg.svg"
+                                alt="jpeg.svg">
+                              <img *ngIf="viewData?.paymentDetails.filetype=='jpg'" src="assets/images/jpeg.png"
+                                alt="jpg">
+                              <img *ngIf="viewData?.paymentDetails.filetype=='png'" src="assets/images/png.png"
+                                alt="png.png">
+                            </a>
+                            <!-- <a target="_blank"  href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                              <img src="assets/images/jpeg-02.png" alt="jpeg-02">
+                            </a> -->
+                            <!-- <a target="_blank"  href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                              <img src="assets/images/jpeg.png" alt="jpg">
+                            </a> -->
+                            <!-- <a target="_blank"  href="{{paymentDetails?.proofdoc}}" class="imgsize">
+                              <img src="assets/images/png.png" alt="png.png">
+                            </a>  -->
+                          </span>
+                        </p>
+                      </div>
+                      <!-- <div class="eachitem secondbox">
+                        <p class="mainheaders downloadtext">Download</p>
+                        <div class="downloadbill">
+                          <a href="{{viewData?.downloadData.invoice}}" download="invoice.pdf" target="_blank"
+                            class="eachbox">
+                            <img src="assets/images/pdfnewimage.png" alt="pdfnewimage.png">
+                            <div class="billtext">
+                              <i class="bgi bgi-download"></i>
+                              <span>Invoice</span>
+                            </div>
+                          </a>
+                          <a href="{{viewData?.downloadData.receipt}}" class="eachbox" *ngIf="enableReceipt">
+                            <img src="assets/images/pdfnewimage.png" alt="pdfnewimage">
+                            <div class="billtext">
+                              <i class="bgi bgi-download"></i>
+                              <span>Receipt</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div> -->
+                      <div class="spaceend p-t-12 p-b-12 m-t-30 m-b-30 p-l-0">
+                        <div class="totalcolor">
+                          <h2 class="p-l-12">Total Amount Paid</h2>
+                        </div>
+                        <div class="omrcolor">
+                          <h2>{{viewData?.certificationFeeInfo.CurrSymbol}}
+                          </h2>
+                          <span class="spacecode"> {{viewData?.certificationFeeInfo.total_sub_fee}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Communication Details">
+            <div class="alignend m-r-20 m-t-30 m-b-20">
+              <div class="widthload  borderspeccompanycolordownload m-l-20 m-r-15 spacerightalign">
+                <div class="spencercoorpaymentclassification">
+                  <p class="fs-15 p-r-20 m-0">Office Contact Details </p>
+                  <!-- <div class="alignpassword spacebtn">
+                    <button mat-raised-button class="changecolor m-r-8 fs-14"><i
+                        class="bgi bgi-download fs-12 colorlogo p-r-8"></i><span>Download Invoice</span></button>
+                  </div> -->
+                </div>
+                <div class="projectbordercontact pd-25">
+                  <div class="innerrows">
+                    <!-- <p class="mainheaders">Basic Information</p> -->
+                    <div class="eachtwoboxes">
+                      <div class="eachitem firstbox">
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Office Address</span>
+                          <span class="infocmp cvalue lh-25">{{viewData?.CompanyadressData?.mcmpld_address}}<br>
+                            {{viewData?.CompanyadressData?.offCityName}}<br>
+                            {{viewData?.CompanyadressData?.offStateName}}<br>
+                            {{viewData?.CompanyadressData?.offCountryName}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Landline</span>
+                          <span class="infocmp cvalue"> + {{viewData?.CompanyadressData?.mcmpld_landlinenocc}}
+                            {{viewData?.CompanyadressData?.mcmpld_landlineno}} Ext:
+                            {{viewData?.CompanyadressData?.mcmpld_landlineext?viewData?.CompanyadressData?.mcmpld_landlineext:'-'}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Website</span>
+                          <span class="infocmp cvalue">{{viewData?.companyInfo?.website}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">Company Email</span>
+                          <span class="infocmp cvalue">
+                            {{viewData?.CompanyadressData?.mcmpld_emailid}}</span>
+                        </p>
+                        <div class="cmpnyinfo">
+                          <span class="labelcmp clable">Postal Address
+                          </span>
+                          <div>
+                            <p class="cvalue p-b-10 m-0">{{viewData?.CompanyadressData?.mcmpld_postaladdress}}</p>
+                            <p class="cvalue p-b-10 m-0">{{viewData?.CompanyadressData?.subCityName}}</p>
+                            <p class="cvalue p-b-10 m-0">{{viewData?.CompanyadressData?.subStateName}}</p>
+                            <p class="cvalue m-0">{{viewData?.CompanyadressData?.subCountryName}}</p>
+                          </div>
+                        </div>
+                        <!-- <p class="cmpnyinfo">
+                              <span class="labelcmp">Incorporation Style</span>
+                              <span class="infocmp">{{viewData?.companyInfo.incopStyle}}
+                              </span>
+                            </p> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="widthload  borderspeccompanycolordownloadanother spacepayment">
+                <div class="spencercoorpaymentclassification">
+                  <p class="fs-15 p-r-20 m-0">OPAL Contact Details</p>
+                  <!-- <div class="alignpassword spacebtn">
+                    <button mat-raised-button class="changecolor m-r-8 fs-14"><i
+                        class="bgi bgi-download fs-12 colorlogo p-r-8"></i><span>Download Receipt</span></button>
+                  </div> -->
+                </div>
+                <div class="projectbordercontact pd-25">
+                  <div class="innerrows">
+                    <!-- <p class="mainheaders">Basic Information</p> -->
+                    <div class="eachtwoboxes">
+                      <div class="eachitem firstbox">
+
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">1. Primary Contact </span>
+
+                          <span class="cvalue lh-25">{{viewData?.contactInfo.primaryContact.firstName}}<br>
+                            {{viewData?.contactInfo.primaryContact.department}}<br>
+                            {{viewData?.contactInfo.primaryContact.designation}}<br>
+                            + {{viewData?.contactInfo.primaryContact.mobile}}<br>
+                            + {{viewData?.contactInfo.primaryContact.landline}} Ext :
+                            {{viewData?.contactInfo.primaryContact.um_landlineext?viewData?.contactInfo.primaryContact.um_landlineext:'-'}}<br>
+                            {{viewData?.contactInfo.primaryContact.emailId}}</span>
+                        </p>
+                        <p class="cmpnyinfo">
+                          <span class="labelcmp clable">2. Payment Contact </span>
+                          <span class="cvalue lh-25">{{viewData?.contactInfo.paymentContact?.firstName}}<br>
+                            {{viewData?.contactInfo.paymentContact?.department}}<br>
+                            {{viewData?.contactInfo.paymentContact?.designation}}<br>
+                            + {{viewData?.contactInfo.paymentContact?.mobile}}<br>
+                            + {{viewData?.contactInfo.paymentContact?.landline}} Ext :
+                            {{viewData?.contactInfo.paymentContact?.um_landlineext?viewData?.contactInfo.paymentContact?.um_landlineext:"-"}}<br>
+                            {{viewData?.contactInfo.paymentContact?.emailId}}</span>
+                        </p>
+                        <!-- <p class="cmpnyinfo">
+                                  <span class="labelcmp">Incorporation Style</span>
+                                  <span class="infocmp">{{viewData?.companyInfo.incopStyle}}
+                                  </span>
+                                </p> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="widthload">
+                      <div class="spencercoorpayment">
+                        <h2 class="fs-15 p-r-20 m-0">Company Classification</h2>
+                      </div>
+                      <div class="cmpnyinfo">
+                        <p class="labelcmp m-0">Project Owner ID</p>
+                        <p class="infocmp m-0">OM540001</p>
+                      </div>
+                      <div class="cmpnyinfo">
+                        <p class="labelcmp m-0">Registrated on</p>
+                        <p class="infocmp m-0">+25-02-2020</p>
+                      </div>
+                
+                      <div fxLayout="row wrap" class="btnalign">
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-15">
+                          <div class="alignpassword">
+                            <button mat-raised-button class="changecolor m-r-8 fs-14"><i
+                                class="bgi bgi-download fs-12 colorlogo p-r-8"></i>Download</button>
+                
+                          </div>
+                
+                        </div>
+                
+                      </div>
+                    </div> -->
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<mat-drawer-container class="example-container targetwidth targetwidthview indexhide">
+  <mat-drawer #drawerbizfilter class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <div fxLayout="row wrap" class="sidenavmainrow">
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <form class="sidenavform" autocomplete="off">
+          <div fxLayout="row wrap" fxFlexAlign="center" class="m-t-0">
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class=" selectproductheaderwithclose">
+              <div class="titletext">
+                <div class="closeandadd">
+                  <i class="bgi bgi-close p-l-5 fs-14" (click)="showAlert()"></i>
+                  <h5 class="m-0 p-l-20 tt">Activity Log <i (click)="activityloginfo('activitylogview')"
+                      class="bgi bgi-info"></i></h5>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="flex-start" class="p-t-0 activitylogview"
+            [@slideInOut]="animationState1">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+              <mat-card class="headerinformationtext sidenavinfotext m-r-0">
+                <mat-card-header>
+                  <div class="titletext" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                    <mat-card-subtitle class="informationtext fs-14">
+                      The activity log of the payments made by this supplier is displayed along with the comments
+                      provided.
+                    </mat-card-subtitle>
+                  </div>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxFlexAlign="center" class="borderbottomrenewallist">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="borderbottomrenwalalign p-l-75 p-r-50">
+              <div class="p-t-8 p-b-8">
+                <div class="renewalalign">
+                  <p class="p-b-8 fs-15 interbold">{{viewData?.companyInfo?.name}}</p>
+                </div>
+                <div class="alignnumber">
+                  <div>
+                    <p class="fs-14 minwidthnumber"><span class="clable">OPAL Registration No.</span> <span
+                        class="cvalue">:
+                        {{viewData?.companyInfo?.reg_No}}</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p class="fs-14 space" *ngIf="viewData?.companyInfo?.JSRSValSubStatus=='A'"><span
+                        class="clable">Supplier Code</span> <span class="cvalue">:
+                        {{viewData?.companyInfo?.SupplierCode}}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="innnerpartofdrwer">
+            <div class="example-container headercolor">
+              <mat-table #table [dataSource]="dataSource" *ngIf="dataSourceCount > 0" multiTemplateDataRows
+                class="tableofheading">
+                <ng-container matColumnDef="mcpah_pymtstatus">
+                  <th fxFlex="25" *matHeaderCellDef class="m-l-12"> Status</th>
+                  <td fxFlex="25" *matCellDef="let element" data-label="Status" class="m-l-12">
+                    <mat-chip-list aria-label="Status">
+                      <mat-chip *ngIf="element.mcpah_pymtstatus=='A'" class="Certifiedcolor">Approved</mat-chip>
+                      <mat-chip *ngIf="element.mcpah_pymtstatus=='D'" class="declined">Rejected</mat-chip>
+                      <mat-chip *ngIf="element.mcpah_pymtstatus=='S' || (element.mcpid_pymtstatus==1 && renewalStatus!='RS')" class="Certifiedcolor">Submitted</mat-chip>
+                      <mat-chip *ngIf="element.mcpah_pymtstatus=='RS' || (element.mcpid_pymtstatus==1 && renewalStatus=='RS')" class="Certifiedcolor">Resubmitted</mat-chip>
+                    </mat-chip-list>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="mcpah_appdeclon">
+                  <th fxFlex="25" *matHeaderCellDef> Date </th>
+                  <td fxFlex="25" *matCellDef="let element" data-label="Date">
+                    <span *ngIf="element.mcpid_pymtstatus==1">{{element.mcpid_submittedon | date: 'dd-MM-yyyy'}} </span>
+                    <span *ngIf="element.mcpid_pymtstatus!=1">{{element.mcpah_appdeclon | date: 'dd-MM-yyyy'}} </span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="mcpid_paymenttype">
+                  <th fxFlex="25" *matHeaderCellDef> Payment Mode </th>
+                  <td fxFlex="25" *matCellDef="let element" data-label="Date">
+                    {{element.mcpid_paymenttype==1?"Offline":"Online"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="username">
+                  <th fxFlex="25" *matHeaderCellDef> Received From </th>
+                  <td fxFlex="25" *matCellDef="let element" class="{{element.mcpid_pymtstatus!=1?'aftercolor':''}}" data-label="Received From">
+                    <div [title]="element.submittedby" *ngIf="element.mcpid_pymtstatus==1"> {{element.submittedby | truncate:[18]}}
+                    </div>
+                    <div *ngIf="element.mcpid_pymtstatus!=1"> - </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="update_by">
+                  <th fxFlex="20" *matHeaderCellDef> Validated by</th>
+                  <td fxFlex="20" *matCellDef="let element" data-label="Updated by">
+                    <div [title]="element.approvedby" *ngIf="element.mcpid_pymtstatus!=1">{{element.approvedby | truncate:[18]}}</div>
+                    <div *ngIf="element.mcpid_pymtstatus==1"> - </div>
+                  </td>
+                </ng-container>
+                <!--  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+  </ng-container> -->
+
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                    <div class="example-element-detail"  *ngIf="element.mcpid_pymtstatus!=1"
+                      [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <table class="gdpcontribution p-l-12 p-b-12">
+                        <h2 class="fs-14">Comments</h2>
+                        <tr>
+                          <td class="headercolor">
+                            <p [innerHTML]="element.mcpid_apprcomments" *ngIf="element.mcpid_apprcomments" class="fs-14 backgroundtext pd-10">
+                            </p>
+                            <p *ngIf="!element.mcpid_apprcomments" class="fs-14 backgroundtext pd-10">Nil
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+                <mat-row *matRowDef="let element; columns: columnsToDisplay;"  class="example-element-row"
+                  [class.example-expanded-row]="expandedElement === element"
+                  (click)="expandedElement = expandedElement === element ? null : element">
+                </mat-row>
+                <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
+              </mat-table>
+              <mat-table #table [dataSource]="dataSource" *ngIf="dataSubmitCount > 0" multiTemplateDataRows
+                class="tableofheading">
+                <ng-container matColumnDef="mcpid_pymtstatus">
+                  <th fxFlex="25" *matHeaderCellDef class="m-l-12"> Status</th>
+                  <td fxFlex="25" *matCellDef="let element" data-label="Status" class="m-l-12">
+                    <mat-chip-list aria-label="Status">
+                      <mat-chip *ngIf="element.mcpid_pymtstatus==1" class="Certifiedcolor">Submitted</mat-chip>
+                      <mat-chip *ngIf="element.mcpid_pymtstatus==2" class="declined">In-Progress</mat-chip>
+                      <mat-chip *ngIf="element.mcpid_pymtstatus==3" class="Certifiedcolor">Approved</mat-chip>
+                      <mat-chip *ngIf="element.mcpid_pymtstatus==6" class="declined">Failed</mat-chip>
+                    </mat-chip-list>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="mcpid_submittedon">
+                  <th fxFlex="25" *matHeaderCellDef> Date </th>
+                  <td fxFlex="25" *matCellDef="let element" data-label="Date">
+                    {{element.mcpid_submittedon | date: 'dd-MM-yyyy'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="mcpid_paymenttype">
+                  <th fxFlex="25" *matHeaderCellDef> Payment Mode </th>
+                  <td fxFlex="25" *matCellDef="let element" data-label="Date">
+                    {{element.mcpid_paymenttype==1?"Offline":"Online"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="username">
+                  <th fxFlex="25" *matHeaderCellDef> Received From </th>
+                  <td fxFlex="25" *matCellDef="let element" class="aftercolor" data-label="Received From">
+                    <div [title]="element.supusername"> {{element.supusername | truncate:[18]}}
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="update_by">
+                  <th fxFlex="20" *matHeaderCellDef> Approved by</th>
+                  <td fxFlex="20" *matCellDef="let element" data-label="Approved by"> - </td>
+                </ng-container>
+                <!--  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+  </ng-container> -->
+
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+
+                <mat-header-row *matHeaderRowDef="columnsToDisplay1"></mat-header-row>
+                <mat-row *matRowDef="let element; columns: columnsToDisplay1;">
+                </mat-row>
+                <!-- <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row> -->
+              </mat-table>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>
+
+<mat-drawer-container class="example-container certificatelistview indexhide">
+  <mat-drawer #reneviewlistdrawer disableClose class="example-sidenav sidenavsamewidthall certifcatesidenavwidth"
+    mode="over" position="end">
+    <app-renewalhistorylistview [reneviewlistdrawer]="reneviewlistdrawer">
+    </app-renewalhistorylistview>
+  </mat-drawer>
+</mat-drawer-container>
+<mat-drawer-container class="example-container certificatelistview indexhide">
+  <mat-drawer #updatedeviationdrawer disableClose class="example-sidenav sidenavsamewidthall certifcatesidenavwidth"
+    mode="over" position="end">
+    <app-updatedeviation [updatedeviationdrawer]="updatedeviationdrawer">
+    </app-updatedeviation>
+  </mat-drawer>
+</mat-drawer-container>
+
+
+<app-responseloader class="processloader" *ngIf="disableloader"></app-responseloader>

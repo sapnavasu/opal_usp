@@ -1,0 +1,176 @@
+<div fxLayout="row wrap"  class="viewaccounttab rtl">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-30">
+    <div class="securityheader activescroll spacewhitespace">
+      <div class="borderspecheight">
+        <div>
+          <div class="spencercoor">
+            <p class="fs-16 p-r-20 m-0 title lypisfont-semibold">{{settingsData?.primaryContact.firstname}}</p>
+              <span ><i (click)="editUser(settingsData?.primaryContact?.pk)" class="bgi bgi-edit1" matTooltip="Edit">edit</i></span>
+            <div class="coloractive m-l-10" *ngIf="settingsData?.primaryContact?.isPrimaryContact">
+              <span class="fs-13" *ngIf="settingsData?.primaryContact?.isPrimaryContact">{{'accountdetails.adminpriconttact' | translate}}</span>
+            </div>
+          </div>
+          <div class="marketcolor" >
+            <p class="fs-14 txt-gray6 m-0">{{settingsData?.primaryContact?.designation || 'NIL'}}</p>
+          </div>
+          <!-- <div *ngIf="companytype == 6 || companytype == 1" class="domaincolor">
+            <p class="fs-14 lypisfont-regular m-0 p-t-6"><span>DOMAIN:</span> PROCUREMENT</p>
+          </div> -->
+        </div>
+        <div fxLayout="row wrap" class="btnalign">
+          <div fxFlex.gt-sm="100" fxFlex="100" class="widthuser">
+            <div class="alignpassword">
+              <button color="primary" mat-raised-button *ngIf="userType && userType == 'U'" class="viewpermission m-r-10 fs-14"
+                (click)="getuserpermissiondet(settingsData?.baseModulesAccess);draweruserallocation.toggle()">{{'accountdetails.viewpermission' | translate}}</button>
+              <div class="border_btn">
+              <button mat-raised-button class="changecolor fs-13" (click)="openDialog()" >{{'accountdetails.changepwd' | translate}}
+              </button>
+              
+              </div>
+              
+             <div id="changeadminpanel" *ngIf="stakeHolderType != 1">
+              <div
+              popover="{{'accountdetails.changeadminpopover' | translate}}"
+              popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+              [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+              *ngIf="userType && userType == 'A' && ischangeadmin == 1 && !isGraceExpired">
+              <button color="primary" *ngIf="userType && userType == 'A'"
+                [disabled]="userType && userType == 'A' && ischangeadmin == 1 && !isGraceExpired"
+                (click)="avoidmulti();drawer.toggle();maporcreateuser?.mapuser.stakeholderUserDetails();maporcreateuser.changeheadername();"
+                mat-raised-button class="usercolor fs-13">{{'accountdetails.changeadmin' | translate}}</button>
+            </div>
+          
+            <div *ngIf="userType && userType == 'A' && ischangeadmin == 2 && !isGraceExpired">                
+              <button color="primary" *ngIf="userType && userType == 'A'"
+                (click)="avoidmulti();drawer.toggle();maporcreateuser?.mapuser.stakeholderUserDetails();maporcreateuser.changeheadername();"
+                mat-raised-button class="usercolor fs-13">{{'accountdetails.changeadmin' | translate}}</button>                  
+            </div>
+            <div
+              popover="{{'accountdetails.accessrenewyousubscrip' | translate}}"
+              popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+              [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+              *ngIf="userType && userType == 'A' && ischangeadmin == 1 && isGraceExpired">
+              <button color="primary" *ngIf="userType && userType == 'A'"
+                [disabled]="isGraceExpired"
+                (click)="avoidmulti();drawer.toggle();maporcreateuser?.mapuser.stakeholderUserDetails();maporcreateuser.changeheadername();"
+                mat-raised-button class="usercolor fs-13">{{'accountdetails.changeadmin' | translate}}</button>
+            </div>
+            <div *ngIf="userType && userType == 'A' && ischangeadmin == 2 && isGraceExpired">
+              <div
+              popover="{{'accountdetails.accessrenewyousubscrip' | translate}}"
+              popoverPlacement="bottom-right" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+              [popoverCloseOnMouseOutside]="false" [popoverDisabled]="false" [popoverAnimation]="true"
+              *ngIf="isGraceExpired">
+              <button color="primary" *ngIf="userType && userType == 'A'" [disabled]="isGraceExpired"
+                (click)="avoidmulti();drawer.toggle();maporcreateuser?.mapuser.stakeholderUserDetails();maporcreateuser.changeheadername();"
+                mat-raised-button class="usercolor fs-13">{{'accountdetails.changeadmin' | translate}}</button>
+                </div>
+            </div>
+             </div>
+
+              
+              
+            </div>
+            <p class="fs-14 p-t-10 m-0 txt-gray3" *ngIf="settingsData?.primaryContact?.lastpwdchangedon">{{'accountdetails.pwdseton' | translate}}
+              {{settingsData?.primaryContact?.lastpwdchangedon}}</p>
+          </div>
+        </div>
+      </div>
+      <div class=" p-l-20 p-t-18 p-b-18 borderemail">
+        <div class="widthcomp">
+          <div class="cmpnyinfo p-b-15">
+            <p class="labelcmp m-0 clabel">{{'accountdetails.emailid' | translate}}</p>
+            <p class="cvalue m-0" *ngIf="settingsData?.primaryContact?.emailid.length < 50">
+              {{settingsData?.primaryContact?.emailid || 'NIL' | truncate:[50]}} <img
+                *ngIf="settingsData?.primaryContact?.confirmstatus == 1" class="widthimgcheck p-l-5"
+                src="assets/images/check.png" alt="check.png"></p>
+            <p class="cvalue m-0" *ngIf="settingsData?.primaryContact?.emailid.length > 50"
+              popover="{{settingsData?.primaryContact?.emailid}}" popoverPlacement="bottom-right"
+              [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false"
+              [popoverDisabled]="false" [popoverAnimation]="true">{{settingsData?.primaryContact?.emailid || 'NIL' |
+              truncate:[50]}} <img *ngIf="settingsData?.primaryContact?.confirmstatus == 1" class="widthimgcheck p-l-5"
+                src="assets/images/check.png" alt="check.png"></p>
+                <div fxLayoutAlign="flex-start center">
+                  <!-- <i  class="bgi bgi-edit1 p-l-15" matTooltip="Edit"></i> -->
+
+                  <span *ngIf="userType == 'A' && settingsData?.primaryContact?.emailverified == 1"  class="verifiedcontent m-l-15">
+                    <i class="bgi bgi-tick fs-12"></i>
+                    <span class="p-l-8">Verified</span>
+                 
+                </span>
+                
+                </div>
+          </div>
+          <div class="cmpnyinfo">
+            <p class="labelcmp m-0 clabel">{{'accountdetails.mobile' | translate}}</p>
+            <p class="cvalue m-0"
+              *ngIf="settingsData?.primaryContact?.mobilecc && settingsData?.primaryContact?.mobileDialCode && settingsData?.primaryContact?.mobileno">
+              {{settingsData?.primaryContact?.mobilecc}} {{settingsData?.primaryContact?.mobileno}}
+            </p>
+            <p *ngIf="!settingsData?.primaryContact?.mobilecc || !settingsData?.primaryContact?.mobileDialCode || !settingsData?.primaryContact?.mobileno"
+              class="cvalue m-0">{{'accountdetails.nil' | translate}}</p>
+              <div fxLayoutAlign="flex-start center">
+                <!-- <i  class="bgi bgi-edit1 p-l-15" matTooltip="Edit"></i> -->
+                <span  *ngIf="userType == 'A' && settingsData?.primaryContact?.mobileverified == 1"  class="verifiedcontent m-l-15">
+                  <i class="bgi bgi-tick fs-12"></i>
+                  <span class="p-l-8">Verified</span>
+               
+                </span>
+        
+              </div>
+          </div>
+        </div>
+        <div *ngIf="userType && (userType == 'A' || userType == 'U') && stakeHolderType != 1 ">
+          <div class="cmpnyinfo" *ngIf="userType && userType == 'U'">
+            <p class="labelcmp m-0 clabel">{{'accountdetails.division' | translate}}</p>
+            <p class="m-0 cvalue" *ngIf="settingsData?.primaryContact?.division.length <= 25">
+              {{settingsData?.primaryContact?.division || 'NIL'}}</p>
+            <p class="cvalue m-0" *ngIf="settingsData?.primaryContact?.division.length > 25"
+              popover="{{settingsData?.primaryContact?.division}}" popoverPlacement="bottom-left"
+              [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false"
+              [popoverDisabled]="false" [popoverAnimation]="true">{{settingsData?.primaryContact?.division || 'NIL' |
+              truncate:[25]}}</p>
+          </div>
+          <div class="cmpnyinfo">
+            <p class="labelcmp m-0 clabel">{{'accountdetails.department' | translate}}</p>
+            <p class="cvalue m-0" >
+              {{settingsData?.primaryContact?.department || 'NIL'}}</p>
+            <!-- <p class="cvalue m-0" *ngIf="settingsData?.primaryContact?.departmentCount > 25"
+              popover="{{settingsData?.primaryContact?.department}}" popoverPlacement="bottom-left"
+              [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" [popoverCloseOnMouseOutside]="false"
+              [popoverDisabled]="false" [popoverAnimation]="true">{{settingsData?.primaryContact?.departmentwithcnt}} </p> -->
+          </div>
+        </div>
+        <!-- <div *ngIf="userType && userType == 'U' && companytype == 1">
+          <div class="cmpnyinfo">
+            <p class="labelcmp m-0">Created On</p>
+            <p class="infocmp m-0">{{settingsData?.primaryContact?.createdon || '-'}}</p>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- accountsettings -- securitydetail -- maporcreate -->
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #drawer class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-maporcreateuser *ngIf="avoidmultiv" #maporcreateuser [contentObj]="contentObj" (disablechgnadmin)="ischangeadmin=1"
+      (showLoader)="showLoaderOutput($event)" [settingsData]="settingsData" [reusedFor]="'changeuser'"
+      [drawer]="drawer"></app-maporcreateuser>
+  </mat-drawer>
+</mat-drawer-container> 
+<mat-drawer-container class="example-container">
+  <mat-drawer disableClose #draweraddinguser  class="example-sidenav sidenavsamewidthall" mode="over" position="end">
+    <app-addusersidenav [fromwhere]="1" [fromwheremobile]="1" [triggercountrymst]="triggercountryser" #addUpdateemail #addUpdateUserRef [draweraddinguser]="draweraddinguser"
+      [addUserFromType]="addUserFromType" (reloadGrid)="reload($event)"></app-addusersidenav>
+  </mat-drawer>
+</mat-drawer-container> 
+  <mat-drawer-container class="example-container">
+  <mat-drawer disableClose #draweruserallocation class="example-sidenav sidenavsamewidthall filtersidenav" mode="over"
+    position="end">
+    <app-userallocation *ngIf="viewpermission"  (showLoader)="showLoaderOutput($event)"  [draweruserallocation]="draweruserallocation" #addUpdateAccess 
+    (userPermData)="userPermData($event)" [onlyview]="1" [currentUserPk]="encrypt.encrypt(settingsData?.primaryContact?.pk)"></app-userallocation>
+  
+    <!-- <app-viewpermissionsidenav [viewpermissionsidenav]="viewpermissionsidenav"></app-viewpermissionsidenav> -->
+  </mat-drawer>
+</mat-drawer-container>

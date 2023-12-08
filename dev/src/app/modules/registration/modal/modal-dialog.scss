@@ -1,0 +1,79 @@
+.thanktextcolor {
+    h5 {
+        color: #71bf15;
+        font-size: 1.125rem;
+        font-weight: bold;
+        padding-bottom: 10px;
+    }
+    .successicon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #71c016;
+        color: #fff !important;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+}
+.formcolor {
+    color: #333;
+}
+.homebtn {
+    min-width: 125px;
+    height: 40px;
+}
+.loginbtn {
+    width: 110px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #006cb7;
+    color: #ffffff;
+    border: none;
+}
+.widthdialog {
+    min-width: fit-content;
+    max-width: 605px;
+    min-height: 370px;
+}
+.nextorange {
+    color: #f3801f;
+    font-size: 0.9375rem;
+    font-weight: bold;
+    margin: 0;
+    padding-bottom: 3px;
+}
+
+.quickinforeg
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0px;
+    li
+    {
+        font-size: 0.875rem; 
+        padding-right: 0px;
+        padding-left: 20px;
+        &:first-child{
+             list-style-type: none !important;
+        }
+        &:last-child{
+            padding-right: 0px !important;
+        }
+    }
+}
+.gotomail
+{
+    color: #333;
+    -webkit-text-stroke: 0.3px;
+}
+
+
+
+::ng-deep.userregpop_class{
+    .mat-dialog-container{
+           border-radius: 10px !important;
+    }
+}

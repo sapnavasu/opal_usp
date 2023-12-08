@@ -1,0 +1,233 @@
+#viewandapprove{
+    display: flex;
+    flex-direction: column !important;
+    color: #848484;
+    letter-spacing: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    /*padding-left: 100px;
+    padding-right: 100px;*/
+
+   
+   
+    .batchheader{
+        display: flex;
+        border: 1px solid lightgray;
+        width: 100%;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        font-size:15px;
+        p {
+            padding: 0px;
+            margin: 6px 0;
+            &.learnername{
+                font-family:'opal_semibold', sans-serif;
+            }
+
+        }
+        .batchinnerdiv{
+            p{
+                border: 1px solid lightgray;
+                margin-right: 10px;
+                &:last-child{
+                    margin-right:0px;
+                }
+                &.boxpadd{
+                    padding:5px;
+                }
+            }
+            span{
+                &.colred{
+                    color:#ED1C27;
+                }
+                &.colgreen{
+                    color:#00A551;
+                }
+                &.paid{
+                    color:#5fcc32;
+                }
+                &.colorange{
+                    color:#f4811f;
+                }
+            }
+        }
+    }
+    .approve{
+        padding: 0px 0px;
+        p {
+            padding: 0px 5px;
+            margin: 2px 0;
+        }
+       
+        button.mat-menu-item{
+            width: 50%;
+
+            
+        }
+      
+        .mat-tab-label {
+            opacity: 1;
+            border-radius: 0;
+            background-clip: padding-box;
+           // background-color: #eaedf2;
+            margin-right: 10px;
+            height: 36px;
+            justify-content: flex-start !important;  
+            &.mat-tab-label-active {
+                background-color: #0c4b9a !important;
+                color: #fff !important;
+            }
+            @media (max-width:800px){
+                margin-bottom:10px;
+             }   
+        }
+        
+    }
+    
+    
+    .just.validatebtn{
+        display: flex;
+        justify-content:end;
+        width: 100%;
+
+        .validet {
+            background-color: #0c4b9a !important;
+            color: #fff !important;
+            height: 45px;
+            min-width: 120px;
+            border: 1px solid #d7dce3;
+            box-shadow: none;
+        }
+    }
+        // .just button{
+        //         padding: 5px 40px;
+        // background-color: #0c4b9a;
+        // color: #fff;
+        // border-color: #0c4b9a;
+        //      }
+             
+    .topmenu{
+                width: 200%;
+                height: 200%;
+             }
+   .filter{
+    box-sizing:content-box;
+   }
+    .approveupload{
+        padding: 10px 0px 0px 0px;
+        border-radius: none;
+    }
+    .btnwhite{
+        padding: 2px 30px;
+        border-radius: 0px;
+        border: 0.5px solid rgba(218, 211, 211, 0.556);
+        background-color: #fff;
+        color: #000;
+        font-size:16px;
+       }
+    .mat-hint{
+        font-size: 12px;
+    }
+    .uploadapprovereport{
+        display: flex;
+        padding: 10px;
+        border-radius: 0%;
+
+        .uploadfile{
+            .ng-hide{
+                box-sizing: border-box;
+            }
+        }
+        
+        
+    }
+    
+    
+   .approve{
+    padding-top: 28px;
+   }
+    .col{
+        color: #979292;
+    }
+    .clflex{
+        display: flex;
+    }
+    .rwidth{
+        width: 100%;
+    }
+    .buttonalign{
+        text-align: right;
+    }
+    .colblack{
+        color: #000 !important;
+    }
+    .colgreen{
+        color: #00a551 !important;
+    }
+    .colred, .mat-sort-header-arrow{
+        color: #ed1c27 !important;
+    }
+        
+    .btnbac{
+        background-color:#f5f5f5;
+        padding: 8px 0px;
+        border-radius: 0%;
+        font-size:16px;
+    }
+    .btnbac.active{
+        background-color: #0c4b9a !important;
+        color: white;
+    }
+    .uploadapprovereport{
+        border: 1px dashed;
+        padding: 10px;
+        button{
+            background-color: #f5f5f5;
+            width: 100%;
+            padding: 10px;
+        }
+       }
+       .pdfimage{
+        width: 28px;
+        height:auto;
+        margin-right:10px;
+       }
+
+    .qualitycheckstatus {
+        border: 1px solid red;
+        padding: 10px 20px;
+        margin: 20px 0px;
+        background-color: #fff8f8;
+    }
+
+    .fpara{
+        color: red;
+        font-weight: 600;
+    }
+    .qcinnerf{
+        border-bottom: 1px solid #848484;
+        color: #000;
+    }
+    .profimage{
+        width: 100px;
+        height: 100px;
+    }
+        
+}
+
+
+
+
+// ::ng-deep {
+//     .mat-menu-panel.my-class {
+//     max-width: 700px;
+//     width: 700px;
+//     max-height: 300px;
+//     height: 270px;
+//     .mat-menu-content{
+//         padding: 30px !important;
+//     }
+//  }
+
+// }
+  

@@ -1,0 +1,299 @@
+<div id="assesorDate" fxLayoutAlign="center">
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>
+
+    <div fxFlex="100">
+        <div class="knowledgegrid m-t-10 m-b-20" fxLayout="column">
+            <div class="details pd-15" fxFlex="100">
+                <div class="head" fxLayout="row wrap">
+                    <h2 class="headcolor fs-18 m-0 lh-15">
+                        {{ifarbic ? viewStaffResponse?.staffName_ar ? viewStaffResponse?.staffName_ar : '-'
+                        :viewStaffResponse?.staffName_en ? viewStaffResponse?.staffName_en :'-'}}
+                    </h2>
+                </div>
+                <div class="m-t-10" fxLayout="row wrap">
+                    <p class="txt-gry m-0 fs-15 ">{{'staff.roleofcourse' | translate }}: <span class="txt-gry3">
+                            {{ifarbic ? viewStaffResponse?.courserole_ar ? viewStaffResponse?.courserole_ar : '-'
+                            :viewStaffResponse?.courserole_en ? viewStaffResponse?.courserole_en :'-'}}
+                        </span></p>
+                    <p class="txt-gry m-0 fs-15 m-l-10">{{'staff.coursubcate' | translate }}: <span class="txt-gry3">
+                            {{ifarbic ? viewStaffResponse?.categories_ar ? viewStaffResponse?.categories_ar : '-'
+                            :viewStaffResponse?.categories_en ? viewStaffResponse?.categories_en :'-'}}
+                        </span></p>
+                </div>
+                <div class="fs-13 m-t-20 m-b-20" fxLayout="row wrap">
+                    <p class="application-detais m-r-10 txt-gry m-0">{{'staff.civinumb' | translate}}: <span
+                            class="txt-gry3">{{viewStaffResponse?.civil_number ? viewStaffResponse?.civil_number : '-'}}</span>
+                    </p>
+                    <p class="application-detais m-r-10 txt-gry m-0">{{'staff.stat' | translate}}:
+                        <span class="green" *ngIf="viewStaffResponse?.account_status == 'A'">{{'Active' | translate}}</span>
+                        <span class="red" *ngIf="viewStaffResponse?.account_status == 'I'">{{'In-Active' | translate}}</span>
+                        <span class="blue" *ngIf="viewStaffResponse?.account_status == 'E'">{{'Email Confirmation Pending' | translate}}</span>
+                        <span class="red" *ngIf="viewStaffResponse?.account_status == null">{{'Yet to Create Account' | translate}}</span>
+                    </p>
+                    <p class="application-detais m-r-10 txt-gry m-0">{{'staff.compcard' | translate}}:
+                        <span class="approved" *ngIf="viewStaffResponse?.competency_card == '1'">{{'Active' | translate}}</span>
+                        <span class="New" *ngIf="viewStaffResponse?.competency_card == '2'">{{'Expired' | translate}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="availablecard ">
+            <form [formGroup]="availabelDate" #availabelFormRest="ngForm" class="p-l-10 p-r-10 p-b-25">
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-t-15">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="serachrow datepickerrangeform">
+
+                        <mat-form-field class="filter" appearance="outline">
+                            <mat-label> {{'staff.assesavai' | translate}}</mat-label>
+                            <div class="drpicker" id="regapp">
+                                <!-- <mat-label> {{'staff.assesavai' | translate}}</mat-label> -->
+                                <input id="login_session" formControlName="selectedDate" #selectedDateInput
+                                    [minDate]="minDate" required #pickers matInput type="text" autocomplete="off"
+                                    [(ngModel)]="selectedDaterange"
+                                    ngxDaterangepickerMd [showCustomRangeLabel]="true" [alwaysShowCalendars]="true"
+                                    [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                    [showClearButton]="true" class="form-control" [max]="today" />
+                                <div class="closeanddateicomax">
+                                    <mat-datepicker-toggle matSuffix>
+                                    </mat-datepicker-toggle>
+                                </div>
+                            </div>
+                            <mat-error *ngIf="form.selectedDate.errors?.required">
+                                {{'staff.seleassesavail' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="25" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                        ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'course.courstarttime' | translate}} </mat-label>
+                            <input matTimepicker #td="matTimepicker" [strict]="false" id="form" formControlName="startDate"
+                                readonly required>
+                            <mat-icon matSuffix (click)="td.showDialog()">access_time</mat-icon>
+                            <mat-error *ngIf="form.startDate.errors?.required">
+                                {{'course.starttime' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-md="25" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                        ngClass.xl="p-l-30" fxFlex="100" class="date_exp">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'End Time' | translate}} </mat-label>
+                            <input matTimepicker #t="matTimepicker" readonly
+                            [minDate]="form.startDate.value" [strict]="false"
+                                (timeChange)="updateTime()" id="form" formControlName="EndDate" required >
+                            <mat-icon matSuffix (click)="t.showDialog()">access_time</mat-icon>
+                            <mat-error *ngIf="form.EndDate.errors?.required">
+                                {{'course.endtime' | translate}} </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+              
+                <div fxLayout="row wrap" fxLayoutAlign="end center" class="m-t-15">
+                    <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="clear()">{{'Clear' |
+                        translate}}</button>
+                    <button mat-raised-button class="submitbtn" type="button"  *ngIf="isDataUpdate == false" (click)="submitdata()">{{'payment.subm' |
+                        translate}}</button>
+                    <button mat-raised-button class="submitbtn" type="button" *ngIf="isDataUpdate == true" (click)="updateData()">{{'Update' |
+                        translate}}</button>
+                </div>
+            </form>
+            <div class="p-l-10 p-r-10">
+                <div class="paginationwithfilter masterPageTop ">
+                    <!-- [style.visibility]="(resultsLength > 5) ? 'visible' : 'hidden' " -->
+                    <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+                    <div fxLayout="row wrap" fxLayoutAlign="end">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                class="filter">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                        <div class="awaredtable">
+                            <mat-table #table class="scrolldata" [dataSource]="TrainingtimeData" matSort
+                                matSortDisableClear>
+                                <ng-container matColumnDef="date">
+                                    <mat-header-cell fxFlex="300px" fxFlex.lg="400px" fxFlex.gt-lg="400px"
+                                        mat-header-cell *matHeaderCellDef mat-sort-header>{{'Date' |
+                                        translate}}</mat-header-cell>
+                                    <mat-cell data-label="date" fxFlex="300px" fxFlex.lg="400px" fxFlex.gt-lg="400px"
+                                        *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">{{TrainingData.date}} </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="time">
+                                    <mat-header-cell fxFlex="350px" fxFlex.lg="420px" fxFlex.gt-lg="450px"
+                                        mat-header-cell *matHeaderCellDef>{{'Time' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="time" fxFlex="350px" fxFlex.lg="420px" fxFlex.gt-lg="450px"
+                                        *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">{{TrainingData.time}} </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="status">
+                                    <mat-header-cell fxFlex="250px" fxFlex.lg="300px" fxFlex.gt-lg="300px"
+                                        mat-header-cell *matHeaderCellDef>
+                                        {{'course.stat' | translate}} </mat-header-cell>
+                                    <mat-cell data-label="status" fxFlex="250px" fxFlex.lg="300px" fxFlex.gt-lg="300px"
+                                        *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                                <span *ngIf="TrainingData?.assd_dayschedule == 64" class="Available">{{ifarbic == true?(TrainingData.status_ar):(TrainingData.status_en)}}</span>
+                                                <span *ngIf="TrainingData?.assd_dayschedule == 29" class="Available Not ">{{ifarbic == true?(TrainingData.status_ar):(TrainingData.status_en)}}</span>
+                                                 <span *ngIf="TrainingData?.assd_dayschedule == 30" class="Weekend">{{ifarbic == true?(TrainingData.status_ar):(TrainingData.status_en)}}</span>
+                                                 <span *ngIf="TrainingData?.assd_dayschedule == 31" class="Holiday">{{ifarbic == true?(TrainingData.status_ar):(TrainingData.status_en)}}</span>
+                                                 <span *ngIf="TrainingData?.assd_dayschedule == 32" class="Booked">{{ifarbic == true?(TrainingData.status_ar):(TrainingData.status_en)}}</span>
+                                            </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="action" stickyEnd>
+                                    <mat-header-cell fxFlex="128px" fxFlex.gt-lg="157px" mat-header-cell
+                                        *matHeaderCellDef>{{'branch.action'
+                                        | translate}}
+                                    </mat-header-cell>
+                                    <mat-cell data-label="action" fxFlex="128px" fxFlex.gt-lg="157px"
+                                        *matCellDef="let TrainingData">
+                                        <div *ngIf="tblplaceholder" class="w-100">
+                                            <div class="tabledataloader"></div>
+                                        </div>
+                                        <div *ngIf="!tblplaceholder">
+                                            <!-- <div class="manageoptions" *ngIf="TrainingData.dtype == 'yes' "> -->
+                                            <div class="manageoptions" *ngIf="TrainingData?.assd_dayschedule == 32 || TrainingData?.assd_dayschedule == 29 || TrainingData?.assd_dayschedule == 64">
+                                                <button class="menubutton" mat-icon-button
+                                                    [matMenuTriggerFor]="actionmenu"
+                                                    aria-label="Example icon-button with a menu">
+                                                    <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                                                </button>
+                                                <mat-menu #actionmenu="matMenu"
+                                                    class="master-menu whentootltipadded table_menu">
+                                                    <!-- edit -->
+                                                    <button *ngIf=" TrainingData?.assd_dayschedule == 32" type="button" (click)="navigatebatch(TrainingData.staffInfo,TrainingData.assd_date)" mat-menu-item><span>{{'View' |translate}}</span></button>
+                                                    <button type="button" mat-menu-item *ngIf="TrainingData?.assd_dayschedule == 64"><span (click)="edit(civilNumber, StaffInfotmp, TrainingData.id, TrainingData.start, TrainingData.end)">{{'Edit' |translate}}</span></button>
+                                                    <button type="button" mat-menu-item *ngIf="TrainingData?.assd_dayschedule == 64"><span (click)="updateStatus(TrainingData?.id, 29)">{{'Mark as Not Available' |translate}}</span></button>
+                                                    <button type="button" mat-menu-item *ngIf="TrainingData?.assd_dayschedule == 29"><span (click)="updateStatus(TrainingData?.id, 64)">{{'Mark as Available'|translate}}</span></button>
+                                                    <button type="button" mat-menu-item *ngIf="TrainingData?.assd_dayschedule == 64 || TrainingData?.assd_dayschedule == 29"><span (click)="updateStatus(TrainingData?.id, 31)">{{'Mark as Holiday'|translate}}</span></button>
+
+                                                    <!-- <button  type="button" mat-menu-item (click)="updateaccessorinfo(TrainingData.appstaffscheddtls_pk,32)"><span>{{'Mark as Booked'| translate}} </span></button> -->
+                                                    <!-- <button type="button" mat-menu-item
+                                                        (click)="navigatebatch(TrainingData.assd_appstaffinfotmp_fk,TrainingData.assd_date)"><span>{{'View
+                                                            Batch' | translate}} </span></button> -->
+                                                </mat-menu>
+
+                                            </div>
+
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-first">
+                                    <mat-header-cell fxFlex="300px" fxFlex.lg="400px" fxFlex.gt-lg="400px"
+                                        class="serachrow datepickerrangeform" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <div class="drpicker" id="regapp">
+                                                <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                                <input id="login_session"
+                                                    (ngModelChange)="applyFilter($event,'addeddate')"
+                                                    [formControl]="addeddate"
+                                                    (datesUpdated)="changeDateInsp($event,'addeddate')" #pickers
+                                                    matInput type="text" autocomplete="off" ngxDaterangepickerMd
+                                                    [showCustomRangeLabel]="true" [alwaysShowCalendars]="true"
+                                                    [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                                    [showClearButton]="true" [maxDate]='selected2' readonly
+                                                    class="form-control" [max]="today" />
+                                                <div class="closeanddateicon">
+                                                    <mat-datepicker-toggle matSuffix>
+                                                    </mat-datepicker-toggle>
+                                                </div>
+                                            </div>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-second">
+                                    <mat-header-cell fxFlex="350px" fxFlex.lg="420px" fxFlex.gt-lg="450px"
+                                        class="serachrow" *matHeaderCellDef style="text-align:center">
+
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-three">
+                                    <mat-header-cell fxFlex="250px" fxFlex.lg="300px" fxFlex.gt-lg="300px"
+                                        class="serachrow" *matHeaderCellDef style="text-align:center">
+                                        <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'table.sele' |
+                                                translate}}</mat-label>
+                                            <mat-select [formControl]="status"
+                                                (selectionChange)="applyFilter($event.value,'cert')"
+                                                (selectionChange)="mltiSelect($event,'status')" multiple>
+                                                <mat-option value="64">{{'batchview.availa' | translate}}</mat-option>
+                                                <mat-option value="29">{{'batchview.notavai' | translate}}</mat-option>
+                                                <mat-option value="30">{{'batchview.week' | translate}}</mat-option>
+                                                <mat-option value="31">{{'batchview.holi' | translate}}</mat-option>
+                                                <mat-option value="32">{{'Booked' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-four" stickyEnd>
+                                    <mat-header-cell fxFlex="128px" fxFlex.gt-lg="157px" class="serachrow"
+                                        *matHeaderCellDef style="text-align:center">
+
+                                        <i class="fa fa-refresh m-l-15 cursorview"
+                                            (click)="clearFiltersecound();filtersts=false;" aria-hidden="true"
+                                            matTooltip="{{'table.refr' |translate}}"></i>
+                                    </mat-header-cell>
+                                </ng-container>
+                                <mat-header-row id="headerrowcells" *matHeaderRowDef="TrainingDate;">
+                                </mat-header-row>
+                                <mat-header-row id="searchrow"
+                                    *matHeaderRowDef="['row-first' , 'row-second' , 'row-three' , 'row-four']">
+                                </mat-header-row>
+                                <mat-row mat-row *matRowDef="let row; columns: TrainingDate;"></mat-row>
+                                <ng-container matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="11">
+                                        <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container>
+
+                                    <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                        [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                        *matFooterRowDef="['disclaimer']"
+                                        style="justify-content: center;display: none;">
+                                    </mat-footer-row>
+                                </ng-container>
+                            </mat-table>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom " showFirstLastButtons
+                                    [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                    [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+            <!-- <button mat-raised-button class="cancelbtn" (click)="cancle()"></button> -->
+            <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="backBtn()">{{'Back' |
+                translate}}</button>
+            <!-- <button mat-raised-button class="submitbtn" type="button" (click)="subdate.emit()">{{'payment.subm' | translate}}</button> -->
+        </div>
+    </div>
+</div>

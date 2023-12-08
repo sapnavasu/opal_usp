@@ -1,0 +1,96 @@
+<div id="commentbox">
+    <div class="popup scrollerdata" fxLayout="column" >
+        <div class="header" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <h4 *ngIf="showField1 && !showField4" class="fs-20 red m-0">{{'batch.cancle' | translate}}</h4>
+            <h4 *ngIf="showField2 && !showField4 " class="fs-20 red m-0">{{'batch.request' | translate}}</h4>
+            <h4 *ngIf="showField3 && !showField4" class="fs-20 red m-0">{{'batch.updatebatch' | translate}}</h4>
+            <h4 *ngIf="showField4" class="fs-20 red m-0">{{'batch.reqopalaccess' | translate}}</h4>
+            <mat-icon class="fs-20 txt-gry" matTooltip="{{'batch.close' | translate}}" (click)="closeModalPopup()">close</mat-icon>
+        </div>
+        <mat-divider class="m-t-5 m-b-15"></mat-divider>
+
+        <div class="content" fxLayout="column" *ngIf="showField1 && !showField4" >
+            <p class="fs-16 txt-gry m-0 p-b-5">{{'batch.batchno' | translate}}</p>
+            <p class="fs-16 txt-gry3 m-0">354435645</p>
+        </div>
+          <form  [formGroup]="validationForm" >
+              <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-10 m-l-25 m-r-25" *ngIf="showField1 || showField2 || showField4">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                  <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                    <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                      <div class="ckeditorborder">
+                        <p class="editortitle importantfield txt-gry3">{{'validation.comm' | translate}} <span class="error" *ngIf="manditory">*</span> </p>
+                        <div class="contenthere" [innerHTML]='techinfo'>
+                        </div>
+                      </div>
+                      <div class="messagecount" fxLayoutAlign="flex-end">
+                        <p class="m-0 txt-gry"> {{length_Of_ck}} / 1000</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" *ngIf="edittechinfo">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-10">
+                      <div class="d-flex">
+                        <span class="d-block ckeditortitle p-b-5 importantfield txt-gry">{{'validation.comm' | translate}}<span class="error" *ngIf="manditory"> *</span></span>
+                      </div>
+                      <div class="ckeditror finalgrade">
+                        <ckeditor (change)="onChangeeditor($event)" [(ngModel)]="contact" 
+                        [editor]="Editor" [config]="config" [formControl]="validationForm.controls['comments']"
+                        appAlphanumsymb></ckeditor>
+                        <!-- <ckeditor [ngClass]="{'is-invalid': f.comments.touched && f.comments.errors }"
+                          (change)="onChangeeditor($event)" [(ngModel)]="contact" (ready)="onReady($event)"
+                          [editor]="Editor" [config]="config" [formControl]="validationForm.controls['comments']"
+                          appAlphanumsymb [required]="false" #myEditor  (keydown)="ck.ckeditor_count(contact) >= 1000 ? $event.stopPropagation() : ''" >
+                        </ckeditor>
+                      
+                      </div>
+                    
+                      <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                        <p class="txt-gry m-0 m-t-5"> {{length_Of_ck}}/1000</p>
+                      </div> -->
+                      <mat-hint *ngIf="length_Of_ck>1000" class="error font-14"
+                        align="start">{{'validation.cannexcechar' | translate}}</mat-hint>
+                      <div *ngIf="(f.comments.touched && f.comments.errors?.required == true) ">
+                        <div class="error fs-13" *ngIf="f.comments.touched &&  f.comments.errors">
+                          {{'validation.entemess' | translate}}</div>
+                      </div>
+                      <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                        <p class="txt-gry m-0 m-t-5"> {{length_Of_ck}}/1000</p>
+                      </div> 
+                      <div class="clearbut p-t-10 b-5" fxLayoutAlign="flex-end">
+                        <button type="button" [disabled]="validationForm.controls['comments'].value?.length==0"
+                          (click)="resinfo()" mat-raised-button
+                          class="m-r-10 clearbutton button-40">{{'validation.clear' | translate}}</button>
+                        <button mat-raised-button color="primary" [disabled]="length_Of_ck>1000 || length_Of_ck == 0"
+                          (click)="messagedone()" class="button-40">{{'validation.done' |
+                          translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center" class="m-t-20  m-l-25 m-r-25" *ngIf="showField3 && !showField4">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field appearance="outline">
+                        <mat-select  formControlName="status"
+                            panelClass="select_with_search" (selectionChange)="statusupdatevalue(f.status.value)">
+                            <mat-option [value]="1">{{'batch.app' | translate}}</mat-option>
+                            <mat-option [value]="2">{{'batch.new' | translate}}</mat-option>
+                            <mat-option [value]="3">{{'batch.fail' | translate}}</mat-option>
+                        </mat-select>
+                        <mat-label>{{'batch.selestatus' | translate}}</mat-label>
+                        <!-- <mat-error *ngIf="f.status.errors?.required || validationForm.submitted">
+                            {{'batch.selectstatus' | translate}}
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                </div>
+              <div class="btngroup m-t-1ck-editor__main0 m-b-20 m-l-25 m-r-25 m-t-15"  fxLayout="row" fxLayoutAlign="flex-end">
+                <button mat-raised-button class="cancel_btn" (click)="close()"   type="button">{{'validation.canc' | translate}}</button>
+                <button mat-raised-button class="submitbtn m-l-20" *ngIf="showField1 || showField2 || showField4" color="primary" (click)="submitted()" [disabled]="length_Of_ck>1000 || done" type="submit" >{{'validation.sumb' | translate}}</button>
+                <button mat-raised-button class="submitbtn m-l-20" *ngIf="showField3"  color="primary" (click)="submitted()" [disabled]="statustrue" type="submit" >{{'validation.sumb' | translate}}</button>
+              </div>
+            </form>
+    </div>
+</div>

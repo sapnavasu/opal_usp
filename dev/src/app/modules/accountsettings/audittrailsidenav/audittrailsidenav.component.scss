@@ -1,0 +1,356 @@
+@mixin flexcenter {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.audit_mainclass{
+    #audit_traillist{
+        .heading_oftable{
+            .expand_mainclass{
+                .end_switch{
+                    @include flexend();
+                    .oncolor{
+                        color: #14a922;
+                    }
+                    .offcolor{
+                         color: #eb3b3b;
+                    }
+                }
+                .profilecolor{
+                    padding-bottom: 12px;
+                    padding-top: 12px;
+                     P{
+                         color: #f4811f;
+                         margin: 0px;
+                     }
+                }
+                .externalbox{
+                    padding: 20px;
+                    border: 1px solid #dde4e9;
+                    background-clip: padding-box;
+                    background-color: #fff;
+                    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+                    .subtitle_secondrow{
+                        p{
+                            color: #666;
+                            margin: 0px;
+                        }
+                    }
+    
+                }
+            }
+           .example-expanded-row .aftercolor::after{
+              transform: rotate(180deg);
+              color: #006cb7 !important;
+            }
+             .mat-header-row {
+                min-height: 42px;
+                background-color: #e0f0ff;
+                border-radius: 2px;
+                border: none;
+            }
+            .aftercolor{
+                position: relative;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                display: inline-block;
+                cursor:pointer;
+                    img{
+                         width: 20px;
+                         height: 20px;
+                         margin-left: 14px;
+                        margin-top: 15px;
+                        }
+                    }
+                     .mat-ripple:not(:empty) {
+                        padding-left: 12px;
+                    }
+                    .aftercolor::after{
+                        font-family: "bgi-icon" !important;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-variant: normal;
+                        text-transform: none;
+                        line-height: 1;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        content: "\e908";
+                        cursor:pointer;
+                        color: #7f8fa4;
+                        vertical-align: middle;
+                        position: absolute;
+                        top: 6px;
+                        font-size: 0.625rem;
+                        text-align: center;
+                        right: 20px;
+                        font-weight: 600;
+                        left: auto;
+                    }        
+             
+            th{
+               text-align: left;
+               color: #333;
+            }
+         }
+         table {
+            width: 100%;
+          }
+          .example-detail-row {
+            min-height: 0;
+            height: 0;
+            td{
+                padding: 0 !important;
+                font-size: 0.875rem;
+                color: #333;
+            }
+          }
+          .example-expanded-row +.example-detail-row {
+            min-height: auto;
+            height: auto;
+          }
+          .example-element-row:not(.example-expanded-row):hover {
+            background: whitesmoke;
+          }
+          
+          .example-element-row:not(.example-expanded-row):active {
+            background: #efefef;
+          }
+          
+          .example-element-row td {
+            border-bottom-width: 0;
+            font-size: 0.875rem;
+            color: #333;
+          }
+          
+          .example-element-detail {
+            overflow: hidden;
+            display: flex;
+          }
+          
+          .example-element-diagram {
+            min-width: 80px;
+            border: 2px solid black;
+            padding: 8px;
+            font-weight: lighter;
+            margin: 8px 0;
+            height: 104px;
+          }
+          
+          .example-element-symbol {
+            font-weight: bold;
+            font-size: 2.5rem;
+            line-height: normal;
+          }
+          
+          .example-element-description {
+            padding: 16px;
+          }
+          .example-element-description-attribution {
+            opacity: 0.5;
+          }
+
+        .daterangepickerfilter {
+            position: relative;
+         
+            .md-drppicker
+            {
+              right:1px !important;
+            }
+            .flexdaterange{
+                @include spacebetween();
+            }
+          }
+          .dateselect {
+            .drpicker {
+                @include flexstart();
+                padding-top: 2px;
+                position: relative;
+                input.mat-input-element {
+                  height: auto;
+                  font-size: 0.8125rem;
+                  background: transparent;
+                  cursor: pointer;
+                  z-index: 9999;
+                }
+                input.mat-input-element:focus {
+                  box-shadow: none !important;
+                }
+                .md-drppicker .btn {
+                  line-height: 1.5;
+                  height: 30px;
+                  padding-left: 10px !important;
+                  padding-right: 10px !important;
+                  text-transform: capitalize !important;
+                }
+                .mat-datepicker-toggle {
+                  display: flex;
+                  position: absolute;
+                  right: 0;
+                  z-index: 0;
+                }
+                .mat-icon-button {
+                  height: auto;
+                  line-height: inherit;
+                  width: auto;
+                  .mat-button-wrapper {
+                    @include flexend();
+                  }
+                }
+                .md-drppicker.double {
+                  @media (max-width: 1279px) {
+                    max-width: 278px;
+                    left: -20px !important;
+                    margin-top: 15px;
+                  }
+                  @media (min-width: 1280px) {
+                    min-width: 540px;
+                    margin-left: -20px;
+                    left: auto !important;
+                    margin-top: 15px;
+                  }
+                  .buttons {
+                    float: left;
+                    width: 100%;
+                    padding-right: 10px;
+                  }
+                  .btn.clear {
+                    background: #bbb !important;
+                    margin-right: 8px;
+                    svg {
+                      display: none !important;
+                    }
+                  }
+                  th.month {
+                    div {
+                      text-align: left;
+                      margin-right: 12px;
+                    }
+                  }
+                }
+                .mat-datepicker-toggle-default-icon {
+                  height: 15px;
+                }
+              }
+              .md-drppicker
+              {
+                right:1px !important;
+              }
+            .mat-form-field-appearance-legacy .mat-form-field-ripple {
+              display: none;
+            }
+            .mat-form-field
+            {
+              width: 205px !important;
+            }
+            .mat-form-field-flex {
+              align-items: center;
+            }
+            .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+              padding-bottom: 13px;
+            }
+            .mat-form-field.mat-focused .mat-form-field-label {
+              color: #006cb7;
+              opacity: 0;
+            }
+            .mat-form-field-infix {
+              border-top: 0;
+            }
+            input.mat-input-element,
+            .mat-form-field-label {
+              font-size: 0.875rem;
+              padding-left: 5px;
+              color: #333 !important;
+            }
+            .cleardate {
+              position: absolute;
+              top: 0;
+              cursor: pointer;
+              color: rgba(0, 0, 0, 0.54);
+              right: 22px;
+              font-size: 1.125rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 15px;
+              margin-top: 2px;
+              z-index: 9999;
+            }
+            .closeanddateicon
+            {
+              display: flex !important;
+              align-items: center !important;
+            }
+          }
+      }
+    .audittrailbottomlist{
+        width: 100%;
+        border-bottom: 1px solid #dadada;
+        .audittrailflexalign{
+            width: 100%;
+            .auditheader{
+                @include flexstart();
+                .subtitleofaudit{
+                    h4{
+                        color: #006cb7;
+                        padding-bottom: 2px;
+                    }
+                }
+                 .imageview{
+                    width: 45px;
+                    height: 45px;
+                    border: 1px solid #ddd;
+                    border-radius: 3px;
+                    margin-right: 10px;
+                      img{
+                            max-width: 100%;
+                      }
+                 }   
+            }
+          } 
+      }
+}
+
+@media (max-width:768px){
+  #audit_traillist{
+    .mat-table .mat-row {
+      display: flex !important;
+      }
+  }
+ 
+}
+
+@media (max-width:767px){
+  .audittrailflexalign{
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+  }
+  #audit_traillist{
+    .mat-table .mat-row {
+      display: block !important;
+      padding: 10px;
+      }
+      .heading_oftable .aftercolor::after {
+        position: absolute;
+        top: 25px !important;
+        right: -276px !important;
+        
+    }
+  }
+}

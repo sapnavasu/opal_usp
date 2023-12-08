@@ -1,0 +1,66 @@
+
+@mixin flexcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+}
+@mixin flexstart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center ;
+}
+@mixin flexend {
+    display: flex;
+    justify-content: flex-end ;
+    align-items: center ;
+}
+@mixin spacebetween {
+    display: flex;
+    justify-content: space-between ;
+    align-items: center ;
+}
+
+.widthdialognote{
+    max-width: 500px;
+    .textcolor{
+        padding-left: 40px;
+        padding-right: 20px;
+        .businesscolor{
+            color: #f48424;
+        }
+        .wayscolor{
+            color: #0670b9;
+        }
+        li{
+            color: #333;
+            font-size: 0.875rem;  
+            padding-bottom: 15px;
+        }
+    }
+    .spacenote{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .paymentnotecolor{
+        h2{
+            color: #4aa2ac;
+            font-size: 1.125rem;
+            margin: 0px;
+            font-family: 'opal_semibold';
+            padding-left: 22px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+    } 
+    .loginbtn{
+        @include flexend();
+        margin-right: 20px;
+        margin-top: 25px;
+         button{
+             width: 100px;
+             color: #fff;
+             border-radius: 2px !important;
+             @include flexcenter;
+         }
+    }  
+}

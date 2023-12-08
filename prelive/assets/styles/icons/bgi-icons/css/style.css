@@ -1,0 +1,1605 @@
+@font-face {
+    font-family: 'bgi-icon';
+    src:  url('fonts/bgi-icon.eot?r13pqr');
+     src:  url('fonts/bgi-icon.eot?r13pqr#iefix') format('embedded-opentype'),
+    url('fonts/bgi-icon.ttf?r13pqr') format('truetype'),
+    url('fonts/bgi-icon.woff?r13pqr') format('woff'),
+    url('fonts/bgi-icon.svg?r13pqr#bgi-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.bgi {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "bgi-icon" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bgi-export:before {
+  content: "\e900";
+}
+.bgi-add:before {
+  content: "\e901";
+}
+.bgi-biz_search:before {
+  content: "\e902";
+}
+.bgi-close:before {
+  content: "\e903";
+}
+.bgi-collbrate:before {
+  content: "\e904";
+}
+.bgi-contact-book:before {
+  content: "\e905";
+}
+.bgi-date:before {
+  content: "\e906";
+}
+.bgi-delete:before {
+  content: "\e907";
+}
+.bgi-dropdown:before {
+  content: "\e908";
+}
+.bgi-edit:before {
+  content: "\e909";
+}
+.bgi-feed_backs:before {
+  content: "\e90a";
+}
+.bgi-filter:before {
+  content: "\e90b";
+}
+.bgi-full-screen:before {
+  content: "\e90c";
+}
+.bgi-home:before {
+  content: "\e90d";
+}
+.bgi-import:before {
+  content: "\e90e";
+}
+.bgi-information:before {
+  content: "\e90f";
+}
+.bgi-jsrs_connect:before {
+  content: "\e910";
+}
+.bgi-like:before {
+  content: "\e911";
+}
+.bgi-list_menu:before {
+  content: "\e912";
+}
+.bgi-male:before {
+  content: "\e913";
+}
+.bgi-more:before {
+  content: "\e914";
+}
+.bgi-notification:before {
+  content: "\e915";
+}
+.bgi-question-1:before {
+  content: "\e916";
+}
+.bgi-question:before {
+  content: "\e917";
+}
+.bgi-quick_link:before {
+  content: "\e918";
+}
+.bgi-search:before {
+  content: "\e919";
+}
+.bgi-settings:before {
+  content: "\e91a";
+}
+.bgi-share:before {
+  content: "\e91b";
+}
+.bgi-speech-bubble:before {
+  content: "\e91c";
+}
+.bgi-star:before {
+  content: "\e91d";
+}
+.bgi-tender:before {
+  content: "\e91e";
+}
+.bgi-tick:before {
+  content: "\e91f";
+}
+.bgi-user:before {
+  content: "\e920";
+}
+.bgi-speech-bubble_2:before {
+  content: "\e921";
+}
+.bgi-Upload_1:before {
+  content: "\e922";
+}
+.bgi-upload_logo:before {
+  content: "\e923";
+}
+.bgi-department_management:before {
+  content: "\e924";
+}
+.bgi-profile_management:before {
+  content: "\e925";
+}
+.bgi-tags:before {
+  content: "\e926";
+}
+.bgi-awards:before {
+  content: "\e927";
+}
+.bgi-honor:before {
+  content: "\e928";
+}
+.bgi-certificate:before {
+  content: "\e929";
+}
+.bgi-view:before {
+  content: "\e92a";
+}
+.bgi-back:before {
+  content: "\e92b";
+}
+.bgi-download:before {
+  content: "\e92c";
+}
+.bgi-products:before {
+  content: "\e92d";
+}
+.bgi-Activities:before {
+  content: "\e92e";
+}
+.bgi-folder:before {
+  content: "\e92f";
+  color: #ebba16;
+}
+.bgi-contact:before {
+  content: "\e930";
+}
+.bgi-move:before {
+  content: "\e931";
+}
+.bgi-sort:before {
+  content: "\e932";
+}
+.bgi-add-button:before {
+  content: "\e933";
+}
+.bgi-play:before {
+  content: "\e934";
+}
+.bgi-web:before {
+  content: "\e938";
+}
+.bgi-mobile:before {
+  content: "\e939";
+}
+.bgi-mail:before {
+  content: "\e93a";
+}
+.bgi-validationbank:before {
+  content: "\e935";
+}
+.bgi-approval:before {
+  content: "\e936";
+}
+.bgi-tendersauctions:before {
+  content: "\e937";
+}
+.bgi-tendersandcontracts:before {
+  content: "\e93b";
+}
+.bgi-tendermanagement:before {
+  content: "\e93c";
+}
+.bgi-salesmarketing:before {
+  content: "\e93d";
+}
+.bgi-procurement:before {
+  content: "\e93e";
+}
+.bgi-operatorzone:before {
+  content: "\e93f";
+}
+.bgi-lookout:before {
+  content: "\e940";
+}
+.bgi-humanresource:before {
+  content: "\e941";
+}
+.bgi-Customerrelations:before {
+  content: "\e942";
+}
+.bgi-etendering:before {
+  content: "\e943";
+}
+.bgi-contractsonly:before {
+  content: "\e944";
+}
+.bgi-connectoman:before {
+  content: "\e945";
+}
+.bgi-careerbank:before {
+  content: "\e946";
+}
+.bgi-buyerszone:before {
+  content: "\e947";
+}
+.bgi-bizsearch:before {
+  content: "\e948";
+}
+.bgi-bidderdashboard:before {
+  content: "\e949";
+}
+.bgi-recruitments:before {
+  content: "\e94a";
+}
+.bgi-Map-it:before {
+  content: "\e94b";
+}
+.bgi-services:before {
+  content: "\e94c";
+}
+.bgi-people:before {
+  content: "\e94d";
+}
+.bgi-company:before {
+  content: "\e94e";
+}
+.bgi-recommed:before {
+  content: "\e94f";
+}
+.bgi-favorite:before {
+  content: "\e950";
+}
+.bgi-facebook:before {
+  content: "\e951";
+}
+.bgi-instagram:before {
+  content: "\e952";
+}
+.bgi-password:before {
+  content: "\e953";
+}
+.bgi-twitter:before {
+  content: "\e954";
+}
+.bgi-insight:before {
+  content: "\e955";
+}
+.bgi-Advancefilter:before {
+  content: "\e956";
+}
+.bgi-Savedsearch:before {
+  content: "\e957";
+}
+.bgi-N:before {
+  content: "\e958";
+}
+.bgi-History:before {
+  content: "\e959";
+}
+.bgi-Follow:before {
+  content: "\e95a";
+}
+.bgi-Undonew:before {
+  content: "\e95b";
+}
+.bgi-Linknew:before {
+  content: "\e95c";
+}
+.bgi-Follownew:before {
+  content: "\e95d";
+}
+.bgi-Favoritenew:before {
+  content: "\e95e";
+}
+.bgi-invite:before {
+  content: "\e95f";
+}
+.bgi-warningmsg:before {
+  content: "\e960";
+}
+.bgi-infomsg:before {
+  content: "\e961";
+}
+.bgi-youtubecolored .path1:before {
+  content: "\e962";
+  color: rgb(255, 0, 0);
+}
+.bgi-youtubecolored .path2:before {
+  content: "\e963";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-instagramcolored:before {
+  content: "\e964";
+}
+.bgi-infonew:before {
+  content: "\e965";
+}
+.bgi-Unfollownew:before {
+  content: "\e966";
+}
+.bgi-sectorpartner:before {
+  content: "\e967";
+}
+.bgi-operator:before {
+  content: "\e968";
+}
+.bgi-network:before {
+  content: "\e969";
+}
+.bgi-contactsupplier:before {
+  content: "\e96a";
+}
+.bgi-mastermaintenace:before {
+  content: "\e96b";
+}
+.bgi-ratingslatest:before {
+  content: "\e96c";
+}
+.bgi-shareproductlink:before {
+  content: "\e96d";
+}
+.bgi-workspacelatest:before {
+  content: "\e96e";
+}
+.bgi-user1:before {
+  content: "\e96f";
+}
+.bgi-upload:before {
+  content: "\e970";
+}
+.bgi-team:before {
+  content: "\e971";
+}
+.bgi-supplier:before {
+  content: "\e972";
+}
+.bgi-Time:before {
+  content: "\e973";
+}
+.bgi-spreadsheet:before {
+  content: "\e974";
+}
+.bgi-sme-small:before {
+  content: "\e975";
+}
+.bgi-smemicro:before {
+  content: "\e977";
+}
+.bgi-Shared-notes:before {
+  content: "\e978";
+}
+.bgi-round-add-button:before {
+  content: "\e97a";
+}
+.bgi-resume-and-cv:before {
+  content: "\e97b";
+}
+.bgi-reload:before {
+  content: "\e97c";
+}
+.bgi-recent:before {
+  content: "\e97d";
+}
+.bgi-public:before {
+  content: "\e97e";
+}
+.bgi-printer:before {
+  content: "\e97f";
+}
+.bgi-precision:before {
+  content: "\e980";
+}
+.bgi-place:before {
+  content: "\e981";
+}
+.bgi-pinned:before {
+  content: "\e982";
+}
+.bgi-pie-chart:before {
+  content: "\e983";
+}
+.bgi-photo-camera:before {
+  content: "\e984";
+}
+.bgi-phone-call:before {
+  content: "\e985";
+}
+.bgi-paper-plane:before {
+  content: "\e986";
+}
+.bgi-padlock:before {
+  content: "\e987";
+}
+.bgi-overdue:before {
+  content: "\e988";
+}
+.bgi-oman .path1:before {
+  content: "\e989";
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path2:before {
+  content: "\e98a";
+  margin-left: -1em;
+  color: rgb(115, 175, 0);
+}
+.bgi-oman .path3:before {
+  content: "\e98b";
+  margin-left: -1em;
+  color: rgb(255, 75, 85);
+}
+.bgi-oman .path4:before {
+  content: "\e98c";
+  margin-left: -1em;
+  color: rgb(255, 75, 85);
+}
+.bgi-oman .path5:before {
+  content: "\e98d";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path6:before {
+  content: "\e98e";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path7:before {
+  content: "\e98f";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path8:before {
+  content: "\e990";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path9:before {
+  content: "\e991";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path10:before {
+  content: "\e992";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path11:before {
+  content: "\e993";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path12:before {
+  content: "\e994";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path13:before {
+  content: "\e995";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path14:before {
+  content: "\e996";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path15:before {
+  content: "\e997";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path16:before {
+  content: "\e998";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path17:before {
+  content: "\e999";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path18:before {
+  content: "\e99a";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path19:before {
+  content: "\e99b";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path20:before {
+  content: "\e99c";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path21:before {
+  content: "\e99d";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path22:before {
+  content: "\e99e";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path23:before {
+  content: "\e99f";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path24:before {
+  content: "\e9a0";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path25:before {
+  content: "\e9a1";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path26:before {
+  content: "\e9a2";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path27:before {
+  content: "\e9a3";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path28:before {
+  content: "\e9a4";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path29:before {
+  content: "\e9a5";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path30:before {
+  content: "\e9a6";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path31:before {
+  content: "\e9a7";
+  margin-left: -1em;
+  color: rgb(245, 245, 245);
+}
+.bgi-oman .path32:before {
+  content: "\e9a8";
+  margin-left: -1em;
+  color: rgb(210, 55, 65);
+}
+.bgi-notes:before {
+  content: "\e9a9";
+}
+.bgi-No-image:before {
+  content: "\e9aa";
+}
+.bgi-next-1:before {
+  content: "\e9ab";
+}
+.bgi-monitor:before {
+  content: "\e9ac";
+}
+.bgi-mobile1:before {
+  content: "\e9ad";
+}
+.bgi-messenger .path1:before {
+  content: "\e9ae";
+  color: rgb(30, 136, 229);
+}
+.bgi-messenger .path2:before {
+  content: "\e9af";
+  margin-left: -1em;
+  color: rgb(250, 250, 250);
+}
+.bgi-medium:before {
+  content: "\e9b0";
+}
+.bgi-mail1:before {
+  content: "\e9b1";
+}
+.bgi-magnifying-Large:before {
+  content: "\e9b2";
+}
+.bgi-magnifying-glass:before {
+  content: "\e9b3";
+}
+.bgi-logout:before {
+  content: "\e9b4";
+}
+.bgi-login:before {
+  content: "\e9b5";
+}
+.bgi-location-pin .path1:before {
+  content: "\e9b6";
+  color: rgb(0, 150, 230);
+}
+.bgi-location-pin .path2:before {
+  content: "\e9b7";
+  margin-left: -1em;
+  color: rgb(113, 195, 134);
+}
+.bgi-location-pin .path3:before {
+  content: "\e9b8";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path1:before {
+  content: "\e9b9";
+  color: rgb(80, 80, 80);
+}
+.bgi-liyba-map .path2:before {
+  content: "\e9ba";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path3:before {
+  content: "\e9bb";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path4:before {
+  content: "\e9bc";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path5:before {
+  content: "\e9bd";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path6:before {
+  content: "\e9be";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path7:before {
+  content: "\e9bf";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path8:before {
+  content: "\e9c0";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path9:before {
+  content: "\e9c1";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path10:before {
+  content: "\e9c2";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path11:before {
+  content: "\e9c3";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path12:before {
+  content: "\e9c4";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path13:before {
+  content: "\e9c5";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path14:before {
+  content: "\e9c6";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path15:before {
+  content: "\e9c7";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path16:before {
+  content: "\e9c8";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path17:before {
+  content: "\e9c9";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path18:before {
+  content: "\e9ca";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path19:before {
+  content: "\e9cb";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path20:before {
+  content: "\e9cc";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path21:before {
+  content: "\e9cd";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path22:before {
+  content: "\e9ce";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path23:before {
+  content: "\e9cf";
+  margin-left: -1em;
+  color: rgb(129, 129, 129);
+}
+.bgi-liyba-map .path24:before {
+  content: "\e9d0";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path25:before {
+  content: "\e9d1";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path26:before {
+  content: "\e9d2";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path27:before {
+  content: "\e9d3";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path28:before {
+  content: "\e9d4";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path29:before {
+  content: "\e9d5";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path30:before {
+  content: "\e9d6";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path31:before {
+  content: "\e9d7";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path32:before {
+  content: "\e9d8";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-liyba-map .path33:before {
+  content: "\e9d9";
+  margin-left: -1em;
+  color: rgb(31, 163, 221);
+}
+.bgi-link:before {
+  content: "\e9da";
+}
+.bgi-like1:before {
+  content: "\e9db";
+}
+.bgi-investor:before {
+  content: "\e9dc";
+}
+.bgi-Investment-Firm:before {
+  content: "\e9dd";
+}
+.bgi-infinity:before {
+  content: "\e9de";
+}
+.bgi-history:before {
+  content: "\e9df";
+}
+.bgi-hide:before {
+  content: "\e9e0";
+}
+.bgi-heart:before {
+  content: "\e9e1";
+}
+.bgi-funnel:before {
+  content: "\e9e2";
+}
+.bgi-folder1:before {
+  content: "\e9e3";
+}
+.bgi-files-and-folders:before {
+  content: "\e9e4";
+}
+.bgi-file:before {
+  content: "\e9e5";
+}
+.bgi-favorites:before {
+  content: "\e9e6";
+}
+.bgi-edit1:before {
+  content: "\e9e7";
+}
+.bgi-duration:before {
+  content: "\e9e8";
+}
+.bgi-drive:before {
+  content: "\e9e9";
+}
+.bgi-download1:before {
+  content: "\e9ea";
+}
+.bgi-dislike:before {
+  content: "\e9eb";
+}
+.bgi-copy:before {
+  content: "\e9ec";
+}
+.bgi-configuration:before {
+  content: "\e9ed";
+}
+.bgi-chat-2:before {
+  content: "\e9ee";
+}
+.bgi-completed-task:before {
+  content: "\e9ef";
+}
+.bgi-chat-1:before {
+  content: "\e9f0";
+}
+.bgi-company-profile:before {
+  content: "\e9f1";
+}
+.bgi-back1:before {
+  content: "\e9f2";
+}
+.bgi-check .path1:before {
+  content: "\e9f3";
+  color: rgb(113, 192, 22);
+}
+.bgi-check .path2:before {
+  content: "\e9f4";
+  margin-left: -1em;
+  color: rgb(250, 250, 250);
+}
+.bgi-chat:before {
+  content: "\e9f5";
+}
+.bgi-champion:before {
+  content: "\e9f6";
+}
+.bgi-certificate1:before {
+  content: "\e9f7";
+}
+.bgi-category:before {
+  content: "\e9f8";
+}
+.bgi-cancel:before {
+  content: "\e9f9";
+}
+.bgi-calendar:before {
+  content: "\e9fa";
+}
+.bgi-book:before {
+  content: "\e9fb";
+}
+.bgi-avatar-1:before {
+  content: "\e9fc";
+}
+.bgi-whatsapp .path1:before {
+  content: "\e9fd";
+  color: rgb(76, 175, 80);
+}
+.bgi-whatsapp .path2:before {
+  content: "\e9fe";
+  margin-left: -1em;
+  color: rgb(250, 250, 250);
+}
+.bgi-product_namenew:before {
+  content: "\e976";
+}
+.bgi-product_activitynew:before {
+  content: "\e979";
+}
+.bgi-listing_view:before {
+  content: "\ea00";
+}
+.bgi-grid_view_show:before {
+  content: "\ea01";
+}
+.bgi-exporthisticon:before {
+  content: "\ea02";
+}
+.bgi-code_expand:before {
+  content: "\ea03";
+}
+.bgi-Shortlisted:before {
+  content: "\e9ff";
+}
+.bgi-Shortlist:before {
+  content: "\ea04";
+}
+.bgi-New_icon:before {
+  content: "\ea05";
+}
+.bgi-Existing:before {
+  content: "\ea06";
+}
+.bgi-Business_Source:before {
+  content: "\ea07";
+}
+.bgi-add-user_new:before {
+  content: "\ea08";
+}
+.bgi-add-department-new:before {
+  content: "\ea09";
+}
+.bgi-trade_new:before {
+  content: "\ea0a";
+}
+.bgi-dollar:before {
+  content: "\ea0d";
+}
+.bgi-user_secured:before {
+  content: "\ea0e";
+}
+.bgi-form_user:before {
+  content: "\ea0f";
+}
+.bgi-bank_logo:before {
+  content: "\ea0b";
+}
+.bgi-Auditor-icon_updated:before {
+  content: "\ea0c";
+}
+.bgi-Anual-turnover-new:before {
+  content: "\ea10";
+}
+.bgi-Comment:before {
+  content: "\ea11";
+}
+.bgi-total_product:before {
+  content: "\ea12";
+}
+.bgi-incomplete_product:before {
+  content: "\ea13";
+}
+.bgi-approved_product:before {
+  content: "\ea14";
+}
+.bgi-voicesearchicon:before {
+  content: "\ea15";
+}
+.bgi-newfeaturesicon:before {
+  content: "\ea16";
+}
+.bgi-mylibraryicon:before {
+  content: "\ea17";
+}
+.bgi-imagesearchicon:before {
+  content: "\ea18";
+}
+.bgi-play_youtube:before {
+  content: "\ea19";
+}
+.bgi-Followtwo:before {
+  content: "\ea1a";
+}
+.bgi-exportexcel:before {
+  content: "\ea1b";
+}
+.bgi-tradelist:before {
+  content: "\ea1c";
+}
+.bgi-VisitorsLounge:before {
+  content: "\ea1d";
+}
+.bgi-SupplierProfile:before {
+  content: "\ea1e";
+}
+.bgi-SupplierCertifications:before {
+  content: "\ea1f";
+}
+.bgi-Profiledoorways:before {
+  content: "\ea20";
+}
+.bgi-PerfomanceAppraisal:before {
+  content: "\ea21";
+}
+.bgi-MasterCompanyprofile:before {
+  content: "\ea22";
+}
+.bgi-CMSData:before {
+  content: "\ea23";
+}
+.bgi-SelectedFilterIcon:before {
+  content: "\ea24";
+}
+.bgi-Filterbycompanyicon:before {
+  content: "\ea25";
+}
+.bgi-AddFilterIcon:before {
+  content: "\ea26";
+}
+.bgi-Unpin_new:before {
+  content: "\ea27";
+}
+.bgi-Plusaccordian:before {
+  content: "\ea28";
+}
+.bgi-Minusaccordian:before {
+  content: "\ea29";
+}
+.bgi-ProjectCost:before {
+  content: "\ea2a";
+}
+.bgi-OpentoInvestment:before {
+  content: "\ea2b";
+}
+.bgi-InvestmentRequired:before {
+  content: "\ea2c";
+}
+.bgi-InvestmentReceivedper:before {
+  content: "\ea2d";
+}
+.bgi-InvestmentReceived:before {
+  content: "\ea2e";
+}
+.bgi-Currentlyviewing:before {
+  content: "\ea2f";
+}
+.bgi-FAQ:before {
+  content: "\ea30";
+  color: #999;
+}
+.bgi-sortdown:before {
+  content: "\ea31";
+}
+.bgi-airtransport:before {
+  content: "\ea32";
+}
+.bgi-oceantransportation:before {
+  content: "\ea33";
+}
+.bgi-streetcar:before {
+  content: "\ea34";
+}
+.bgi-truck:before {
+  content: "\ea35";
+}
+.bgi-Corporatesummary:before {
+  content: "\ea36";
+}
+.bgi-Taxationcertificate:before {
+  content: "\ea37";
+}
+.bgi-nlpnew:before {
+  content: "\ea38";
+}
+.bgi-Savecriteria:before {
+  content: "\ea39";
+}
+.bgi-Change_product:before {
+  content: "\ea3a";
+}
+.bgi-RFx:before {
+  content: "\ea3b";
+}
+.bgi-Questionnaire:before {
+  content: "\ea3c";
+}
+.bgi-Contractor:before {
+  content: "\ea3d";
+}
+.bgi-LicensesAcquired:before {
+  content: "\ea3e";
+}
+.bgi-ProjectOwnericon:before {
+  content: "\ea3f";
+}
+.bgi-keyboardnew:before {
+  content: "\ea40";
+}
+.bgi-InvestorIcon:before {
+  content: "\ea41";
+}
+.bgi-BuyerIcon:before {
+  content: "\ea42";
+}
+.bgi-Nologo:before {
+  content: "\ea43";
+}
+.bgi-Noimage:before {
+  content: "\ea44";
+}
+.bgi-SDG:before {
+  content: "\ea45";
+}
+.bgi-Licenses:before {
+  content: "\ea46";
+}
+.bgi-Achievements:before {
+  content: "\ea47";
+}
+.bgi-Media:before {
+  content: "\ea48";
+}
+.bgi-Contact:before {
+  content: "\ea49";
+}
+.bgi-Organiser:before {
+  content: "\ea4a";
+}
+.bgi-Accreditations:before {
+  content: "\ea4b";
+}
+.bgi-BusinessSource_new:before {
+  content: "\ea4c";
+}
+.bgi-Engagements:before {
+  content: "\ea4d";
+}
+.bgi-Impressions:before {
+  content: "\ea4e";
+}
+.bgi-Internal-Reference:before {
+  content: "\ea4f";
+}
+.bgi-Links-Clicks:before {
+  content: "\ea50";
+}
+.bgi-Page-Views:before {
+  content: "\ea51";
+}
+.bgi-Recommended_new:before {
+  content: "\ea52";
+}
+.bgi-gotothelink:before {
+  content: "\ea53";
+}
+.bgi-user_online:before {
+  content: "\ea54";
+}
+.bgi-user_offline:before {
+  content: "\ea55";
+}
+.bgi-user_away:before {
+  content: "\ea56";
+}
+.bgi-do_not_disturb:before {
+  content: "\ea57";
+}
+.bgi-user_activity:before {
+  content: "\ea58";
+}
+.bgi-login_icon:before {
+  content: "\ea59";
+}
+.bgi-degrees:before {
+  content: "\ea5a";
+}
+.bgi-brochure_download:before {
+  content: "\ea5b";
+}
+.bgi-corporateinfo:before {
+  content: "\ea5c";
+}
+.bgi-drop_your_skycard:before {
+  content: "\ea5d";
+}
+.bgi-missioninfo:before {
+  content: "\ea5e";
+}
+.bgi-skycard:before {
+  content: "\ea5f";
+}
+.bgi-visioninfo:before {
+  content: "\ea60";
+}
+.bgi-zoom_new:before {
+  content: "\ea61";
+}
+.bgi-visitors_ounge:before {
+  content: "\ea62";
+}
+.bgi-Received_SkyCards:before {
+  content: "\ea63";
+}
+.bgi-Dropped_SkyCards:before {
+  content: "\ea64";
+}
+.bgi-Support_Collaterals:before {
+  content: "\ea65";
+}
+.bgi-News_and_Events:before {
+  content: "\ea66";
+}
+.bgi-Media_Gallery:before {
+  content: "\ea67";
+}
+.bgi-Upcoming_event:before {
+  content: "\ea68";
+}
+.bgi-Tool_cards:before {
+  content: "\ea69";
+}
+.bgi-Today_star:before {
+  content: "\ea6a";
+}
+.bgi-Shared_notes:before {
+  content: "\ea6b";
+}
+.bgi-Pinned_notes:before {
+  content: "\ea6c";
+}
+.bgi-Overdue_past:before {
+  content: "\ea6d";
+}
+.bgi-In_progress:before {
+  content: "\ea6e";
+}
+.bgi-Completed_event:before {
+  content: "\ea6f";
+}
+.bgi-Create:before {
+  content: "\ea70";
+}
+.bgi-colla:before {
+  content: "\ea71";
+}
+.bgi-Appraise:before {
+  content: "\ea72";
+}
+.bgi-cmsicon:before {
+  content: "\ea73";
+}
+.bgi-Overdue_past_new:before {
+  content: "\ea74";
+}
+.bgi-view_summary:before {
+  content: "\ea75";
+}
+.bgi-right-arrow:before {
+  content: "\ea76";
+}
+.bgi-product_tracker:before {
+  content: "\ea77";
+}
+.bgi-left-arrow:before {
+  content: "\ea78";
+}
+.bgi-download_recent:before {
+  content: "\ea79";
+}
+.bgi-collaborate_notifications:before {
+  content: "\ea7a";
+}
+.bgi-Jsearch-new:before {
+  content: "\ea7b";
+}
+.bgi-icvicon:before {
+  content: "\ea7c";
+}
+.bgi-media-icon:before {
+  content: "\ea7d";
+}
+.bgi-supplier_performance:before {
+  content: "\ea7e";
+}
+.bgi-contractors-hub:before {
+  content: "\ea7f";
+}
+.bgi-insight-new:before {
+  content: "\ea80";
+}
+.bgi-centralization:before {
+  content: "\ea81";
+}
+.bgi-approval-worfklow:before {
+  content: "\ea82";
+}
+.bgi-analytics-new:before {
+  content: "\ea83";
+}
+.bgi-collaboration_tools:before {
+  content: "\ea84";
+}
+.bgi-sky_card_new:before {
+  content: "\ea85";
+}
+.bgi-broadcast:before {
+  content: "\ea86";
+}
+.bgi-import_spend:before {
+  content: "\ea87";
+}
+.bgi-Cup:before {
+  content: "\ea88";
+}
+.bgi-add_spend:before {
+  content: "\ea89";
+}
+.bgi-workflow:before {
+  content: "\ea8a";
+}
+.bgi-to-do-reminder:before {
+  content: "\ea8b";
+}
+.bgi-training:before {
+  content: "\ea8c";
+}
+.bgi-supply_chain:before {
+  content: "\ea8d";
+}
+.bgi-profile_management_new:before {
+  content: "\ea8e";
+}
+.bgi-ICV_ompliance:before {
+  content: "\ea8f";
+}
+.bgi-Governance:before {
+  content: "\ea90";
+}
+.bgi-community:before {
+  content: "\ea91";
+}
+.bgi-Certification_new:before {
+  content: "\ea92";
+}
+.bgi-Certification_History:before {
+  content: "\ea93";
+}
+.bgi-Certification_Expires:before {
+  content: "\ea94";
+}
+.bgi-Module_Permission:before {
+  content: "\ea95";
+}
+.bgi-Divisions:before {
+  content: "\ea96";
+}
+.bgi-news_feeds:before {
+  content: "\ea97";
+}
+.bgi-support_meetings:before {
+  content: "\ea98";
+}
+.bgi-webinars:before {
+  content: "\ea99";
+}
+.bgi-black_invoice:before {
+  content: "\ea9a";
+}
+.bgi-down-arrow:before {
+  content: "\ea9b";
+}
+.bgi-up-arrow:before {
+  content: "\ea9c";
+}
+.bgi-move1:before {
+  content: "\ea9d";
+}
+.bgi-Link-Expired:before {
+  content: "\ea9e";
+}
+.bgi-Already-Registered:before {
+  content: "\ea9f";
+}
+.bgi-Change-User:before {
+  content: "\eaa0";
+}
+.bgi-Share:before {
+  content: "\eaa1";
+}
+.bgi-vat:before {
+  content: "\eaa2";
+}
+.bgi-Mapoman:before {
+  content: "\eaa3";
+}
+.bgi-Tickets:before {
+  content: "\eaa4";
+}
+.bgi-reports:before {
+  content: "\eaa5";
+}
+.bgi-Reminder:before {
+  content: "\eaa6";
+}
+.bgi-Task:before {
+  content: "\eaa7";
+}
+.bgi-Notes:before {
+  content: "\eaa8";
+}
+.bgi-discussion:before {
+  content: "\eaa9";
+}
+.bgi-CT:before {
+  content: "\eaab";
+}
+.bgi-Meeting_Sheduler:before {
+  content: "\eaaa";
+}
+.bgi-info:before {
+  content: "\eaac";
+}
+.bgi-post-enewal-icon:before {
+  content: "\eaad";
+}
+.bgi-history1:before {
+  content: "\eaae";
+}
+.bgi-headcounts:before {
+  content: "\eaaf";
+}
+.bgi-icon:before {
+  content: "\eab0";
+}
+.bgi-JCall-Fill .path1:before {
+  content: "\eab1";
+  color: rgb(0, 0, 0);
+}
+.bgi-JCall-Fill .path2:before {
+  content: "\eab2";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-JCall-Fill .path3:before {
+  content: "\eab3";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-JCall-Fill .path4:before {
+  content: "\eab4";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.bgi-JCall-white:before {
+  content: "\eab5";
+}
+.bgi-Mute:before {
+  content: "\eab6";
+  color: #666;
+}
+.bgi-Sourcing_Hub:before {
+  content: "\eab7";
+}
+.bgi-lcc:before {
+  content: "\eab8";
+}
+.bgi-zonal:before {
+  content: "\eab9";
+}
+.bgi-GCC-Tenders:before {
+  content: "\eaba";
+}
+.bgi-Globle-Connect:before {
+  content: "\eabb";
+}
+.bgi-OLNG-pre-qualification:before {
+  content: "\eabc";
+}
+.bgi-Opportunities:before {
+  content: "\eabd";
+}
+.bgi-User-Profile:before {
+  content: "\eabe";
+}
+.bgi-certificatenew:before {
+  content: "\eabf";
+  color: #666;
+}
+.bgi-archive:before {
+  content: "\eac0";
+}
+.bgi-bcommunity:before {
+  content: "\eac1";
+}
+.bgi-ogcontractors:before {
+  content: "\eac2";
+}
+.bgi-ogoperators:before {
+  content: "\eac3";
+}
+.bgi-jdolight:before {
+  content: "\eac4";
+}
+.bgi-auditlog_icon:before {
+  content: "\eac5";
+}
+.bgi-instruction_icon:before {
+  content: "\eac6";
+}
+.bgi-Approval-Management:before {
+  content: "\eac7";
+}
+.bgi-Content-Management-System:before {
+  content: "\eac8";
+}
+.bgi-dashboard:before {
+  content: "\eac9";
+}
+.bgi-Meeting-Requests:before {
+  content: "\eaca";
+}
+.bgi-Reports:before {
+  content: "\eacb";
+}
+.bgi-Stakeholder-management:before {
+  content: "\eacc";
+}
+.bgi-filled_warning:before {
+  content: "\eacd";
+}
+.bgi-filled_upload:before {
+  content: "\eace";
+}
+.bgi-filled_tick:before {
+  content: "\eacf";
+}
+.bgi-filled_note:before {
+  content: "\ead0";
+}
+.bgi-warning:before {
+  content: "\ead1";
+}
+.bgi-up_underline:before {
+  content: "\ead2";
+}
+.bgi-note_approve:before {
+  content: "\ead3";
+}
+.bgi-edit_new:before {
+  content: "\ead4";
+}
+.bgi-register-us:before {
+  content: "\ead5";
+}
+.bgi-external-link:before {
+  content: "\ead6";
+}
+.bgi-audit-arrow:before {
+  content: "\ead7";
+}
+.bgi-filter_new:before {
+  content: "\ead8";
+}
+.bgi-right_arrow:before {
+  content: "\ead9";
+}

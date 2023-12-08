@@ -1,0 +1,250 @@
+<div fxLayoutAlign="center start" id="viewStatus">
+    <app-responseloader *ngIf="loader"></app-responseloader>
+    <div fxFlex="100" fxFlex.gt-sm="100">
+        <app-vehicleinfobox *ngIf="vehiclepk" [vehiclepk]="vehiclepk"></app-vehicleinfobox>
+        <div class="viewstatus m-t-25">
+            <div class="m-l-0 m-r-0 m-b-10" *ngIf="status >= 4 && status < 7 && !ViewinspectStatus"
+                [ngClass]="approved == true ? 'successcmd' : 'declinecmd'">
+                <h4 class="18 m-5 m-l-0">{{'Comments' | translate}}</h4>
+                <p class="fs-16 txt-gry3 m-b-30"
+                    [innerHTML]="inspcData?.apprvdComments ? inspcData?.apprvdComments :'Nil'"></p>
+                <mat-divider></mat-divider>
+                <div class="validinfo" fxLayout="row wrap">
+                    <p class="fs-16 txt-gry m-r-40">{{'Verified on' | translate}} : <span
+                            class="fs-16 txt-gry3">{{inspcData?.apprvdOn}}</span></p>
+                    <p class="fs-16 txt-gry m-l-30">{{'Verified by' | translate}} : <span
+                            class="fs-16 txt-gry3">{{inspcData?.approvedBy}}</span></p>
+                </div>
+            </div>
+            <div class="company_dtlview" *ngIf="ViewinspectStatus">
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Odometer Reading (in km)' | translate}}</p>
+                    <span>{{viewdata?.rvrd_odometerreading ? viewdata?.rvrd_odometerreading : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'IVMS Serial Number' | translate}}</p>
+                    <span>{{viewdata?.rvrd_ivmsserialno ? viewdata?.rvrd_ivmsserialno : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'IVMS Vendor Name' | translate}}</p>
+                    <span>{{viewdata?.rvrd_ivmsvendorname ? viewdata?.rvrd_ivmsvendorname : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'IVMS Device Model' | translate}}</p>
+                    <span>{{viewdata?.rvrd_ivmsdevicemodel ? viewdata?.rvrd_ivmsdevicemodel : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Speed Limiter Serial Number' | translate}}</p>
+                    <span>{{viewdata?.rvrd_speedlimitno ? viewdata?.rvrd_speedlimitno : '-'}}</span>
+                    
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Vehicle Category' | translate}}</p>
+                    <span>{{ifarbic == true ? (viewdata?.vehtype_ar):(viewdata?.vehtype_en)}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Vehicle Fleet Number' | translate}}</p>
+                    <span>{{viewdata?.rvrd_vechiclefleetno ? viewdata?.rvrd_vechiclefleetno : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'First ROP Registration Date' | translate}}</p>
+                    <span>{{viewdata?.firstropregdate ? viewdata?.firstropregdate : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Model Year' | translate}}</p>
+                    <span>{{viewdata?.rvrd_modelyear ? viewdata?.rvrd_modelyear : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'RASIC Number' | translate}}</p>
+                    <span>{{viewdata?.rvrd_applicationrefno ? viewdata?.rvrd_applicationrefno : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Verification Code' | translate}}</p>
+                    <span>{{viewdata?.rvrd_verificationno ? viewdata?.rvrd_verificationno : '-'}}</span>
+                </div>
+                <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Date of Inspection' | translate}}</p>
+                    <span>{{viewdata?.dateofinspetcion ? viewdata?.dateofinspetcion : '-'}}</span>
+                </div>
+                <!-- <div class="view_dtl m-t-25" fxLayout="row">
+                    <p class="m-0">{{'Inspector Name' | translate}}</p>
+                    <span>Al Rahman Mahmood</span>
+                </div> -->
+            </div>
+            <!-- <h4 class="fs-18 m-0 blue p-t-25" *ngIf="!ViewinspectStatus">{{'Inspected Report' | translate}} </h4> -->
+            <div *ngIf="inspcData">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="p-t-30 timeduration_contain">
+                    <h5 class="trainingdurationtitle m-0 fs-16" *ngIf="offline">{{'Inspection Details' | translate}} </h5>
+                    <h5 class="trainingdurationtitle m-0 fs-16" *ngIf="!offline">{{'Inspection Reports' | translate}}
+    
+                    </h5>
+                    <app-viewvalidation *ngIf="!ViewinspectStatus && canValidate && approvalaccess" [hidebtn]="true"
+                        [vehicleinspection]="true" [inspectionStatus]="status" (ApprovalEmitter)="moveToSupervisor($event)"
+                        (IssueStickerEmitter)="IssueSticker($event)" (InspEmitter)="moveToInspector($event)">
+                    </app-viewvalidation>
+    
+                </div>
+                <div class="company_dtlview info" fxLayout="row wrap">
+                    <div fxFlex.gt-sm="60" fxFlex="100" fxLayoutAlign="space-between center">
+                        <div class="m-t-20" fxLayout="column">
+                            <p class="m-0 txt-gry fs-14">{{'Submitted On' | translate}}</p>
+                            <span class="m-t-5 fs-14 txt-gry3">{{inspcData?.submittedOn}}</span>
+                        </div>
+                        <div class="m-t-20" fxLayout="column">
+                            <p class="m-0 txt-gry fs-14">{{'Submitted By' | translate}}</p>
+                            <span class="m-t-5 fs-14 txt-gry3">{{inspcData?.submittedBy }}</span>
+                        </div>
+                        <div class="m-t-20" fxLayout="column">
+                            <p class="m-0 txt-gry fs-14">{{'Last Updated On' | translate}}</p>
+                            <span class="m-t-5 fs-14 txt-gry3">{{inspcData?.lastupdatedOn ? inspcData?.lastupdatedOn :
+                                '-'}}</span>
+                        </div>
+                        <div class="m-t-20" fxLayout="column">
+                            <p class="m-0 txt-gry fs-14">{{'Last Updated by' | translate}}</p>
+                            <span class="m-t-5 fs-14 txt-gry3">{{inspcData?.lastupdatedBy ? inspcData?.lastupdatedBy :
+                                '-'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="inspcData" [ngSwitch]="InspectionTemplate">
+    
+                    <ng-template [ngSwitchCase]="'Offline'">
+                        <div class="document p-t-25">
+                            <p class="fs-16 m-0 txt-gry p-t-15">{{'Proof of Document' | translate}} </p>
+    
+                            <div *ngFor="let file of inspcData?.prooflink">
+                                <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                    *ngIf="file.filetype=='pdf' || file.filetype=='PDF'">
+                                    <a target="_blank" fxLayoutAlign="start center"
+                                        href="{{file.link}}" class="fs-14 txt-gry3">
+                                        <img src="assets/images/opalimages/pdf_new.svg" class="documents m-r-10"
+                                            alt="pdf">{{'View' | translate}}
+                                    </a>
+                                </div>
+                                <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                    *ngIf="file.filetype=='jpeg' || file.filetype=='JPEG'">
+                                    <a target="_blank" fxLayoutAlign="start center"
+                                        href="{{file.link}}" class="imgsize fs-14 txt-gry3">
+                                        <img src="assets/images/opalimages/jpeg_new.svg" class="documents m-r-10"
+                                            alt="jpeg">{{'View' | translate}}
+                                    </a>
+                                </div>
+                                <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                    *ngIf="file.filetype=='jpg' || file.filetype=='JPG'">
+                                    <a target="_blank" fxLayoutAlign="start center"
+                                        href="{{file.link}}" class="imgsize fs-14 txt-gry3">
+                                        <img src="assets/images/opalimages/jpg_new.svg" class="documents m-r-10"
+                                            alt="jpg">{{'View' | translate}}
+                                    </a>
+                                </div>
+                                <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                    *ngIf="file.filetype=='PNG' || file.filetype=='png'">
+                                    <a target="_blank" fxLayoutAlign="start center"
+                                        href="{{file.link}}" class="imgsize fs-14 txt-gry3">
+                                        <img src="assets/images/opalimages/png_new.svg" class="documents m-r-10"
+                                            alt="png">{{'View' | translate}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'Online'">
+                        <div class="online m-t-30">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <h4 class="fs-16 blue m-0">{{ 'Online Checklist for Inspection'| translate}}</h4>
+                                <div fxLayout="row">
+                                    <div fxLayout="row" fxLayoutAlign="center center" class="m-r-20">
+                                        <span class="indication pass m-r-4"></span>
+                                        <span class="fs-13">{{'Pass' | translate }}</span>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="center center">
+                                        <span class="indication fail m-r-4 fs-12"></span>
+                                        <span class="fs-13">{{ 'Fail' | translate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-divider class="m-b-10"></mat-divider>
+                            
+                                <div class="maincontent m-t-20" *ngFor="let list of onlinechklistresponse; let i = index">
+                                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                                        <div fxLayout="row" class="questions">{{i + 1}}.&nbsp;<h4 class="fs-16 txy-gry3 m-0">{{list.rviqd_question_en}}
+                                        <!-- <span fxLayout="row"> -->
+                                            <span class="passfailcount">
+                                                <span  *ngIf="list.colourcode == 1" class="indication pass m-r-4 m-l-7"></span>
+                                                <span *ngIf="list.colourcode == 2"  class="indication fail m-r-4 m-l-7"></span>
+                                                <span *ngIf="list.colourcode == 3"  class="indication na m-r-4 m-l-7"></span>
+                                                <span class="fonts">{{list.rviad_answer_en}}</span>
+                                            </span>
+                                        <!-- </span> -->
+                                    </h4>
+                                    </div>
+                                    </div>
+                                    <div class="m-t-16" >
+                                        <div *ngIf="list.comments">
+                                            <h4 class="editortitle importantfield txt-gry3 m-t-2 m-b-5 fs-16">{{'validation.comm' | translate}}
+                                            </h4>
+                                            <div class="contenthere txt-gry fs-15"
+                                                [innerHTML]="list.comments ? list.comments :'-'">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div  *ngIf="list.upload" class="m-t-20 m-b-35">
+                                        <div *ngFor="let file of list.prooflink" class="m-t-10" >
+                                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                                *ngIf="file.filetype=='pdf' || file.filetype=='PDF'">
+                                                <a target="_blank"  fxLayoutAlign="start center"
+                                                    href="{{file.link}}" class="fs-14 txt-gry3">
+                                                    <img src="assets/images/opalimages/pdf_new.svg" class="documents m-r-10"
+                                                        alt="pdf">{{'View' | translate}}
+                                                </a>
+                                            </div>
+                                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                                *ngIf="file.filetype=='jpeg' || file.filetype=='JPEG'">
+                                                <a target="_blank"  fxLayoutAlign="start center"
+                                                    href="{{file.link}}" class="imgsize fs-14 txt-gry3">
+                                                    <img src="assets/images/opalimages/jpeg_new.svg" class="documents m-r-10"
+                                                        alt="jpeg">{{'View' | translate}}
+                                                </a>
+                                            </div>
+                                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                                *ngIf="file.filetype=='jpg' || file.filetype=='JPG'">
+                                                <a target="_blank"  fxLayoutAlign="start center"
+                                                    href="{{file.link}}" class="imgsize fs-14 txt-gry3">
+                                                    <img src="assets/images/opalimages/jpg_new.svg" class="documents m-r-10"
+                                                        alt="jpg">{{'View' | translate}}
+                                                </a>
+                                            </div>
+                                            <div fxLayout="row wrap" fxLayoutAlign="start center" class="m-t-15"
+                                                *ngIf="file.filetype=='PNG' || file.filetype=='png'">
+                                                <a target="_blank"  fxLayoutAlign="start center"
+                                                    href="{{file.link}}" class="imgsize fs-14 txt-gry3">
+                                                    <img src="assets/images/opalimages/png_new.svg" class="documents m-r-10"
+                                                        alt="png">{{'View' | translate}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                        </div>
+                    </ng-template>
+    
+    
+                    <div class="m-t-40">
+                        <h4 class="editortitle importantfield blue m-b-3">{{'validation.comm' | translate}}
+                        </h4>
+                        <div class="contenthere txt-gry fs-15"
+                            [innerHTML]="inspcData?.inspComments ? inspcData?.inspComments :'-'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>
+        <div class="btns m-t-20" fxLayoutAlign="end center">
+            <button mat-raised-button class="cancelbtn fs-16" (click)="Vehiclelist()">{{ 'Back' | translate }}</button>
+        </div>
+    </div>
+</div>

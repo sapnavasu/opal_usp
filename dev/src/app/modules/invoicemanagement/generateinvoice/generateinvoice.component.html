@@ -1,0 +1,36 @@
+<div id="inviocegenerate">
+        <!-- popover button -->
+        <button type="button" mat-raised-button  [popoverOnHover]="false"  (click)="togglePopover();" [popover]="myPopover" class="generatebtn fs-15">{{invoiceplaceholder}}</button>
+    
+        <!-- popover -->
+        <popover-content #myPopover placement="bottom" [animation]="true" [closeOnClickOutside]="false" [closeOnMouseOutside]="false">
+            <div class="statusapprve" fxLayout="row wrap" fxLayoutAlign="flex-start" [ngClass]="popoverIsOpen ? 'Hideshow' : 'showHide'">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="pos-relativevalue">
+                    <div class="card">
+                        <form [formGroup]="validationForm">
+                            <mat-form-field appearance="outline">
+                            <mat-label> {{'Invoice for the Month' | translate}}</mat-label>
+                            <input matInput required formControlName="selectDate" (focus)="picker.open()"
+                                (mousedown)="picker.open(); $event.preventDefault" 
+                                [disabled]="picker.opened" [matDatepicker]="picker" [min]="minValueAssessment" [max]="maxValueAssessment">
+                            <mat-datepicker-toggle matSuffix
+                                [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker  startView="multi-year"
+                            (yearSelected)="chosenYearHandlers($event)"
+                            (monthSelected)="chosenMonthHandlers($event, picker);"
+                            panelClass="example-month-picker"></mat-datepicker>
+                            <!-- <mat-error *ngIf="f.selectDate.errors?.required || comanydetialsform.submitted">
+                                {{'Select Invoice for the Month' | translate}} </mat-error> -->
+                        </mat-form-field>
+                            <!-- button -->
+                            <div class="btngroup m-t-1  m-b-10" fxLayout="row" fxLayoutAlign="flex-end" >
+                                <!-- cancel button -->
+                                <button mat-raised-button class="cancel_btn m-r-10" (click)="close();togglePopover()" type="button">{{'validation.canc' | translate}}</button>
+                                <button mat-raised-button color="primary" class="submitbtns" (click)="submitForm()" type="button">{{'Generate' | translate}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </popover-content>
+    </div>

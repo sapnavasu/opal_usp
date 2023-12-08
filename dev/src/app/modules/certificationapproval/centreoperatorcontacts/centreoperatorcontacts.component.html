@@ -1,0 +1,336 @@
+<div id="operatorcontact" fxLayout="row wrap">
+    <div class="compantdtl m-t-30" fxFlex="100">
+        <div class="title" fxLayout="row" fxLayoutAlign="flex-start center">
+            <h4 class="m-r-10">{{'operatorcontact.opercont' | translate}}</h4>
+            <span class="badge new" *ngIf="this.overallstatus == 1">{{'institue.new' | translate}}</span>
+            <span class="badge updated" *ngIf="this.overallstatus == 2">{{'institue.updated' | translate}}</span>
+            <span class="badge appr" *ngIf="this.overallstatus == 3">{{'institue.appr' | translate}}</span>
+            <span class="badge decl" *ngIf="this.overallstatus == 4">{{'table.decl' | translate}}</span>
+        </div>
+        
+
+        <div class="paginationwithfilter masterPageTop " fxLayout="row wrap">
+            <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLength" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="syncPrimaryPaginator($event);"></mat-paginator>
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100" class="btnvalidation">
+                <app-viewvalidation [hidebtn]="true" [newbtn]="true" [callbackFn]="onValidation" [isDisabled] = 'isValidated' *ngIf="type == 'desktopreview' && updatevalidation" ></app-viewvalidation>
+                    <button mat-raised-button type="button" color="primary" (click)="clickEvent()"
+                        class="filter m-l-15">{{filtername}}<i class="opalicon opal-filter fs-15 m-l-7" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="tabforclientelenew">
+                <div class="awaredtable lastColumn">
+                       <!-- show and hide -->
+                       <button mat-button [matMenuTriggerFor]="showColumn" class="editcolumn">
+                        <mat-icon aria-hidden="false"
+                            aria-label="Example home icon">more_horiz</mat-icon>
+                        <mat-menu #showColumn="matMenu" class="master-menu edit-column-menu">
+                            <div class="table-config-menu-options" fxLayout="column">
+                                <mat-checkbox #hideChkbox [(ngModel)]="selectAlloperate"
+                                    (change)="selectAlloperatorListDataFun($event)"> {{ 'All' |
+                                    translate}}
+                                </mat-checkbox>
+                                <ng-container
+                                    *ngFor="let operator_list of operatorListData; let i = index">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                        [(ngModel)]="operator_list.showVisible" #columnchkbox
+                                        (change)="updateSelectAlloperatorListData(operator_list)">
+                                        {{operator_list.label | translate}}
+                                    </mat-checkbox>
+                                </ng-container>
+                            </div>
+                        </mat-menu>
+                    </button>
+                    <mat-table #table class="scrolldata" [dataSource]="supplierListData"  matSortActive="appoprcontracttmp_pk"  matSortDirection="desc"  matSort matSortDisableClear multiTemplateDataRows>
+                        <ng-container matColumnDef="checkbox">
+                               
+                            <mat-header-cell fxFlex="60px" mat-header-cell *matHeaderCellDef><mat-checkbox #ChkBox  (change)="selectAllFun($event.checked)" 
+                                class="example-margin" ></mat-checkbox>
+                        </mat-header-cell>
+                        <mat-cell data-label="checkbox" fxFlex="60px" *matCellDef="let coursedata">
+                            <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                            <div *ngIf="!tblplaceholder"> <mat-checkbox   #dataChkBox class="example-margin" value={{coursedata.appoprcontracttmp_pk}}   (change)="validationcheck($event,coursedata.appoprcontracttmp_pk)" [checked]="arr != undefined &&  arr.length != 0 &&  arr.includes(coursedata.appoprcontracttmp_pk)"></mat-checkbox> </div>
+                            
+                            
+                        </mat-cell>
+                        </ng-container> 
+                        <ng-container matColumnDef="appoprct_operatorname">
+                            <mat-header-cell fxFlex="200px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'operatorcontact.opername' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="appoprct_operatorname" class="p-t-15 p-b-15" fxFlex="200px" *matCellDef="let operatorList">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{operatorList.rm_name_en}}  </div>
+                               
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appoprct_conttype">
+                            <mat-header-cell fxFlex="180px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'operatorcontact.conttype' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="appoprct_conttype" fxFlex="180px" *matCellDef="let operatorList">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">  {{operatorList.appoprct_conttype == 1 ? 'Direct contract':'Sub Contract'}}  </div>
+                                </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appoprct_contstartdate">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'operatorcontact.contstartdate' |
+                                translate}}</mat-header-cell>
+                            <mat-cell data-label="appoprct_contstartdate" fxFlex="263px" *matCellDef="let operatorList">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{operatorList.appoprct_contstartdate}}  </div>
+                                 </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appoprct_contenddate">
+
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'operatorcontact.contenddate' | translate}}
+                            </mat-header-cell>
+                            <mat-cell data-label="appoprct_contenddate" fxFlex="263px" *matCellDef="let operatorList">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{operatorList.appoprct_contenddate}}  </div>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appoprct_status">
+                            <mat-header-cell fxFlex="160px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'operatorcontact.stat' | translate}} </mat-header-cell>
+                            <mat-cell data-label="appoprct_status" fxFlex="160px" *matCellDef="let operatorList">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder">  <span  (click)="expandedElement = expandedElement === operatorList ? null : operatorList" *ngIf="operatorList.appoprct_status == '3'" class="approved">{{'table.approv'
+                                    |translate}}<img matTooltip="{{'table.tool'|translate}}" class="p-l-15" src="assets/images/statusicon.svg" alt="statusicon"></span>
+                                <!-- <span  *ngIf="operatorList.appoprct_status == '2'" class="update">{{'table.updated'
+                                    |translate}}</span> -->
+                                <span (click)="expandedElement = expandedElement === operatorList ? null : operatorList" *ngIf="operatorList.appoprct_status == '2'" class="update">{{'table.updated'
+                                        |translate}}<img matTooltip="{{'table.tool'|translate}}" class="p-l-15" src="assets/images/statusicon.svg" alt="statusicon"></span>
+                                <span  *ngIf="operatorList.appoprct_status == '1'" class="declined">{{'table.new'
+                                    |translate}}</span>
+                                <span (click)="expandedElement = expandedElement === operatorList ? null : operatorList" *ngIf="operatorList.appoprct_status == '4'" class="declined">{{'table.decl'
+                                    |translate}}<img matTooltip="{{'table.tool'|translate}}" class="p-l-15" src="assets/images/statusicon.svg" alt="statusicon"></span></div>
+                               </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appoprct_createdon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'operatorcontact.addon' | translate}} </mat-header-cell>
+                            <mat-cell data-label="appoprct_createdon" fxFlex="263px" *matCellDef="let operatorList">
+                                {{operatorList.appoprct_createdon}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="appoprct_updatedon">
+                            <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                {{'operatorcontact.lastupdat' | translate}} </mat-header-cell>
+                            <mat-cell data-label="appoprct_updatedon" fxFlex="263px" *matCellDef="let operatorList">
+                                <div *ngIf="tblplaceholder" class="w-100"><div class="tabledataloader"></div></div>
+                                <div *ngIf="!tblplaceholder"> {{operatorList.appoprct_updatedon}} </div>
+                                </mat-cell>
+                        </ng-container>
+                       
+                        <ng-container matColumnDef="action" stickyEnd>
+                            <mat-header-cell fxFlex="57px" mat-header-cell *matHeaderCellDef >
+                                </mat-header-cell>
+                            <mat-cell data-label="action" fxFlex="57px" *matCellDef="let operatorList">
+                                </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell fxFlex="100"  *matCellDef="let element" [attr.colspan]="operatorListData.length">                              <div *ngIf="element === expandedElement">
+                                <div class="example-element-detail"
+                                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" *ngIf="element.appoprct_status == '3' || element.appoprct_status == '4'" >
+                                <div class="example-element-diagram "  [ngClass]="element.appoprct_status == 4 ? 'declinecmd' : 'successcmd'">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <p class="fs-18 comment m-0">{{'institue.declcomm' | translate}}  </p>
+                                        <mat-icon  class="fs-18 comment close" matTooltip="{{'table.close'|translate}}" (click)="toggleExpansion()">close</mat-icon>
+                                       </div>
+                                        <p class="16 m-b-30" [innerHtml]='element.status'> </p>
+                                            <mat-divider></mat-divider>
+                                           <div class="validinfo"  fxLayout="row wrap" >
+                                            <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{element.appoprct_appdecon}}</span></p>
+                                            <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{element.username}}</span></p>
+                                           </div>
+                                </div>
+                              </div>
+
+                              <div class="example-element-detail"
+                              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" *ngIf="element.appoprct_status == '2'" >
+                           <div class="example-element-diagram "  [ngClass]="element.hisstatus == 4 ? 'declinecmd' : 'successcmd'">
+                               <div fxLayout="row" fxLayoutAlign="space-between center">
+                                   <p class="fs-18 comment m-0">{{'institue.declcomm' | translate}}  </p>
+                                   <mat-icon  class="fs-18 comment close" matTooltip="{{'table.close'|translate}}" (click)="toggleExpansion()">close</mat-icon>
+                                  </div>
+                                   <p class="16 m-b-30" [innerHtml]='element.status'> </p>
+                                       <mat-divider></mat-divider>
+                                      <div class="validinfo"  fxLayout="row wrap" >
+                                       <p class="fs-16 txt-gry m-r-40">{{'institue.lastvalion' | translate}} : <span class="fs-16 txt-gry3">{{element.appoprct_appdecon}}</span></p>
+                                       <p class="fs-16 txt-gry m-l-30">{{'institue.lastvaliby' | translate}} : <span class="fs-16 txt-gry3">{{element.username}}</span></p>
+                                      </div>
+                           </div>
+                         </div>
+                              </div>
+                            </td>
+                          </ng-container> 
+                        <ng-container matColumnDef="row-first">
+                            <mat-header-cell fxFlex="60px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                               
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-second">
+                            <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.search' |translate}}</mat-label>
+                                    <input matInput [formControl]="appoprct_operatorname">
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-three">
+                            <mat-header-cell fxFlex="180px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' | translate}}</mat-label>
+                                    <mat-select [formControl]="appoprct_conttype" multiple>
+                                        <mat-option value="1">Direct Contract</mat-option>
+                                        <mat-option value="2">Sub-Contract</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-four">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appoprct_contstartdate" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control"/>
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                    
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-five">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appoprct_contenddate" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                  
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-six">
+                            <mat-header-cell fxFlex="160px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <mat-label>{{'table.sele' |
+                                        translate}}</mat-label>
+                                    <mat-select [formControl]="appoprct_status" multiple>
+                                        <mat-option value="1">{{'table.new' |translate}}</mat-option>
+                                        <mat-option value="2">{{'table.updated'
+                                            |translate}}</mat-option>
+                                        <mat-option value="3">{{'table.approv' |translate}}</mat-option>
+                                     
+                                       
+                                        <mat-option value="4">{{'table.decl' |translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-seven">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+
+                               <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appoprct_createdon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control" />
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                   
+                            </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-eight">
+                            <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center">
+                                <mat-form-field class="filter" appearance="outline">
+                                    <!-- <mat-label>{{'table.sele' |translate}}</mat-label> -->
+                                    <div class="drpicker" id="regapp">
+                                        <input id="login_session" [formControl]="appoprct_updatedon" #pickers matInput type="text" autocomplete="off" ngxDaterangepickerMd  [showCustomRangeLabel]="true"  [alwaysShowCalendars]="true" [ranges]="ranges"  [locale]="locale" [linkedCalendars]="true"  [showClearButton]="true"  [maxDate]='selected2'  readonly class="form-control"/>
+                                        <div class="closeanddateicon">
+                                            <mat-datepicker-toggle matSuffix >
+                                            </mat-datepicker-toggle>
+                                        </div>
+                                    </div>
+                                    
+                                </mat-form-field>
+                            </mat-header-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="row-nine" stickyEnd>
+                            <mat-header-cell fxFlex="57px" class="serachrow" *matHeaderCellDef
+                                style="text-align:center" >
+
+                                <i class="fa fa-refresh m-l-15  cursorview" (click)="clearFilter();filtersts=false;"
+                                    aria-hidden="true" matTooltip="{{'table.refresh'|translate}}"></i>
+                            </mat-header-cell>
+                        </ng-container>
+
+                        <tr mat-header-row  id="headerrowcells" *matHeaderRowDef="getoperatorListData();"></tr>
+                        <mat-header-row id="searchrow"
+                            *matHeaderRowDef="getoperatorListDatasearch()">
+                        </mat-header-row>
+                        <tr mat-row *matRowDef="let element; columns: getoperatorListData();"
+                            class="example-element-row"
+                            [class.example-expanded-row]="expandedElement === element">
+                        </tr>
+                        <tr mat-row *matRowDef="let element; columns: ['expandedDetail']"
+                        [class.example-detail-row-expanded]="expandedElement === element"
+                        [class.example-detail-row-collapsed]="expandedElement !== element">
+                    </tr>
+                        <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+                        <ng-container matColumnDef="disclaimer">
+                            <td mat-footer-cell *matFooterCellDef colspan="11">
+                                <div [ngClass]="!tblplaceholder? 'nofound': ''" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100">
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                        <div fxLayout="row wrap" fxLayoutAlign="center center"  *ngIf="tblplaceholder"
+                                        class="NorecordLoader"></div>
+                                        <img src="assets/images/opalimages/norecord.svg" alt="norecord" *ngIf="!tblplaceholder">
+                                        <p class="m-t-10 txt-gry3 fs-16" *ngIf="!tblplaceholder">{{'common.noreco' | translate}}</p>
+                            </div>
+                        </div>
+                            </td>
+                        </ng-container>
+                        <ng-container>
+                            <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'" [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                            </mat-footer-row>
+                        </ng-container>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom " showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

@@ -1,0 +1,43 @@
+<div class="rightsidecards cardone">
+  <div class="p-l-20 p-r-20">
+    <p class="smallheader lypisfont-regular">Welcome</p>
+    <p class="eachcardbigheader organisationname">{{orgname | titlecase}}</p>
+    <p class="headercontent">You have the opportunities to: </p>
+  </div>
+  <div *ngIf="stakeHolder === 'SUPPLIER' || stakeHolder === 'BUYER'" class="bottomcardone">
+    <div class="eachitemcount">
+      <p>100</p>
+      <p>Live Contracts</p>
+    </div>
+    <div class="eachitemcount">
+      <p>{{counts?.supplier}}</p>
+      <p>Suppliers</p>
+    </div>
+    <div class="eachitemcount">
+      <p>{{counts?.buyer}}</p>
+      <p>Buyers</p>
+    </div>
+    <div class="eachitemcount">
+      <p>20</p>
+      <p>Globe Connect</p>
+    </div>
+  </div>
+  <div *ngIf="stakeHolder === 'INV' || stakeHolder === 'PO'" class="bottomcardone">
+    <div class="eachitemcount">
+      <p>{{counts?.live_project}}</p>
+      <p>Live Projects</p>
+    </div>
+    <div class="eachitemcount">
+      <p>{{counts?.investor}}</p>
+      <p>Investors</p>
+    </div>
+    <div class="eachitemcount">
+      <p>{{counts?.project_owner}}</p>
+      <p>Project Owners</p>
+    </div>
+    <div class="eachitemcount">
+      <p>25</p>
+      <p>Globe Connect</p>
+    </div>
+  </div>
+</div>

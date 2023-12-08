@@ -1,0 +1,100 @@
+<div id="ivmsvalidmsg">
+    <div>
+        <button type="button" mat-raised-button [popoverOnHover]="false" (click)="togglePopover()" [popover]="myPopover" [class]="addClass"
+            [disabled]="international_id?.length == 0 || documentapproved_id == ''" [ngClass]="notallowed == true ? 'disable' : ' '">{{buttonName | translate}}<mat-icon class="m-l-10" *ngIf="dropIcon">expand_more</mat-icon>
+        </button>
+    </div>
+    <popover-content #myPopover placement="bottom" [animation]="true" [closeOnClickOutside]="false"
+        [closeOnMouseOutside]="false">
+        <div class="statusapprve" fxLayout="row wrap" fxLayoutAlign="flex-start"
+            [ngClass]="popoverIsOpen ? 'Hideshow' : 'showHide'">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="pos-relativevalue">
+                <div class="card">
+                    <form [formGroup]="validationForm">
+                        <div fxLayout="row wrap" class="">
+                            <div fxFlex.gt-sm="100" fxFlex="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-select formControlName="select_valitate" panelClass="select_type"
+                                        (selectionChange)="comment(f.select_valitate.value)">
+                                        <mat-option *ngFor="let option of validateOptions" value="{{option.value}}"> {{
+                                            option.name | translate}} </mat-option>
+                                    </mat-select>
+                                    <mat-label>{{'validation.selestat' | translate}} </mat-label>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" fxFlexAlign="center" class="p-b-0">
+                            <div fxFlex.gt-sm="100" fxFlex="100">
+                                <div fxLayout="row wrap" (click)="editinfo()" *ngIf="!edittechinfo">
+                                    <div class="m-t-10" fxFlex.gt-sm="100" fxFlex="100">
+                                        <div class="ckeditorborder">
+                                            <p class="editortitle importantfield txt-gry3">{{'validation.comm' |
+                                                translate}} <span class="error" *ngIf="manditory">*</span> </p>
+                                            <div class="contenthere" [innerHTML]='techinfo'>
+                                            </div>
+                                        </div>
+                                        <div class="messagecount" fxLayoutAlign="flex-end">
+                                            <p class="m-0 txt-gry"> {{ck.ckeditor_count(contact)}} / 1000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxLayout="row wrap" *ngIf="edittechinfo">
+                                    <div fxFlex.gt-sm="100" fxFlex="100" class="techapp m-b-10">
+                                        <div class="d-flex">
+                                            <span
+                                                class="d-block ckeditortitle p-b-5 importantfield txt-gry">{{'validation.comm'
+                                                | translate}}<span class="error" *ngIf="manditory"> *</span></span>
+                                        </div>
+                                        <div class="ckeditror">
+                                            <ckeditor
+                                                [ngClass]="{'is-invalid': f.comments.touched && f.comments.errors }"
+                                                (change)="onChangeeditor($event)" [(ngModel)]="contact"
+                                                (ready)="onReady($event)" [editor]="Editor" [config]="config"
+                                                [formControl]="validationForm.controls['comments']" appAlphanumsymb
+                                                [required]="false" #myEditor
+                                                (keydown)="ck.ckeditor_count(contact) >= 1000 ? $event.stopPropagation() : ''">
+                                            </ckeditor>
+                                            <div *ngIf="(f.comments.touched && f.comments.errors?.required == true) ">
+                                                <div class="error fs-13"
+                                                    *ngIf="f.comments.touched &&  f.comments.errors">
+                                                    {{'validation.entemess' | translate}}</div>
+                                            </div>
+                                        </div>
+                                        <mat-hint *ngIf=" (ck.ckeditor_count(contact)>1000)" class="error font-14"
+                                            align="start">{{'validation.cannexcechar' | translate}}</mat-hint>
+                                        <div class="messagecount txt-gry" fxLayoutAlign="flex-end">
+                                            <p class="txt-gry m-0 m-t-5"> {{ck.ckeditor_count(contact)}}/1000</p>
+                                        </div>
+                                        <div class="clearbut p-t-10 b-5" fxLayoutAlign="flex-end">
+                                            <button type="button"
+                                                [disabled]="validationForm.controls['comments'].value?.length==0"
+                                                (click)="resinfo()" mat-raised-button
+                                                class="m-r-10 clearbutton button-40">{{'validation.clear' |
+                                                translate}}</button>
+                                            <button mat-raised-button color="primary"
+                                                [disabled]="ck.ckeditor_count(contact)>1000 || f.comments.errors?.required == true || decline"
+                                                *ngIf="manditory" (click)="messagedone()"
+                                                class="button-40">{{'validation.done' |
+                                                translate}}</button>
+                                            <button mat-raised-button color="primary"
+                                                [disabled]="ck.ckeditor_count(contact)>1000 || decline"
+                                                *ngIf="!manditory" (click)="messagedone()"
+                                                class="button-40">{{'validation.done' |
+                                                translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btngroup m-t-1ck-editor__main0 m-b-10" fxLayout="row" fxLayoutAlign="flex-end">
+                            <button mat-raised-button class="cancel_btn" (click)="close();togglePopover()"
+                                type="button">{{'validation.canc' | translate}}</button>
+                            <button mat-raised-button class="submitbtns m-l-20" color="primary" (click)="submitvalidationnew();togglePopover()"
+                                [disabled]="done || ck.ckeditor_count(contact)>1000" type="button">{{submitbutton| translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </popover-content>
+</div>

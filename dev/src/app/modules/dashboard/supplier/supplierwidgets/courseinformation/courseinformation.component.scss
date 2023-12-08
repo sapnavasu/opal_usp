@@ -1,0 +1,81 @@
+#coursesinfo{
+    .titleinfolink{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        .viewalllink{
+            font-size:0.8125rem;
+            color:#666;
+            cursor:pointer;
+            &:hover{
+                color:#333;
+            }
+        }
+    }  
+    .coursesinfotbale{           
+        .mat-courseinfo{
+            width:100%;
+            border-collapse: collapse;
+            border:1px solid #e8e8e8;
+            .mat-header-row{
+                border:1px solid #e8e8e8 !important;
+                height:42px;
+                th.mat-header-cell{
+                    &:first-of-type{
+                        padding-left:0px;
+                    }
+                    padding:10px !important;
+                    text-align:center;
+                    white-space: nowrap;
+                    color:#333;
+                    font-size:0.875rem;
+                    @media (max-width:800px){
+                        white-space: unset;
+                    }   
+                }
+            }
+            .mat-row{
+                border:1px solid #e8e8e8 !important;
+                height:42px !important;
+                td.mat-cell{
+                    &:first-of-type{
+                        padding-left:0px; 
+                        text-align:left; 
+                        font-family: "opal_regular", sans-serif;
+                        font-size:0.875rem; 
+                    }
+                    padding:10px !important; 
+                    text-align:center;
+                    color:#000;
+                    font-size:0.875rem;
+                    vertical-align: middle; 
+                    font-family: "opal_semibold", sans-serif; 
+                    &.mat-column-cnearingexpiry{
+                        color:#ff871e;
+                    }
+                    &.mat-column-cexpired{
+                        color:#ff3636;
+                    }
+                    &.mat-column-csuspended{
+                        color:#a6a6a6;
+                    }
+                }
+                &:last-child{
+                    border:0px !important;
+                }
+            }
+        }
+    }
+}
+
+[dir=rtl]{
+    #coursesinfo{
+        .coursesinfotbale{
+            .linkarrow{
+                i{
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+}

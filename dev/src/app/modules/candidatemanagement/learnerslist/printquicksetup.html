@@ -1,0 +1,33 @@
+<div id="dialog-box">
+  <mat-grid-list cols="2" rowHeight="50px">
+    <mat-grid-tile colspan="1" class="text-left">
+      <mat-card-title class="m-0 pctitle">Print Card</mat-card-title>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" class="text-right closeright">
+      <span class="F-s" mat-dialog-close="" (click)="closedialog()">&times;</span>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="4" rowHeight="80px">
+    <mat-grid-tile colspan="1" class="text-right">
+      <p class="s-no">Serial number</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3" class="text-right">
+      <form [formGroup]="printform">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <input matInput [(ngModel)]='serialnoValue' formControlName="serialno">
+        </mat-form-field>
+      </form>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="2" rowHeight="50px" class="text-right">
+    <mat-grid-tile colspan="1">
+      
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" class="m-t-30">
+      <button class="clearbtn m-r-10" (click)='serialnoValue = ""'>Clear</button>
+      <button class="printbtn" (click)='closedialog()'>Print</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

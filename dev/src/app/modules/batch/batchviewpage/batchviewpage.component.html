@@ -1,0 +1,603 @@
+<div fxLayout="row wrap" fxLayoutAlign="center">
+    <div fxFlex.gt-sm="100" fxFlex="100" id="viewpagelist">
+        <div class="mainboxbatchview">
+            <div class="batchfirstcontent">
+                <div class="batchtitleheader" fxLayoutAlign="space-between center">
+                    <p class="fs-15 m-0" fxFlex="1000">{{'batchview.batchno' |
+                        translate}}:&nbsp;<span>{{batchid}}</span></p>
+                    <button mat-icon-button [matMenuTriggerFor]="actionmenu"
+                        aria-label="Example icon-button with a menu">
+                        <mat-icon class="moremenucolor">more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #actionmenu="matMenu" class="master-menu whentootltipadded">
+                        <!-- <button type="button" *ngIf="batchdetails.status == 1" (click)="editData(batchdetails)"
+                            mat-menu-item><span>{{'table.edit' |
+                                translate}} </span></button> -->
+                        <button type="button" *ngIf="batchdetails.status == 1 && (batchdetails.totallearners == 0 || (batchdetails.req_status != 5 && batchdetails.totallearners > 0)) && batchdeleteaccess" (click)="CancelBatch(batchdetails)"
+                            mat-menu-item><span>{{'table.cancel' |
+                                translate}}</span></button>
+                        <button type="button"
+                            *ngIf="batchdetails.status == 1 && batchdetails.totallearners < batchdetails.batchcount && learnercreateaccess"
+                            (click)="RegisterLearner(batchdetails)" mat-menu-item><span>{{'table.registerlearner' |
+                                translate}}</span></button>
+                        <button type="button" *ngIf="batchdetails.status != 7 && batchdetails.totallearners > 0 && learnerreadaccess"
+                            (click)="ViewLearners(batchdetails)" mat-menu-item><span>{{'table.viewlearner' |
+                                translate}}</span></button>
+                        <button type="button" *ngIf="batchdetails.status == 1  && ((batchdetails.trainingevlocenter == regpk && stktype == 2)  ) && batchdetails.totallearners > 0 && batchupdateaccess" (click)="MovebatchToTheory(batchdetails)" mat-menu-item><span>{{'Move Batch To Teaching (Theory)' |
+                                    translate}}</span></button>
+                        <button type="button" mat-menu-item
+                            *ngIf="(learnerdownloadaccess) && batchdetails.attenddwldaccess"
+                            (click)="downloadAttenance(batchdetails)"><span>{{'table.downloadattendancereport' |
+                                translate}}</span></button>
+                        
+                        <button type="button" mat-menu-item (click)="requesttrack(batchdetails)"
+                            *ngIf="batchdetails.status != 1 && batchdetails.status < 6 && batchdetails.req_status != 1 && batchupdateaccess"><span>{{'table.requestforbacktrack'
+                                |
+                                translate}}</span></button>
+                        <button type="button" mat-menu-item *ngIf="stktype == 1 && batchdetails.req_status == 1 && batchapproveaccess"
+                            (click)="updatestatus(batchdetails)"><span>{{'batch.updatestatus'
+                                |
+                                translate}}</span></button>
+
+                        <button type="button" mat-menu-item *ngIf="stktype == 1 && batchdetails.req_status == 1 && batchapproveaccess"
+                            (click)="cancelbacktrack(batchdetails)"><span>{{'batch.cancelbacktrak'
+                                |
+                                translate}}</span></button>
+                        <button type="button" mat-menu-item (click)="ChangeAssessor(batchdetails)" *ngIf="(batchdetails.req_status != 1 && batchdetails.req_status != 2) && (batchdetails.status != 4 && batchdetails.status != 6 && batchdetails.status != 8) && batchdetails.assessmentcenter == regpk && batchdetails.trainingevlocenter != regpk  && batchupdateaccess" ><span>{{'table.assessorchangerequest'
+                                    |
+                                    translate}}</span></button>
+                        <button type="button" mat-menu-item (click)="ChangeAssessorReq(batchdetails)" *ngIf="(batchdetails.req_status != 1 && batchdetails.req_status != 2) && (batchdetails.status != 4 && batchdetails.status != 6 && batchdetails.status != 8) && batchdetails.assessmentcenter == regpk && batchdetails.trainingevlocenter == regpk && batchupdateaccess" ><span>{{'table.changeassessor'
+                                    |
+                                    translate}}</span></button>
+                        <button type="button" mat-menu-item (click)="ChangeAssessorReq(batchdetails)" *ngIf="(batchdetails.req_status != 1 && batchdetails.req_status != 2) && (batchdetails.status != 4 && batchdetails.status != 6 && batchdetails.status != 8) && batchdetails.assessmentcenter == regpk && batchdetails.trainingevlocenter != regpk && batchupdateaccess" ><span>{{'table.changeassessor'
+                                    |
+                                    translate}}</span></button>
+                        <button type="button" (click)="ChangeAssessorReq(batchdetails)" *ngIf="stktype == 1 && batchdetails.req_status == 2 && (batchdetails.status != 4 && batchdetails.status != 6 && batchdetails.status != 8) && assesmentcrete" mat-menu-item><span>{{'table.changeassessor' |
+                                        translate}}</span></button>
+                    </mat-menu>
+                </div>
+                <div class="statusheader">
+                    <span class="fs-15 statustext">{{'batchview.stat' | translate}}:&nbsp;<span
+                            class="{{batchdetails.status_name}}">{{batchdetails.status_name}}</span></span>
+                </div>
+            </div>
+            <div fxLayoutAlign="flex-start" class="p-t-15 p-b-15 p-l-25 p-r-25">
+                <div class="totalleanerheader leanerwidth">
+                    <p class="fs-14 m-0">{{'batchview.totalear' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.totallearners}}/{{batchdetails.batchcount}}</span>
+                </div>
+                <div class="totalleanerheader">
+                    <p class="fs-14 m-0">{{'batchview.remacapa' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.batchcount -
+                        batchdetails.totallearners}}/{{batchdetails.batchcount}}</span>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="m-t-30 p-b-30">
+            <div fxFlex.gt-sm="50" fxFlex="100">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'batchview.offitype' | translate}}</p>
+                    <span class="fs-16" *ngIf="batchdetails.office_type == 1">{{'table.main' |translate}}</span>
+                    <span class="fs-16" *ngIf="batchdetails.office_type == 2">{{'table.branch' |translate}}</span>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30" *ngIf="batchdetails.office_type == 2">
+            <div fxFlex="100">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'batchview.branchname' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.appiim_branchname_en}}</span>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'course.courtitl' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.scm_coursename_en}}</span>
+                </div>
+            </div>
+            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'course.courcate' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.category}}</span>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'batchview.batcsubcate' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.subcategory}}</span>
+                </div>
+            </div>
+            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'batchview.batctype' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.batchtype}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="courebox m-t-15">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="units">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'batchview.tutoasselang' | translate}}</p>
+                        <span class="fs-16">{{batchdetails.language}}</span>
+                    </div>
+                </div>
+                <!-- <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30"
+                    ngClass.lg="p-l-30" ngClass.xl="p-l-30" fxFlex="100">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'batchview.tutoasselang' | translate}}</p>
+                        <span class="fs-16">English</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div *ngIf="batchdetails.state">
+            <div class="timeduration_contain p-t-40 p-b-20">
+                <h5 class="trainingdurationtitle m-0 fs-16">{{'Training Location' | translate}}
+                </h5>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'Governorate' | translate}}</p>
+                        <span class="fs-16">{{batchdetails.state}}</span>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100" *ngIf="batchdetails.practcount">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'Wilayat' | translate}}</p>
+                        <span class="fs-16">{{batchdetails.city}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeduration_contain p-t-40 p-b-20">
+            <h5 class="trainingdurationtitle m-0 fs-16">{{'course.learcapa' | translate}}
+                <!--mat-icon
+                matSuffix class="m-l-15 fs-20" matTooltip="{{'course.selecinfo' | translate}} ">info_outline</mat-icon-->
+            </h5>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'course.traintheo' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.theorycount}}</span>
+                </div>
+            </div>
+            <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100" *ngIf="batchdetails.practcount">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'course.traintheop' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.practcount}}</span>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'course.asse' | translate}}</p>
+                    <span class="fs-16">{{batchdetails.assessorArray?.asscount}}</span>
+                </div>
+            </div>
+            <!-- <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                ngClass.xl="p-l-30" fxFlex="100">
+                <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                    <p class="fs-14 m-0">{{'batchview.batctype' | translate}}</p>
+                    <span class="fs-16">Refresher</span>
+                </div>
+            </div> -->
+        </div>
+        <div class="timeduration_contain p-t-40 p-b-20">
+            <h5 class="trainingdurationtitle m-0 fs-16">{{'course.courtrainingdur' | translate}} 
+                <mat-icon matSuffix
+                    class="m-l-15 fs-20" matTooltip="{{'course.selecinfo' | translate}} ">info_outline</mat-icon>
+            </h5>
+        </div>
+        <div fxLayout="row wrap" class="dateformfieldrange">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-20 maincontainertable">
+                <div fxLayout="row wrap" class="drpickerhader datepickerrangeform">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <!-- <mat-form-field class="filter daterangetime" appearance="outline"> -->
+                            <label>{{'batchview.stardateanddate' | translate}}</label>
+                            <div class="drpicker" id="regappview">
+                                <input matInput type="text" id="login_session" [formControl]="MRM_CreatedOn"
+                                    value="{{batchdetails.theorydaterande}}" readonly class="form-control" />
+
+                            </div>
+                        <!-- </mat-form-field> -->
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <div class="total_header" fxLayoutAlign="space-between center">
+                            <p class="fs-18 p-l-20">{{'batchview.total' | translate}}: {{batchdetails.theorydayscount}}
+                                {{'batchview.days' | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap">
+
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="pd-20 tabletopconatiner">
+                        <!-- <div class="paginationwithfilter masterPageTop p-b-10">
+                            <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLengthtwo"
+                                [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="syncPrimaryPaginator($event);">
+                            </mat-paginator>
+                            <div fxLayout="row wrap" fxLayoutAlign="end">
+                                <button mat-raised-button type="button" color="primary" (click)="clickEvent();"
+                                    class="filter height-45 filterbtn">{{filtername}}<i
+                                        class="opalicon opal-filter fs-15 m-l-7" aria-hidden="true"></i></button>
+                            </div>
+                        </div> -->
+                        <div class="awaredtable">
+                            <mat-table #table class="scrolldata" [dataSource]="batchtrainingdata">
+                                <ng-container matColumnDef="selecteddate">
+                                    <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef>
+                                        {{'batchview.seledate' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Selected Date" fxFlex="263px" *matCellDef="let BatchData">
+                                        {{BatchData.selecteddate}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="dayscheduled">
+                                    <mat-header-cell fxFlex="210px" mat-header-cell *matHeaderCellDef>
+                                        {{'batchview.daysche' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="210px"
+                                        *matCellDef="let BatchData">
+                                        <span class="availabletxtcolor fs-14">{{BatchData.dayscheduled}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="starttime">
+                                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef>{{'course.courstarttime' | translate}}
+                                    </mat-header-cell>
+                                    <mat-cell data-label="hello" fxFlex="150px" *matCellDef="let BatchData">
+                                        <p *ngIf="BatchData.startendtime == 64" class="timepicker m-0"><span
+                                                class="fs-14">{{BatchData.start}}</span></p>
+                                        <span *ngIf="BatchData.startendtime == 30"
+                                            class="fs-12 weekededtag">{{'batchview.week' | translate}}</span>
+                                        <span *ngIf="BatchData.startendtime == 29"
+                                            class="fs-12 weekededtag">{{'batchview.notavai' | translate}}</span>
+                                        <span *ngIf="BatchData.startendtime == 31"
+                                            class="fs-12 weekededtag">{{'batchview.holi' | translate}}</span>
+
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="endtime">
+                                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef>{{'course.courendtime' | translate}}
+                                    </mat-header-cell>
+                                    <mat-cell data-label="{{'batch.officetype' | translate}}" fxFlex="150px"
+                                        *matCellDef="let BatchData">
+                                        <p *ngIf="BatchData.startendtime == 64" class="timepicker m-0"><span
+                                                class="fs-14">{{BatchData.end}}</span></p>
+
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="time">
+                                    <mat-header-cell fxFlex="512px" mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell data-label="{{'batch.officetype' | translate}}" fxFlex="512px"
+                                        *matCellDef="let BatchData">
+                                        <p *ngIf="BatchData.startendtime == 64" class="timepicker m-0"><span
+                                                class="fs-14">{{BatchData.diff}}</span> <span
+                                                *ngIf="BatchData.diff">&nbsp;Hr(s)</span></p>
+
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-first">
+                                    <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <!-- <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'table.search' |translate}}</mat-label>
+                                            <input matInput type="text" [formControl]="dateexpiry" ngxDaterangepickerMd
+                                                [showCustomRangeLabel]="true" [alwaysShowCalendars]="true"
+                                                [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                                (datesUpdated)="dateFltrChange($event)" [showClearButton]="true"
+                                                [minDate]="selected2" [showClearButton]="true" readonly
+                                                class="form-control" />
+                                            <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                        </mat-form-field> -->
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-second">
+                                    <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <!-- <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'batchview.sele' | translate}}</mat-label>
+                                            <mat-select multiple>
+                                                <mat-option value="1">{{'batchview.availa' | translate}}</mat-option>
+                                                <mat-option value="2">{{'batchview.notavai' | translate}}</mat-option>
+                                                <mat-option value="3">{{'batchview.holi' | translate}}</mat-option>
+                                                <mat-option value="4">{{'batchview.week' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field> -->
+                                    </mat-header-cell>
+                                </ng-container>
+                                <mat-header-row id="headerrowcells" *matHeaderRowDef="BatchtrainingData;">
+                                </mat-header-row>
+                                <!-- <mat-header-row id="searchrow" *matHeaderRowDef="['row-first' , 'row-second']">
+                                </mat-header-row> -->
+                                <mat-row mat-row *matRowDef="let row; columns: BatchtrainingData;"></mat-row>
+                                <ng-container matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="11">
+
+                                        <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100"
+                                            *ngIf="!batchtraningdata_data">
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container>
+                                    <mat-footer-row [class.stickyclass]="(resultsLength > 0) ? 'none' : 'block'"
+                                        [style.display]="(resultsLength > 0) ? 'none' : 'block' "
+                                        *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                    </mat-footer-row>
+                                </ng-container>
+                            </mat-table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                        <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                            class="masterPage masterbottom w-100" showFirstLastButtons [pageSize]="paginator?.pageSize"
+                            (page)="syncPrimaryPaginator($event);" [pageIndex]="paginator?.pageIndex"
+                            [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions">
+                        </mat-paginator>
+                    </div>
+                </div> -->
+            </div>
+
+        </div>
+        <!-- </div> -->
+        <div  *ngIf="batchdetails.practcount">
+        <div class="timeduration_contain p-t-40 p-b-20" >
+            <h5 class="trainingdurationtitle m-0 fs-16">{{'course.courtrainingdurp' | translate}} <mat-icon matSuffix
+                    class="m-l-15 fs-20" matTooltip="{{'course.seledate' | translate}} ">info_outline</mat-icon>
+            </h5>
+        </div>
+        <div fxLayout="row wrap" class="dateformfieldrange">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-20 maincontainertable">
+                <div fxLayout="row wrap" class="drpickerhader datepickerrangeform">
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <!-- <mat-form-field class="filter daterangetime" appearance="outline"> -->
+                            <label>{{'batchview.stardateanddate' | translate}}</label>
+                            <div class="drpicker" id="regappview">
+                                <input matInput type="text" id="login_session" [formControl]="MRM_CreatedOnPract"
+                                    readonly value="{{batchdetails.practdaterande}}" class="form-control" />
+
+                            </div>
+                        <!-- </mat-form-field> -->
+                    </div>
+                    <div fxFlex.gt-sm="50" fxFlex="100">
+                        <div class="total_header" fxLayoutAlign="space-between center">
+                            <p class="fs-18 p-l-20">{{'batchview.total' | translate}}: {{batchdetails.practdayscount}}
+                                {{'batchview.days' | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap">
+                    <div fxFlex.gt-sm="100" fxFlex="100" class="pd-20 tabletopconatiner">
+                        <div class="paginationwithfilter masterPageTop p-b-10">
+
+                            <div fxLayout="row wrap" fxLayoutAlign="end">
+                                <div fxFlex.gt-sm="100" fxFlex="100">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="paginationwithfilter masterPageTop p-b-10">
+                            <mat-paginator class="masterPage masterPageTop" #paginator [length]="resultsLengthtwo"
+                                [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                                (page)="syncPrimaryPaginator($event);">
+                            </mat-paginator>
+                            <div fxLayout="row wrap" fxLayoutAlign="end">
+                                <button mat-raised-button type="button" color="primary" (click)="clickEventfilter();"
+                                    class="filter height-45 filterbtn">{{filtername}}<i
+                                        class="opalicon opal-filter fs-15 m-l-7" aria-hidden="true"></i></button>
+                            </div>
+                        </div> -->
+                        <div class="awaredtable">
+                            <mat-table #table class="scrolldata" [dataSource]="batchtrainingdatalist">
+
+                                <ng-container matColumnDef="selecteddate">
+                                    <mat-header-cell fxFlex="263px" mat-header-cell *matHeaderCellDef>
+                                        {{'batchview.seledate' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="Selected Date" fxFlex="263px" *matCellDef="let BatchDatalist">
+                                        {{BatchDatalist.selecteddate}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="dayscheduled">
+                                    <mat-header-cell fxFlex="210px" mat-header-cell *matHeaderCellDef>
+                                        {{'batchview.daysche' | translate}}</mat-header-cell>
+                                    <mat-cell data-label="{{'batch.batchtype' | translate}}" fxFlex="210px"
+                                        *matCellDef="let BatchData">
+                                        <span class="availabletxtcolor fs-14">{{BatchData.dayscheduled}}</span>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="starttime">
+                                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef>{{'course.courstarttime' | translate}}
+                                    </mat-header-cell>
+                                    <mat-cell data-label="hello" fxFlex="150px" *matCellDef="let BatchData">
+                                        <p *ngIf="BatchData.startendtime == 64" class="timepicker m-0"><span
+                                                class="fs-14">{{BatchData.start}}</span></p>
+                                        <span *ngIf="BatchData.startendtime == 30"
+                                            class="fs-12 weekededtag">{{'batchview.week' | translate}}</span>
+                                        <span *ngIf="BatchData.startendtime == 29"
+                                            class="fs-12 weekededtag">{{'batchview.notavai' | translate}}</span>
+                                        <span *ngIf="BatchData.startendtime == 31"
+                                            class="fs-12 weekededtag">{{'batchview.holi' | translate}}</span>
+
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="endtime">
+                                    <mat-header-cell fxFlex="150px" mat-header-cell *matHeaderCellDef>{{'course.courendtime' | translate}}
+                                    </mat-header-cell>
+                                    <mat-cell data-label="{{'batch.officetype' | translate}}" fxFlex="150px"
+                                        *matCellDef="let BatchData">
+                                        <p *ngIf="BatchData.startendtime == 64" class="timepicker m-0"><span
+                                                class="fs-14">{{BatchData.end}}</span></p>
+
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="time">
+                                    <mat-header-cell fxFlex="512px" mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell data-label="{{'batch.officetype' | translate}}" fxFlex="512px"
+                                        *matCellDef="let BatchData">
+                                        <p *ngIf="BatchData.startendtime == 64" class="timepicker m-0"><span
+                                                class="fs-14">{{BatchData.diff}}<span
+                                                *ngIf="BatchData.diff">&nbsp;Hr(s)</span></span></p>
+
+                                    </mat-cell>
+                                </ng-container>
+                                
+                                <ng-container matColumnDef="row-first">
+                                    <mat-header-cell fxFlex="263px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <!-- <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'table.search' |translate}}</mat-label>
+                                            <input matInput type="text" [formControl]="dateexpiry" ngxDaterangepickerMd
+                                                [showCustomRangeLabel]="true" [alwaysShowCalendars]="true"
+                                                [ranges]="ranges" [locale]="locale" [linkedCalendars]="true"
+                                                (datesUpdated)="dateFltrChange($event)" [showClearButton]="true"
+                                                [minDate]="selected2" [showClearButton]="true" readonly
+                                                class="form-control" />
+                                            <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                        </mat-form-field> -->
+                                    </mat-header-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="row-second">
+                                    <mat-header-cell fxFlex="200px" class="serachrow" *matHeaderCellDef
+                                        style="text-align:center">
+                                        <!-- <mat-form-field class="filter" appearance="outline">
+                                            <mat-label>{{'batchview.sele' | translate}}</mat-label>
+                                            <mat-select multiple>
+                                                <mat-option value="1">{{'batchview.availa' | translate}}</mat-option>
+                                                <mat-option value="2">{{'batchview.notavai' | translate}}</mat-option>
+                                                <mat-option value="3">{{'batchview.holi' | translate}}</mat-option>
+                                                <mat-option value="4">{{'batchview.week' | translate}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field> -->
+                                    </mat-header-cell>
+                                </ng-container>
+                                <mat-header-row id="headerrowcells" *matHeaderRowDef="BatchtrainingData">
+                                </mat-header-row>
+                                <!-- <mat-header-row id="filtershow" *matHeaderRowDef="['row-first' , 'row-second']">
+                                </mat-header-row> -->
+                                <mat-row mat-row *matRowDef="let row; columns: BatchtrainingData;"></mat-row>
+                                <ng-container matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="11">
+
+                                        <div class="nofound" fxLayoutAlign="center" fxFlex.gt-sm="100" fxFlex="100"
+                                            *ngIf="!batchtraningdata_datalist">
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                                <img src="assets/images/opalimages/norecord.svg" alt="norecord">
+                                                <p class="m-t-10 txt-gry3 fs-16">{{'common.noreco' | translate}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container>
+                                    <mat-footer-row [class.stickyclass]="(resultsLengthTWO > 0) ? 'none' : 'block'"
+                                        [style.display]="(resultsLengthTWO > 0) ? 'none' : 'block' "
+                                        *matFooterRowDef="['disclaimer']" style="justify-content: center">
+                                    </mat-footer-row>
+                                </ng-container>
+                            </mat-table>
+                        </div>
+                        <!-- <div fxLayout="row" fxLayoutAlign="end" class="m-b-15 m-t-30">
+                            <div fxFlex.gt-sm="100" fxFlex="100" class="footerpaginator">
+                                <mat-paginator class="p-r-10" ngClass.xs="block" ngClass.sm="block"
+                                    class="masterPage masterbottom w-100" showFirstLastButtons
+                                    [pageSize]="paginator?.pageSize" (page)="syncPrimaryPaginator($event);"
+                                    [pageIndex]="paginator?.pageIndex" [length]="paginator?.length"
+                                    [pageSizeOptions]="paginator?.pageSizeOptions">
+                                </mat-paginator>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        <div class="p-t-40">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'batchview.assesdate' | translate}}</p>
+                        <span class="fs-16">{{batchdetails.assessorArray?.assessmentdate}}</span>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'batchview.assesstart' | translate}} </p>
+                        <span class="fs-16">{{batchdetails.assessorArray?.starttime}} -
+                            {{batchdetails.assessorArray?.endtime}}</span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'course.courstutortheo' | translate}}</p>
+                        <span class="fs-16">{{batchdetails.theory_tutor}}</span>
+                    </div>
+                </div>
+
+                <div fxFlex.gt-sm="50" ngClass.xs="p-l-0" ngClass.sm="p-l-0" ngClass.md="p-l-30" ngClass.lg="p-l-30"
+                    ngClass.xl="p-l-30" fxFlex="100"  *ngIf="batchdetails.practcount" >
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'course.courstutorpract' | translate}}</p>
+                        <span class="fs-16">{{batchdetails.tutorpract}}</span>
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let data of batchdetails?.assessorArray?.assessornames;let i = index">
+                <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                        <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                            <p class="fs-14 m-0">{{'course.coursassesso' | translate}} <span
+                                    *ngIf="batchdetails?.assessorArray?.assessornames.length > 1">{{i + 1}}</span></p>
+                            <span class="fs-16">{{data.sir_name_en}} {{'course.from' | translate}} {{data.omrm_tpname_en}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+                    <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                        <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                            <p class="fs-14 m-0">{{'course.coursassesso' | translate}} <span
+                                    *ngIf="batchdetails?.assessorArray?.assessornames.length > 0"></span>{{i + 1}}</p>
+                            <span class="fs-16">{{data.sir_name_en}} From {{data.omrm_companyname_en}}</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+        <div *ngFor="let data of batchdetails?.assessorArray?.ivqastaffnames;let i = index">
+            <div fxLayout="row wrap" fxLayoutAlign="flex-start center" class="p-b-30">
+                <div fxFlex.gt-sm="50" fxFlex="100" class="batchbottomspace">
+                    <div class="totalleanerheader p-t-8 p-b-8 p-l-15 p-r-15 bottomcardremaining">
+                        <p class="fs-14 m-0">{{'batchview.ivqa' | translate}} <span
+                                *ngIf="batchdetails?.assessorArray?.ivqastaffnames.length > 1">{{i + 1}}</span></p>
+                        <span class="fs-16">{{data.sir_name_en}} {{'course.from' | translate}} {{data.omrm_tpname_en}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="btngroup m-t-15" fxLayout="row wrap" fxLayoutAlign="flex-end center">
+        <!-- <button mat-raised-button class="cancelbtn" (click)="cancle()"></button> -->
+       <button mat-raised-button class="cancelbtn m-r-15" type="button" (click)="goBack()">{{'Back' | translate}}</button>
+       <!-- <button mat-raised-button class="submitbtn" type="button" (click)="subdate.emit()">{{'payment.subm' | translate}}</button> -->
+       </div>
+</div>
+</div>
+    <app-responseloader *ngIf="disableSubmitButton"></app-responseloader>

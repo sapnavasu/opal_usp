@@ -1,0 +1,49 @@
+<div fxLayout="row wrap" class="widthdialog">
+  <div fxFlex.gt-sm="100" fxFlex="100" class="m-l-60 m-r-60">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="100" fxFlex="100" class="thanktextcolor" *ngIf="data.emailList.status == 1">
+        <h2 class="p-t-60">{{'common.userinvitsucc' | translate}}</h2>
+      </div>
+    </div>
+    <h3 *ngIf="(activeEmailArrInSameCompany.length > 0 || 
+      activeEmailArrInAnotherCompany.length > 0 ||
+      alreadyInvitedAndActiveEmailArrInSameCompany.length > 0 ||
+      alreadyInvitedAndActiveEmailArrInAnotherCompany.length > 0 ||
+      inactiveSameCompanyEmails.length > 0)">{{'common.mailwasnotsent' | translate}}</h3>
+    <div fxLayout="row wrap" *ngIf="activeEmailArrInSameCompany.length > 0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h3>{{'common.activeuserinyourcomp' | translate}}</h3>
+        <p class="fs-15" *ngFor="let email of activeEmailArrInSameCompany">{{email}}</p>
+      </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="activeEmailArrInAnotherCompany.length > 0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h3>{{'common.activeuseranotcomp' | translate}}</h3>
+        <p class="fs-15" *ngFor="let email of activeEmailArrInAnotherCompany">{{email}}</p>
+      </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="alreadyInvitedAndActiveEmailArrInSameCompany.length > 0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h3>{{'common.alreinvibyyour' | translate}}</h3>
+        <p class="fs-15" *ngFor="let email of alreadyInvitedAndActiveEmailArrInSameCompany">{{email}}</p>
+      </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="alreadyInvitedAndActiveEmailArrInAnotherCompany.length > 0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h3>{{'common.alreinvibyanot' | translate}}</h3>
+        <p class="fs-15" *ngFor="let email of alreadyInvitedAndActiveEmailArrInAnotherCompany">{{email}}</p>
+      </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="inactiveSameCompanyEmails.length > 0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h3>{{'common.inacuseryourcomp' | translate}}</h3>
+        <p class="fs-15" *ngFor="let email of inactiveSameCompanyEmails">{{email}}</p>
+      </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="invalidEmails.length > 0">
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        <h3>{{'common.invaemai' | translate}}</h3>
+        <p class="fs-15" *ngFor="let email of invalidEmails">{{email}}</p>
+      </div>
+    </div>
+</div>
