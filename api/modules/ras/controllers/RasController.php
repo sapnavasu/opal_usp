@@ -140,7 +140,7 @@ class RasController extends MasterController
             'default_font' => 'futurastdmedium']);
         $websiteurl = Yii::$app->params['website_url'];    
         $qrCode = (new QrCode(''))
-        ->setText($websiteurl."/verify-product/?verifyras=".$varificationnumber."#rasvehicle");
+        ->setText($websiteurl."/verify-product/?verifyras=".$varificationnumber."&value=vehform1#rasvehicle");
         $qrCode->writeFile(__DIR__ .'/../../../web'.'/code.png'); 
         $qrcode = '<img src="' . $qrCode->writeDataUri() . '"style="width: 65px; height:65px;float:right">';
 
@@ -181,7 +181,7 @@ class RasController extends MasterController
         $websiteurl = Yii::$app->params['website_url'];    
         $qrCode = (new QrCode(''))
               //  https://opaloman.om/uat8686/verify-product/?verifyras=1234#rasvehicle
-        ->setText($websiteurl."/verify-product/?verifyras=".$varificationnumber."#rasvehicle");
+        ->setText($websiteurl."/verify-product/?verifyras=".$varificationnumber."&value=vehform1#rasvehicle");
         $qrCode->writeFile(__DIR__ .'/../../../web'.'/code.png'); 
         $qrcode = '<img src="' . $qrCode->writeDataUri() . '"style="width: 65px; height:65px;float:right">';
 
